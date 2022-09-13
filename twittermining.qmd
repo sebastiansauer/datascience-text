@@ -1,0 +1,35 @@
+# Twitter Mining
+
+
+
+
+![Text als Datenbasis prädiktiver Modelle](img/text-mining-1476780_640.png){width=10%}
+
+Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a>
+
+
+
+## Vorab
+
+
+### Lernziele
+
+
+- Twitterdaten via API von Twitter auslesen
+
+
+
+### Vorbereitung
+
+- Lesen Sie in @smltar Kap. 1 und 2.
+
+
+### R-Pakete
+
+```{r}
+#| message: false
+library(tidyverse)
+library(twitteR)
+```
+
+

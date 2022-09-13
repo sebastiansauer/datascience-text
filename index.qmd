@@ -1,0 +1,120 @@
+# Hinweise {.unnumbered}
+
+
+
+
+![Text als Datenbasis prädiktiver Modelle](img/text-mining-1476780_640.png){width=25%}
+Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a>
+
+
+
+---
+
+🚧WORK IN PROGRESS🚧
+
+---
+
+
+
+
+## Lernziele
+
+Nach diesem Kurs sollten Sie ...
+
+- Daten aus Sozialen Netzwerken wie Twitter automatisiert in großer Menge auslesen können
+- Gängige Methoden des Textsminings mit R anwenden können (z.B. Tokenizing, Stemming, Regex)
+- Verfahren des Maschinenlernens auf Textdaten anwenden können
+- Den Forschungsstand zum Thema Erkennung von Hate Speech in Ausschnitten kennen
+
+
+
+
+## Voraussetzungen
+
+Um von diesem Kurs am besten zu profitieren,
+sollten Sie folgendes Wissen mitbringen:
+
+    
+- fortgeschrittene Kenntnisse im Umgang mit R, möglichst auch mit dem tidyverse
+- fortgeschrittene Kenntnisse der deskriptiven Statistik
+- fortgeschrittene Kenntnis der Regressionsanalyse
+- grundlegende Kenntnisse des Maschinenlernens
+
+
+
+
+## Software
+
+- Installieren Sie [R und seine Freunde](https://data-se.netlify.app/2021/11/30/installation-von-r-und-seiner-freunde/).
+
+- Installieren Sie die folgende R-Pakete^[falls Sie die Pakete schon installiert haben, könnten Sie mal in RStudio auf "update.packages" klicken]:
+    - tidyverse
+    - tidymodels
+    - easystats
+    - weitere Pakete werden im Unterricht bekannt gegeben (es schadet aber nichts, jetzt schon Pakete nach eigenem Ermessen zu installieren)
+- [R Syntax aus dem Unterricht](https://github.com/sebastiansauer/Lehre) findet sich im Github-Repo bzw. Ordner zum jeweiligen Semester.
+
+
+
+## Lernhilfen
+
+
+### Videos
+
+- Auf dem [YouTube-Kanal des Autors](https://www.youtube.com/channel/UCkvdtj8maE7g-SOCh4aDB9g) finden sich eine Reihe von Videos mit Bezug zum Inhalt dieses Buches.
+
+
+
+### Online-Zusammenarbeit
+
+Hier finden Sie einige Werkzeuge, 
+die das Online-Zusammenarbeiten vereinfachen: 
+
+- [Frag-Jetzt-Raum zum anonymen Fragen stellen während des Unterrichts](https://frag.jetzt/home). Der Keycode wird Ihnen bei Bedarf vom Dozenten bereitgestellt.
+- [Padlet](https://de.padlet.com/) zum einfachen (und anonymen) Hochladen von Arbeitsergebnissen der Studentis im Unterricht. Wir nutzen es als eine Art Pinwand zum Sammeln von Arbeitsbeiträgen. Die Zugangsdaten stellt Ihnen der Dozent bereit.
+
+
+
+
+
+## Modulzeitplan
+
+
+
+
+
+```{r source-timetable, echo = FALSE}
+timetable_file <- "specifics/DS2-22-WiSe-Modulverlauf.xlsx"
+stopifnot(file.exists(timetable_file))
+timetable <- readxl::read_xlsx(timetable_file)
+
+gt::gt(timetable)
+```
+
+
+
+
+
+
+
+
+## Literatur
+
+Zentrale Begleitliteratur ist @smltar_2021; der Volltext ist [hier](https://smltar.com/) verfügbar.
+
+Pro Thema wird ggf. weitere Literatur ausgewiesen. 
+
+
+
+## Technische Details
+
+Dieses Dokument wurde erzeut am/um `r Sys.time()`.
+
+
+```{r}
+#| echo: false
+
+sessioninfo::session_info()
+
+```
+
