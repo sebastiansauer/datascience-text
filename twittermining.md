@@ -252,4 +252,5 @@ z.B. nach Hate Speech.
 
 1. Überlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.
 2. Argumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.
+3. Überlegen Sie Korrelate, oder besser noch: (mögliche) Ursachen, des Hasses in den Tweets, gerichtet auf Polikter:innen. Sie können auch Gruppen von Ursachen bilden, etwas personengebundene Variablen der Politiker:innen (z.B. Alter? Geschlecht? Migrationshintergrund?).
 1. Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.

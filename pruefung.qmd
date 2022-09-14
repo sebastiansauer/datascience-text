@@ -9,6 +9,18 @@
 Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a>
 
 
+## Prüfungsform: Datenanalyse als Quarto-Blog-Post
+
+
+Als Prüfungsleistung ist ein Corpus an Twitter-Daten deutscher aktueller Politiker auf Hate Speech hin zu untersuchen.
+
+- Der Bericht der Analyse ist als [Quarto](https://quarto.org/) [Blog-Posts](https://quarto.org/docs/websites/website-blog.html) zu formatieren.
+- Einzureichen ist die URL des Posts.
+- Der Post muss während des gesamten Prüfungszeitraums online sein.
+- Nach Einreichen des Posts dürfen keine Änderungen mehr vorgenommen werden.
+- Der Quelltext des Posts soll bei [Github](github.com) vorliegen.
+
+
 
 
 ```{r child1}
