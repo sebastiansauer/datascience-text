@@ -100,7 +100,7 @@ gt::gt(timetable)
 
 ## Literatur
 
-Zentrale Begleitliteratur ist @smltar_2021; der Volltext ist [hier](https://smltar.com/) verfügbar.
+Zentrale Begleitliteratur ist @smltar; der Volltext ist [hier](https://smltar.com/) verfügbar.
 
 Pro Thema wird ggf. weitere Literatur ausgewiesen. 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>datascience2: Prädiktive Modelle auf Basis von Textdaten - 1&nbsp; Twitter Mining</title>
+<title>datascience2: Prädiktive Modelle auf Basis von Textdaten - 2&nbsp; Twitter Mining</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,7 +113,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./pruefung.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -152,7 +152,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Twitter Mining</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Twitter Mining</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -182,7 +182,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./twittermining.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a>
+  <a href="./pruefung.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prüfung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twittermining.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -199,12 +204,27 @@ div.csl-indent {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="toc-section-number">1.1</span>  Vorab</a>
+  <li><a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="toc-section-number">2.1</span>  Vorab</a>
   <ul class="collapse">
-  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">1.1.1</span>  Lernziele</a></li>
-  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">1.1.2</span>  Vorbereitung</a></li>
-  <li><a href="#r-pakete" id="toc-r-pakete" class="nav-link" data-scroll-target="#r-pakete"><span class="toc-section-number">1.1.3</span>  R-Pakete</a></li>
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">2.1.1</span>  Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">2.1.2</span>  Vorbereitung</a></li>
+  <li><a href="#r-pakete" id="toc-r-pakete" class="nav-link" data-scroll-target="#r-pakete"><span class="toc-section-number">2.1.3</span>  R-Pakete</a></li>
   </ul></li>
+  <li><a href="#anmelden-bei-twitter" id="toc-anmelden-bei-twitter" class="nav-link" data-scroll-target="#anmelden-bei-twitter"><span class="toc-section-number">2.2</span>  Anmelden bei Twitter</a>
+  <ul class="collapse">
+  <li><a href="#welche-accounts-interessieren-uns" id="toc-welche-accounts-interessieren-uns" class="nav-link" data-scroll-target="#welche-accounts-interessieren-uns"><span class="toc-section-number">2.2.1</span>  Welche Accounts interessieren uns?</a></li>
+  <li><a href="#twitter-app-erstellen" id="toc-twitter-app-erstellen" class="nav-link" data-scroll-target="#twitter-app-erstellen"><span class="toc-section-number">2.2.2</span>  Twitter App erstellen</a></li>
+  <li><a href="#intro" id="toc-intro" class="nav-link" data-scroll-target="#intro"><span class="toc-section-number">2.2.3</span>  Intro</a></li>
+  <li><a href="#zugangsdaten" id="toc-zugangsdaten" class="nav-link" data-scroll-target="#zugangsdaten"><span class="toc-section-number">2.2.4</span>  Zugangsdaten</a></li>
+  </ul></li>
+  <li><a href="#tweets-einlesen" id="toc-tweets-einlesen" class="nav-link" data-scroll-target="#tweets-einlesen"><span class="toc-section-number">2.3</span>  Tweets einlesen</a>
+  <ul class="collapse">
+  <li><a href="#timeline-einlesen-einzelner-accounts" id="toc-timeline-einlesen-einzelner-accounts" class="nav-link" data-scroll-target="#timeline-einlesen-einzelner-accounts"><span class="toc-section-number">2.3.1</span>  Timeline einlesen einzelner Accounts</a></li>
+  <li><a href="#retweets-einlesen" id="toc-retweets-einlesen" class="nav-link" data-scroll-target="#retweets-einlesen"><span class="toc-section-number">2.3.2</span>  Retweets einlesen</a></li>
+  <li><a href="#epinetz-twitter-politicians-2021" id="toc-epinetz-twitter-politicians-2021" class="nav-link" data-scroll-target="#epinetz-twitter-politicians-2021"><span class="toc-section-number">2.3.3</span>  EPINetz Twitter Politicians 2021</a></li>
+  <li><a href="#followers-suchen" id="toc-followers-suchen" class="nav-link" data-scroll-target="#followers-suchen"><span class="toc-section-number">2.3.4</span>  Followers suchen</a></li>
+  </ul></li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">2.4</span>  Aufgaben</a></li>
   </ul>
 </nav>
     </div>
@@ -213,7 +233,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Twitter Mining</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Twitter Mining</span></h1>
 </div>
 
 
@@ -234,34 +254,386 @@ div.csl-indent {
 </figure>
 </div>
 <p>Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
-<section id="vorab" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="vorab"><span class="header-section-number">1.1</span> Vorab</h2>
-<section id="lernziele" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="lernziele"><span class="header-section-number">1.1.1</span> Lernziele</h3>
+<section id="vorab" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="vorab"><span class="header-section-number">2.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="lernziele"><span class="header-section-number">2.1.1</span> Lernziele</h3>
 <ul>
 <li>Twitterdaten via API von Twitter auslesen</li>
 </ul>
 </section>
-<section id="vorbereitung" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">1.1.2</span> Vorbereitung</h3>
+<section id="vorbereitung" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">2.1.2</span> Vorbereitung</h3>
 <ul>
 <li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span> Kap. 1 und 2.</li>
+<li>Legen Sie sich ein Konto bei <a href="https://github.com/">Github</a> an.</li>
 </ul>
 </section>
-<section id="r-pakete" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="r-pakete"><span class="header-section-number">1.1.3</span> R-Pakete</h3>
+<section id="r-pakete" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="r-pakete"><span class="header-section-number">2.1.3</span> R-Pakete</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(twitteR)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://docs.ropensci.org/rtweet/logo.png" class="img-fluid figure-img" style="width:10.0%"></p>
+<p></p><figcaption class="figure-caption">R-Paket {rtweet}</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="anmelden-bei-twitter" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="anmelden-bei-twitter"><span class="header-section-number">2.2</span> Anmelden bei Twitter</h2>
+<section id="welche-accounts-interessieren-uns" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="welche-accounts-interessieren-uns"><span class="header-section-number">2.2.1</span> Welche Accounts interessieren uns?</h3>
+<p>Hier ist eine (subjektive) Auswahl von deutschen Politikern, die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d_path <span class="ot">&lt;-</span> <span class="st">"data/twitter-german-politicians.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_path)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 6%">
+<col style="width: 14%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">party</th>
+<th style="text-align: left;">screenname</th>
+<th style="text-align: left;">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Karl Lauterbach</td>
+<td style="text-align: left;">SPD</td>
+<td style="text-align: left;">Karl_Lauterbach</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Olaf Scholz</td>
+<td style="text-align: left;">SPD</td>
+<td style="text-align: left;">OlafScholz</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Annalena Baerback</td>
+<td style="text-align: left;">Gruene</td>
+<td style="text-align: left;">ABaerbock</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bundesministerium für Wirtschaft und Klimaschutz</td>
+<td style="text-align: left;">Gruene</td>
+<td style="text-align: left;">BMWK</td>
+<td style="text-align: left;">Robert Habeck ist der Minister im BMWK</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Friedrich Merz</td>
+<td style="text-align: left;">CDU</td>
+<td style="text-align: left;">_FriedrichMerz</td>
+<td style="text-align: left;">CDU-Chef</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Markus Söder</td>
+<td style="text-align: left;">CSU</td>
+<td style="text-align: left;">Markus_Soeder</td>
+<td style="text-align: left;">CSU-Chef</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cem Özdemir</td>
+<td style="text-align: left;">Gruene</td>
+<td style="text-align: left;">cem_oezdemir</td>
+<td style="text-align: left;">BMEL</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Janine Wissler</td>
+<td style="text-align: left;">Linke</td>
+<td style="text-align: left;">Janine_Wissler</td>
+<td style="text-align: left;">Linke-Chefin</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Martin Schirdewan</td>
+<td style="text-align: left;">Linke</td>
+<td style="text-align: left;">schirdewan</td>
+<td style="text-align: left;">Linke-Chef</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Christian Lindner</td>
+<td style="text-align: left;">FDP</td>
+<td style="text-align: left;">c_lindner</td>
+<td style="text-align: left;">FDP-Chef</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Marie-Agnes Strack-Zimmermann</td>
+<td style="text-align: left;">FDP</td>
+<td style="text-align: left;">MAStrackZi</td>
+<td style="text-align: left;">Vorsitzende Verteidigungsausschuss</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tino Chrupalla</td>
+<td style="text-align: left;">AFD</td>
+<td style="text-align: left;">Tino_Chrupalla</td>
+<td style="text-align: left;">AFD-Bundessprecher</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alice Weidel</td>
+<td style="text-align: left;">AFD</td>
+<td style="text-align: left;">Alice_Weidel</td>
+<td style="text-align: left;">AFD-Bundessprecherin</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="twitter-app-erstellen" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="twitter-app-erstellen"><span class="header-section-number">2.2.2</span> Twitter App erstellen</h3>
+<p><a href="https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html">Tutorial</a></p>
+</section>
+<section id="intro" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="intro"><span class="header-section-number">2.2.3</span> Intro</h3>
+<p>Die Seite von <a href="https://docs.ropensci.org/rtweet/">rtweet</a> gibt eine gute Starthilfe in die Benutzung des Pakets.</p>
+</section>
+<section id="zugangsdaten" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="zugangsdaten"><span class="header-section-number">2.2.4</span> Zugangsdaten</h3>
+<p>Zugangsdaten sollte man geschützt speichern, also z.B. nicht in einem geteilten Ordner.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Anmelden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">rtweet_bot</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="tweets-einlesen" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="tweets-einlesen"><span class="header-section-number">2.3</span> Tweets einlesen</h2>
+<section id="timeline-einlesen-einzelner-accounts" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="timeline-einlesen-einzelner-accounts"><span class="header-section-number">2.3.1</span> Timeline einlesen einzelner Accounts</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> d<span class="sc">$</span>screenname)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(tweets, <span class="at">file =</span> <span class="st">"tweets/tweets01.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="retweets-einlesen" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="retweets-einlesen"><span class="header-section-number">2.3.2</span> Retweets einlesen</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rtweet.retryonratelimit =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tweets01_retweets <span class="ot">&lt;-</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  tweets<span class="sc">$</span>id_str <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>( <span class="sc">~</span> <span class="fu">get_retweets</span>(<span class="at">status_id =</span> .x, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Da die meisten Retweets aber nix sagen, sondern nur auf das einen Tweet wiederholen, ist das Sammeln der Retweets ziemlich langweilig.</p>
+</section>
+<section id="epinetz-twitter-politicians-2021" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="epinetz-twitter-politicians-2021"><span class="header-section-number">2.3.3</span> EPINetz Twitter Politicians 2021</h3>
+<p><span class="citation" data-cites="konig_epinetz_2022">König u.&nbsp;a. (<a href="references.html#ref-konig_epinetz_2022" role="doc-biblioref">2022</a>)</span> <a href="https://link.springer.com/article/10.1007/s11615-022-00405-7">Volltext hier</a> haben einen Datensatz mit knapp 2500 Twitter Accounts deutscher Politiker zusammengestellt, zum Stand 2021.</p>
+<p>Der Datensatz kann über <a href="https://search.gesis.org/research_data/SDN-10.7802-2415?doi=10.7802/2415">Gesis</a> bezogen werden.</p>
+<p>Auf der gleichen Seite findet sich auch eine <a href="https://access.gesis.org/sharing/2415/3675">Dokumentation des Vorgehens</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>politicians_path <span class="ot">&lt;-</span> <span class="st">"data/EPINetz_TwitterPoliticians_2021.RDs"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>politicians_twitter <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(politicians_path)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politicians_twitter)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 3%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">ID</th>
+<th style="text-align: left;">official_name</th>
+<th style="text-align: left;">party</th>
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">institution</th>
+<th style="text-align: left;">office</th>
+<th style="text-align: left;">user_id</th>
+<th style="text-align: left;">twitter_name</th>
+<th style="text-align: left;">twitter_handle</th>
+<th style="text-align: left;">from</th>
+<th style="text-align: left;">until</th>
+<th style="text-align: right;">year_of_birth</th>
+<th style="text-align: left;">abgeordnetenwatch_id</th>
+<th style="text-align: left;">gender</th>
+<th style="text-align: left;">wikidata_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">535</td>
+<td style="text-align: left;">Manja Schüle</td>
+<td style="text-align: left;">SPD</td>
+<td style="text-align: left;">Brandenburg</td>
+<td style="text-align: left;">State Parliament</td>
+<td style="text-align: left;">Parliamentarian</td>
+<td style="text-align: left;">827090742162100224</td>
+<td style="text-align: left;">Manja Schüle</td>
+<td style="text-align: left;">ManjaSchuele</td>
+<td style="text-align: left;">2019-09-25</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1976</td>
+<td style="text-align: left;">146790</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">Q40974942</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">962</td>
+<td style="text-align: left;">Petra Pau</td>
+<td style="text-align: left;">DIE LINKE</td>
+<td style="text-align: left;">Federal</td>
+<td style="text-align: left;">Federal Parliament</td>
+<td style="text-align: left;">Parliamentarian</td>
+<td style="text-align: left;">1683845126</td>
+<td style="text-align: left;">Team PetraPau</td>
+<td style="text-align: left;">TeamPetraPau</td>
+<td style="text-align: left;">2017-10-24</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1963</td>
+<td style="text-align: left;">79091</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">Q77195</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">864</td>
+<td style="text-align: left;">Dagmar Schmidt</td>
+<td style="text-align: left;">SPD</td>
+<td style="text-align: left;">Federal</td>
+<td style="text-align: left;">Federal Parliament</td>
+<td style="text-align: left;">Parliamentarian</td>
+<td style="text-align: left;">1377117206</td>
+<td style="text-align: left;">Team #dieschmidt</td>
+<td style="text-align: left;">TeamDieSchmidt</td>
+<td style="text-align: left;">2017-10-24</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1973</td>
+<td style="text-align: left;">79036</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">Q15433815</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2517</td>
+<td style="text-align: left;">Bernd Buchholz</td>
+<td style="text-align: left;">FDP</td>
+<td style="text-align: left;">Schleswig-Holstein</td>
+<td style="text-align: left;">State Parliament</td>
+<td style="text-align: left;">Parliamentarian</td>
+<td style="text-align: left;">1073605033</td>
+<td style="text-align: left;">Bernd Buchholz</td>
+<td style="text-align: left;">BerndBuchholz</td>
+<td style="text-align: left;">2017-06-06</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1961</td>
+<td style="text-align: left;">121092</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: left;">Q823715</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1378</td>
+<td style="text-align: left;">Ingrid Remmers</td>
+<td style="text-align: left;">DIE LINKE</td>
+<td style="text-align: left;">Federal</td>
+<td style="text-align: left;">Federal Parliament</td>
+<td style="text-align: left;">Parliamentarian</td>
+<td style="text-align: left;">551802475</td>
+<td style="text-align: left;">Ingrid Remmers MdB</td>
+<td style="text-align: left;">ingrid_remmers</td>
+<td style="text-align: left;">2017-10-24</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1965</td>
+<td style="text-align: left;">120775</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: left;">Q1652660</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1116</td>
+<td style="text-align: left;">Reinhard Brandl</td>
+<td style="text-align: left;">CSU</td>
+<td style="text-align: left;">Federal</td>
+<td style="text-align: left;">Federal Parliament</td>
+<td style="text-align: left;">Parliamentarian</td>
+<td style="text-align: left;">262730721</td>
+<td style="text-align: left;">Reinhard Brandl</td>
+<td style="text-align: left;">reinhardbrandl</td>
+<td style="text-align: left;">2017-10-24</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">1977</td>
+<td style="text-align: left;">79427</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: left;">Q111160</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>epi_tweets <span class="ot">&lt;-</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  politicians_twitter<span class="sc">$</span>user_id <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_timeline</span>(<span class="at">user =</span> ., <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>epi_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(politicians_twitter<span class="sc">$</span>twitter_name), <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(epi_tweets)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="followers-suchen" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="followers-suchen"><span class="header-section-number">2.3.4</span> Followers suchen</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>followers01 <span class="ot">&lt;-</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  d<span class="sc">$</span>screenname <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">map_dfr</span>( <span class="sc">~</span> <span class="fu">get_followers</span>(<span class="at">user =</span> .x, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(followers01, <span class="at">file =</span> <span class="st">"tweets/followers01.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können, z.B. nach Hate Speech.</p>
+</section>
+</section>
+<section id="aufgaben" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">2.4</span> Aufgaben</h2>
+<ol type="1">
+<li>Überlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.</li>
+<li>Argumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.</li>
+<li>Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.</li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="doc-biblioentry">
 Hvitfeldt, Emil, und Julia Silge. 2022. <em>Supervised Machine Learning for Text Analysis in R</em>. 1. Aufl. Boca Raton: Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
+<div id="ref-konig_epinetz_2022" class="csl-entry" role="doc-biblioentry">
+König, Tim, Wolf J. Schünemann, Alexander Brand, Julian Freyberg, und Michael Gertz. 2022. <span>„The <span>EPINetz</span> Twitter Politicians Dataset 2021. A&nbsp;New Resource for the Study of the German Twittersphere and Its Application for the 2021 Federal Elections“</span>. <em>Politische Vierteljahresschrift</em> 63 (3): 529–47. <a href="https://doi.org/10.1007/s11615-022-00405-7">https://doi.org/10.1007/s11615-022-00405-7</a>.
 </div>
-</section>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -365,8 +737,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Hinweise</span>
+      <a href="./pruefung.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prüfung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

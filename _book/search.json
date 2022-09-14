@@ -1,23 +1,79 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "datascience2: Prädiktive Modelle auf Basis von Textdaten",
-    "section": "",
-    "text": "falls Sie die Pakete schon installiert haben, könnten Sie mal in RStudio auf “update.packages” klicken↩︎"
-  },
-  {
     "objectID": "twittermining.html",
     "href": "twittermining.html",
-    "title": "1  Twitter Mining",
+    "title": "2  Twitter Mining",
     "section": "",
     "text": "Text als Datenbasis prädiktiver Modelle\nBild von mcmurryjulie auf Pixabay"
   },
   {
     "objectID": "twittermining.html#vorab",
     "href": "twittermining.html#vorab",
-    "title": "1  Twitter Mining",
-    "section": "1.1 Vorab",
-    "text": "1.1 Vorab\n\n1.1.1 Lernziele\n\nTwitterdaten via API von Twitter auslesen\n\n\n\n1.1.2 Vorbereitung\n\nLesen Sie in Hvitfeldt und Silge (2022) Kap. 1 und 2.\n\n\n\n1.1.3 R-Pakete\n\nlibrary(tidyverse)\nlibrary(twitteR)\n\n\n\n\n\nHvitfeldt, Emil, und Julia Silge. 2022. Supervised Machine Learning for Text Analysis in R. 1. Aufl. Boca Raton: Chapman; Hall/CRC. https://doi.org/10.1201/9781003093459."
+    "title": "2  Twitter Mining",
+    "section": "2.1 Vorab",
+    "text": "2.1 Vorab\n\n2.1.1 Lernziele\n\nTwitterdaten via API von Twitter auslesen\n\n\n\n2.1.2 Vorbereitung\n\nLesen Sie in Hvitfeldt und Silge (2022) Kap. 1 und 2.\nLegen Sie sich ein Konto bei Github an.\n\n\n\n2.1.3 R-Pakete\n\nlibrary(tidyverse)\nlibrary(rtweet)\n\n\n\n\nR-Paket {rtweet}"
+  },
+  {
+    "objectID": "pruefung.html",
+    "href": "pruefung.html",
+    "title": "1  Prüfung",
+    "section": "",
+    "text": "Text als Datenbasis prädiktiver Modelle\nBild von mcmurryjulie auf Pixabay\nAlle folgenden Hinweise gelten nur insoweit Ihre Lehrkraft Ihnen keine anders lautenden Hinweise gegeben hat (schriftlich)."
+  },
+  {
+    "objectID": "pruefung.html#allgemeines",
+    "href": "pruefung.html#allgemeines",
+    "title": "1  Prüfung",
+    "section": "1.1 Allgemeines",
+    "text": "1.1 Allgemeines\n\nGegenstand dieser Prüfungsform ist die Analyse eines Datensatzes nach einer Forschungsfrage und die Dokumentation dieser Analyse.\nSchreiben Sie Ihre Datenanalyse in Form eines Berichts, der sich an den Gliederungspunkten wie unten dargestellt orientiert.\nWenden Sie die passenden, im Unterricht eingeführten, statistischen Verfahren an. Es steht Ihnen frei, andere (nicht im Unterricht behandelte) Verfahren zur Analyse der Daten anzuwenden, nach Maßgabe der fachlichen Angemessenheit.\nWerten Sie die Daten mit R aus.\nDie R-Syntax soll im Hauptteil des Berichts dokumentiert werden. R-Output darf ggf. gekürzt wiedergegeben werden.\nFügen Sie keine Erklärungen oder Definitionen von statistischen Verfahren an.\nBeschreiben und interpretieren Sie jede Analyse bzw. jeden R-Code bzw. jedes Ergebnis (jede R-Ausgabe).\nVon hoher Bedeutung ist die Korrektheit der Beschreibung und Interpretation der statistischen Modellierung (z.B. mit der Regressionsanalyse).\nEs hat keinen Einfluss auf Ihre Note, ob sich ein (erwarteter) Effekt zeigt und wie stark dieser Effekt ggf ist."
+  },
+  {
+    "objectID": "pruefung.html#beurteilungskriterien",
+    "href": "pruefung.html#beurteilungskriterien",
+    "title": "1  Prüfung",
+    "section": "1.2 Beurteilungskriterien",
+    "text": "1.2 Beurteilungskriterien\nDie Arbeit wird im Hinblick auf drei Kriterien bewertet:\n\nFormalia (z. B. Vollständigkeit der Abarbeitung, Angemessenheit der äußeren Gestaltung, Fokus auf Wesentliches)\nMethodik (z. B. Richtige Auswahl und Anwendung der Verfahren)\nInhalt (z. B. Verständlichkeit, Breite und Tiefe der Problemlösung, Korrektheit der Interpretation)\n\nSie erhalten für jedes der drei Kriterien eine Teilnote sowie eine Gesamtnote. Außerdem erhalten Sie ggf. für die Kriterien noch ausformulierte Hinweise.\nDie Gesamtnote muss sich nicht als Mittelwert der Teilnoten ergeben.\nInsbesondere kann eine Fünf in einem Kriterium zum Durchfallen führen, auch wenn die anderen beiden Kriterien gut oder sehr gut beurteilt wurden."
+  },
+  {
+    "objectID": "pruefung.html#beispiele-für-aspekte-der-beurteilungskriterien",
+    "href": "pruefung.html#beispiele-für-aspekte-der-beurteilungskriterien",
+    "title": "1  Prüfung",
+    "section": "1.3 Beispiele für Aspekte der Beurteilungskriterien",
+    "text": "1.3 Beispiele für Aspekte der Beurteilungskriterien\n\nWurden deskriptive Statistiken (an angemessenen Ort) berichtet?\nWurden Diagramme und Tabellen angemessen eingesetzt?\nWurde Inferenzstatistik (angemessen) eingesetzt?\nWurden Effektstärkemaße (idealerweise mit Konfidenzintervallen dazu) berichtet?\nWurden alle relevanten Informationen für ein statistisches Verfahren angegeben (z.B. zum gewählten Prior)?\nWurde die Aussagekraft von Modellergebnissen richtig eingeschätzt?\nWaren die Schlussfolgerungen, die aus den statistischen Ergebnissen gezogen wurden, angemessen (z. B. wurde erkannt, dass ein Nicht-Verwerfeen einer Hypothese nicht automatisch ein Bestätigen derselben bedeutet)?\nWurde angemessen gerundet (inkl. konsistente Anzahl von Nachkommastellen)?\nPassen die statistischen Verfahren zu den Hypothesen?\nWurden die Voraussetzungen der statistischen Verfahren geprüft?\nSind die Ergebnisse reproduzierbar (Daten und Syntax eingereicht)?"
+  },
+  {
+    "objectID": "pruefung.html#beispiele-für-fehler",
+    "href": "pruefung.html#beispiele-für-fehler",
+    "title": "1  Prüfung",
+    "section": "1.4 Beispiele für Fehler",
+    "text": "1.4 Beispiele für Fehler\nSchwere Fehler, die zum Durchfallen oder deutlichem Abwerten der Note führen können, sind z.B.:\n\nfehlende Inferenzstatistik (oder adäquatem Ersatz)\nfalsche Interpretation von Posteriori-Verteilungen oder p-Werten\nkeine Angabe von Konfidenzintervallen\nfalsche Interpretation von Konfidenzintervallen\nWahl des falschen Intervalls (Vorhersageintervall vs. Perzentilintervall vs. HDI)\nfalsche Entscheidung zum Hypothesentest auf Basis entsprechender Kennwerte (wie ROPE-Wahrscheinlichkeit oder p-Wert)\nfalsche Wahl des statistischen Verfahrens\nfehlende Deskriptivstatistik\n\nHäufige kleinere Mängel sind z. B.\n\npixelige Abbildungen\nR-Ausgaben oder R-Syntax als Screenshot\nfehlende Seitenzahlen (nur bei paginierten Formaten, nicht bei HTML)\nunübersichtliche Diagramme\nkein (verlinktes) Inhaltsverzeichnis ︎\nfehlende oder unverständliche Achsenbeschriftung bei Diagrammen\nfehlende oder falsche Beschreibung der/des Skalenniveau(s) der untersuchten Variablen"
+  },
+  {
+    "objectID": "twittermining.html#anmelden-bei-twitter",
+    "href": "twittermining.html#anmelden-bei-twitter",
+    "title": "2  Twitter Mining",
+    "section": "2.2 Anmelden bei Twitter",
+    "text": "2.2 Anmelden bei Twitter\n\n2.2.1 Welche Accounts interessieren uns?\nHier ist eine (subjektive) Auswahl von deutschen Politikern, die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.\n\nd_path <- \"data/twitter-german-politicians.csv\"\n\nd <- read_csv(d_path)\nd\n\n\n\n\n\n\n\n\n\n\n\nname\nparty\nscreenname\ncomment\n\n\n\n\nKarl Lauterbach\nSPD\nKarl_Lauterbach\nNA\n\n\nOlaf Scholz\nSPD\nOlafScholz\nNA\n\n\nAnnalena Baerback\nGruene\nABaerbock\nNA\n\n\nBundesministerium für Wirtschaft und Klimaschutz\nGruene\nBMWK\nRobert Habeck ist der Minister im BMWK\n\n\nFriedrich Merz\nCDU\n_FriedrichMerz\nCDU-Chef\n\n\nMarkus Söder\nCSU\nMarkus_Soeder\nCSU-Chef\n\n\nCem Özdemir\nGruene\ncem_oezdemir\nBMEL\n\n\nJanine Wissler\nLinke\nJanine_Wissler\nLinke-Chefin\n\n\nMartin Schirdewan\nLinke\nschirdewan\nLinke-Chef\n\n\nChristian Lindner\nFDP\nc_lindner\nFDP-Chef\n\n\nMarie-Agnes Strack-Zimmermann\nFDP\nMAStrackZi\nVorsitzende Verteidigungsausschuss\n\n\nTino Chrupalla\nAFD\nTino_Chrupalla\nAFD-Bundessprecher\n\n\nAlice Weidel\nAFD\nAlice_Weidel\nAFD-Bundessprecherin\n\n\n\n\n\n\n\n\n2.2.2 Twitter App erstellen\nTutorial\n\n\n2.2.3 Intro\nDie Seite von rtweet gibt eine gute Starthilfe in die Benutzung des Pakets.\n\n\n2.2.4 Zugangsdaten\nZugangsdaten sollte man geschützt speichern, also z.B. nicht in einem geteilten Ordner.\n\nsource(\"/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R\")\n\nAnmelden:\n\nauth <- rtweet_bot()"
+  },
+  {
+    "objectID": "twittermining.html#tweets-einlesen",
+    "href": "twittermining.html#tweets-einlesen",
+    "title": "2  Twitter Mining",
+    "section": "2.3 Tweets einlesen",
+    "text": "2.3 Tweets einlesen\n\n2.3.1 Timeline einlesen einzelner Accounts\n\ntweets <- get_timeline(user = d$screenname)\nsaveRDS(tweets, file = \"tweets/tweets01.rds\")\n\n\n\n2.3.2 Retweets einlesen\n\noptions(rtweet.retryonratelimit = TRUE)\n\n\ntweets01_retweets <- \n  tweets$id_str %>% \n  head(3) %>% \n  map_dfr( ~ get_retweets(status_id = .x, retryonratelimit = TRUE))\n\nDa die meisten Retweets aber nix sagen, sondern nur auf das einen Tweet wiederholen, ist das Sammeln der Retweets ziemlich langweilig.\n\n\n2.3.3 EPINetz Twitter Politicians 2021\nKönig u. a. (2022) Volltext hier haben einen Datensatz mit knapp 2500 Twitter Accounts deutscher Politiker zusammengestellt, zum Stand 2021.\nDer Datensatz kann über Gesis bezogen werden.\nAuf der gleichen Seite findet sich auch eine Dokumentation des Vorgehens.\n\npoliticians_path <- \"data/EPINetz_TwitterPoliticians_2021.RDs\"\npoliticians_twitter <- read_rds(politicians_path)\n\nhead(politicians_twitter)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nID\nofficial_name\nparty\nregion\ninstitution\noffice\nuser_id\ntwitter_name\ntwitter_handle\nfrom\nuntil\nyear_of_birth\nabgeordnetenwatch_id\ngender\nwikidata_id\n\n\n\n\n535\nManja Schüle\nSPD\nBrandenburg\nState Parliament\nParliamentarian\n827090742162100224\nManja Schüle\nManjaSchuele\n2019-09-25\nNA\n1976\n146790\nfemale\nQ40974942\n\n\n962\nPetra Pau\nDIE LINKE\nFederal\nFederal Parliament\nParliamentarian\n1683845126\nTeam PetraPau\nTeamPetraPau\n2017-10-24\nNA\n1963\n79091\nfemale\nQ77195\n\n\n864\nDagmar Schmidt\nSPD\nFederal\nFederal Parliament\nParliamentarian\n1377117206\nTeam #dieschmidt\nTeamDieSchmidt\n2017-10-24\nNA\n1973\n79036\nfemale\nQ15433815\n\n\n2517\nBernd Buchholz\nFDP\nSchleswig-Holstein\nState Parliament\nParliamentarian\n1073605033\nBernd Buchholz\nBerndBuchholz\n2017-06-06\nNA\n1961\n121092\nmale\nQ823715\n\n\n1378\nIngrid Remmers\nDIE LINKE\nFederal\nFederal Parliament\nParliamentarian\n551802475\nIngrid Remmers MdB\ningrid_remmers\n2017-10-24\nNA\n1965\n120775\nfemale\nQ1652660\n\n\n1116\nReinhard Brandl\nCSU\nFederal\nFederal Parliament\nParliamentarian\n262730721\nReinhard Brandl\nreinhardbrandl\n2017-10-24\nNA\n1977\n79427\nmale\nQ111160\n\n\n\n\n\n\n\nepi_tweets <- \n  politicians_twitter$user_id %>% \n  head() %>% \n    get_timeline(user = ., n = 10)\n\n\nepi_tweets <- get_timeline(user = head(politicians_twitter$twitter_name), n = 10)\nhead(epi_tweets)\n\n\n\n2.3.4 Followers suchen\n\nfollowers01 <-\n  d$screenname %>% \n map_dfr( ~ get_followers(user = .x, retryonratelimit = TRUE))\n\nsaveRDS(followers01, file = \"tweets/followers01.rds\")\n\nDamit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können, z.B. nach Hate Speech."
+  },
+  {
+    "objectID": "twittermining.html#aufgaben",
+    "href": "twittermining.html#aufgaben",
+    "title": "2  Twitter Mining",
+    "section": "2.4 Aufgaben",
+    "text": "2.4 Aufgaben\n\nÜberlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.\nArgumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.\nErstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.\n\n\n\n\n\nHvitfeldt, Emil, und Julia Silge. 2022. Supervised Machine Learning for Text Analysis in R. 1. Aufl. Boca Raton: Chapman; Hall/CRC. https://doi.org/10.1201/9781003093459.\n\n\nKönig, Tim, Wolf J. Schünemann, Alexander Brand, Julian Freyberg, und Michael Gertz. 2022. „The EPINetz Twitter Politicians Dataset 2021. A New Resource for the Study of the German Twittersphere and Its Application for the 2021 Federal Elections“. Politische Vierteljahresschrift 63 (3): 529–47. https://doi.org/10.1007/s11615-022-00405-7."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "datascience2: Prädiktive Modelle auf Basis von Textdaten",
+    "section": "",
+    "text": "falls Sie die Pakete schon installiert haben, könnten Sie mal in RStudio auf “update.packages” klicken↩︎"
   }
 ]

@@ -1,5 +1,7 @@
 project:
   type: book
+  
+
 
 book:
   title: "datascience2: Prädiktive Modelle auf Basis von Textdaten"
@@ -7,6 +9,7 @@ book:
   date: "9/13/2022"
   chapters:
     - index.qmd
+    - pruefung.qmd
     - twittermining.qmd
     - references.qmd
 
@@ -16,9 +19,17 @@ lang: de
 
 format:
   html:
-    theme: cosmo
-  pdf:
-    documentclass: scrreprt
+    theme: cerulean
+    df-print: kable
+    code-fold: false
+    toc: true
+  # pdf:
+  #   documentclass: scrreprt
 
 editor: source
+keep-md: true
 
+knitr: 
+  opts_chunk: 
+    fig-align: center
+    out-width: "70%"
