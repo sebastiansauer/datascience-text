@@ -88,12 +88,12 @@ die das Online-Zusammenarbeiten vereinfachen:
 ::: {.cell-output-display}
 
 ```{=html}
-<div id="wenfwflsuq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="dsipgbwnjh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#wenfwflsuq .gt_table {
+#dsipgbwnjh .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -118,7 +118,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-left-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_heading {
+#dsipgbwnjh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -130,7 +130,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-right-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_title {
+#dsipgbwnjh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -142,7 +142,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-bottom-width: 0;
 }
 
-#wenfwflsuq .gt_subtitle {
+#dsipgbwnjh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -154,13 +154,13 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-top-width: 0;
 }
 
-#wenfwflsuq .gt_bottom_border {
+#dsipgbwnjh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_col_headings {
+#dsipgbwnjh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -175,7 +175,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-right-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_col_heading {
+#dsipgbwnjh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -195,7 +195,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   overflow-x: hidden;
 }
 
-#wenfwflsuq .gt_column_spanner_outer {
+#dsipgbwnjh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -207,15 +207,15 @@ die das Online-Zusammenarbeiten vereinfachen:
   padding-right: 4px;
 }
 
-#wenfwflsuq .gt_column_spanner_outer:first-child {
+#dsipgbwnjh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wenfwflsuq .gt_column_spanner_outer:last-child {
+#dsipgbwnjh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wenfwflsuq .gt_column_spanner {
+#dsipgbwnjh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -227,7 +227,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   width: 100%;
 }
 
-#wenfwflsuq .gt_group_heading {
+#dsipgbwnjh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -252,7 +252,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   vertical-align: middle;
 }
 
-#wenfwflsuq .gt_empty_group_heading {
+#dsipgbwnjh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -267,15 +267,15 @@ die das Online-Zusammenarbeiten vereinfachen:
   vertical-align: middle;
 }
 
-#wenfwflsuq .gt_from_md > :first-child {
+#dsipgbwnjh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wenfwflsuq .gt_from_md > :last-child {
+#dsipgbwnjh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wenfwflsuq .gt_row {
+#dsipgbwnjh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -294,7 +294,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   overflow-x: hidden;
 }
 
-#wenfwflsuq .gt_stub {
+#dsipgbwnjh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -307,7 +307,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   padding-right: 5px;
 }
 
-#wenfwflsuq .gt_stub_row_group {
+#dsipgbwnjh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -321,11 +321,11 @@ die das Online-Zusammenarbeiten vereinfachen:
   vertical-align: top;
 }
 
-#wenfwflsuq .gt_row_group_first td {
+#dsipgbwnjh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wenfwflsuq .gt_summary_row {
+#dsipgbwnjh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -335,16 +335,16 @@ die das Online-Zusammenarbeiten vereinfachen:
   padding-right: 5px;
 }
 
-#wenfwflsuq .gt_first_summary_row {
+#dsipgbwnjh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_first_summary_row.thick {
+#dsipgbwnjh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wenfwflsuq .gt_last_summary_row {
+#dsipgbwnjh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -354,7 +354,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-bottom-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_grand_summary_row {
+#dsipgbwnjh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -364,7 +364,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   padding-right: 5px;
 }
 
-#wenfwflsuq .gt_first_grand_summary_row {
+#dsipgbwnjh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -374,11 +374,11 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-top-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_striped {
+#dsipgbwnjh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wenfwflsuq .gt_table_body {
+#dsipgbwnjh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -387,7 +387,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-bottom-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_footnotes {
+#dsipgbwnjh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -401,7 +401,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-right-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_footnote {
+#dsipgbwnjh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -410,7 +410,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   padding-right: 5px;
 }
 
-#wenfwflsuq .gt_sourcenotes {
+#dsipgbwnjh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -424,7 +424,7 @@ die das Online-Zusammenarbeiten vereinfachen:
   border-right-color: #D3D3D3;
 }
 
-#wenfwflsuq .gt_sourcenote {
+#dsipgbwnjh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -432,64 +432,64 @@ die das Online-Zusammenarbeiten vereinfachen:
   padding-right: 5px;
 }
 
-#wenfwflsuq .gt_left {
+#dsipgbwnjh .gt_left {
   text-align: left;
 }
 
-#wenfwflsuq .gt_center {
+#dsipgbwnjh .gt_center {
   text-align: center;
 }
 
-#wenfwflsuq .gt_right {
+#dsipgbwnjh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wenfwflsuq .gt_font_normal {
+#dsipgbwnjh .gt_font_normal {
   font-weight: normal;
 }
 
-#wenfwflsuq .gt_font_bold {
+#dsipgbwnjh .gt_font_bold {
   font-weight: bold;
 }
 
-#wenfwflsuq .gt_font_italic {
+#dsipgbwnjh .gt_font_italic {
   font-style: italic;
 }
 
-#wenfwflsuq .gt_super {
+#dsipgbwnjh .gt_super {
   font-size: 65%;
 }
 
-#wenfwflsuq .gt_footnote_marks {
+#dsipgbwnjh .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#wenfwflsuq .gt_asterisk {
+#dsipgbwnjh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wenfwflsuq .gt_indent_1 {
+#dsipgbwnjh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wenfwflsuq .gt_indent_2 {
+#dsipgbwnjh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wenfwflsuq .gt_indent_3 {
+#dsipgbwnjh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wenfwflsuq .gt_indent_4 {
+#dsipgbwnjh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wenfwflsuq .gt_indent_5 {
+#dsipgbwnjh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -588,7 +588,7 @@ Pro Thema wird ggf. weitere Literatur ausgewiesen.
 
 ## Technische Details
 
-Dieses Dokument wurde erzeut am/um 2022-09-14 11:55:04.
+Dieses Dokument wurde erzeut am/um 2022-09-14 12:03:27.
 
 
 

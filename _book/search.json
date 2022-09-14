@@ -18,7 +18,7 @@
     "href": "pruefung.html#prüfungsform-datenanalyse-als-quarto-blog-post",
     "title": "1  Prüfung",
     "section": "1.1 Prüfungsform: Datenanalyse als Quarto-Blog-Post",
-    "text": "1.1 Prüfungsform: Datenanalyse als Quarto-Blog-Post\nAls Prüfungsleistung ist ein Corpus an Twitter-Daten deutscher aktueller Politiker auf Hate Speech hin zu untersuchen.\n\nDer Bericht der Analyse ist als Quarto Blog-Posts zu formatieren.\nEinzureichen ist die URL des Posts.\nDer Post muss während des gesamten Prüfungszeitraums online sein.\nNach Einreichen des Posts dürfen keine Änderungen mehr vorgenommen werden.\nDer Quelltext des Posts soll bei Github vorliegen.\n\n\nAlle folgenden Hinweise gelten nur insoweit Ihre Lehrkraft Ihnen keine anders lautenden Hinweise gegeben hat (schriftlich)."
+    "text": "1.1 Prüfungsform: Datenanalyse als Quarto-Blog-Post\nAls Prüfungsleistung ist ein Corpus an Twitter-Daten deutscher aktueller Politiker auf Hate Speech hin zu untersuchen.\n\nDer Bericht der Analyse ist als Quarto Blog-Posts zu formatieren.\nEinzureichen ist die URL des Posts.\nDer Post muss während des gesamten Prüfungszeitraums online sein, gehostet von einem beliebigen Provider (z.B. Netlify oder Github).\nNach Einreichen des Posts dürfen keine Änderungen mehr vorgenommen werden.\nZu Dokumentationszwecken soll ein PDF-Print des Posts in die Abgabe mit hochgeladen werden. Das PDF-Print des Posts muss identisch (exakt gleich) sein zum Post, der über die URL verfügbar ist.\nDer Quelltext des Posts soll bei Github vorliegen.\n\n\nAlle folgenden Hinweise gelten nur insoweit Ihre Lehrkraft Ihnen keine anders lautenden Hinweise gegeben hat (schriftlich)."
   },
   {
     "objectID": "pruefung.html#allgemeines",
@@ -60,7 +60,7 @@
     "href": "twittermining.html#vorab",
     "title": "2  Twitter Mining",
     "section": "2.1 Vorab",
-    "text": "2.1 Vorab\n\n2.1.1 Lernziele\n\nTwitterdaten via API von Twitter auslesen\n\n\n\n2.1.2 Vorbereitung\n\nLesen Sie in Hvitfeldt und Silge (2022) Kap. 1 und 2.\nLegen Sie sich ein Konto bei Github an.\n\n\n\n2.1.3 R-Pakete\n\nlibrary(tidyverse)\nlibrary(rtweet)\n\n\n\n\nR-Paket {rtweet}"
+    "text": "2.1 Vorab\n\n2.1.1 Lernziele\n\nTwitterdaten via API von Twitter auslesen\n\n\n\n2.1.2 Vorbereitung\n\nLesen Sie in Hvitfeldt und Silge (2022) Kap. 1 und 2.\nLegen Sie sich ein Konto bei Github an.\nLegen Sie sich ein Konto bei Twitter an.\nLesen Sie diesen Artikel zur Anmeldung bei der Twitter API1\n\n\n\n2.1.3 R-Pakete\n\nlibrary(tidyverse)\nlibrary(rtweet)\n\n\n\n\nR-Paket {rtweet}"
   },
   {
     "objectID": "twittermining.html#anmelden-bei-twitter",

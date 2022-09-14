@@ -16,8 +16,9 @@ Als Prüfungsleistung ist ein Corpus an Twitter-Daten deutscher aktueller Politi
 
 - Der Bericht der Analyse ist als [Quarto](https://quarto.org/) [Blog-Posts](https://quarto.org/docs/websites/website-blog.html) zu formatieren.
 - Einzureichen ist die URL des Posts.
-- Der Post muss während des gesamten Prüfungszeitraums online sein.
+- Der Post muss während des gesamten Prüfungszeitraums online sein, gehostet von einem beliebigen Provider (z.B. Netlify oder Github).
 - Nach Einreichen des Posts dürfen keine Änderungen mehr vorgenommen werden.
+- Zu Dokumentationszwecken soll ein PDF-Print des Posts in die Abgabe mit hochgeladen werden. Das PDF-Print des Posts muss identisch (exakt gleich) sein zum Post, der über die URL verfügbar ist.
 - Der Quelltext des Posts soll bei [Github](github.com) vorliegen.
 
 

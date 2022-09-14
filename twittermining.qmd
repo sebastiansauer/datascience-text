@@ -23,6 +23,10 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 - Lesen Sie in @smltar Kap. 1 und 2.
 - Legen Sie sich ein Konto bei [Github](https://github.com/) an.
+- Legen Sie sich ein Konto bei [Twitter](twitter.com) an.
+- Lesen Sie [diesen Artikel zur Anmeldung bei der Twitter API](https://docs.ropensci.org/rtweet/articles/auth.html)^[Sie können [hier](https://www.howtogeek.com/343877/what-is-an-api/) nachlesen, was eine API ist.]
+
+
 
 
 ### R-Pakete
