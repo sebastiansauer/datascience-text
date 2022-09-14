@@ -1,0 +1,25 @@
+# Fallstudie Populismus 
+
+
+
+![Text als Datenbasis prädiktiver Modelle](img/text-mining-1476780_640.png){width=10%}
+Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a>
+
+
+
+## Wie populistisch tweeten unsere Politiker:innen?
+
+
+Verschaffen Sie sich einen Überblick über [dieses Projekt](https://github.com/sebastiansauer/polits_tweet_mining)!
+Im Rahmen dieses Projekts vergleicht der Autor den Populismus von deutschen Politiker:innen, so wie er sich in den Tweets dieser Personen niederschlägt. Auf dieser Basis wird ein Populismuswert, bestehend aus mehreren Teilwerten, berechnet und auf Parteiebenen (als Mittel der zugehörigen Politiker:innen) berechnet.
+Natürlich fragt man sich, wie Populismus definiert ist und wie diese Definition in den Berechnungen umgesetzt wurde.
+Finden Sie es selber heraus: Im Github-Repo sind alle Details dokumentiert.
+
+
+
+
+Zum Einstieg hilft ein Überblick über die Ergebnisse der Analyse, die in [diesem Vortrag](https://data-se.netlify.app/slides/populist-twitter/populist-twitter-dgps2018.html#1) zusammengefasst sind.
+
+
+Dieser [Post](https://data-se.netlify.app/2017/11/01/afd01/) stellt die Ergebnisse mit etwas Kontext dar.
+

@@ -112,7 +112,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./textmining1.html" rel="next">
 <link href="./pruefung.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -192,6 +192,16 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./textmining1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grundlagen des Textmining</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./populismus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
@@ -223,8 +233,14 @@ div.csl-indent {
   <li><a href="#retweets-einlesen" id="toc-retweets-einlesen" class="nav-link" data-scroll-target="#retweets-einlesen"><span class="toc-section-number">2.3.2</span>  Retweets einlesen</a></li>
   <li><a href="#epinetz-twitter-politicians-2021" id="toc-epinetz-twitter-politicians-2021" class="nav-link" data-scroll-target="#epinetz-twitter-politicians-2021"><span class="toc-section-number">2.3.3</span>  EPINetz Twitter Politicians 2021</a></li>
   <li><a href="#followers-suchen" id="toc-followers-suchen" class="nav-link" data-scroll-target="#followers-suchen"><span class="toc-section-number">2.3.4</span>  Followers suchen</a></li>
+  <li><a href="#follower-tweets-einlesen" id="toc-follower-tweets-einlesen" class="nav-link" data-scroll-target="#follower-tweets-einlesen"><span class="toc-section-number">2.3.5</span>  Follower Tweets einlesen</a></li>
   </ul></li>
-  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">2.4</span>  Aufgaben</a></li>
+  <li><a href="#cron-jobs" id="toc-cron-jobs" class="nav-link" data-scroll-target="#cron-jobs"><span class="toc-section-number">2.4</span>  Cron Jobs</a>
+  <ul class="collapse">
+  <li><a href="#was-ist-ein-cron-job" id="toc-was-ist-ein-cron-job" class="nav-link" data-scroll-target="#was-ist-ein-cron-job"><span class="toc-section-number">2.4.1</span>  Was ist ein Cron Job?</a></li>
+  <li><a href="#beispiel-für-einen-cron-job" id="toc-beispiel-für-einen-cron-job" class="nav-link" data-scroll-target="#beispiel-für-einen-cron-job"><span class="toc-section-number">2.4.2</span>  Beispiel für einen Cron Job</a></li>
+  </ul></li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">2.5</span>  Aufgaben</a></li>
   </ul>
 </nav>
     </div>
@@ -265,7 +281,7 @@ div.csl-indent {
 <section id="vorbereitung" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">2.1.2</span> Vorbereitung</h3>
 <ul>
-<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span> Kap. 1 und 2.</li>
+<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span> Kap. 1.</li>
 <li>Legen Sie sich ein Konto bei <a href="https://github.com/">Github</a> an.</li>
 <li>Legen Sie sich ein Konto bei <a href="twitter.com">Twitter</a> an.</li>
 <li>Lesen Sie <a href="https://docs.ropensci.org/rtweet/articles/auth.html">diesen Artikel zur Anmeldung bei der Twitter API</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
@@ -283,6 +299,7 @@ div.csl-indent {
 <p></p><figcaption class="figure-caption">R-Paket {rtweet}</figcaption><p></p>
 </figure>
 </div>
+<p>Einen Überblick über die Funktionen des Pakets (function reference) findet sich <a href="https://docs.ropensci.org/rtweet/reference/index.html">hier</a>.</p>
 </section>
 </section>
 <section id="anmelden-bei-twitter" class="level2" data-number="2.2">
@@ -419,6 +436,8 @@ div.csl-indent {
 </section>
 <section id="tweets-einlesen" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="tweets-einlesen"><span class="header-section-number">2.3</span> Tweets einlesen</h2>
+<p>Zu beachten ist, dass es Limits gibt, wie viele Informationen (pro Zeiteinheit) man über die Twitter-API auslesen darf. Informationen dazu findet man z.B. <a href="https://developer.twitter.com/en/docs/twitter-api/rate-limits">hier</a> oder auch mit <code>rate_limit()</code>.</p>
+<p>Ein gängiges Limit der Twitter-API sind 900 Anfragen (z.B. Tweets auslesen) pro 15 Minuten.</p>
 <section id="timeline-einlesen-einzelner-accounts" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="timeline-einlesen-einzelner-accounts"><span class="header-section-number">2.3.1</span> Timeline einlesen einzelner Accounts</h3>
 <div class="cell">
@@ -444,6 +463,7 @@ div.csl-indent {
 <p><span class="citation" data-cites="konig_epinetz_2022">König u.&nbsp;a. (<a href="references.html#ref-konig_epinetz_2022" role="doc-biblioref">2022</a>)</span> <a href="https://link.springer.com/article/10.1007/s11615-022-00405-7">Volltext hier</a> haben einen Datensatz mit knapp 2500 Twitter Accounts deutscher Politiker zusammengestellt, zum Stand 2021.</p>
 <p>Der Datensatz kann über <a href="https://search.gesis.org/research_data/SDN-10.7802-2415?doi=10.7802/2415">Gesis</a> bezogen werden.</p>
 <p>Auf der gleichen Seite findet sich auch eine <a href="https://access.gesis.org/sharing/2415/3675">Dokumentation des Vorgehens</a>.</p>
+<p>Nachdem wir den Datensatz heruntergeladen haben, können wir ihn einlesen:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>politicians_path <span class="ot">&lt;-</span> <span class="st">"data/EPINetz_TwitterPoliticians_2021.RDs"</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>politicians_twitter <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(politicians_path)</span>
@@ -596,16 +616,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
+<p>Dann lesen wir die Timelines (die Tweets) dieser Konten aus; in diesem Beispiel nur 10 Tweets pro Account:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>epi_tweets <span class="ot">&lt;-</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  politicians_twitter<span class="sc">$</span>user_id <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_timeline</span>(<span class="at">user =</span> ., <span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>epi_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(politicians_twitter<span class="sc">$</span>twitter_name), <span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(epi_tweets)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>epi_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(politicians_twitter<span class="sc">$</span>twitter_name), <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(epi_tweets)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Natürlich könnte man auch mehr als 10 Tweets pro Konto einsammeln, braucht nur seine Zeit.</p>
 </section>
 <section id="followers-suchen" class="level3" data-number="2.3.4">
 <h3 data-number="2.3.4" class="anchored" data-anchor-id="followers-suchen"><span class="header-section-number">2.3.4</span> Followers suchen</h3>
@@ -618,14 +634,69 @@ div.csl-indent {
 </div>
 <p>Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können, z.B. nach Hate Speech.</p>
 </section>
+<section id="follower-tweets-einlesen" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="follower-tweets-einlesen"><span class="header-section-number">2.3.5</span> Follower Tweets einlesen</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>followers_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(followers01<span class="sc">$</span>from_id), <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="aufgaben" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">2.4</span> Aufgaben</h2>
+</section>
+<section id="cron-jobs" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="cron-jobs"><span class="header-section-number">2.4</span> Cron Jobs</h2>
+<section id="was-ist-ein-cron-job" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="was-ist-ein-cron-job"><span class="header-section-number">2.4.1</span> Was ist ein Cron Job?</h3>
+<p><a href="https://en.wikipedia.org/wiki/Cron">Cron</a> ist ein Programm auf Unix-artigen Betriebssystemen, das Skripte zu eingestellten Zeiten (wiederholt) ausführt, das sind dann “Cron Jobs”. Auf Windows gibt es aber analoge Funktionen. Cron Jobs sind praktisch, da man nicht jedes Mal selber z.B. Tweets, die heute zu einem Thema getweetet wurden, herunterladen muss. Das wird dann vom Cron Job übernommen.</p>
+<p>In R gibt es eine API zum Programm Cron mit dem Paket <code>{cronR}</code>, s. <a href="https://github.com/bnosac/cronR">Anleitung hier</a>.</p>
+<p>Das analoge R-Paket für Windows heißt <a href="https://github.com/bnosac/taskscheduleR"><code>{taskscheduleR}</code></a>.</p>
+</section>
+<section id="beispiel-für-einen-cron-job" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="beispiel-für-einen-cron-job"><span class="header-section-number">2.4.2</span> Beispiel für einen Cron Job</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cronR)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>scrape_script <span class="ot">&lt;-</span> <span class="fu">cron_rscript</span>(<span class="st">"scrape_tweets.R"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Cron Job hinzufügen:</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_add</span>(<span class="at">command =</span> scrape_script, </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">frequency =</span> <span class="st">'daily'</span>, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">at =</span> <span class="st">"10AM"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="st">'Hate Speech'</span>)  <span class="co"># Name des Cron Jobs</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_clear</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)  <span class="co"># Alle Cron Jobs löschen</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_ls</span>()  <span class="co"># Liste aller Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Im obigen Beispiel wird das R-Skript <code>scrape_tweets.R</code> täglich um 10h ausgeführt.</p>
+<p>Der Inhalt von <code>scrape_tweets.R</code> könnte dann, in Grundzügen, so aussehen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>followers_lauterbach <span class="ot">&lt;-</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  followers01 <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(to_id <span class="sc">==</span> <span class="st">"Karl_Lauterbach"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>followers_lauterbach_tweets <span class="ot">&lt;-</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_timeline</span>(<span class="at">user =</span> followers_lauterbach<span class="sc">$</span>from_id[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">n =</span> <span class="dv">10</span>, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>path_output <span class="ot">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/Google Drive/RRRing/Scrape-Tweets/tweets/"</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> followers_lauterbach_tweets,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="fu">paste0</span>(path_output, <span class="st">"followers_lauterbach_tweets.csv"</span>),</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir hängen hier die neu ausgelesenen Daten an die Datei an.</p>
+<p>Leider ist es mit <code>rtweet</code> nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+</section>
+</section>
+<section id="aufgaben" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">2.5</span> Aufgaben</h2>
 <ol type="1">
 <li>Überlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.</li>
 <li>Argumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.</li>
 <li>Überlegen Sie Korrelate, oder besser noch: (mögliche) Ursachen, des Hasses in den Tweets, gerichtet auf Polikter:innen. Sie können auch Gruppen von Ursachen bilden, etwas personengebundene Variablen der Politiker:innen (z.B. Alter? Geschlecht? Migrationshintergrund?).</li>
 <li>Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.</li>
+<li>Das Skript zu <code>scrape_tweets.R</code> könnte man noch verbessern, in dem man jeden Tag nur die neuesten Tweets herunterlädt. Dazu kann man bei <a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline()</a> mit dem Argument <code>since_id</code> eine Untergrenze der ID festlegen, so dass nur neuere Tweets (d.h. mit größerem Wert bei ID) ausgelesen werden. Ändern Sie das Skript entsprechend, so dass nur neuerer Tweets gelesen werden.</li>
 </ol>
 
 
@@ -642,6 +713,7 @@ König, Tim, Wolf J. Schünemann, Alexander Brand, Julian Freyberg, und Michael 
 <hr>
 <ol>
 <li id="fn1"><p>Sie können <a href="https://www.howtogeek.com/343877/what-is-an-api/">hier</a> nachlesen, was eine API ist.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Mit dem R-Paket <code>twitteR</code>, das mittlerweile zugunsten von <code>rtweet</code> aufgegeben wurde, war das möglich. Allerdings zeigt ein <a href="https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline">Blick in die Dokumentation der Twitter-API</a>, das Datumsangaben offenbar gar nicht unterstützt werden.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -751,8 +823,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./textmining1.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grundlagen des Textmining</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

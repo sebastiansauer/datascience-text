@@ -11,6 +11,9 @@ book:
     - index.qmd
     - pruefung.qmd
     - twittermining.qmd
+    - textmining1.qmd
+    - populismus.qmd
+    - word-embedding.qmd
     - references.qmd
 
 bibliography: references.bib
@@ -27,7 +30,7 @@ format:
   #   documentclass: scrreprt
 
 editor: source
-keep-md: true
+keep-md: false
 
 knitr: 
   opts_chunk: 

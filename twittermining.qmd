@@ -21,7 +21,7 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 ### Vorbereitung
 
-- Lesen Sie in @smltar Kap. 1 und 2.
+- Lesen Sie in @smltar Kap. 1.
 - Legen Sie sich ein Konto bei [Github](https://github.com/) an.
 - Legen Sie sich ein Konto bei [Twitter](twitter.com) an.
 - Lesen Sie [diesen Artikel zur Anmeldung bei der Twitter API](https://docs.ropensci.org/rtweet/articles/auth.html)^[Sie können [hier](https://www.howtogeek.com/343877/what-is-an-api/) nachlesen, was eine API ist.]
@@ -40,6 +40,10 @@ library(rtweet)
 ![R-Paket {rtweet}](https://docs.ropensci.org/rtweet/logo.png){width=10%}
 
 
+Einen Überblick über die Funktionen des Pakets (function reference) findet sich [hier](https://docs.ropensci.org/rtweet/reference/index.html).
+
+
+
 ## Anmelden bei Twitter
 
 
@@ -49,7 +53,7 @@ library(rtweet)
 Hier ist eine (subjektive) Auswahl von deutschen Politikern,
 die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.
 
-```{r}
+```{r politicians-df-load}
 #| message: false
 d_path <- "data/twitter-german-politicians.csv"
 
@@ -75,14 +79,14 @@ Die Seite von [rtweet](https://docs.ropensci.org/rtweet/) gibt eine gute Starthi
 Zugangsdaten sollte man geschützt speichern, also z.B. nicht in einem geteilten Ordner.
 
 
-```{r}
+```{r source-credentials-twitter}
 source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
 ```
 
 
 Anmelden:
 
-```{r}
+```{r oauth-twitter}
 #| eval: false
 auth <- rtweet_bot()
 ```
@@ -92,10 +96,19 @@ auth <- rtweet_bot()
 ## Tweets einlesen
 
 
+Zu beachten ist, dass es Limits gibt, wie viele Informationen (pro Zeiteinheit) man über die Twitter-API auslesen darf.
+Informationen dazu findet man z.B. [hier](https://developer.twitter.com/en/docs/twitter-api/rate-limits) oder auch mit `rate_limit()`.
+
+
+
+
+
+Ein gängiges Limit der Twitter-API sind 900 Anfragen (z.B. Tweets auslesen) pro 15 Minuten.
+
 ### Timeline einlesen einzelner Accounts
 
 
-```{r}
+```{r get-timeline1}
 #| eval: false
 tweets <- get_timeline(user = d$screenname)
 saveRDS(tweets, file = "tweets/tweets01.rds")
@@ -111,7 +124,7 @@ options(rtweet.retryonratelimit = TRUE)
 ```
 
 
-```{r}
+```{r get-retweets1}
 #| eval: false
 
 tweets01_retweets <- 
@@ -135,38 +148,34 @@ Der Datensatz kann über [Gesis](https://search.gesis.org/research_data/SDN-10.7
 
 Auf der gleichen Seite findet sich auch eine [Dokumentation des Vorgehens](https://access.gesis.org/sharing/2415/3675).
 
+Nachdem wir den Datensatz heruntergeladen haben, können wir ihn einlesen:
 
-```{r}
+```{r read-epinetz}
 politicians_path <- "data/EPINetz_TwitterPoliticians_2021.RDs"
 politicians_twitter <- read_rds(politicians_path)
 
 head(politicians_twitter)
 ```
 
+Dann lesen wir die Timelines (die Tweets) dieser Konten aus;
+in diesem Beispiel nur 10 Tweets pro Account:
 
 
-
-```{r}
+```{r get-timeline2}
 #| eval: false
-epi_tweets <- 
-  politicians_twitter$user_id %>% 
-  head() %>% 
-    get_timeline(user = ., n = 10)
-
-
 epi_tweets <- get_timeline(user = head(politicians_twitter$twitter_name), n = 10)
 head(epi_tweets)
 ```
 
 
-
+Natürlich könnte man auch mehr als 10 Tweets pro Konto einsammeln, braucht nur seine Zeit.
 
 ### Followers suchen
 
 
 
 
-```{r}
+```{r save-followers1}
 #| eval: false
 followers01 <-
   d$screenname %>% 
@@ -180,6 +189,86 @@ Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysier
 z.B. nach Hate Speech.
 
 
+### Follower Tweets einlesen
+
+
+```{r get-timeline3}
+#| eval: false
+followers_tweets <- get_timeline(user = head(followers01$from_id), n = 10)
+```
+
+
+
+## Cron Jobs
+
+
+
+### Was ist ein Cron Job?
+
+[Cron](https://en.wikipedia.org/wiki/Cron) ist ein Programm auf Unix-artigen Betriebssystemen, das Skripte zu eingestellten Zeiten (wiederholt) ausführt, das sind dann "Cron Jobs".
+Auf Windows gibt es aber analoge Funktionen.
+Cron Jobs sind praktisch, da man nicht jedes Mal selber z.B. Tweets, die heute zu einem Thema getweetet wurden, herunterladen muss.
+Das wird dann vom Cron Job übernommen.
+
+In R gibt es eine API zum Programm Cron mit dem Paket `{cronR}`, s. [Anleitung hier](https://github.com/bnosac/cronR).
+
+Das analoge R-Paket für Windows heißt [`{taskscheduleR}`](https://github.com/bnosac/taskscheduleR).
+
+
+### Beispiel für einen Cron Job
+
+
+```{r}
+#| eval: false
+library(cronR)
+
+scrape_script <- cron_rscript("scrape_tweets.R")
+
+# Cron Job hinzufügen:
+cron_add(command = scrape_script, 
+         frequency = 'daily', 
+         at = "10AM",
+         id = 'Hate Speech')  # Name des Cron Jobs
+
+cron_clear(ask = FALSE)  # Alle Cron Jobs löschen
+cron_ls()  # Liste aller Cron Jobs
+```
+
+
+Im obigen Beispiel wird das R-Skript `scrape_tweets.R` täglich um 10h ausgeführt.
+
+
+
+
+Der Inhalt von `scrape_tweets.R` könnte dann, in Grundzügen, so aussehen:
+
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(lubridate)
+library(rtweet)
+followers_lauterbach <-
+  followers01 %>% 
+  filter(to_id == "Karl_Lauterbach")
+
+followers_lauterbach_tweets <- 
+  get_timeline(user = followers_lauterbach$from_id[1:10], n = 10, retryonratelimit = TRUE, verbose = FALSE)
+
+
+path_output <- "/Users/sebastiansaueruser/Google Drive/RRRing/Scrape-Tweets/tweets/"
+
+write_csv(x = followers_lauterbach_tweets,
+          file = paste0(path_output, "followers_lauterbach_tweets.csv"),
+          append = TRUE)
+
+```
+
+
+Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir hängen hier die neu ausgelesenen Daten an die Datei an.
+
+Leider ist es mit `rtweet` nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte^[Mit dem R-Paket `twitteR`, das mittlerweile zugunsten von `rtweet` aufgegeben wurde, war das möglich. Allerdings zeigt ein [Blick in die Dokumentation der Twitter-API](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline), das Datumsangaben offenbar gar nicht unterstützt werden.]
+
 
 ## Aufgaben
 
@@ -187,3 +276,4 @@ z.B. nach Hate Speech.
 2. Argumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.
 3. Überlegen Sie Korrelate, oder besser noch: (mögliche) Ursachen, des Hasses in den Tweets, gerichtet auf Polikter:innen. Sie können auch Gruppen von Ursachen bilden, etwas personengebundene Variablen der Politiker:innen (z.B. Alter? Geschlecht? Migrationshintergrund?).
 1. Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.
+6. Das Skript zu `scrape_tweets.R` könnte man noch verbessern, in dem man jeden Tag nur die neuesten Tweets herunterlädt. Dazu kann man bei [get_timeline()](https://docs.ropensci.org/rtweet/reference/get_timeline.html) mit dem Argument `since_id` eine Untergrenze der ID festlegen, so dass nur neuere Tweets (d.h. mit größerem Wert bei ID) ausgelesen werden. Ändern Sie das Skript entsprechend, so dass nur neuerer Tweets gelesen werden.

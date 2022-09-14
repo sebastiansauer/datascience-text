@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.168">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>datascience2: Prädiktive Modelle auf Basis von Textdaten - 3&nbsp; Grundlagen des Textmining</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./populismus.html" rel="next">
+<link href="./twittermining.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grundlagen des Textmining</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">datascience2: Prädiktive Modelle auf Basis von Textdaten</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Hinweise</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pruefung.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prüfung</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twittermining.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./textmining1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grundlagen des Textmining</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./populismus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./word-embedding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Word Embedding</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="toc-section-number">3.1</span>  Vorab</a>
+  <ul class="collapse">
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">3.1.1</span>  Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">3.1.2</span>  Vorbereitung</a></li>
+  <li><a href="#r-pakete" id="toc-r-pakete" class="nav-link" data-scroll-target="#r-pakete"><span class="toc-section-number">3.1.3</span>  R-Pakete</a></li>
+  </ul></li>
+  <li><a href="#einfache-methoden-des-textminings" id="toc-einfache-methoden-des-textminings" class="nav-link" data-scroll-target="#einfache-methoden-des-textminings"><span class="toc-section-number">3.2</span>  Einfache Methoden des Textminings</a></li>
+  <li><a href="#fallstudie" id="toc-fallstudie" class="nav-link" data-scroll-target="#fallstudie"><span class="toc-section-number">3.3</span>  Fallstudie</a>
+  <ul class="collapse">
+  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">3.3.1</span>  Daten</a></li>
+  <li><a href="#grundlegendes-text-mining" id="toc-grundlegendes-text-mining" class="nav-link" data-scroll-target="#grundlegendes-text-mining"><span class="toc-section-number">3.3.2</span>  Grundlegendes Text Mining</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Grundlagen des Textmining</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p><img src="img/text-mining-1476780_640.png" class="img-fluid" style="width:10.0%" alt="Text als Datenbasis prädiktiver Modelle"> Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
+<section id="vorab" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="vorab"><span class="header-section-number">3.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="lernziele"><span class="header-section-number">3.1.1</span> Lernziele</h3>
+<ul>
+<li>Die vorgestellten Techniken des Textminings mit R anwenden können</li>
+</ul>
+</section>
+<section id="vorbereitung" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">3.1.2</span> Vorbereitung</h3>
+<ul>
+<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span> Kap. 2.</li>
+</ul>
+</section>
+<section id="r-pakete" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="r-pakete"><span class="header-section-number">3.1.3</span> R-Pakete</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tokenizers)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcandersenr)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="einfache-methoden-des-textminings" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="einfache-methoden-des-textminings"><span class="header-section-number">3.2</span> Einfache Methoden des Textminings</h2>
+<p>Arbeiten Sie die folgenden grundlegenden Methoden des Textminigs durch.</p>
+<ul>
+<li>Tokenisierung, s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></li>
+<li>Stopwörter entfernen, s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></li>
+<li>Stemming, s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></li>
+<li>Stringverarbeitung, <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="references.html#ref-r4ds" role="doc-biblioref">2018</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">KAp. 14</a></li>
+</ul>
+</section>
+<section id="fallstudie" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="fallstudie"><span class="header-section-number">3.3</span> Fallstudie</h2>
+<section id="daten" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="daten"><span class="header-section-number">3.3.1</span> Daten</h3>
+<p>Es finden sich mehrere Datensätze zum Thema Hate-Speech im öffentlichen Internet, eine Quelle ist <a href="https://ckan.hatespeechdata.com/">Hate Speech Data</a>, ein Repositorium, das mehrere Datensätze beinhaltet.</p>
+<ul>
+<li><a href="https://www.kaggle.com/datasets/mrmorj/hate-speech-and-offensive-language-dataset?select=labeled_data.csv">Kaggle Hate Speech and Offensive Language Dataset</a></li>
+<li><a href="https://ckan.hatespeechdata.com/dataset/bretschneider-and-peters-prejudice-on-facebook-dataset">Bretschneider and Peters Prejudice on Facebook Dataset</a></li>
+<li><a href="https://github.com/ENCASEH2020/hatespeech-twitter/blob/master/hatespeech_labels.csv">Daten zum Fachartikel”Large Scale Crowdsourcing and Characterization of Twitter Abusive Behavior”</a></li>
+</ul>
+<p>Twitterdaten dürfen nur in “dehydrierter” Form weitergegeben werden, so dass kein Rückschluss von ID zum Inhalt des Tweets möglich ist. Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, also ohne den eigentlichen Inhalt des Tweets, bereitgestellt.</p>
+<p>Über die Twitter-API kann man sich, wie oben dargestellt, dann die Tweets wieder “rehydrieren”, also wieder mit dem zugehörigen Tweet-Text (und sonstigen Infos des Tweets) zu versehen.</p>
+</section>
+<section id="grundlegendes-text-mining" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="grundlegendes-text-mining"><span class="header-section-number">3.3.2</span> Grundlegendes Text Mining</h3>
+<p>Wenden Sie die oben aufgeführten Techniken des grundlegenden Textminings auf einen der oben dargestellten Hate-Speech-Datensätze an. Erstellen Sie ein (HTML-Dokument) mit Ihren Ergebnissen. Stellen Sie die Ergebnisse auf dem Github-Repo dieses Kurses ein. Vergleichen Sie Ihre Lösung mit den Lösungen der anderen Kursmitglieder.</p>
+<p>Wir nutzen noch nicht eigene Daten, die wir von Twitter ausgelesen haben, das heben wir uns für später auf.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-smltar" class="csl-entry" role="doc-biblioentry">
+Hvitfeldt, Emil, und Julia Silge. 2022. <em>Supervised Machine Learning for Text Analysis in R</em>. 1. Aufl. Boca Raton: Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
+</div>
+<div id="ref-r4ds" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, und Garrett Grolemund. 2018. <em>R für Data Science: Daten importieren, bereinigen, umformen, modellieren und visualisieren</em>. Übersetzt von Frank Langenau. 1. Auflage. Heidelberg: O’Reilly. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./twittermining.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./populismus.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
