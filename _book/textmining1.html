@@ -223,9 +223,15 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">3.1.1</span>  Lernziele</a></li>
   <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">3.1.2</span>  Vorbereitung</a></li>
-  <li><a href="#r-pakete" id="toc-r-pakete" class="nav-link" data-scroll-target="#r-pakete"><span class="toc-section-number">3.1.3</span>  R-Pakete</a></li>
+  <li><a href="#benötigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#benötigte-r-pakete"><span class="toc-section-number">3.1.3</span>  Benötigte R-Pakete</a></li>
   </ul></li>
-  <li><a href="#einfache-methoden-des-textminings" id="toc-einfache-methoden-des-textminings" class="nav-link" data-scroll-target="#einfache-methoden-des-textminings"><span class="toc-section-number">3.2</span>  Einfache Methoden des Textminings</a></li>
+  <li><a href="#einfache-methoden-des-textminings" id="toc-einfache-methoden-des-textminings" class="nav-link" data-scroll-target="#einfache-methoden-des-textminings"><span class="toc-section-number">3.2</span>  Einfache Methoden des Textminings</a>
+  <ul class="collapse">
+  <li><a href="#tokenisierung" id="toc-tokenisierung" class="nav-link" data-scroll-target="#tokenisierung"><span class="toc-section-number">3.2.1</span>  Tokenisierung</a></li>
+  <li><a href="#stopwörter-entfernen" id="toc-stopwörter-entfernen" class="nav-link" data-scroll-target="#stopwörter-entfernen"><span class="toc-section-number">3.2.2</span>  Stopwörter entfernen</a></li>
+  <li><a href="#stemming-wortstamm-finden" id="toc-stemming-wortstamm-finden" class="nav-link" data-scroll-target="#stemming-wortstamm-finden"><span class="toc-section-number">3.2.3</span>  Stemming (Wortstamm finden)</a></li>
+  <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="toc-section-number">3.2.4</span>  Stringverarbeitung</a></li>
+  </ul></li>
   <li><a href="#fallstudie" id="toc-fallstudie" class="nav-link" data-scroll-target="#fallstudie"><span class="toc-section-number">3.3</span>  Fallstudie</a>
   <ul class="collapse">
   <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">3.3.1</span>  Daten</a></li>
@@ -268,26 +274,68 @@ div.csl-indent {
 <li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span> Kap. 2.</li>
 </ul>
 </section>
-<section id="r-pakete" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="r-pakete"><span class="header-section-number">3.1.3</span> R-Pakete</h3>
+<section id="benötigte-r-pakete" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">3.1.3</span> Benötigte R-Pakete</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tokenizers)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcandersenr)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcandersenr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="einfache-methoden-des-textminings" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="einfache-methoden-des-textminings"><span class="header-section-number">3.2</span> Einfache Methoden des Textminings</h2>
 <p>Arbeiten Sie die folgenden grundlegenden Methoden des Textminigs durch.</p>
-<ul>
-<li>Tokenisierung, s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></li>
-<li>Stopwörter entfernen, s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></li>
-<li>Stemming, s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></li>
-<li>Stringverarbeitung, <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="references.html#ref-r4ds" role="doc-biblioref">2018</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">KAp. 14</a></li>
-</ul>
+<section id="tokenisierung" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="tokenisierung"><span class="header-section-number">3.2.1</span> Tokenisierung</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></p>
+<p>Wie viele Zeilen hat das Märchen “The Fir tree” (in der englischen Fassung?)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hcandersen_en <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"The fir tree"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 253</code></pre>
+</div>
+</div>
+</section>
+<section id="stopwörter-entfernen" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="stopwörter-entfernen"><span class="header-section-number">3.2.2</span> Stopwörter entfernen</h3>
+<p>Erarbeiten Sie dieses Kapitel: s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></p>
+</section>
+<section id="stemming-wortstamm-finden" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="stemming-wortstamm-finden"><span class="header-section-number">3.2.3</span> Stemming (Wortstamm finden)</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></p>
+<p>Vertiefende Hinweise zum UpSet plot finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="references.html#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
+<p>Für welche Sprachen gibt es Stemming im Paket <code>SnowballC</code>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getStemLanguages</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "arabic"     "basque"     "catalan"    "danish"     "dutch"     
+ [6] "english"    "finnish"    "french"     "german"     "greek"     
+[11] "hindi"      "hungarian"  "indonesian" "irish"      "italian"   
+[16] "lithuanian" "nepali"     "norwegian"  "porter"     "portuguese"
+[21] "romanian"   "russian"    "spanish"    "swedish"    "tamil"     
+[26] "turkish"   </code></pre>
+</div>
+</div>
+<p>Einfacher Test: Suchen wir den Wordstamm für das Wort “wissensdurstigen”, wie in “die wissensdurstigen Studentis löcherten dis armis Professi”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wordStem</span>(<span class="st">"wissensdurstigen"</span>, <span class="at">language =</span> <span class="st">"german"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "wissensdurst"</code></pre>
+</div>
+</div>
+<p>Werfen Sie mal einen Blick in das Handbuch von <a href="https://cran.r-project.org/web/packages/SnowballC/SnowballC.pdf">SnowballC</a>.</p>
+</section>
+<section id="stringverarbeitung" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="stringverarbeitung"><span class="header-section-number">3.2.4</span> Stringverarbeitung</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="references.html#ref-r4ds" role="doc-biblioref">2018</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">Kap. 14</a></p>
+</section>
 </section>
 <section id="fallstudie" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="fallstudie"><span class="header-section-number">3.3</span> Fallstudie</h2>
@@ -312,11 +360,20 @@ div.csl-indent {
 <div id="ref-smltar" class="csl-entry" role="doc-biblioentry">
 Hvitfeldt, Emil, und Julia Silge. 2022. <em>Supervised Machine Learning for Text Analysis in R</em>. 1. Aufl. Boca Raton: Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
+<div id="ref-lex_upset_2014" class="csl-entry" role="doc-biblioentry">
+Lex, Alexander, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot, und Hanspeter Pfister. 2014. <span>„<span>UpSet</span>: Visualization of Intersecting Sets“</span>. <em><span>IEEE</span> Transactions on Visualization and Computer Graphics</em> 20 (12): 1983–92. <a href="https://doi.org/10.1109/TVCG.2014.2346248">https://doi.org/10.1109/TVCG.2014.2346248</a>.
+</div>
 <div id="ref-r4ds" class="csl-entry" role="doc-biblioentry">
 Wickham, Hadley, und Garrett Grolemund. 2018. <em>R für Data Science: Daten importieren, bereinigen, umformen, modellieren und visualisieren</em>. Übersetzt von Frank Langenau. 1. Auflage. Heidelberg: O’Reilly. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
 </div>
 </div>
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://gender-i.de/#mit-bestimmtem-artikel">Gender-i</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

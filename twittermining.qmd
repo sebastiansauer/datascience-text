@@ -29,7 +29,9 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 
 
-### R-Pakete
+### Benötigte R-Pakete
+
+
 
 ```{r}
 #| message: false
@@ -88,7 +90,12 @@ Anmelden:
 
 ```{r oauth-twitter}
 #| eval: false
-auth <- rtweet_bot()
+#auth_setup_default() 
+
+auth <- rtweet_bot(api_key = api_key,
+                   api_secret = api_secret,
+                   access_token = access_token,
+                   access_secret = access_secret)
 ```
 
 
@@ -107,6 +114,23 @@ Ein gängiges Limit der Twitter-API sind 900 Anfragen (z.B. Tweets auslesen) pro
 
 ### Timeline einlesen einzelner Accounts
 
+Mal ein paar Tweets zur Probe:
+
+```{r}
+#| eval: false
+sesa_test <- get_timeline(user = "sauer_sebastian", n = 3) %>% 
+  select(full_text)
+```
+
+
+```{r}
+#| echo: false
+sesa_test <- readRDS(file = "tweets/sesa-test.rds")
+
+writeLines(sesa_test$full_text)
+```
+
+
 
 ```{r get-timeline1}
 #| eval: false
@@ -115,6 +139,9 @@ saveRDS(tweets, file = "tweets/tweets01.rds")
 ```
 
 
+[Michael Kearney](https://rtweet-workshop.mikewk.com/#25) rät uns:
+
+>   PRO TIP #4: (for developer accounts only) Use `bearer_token()` to increase rate limit to 45,000 per fifteen minutes.
 
 ### Retweets einlesen
 
@@ -187,6 +214,9 @@ saveRDS(followers01, file = "tweets/followers01.rds")
 
 Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können,
 z.B. nach Hate Speech.
+
+Im Gegensatz zu Followers heißen bei Twitter die Accounts, denen ei Nutzi folgt "Friends".
+
 
 
 ### Follower Tweets einlesen
@@ -268,6 +298,12 @@ write_csv(x = followers_lauterbach_tweets,
 Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir hängen hier die neu ausgelesenen Daten an die Datei an.
 
 Leider ist es mit `rtweet` nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte^[Mit dem R-Paket `twitteR`, das mittlerweile zugunsten von `rtweet` aufgegeben wurde, war das möglich. Allerdings zeigt ein [Blick in die Dokumentation der Twitter-API](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline), das Datumsangaben offenbar gar nicht unterstützt werden.]
+
+
+## Workshop zu rtweet
+
+Erarbeiten Sie die Folien zu diesem [rtweet-Workshop](https://rtweet-workshop.mikewk.com/#1). Eine Menge guter Tipps!
+
 
 
 ## Aufgaben

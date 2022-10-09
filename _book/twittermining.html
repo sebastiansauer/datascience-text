@@ -202,6 +202,11 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./word-embedding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Word Embedding</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
@@ -218,7 +223,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">2.1.1</span>  Lernziele</a></li>
   <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">2.1.2</span>  Vorbereitung</a></li>
-  <li><a href="#r-pakete" id="toc-r-pakete" class="nav-link" data-scroll-target="#r-pakete"><span class="toc-section-number">2.1.3</span>  R-Pakete</a></li>
+  <li><a href="#benötigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#benötigte-r-pakete"><span class="toc-section-number">2.1.3</span>  Benötigte R-Pakete</a></li>
   </ul></li>
   <li><a href="#anmelden-bei-twitter" id="toc-anmelden-bei-twitter" class="nav-link" data-scroll-target="#anmelden-bei-twitter"><span class="toc-section-number">2.2</span>  Anmelden bei Twitter</a>
   <ul class="collapse">
@@ -240,7 +245,8 @@ div.csl-indent {
   <li><a href="#was-ist-ein-cron-job" id="toc-was-ist-ein-cron-job" class="nav-link" data-scroll-target="#was-ist-ein-cron-job"><span class="toc-section-number">2.4.1</span>  Was ist ein Cron Job?</a></li>
   <li><a href="#beispiel-für-einen-cron-job" id="toc-beispiel-für-einen-cron-job" class="nav-link" data-scroll-target="#beispiel-für-einen-cron-job"><span class="toc-section-number">2.4.2</span>  Beispiel für einen Cron Job</a></li>
   </ul></li>
-  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">2.5</span>  Aufgaben</a></li>
+  <li><a href="#workshop-zu-rtweet" id="toc-workshop-zu-rtweet" class="nav-link" data-scroll-target="#workshop-zu-rtweet"><span class="toc-section-number">2.5</span>  Workshop zu rtweet</a></li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">2.6</span>  Aufgaben</a></li>
   </ul>
 </nav>
     </div>
@@ -287,8 +293,8 @@ div.csl-indent {
 <li>Lesen Sie <a href="https://docs.ropensci.org/rtweet/articles/auth.html">diesen Artikel zur Anmeldung bei der Twitter API</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 </ul>
 </section>
-<section id="r-pakete" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="r-pakete"><span class="header-section-number">2.1.3</span> R-Pakete</h3>
+<section id="benötigte-r-pakete" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">2.1.3</span> Benötigte R-Pakete</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -430,7 +436,12 @@ div.csl-indent {
 </div>
 <p>Anmelden:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">rtweet_bot</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#auth_setup_default() </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">rtweet_bot</span>(<span class="at">api_key =</span> api_key,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">api_secret =</span> api_secret,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">access_token =</span> access_token,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">access_secret =</span> access_secret)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -440,21 +451,41 @@ div.csl-indent {
 <p>Ein gängiges Limit der Twitter-API sind 900 Anfragen (z.B. Tweets auslesen) pro 15 Minuten.</p>
 <section id="timeline-einlesen-einzelner-accounts" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="timeline-einlesen-einzelner-accounts"><span class="header-section-number">2.3.1</span> Timeline einlesen einzelner Accounts</h3>
+<p>Mal ein paar Tweets zur Probe:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> d<span class="sc">$</span>screenname)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(tweets, <span class="at">file =</span> <span class="st">"tweets/tweets01.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sesa_test <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="st">"sauer_sebastian"</span>, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(full_text)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>RT @pia_lamberty: Ein Ansatz, der sich beim Debunking wissenschaftlich als erfolgreich herausgestellt hat, ist das sog. Faktensandwich: htt…
+RT @ianbremmer: sure, it’s the hottest summer europe has ever had in history 
+
+but look at the upside
+
+it’s one of the coolest summers euro…
+RT @twisteddoodles: Balanced news reporting https://t.co/O1iiItEQrs</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> d<span class="sc">$</span>screenname)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(tweets, <span class="at">file =</span> <span class="st">"tweets/tweets01.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="https://rtweet-workshop.mikewk.com/#25">Michael Kearney</a> rät uns:</p>
+<blockquote class="blockquote">
+<p>PRO TIP #4: (for developer accounts only) Use <code>bearer_token()</code> to increase rate limit to 45,000 per fifteen minutes.</p>
+</blockquote>
 </section>
 <section id="retweets-einlesen" class="level3" data-number="2.3.2">
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="retweets-einlesen"><span class="header-section-number">2.3.2</span> Retweets einlesen</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rtweet.retryonratelimit =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rtweet.retryonratelimit =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tweets01_retweets <span class="ot">&lt;-</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  tweets<span class="sc">$</span>id_str <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>( <span class="sc">~</span> <span class="fu">get_retweets</span>(<span class="at">status_id =</span> .x, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tweets01_retweets <span class="ot">&lt;-</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  tweets<span class="sc">$</span>id_str <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>( <span class="sc">~</span> <span class="fu">get_retweets</span>(<span class="at">status_id =</span> .x, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Da die meisten Retweets aber nix sagen, sondern nur auf das einen Tweet wiederholen, ist das Sammeln der Retweets ziemlich langweilig.</p>
 </section>
@@ -465,10 +496,10 @@ div.csl-indent {
 <p>Auf der gleichen Seite findet sich auch eine <a href="https://access.gesis.org/sharing/2415/3675">Dokumentation des Vorgehens</a>.</p>
 <p>Nachdem wir den Datensatz heruntergeladen haben, können wir ihn einlesen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>politicians_path <span class="ot">&lt;-</span> <span class="st">"data/EPINetz_TwitterPoliticians_2021.RDs"</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>politicians_twitter <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(politicians_path)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politicians_twitter)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>politicians_path <span class="ot">&lt;-</span> <span class="st">"data/EPINetz_TwitterPoliticians_2021.RDs"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>politicians_twitter <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(politicians_path)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(politicians_twitter)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -618,26 +649,27 @@ div.csl-indent {
 </div>
 <p>Dann lesen wir die Timelines (die Tweets) dieser Konten aus; in diesem Beispiel nur 10 Tweets pro Account:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>epi_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(politicians_twitter<span class="sc">$</span>twitter_name), <span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(epi_tweets)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>epi_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(politicians_twitter<span class="sc">$</span>twitter_name), <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(epi_tweets)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Natürlich könnte man auch mehr als 10 Tweets pro Konto einsammeln, braucht nur seine Zeit.</p>
 </section>
 <section id="followers-suchen" class="level3" data-number="2.3.4">
 <h3 data-number="2.3.4" class="anchored" data-anchor-id="followers-suchen"><span class="header-section-number">2.3.4</span> Followers suchen</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>followers01 <span class="ot">&lt;-</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  d<span class="sc">$</span>screenname <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">map_dfr</span>( <span class="sc">~</span> <span class="fu">get_followers</span>(<span class="at">user =</span> .x, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(followers01, <span class="at">file =</span> <span class="st">"tweets/followers01.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>followers01 <span class="ot">&lt;-</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  d<span class="sc">$</span>screenname <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">map_dfr</span>( <span class="sc">~</span> <span class="fu">get_followers</span>(<span class="at">user =</span> .x, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(followers01, <span class="at">file =</span> <span class="st">"tweets/followers01.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können, z.B. nach Hate Speech.</p>
+<p>Im Gegensatz zu Followers heißen bei Twitter die Accounts, denen ei Nutzi folgt “Friends”.</p>
 </section>
 <section id="follower-tweets-einlesen" class="level3" data-number="2.3.5">
 <h3 data-number="2.3.5" class="anchored" data-anchor-id="follower-tweets-einlesen"><span class="header-section-number">2.3.5</span> Follower Tweets einlesen</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>followers_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(followers01<span class="sc">$</span>from_id), <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>followers_tweets <span class="ot">&lt;-</span> <span class="fu">get_timeline</span>(<span class="at">user =</span> <span class="fu">head</span>(followers01<span class="sc">$</span>from_id), <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -652,45 +684,49 @@ div.csl-indent {
 <section id="beispiel-für-einen-cron-job" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="beispiel-für-einen-cron-job"><span class="header-section-number">2.4.2</span> Beispiel für einen Cron Job</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cronR)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>scrape_script <span class="ot">&lt;-</span> <span class="fu">cron_rscript</span>(<span class="st">"scrape_tweets.R"</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Cron Job hinzufügen:</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_add</span>(<span class="at">command =</span> scrape_script, </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">frequency =</span> <span class="st">'daily'</span>, </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">at =</span> <span class="st">"10AM"</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="st">'Hate Speech'</span>)  <span class="co"># Name des Cron Jobs</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_clear</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)  <span class="co"># Alle Cron Jobs löschen</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_ls</span>()  <span class="co"># Liste aller Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cronR)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>scrape_script <span class="ot">&lt;-</span> <span class="fu">cron_rscript</span>(<span class="st">"scrape_tweets.R"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Cron Job hinzufügen:</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_add</span>(<span class="at">command =</span> scrape_script, </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">frequency =</span> <span class="st">'daily'</span>, </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">at =</span> <span class="st">"10AM"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="st">'Hate Speech'</span>)  <span class="co"># Name des Cron Jobs</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_clear</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)  <span class="co"># Alle Cron Jobs löschen</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_ls</span>()  <span class="co"># Liste aller Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Im obigen Beispiel wird das R-Skript <code>scrape_tweets.R</code> täglich um 10h ausgeführt.</p>
 <p>Der Inhalt von <code>scrape_tweets.R</code> könnte dann, in Grundzügen, so aussehen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>followers_lauterbach <span class="ot">&lt;-</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  followers01 <span class="sc">%&gt;%</span> </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(to_id <span class="sc">==</span> <span class="st">"Karl_Lauterbach"</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>followers_lauterbach_tweets <span class="ot">&lt;-</span> </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_timeline</span>(<span class="at">user =</span> followers_lauterbach<span class="sc">$</span>from_id[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">n =</span> <span class="dv">10</span>, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>path_output <span class="ot">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/Google Drive/RRRing/Scrape-Tweets/tweets/"</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> followers_lauterbach_tweets,</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="fu">paste0</span>(path_output, <span class="st">"followers_lauterbach_tweets.csv"</span>),</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>followers_lauterbach <span class="ot">&lt;-</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  followers01 <span class="sc">%&gt;%</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(to_id <span class="sc">==</span> <span class="st">"Karl_Lauterbach"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>followers_lauterbach_tweets <span class="ot">&lt;-</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_timeline</span>(<span class="at">user =</span> followers_lauterbach<span class="sc">$</span>from_id[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">n =</span> <span class="dv">10</span>, <span class="at">retryonratelimit =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>path_output <span class="ot">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/Google Drive/RRRing/Scrape-Tweets/tweets/"</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> followers_lauterbach_tweets,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">file =</span> <span class="fu">paste0</span>(path_output, <span class="st">"followers_lauterbach_tweets.csv"</span>),</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir hängen hier die neu ausgelesenen Daten an die Datei an.</p>
 <p>Leider ist es mit <code>rtweet</code> nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 </section>
 </section>
-<section id="aufgaben" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">2.5</span> Aufgaben</h2>
+<section id="workshop-zu-rtweet" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="workshop-zu-rtweet"><span class="header-section-number">2.5</span> Workshop zu rtweet</h2>
+<p>Erarbeiten Sie die Folien zu diesem <a href="https://rtweet-workshop.mikewk.com/#1">rtweet-Workshop</a>. Eine Menge guter Tipps!</p>
+</section>
+<section id="aufgaben" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">2.6</span> Aufgaben</h2>
 <ol type="1">
 <li>Überlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.</li>
 <li>Argumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.</li>

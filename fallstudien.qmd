@@ -1,0 +1,8 @@
+# Fallstudien
+
+
+## Quellen für Textdaten
+
+
+Der [MonkeyLearn Blog](https://monkeylearn.com/blog/how-to-create-text-classifiers-machine-learning/) liefert eine Reihe von Quellen zu API, die Textdaten bereitstellen.
+

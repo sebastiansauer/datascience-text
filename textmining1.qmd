@@ -23,7 +23,7 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 
 
-### R-Pakete
+### Benötigte R-Pakete
 
 ```{r}
 #| message: false
@@ -32,6 +32,7 @@ library(tokenizers)
 library(tidyverse)
 library(tidytext)
 library(hcandersenr)
+library(SnowballC)
 ```
 
 
@@ -42,10 +43,61 @@ library(hcandersenr)
 Arbeiten Sie die folgenden grundlegenden Methoden des Textminigs durch.
 
 
-- Tokenisierung, s. @smltar, [Kap. 2](https://smltar.com/tokenization.html#tokenization)
-- Stopwörter entfernen, s. @smltar, [Kap. 3](https://smltar.com/stopwords.html#stopwords)
-- Stemming, s. @smltar, [Kap. 4](https://smltar.com/stemming.html#stemming)
-- Stringverarbeitung, @r4ds, [KAp. 14](https://r4ds.had.co.nz/strings.html)
+
+
+### Tokenisierung
+
+Erarbeiten Sie dieses Kapitel: @smltar, [Kap. 2](https://smltar.com/tokenization.html#tokenization)
+
+Wie viele Zeilen hat das Märchen "The Fir tree" (in der englischen Fassung?)
+
+
+```{r}
+hcandersen_en %>% 
+  filter(book == "The fir tree") %>% 
+  nrow()
+```
+
+
+### Stopwörter entfernen
+
+
+Erarbeiten Sie dieses Kapitel: s. @smltar, [Kap. 3](https://smltar.com/stopwords.html#stopwords)
+
+
+### Stemming (Wortstamm finden)
+
+Erarbeiten Sie dieses Kapitel: @smltar, [Kap. 4](https://smltar.com/stemming.html#stemming)
+
+
+Vertiefende Hinweise zum UpSet plot finden Sie [hier](https://ieeexplore.ieee.org/document/6876017), @lex_upset_2014.
+
+
+Für welche Sprachen gibt es Stemming im Paket `SnowballC`?
+
+```{r}
+library(SnowballC)
+getStemLanguages()
+```
+
+
+Einfacher Test: Suchen wir den Wordstamm für das Wort "wissensdurstigen", wie in "die wissensdurstigen Studentis löcherten dis armis Professi"^[[Gender-i](https://gender-i.de/#mit-bestimmtem-artikel)].
+
+```{r}
+wordStem("wissensdurstigen", language = "german")
+```
+
+
+Werfen Sie mal einen Blick in das Handbuch von [SnowballC](https://cran.r-project.org/web/packages/SnowballC/SnowballC.pdf).
+
+
+
+
+### Stringverarbeitung
+
+Erarbeiten Sie dieses Kapitel: @r4ds, [Kap. 14](https://r4ds.had.co.nz/strings.html)
+
+
 
 
 
