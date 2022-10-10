@@ -22,7 +22,7 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 Nach diesem Kurs sollten Sie ...
 
 - Daten aus Sozialen Netzwerken wie Twitter automatisiert in großer Menge auslesen können
-- Gängige Methoden des Textsminings mit R anwenden können (z.B. Tokenizing, Stemming, Regex)
+- Gängige Methoden des Textminings mit R anwenden können (z.B. Tokenizing, Stemming, Regex)
 - Verfahren des Maschinenlernens auf Textdaten anwenden können
 - Den Forschungsstand zum Thema Erkennung von Hate Speech in Ausschnitten kennen
 
