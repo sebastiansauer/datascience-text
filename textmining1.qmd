@@ -108,14 +108,18 @@ Daten einlesen:
 ```{r}
 d_link <- "https://raw.githubusercontent.com/sebastiansauer/pradadata/master/data-raw/afd_2022.csv"
 afd <- read_csv(d_link, show_col_types = FALSE)
-
-head(afd)
 ```
 
 Wie viele Seiten hat das Dokument?
 
 ```{r}
 nrow(afd)
+```
+
+Und wie viele Wörter?
+
+```{r}
+str_count(afd$text, pattern = "\\w") %>% sum(na.rm = TRUE)
 ```
 
 
@@ -308,11 +312,11 @@ devtools::install_github("sebastiansauer/pradadata")
 data(sentiws, package = "pradadata")
 ```
 
-Tabelle @tab-afdcount zeigt einen Ausschnitt aus dem Sentiment-Lexikon *SentiWS*.
+Tabelle @tbl-afdcount zeigt einen Ausschnitt aus dem Sentiment-Lexikon *SentiWS*.
 
 ```{r sentiws-head, echo = FALSE}
 #| echo: false
-#| label: tab-afdcount
+#| label: tbl-afdcount
 #| tbl-cap: "Auszug aus SentiWS"
 head(sentiws)
 ```
@@ -323,7 +327,7 @@ head(sentiws)
 Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; 
 dabei zählen wir die Treffer für positive bzw. negative Terme. 
 Zuvor müssen wir aber noch die Daten (`afd_long`) mit dem Sentimentlexikon zusammenführen (joinen). 
-Das geht nach bewährter Manier mit `inner_join`; "inner" sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle @tab-afd-senti-tab zeigt Summe, Anzahl und Anteil der Emotionswerte.
+Das geht nach bewährter Manier mit `inner_join`; "inner" sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle @tbl-afdsenti zeigt Summe, Anzahl und Anteil der Emotionswerte.
 
 
 Wir nutzen die Tabelle `afd_long`,  die wir oben definiert haben.
@@ -342,8 +346,8 @@ afd_senti %>%
 ```
 
 ```{r afd_senti_tab, echo = FALSE}
-#| tbl-cap: tab-afd-senti-tab
-#| label: "Zusammenfassung von SentiWS"
+#| label: tbl-afdsenti
+#| tbl-cap: "Zusammenfassung von SentiWS"
 
 afd_senti_tab
 ```
@@ -379,11 +383,22 @@ Wenn es insgesamt im Sentiment-Lexikon sehr negativ zuginge,
 wäre ein negativer Sentimentwer in einem beliebigen Corpus nicht überraschend. `describe_distribution` aus `{easystats}` gibt uns einen Überblick der üblichen deskriptiven Statistiken.
      
 
-```{r eval = TRUE}
+```{r}
+#| eval: false
 sentiws %>% 
   select(value, neg_pos) %>% 
   #group_by(neg_pos) %>% 
   describe_distribution()
+```
+
+
+```{r eval = TRUE}
+#| echo: false
+sentiws %>% 
+  select(value, neg_pos) %>% 
+  #group_by(neg_pos) %>% 
+  describe_distribution() %>% 
+  print_md()
 ```
 
 Insgesamt ist das Lexikon ziemlich ausgewogen; negative Werte sind leicht in der Überzahl im Lexikon. 
