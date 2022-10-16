@@ -143,6 +143,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -230,10 +231,12 @@ div.csl-indent {
   <li><a href="#tokenisierung" id="toc-tokenisierung" class="nav-link" data-scroll-target="#tokenisierung"><span class="toc-section-number">3.2.1</span>  Tokenisierung</a></li>
   <li><a href="#stopwörter-entfernen" id="toc-stopwörter-entfernen" class="nav-link" data-scroll-target="#stopwörter-entfernen"><span class="toc-section-number">3.2.2</span>  Stopwörter entfernen</a></li>
   <li><a href="#stemming-wortstamm-finden" id="toc-stemming-wortstamm-finden" class="nav-link" data-scroll-target="#stemming-wortstamm-finden"><span class="toc-section-number">3.2.3</span>  Stemming (Wortstamm finden)</a></li>
-  <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="toc-section-number">3.2.4</span>  Stringverarbeitung</a></li>
+  <li><a href="#fallstudie-afd-parteiprogramm" id="toc-fallstudie-afd-parteiprogramm" class="nav-link" data-scroll-target="#fallstudie-afd-parteiprogramm"><span class="toc-section-number">3.2.4</span>  Fallstudie AfD-Parteiprogramm</a></li>
+  <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="toc-section-number">3.2.5</span>  Stringverarbeitung</a></li>
+  <li><a href="#sentimentanalyse" id="toc-sentimentanalyse" class="nav-link" data-scroll-target="#sentimentanalyse"><span class="toc-section-number">3.2.6</span>  Sentimentanalyse</a></li>
   </ul></li>
   <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">3.3</span>  Aufgaben</a></li>
-  <li><a href="#fallstudie" id="toc-fallstudie" class="nav-link" data-scroll-target="#fallstudie"><span class="toc-section-number">3.4</span>  Fallstudie</a>
+  <li><a href="#fallstudie-hate-speech" id="toc-fallstudie-hate-speech" class="nav-link" data-scroll-target="#fallstudie-hate-speech"><span class="toc-section-number">3.4</span>  Fallstudie Hate-Speech</a>
   <ul class="collapse">
   <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">3.4.1</span>  Daten</a></li>
   <li><a href="#grundlegendes-text-mining" id="toc-grundlegendes-text-mining" class="nav-link" data-scroll-target="#grundlegendes-text-mining"><span class="toc-section-number">3.4.2</span>  Grundlegendes Text Mining</a></li>
@@ -283,7 +286,9 @@ div.csl-indent {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcandersenr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)  <span class="co"># Stemming</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lsa)  <span class="co"># Stopwörter</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -333,9 +338,443 @@ div.csl-indent {
 </div>
 <p>Werfen Sie mal einen Blick in das Handbuch von <a href="https://cran.r-project.org/web/packages/SnowballC/SnowballC.pdf">SnowballC</a>.</p>
 </section>
-<section id="stringverarbeitung" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="stringverarbeitung"><span class="header-section-number">3.2.4</span> Stringverarbeitung</h3>
+<section id="fallstudie-afd-parteiprogramm" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="fallstudie-afd-parteiprogramm"><span class="header-section-number">3.2.4</span> Fallstudie AfD-Parteiprogramm</h3>
+<p>Daten einlesen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>d_link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/sebastiansauer/pradadata/master/data-raw/afd_2022.csv"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>afd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_link, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aus breit mach lang, oder: wir tokenisieren (nach Wörtern):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>afd <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> token, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(token, <span class="st">"[a-z]"</span>)) <span class="ot">-&gt;</span> afd_long</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Stopwörter entfernen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(stopwords_de, <span class="at">package =</span> <span class="st">"lsa"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>stopwords_de <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">word =</span> stopwords_de)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Für das Joinen werden gleiche Spaltennamen benötigt:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>stopwords_de <span class="ot">&lt;-</span> stopwords_de <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">token =</span> word)  </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stopwords_de) <span class="ot">-&gt;</span> afd_no_stop</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "token"</code></pre>
+</div>
+</div>
+<p>Wörter zählen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>afd_no_stop <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> afd_count</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(afd_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">token</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">afd</td>
+<td style="text-align: right;">174</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">deutschland</td>
+<td style="text-align: right;">113</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wollen</td>
+<td style="text-align: right;">66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">euro</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bürger</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eu</td>
+<td style="text-align: right;">54</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Wörter trunkieren:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>afd_no_stop <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token_stem =</span> <span class="fu">wordStem</span>(.<span class="sc">$</span>token, <span class="at">language =</span> <span class="st">"de"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token_stem, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> afd_count_stemmed</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(afd_no_stop)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: right;">page</th>
+<th style="text-align: left;">token</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">programm</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">deutschland</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">grundsatzprogramm</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">alternative</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">deutschland</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">inhaltsverzeichnis</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="stringverarbeitung" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="stringverarbeitung"><span class="header-section-number">3.2.5</span> Stringverarbeitung</h3>
 <p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="references.html#ref-r4ds" role="doc-biblioref">2018</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">Kap. 14</a></p>
+<section id="regex" class="level4" data-number="3.2.5.1">
+<h4 data-number="3.2.5.1" class="anchored" data-anchor-id="regex"><span class="header-section-number">3.2.5.1</span> Regulärausdrücke</h4>
+<p>Das <code>"[a-z]"</code> in der Syntax oben steht für “alle Buchstaben von a-z”. D iese flexible Art von “String-Verarbeitung mit Jokern” nennt man <em>Regulärausdrücke</em> (regular expressions; regex). Es gibt eine ganze Reihe von diesen Regulärausdrücken, die die Verarbeitung von Texten erleichert. Mit dem Paket <code>stringr</code> geht das - mit etwas Übung - gut von der Hand. Nehmen wir als Beispiel den Text eines Tweets:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">"Correlation of unemployment and #AfD votes at #btw17: ***r = 0.18***</span><span class="sc">\n\n</span><span class="st">https://t.co/YHyqTguVWx"</span>  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Möchte man Ziffern identifizieren, so hilft der Reulärausdruck <code>[:digit:]</code>:</p>
+<p>“Gibt es mindestens eine Ziffer in dem String?”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>“Finde die Position der ersten Ziffer! Welche Ziffer ist es?”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     start end
+[1,]    51  51</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1"</code></pre>
+</div>
+</div>
+<p>“Finde alle Ziffern!”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "1" "7" "0" "1" "8"</code></pre>
+</div>
+</div>
+<p>“Finde alle Stellen an denen genau 2 Ziffern hintereinander folgen!”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:digit:]{2}"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "17" "18"</code></pre>
+</div>
+</div>
+<p>Der Quantitätsoperator <code>{n}</code> findet alle Stellen, in der der der gesuchte Ausdruck genau <span class="math inline">\(n\)</span> mal auftaucht.</p>
+<p>“Zeig die Hashtags!”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"#[:alnum:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "#AfD"   "#btw17"</code></pre>
+</div>
+</div>
+<p>Der Operator <code>[:alnum:]</code> steht für “alphanumerischer Charakter” - also eine Ziffer oder ein Buchstabe; synonym hätte man auch <code>\\w</code> schreiben können (w wie word). Warum werden zwei Backslashes gebraucht? Mit <code>\\w</code> wird signalisiert, dass nicht der Buchstabe <em>w</em>, sondern etwas Besonderes, eben der Regex-Operator <code>\w</code> gesucht wird.</p>
+<p>“Zeig die URLs!”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"https?://[:graph:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "https://t.co/YHyqTguVWx"</code></pre>
+</div>
+</div>
+<p>Das Fragezeichen <code>?</code> ist eine Quantitätsoperator, der einen Treffer liefert, wenn das vorherige Zeichen (hier <em>s</em>) null oder einmal gefunden wird. <code>[:graph:]</code> ist die Summe von <code>[:alpha:]</code> (Buchstaben, groß und klein), <code>[:digit:]</code> (Ziffern) und <code>[:punct:]</code> (Satzzeichen u.ä.).</p>
+<p>“Zähle die Wörter im String!”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(string, <span class="fu">boundary</span>(<span class="st">"word"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+</div>
+<p>“Liefere nur Buchstaben<em>folgen</em> zurück, lösche alles übrige”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:alpha:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+ [1] "Correlation"  "of"           "unemployment" "and"          "AfD"         
+ [6] "votes"        "at"           "btw"          "r"            "https"       
+[11] "t"            "co"           "YHyqTguVWx"  </code></pre>
+</div>
+</div>
+<p>Der Quantitätsoperator <code>+</code> liefert alle Stellen zurück, in denen der gesuchte Ausdruck <em>einmal oder häufiger</em> vorkommt. Die Ergebnisse werden als Vektor von Wörtern zurückgegeben. Ein anderer Quantitätsoperator ist <code>*</code>, der für 0 oder mehr Treffer steht. Möchte man einen Vektor, der aus Stringen-Elementen besteht zu einem Strring zusammenfüngen, hilft <code>paste(string)</code> oder <code>str_c(string, collapse = " ")</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(string, <span class="st">"[^[:alpha:]+]"</span>, <span class="st">""</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "CorrelationofunemploymentandAfDvotesatbtwrhttpstcoYHyqTguVWx"</code></pre>
+</div>
+</div>
+<p>Mit dem Negationsoperator <code>[^x]</code> wird der Regulärausrck <code>x</code> negiert; die Syntax oben heißt also “ersetze in <code>string</code> alles außer Buchstaben durch Nichts”. Mit “Nichts” sind hier Strings der Länge Null gemeint; ersetzt man einen belieibgen String durch einen String der Länge Null, so hat man den String gelöscht.</p>
+<p>Das Cheatsheet zur Strings bzw zu <code>stringr</code> von RStudio gibt einen guten Überblick über Regex; im Internet finden sich viele Beispiele.</p>
+</section>
+</section>
+<section id="sentimentanalyse" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="sentimentanalyse"><span class="header-section-number">3.2.6</span> Sentimentanalyse</h3>
+<section id="einführung" class="level4" data-number="3.2.6.1">
+<h4 data-number="3.2.6.1" class="anchored" data-anchor-id="einführung"><span class="header-section-number">3.2.6.1</span> Einführung</h4>
+<p>Eine weitere interessante Analyse ist, die “Stimmung” oder “Emotionen” (Sentiments) eines Textes auszulesen. Die Anführungszeichen deuten an, dass hier ein Maß an Verständnis suggeriert wird, welches nicht (unbedingt) von der Analyse eingehalten wird. Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so:</p>
+<ol type="1">
+<li>Schau dir jeden Token aus dem Text an.<br>
+</li>
+<li>Prüfe, ob sich das Wort im Lexikon der Sentiments wiederfindet.<br>
+</li>
+<li>Wenn ja, dann addiere den Sentimentswert dieses Tokens zum bestehenden Sentiments-Wert.<br>
+</li>
+<li>Wenn nein, dann gehe weiter zum nächsten Wort.<br>
+</li>
+<li>Liefere zum Schluss die Summenwerte pro Sentiment zurück.</li>
+</ol>
+<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/x89wq/?action=download"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Den Volltext zum Paper finden Sie z.B. <a href="http://www.lrec-conf.org/proceedings/lrec2010/pdf/490_Paper.pdf">hier</a>.</p>
+<p>Alternativ können Sie die Daten aus dem Paket <code>pradadata</code> laden. Allerdings müssen Sie dieses Paket von Github installieren:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>, <span class="at">dep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"sebastiansauer/pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sentiws, <span class="at">package =</span> <span class="st">"pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tabelle <span class="citation" data-cites="tab-afdcount">(<a href="references.html#ref-tab-afdcount" role="doc-biblioref"><strong>tab-afdcount?</strong></a>)</span> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<caption>Auszug aus SentiWS </caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">neg_pos</th>
+<th style="text-align: left;">word</th>
+<th style="text-align: right;">value</th>
+<th style="text-align: left;">inflections</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">neg</td>
+<td style="text-align: left;">Abbau</td>
+<td style="text-align: right;">-0.0580</td>
+<td style="text-align: left;">Abbaus,Abbaues,Abbauen,Abbaue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neg</td>
+<td style="text-align: left;">Abbruch</td>
+<td style="text-align: right;">-0.0048</td>
+<td style="text-align: left;">Abbruches,Abbrüche,Abbruchs,Abbrüchen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">neg</td>
+<td style="text-align: left;">Abdankung</td>
+<td style="text-align: right;">-0.0048</td>
+<td style="text-align: left;">Abdankungen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neg</td>
+<td style="text-align: left;">Abdämpfung</td>
+<td style="text-align: right;">-0.0048</td>
+<td style="text-align: left;">Abdämpfungen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">neg</td>
+<td style="text-align: left;">Abfall</td>
+<td style="text-align: right;">-0.0048</td>
+<td style="text-align: left;">Abfalles,Abfälle,Abfalls,Abfällen</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">neg</td>
+<td style="text-align: left;">Abfuhr</td>
+<td style="text-align: right;">-0.3367</td>
+<td style="text-align: left;">Abfuhren</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="ungewichtete-sentiment-analyse" class="level4" data-number="3.2.6.2">
+<h4 data-number="3.2.6.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse"><span class="header-section-number">3.2.6.2</span> Ungewichtete Sentiment-Analyse</h4>
+<p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <span class="citation" data-cites="tab-afd-senti-tab">(<a href="references.html#ref-tab-afd-senti-tab" role="doc-biblioref"><strong>tab-afd-senti-tab?</strong></a>)</span> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
+<p>Wir nutzen die Tabelle <code>afd_long</code>, die wir oben definiert haben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sentiws, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"token"</span> <span class="ot">=</span> <span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>inflections) <span class="ot">-&gt;</span> afd_senti  <span class="co"># die Spalte brauchen wir nicht</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(neg_pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">polarity_sum =</span> <span class="fu">sum</span>(value),</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">polarity_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">polarity_prop =</span> (polarity_count <span class="sc">/</span> <span class="fu">sum</span>(polarity_count)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="ot">-&gt;</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  afd_senti_tab</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<caption>tab-afd-senti-tab </caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">neg_pos</th>
+<th style="text-align: right;">polarity_sum</th>
+<th style="text-align: right;">polarity_count</th>
+<th style="text-align: right;">polarity_prop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">neg</td>
+<td style="text-align: right;">-48.5307</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">0.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pos</td>
+<td style="text-align: right;">30.6595</td>
+<td style="text-align: right;">578</td>
+<td style="text-align: right;">0.73</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Die Analyse zeigt, dass die emotionale Bauart des Textes durchaus interessant ist: Es gibt viel mehr positiv getönte Wörter als negativ getönte. Allerdings sind die negativen Wörter offenbar deutlich stärker emotional aufgeladen, denn die Summe an Emotionswert der negativen Wörter ist (überraschenderweise?) deutlich größer als die der positiven.</p>
+<p>Betrachten wir also die intensivsten negativ und positive konnotierten Wörter näher.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(token, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value_abs =</span> <span class="fu">abs</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, value_abs) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(token)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ungerecht"    "besonders"    "gefährlich"   "überflüssig"  "behindern"   
+ [6] "gelungen"     "brechen"      "unzureichend" "gemein"       "verletzt"    
+[11] "zerstören"    "trennen"      "falsch"       "vermeiden"    "zerstört"    
+[16] "schwach"      "belasten"     "schädlich"    "töten"        "verbieten"   </code></pre>
+</div>
+</div>
+<p>Diese “Hitliste” wird zumeist (19/20) von negativ polarisierten Begriffen aufgefüllt, wobei “besonders” ein Intensivierwort ist, welches das Bezugswort verstärt (“besonders gefährlich”). Das Argument <code>keep_all = TRUE</code> sorgt dafür, dass alle Spalten zurückgegeben werden, nicht nur die durchsuchte Spalte <code>token</code>. Mit <code>pull</code> haben wir aus dem Dataframe, der von den dplyr-Verben übergeben wird, die Spalte <code>pull</code> “herausgezogen”; hier nur um Platz zu sparen bzw. der Übersichtlichkeit halber.</p>
+<p>Nun könnte man noch den erzielten “Netto-Sentimentswert” des Corpus ins Verhältnis setzen Sentimentswert des Lexikons: Wenn es insgesamt im Sentiment-Lexikon sehr negativ zuginge, wäre ein negativer Sentimentwer in einem beliebigen Corpus nicht überraschend. <code>describe_distribution</code> aus <code>{easystats}</code> gibt uns einen Überblick der üblichen deskriptiven Statistiken.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(value, neg_pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(neg_pos) %&gt;% </span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe_distribution</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 6%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">IQR</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+<th style="text-align: right;">Skewness</th>
+<th style="text-align: right;">Kurtosis</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">n_Missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">value</td>
+<td style="text-align: right;">-0.0539057</td>
+<td style="text-align: right;">0.2040508</td>
+<td style="text-align: right;">0.0474</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.6843984</td>
+<td style="text-align: right;">2.364438</td>
+<td style="text-align: right;">3468</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Insgesamt ist das Lexikon ziemlich ausgewogen; negative Werte sind leicht in der Überzahl im Lexikon. Unser Corpus hat eine ähnliche mittlere emotionale Konnotation wie das Lexikon:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">senti_sum =</span> <span class="fu">mean</span>(value) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: right;">senti_sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-0.02</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="aufgaben" class="level2" data-number="3.3">
@@ -347,8 +786,8 @@ div.csl-indent {
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map04/purrr-map04.html">purrr-map04</a></li>
 </ul>
 </section>
-<section id="fallstudie" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="fallstudie"><span class="header-section-number">3.4</span> Fallstudie</h2>
+<section id="fallstudie-hate-speech" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="fallstudie-hate-speech"><span class="header-section-number">3.4</span> Fallstudie Hate-Speech</h2>
 <section id="daten" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="daten"><span class="header-section-number">3.4.1</span> Daten</h3>
 <p>Es finden sich mehrere Datensätze zum Thema Hate-Speech im öffentlichen Internet, eine Quelle ist <a href="https://ckan.hatespeechdata.com/">Hate Speech Data</a>, ein Repositorium, das mehrere Datensätze beinhaltet.</p>
@@ -357,7 +796,7 @@ div.csl-indent {
 <li><a href="https://ckan.hatespeechdata.com/dataset/bretschneider-and-peters-prejudice-on-facebook-dataset">Bretschneider and Peters Prejudice on Facebook Dataset</a></li>
 <li><a href="https://github.com/ENCASEH2020/hatespeech-twitter/blob/master/hatespeech_labels.csv">Daten zum Fachartikel”Large Scale Crowdsourcing and Characterization of Twitter Abusive Behavior”</a></li>
 </ul>
-<p>Twitterdaten dürfen nur in “dehydrierter” Form weitergegeben werden, so dass kein Rückschluss von ID zum Inhalt des Tweets möglich ist. Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, also ohne den eigentlichen Inhalt des Tweets, bereitgestellt.</p>
+<p>Twitterdaten dürfen nur in “dehydrierter” Form weitergegeben werden, so dass kein Rückschluss von ID zum Inhalt des Tweets möglich ist. Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, a lso ohne den eigentlichen Inhalt des Tweets, bereitgestellt.</p>
 <p>Über die Twitter-API kann man sich, wie oben dargestellt, dann die Tweets wieder “rehydrieren”, also wieder mit dem zugehörigen Tweet-Text (und sonstigen Infos des Tweets) zu versehen.</p>
 </section>
 <section id="grundlegendes-text-mining" class="level3" data-number="3.4.2">
@@ -372,6 +811,9 @@ Hvitfeldt, Emil, und Julia Silge. 2022. <em>Supervised Machine Learning for Text
 </div>
 <div id="ref-lex_upset_2014" class="csl-entry" role="doc-biblioentry">
 Lex, Alexander, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot, und Hanspeter Pfister. 2014. <span>„<span>UpSet</span>: Visualization of Intersecting Sets“</span>. <em><span>IEEE</span> Transactions on Visualization and Computer Graphics</em> 20 (12): 1983–92. <a href="https://doi.org/10.1109/TVCG.2014.2346248">https://doi.org/10.1109/TVCG.2014.2346248</a>.
+</div>
+<div id="ref-Remus2010" class="csl-entry" role="doc-biblioentry">
+Remus, Robert, Uwe Quasthoff, und Gerhard Heyer. 2010. <span>„<span>SentiWS</span> - a Publicly Available German-language Resource for Sentiment Analysis“</span>. <em>Proceedings of the 7th International Language Ressources and Evaluation (<span>LREC</span>’10)</em>, 1168–71.
 </div>
 <div id="ref-r4ds" class="csl-entry" role="doc-biblioentry">
 Wickham, Hadley, und Garrett Grolemund. 2018. <em>R für Data Science: Daten importieren, bereinigen, umformen, modellieren und visualisieren</em>. Übersetzt von Frank Langenau. 1. Auflage. Heidelberg: O’Reilly. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
