@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Textmining1
 
 
@@ -87,7 +92,7 @@ getStemLanguages()
 ```
 
 
-Einfacher Test: Suchen wir den Wordstamm für das Wort "wissensdurstigen", wie in "die wissensdurstigen Studentis löcherten dis armis Professi"^[[Gender-i](https://gender-i.de/#mit-bestimmtem-artikel)].
+Einfacher Test: Suchen wir den Wordstamm für das Wort "wissensdurstigen", wie in "die wissensdurstigen Studentis löcherten dis armi Professi"^[[Gender-i](https://gender-i.de/#mit-bestimmtem-artikel)].
 
 ```{r}
 wordStem("wissensdurstigen", language = "german")
@@ -163,7 +168,7 @@ Wörter trunkieren:
 
 ```{r}
 afd_no_stop %>% 
-  mutate(token_stem = wordStem(.$token, language = "de")) %>% 
+  mutate(token_stem = wordStem(token, language = "de")) %>% 
   count(token_stem, sort = TRUE) -> afd_count_stemmed
 
 head(afd_no_stop)
@@ -312,7 +317,7 @@ devtools::install_github("sebastiansauer/pradadata")
 data(sentiws, package = "pradadata")
 ```
 
-Tabelle @tbl-afdcount zeigt einen Ausschnitt aus dem Sentiment-Lexikon *SentiWS*.
+@tbl-afdcount zeigt einen Ausschnitt aus dem Sentiment-Lexikon *SentiWS*.
 
 ```{r sentiws-head, echo = FALSE}
 #| echo: false
@@ -412,6 +417,7 @@ afd_senti %>%
 
 
 
+
 ## Aufgaben
 
 
@@ -419,7 +425,7 @@ afd_senti %>%
 - [purrr-map02](https://datenwerk.netlify.app/posts/purrr-map02/purrr-map02.html)
 - [purrr-map03](https://datenwerk.netlify.app/posts/purrr-map03/purrr-map03.html)
 - [purrr-map04](https://datenwerk.netlify.app/posts/purrr-map04/purrr-map04.html)
-
+- [Regex-Übungen](https://regexone.com/)
 
 
 

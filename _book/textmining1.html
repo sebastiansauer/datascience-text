@@ -203,7 +203,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./word-embedding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Word Embedding</span></a>
+  <a href="./Information.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Informationstheorie</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./word-embedding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -329,7 +334,7 @@ div.csl-indent {
 [26] "turkish"   </code></pre>
 </div>
 </div>
-<p>Einfacher Test: Suchen wir den Wordstamm für das Wort “wissensdurstigen”, wie in “die wissensdurstigen Studentis löcherten dis armis Professi”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Einfacher Test: Suchen wir den Wordstamm für das Wort “wissensdurstigen”, wie in “die wissensdurstigen Studentis löcherten dis armi Professi”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wordStem</span>(<span class="st">"wissensdurstigen"</span>, <span class="at">language =</span> <span class="st">"german"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -429,7 +434,7 @@ div.csl-indent {
 <p>Wörter trunkieren:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>afd_no_stop <span class="sc">%&gt;%</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token_stem =</span> <span class="fu">wordStem</span>(.<span class="sc">$</span>token, <span class="at">language =</span> <span class="st">"de"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token_stem =</span> <span class="fu">wordStem</span>(token, <span class="at">language =</span> <span class="st">"de"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token_stem, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> afd_count_stemmed</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(afd_no_stop)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -799,6 +804,7 @@ div.csl-indent {
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map02/purrr-map02.html">purrr-map02</a></li>
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map03/purrr-map03.html">purrr-map03</a></li>
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map04/purrr-map04.html">purrr-map04</a></li>
+<li><a href="https://regexone.com/">Regex-Übungen</a></li>
 </ul>
 </section>
 <section id="fallstudie-hate-speech" class="level2" data-number="3.4">
