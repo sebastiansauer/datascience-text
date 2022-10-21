@@ -84,7 +84,8 @@ nested_words3 <- read_rds(nested_words3_path)
 Das sieht dann so aus:
 
 ```{r}
-nested_words3
+nested_words3 %>% 
+  head(3)
 ```
 Werfen wir einen Blick in den TExt der ersten Beschwerde des Datensatzes mit der ID `nested_words3_path$complaint_id[1]`.
 
@@ -372,7 +373,7 @@ Das geht mit Hilfe des alten Pythagoras, s. @fig-euklid-distance.
 Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch *euklidische Distanz*.
 
 
-![Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh](img/euklid-distance.png){#fig-euklid-distance}
+![Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh](img/euklid-distance.png){#fig-euklid-distance width=50%}
 
 Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, [aber der Algebra ist das egal](https://mathworld.wolfram.com/Distance.html). 
 Pythagoras' Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.
@@ -655,7 +656,7 @@ Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.
 
 ```{r doc_matrix}
 doc_matrix <- word_matrix %*% glove_matrix
-doc_matrix %>% head()
+#doc_matrix %>% head()
 ```
 
 

@@ -577,6 +577,9 @@ Pro Bit weniger Entropie halbiert sich die Anzahl der Möglichkeiten einer Häuf
 
 
 
+Left as an exercises for the reader^[[Vgl. hier](https://academia.stackexchange.com/questions/20084/is-using-the-phrase-is-left-as-an-exercise-for-the-reader-considered-good)] 🥳.
+
+
 
 
 

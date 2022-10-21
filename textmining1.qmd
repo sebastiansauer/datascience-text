@@ -263,6 +263,31 @@ Das Cheatsheet zur Strings bzw zu `stringr` von RStudio gibt einen guten Überbl
 
 
 
+## Regex im Texteditor
+
+
+Einige Texteditoren unterstützen Regex, so auch RStudio.
+
+Das ist eine praktische Sache. 
+Ein Beispiel: Sie haben eine Liste mit Namen der Art:
+
+- Nachname1, Vorname1
+- Nachname2, Vorname2
+- Nachname3, Vorname3
+
+
+Und Sie möchten jetzt aber die Liste mit Stil *Vorname Nachname* sortiert haben.
+
+RStudio mit Regex macht's möglich, s. @fig-regex-rstudio.
+
+
+::: {#fig-regrex-rstudio}
+
+![Vorher; mit Regex-Syntax](img/regex1.png){#fig-vorher-regex}
+![Vorher; mit Regex-Syntax](img/regex2.png){#fig-nacher-regex}
+
+:::
+
 
 
 ### Sentimentanalyse

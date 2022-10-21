@@ -301,7 +301,7 @@ div.csl-indent {
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="complaints-datensatz"><span class="header-section-number">6.2.1</span> Complaints-Datensatz</h3>
 <p>Der Datensatz <code>complaints</code> stammt aus <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/">dieser Quelle</a>.</p>
 <p>Den Datensatz <code>complaints</code> kann man <a href="https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz">hier</a> herunterladen. Im Buch ist die Webseite nicht (direkt?) angegeben. Die Datei ist mit <code>gz</code> gepackt; <code>read_csv</code> sollte das automatisch entpacken. Achtung: Die Datei ist recht groß.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-2_f1439cef0b9606859ae0269ae2b43ce5">
+<div class="cell" data-hash="word-embedding_cache/html/read-complaints-data_c409b292bb4630e8366ac1dd05232d84">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>complaints <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -311,24 +311,25 @@ div.csl-indent {
 <section id="complaints-verkürzt-und-geschachtelt" class="level3" data-number="6.2.2">
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="complaints-verkürzt-und-geschachtelt"><span class="header-section-number">6.2.2</span> Complaints verkürzt und geschachtelt</h3>
 <p>Um ein Herumprobieren zu erleichtern, ist hier der Datensatz <code>complaints</code> in zwei verkürzten Formen bereitgestellt:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-3_c6ba25400f06c10558312e84142ee0fa">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-2_087c90585315ec3d67bf919c950f1e97">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nested_words2_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nested_words3_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words3.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>nested_words2</code> enthält die ersten 10% des Datensatz <code>nested_words</code>und ist gut 4 MB groß (mit <code>gz</code> gezippt); er besteht aus ca. 11 Tausend Beschwerden. <code>nested_words3</code> enthält nur die ersten 10 Beschwerden, was ihn gut zum Handhaben macht.</p>
 <p>Beide sind verschachtelt und aus <code>tidy_complaints</code> (s. <a href="https://smltar.com/embeddings.html#motivatingsparse">Kap. 5.1</a>) hervorgegangen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-4_d04bd0a2bf0e9cc54f5b9abf7e7af215">
+<div class="cell" data-hash="word-embedding_cache/html/read-rds-nested-data_c88ffa3ec00426f49ded9c22547b6571">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nested_words3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(nested_words3_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das sieht dann so aus:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-5_9e4a9c7f3a502c31bc1f4af3af94de75">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nested_words3</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-3_dbe03c719865da9d7f16e723430f640e">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nested_words3 <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
 <colgroup>
-<col style="width: 0%">
-<col style="width: 99%">
+<col style="width: 1%">
+<col style="width: 98%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -349,45 +350,17 @@ div.csl-indent {
 <td style="text-align: right;">3433198</td>
 <td style="text-align: left;">over , the , past , 2 , weeks , i , have , been , receiving , amounts , of , telephone , calls , from , the , company , listed , in , this , complaint , the , calls , between , xxxx , xxxx , and , xxxx , xxxx , to , my , cell , and , at , my , job , the , company , does , not , have , the , right , to , me , at , work , and , i , want , this , to , stop , it , is , extremely , to , be , told , 5 , times , a , day , that , i , have , a , call , from , this , collection, agency , while , at , work</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">3366475</td>
-<td style="text-align: left;">i , was , sold , access , to , an , of , which , i , have , all , the , to , the , transactions, transferred , the , money , and , was , provided , with , only , a , of , a , i , have , reported , this , to , paypal , and , it , was , for , the , amount , of , including , a , fee , from , paypal , this , on , xx , xx , 2019 , by , paypal , user , who , gave , two , accounts , 1 , xxxx , 2 , xxxx , xxxx</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3385399</td>
-<td style="text-align: left;">while , checking , my , credit , report , i , noticed , three , collections, by , a , company , called , that , i , was , with , i , disputed , these , collections, with , xxxx , and , xxxx , and , they , both , replied , that , they , contacted , the , creditor , and , the , creditor , verified , the , debt , so , i , asked , for , proof , which , both , bureaus , replied , that , they , are , not , required , to , prove , anything , i , then , mailed , a , certified , letter , to , requesting , proof , of , the , debts , the , form , of , an , original , or , a , proof , of , a , right , to , the , debt , or , even , so , much , as , the , process , as , to , how , the , bill , was , to , which , i , was , simply , replied , a , letter , for , each , collection , claim , that , listed , my , name , an , account , number , and , an , amount , with , no , other , information, to , verify , the , debts , after , i , sent , a , clear , notice , to , provide , me , evidence , i , both , xxxx , and , xxxx , to , on , the , that , it , is , not , my , debt , if , evidence , can , not , be , up , i , feel , as , if , i , am , being , personally , by , on , my , credit , report , for , debts , that , are , not , owed , to , them , or , any , party , for , that , matter , and , i , feel , that , the , credit , bureaus , who , control , many , of , my , personal , are , so , about , my , information</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3444592</td>
-<td style="text-align: left;">i , would , like , the , credit , bureau , to , correct, my , xxxx , xxxx , xxxx , xxxx , balance, my , correct, balance, is , xxxx</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3379924</td>
-<td style="text-align: left;">my , name , is , xxxx , xxxx , xxxx , i , live , at , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , my , dob , xxxx , my , ss , xxxx , i , have , addresses, on , my , file , that , are , not , mine , please , remove , the , following, addresses, xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , ny , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , i , have , my , proof , of , id , and , address</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3446975</td>
-<td style="text-align: left;">today , xx , xx , xxxx , went , online , to , dispute , the , incorrect , personal , information, and , it , says , this , request , can , not , be , processed , online</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3214857</td>
-<td style="text-align: left;">xxxx , is , reporting , incorrectly, to , equifax , and , xxxx , an , account , balance , of , on , the , xxxx , partial , account , number , xxxx , please , see , pages , 12 , and , 13 , of , the , attached , credit , report , this , account , is , over , 7 , years , old , and , therefore , should , not , be , on , my , credit , report , this , incorrect , reporting , is , harming , my , credit , score , and , is , a , fair , credit , reporting , act , violation</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3417374</td>
-<td style="text-align: left;">please , reverse , the , late , payments , reported , on , the , following , accounts , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , the , accounts , were , never , past , due , i , never , made , a , late , payment , to , this , company , ever , please , change , this , i , have , a , good , relationship, with , these , companies</td>
-</tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
 <p>Werfen wir einen Blick in den TExt der ersten Beschwerde des Datensatzes mit der ID <code>nested_words3_path$complaint_id[1]</code>.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-6_542a0f3a77218feef3ce3dfabb7690df">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-4_9dda5578acb7d827f65585ff69641c20">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="ot">&lt;-</span> nested_words3<span class="sc">$</span>words[[<span class="dv">1</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das ist ein Tibble mit einer Spalte und 17 Wörtern; da wir schon auf Unigramme aufgeteilt haben, ist jedes Wort ein Element des Vektors <code>word</code>:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-7_9925c019a2e3c6e2f5650d9d422707a0">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-5_ffe87d60bc09da5ee534bb388719365b">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -422,7 +395,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-8_d07c22c28c7df25e3a81e4e58d9fde74">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-6_a641385020f0c02b44453c8282431c4c">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text<span class="sc">$</span>word</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "systems"    "inc"        "is"         "trying"     "to"        
@@ -445,7 +418,7 @@ div.csl-indent {
 </blockquote>
 <p><a href="https://juliasilge.github.io/widyr/">Quelle</a></p>
 <p>Erzeugen wir uns Dummy-Daten:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-9_e1423a046faa3f52f49ed1b99138915a">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-7_7cce10395cc20cd9882e2aca7479ac34">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">feature =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">each =</span> <span class="dv">2</span>),</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">item =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
@@ -519,7 +492,7 @@ div.csl-indent {
 <p><em>feature</em></p>
 <p>Column describing the feature that links one item to others</p>
 <p>Manche Berechnungen (Operationen) lassen sich vielleicht leichter nicht in der Tidy-Form (Langform), sondern in der “breiten” oder Matrixform ausführen. Wandeln wir mal <code>dat</code> von der Langform in die Breitform um:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-10_312db53c22eda4a2b3f3fd17f3f77550">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-8_607b663e3c2b33966516fd3beb451cf0">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>item, dat<span class="sc">$</span>feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
@@ -556,7 +529,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p_ac <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">5</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>PMI von Hand berechnet:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-11_b1e3efbde9b7a9b78fc93b0e6dc57896">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-9_7c8745ec7a9a622ab7a4941a49c34a48">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(p_ac<span class="sc">/</span>p_a_p_c)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5108256</code></pre>
@@ -564,7 +537,7 @@ div.csl-indent {
 </div>
 <p>Man beachte, dass hier als Basis <span class="math inline">\(e\)</span>, der natürliche Logarithmus, verwendet wurde (nicht 2).</p>
 <p>Jetzt berechnen wir die PMI mit <code>pairwise_pmi</code>.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-12_de8a7b29bdbd9cb0184f11f162ff0b9a">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-10_e4a640cbc050b1bc4071447ebe44518d">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise_pmi</span>(dat, <span class="at">item =</span> item, <span class="at">feature =</span> feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
@@ -628,7 +601,7 @@ div.csl-indent {
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="sliding"><span class="header-section-number">6.3.2</span> Sliding</h3>
 <p>Sliding ist ein interessantes Konzept, aber man braucht vielleicht etwas Zeit, um sein Hirn um das Konzept zu wickeln…</p>
 <p>Hier eine Illustration:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-13_46e6ca769acf0cf85cea8ac6e0946696">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-11_2017236132ec0ea8947a94a55053c119">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>txt_vec <span class="ot">&lt;-</span> <span class="st">"Das ist ein Test, von dem nicht viel zu erwarten ist"</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_vec, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -638,7 +611,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Oh, da passiert nichts?! Kaputt? Nein, wir müssen jedes Wort als <em>ein Element</em> des Vektors auffassen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-14_337f1b752efccb7b7aeb90851936bb33">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-12_3145ef06f5fc92d1c9c5c7d478a246a2">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>txt_df <span class="ot">&lt;-</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">txt =</span> txt_vec) <span class="sc">%&gt;%</span> </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> txt, <span class="at">output =</span> word)</span>
@@ -676,7 +649,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-15_3c51e445fe6afe949213b47f1c669a8a">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-13_e93b9971e645e3044bc9dd12448aede0">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_df<span class="sc">$</span>word, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
@@ -715,7 +688,7 @@ div.csl-indent {
 </div>
 <p>Ah!</p>
 <p>Das Aufteilen in einzelne Wörter pro Element des Vektors könnte man auch so erreichen:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-16_895887a7645703955168355bf3f952bd">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-14_af356045369c209d429f7105fe532c78">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>txt_vec2 <span class="ot">&lt;-</span> <span class="fu">str_split</span>(txt_vec, <span class="at">pattern =</span> <span class="fu">boundary</span>(<span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simplify</span>() </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -756,7 +729,7 @@ div.csl-indent {
 </div>
 </div>
 <p>In unserem Beispiel mit den Beschwerden:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-17_1e3b9ffc360e15d2a94ce9d6bd126ce0">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-15_99fb5985d1204c80a0a80704f2783565">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slide</span>(beschwerde1_text<span class="sc">$</span>word,  <span class="sc">~</span>.x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
@@ -815,7 +788,7 @@ div.csl-indent {
 <section id="funktion-slide_windows" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="funktion-slide_windows"><span class="header-section-number">6.3.3</span> Funktion <code>slide_windows</code></h3>
 <p>Die Funktion <code>slide_windows</code> im <a href="https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself">Kapitel 5.2</a> ist recht kompliziert. In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. Sind die Schritte in einer Funktion zusammengefasst, kann man mit <code>debug(fun)</code> sich die Schritte innerhalb der Funktion einzeln ausführen lassen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-18_d9da44023275b3c59e944997e4b5b8e6">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-16_6914e18f121a517840897675ea87438a">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>slide_windows <span class="ot">&lt;-</span> <span class="cf">function</span>(tbl, window_size) {</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  skipgrams <span class="ot">&lt;-</span> slider<span class="sc">::</span><span class="fu">slide</span>(</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    tbl, </span>
@@ -840,7 +813,7 @@ div.csl-indent {
 </div>
 <p>Erschwerend kommt eine große Datenmenge und eine lange Berechnungszeit dazu, was das Debuggen (Nachvollziehen und Durchdenken) der Schritte zusätzlich erschwert. In solchen Fällen hilft die goldende Regel: Mach es dir so einfach wie möglich (aber nicht einfacher). Wir nutzen also den stark verkleinerten Datensatz <code>nested_words3</code>, den wir oben importiert haben.</p>
 <p>Hier ist der Syntax-Auszug:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-19_a93f76033bd2363479f6094d73ba334c">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-17_ace38d9959c4dac2b956554feaee86f6">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -970,7 +943,7 @@ div.csl-indent {
 <p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance">Abbildung&nbsp;<span>6.2</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
 <div id="fig-euklid-distance" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="img/euklid-distance.png" class="img-fluid figure-img"></p>
+<p><img src="img/euklid-distance.png" class="img-fluid figure-img" style="width:50.0%"></p>
 <p></p><figcaption class="figure-caption">Abbildung&nbsp;6.2: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh</figcaption><p></p>
 </figure>
 </div>
@@ -1030,7 +1003,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Was sind die Nachbarn von “inaccurate”?</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-20_caf22acfbe4cf9123f4c640911822bc7">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-18_b7920643190537b203305de1df9f3e72">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="sc">%&gt;%</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"inaccurate"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(distance) <span class="sc">%&gt;%</span> </span>
@@ -1944,7 +1917,7 @@ Hinweis
 </div>
 </div>
 <p>In eine Tidyform bringen:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-21_3c9ed9f9db3203ad92820f376935ae6d">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-19_379fb7e700d7ded163f4502135a26a3a">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="ot">&lt;-</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  glove6b <span class="sc">%&gt;%</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">"d"</span>),</span>
@@ -1999,34 +1972,34 @@ Hinweis
 </div>
 </div>
 <p>Ganz schön groß:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-22_68975cb3c5302132f16b286145979375">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-20_a7a703a0e5261812024c2c35b704d05e">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>983837536 bytes</code></pre>
 </div>
 </div>
 <p>In Megabyte<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-23_94d633064f30e7f82d73653252067dfa">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-21_fe603a142b65ae107ff3d6c189c26851">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove) <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">20</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>938.3 bytes</code></pre>
 </div>
 </div>
 <p>Einfacher und genauer geht es so:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-24_509161ed725702b83f710975e5119428">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-22_eaf88443e962e3f37405f73f0235953e">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">object_size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>983.83 MB</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-25_cf5918f581a018057bb0bad50e9ffe82">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-23_14f5b8da962e83a4d5c1dee8d0524da9">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">mem_used</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.49 GB</code></pre>
+<pre><code>1.48 GB</code></pre>
 </div>
 </div>
 <p>Um Speicher zu sparen, könnte man <code>glove6b</code> wieder direkt löschen, wenn man nur mit der Tidyform weiterarbeitet.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-26_3a279288abc801eeaafe623d25cc6b71">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-24_6b0b502b9632516cdd90a3af160cee0d">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(glove6b)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt können wir wieder nach Nachbarn fragen, im euklidischen Sinne, wie oben. Probieren wir aus, welche Wörter nah zu “inaccurate” stehen.</p>
@@ -2044,7 +2017,7 @@ Hinweis
 </div>
 </div>
 <p>Mit <code>pairwise_dist</code> dauert die Berechnung sehr lange und braucht wohl sehr viel Speicher. Mitunter kam folgender Fehler auf: “R error: vector memory exhausted (limit reached?)”.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-27_ce15a9be46315c2bd39cb85f947fc909">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-25_6206963ffb4d125005675e344bc9d8f9">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>word_neighbors_glove6b <span class="ot">&lt;-</span> </span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span> </span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">prop =</span> .<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
@@ -2058,7 +2031,7 @@ Hinweis
 <span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Deswegen probieren wir doch die Funktion <code>nearest_neighbors</code>, so wies im Buch vorgeschlagen wird.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-28_bc6ed7e2e01ad7944272f368f93788ca">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-26_3ea1d35aff1457e99642ec17ea242695">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>nearest_neighbors <span class="ot">&lt;-</span> <span class="cf">function</span>(df, token) {</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">widely</span>(</span>
@@ -2205,7 +2178,7 @@ Hinweis
 <span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co">#word_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>word_matrix</code> zählt für jede der 10 Beschwerden, welche Wörter (und wie häufig) vorkommen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-29_c8b765b2a780c285ec64ab54e8ca5a5c">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-27_b87334866a76548713b729cc85176969">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(word_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  10 222</code></pre>
@@ -2223,7 +2196,7 @@ Hinweis
 <span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="co">#glove_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>glove_matrix</code> gibt für jedes unique Wort den Einbettungsvektor an.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-30_907615c116fa733d99192a80cf7b0c0e">
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-28_2a216b00fa88a6905857c203a532be92">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(glove_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 222 100</code></pre>
@@ -2232,139 +2205,12 @@ Hinweis
 <p>Das sind 222 unique Wörter und 100 Dimensionen des Einbettungsvektors.</p>
 <p>Jetzt können wir noch pro Dokument (10 in diesem Beispiel) die mittlere “Position” jedes Dokuments im Einbettungsvektor ausrechnen. Bildlich gesprochen: Was ist der mittlere Raumpunkt (Zentroid) des Bienenschwarms, wobei eine Biene ein Dokument darstellt und die Raumachsen die Dimensionen des Einbettungsvektors.</p>
 <p>Dazu gewichten wir jedes Wort eines Dokuments mit den Ladungen des Einbettungsvektor und summieren diese Terme. Es resultiert eine Matrix mit einem Einbettungsvektor pro Dokument. Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/doc_matrix_94f1999b56731c9ac9e6151bff177493">
+<div class="cell" data-hash="word-embedding_cache/html/doc_matrix_0d6b8b779ddfebe4003e7986bb8f3e2f">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>doc_matrix <span class="ot">&lt;-</span> word_matrix <span class="sc">%*%</span> glove_matrix</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>doc_matrix <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>6 x 100 sparse Matrix of class "dgCMatrix"</code></pre>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co">#doc_matrix %&gt;% head()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>   [[ suppressing 100 column names 'd1', 'd2', 'd3' ... ]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                                                               
-3214857 -3.866734 14.396759 22.773258 -18.11822  0.521779 16.257103  -0.1846946
-3366475 -6.036361 21.454024 15.041353 -14.81193 -2.472711 11.950351  -3.6210140
-3379924 27.510337 55.391414  2.371269 -21.42267  1.524870  9.257292  31.5034761
-3384392 -1.827458  3.792128  5.880856  -5.20095  2.664376  1.485016  -1.3055380
-3385399 -4.998864 41.252481 54.421761 -29.87768  5.339714 32.431973 -20.0439631
-3417374 -1.698279  8.614548 12.176174 -10.68390 -3.231407 10.215512  -4.1665910
-                                                                      
-3214857 18.730054 -11.7760430   4.138195  9.642333  1.687003 24.494937
-3366475 14.569395  -8.1280469  -5.148346 16.310205 -2.342454 20.111788
-3379924 32.316483 -30.3051370   8.654242 32.795434 10.550730 25.338624
-3384392  2.355398  -0.3737200  -1.411449  3.923258 -2.003865  6.542645
-3385399 35.191956   0.6112781 -15.816367 40.775083  2.910472 60.437284
-3417374 12.148516   4.4717400   0.710255 15.419422  7.770850 11.682568
-                                                                      
-3214857  6.090346 18.578681 -23.716964 18.256532  -2.174991 -31.511338
-3366475  9.533289 16.297529 -25.321364 12.199668   6.118546 -30.621298
-3379924 25.832255 25.203719 -67.011231 30.160714 -11.737861 -64.840179
-3384392  2.370414  2.593407  -4.232261  6.003121   2.051527  -8.886743
-3385399 20.076703 31.829031 -67.506517 46.171946  12.913058 -80.999661
-3417374  2.298754  7.570983 -15.415939  4.880421   1.013316 -19.611427
-                                                                               
-3214857 11.165488 22.096537  -4.227522 25.510422 11.752882 24.193253 -14.393642
-3366475 20.127188 19.518136  -4.017034 20.228843  4.111301 10.552262 -11.284436
-3379924 26.690884 25.108716  41.011727 19.204268 43.271235 45.956050 -37.448871
-3384392  5.253741  4.843030   0.471750  5.741740  2.547046  2.756073  -3.989422
-3385399 43.490371 39.003157 -15.081911 44.552412 12.263552 13.102006 -34.702401
-3417374  9.021655  9.008896   4.307841  6.412447  4.848786  9.535585  -4.456543
-                                                                       
-3214857 -2.717443  -30.911946 -2.560281  -8.567232 -2.556932  28.764231
-3366475 -2.638939  -30.048858  1.484414  -6.873204  2.014008  28.975677
-3379924 -9.100078 -100.263070 16.566722 -14.464382 24.710188  36.373211
-3384392  0.161675   -7.823425 -1.783155  -2.477125 -0.744834   9.253195
-3385399 -2.940711  -73.897376  1.258289 -12.065657 21.629210 100.503486
-3417374 -5.128541  -21.367856  5.227329  -7.046402  7.189331  19.347253
-                                                                        
-3214857  -6.943561   6.5924380  -2.700294 21.511294   7.305981 24.421164
-3366475  -8.632996   0.0638204  -0.797919 22.823604   7.106567 18.579875
-3379924 -21.343867 -13.2609793 -45.574994 55.576876 -16.217996 13.915820
-3384392  -2.891468   0.8235620   0.940733  4.273223   2.144760  4.836764
-3385399 -17.035791   5.3684933   4.495126 51.889815   9.512937 31.551577
-3417374  -1.959475  -0.9517550  -8.529482  8.900918   0.308799  4.926808
-                                                                        
-3214857  -9.698690  -5.905470 -34.222967 -16.776294 11.598943 -19.201372
-3366475 -10.555681  -6.356370 -31.255715 -22.235286 10.038917 -18.001071
-3379924 -39.083141 -30.952245 -77.708738 -16.296651 39.615562 -16.794540
-3384392  -1.785591  -1.549121  -6.237988  -2.470061  0.050653  -5.654567
-3385399 -20.397731 -18.731635 -70.270261 -67.657789 24.166546 -56.990428
-3417374  -7.789725  -4.087567 -19.256573  -9.107438  7.160566 -12.704403
-                                                                         
-3214857   2.5241535   0.4570852 21.416889  -30.28647 -3.575934  -49.10730
-3366475  -5.3349168  -2.1313720 11.309576  -26.74365 -1.978739  -40.60939
-3379924  -0.3701984 -12.0710970 65.513886 -102.94128 23.401622  -83.93556
-3384392  -0.1346520  -1.2823200  4.884630   -3.99754 -0.793697  -12.14199
-3385399 -11.9740842 -17.8722302 18.883043  -66.29415 -6.427853 -143.44044
-3417374  -5.8601509  -4.4273770  3.955314  -19.70389  1.849942  -25.15778
-                                                                        
-3214857  -2.067902 -11.2375061 18.442610  86.34866 -26.645143 -172.48470
-3366475   1.884939  -5.6297311  6.926181  76.28883 -17.333463 -146.91210
-3379924 -12.866592 -93.3886566 25.741383 165.41176   0.860815 -297.29440
-3384392   0.995750  -2.2908386  5.193895  18.97275  -5.157679  -40.10210
-3385399  30.057876  -0.9178301 41.073526 212.02922 -47.871406 -439.65951
-3417374   7.494446  -5.6116668  5.379079  46.87438 -12.628942  -88.12049
-                                                                     
-3214857  -6.194706 -24.41466 107.44488  49.72489 -11.245923  53.62681
-3366475  -0.963204 -14.68462  98.43230  44.74691 -11.636741  57.00656
-3379924 -39.841204 -51.79263 188.12803  85.26945 -35.792526 116.33916
-3384392  -1.651158  -5.26928  29.55778  12.77084  -3.046027  12.81472
-3385399 -15.345371 -59.31657 320.25680 117.54072 -25.166120 141.02079
-3417374  -1.043794 -12.25310  67.79946  21.94859  -3.893692  33.37327
-                                                                               
-3214857 -13.225856 15.742855  45.11306  -5.041266 38.978989 23.655606 15.913329
-3366475 -13.621286 12.798173  48.47130   0.190122 36.871160 27.646098 20.643404
-3379924 -35.570316  5.025739  82.48041   8.697222 58.844023  5.167704 41.076277
-3384392  -1.788050  2.760323  12.42401  -2.871457  9.244536  4.994260  4.512390
-3385399 -45.078456 14.276761 152.70819 -19.270412 87.030243 78.975320 63.710262
-3417374  -7.483889  2.011667  31.50638  -1.264887 22.067285 12.014235  9.213131
-                                                                         
-3214857  -7.325626  -7.833902 -25.522296 -12.242973 -26.322375   2.498185
-3366475  -6.358081  -8.246034 -17.500184  -5.469173 -19.755037   7.391822
-3379924   8.685868  21.677006  -6.211015 -47.093470 -10.076078 -37.118933
-3384392  -1.206071  -2.768340  -6.001784  -1.708928  -8.226023   2.997055
-3385399 -21.902764 -28.650005 -42.218424 -16.005194 -64.129740  29.725312
-3417374  -3.471197  -2.645457  -4.576758  -2.057961 -12.039750   6.712096
-                                                                        
-3214857   2.900718  -8.950591  -0.0414272  -77.43993 -3.201027  47.45429
-3366475   5.884073  -4.561099  -2.8567790  -63.08357 -0.295391  45.43495
-3379924 -26.985775 -21.401363 -23.0662390 -141.70111 -6.024579  92.88033
-3384392  -0.314232  -2.176959   0.3241270  -19.57572 -3.709080  12.55106
-3385399  24.404646  -6.737528   0.6071581 -196.85852 -4.799263 122.40902
-3417374   2.382696  -2.037305  -1.8614290  -39.56541 -0.878992  27.79246
-                                                                       
-3214857   1.019417 -32.15706 18.4279795  -91.19263 -14.115698 12.393450
-3366475  -3.107603 -24.45025 15.5946124  -97.09021 -10.594208 -0.491786
-3379924   3.786187 -20.23066 48.9011838 -161.34424  -5.221408 -3.250359
-3384392   0.315836  -8.53275  0.8982266  -24.57154  -5.224529  2.688434
-3385399 -21.203146 -80.52827  8.1123205 -277.40124 -39.556410 27.166076
-3417374   1.378155 -10.77832  2.5356116  -57.76210  -6.688853  2.075999
-                                                                         
-3214857  -7.967760 -14.673148 -31.861687  -6.940370 -11.846643 -20.102416
-3366475  -7.773144 -14.683694 -25.078770  -9.735438 -11.788511 -16.029890
-3379924 -58.922627 -47.681109 -48.590038  -2.154827  -4.329365 -24.526417
-3384392  -1.689128  -1.249809  -6.334926  -1.637055  -2.367540  -3.333033
-3385399 -38.138676 -39.065188 -57.861674 -28.639724 -24.223429 -24.064229
-3417374  -8.104298  -7.941687  -7.682622  -5.692942  -4.869979  -7.210754
-                                                                        
-3214857 10.6973702  -37.053296 -2.075380 -21.500325 -21.816859  39.34560
-3366475  4.0448726  -46.975938 -4.853319 -25.145894 -20.153565  37.48514
-3379924 24.1256403 -103.815883 10.147355 -52.642984  -6.557345  32.07506
-3384392 -0.6480467   -9.990594  0.096534  -7.161495  -8.200051  10.01696
-3385399  1.1228502 -102.729281  6.801562 -46.012649 -64.047938 113.20986
-3417374  3.2086870  -23.976103  2.344804  -8.281528  -9.566221  14.95179
-                  
-3214857   3.065788
-3366475  10.844301
-3379924 -34.232897
-3384392   2.307684
-3385399  14.412614
-3417374   2.101466</code></pre>
-</div>
-</div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-31_cc2ab85d75d34ced2776d017237b680e">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(doc_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-29_f4b439726150082b54707ad3299d1323">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(doc_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  10 100</code></pre>
 </div>

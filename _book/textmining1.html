@@ -238,13 +238,16 @@ div.csl-indent {
   <li><a href="#stemming-wortstamm-finden" id="toc-stemming-wortstamm-finden" class="nav-link" data-scroll-target="#stemming-wortstamm-finden"><span class="toc-section-number">3.2.3</span>  Stemming (Wortstamm finden)</a></li>
   <li><a href="#fallstudie-afd-parteiprogramm" id="toc-fallstudie-afd-parteiprogramm" class="nav-link" data-scroll-target="#fallstudie-afd-parteiprogramm"><span class="toc-section-number">3.2.4</span>  Fallstudie AfD-Parteiprogramm</a></li>
   <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="toc-section-number">3.2.5</span>  Stringverarbeitung</a></li>
-  <li><a href="#sentimentanalyse" id="toc-sentimentanalyse" class="nav-link" data-scroll-target="#sentimentanalyse"><span class="toc-section-number">3.2.6</span>  Sentimentanalyse</a></li>
   </ul></li>
-  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">3.3</span>  Aufgaben</a></li>
-  <li><a href="#fallstudie-hate-speech" id="toc-fallstudie-hate-speech" class="nav-link" data-scroll-target="#fallstudie-hate-speech"><span class="toc-section-number">3.4</span>  Fallstudie Hate-Speech</a>
+  <li><a href="#regex-im-texteditor" id="toc-regex-im-texteditor" class="nav-link" data-scroll-target="#regex-im-texteditor"><span class="toc-section-number">3.3</span>  Regex im Texteditor</a>
   <ul class="collapse">
-  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">3.4.1</span>  Daten</a></li>
-  <li><a href="#grundlegendes-text-mining" id="toc-grundlegendes-text-mining" class="nav-link" data-scroll-target="#grundlegendes-text-mining"><span class="toc-section-number">3.4.2</span>  Grundlegendes Text Mining</a></li>
+  <li><a href="#sentimentanalyse" id="toc-sentimentanalyse" class="nav-link" data-scroll-target="#sentimentanalyse"><span class="toc-section-number">3.3.1</span>  Sentimentanalyse</a></li>
+  </ul></li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">3.4</span>  Aufgaben</a></li>
+  <li><a href="#fallstudie-hate-speech" id="toc-fallstudie-hate-speech" class="nav-link" data-scroll-target="#fallstudie-hate-speech"><span class="toc-section-number">3.5</span>  Fallstudie Hate-Speech</a>
+  <ul class="collapse">
+  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">3.5.1</span>  Daten</a></li>
+  <li><a href="#grundlegendes-text-mining" id="toc-grundlegendes-text-mining" class="nav-link" data-scroll-target="#grundlegendes-text-mining"><span class="toc-section-number">3.5.2</span>  Grundlegendes Text Mining</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -570,10 +573,28 @@ div.csl-indent {
 <p>Das Cheatsheet zur Strings bzw zu <code>stringr</code> von RStudio gibt einen guten Überblick über Regex; im Internet finden sich viele Beispiele.</p>
 </section>
 </section>
-<section id="sentimentanalyse" class="level3" data-number="3.2.6">
-<h3 data-number="3.2.6" class="anchored" data-anchor-id="sentimentanalyse"><span class="header-section-number">3.2.6</span> Sentimentanalyse</h3>
-<section id="einführung" class="level4" data-number="3.2.6.1">
-<h4 data-number="3.2.6.1" class="anchored" data-anchor-id="einführung"><span class="header-section-number">3.2.6.1</span> Einführung</h4>
+</section>
+<section id="regex-im-texteditor" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="regex-im-texteditor"><span class="header-section-number">3.3</span> Regex im Texteditor</h2>
+<p>Einige Texteditoren unterstützen Regex, so auch RStudio.</p>
+<p>Das ist eine praktische Sache. Ein Beispiel: Sie haben eine Liste mit Namen der Art:</p>
+<ul>
+<li>Nachname1, Vorname1</li>
+<li>Nachname2, Vorname2</li>
+<li>Nachname3, Vorname3</li>
+</ul>
+<p>Und Sie möchten jetzt aber die Liste mit Stil <em>Vorname Nachname</em> sortiert haben.</p>
+<p>RStudio mit Regex macht’s möglich, s. <span class="quarto-unresolved-ref">?fig-regex-rstudio</span>.</p>
+<div id="fig-regrex-rstudio" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/regex1.png" id="fig-vorher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"> <img src="img/regex2.png" id="fig-nacher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.1: <strong>?(caption)</strong></figcaption><p></p>
+</figure>
+</div>
+<section id="sentimentanalyse" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="sentimentanalyse"><span class="header-section-number">3.3.1</span> Sentimentanalyse</h3>
+<section id="einführung" class="level4" data-number="3.3.1.1">
+<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="einführung"><span class="header-section-number">3.3.1.1</span> Einführung</h4>
 <p>Eine weitere interessante Analyse ist, die “Stimmung” oder “Emotionen” (Sentiments) eines Textes auszulesen. Die Anführungszeichen deuten an, dass hier ein Maß an Verständnis suggeriert wird, welches nicht (unbedingt) von der Analyse eingehalten wird. Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so:</p>
 <ol type="1">
 <li>Schau dir jeden Token aus dem Text an.<br>
@@ -658,8 +679,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="ungewichtete-sentiment-analyse" class="level4" data-number="3.2.6.2">
-<h4 data-number="3.2.6.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse"><span class="header-section-number">3.2.6.2</span> Ungewichtete Sentiment-Analyse</h4>
+<section id="ungewichtete-sentiment-analyse" class="level4" data-number="3.3.1.2">
+<h4 data-number="3.3.1.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse"><span class="header-section-number">3.3.1.2</span> Ungewichtete Sentiment-Analyse</h4>
 <p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span>3.2</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
 <p>Wir nutzen die Tabelle <code>afd_long</code>, die wir oben definiert haben.</p>
 <div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-24_3362beaf501b4902658ac3e47c783ccf">
@@ -797,8 +818,8 @@ div.csl-indent {
 </section>
 </section>
 </section>
-<section id="aufgaben" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">3.3</span> Aufgaben</h2>
+<section id="aufgaben" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">3.4</span> Aufgaben</h2>
 <ul>
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map01/purrr-map01.html">purrr-map01</a></li>
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map02/purrr-map02.html">purrr-map02</a></li>
@@ -807,10 +828,10 @@ div.csl-indent {
 <li><a href="https://regexone.com/">Regex-Übungen</a></li>
 </ul>
 </section>
-<section id="fallstudie-hate-speech" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="fallstudie-hate-speech"><span class="header-section-number">3.4</span> Fallstudie Hate-Speech</h2>
-<section id="daten" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="daten"><span class="header-section-number">3.4.1</span> Daten</h3>
+<section id="fallstudie-hate-speech" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="fallstudie-hate-speech"><span class="header-section-number">3.5</span> Fallstudie Hate-Speech</h2>
+<section id="daten" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="daten"><span class="header-section-number">3.5.1</span> Daten</h3>
 <p>Es finden sich mehrere Datensätze zum Thema Hate-Speech im öffentlichen Internet, eine Quelle ist <a href="https://ckan.hatespeechdata.com/">Hate Speech Data</a>, ein Repositorium, das mehrere Datensätze beinhaltet.</p>
 <ul>
 <li><a href="https://www.kaggle.com/datasets/mrmorj/hate-speech-and-offensive-language-dataset?select=labeled_data.csv">Kaggle Hate Speech and Offensive Language Dataset</a></li>
@@ -820,8 +841,8 @@ div.csl-indent {
 <p>Twitterdaten dürfen nur in “dehydrierter” Form weitergegeben werden, so dass kein Rückschluss von ID zum Inhalt des Tweets möglich ist. Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, a lso ohne den eigentlichen Inhalt des Tweets, bereitgestellt.</p>
 <p>Über die Twitter-API kann man sich, wie oben dargestellt, dann die Tweets wieder “rehydrieren”, also wieder mit dem zugehörigen Tweet-Text (und sonstigen Infos des Tweets) zu versehen.</p>
 </section>
-<section id="grundlegendes-text-mining" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="grundlegendes-text-mining"><span class="header-section-number">3.4.2</span> Grundlegendes Text Mining</h3>
+<section id="grundlegendes-text-mining" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="grundlegendes-text-mining"><span class="header-section-number">3.5.2</span> Grundlegendes Text Mining</h3>
 <p>Wenden Sie die oben aufgeführten Techniken des grundlegenden Textminings auf einen der oben dargestellten Hate-Speech-Datensätze an. Erstellen Sie ein (HTML-Dokument) mit Ihren Ergebnissen. Stellen Sie die Ergebnisse auf dem Github-Repo dieses Kurses ein. Vergleichen Sie Ihre Lösung mit den Lösungen der anderen Kursmitglieder.</p>
 <p>Wir nutzen noch nicht eigene Daten, die wir von Twitter ausgelesen haben, das heben wir uns für später auf.</p>
 
