@@ -267,6 +267,10 @@ $$H(p) = - \text{E log} (p_i) = - \sum_{i = 1}^n p_i \text{log} (p_i) = E\left[I
 Die Informationsentropie ist also die "mittlere" oder "erwartete Information einer Zufallsvariablen.
 
 
+Die Entropie eines Münzwurf-Versuchs (Bernoulli-Experiment) ist dann maximal (1 bit), wenn die Trefferwahrscheinlichkeit 50% beträgt: $Pr(X=x) = 1/2$, s. Abb. @fig-bernoulli-entropy.
+
+
+![Der Zusammenhang von Wahrscheinlichkeit und Entropie bei einem Bernoulli-Versuch, Quelle: Wikipedia, CC-BY-SA, Brona, Rubber Duck](img/Binary_entropy_plot.svg.png){#fig-bernoulli-entropy width="30%"}
 
 
 
@@ -310,10 +314,41 @@ d <- tibble::tribble(
 
 $I(X,Y) = \Sigma_Y \Sigma_y Pr(x,y) \underbrace{\log \left( \frac{Pr(X,Y)}{Pr(X) Pr(Y)} \right)}_\text{punktweise MI}$ 
 
-Die Summanden der gemeinsamen Information bezeichnet man auch als *punktweise gemeinsame Information* (pointwise mutual information, PMI).
+Die Summanden der gemeinsamen Information bezeichnet man auch als *punktweise gemeinsame Information* (pointwise mutual information, PMI), entsprechend, s. @eq-pmi. MI ist also der Erwartungswert der PMI.
 
-MI ist also der Erwartungswert der PMI.
 
+$${\displaystyle \operatorname {PMI} (x,y)\equiv \log_{2}{\frac {p(x,y)}{p(x)p(y)}}=\log _{2}{\frac {p(x|y)}{p(x)}}=\log _{2}{\frac {p(y|x)}{p(y)}}}
+$${#eq-pmi}
+
+
+Andere Basen als `log2` sind gebräuchlich, vor allem der natürliche Logarithmus.
+
+
+
+
+::: {.remark}
+
+Die zwei rechten Umformungen in @eq-pmi basieren auf der Umformung der gemeinsamen Wahrscheinlichkeit. 
+
+Zur Erinnerung: $p(x,y) = p(y)p(x|y) = p(x)p(y|x)$
+:::
+
+
+
+
+::: {#exm-pmi}
+
+## Interpretation der PMI
+
+Sei $p(x) = p(y) = 1/10$ und $p(x,y) = 1/10$. Wären $x$ und $y$ unabhängig, dann wäre $p^{\prime}(x,y) = p(x)p(y) = 1/100$.
+Das Verhältnis der Produkte der einzelnen Wahrscheinlichkeit zur gemeinsamen Wahrscheinlichkeit wäre dann 1 und der Logarithmus von 1 ist 0. Das Verhältnis von 1 entspricht also der Unabhängigkeit. Ist das Verhältnis z.B. 5, so zeigt das eine gewisse Abhängigkeit an.
+Im obigen Beispiel gilt: $\frac{1/20}{1/100}=5$.
+
+:::
+
+
+Die MI wird auch über die sog. *Kullback-Leibler-Divergenz* definiert,
+die die Differenz zwischen gemeinsamer Wahrscheinlichkeitsfunktion bzw. -dichte und dem Produkt der jeweiligen Randwahrscheinlichkeiten bzw. -dichte angibt.
 
 
 
@@ -340,7 +375,7 @@ Der Wert $X=1$ vereinigt 3 Pfade (von 8) auf sich; der Wert $X=3$ nur 1 Pfad.
 
 
 
-### Ilustration 
+#### Ilustration 
 
 
 Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind [@mcelreath_statistical_2020].
@@ -416,7 +451,7 @@ d %>%
 ```
 
 
-Das `ifelse` dient nur dazu, eine Wahrscheinlichkeit von 0 eine Eintropie von 0 zu verpassen^[Regel von L'Hopital], denn sonst würden wir ein Problem rennen, wenn wir $log(0)$ ausrechnen.
+Das `ifelse` dient nur dazu, eine Wahrscheinlichkeit von 0 eine Entropie von 0 zu verpassen^[Regel von L'Hopital], denn sonst würden wir ein Problem rennen, wenn wir $log(0)$ ausrechnen.
 
 ```{r}
 log(0)
@@ -425,6 +460,9 @@ log(0)
 
 
 ## Zufallstext erkennen
+
+
+### Entropie von Zufallstext
 
 
 Kann man wohl Zufallstext maschinell erkennen? Sicher gibt es viele Ansätze,
@@ -464,23 +502,23 @@ head(wortliste)
 ```
 
 
-Jetzt ziehen wir Stichproben (mit Zurücklegen) aus dieser Liste und erstellen damit eine Art "Prototext".
+Jetzt ziehen wir Stichproben (mit Zurücklegen) aus dieser Liste und erstellen damit eine Art Zufallstext.
 
 ```{r}
-prototext <- sample(x = wortliste, size = length(das_feuerzeug)*10^2, replace = TRUE)
-
-head(prototext)
+zufallstext <- 
+  sample(x = wortliste, size = length(das_feuerzeug)*10^2, replace = TRUE)
+head(zufallstext)
 ```
 
 
 Zählen wir, wie häufig jedes Wort vorkommt:
 
 ```{r}
-prototext_count <-
-tibble(prototext = prototext) %>% 
-  count(prototext)
+zufallstext_count <-
+tibble(zufallstext = zufallstext) %>% 
+  count(zufallstext)
 
-head(prototext_count)
+head(zufallstext_count)
 ```
 
 
@@ -504,14 +542,14 @@ entropy(wortliste_count$n, unit = "log2")
 
 
 
-Die Häufigkeiten der Wörter in `prototext` 
+Die Häufigkeiten der Wörter in `zufallstext` hat eine hohe Entropie.
 
 ```{r}
-entropy(prototext_count$n, unit = "log2")
+entropy(zufallstext_count$n, unit = "log2")
 ```
 
 
-Zählen wir die Häufigkeiten in der Geschichte "Das Feuerzeug"
+Zählen wir die Häufigkeiten in der Geschichte "Das Feuerzeug".
 
 ```{r}
 das_feuerzeug_count <-
@@ -520,8 +558,38 @@ das_feuerzeug_count <-
 
 head(das_feuerzeug_count)
 ```
-
+Und berechnen dann die Entropie:
 
 ```{r}
 entropy(das_feuerzeug_count$n, unit = "log2")
 ```
+
+
+Der Zufallstext hat also eine höhere Entropie als der echte Märchentext.
+Der Zufallstext ist also gleichverteilter in den Worthäufigkeiten.
+
+
+Pro Bit weniger Entropie halbiert sich die Anzahl der Möglichkeiten einer Häufigkeitsverteilung.
+
+
+
+### MI von Zufallstext
+
+
+
+
+
+
+## Literatur
+
+
+### Wikipedia
+
+Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.
+
+- [Wikipedia: Pointwise Mutual Information](https://en.wikipedia.org/wiki/Pointwise_mutual_information)
+- [Wikipedia: Mutual information](https://en.wikipedia.org/wiki/Mutual_information)
+- [Wikipedia: Information theory](https://en.wikipedia.org/wiki/Information_theory)
+
+
+

@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -80,6 +143,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -157,7 +221,33 @@ div.csl-indent {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="toc-section-number">6.1</span>  Vorab</a>
+  <ul class="collapse">
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">6.1.1</span>  Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">6.1.2</span>  Vorbereitung</a></li>
+  <li><a href="#benötigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#benötigte-r-pakete"><span class="toc-section-number">6.1.3</span>  Benötigte R-Pakete</a></li>
+  </ul></li>
+  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">6.2</span>  Daten</a>
+  <ul class="collapse">
+  <li><a href="#complaints-datensatz" id="toc-complaints-datensatz" class="nav-link" data-scroll-target="#complaints-datensatz"><span class="toc-section-number">6.2.1</span>  Complaints-Datensatz</a></li>
+  <li><a href="#complaints-verkürzt-und-geschachtelt" id="toc-complaints-verkürzt-und-geschachtelt" class="nav-link" data-scroll-target="#complaints-verkürzt-und-geschachtelt"><span class="toc-section-number">6.2.2</span>  Complaints verkürzt und geschachtelt</a></li>
+  </ul></li>
+  <li><a href="#kommentare-und-hilfestellungen" id="toc-kommentare-und-hilfestellungen" class="nav-link" data-scroll-target="#kommentare-und-hilfestellungen"><span class="toc-section-number">6.3</span>  Kommentare und Hilfestellungen</a>
+  <ul class="collapse">
+  <li><a href="#pmi-berechnen" id="toc-pmi-berechnen" class="nav-link" data-scroll-target="#pmi-berechnen"><span class="toc-section-number">6.3.1</span>  PMI berechnen</a></li>
+  <li><a href="#sliding" id="toc-sliding" class="nav-link" data-scroll-target="#sliding"><span class="toc-section-number">6.3.2</span>  Sliding</a></li>
+  <li><a href="#funktion-slide_windows" id="toc-funktion-slide_windows" class="nav-link" data-scroll-target="#funktion-slide_windows"><span class="toc-section-number">6.3.3</span>  Funktion <code>slide_windows</code></a></li>
+  <li><a href="#svd" id="toc-svd" class="nav-link" data-scroll-target="#svd"><span class="toc-section-number">6.3.4</span>  SVD</a></li>
+  <li><a href="#wortähnlichkeit" id="toc-wortähnlichkeit" class="nav-link" data-scroll-target="#wortähnlichkeit"><span class="toc-section-number">6.3.5</span>  Wortähnlichkeit</a></li>
+  <li><a href="#word-embeddings-vorgekocht-glove6b" id="toc-word-embeddings-vorgekocht-glove6b" class="nav-link" data-scroll-target="#word-embeddings-vorgekocht-glove6b"><span class="toc-section-number">6.3.6</span>  Word-Embeddings vorgekocht: Glove6B</a></li>
+  </ul></li>
+  <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="toc-section-number">6.4</span>  Fazit</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -179,14 +269,2132 @@ div.csl-indent {
 </header>
 
 <p><img src="img/text-mining-1476780_640.png" class="img-fluid" style="width:10.0%" alt="Text als Datenbasis prädiktiver Modelle"> Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
-<p>Arbeiten Sie <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/embeddings.html">Kap. 5</a> durch.</p>
+<section id="vorab" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="vorab"><span class="header-section-number">6.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="lernziele"><span class="header-section-number">6.1.1</span> Lernziele</h3>
+<ul>
+<li>Die vorgestellten Techniken des Textminings mit R anwenden können</li>
+</ul>
+</section>
+<section id="vorbereitung" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">6.1.2</span> Vorbereitung</h3>
+<ul>
+<li>Arbeiten Sie <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/embeddings.html">Kap. 5</a> durch.</li>
+</ul>
+</section>
+<section id="benötigte-r-pakete" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">6.1.3</span> Benötigte R-Pakete</h3>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-1_dc2c1ff055e9cfd8de10590c9cc611d0">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(slider)  <span class="co"># slide</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)  <span class="co"># pairwise_pmi</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)  <span class="co"># mehrere Kerne gleichzeitig nutzen</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)  <span class="co"># Worteinbettungen, vorgekocht</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="daten" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="daten"><span class="header-section-number">6.2</span> Daten</h2>
+<section id="complaints-datensatz" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="complaints-datensatz"><span class="header-section-number">6.2.1</span> Complaints-Datensatz</h3>
+<p>Der Datensatz <code>complaints</code> stammt aus <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/">dieser Quelle</a>.</p>
+<p>Den Datensatz <code>complaints</code> kann man <a href="https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz">hier</a> herunterladen. Im Buch ist die Webseite nicht (direkt?) angegeben. Die Datei ist mit <code>gz</code> gepackt; <code>read_csv</code> sollte das automatisch entpacken. Achtung: Die Datei ist recht groß.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-2_f1439cef0b9606859ae0269ae2b43ce5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>complaints <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Geschickter als jedes Mal die Datei herunterzuladen, ist es, sie einmal herunterzuladen, und dann lokal zu speichern, etwa im Unterordner <code>data</code> des RStudio-Projektordners.</p>
+<p>Nach dem Importieren wird der Datensatz in eine Tidy-Form gebracht (mit <code>unnest_tokens</code>) und dann verschachtelt, mit <code>nest</code>.</p>
+</section>
+<section id="complaints-verkürzt-und-geschachtelt" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="complaints-verkürzt-und-geschachtelt"><span class="header-section-number">6.2.2</span> Complaints verkürzt und geschachtelt</h3>
+<p>Um ein Herumprobieren zu erleichtern, ist hier der Datensatz <code>complaints</code> in zwei verkürzten Formen bereitgestellt:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-3_c6ba25400f06c10558312e84142ee0fa">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nested_words2_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nested_words3_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words3.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>nested_words2</code> enthält die ersten 10% des Datensatz <code>nested_words</code>und ist gut 4 MB groß (mit <code>gz</code> gezippt); er besteht aus ca. 11 Tausend Beschwerden. <code>nested_words3</code> enthält nur die ersten 10 Beschwerden, was ihn gut zum Handhaben macht.</p>
+<p>Beide sind verschachtelt und aus <code>tidy_complaints</code> (s. <a href="https://smltar.com/embeddings.html#motivatingsparse">Kap. 5.1</a>) hervorgegangen.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-4_d04bd0a2bf0e9cc54f5b9abf7e7af215">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nested_words3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(nested_words3_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das sieht dann so aus:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-5_9e4a9c7f3a502c31bc1f4af3af94de75">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nested_words3</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 99%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">complaint_id</th>
+<th style="text-align: left;">words</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3384392</td>
+<td style="text-align: left;">systems , inc , is , trying , to , collect , a , debt , that , is , not , mine , not , owed , and , is , inaccurate</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3417821</td>
+<td style="text-align: left;">i , would , like , to , request , the , of , the , following , items , from , my , credit , report , which , are , the , result , of , my , victim , to , identity , theft , this , information , does , not , to , transactions , that , i , have , made , accounts , that , i , have , opened , as , the , attached , supporting , documentation, can , as , such , it , should , be , blocked , from , on , my , credit , report , pursuant , to , section , of , the , fair , credit , reporting , act</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3433198</td>
+<td style="text-align: left;">over , the , past , 2 , weeks , i , have , been , receiving , amounts , of , telephone , calls , from , the , company , listed , in , this , complaint , the , calls , between , xxxx , xxxx , and , xxxx , xxxx , to , my , cell , and , at , my , job , the , company , does , not , have , the , right , to , me , at , work , and , i , want , this , to , stop , it , is , extremely , to , be , told , 5 , times , a , day , that , i , have , a , call , from , this , collection, agency , while , at , work</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3366475</td>
+<td style="text-align: left;">i , was , sold , access , to , an , of , which , i , have , all , the , to , the , transactions, transferred , the , money , and , was , provided , with , only , a , of , a , i , have , reported , this , to , paypal , and , it , was , for , the , amount , of , including , a , fee , from , paypal , this , on , xx , xx , 2019 , by , paypal , user , who , gave , two , accounts , 1 , xxxx , 2 , xxxx , xxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3385399</td>
+<td style="text-align: left;">while , checking , my , credit , report , i , noticed , three , collections, by , a , company , called , that , i , was , with , i , disputed , these , collections, with , xxxx , and , xxxx , and , they , both , replied , that , they , contacted , the , creditor , and , the , creditor , verified , the , debt , so , i , asked , for , proof , which , both , bureaus , replied , that , they , are , not , required , to , prove , anything , i , then , mailed , a , certified , letter , to , requesting , proof , of , the , debts , the , form , of , an , original , or , a , proof , of , a , right , to , the , debt , or , even , so , much , as , the , process , as , to , how , the , bill , was , to , which , i , was , simply , replied , a , letter , for , each , collection , claim , that , listed , my , name , an , account , number , and , an , amount , with , no , other , information, to , verify , the , debts , after , i , sent , a , clear , notice , to , provide , me , evidence , i , both , xxxx , and , xxxx , to , on , the , that , it , is , not , my , debt , if , evidence , can , not , be , up , i , feel , as , if , i , am , being , personally , by , on , my , credit , report , for , debts , that , are , not , owed , to , them , or , any , party , for , that , matter , and , i , feel , that , the , credit , bureaus , who , control , many , of , my , personal , are , so , about , my , information</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3444592</td>
+<td style="text-align: left;">i , would , like , the , credit , bureau , to , correct, my , xxxx , xxxx , xxxx , xxxx , balance, my , correct, balance, is , xxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3379924</td>
+<td style="text-align: left;">my , name , is , xxxx , xxxx , xxxx , i , live , at , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , my , dob , xxxx , my , ss , xxxx , i , have , addresses, on , my , file , that , are , not , mine , please , remove , the , following, addresses, xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , ny , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , oh , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , i , have , my , proof , of , id , and , address</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3446975</td>
+<td style="text-align: left;">today , xx , xx , xxxx , went , online , to , dispute , the , incorrect , personal , information, and , it , says , this , request , can , not , be , processed , online</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3214857</td>
+<td style="text-align: left;">xxxx , is , reporting , incorrectly, to , equifax , and , xxxx , an , account , balance , of , on , the , xxxx , partial , account , number , xxxx , please , see , pages , 12 , and , 13 , of , the , attached , credit , report , this , account , is , over , 7 , years , old , and , therefore , should , not , be , on , my , credit , report , this , incorrect , reporting , is , harming , my , credit , score , and , is , a , fair , credit , reporting , act , violation</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3417374</td>
+<td style="text-align: left;">please , reverse , the , late , payments , reported , on , the , following , accounts , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , xxxx , the , accounts , were , never , past , due , i , never , made , a , late , payment , to , this , company , ever , please , change , this , i , have , a , good , relationship, with , these , companies</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Werfen wir einen Blick in den TExt der ersten Beschwerde des Datensatzes mit der ID <code>nested_words3_path$complaint_id[1]</code>.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-6_542a0f3a77218feef3ce3dfabb7690df">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="ot">&lt;-</span> nested_words3<span class="sc">$</span>words[[<span class="dv">1</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das ist ein Tibble mit einer Spalte und 17 Wörtern; da wir schon auf Unigramme aufgeteilt haben, ist jedes Wort ein Element des Vektors <code>word</code>:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-7_9925c019a2e3c6e2f5650d9d422707a0">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">word</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">systems</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">inc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">is</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">trying</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">to</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">collect</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-8_d07c22c28c7df25e3a81e4e58d9fde74">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text<span class="sc">$</span>word</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "systems"    "inc"        "is"         "trying"     "to"        
+ [6] "collect"    "a"          "debt"       "that"       "is"        
+[11] "not"        "mine"       "not"        "owed"       "and"       
+[16] "is"         "inaccurate"</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="kommentare-und-hilfestellungen" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="kommentare-und-hilfestellungen"><span class="header-section-number">6.3</span> Kommentare und Hilfestellungen</h2>
+<section id="pmi-berechnen" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="pmi-berechnen"><span class="header-section-number">6.3.1</span> PMI berechnen</h3>
+<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="Information.html#eq-pmi">Gleichung&nbsp;<span>5.1</span></a>.</p>
+<p>Mit R kann man die PMI z.B. so berechnen, s. <code>? pairwise_pmi</code> aus dem Paket <code>{widyr}</code>.</p>
+<p>Zum Paket <code>widyr</code> von Robinson und Silge:</p>
+<blockquote class="blockquote">
+<p>This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurrence counts, correlations, or clustering that are best done on a wide matrix.</p>
+</blockquote>
+<p><a href="https://juliasilge.github.io/widyr/">Quelle</a></p>
+<p>Erzeugen wir uns Dummy-Daten:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-9_e1423a046faa3f52f49ed1b99138915a">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">feature =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">item =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"b"</span>, <span class="st">"e"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"b"</span>, <span class="st">"f"</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>dat</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: right;">feature</th>
+<th style="text-align: left;">item</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">a</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">b</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">a</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">c</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">a</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">c</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">b</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">e</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">b</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">f</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Aus der Hilfe der Funktion:</p>
+<blockquote class="blockquote">
+<p>Find pointwise mutual information of pairs of items in a column, based on a “feature” column that links them together. This is an example of the spread-operate-retidy pattern.</p>
+</blockquote>
+<p>Die Argumente der Funktion sind:</p>
+<p><em>item</em></p>
+<p>Item to compare; will end up in item1 and item2 columns</p>
+<p><em>feature</em></p>
+<p>Column describing the feature that links one item to others</p>
+<p>Manche Berechnungen (Operationen) lassen sich vielleicht leichter nicht in der Tidy-Form (Langform), sondern in der “breiten” oder Matrixform ausführen. Wandeln wir mal <code>dat</code> von der Langform in die Breitform um:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-10_312db53c22eda4a2b3f3fd17f3f77550">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>item, dat<span class="sc">$</span>feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+    1 2 3 4 5
+  a 1 1 1 0 0
+  b 1 0 0 1 1
+  c 0 1 1 0 0
+  e 0 0 0 1 0
+  f 0 0 0 0 1</code></pre>
+</div>
+</div>
+<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr">Abbildung&nbsp;<span>6.1</span></a>.</p>
+<div id="fig-widyr" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/widyr.jpeg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson</figcaption><p></p>
+</figure>
+</div>
+<p>(Vgl. auch die <a href="https://bookdown.org/Maxine/tidy-text-mining/counting-and-correlating-pairs-of-words-with-widyr.html">Erklärung hier</a>.)</p>
+<p>Bauen wir das mal von Hand nach.</p>
+<p>Randwahrscheinlichkeiten von <code>a</code> und <code>c</code> sowie deren Produkt, <code>p_a_p_c</code>:</p>
+<div class="cell" data-hash="word-embedding_cache/html/p_a_und_p_c_cb9d1c4dd674d63725e290cb7ecfe130">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p_a <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p_c <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>p_a_p_c <span class="ot">&lt;-</span> p_a <span class="sc">*</span> p_c</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>p_a_p_c</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.24</code></pre>
+</div>
+</div>
+<p>Gemeinsame Wahrscheinlichkeit von <code>a</code> und <code>c</code>:</p>
+<div class="cell" data-hash="word-embedding_cache/html/p_ac_9d3e2000f4997d5a67ea625b29577fc2">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p_ac <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">5</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>PMI von Hand berechnet:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-11_b1e3efbde9b7a9b78fc93b0e6dc57896">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(p_ac<span class="sc">/</span>p_a_p_c)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5108256</code></pre>
+</div>
+</div>
+<p>Man beachte, dass hier als Basis <span class="math inline">\(e\)</span>, der natürliche Logarithmus, verwendet wurde (nicht 2).</p>
+<p>Jetzt berechnen wir die PMI mit <code>pairwise_pmi</code>.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-12_de8a7b29bdbd9cb0184f11f162ff0b9a">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise_pmi</span>(dat, <span class="at">item =</span> item, <span class="at">feature =</span> feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">item1</th>
+<th style="text-align: left;">item2</th>
+<th style="text-align: right;">pmi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">-0.5877867</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">0.5108256</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">-0.5877867</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">e</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">0.5108256</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">0.5108256</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">0.5108256</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">e</td>
+<td style="text-align: right;">0.5108256</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">f</td>
+<td style="text-align: right;">0.5108256</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Wie man sieht, entspricht unserer Berechnung von Hand der Berechnung mit <code>pairwise_pmi</code>.</p>
+</section>
+<section id="sliding" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="sliding"><span class="header-section-number">6.3.2</span> Sliding</h3>
+<p>Sliding ist ein interessantes Konzept, aber man braucht vielleicht etwas Zeit, um sein Hirn um das Konzept zu wickeln…</p>
+<p>Hier eine Illustration:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-13_46e6ca769acf0cf85cea8ac6e0946696">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>txt_vec <span class="ot">&lt;-</span> <span class="st">"Das ist ein Test, von dem nicht viel zu erwarten ist"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_vec, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "Das ist ein Test, von dem nicht viel zu erwarten ist"</code></pre>
+</div>
+</div>
+<p>Oh, da passiert nichts?! Kaputt? Nein, wir müssen jedes Wort als <em>ein Element</em> des Vektors auffassen.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-14_337f1b752efccb7b7aeb90851936bb33">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>txt_df <span class="ot">&lt;-</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">txt =</span> txt_vec) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> txt, <span class="at">output =</span> word)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(txt_df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">word</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">das</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ist</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ein</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">test</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">von</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dem</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-15_3c51e445fe6afe949213b47f1c669a8a">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_df<span class="sc">$</span>word, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "das"
+
+[[2]]
+[1] "das" "ist"
+
+[[3]]
+[1] "das" "ist" "ein"
+
+[[4]]
+[1] "ist"  "ein"  "test"
+
+[[5]]
+[1] "ein"  "test" "von" 
+
+[[6]]
+[1] "test" "von"  "dem" 
+
+[[7]]
+[1] "von"   "dem"   "nicht"
+
+[[8]]
+[1] "dem"   "nicht" "viel" 
+
+[[9]]
+[1] "nicht" "viel"  "zu"   
+
+[[10]]
+[1] "viel"     "zu"       "erwarten"
+
+[[11]]
+[1] "zu"       "erwarten" "ist"     </code></pre>
+</div>
+</div>
+<p>Ah!</p>
+<p>Das Aufteilen in einzelne Wörter pro Element des Vektors könnte man auch so erreichen:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-16_895887a7645703955168355bf3f952bd">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>txt_vec2 <span class="ot">&lt;-</span> <span class="fu">str_split</span>(txt_vec, <span class="at">pattern =</span> <span class="fu">boundary</span>(<span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simplify</span>() </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">slide</span>(txt_vec2, <span class="at">.f =</span> <span class="sc">~</span>.x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "Das"
+
+[[2]]
+[1] "Das" "ist"
+
+[[3]]
+[1] "Das" "ist" "ein"
+
+[[4]]
+[1] "ist"  "ein"  "Test"
+
+[[5]]
+[1] "ein"  "Test" "von" 
+
+[[6]]
+[1] "Test" "von"  "dem" 
+
+[[7]]
+[1] "von"   "dem"   "nicht"
+
+[[8]]
+[1] "dem"   "nicht" "viel" 
+
+[[9]]
+[1] "nicht" "viel"  "zu"   
+
+[[10]]
+[1] "viel"     "zu"       "erwarten"
+
+[[11]]
+[1] "zu"       "erwarten" "ist"     </code></pre>
+</div>
+</div>
+<p>In unserem Beispiel mit den Beschwerden:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-17_1e3b9ffc360e15d2a94ce9d6bd126ce0">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slide</span>(beschwerde1_text<span class="sc">$</span>word,  <span class="sc">~</span>.x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "systems"
+
+[[2]]
+[1] "systems" "inc"    
+
+[[3]]
+[1] "systems" "inc"     "is"     
+
+[[4]]
+[1] "inc"    "is"     "trying"
+
+[[5]]
+[1] "is"     "trying" "to"    
+
+[[6]]
+[1] "trying"  "to"      "collect"
+
+[[7]]
+[1] "to"      "collect" "a"      
+
+[[8]]
+[1] "collect" "a"       "debt"   
+
+[[9]]
+[1] "a"    "debt" "that"
+
+[[10]]
+[1] "debt" "that" "is"  
+
+[[11]]
+[1] "that" "is"   "not" 
+
+[[12]]
+[1] "is"   "not"  "mine"
+
+[[13]]
+[1] "not"  "mine" "not" 
+
+[[14]]
+[1] "mine" "not"  "owed"
+
+[[15]]
+[1] "not"  "owed" "and" 
+
+[[16]]
+[1] "owed" "and"  "is"  
+
+[[17]]
+[1] "and"        "is"         "inaccurate"</code></pre>
+</div>
+</div>
+</section>
+<section id="funktion-slide_windows" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="funktion-slide_windows"><span class="header-section-number">6.3.3</span> Funktion <code>slide_windows</code></h3>
+<p>Die Funktion <code>slide_windows</code> im <a href="https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself">Kapitel 5.2</a> ist recht kompliziert. In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. Sind die Schritte in einer Funktion zusammengefasst, kann man mit <code>debug(fun)</code> sich die Schritte innerhalb der Funktion einzeln ausführen lassen.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-18_d9da44023275b3c59e944997e4b5b8e6">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>slide_windows <span class="ot">&lt;-</span> <span class="cf">function</span>(tbl, window_size) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  skipgrams <span class="ot">&lt;-</span> slider<span class="sc">::</span><span class="fu">slide</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    tbl, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>.x, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.after =</span> window_size <span class="sc">-</span> <span class="dv">1</span>, </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.step =</span> <span class="dv">1</span>, </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.complete =</span> <span class="cn">TRUE</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  safe_mutate <span class="ot">&lt;-</span> <span class="fu">safely</span>(mutate)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">map2</span>(skipgrams,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(skipgrams),</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>              <span class="sc">~</span> <span class="fu">safe_mutate</span>(.x, <span class="at">window_id =</span> .y))</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  out <span class="sc">%&gt;%</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pluck</span>(<span class="st">"result"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compact</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>()</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Erschwerend kommt eine große Datenmenge und eine lange Berechnungszeit dazu, was das Debuggen (Nachvollziehen und Durchdenken) der Schritte zusätzlich erschwert. In solchen Fällen hilft die goldende Regel: Mach es dir so einfach wie möglich (aber nicht einfacher). Wir nutzen also den stark verkleinerten Datensatz <code>nested_words3</code>, den wir oben importiert haben.</p>
+<p>Hier ist der Syntax-Auszug:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-19_a93f76033bd2363479f6094d73ba334c">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession)  <span class="do">## for parallel processing</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#debug(slide_windows)  # um sich die Schritte in `slide_windows` einzeln anzuschauen.</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>tidy_pmi <span class="ot">&lt;-</span> nested_words3 <span class="sc">%&gt;%</span>  <span class="co"># &lt;--- Kleiner Datensatz!</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">words =</span> <span class="fu">future_map</span>(words, slide_windows, 4L)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(words) <span class="sc">%&gt;%</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(window_id, complaint_id, window_id) <span class="sc">%&gt;%</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_pmi</span>(word, window_id)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>tidy_pmi <span class="sc">%&gt;%</span> </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">item1</th>
+<th style="text-align: left;">item2</th>
+<th style="text-align: right;">pmi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">inc</td>
+<td style="text-align: left;">systems</td>
+<td style="text-align: right;">5.728498</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">is</td>
+<td style="text-align: left;">systems</td>
+<td style="text-align: right;">2.838126</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trying</td>
+<td style="text-align: left;">systems</td>
+<td style="text-align: right;">5.035351</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">systems</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">5.728498</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">is</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">2.838126</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">trying</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">5.035351</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="svd" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="svd"><span class="header-section-number">6.3.4</span> SVD</h3>
+<p>Die <em>Singulärwertzerlegung</em> (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse. Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt: Die Verben “gehen”, “rennen”, “laufen”, “schwimmen”, “fahren”, “rutschen” könnten zu einer gemeinsamen Dimension, etwa “fortbewegen” reduziert werden. Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, das die konzeptionelle Nähe des Verbs zur “dahinterliegenden” Dimension (fortbewegen) quantifiziert; die Zahl nennt man auch die “Ladung” des Items (Worts) auf die Dimension. Sagen wir, wir identifizieren 10 Dimensionen. Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionsen. Im genannten Beispiel wäre es ein 10-stelliger Vektor. So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, beschreibt hier unser 10-stelliger Vektor die “Position” eines Worts in unserem <em>Einbettungsvektor</em>.</p>
+<p>Die Syntax dazu ist dieses Mal einfach:</p>
+<div class="cell" data-hash="word-embedding_cache/html/widely-svd_0d6a1d676a38c10b6e7d5d212db344ba">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="ot">&lt;-</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  tidy_pmi <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">widely_svd</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    item1, item2, pmi,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nv =</span> <span class="dv">100</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="sc">%&gt;%</span> </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  (head)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">item1</th>
+<th style="text-align: right;">dimension</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.0378963</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">is</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.1132069</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trying</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.0512764</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">systems</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.0333332</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">to</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.1203434</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">collect</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.0554211</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Mit <code>nv = 100</code> haben wir die Anzahl (<code>n</code>) der Dimensionen (Variablen, <code>v</code>) auf 100 bestimmt.</p>
+</section>
+<section id="wortähnlichkeit" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5" class="anchored" data-anchor-id="wortähnlichkeit"><span class="header-section-number">6.3.5</span> Wortähnlichkeit</h3>
+<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance">Abbildung&nbsp;<span>6.2</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
+<div id="fig-euklid-distance" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/euklid-distance.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.2: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh</figcaption><p></p>
+</figure>
+</div>
+<p>Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, <a href="https://mathworld.wolfram.com/Distance.html">aber der Algebra ist das egal</a>. Pythagoras’ Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.</p>
+<p>Die Autoren basteln sich selber eine Funktion in <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap. 5.3</a>, aber der Einfachheit halber nehme ich (erstmal) die entsprechende Funktion aus <code>widyr</code>:</p>
+<div class="cell" data-hash="word-embedding_cache/html/pairwise-dist_177476962fa68331a32177a2dd2f332d">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="ot">&lt;-</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_dist</span>(item1, dimension, value)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="sc">%&gt;%</span> </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">item1</th>
+<th style="text-align: left;">item2</th>
+<th style="text-align: right;">distance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">is</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">1.0220141</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">trying</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">0.9332851</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">systems</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">0.4161215</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">to</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">1.0913872</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">collect</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">0.5221759</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">inc</td>
+<td style="text-align: right;">1.0309566</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Was sind die Nachbarn von “inaccurate”?</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-20_caf22acfbe4cf9123f4c640911822bc7">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"inaccurate"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(distance) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">item1</th>
+<th style="text-align: left;">item2</th>
+<th style="text-align: right;">distance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">inaccurate</td>
+<td style="text-align: left;">mine</td>
+<td style="text-align: right;">0.5248868</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">inaccurate</td>
+<td style="text-align: left;">score</td>
+<td style="text-align: right;">0.5310116</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">inaccurate</td>
+<td style="text-align: left;">oh</td>
+<td style="text-align: right;">0.5400913</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">inaccurate</td>
+<td style="text-align: left;">ny</td>
+<td style="text-align: right;">0.5400913</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">inaccurate</td>
+<td style="text-align: left;">dob</td>
+<td style="text-align: right;">0.5801281</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">inaccurate</td>
+<td style="text-align: left;">cell</td>
+<td style="text-align: right;">0.6093670</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen. Aber “incorrectly”, “correct”, “balance” sind wohl plausible Nachbarn von “inaccurate”.</p>
+</section>
+<section id="word-embeddings-vorgekocht-glove6b" class="level3" data-number="6.3.6">
+<h3 data-number="6.3.6" class="anchored" data-anchor-id="word-embeddings-vorgekocht-glove6b"><span class="header-section-number">6.3.6</span> Word-Embeddings vorgekocht: Glove6B</h3>
+<p>In <a href="https://smltar.com/embeddings.html#glove">Kap. 5.4</a> schreiben die Autoren:</p>
+<blockquote class="blockquote">
+<p>If your data set is too small, you typically cannot train reliable word embeddings.</p>
+</blockquote>
+<p>Ein paar Millionen Wörter sollte der Corpus schon enthalten, so die Autoren. Da solche “Worteinbettungen” (word embedings) aufwändig zu erstellen sind, kann man fertige, “vorgekochte” Produkte nutzen.</p>
+<p>Glove6B wurde anhand von Wikipedia und anderen Datenquellen erstellt <span class="citation" data-cites="pennington_glove_2014">(<a href="references.html#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span>.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die zugehörigen Daten sind recht groß; für <a href="https://nlp.stanford.edu/projects/glove/"><code>glove6b</code></a> <span class="citation" data-cites="pennington_glove_2014">(<a href="references.html#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span> ist fast ein Gigabyte fällig. Sie sollten sich die Daten in einem ruhigen Moment (mit stabiler Internetverbindung) herunterladen und in einem Verzeichnis meiner Wahl abgespeichert (<code>datasets</code>). Da bei mir Download abbrach, als ich <code>embedding_glove6b(dimensions = 100)</code> aufrief, habe ich die Daten manuell heruntergeladen, s.u.</p>
+</div>
+</div>
+<div class="cell" data-hash="word-embedding_cache/html/load-glove_04ef018bb908c2cd22a5a09c67ce0076">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>glove6b <span class="ot">&lt;-</span> <span class="fu">embedding_glove6b</span>(<span class="at">dir =</span> <span class="st">"~/datasets"</span>, <span class="at">dimensions =</span> <span class="dv">10</span>, <span class="at">manual_download =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>glove6b <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">token</th>
+<th style="text-align: right;">d1</th>
+<th style="text-align: right;">d2</th>
+<th style="text-align: right;">d3</th>
+<th style="text-align: right;">d4</th>
+<th style="text-align: right;">d5</th>
+<th style="text-align: right;">d6</th>
+<th style="text-align: right;">d7</th>
+<th style="text-align: right;">d8</th>
+<th style="text-align: right;">d9</th>
+<th style="text-align: right;">d10</th>
+<th style="text-align: right;">d11</th>
+<th style="text-align: right;">d12</th>
+<th style="text-align: right;">d13</th>
+<th style="text-align: right;">d14</th>
+<th style="text-align: right;">d15</th>
+<th style="text-align: right;">d16</th>
+<th style="text-align: right;">d17</th>
+<th style="text-align: right;">d18</th>
+<th style="text-align: right;">d19</th>
+<th style="text-align: right;">d20</th>
+<th style="text-align: right;">d21</th>
+<th style="text-align: right;">d22</th>
+<th style="text-align: right;">d23</th>
+<th style="text-align: right;">d24</th>
+<th style="text-align: right;">d25</th>
+<th style="text-align: right;">d26</th>
+<th style="text-align: right;">d27</th>
+<th style="text-align: right;">d28</th>
+<th style="text-align: right;">d29</th>
+<th style="text-align: right;">d30</th>
+<th style="text-align: right;">d31</th>
+<th style="text-align: right;">d32</th>
+<th style="text-align: right;">d33</th>
+<th style="text-align: right;">d34</th>
+<th style="text-align: right;">d35</th>
+<th style="text-align: right;">d36</th>
+<th style="text-align: right;">d37</th>
+<th style="text-align: right;">d38</th>
+<th style="text-align: right;">d39</th>
+<th style="text-align: right;">d40</th>
+<th style="text-align: right;">d41</th>
+<th style="text-align: right;">d42</th>
+<th style="text-align: right;">d43</th>
+<th style="text-align: right;">d44</th>
+<th style="text-align: right;">d45</th>
+<th style="text-align: right;">d46</th>
+<th style="text-align: right;">d47</th>
+<th style="text-align: right;">d48</th>
+<th style="text-align: right;">d49</th>
+<th style="text-align: right;">d50</th>
+<th style="text-align: right;">d51</th>
+<th style="text-align: right;">d52</th>
+<th style="text-align: right;">d53</th>
+<th style="text-align: right;">d54</th>
+<th style="text-align: right;">d55</th>
+<th style="text-align: right;">d56</th>
+<th style="text-align: right;">d57</th>
+<th style="text-align: right;">d58</th>
+<th style="text-align: right;">d59</th>
+<th style="text-align: right;">d60</th>
+<th style="text-align: right;">d61</th>
+<th style="text-align: right;">d62</th>
+<th style="text-align: right;">d63</th>
+<th style="text-align: right;">d64</th>
+<th style="text-align: right;">d65</th>
+<th style="text-align: right;">d66</th>
+<th style="text-align: right;">d67</th>
+<th style="text-align: right;">d68</th>
+<th style="text-align: right;">d69</th>
+<th style="text-align: right;">d70</th>
+<th style="text-align: right;">d71</th>
+<th style="text-align: right;">d72</th>
+<th style="text-align: right;">d73</th>
+<th style="text-align: right;">d74</th>
+<th style="text-align: right;">d75</th>
+<th style="text-align: right;">d76</th>
+<th style="text-align: right;">d77</th>
+<th style="text-align: right;">d78</th>
+<th style="text-align: right;">d79</th>
+<th style="text-align: right;">d80</th>
+<th style="text-align: right;">d81</th>
+<th style="text-align: right;">d82</th>
+<th style="text-align: right;">d83</th>
+<th style="text-align: right;">d84</th>
+<th style="text-align: right;">d85</th>
+<th style="text-align: right;">d86</th>
+<th style="text-align: right;">d87</th>
+<th style="text-align: right;">d88</th>
+<th style="text-align: right;">d89</th>
+<th style="text-align: right;">d90</th>
+<th style="text-align: right;">d91</th>
+<th style="text-align: right;">d92</th>
+<th style="text-align: right;">d93</th>
+<th style="text-align: right;">d94</th>
+<th style="text-align: right;">d95</th>
+<th style="text-align: right;">d96</th>
+<th style="text-align: right;">d97</th>
+<th style="text-align: right;">d98</th>
+<th style="text-align: right;">d99</th>
+<th style="text-align: right;">d100</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">the</td>
+<td style="text-align: right;">-0.038194</td>
+<td style="text-align: right;">-0.244870</td>
+<td style="text-align: right;">0.728120</td>
+<td style="text-align: right;">-0.399610</td>
+<td style="text-align: right;">0.083172</td>
+<td style="text-align: right;">0.043953</td>
+<td style="text-align: right;">-0.391410</td>
+<td style="text-align: right;">0.334400</td>
+<td style="text-align: right;">-0.57545</td>
+<td style="text-align: right;">0.087459</td>
+<td style="text-align: right;">0.287870</td>
+<td style="text-align: right;">-0.06731</td>
+<td style="text-align: right;">0.30906</td>
+<td style="text-align: right;">-0.26384</td>
+<td style="text-align: right;">-0.13231</td>
+<td style="text-align: right;">-0.20757</td>
+<td style="text-align: right;">0.33395</td>
+<td style="text-align: right;">-0.338480</td>
+<td style="text-align: right;">-0.31743</td>
+<td style="text-align: right;">-0.48336</td>
+<td style="text-align: right;">0.146400</td>
+<td style="text-align: right;">-0.373040</td>
+<td style="text-align: right;">0.34577</td>
+<td style="text-align: right;">0.052041</td>
+<td style="text-align: right;">0.4494600</td>
+<td style="text-align: right;">-0.469710</td>
+<td style="text-align: right;">0.026280</td>
+<td style="text-align: right;">-0.54155</td>
+<td style="text-align: right;">-0.155180</td>
+<td style="text-align: right;">-0.141070</td>
+<td style="text-align: right;">-0.039722</td>
+<td style="text-align: right;">0.28277</td>
+<td style="text-align: right;">0.14393</td>
+<td style="text-align: right;">0.234640</td>
+<td style="text-align: right;">-0.31021</td>
+<td style="text-align: right;">0.086173</td>
+<td style="text-align: right;">0.20397</td>
+<td style="text-align: right;">0.52624</td>
+<td style="text-align: right;">0.171640</td>
+<td style="text-align: right;">-0.082378</td>
+<td style="text-align: right;">-0.71787</td>
+<td style="text-align: right;">-0.41531</td>
+<td style="text-align: right;">0.203350</td>
+<td style="text-align: right;">-0.12763</td>
+<td style="text-align: right;">0.413670</td>
+<td style="text-align: right;">0.551870</td>
+<td style="text-align: right;">0.579080</td>
+<td style="text-align: right;">-0.33477</td>
+<td style="text-align: right;">-0.36559</td>
+<td style="text-align: right;">-0.54857</td>
+<td style="text-align: right;">-0.0628920</td>
+<td style="text-align: right;">0.26584</td>
+<td style="text-align: right;">0.30205</td>
+<td style="text-align: right;">0.99775</td>
+<td style="text-align: right;">-0.804810</td>
+<td style="text-align: right;">-3.0243</td>
+<td style="text-align: right;">0.012540</td>
+<td style="text-align: right;">-0.369420</td>
+<td style="text-align: right;">2.2167</td>
+<td style="text-align: right;">0.72201</td>
+<td style="text-align: right;">-0.24978</td>
+<td style="text-align: right;">0.92136</td>
+<td style="text-align: right;">0.034514</td>
+<td style="text-align: right;">0.46745</td>
+<td style="text-align: right;">1.10790</td>
+<td style="text-align: right;">-0.193580</td>
+<td style="text-align: right;">-0.074575</td>
+<td style="text-align: right;">0.233530</td>
+<td style="text-align: right;">-0.052062</td>
+<td style="text-align: right;">-0.220440</td>
+<td style="text-align: right;">0.057162</td>
+<td style="text-align: right;">-0.15806</td>
+<td style="text-align: right;">-0.307980</td>
+<td style="text-align: right;">-0.416250</td>
+<td style="text-align: right;">0.379720</td>
+<td style="text-align: right;">0.1500600</td>
+<td style="text-align: right;">-0.532120</td>
+<td style="text-align: right;">-0.205500</td>
+<td style="text-align: right;">-1.25260</td>
+<td style="text-align: right;">0.071624</td>
+<td style="text-align: right;">0.70565</td>
+<td style="text-align: right;">0.497440</td>
+<td style="text-align: right;">-0.42063</td>
+<td style="text-align: right;">0.26148</td>
+<td style="text-align: right;">-1.5380</td>
+<td style="text-align: right;">-0.30223</td>
+<td style="text-align: right;">-0.073438</td>
+<td style="text-align: right;">-0.283120</td>
+<td style="text-align: right;">0.371040</td>
+<td style="text-align: right;">-0.25217</td>
+<td style="text-align: right;">0.016215</td>
+<td style="text-align: right;">-0.017099</td>
+<td style="text-align: right;">-0.389840</td>
+<td style="text-align: right;">0.87424</td>
+<td style="text-align: right;">-0.72569</td>
+<td style="text-align: right;">-0.51058</td>
+<td style="text-align: right;">-0.520280</td>
+<td style="text-align: right;">-0.14590</td>
+<td style="text-align: right;">0.82780</td>
+<td style="text-align: right;">0.270620</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">,</td>
+<td style="text-align: right;">-0.107670</td>
+<td style="text-align: right;">0.110530</td>
+<td style="text-align: right;">0.598120</td>
+<td style="text-align: right;">-0.543610</td>
+<td style="text-align: right;">0.673960</td>
+<td style="text-align: right;">0.106630</td>
+<td style="text-align: right;">0.038867</td>
+<td style="text-align: right;">0.354810</td>
+<td style="text-align: right;">0.06351</td>
+<td style="text-align: right;">-0.094189</td>
+<td style="text-align: right;">0.157860</td>
+<td style="text-align: right;">-0.81665</td>
+<td style="text-align: right;">0.14172</td>
+<td style="text-align: right;">0.21939</td>
+<td style="text-align: right;">0.58505</td>
+<td style="text-align: right;">-0.52158</td>
+<td style="text-align: right;">0.22783</td>
+<td style="text-align: right;">-0.166420</td>
+<td style="text-align: right;">-0.68228</td>
+<td style="text-align: right;">0.35870</td>
+<td style="text-align: right;">0.425680</td>
+<td style="text-align: right;">0.190210</td>
+<td style="text-align: right;">0.91963</td>
+<td style="text-align: right;">0.575550</td>
+<td style="text-align: right;">0.4618500</td>
+<td style="text-align: right;">0.423630</td>
+<td style="text-align: right;">-0.095399</td>
+<td style="text-align: right;">-0.42749</td>
+<td style="text-align: right;">-0.165670</td>
+<td style="text-align: right;">-0.056842</td>
+<td style="text-align: right;">-0.295950</td>
+<td style="text-align: right;">0.26037</td>
+<td style="text-align: right;">-0.26606</td>
+<td style="text-align: right;">-0.070404</td>
+<td style="text-align: right;">-0.27662</td>
+<td style="text-align: right;">0.158210</td>
+<td style="text-align: right;">0.69825</td>
+<td style="text-align: right;">0.43081</td>
+<td style="text-align: right;">0.279520</td>
+<td style="text-align: right;">-0.454370</td>
+<td style="text-align: right;">-0.33801</td>
+<td style="text-align: right;">-0.58184</td>
+<td style="text-align: right;">0.223640</td>
+<td style="text-align: right;">-0.57780</td>
+<td style="text-align: right;">-0.268620</td>
+<td style="text-align: right;">-0.204250</td>
+<td style="text-align: right;">0.563940</td>
+<td style="text-align: right;">-0.58524</td>
+<td style="text-align: right;">-0.14365</td>
+<td style="text-align: right;">-0.64218</td>
+<td style="text-align: right;">0.0054697</td>
+<td style="text-align: right;">-0.35248</td>
+<td style="text-align: right;">0.16162</td>
+<td style="text-align: right;">1.17960</td>
+<td style="text-align: right;">-0.476740</td>
+<td style="text-align: right;">-2.7553</td>
+<td style="text-align: right;">-0.132100</td>
+<td style="text-align: right;">-0.047729</td>
+<td style="text-align: right;">1.0655</td>
+<td style="text-align: right;">1.10340</td>
+<td style="text-align: right;">-0.22080</td>
+<td style="text-align: right;">0.18669</td>
+<td style="text-align: right;">0.131770</td>
+<td style="text-align: right;">0.15117</td>
+<td style="text-align: right;">0.71310</td>
+<td style="text-align: right;">-0.352150</td>
+<td style="text-align: right;">0.913480</td>
+<td style="text-align: right;">0.617830</td>
+<td style="text-align: right;">0.709920</td>
+<td style="text-align: right;">0.239550</td>
+<td style="text-align: right;">-0.145710</td>
+<td style="text-align: right;">-0.37859</td>
+<td style="text-align: right;">-0.045959</td>
+<td style="text-align: right;">-0.473680</td>
+<td style="text-align: right;">0.238500</td>
+<td style="text-align: right;">0.2053600</td>
+<td style="text-align: right;">-0.189960</td>
+<td style="text-align: right;">0.325070</td>
+<td style="text-align: right;">-1.11120</td>
+<td style="text-align: right;">-0.363410</td>
+<td style="text-align: right;">0.98679</td>
+<td style="text-align: right;">-0.084776</td>
+<td style="text-align: right;">-0.54008</td>
+<td style="text-align: right;">0.11726</td>
+<td style="text-align: right;">-1.0194</td>
+<td style="text-align: right;">-0.24424</td>
+<td style="text-align: right;">0.127710</td>
+<td style="text-align: right;">0.013884</td>
+<td style="text-align: right;">0.080374</td>
+<td style="text-align: right;">-0.35414</td>
+<td style="text-align: right;">0.349510</td>
+<td style="text-align: right;">-0.722600</td>
+<td style="text-align: right;">0.375490</td>
+<td style="text-align: right;">0.44410</td>
+<td style="text-align: right;">-0.99059</td>
+<td style="text-align: right;">0.61214</td>
+<td style="text-align: right;">-0.351110</td>
+<td style="text-align: right;">-0.83155</td>
+<td style="text-align: right;">0.45293</td>
+<td style="text-align: right;">0.082577</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">.</td>
+<td style="text-align: right;">-0.339790</td>
+<td style="text-align: right;">0.209410</td>
+<td style="text-align: right;">0.463480</td>
+<td style="text-align: right;">-0.647920</td>
+<td style="text-align: right;">-0.383770</td>
+<td style="text-align: right;">0.038034</td>
+<td style="text-align: right;">0.171270</td>
+<td style="text-align: right;">0.159780</td>
+<td style="text-align: right;">0.46619</td>
+<td style="text-align: right;">-0.019169</td>
+<td style="text-align: right;">0.414790</td>
+<td style="text-align: right;">-0.34349</td>
+<td style="text-align: right;">0.26872</td>
+<td style="text-align: right;">0.04464</td>
+<td style="text-align: right;">0.42131</td>
+<td style="text-align: right;">-0.41032</td>
+<td style="text-align: right;">0.15459</td>
+<td style="text-align: right;">0.022239</td>
+<td style="text-align: right;">-0.64653</td>
+<td style="text-align: right;">0.25256</td>
+<td style="text-align: right;">0.043136</td>
+<td style="text-align: right;">-0.194450</td>
+<td style="text-align: right;">0.46516</td>
+<td style="text-align: right;">0.456510</td>
+<td style="text-align: right;">0.6858800</td>
+<td style="text-align: right;">0.091295</td>
+<td style="text-align: right;">0.218750</td>
+<td style="text-align: right;">-0.70351</td>
+<td style="text-align: right;">0.167850</td>
+<td style="text-align: right;">-0.350790</td>
+<td style="text-align: right;">-0.126340</td>
+<td style="text-align: right;">0.66384</td>
+<td style="text-align: right;">-0.25820</td>
+<td style="text-align: right;">0.036542</td>
+<td style="text-align: right;">-0.13605</td>
+<td style="text-align: right;">0.402530</td>
+<td style="text-align: right;">0.14289</td>
+<td style="text-align: right;">0.38132</td>
+<td style="text-align: right;">-0.122830</td>
+<td style="text-align: right;">-0.458860</td>
+<td style="text-align: right;">-0.25282</td>
+<td style="text-align: right;">-0.30432</td>
+<td style="text-align: right;">-0.112150</td>
+<td style="text-align: right;">-0.26182</td>
+<td style="text-align: right;">-0.224820</td>
+<td style="text-align: right;">-0.445540</td>
+<td style="text-align: right;">0.299100</td>
+<td style="text-align: right;">-0.85612</td>
+<td style="text-align: right;">-0.14503</td>
+<td style="text-align: right;">-0.49086</td>
+<td style="text-align: right;">0.0082973</td>
+<td style="text-align: right;">-0.17491</td>
+<td style="text-align: right;">0.27524</td>
+<td style="text-align: right;">1.44010</td>
+<td style="text-align: right;">-0.212390</td>
+<td style="text-align: right;">-2.8435</td>
+<td style="text-align: right;">-0.279580</td>
+<td style="text-align: right;">-0.457220</td>
+<td style="text-align: right;">1.6386</td>
+<td style="text-align: right;">0.78808</td>
+<td style="text-align: right;">-0.55262</td>
+<td style="text-align: right;">0.65000</td>
+<td style="text-align: right;">0.086426</td>
+<td style="text-align: right;">0.39012</td>
+<td style="text-align: right;">1.06320</td>
+<td style="text-align: right;">-0.353790</td>
+<td style="text-align: right;">0.483280</td>
+<td style="text-align: right;">0.346000</td>
+<td style="text-align: right;">0.841740</td>
+<td style="text-align: right;">0.098707</td>
+<td style="text-align: right;">-0.242130</td>
+<td style="text-align: right;">-0.27053</td>
+<td style="text-align: right;">0.045287</td>
+<td style="text-align: right;">-0.401470</td>
+<td style="text-align: right;">0.113950</td>
+<td style="text-align: right;">0.0062226</td>
+<td style="text-align: right;">0.036673</td>
+<td style="text-align: right;">0.018518</td>
+<td style="text-align: right;">-1.02130</td>
+<td style="text-align: right;">-0.208060</td>
+<td style="text-align: right;">0.64072</td>
+<td style="text-align: right;">-0.068763</td>
+<td style="text-align: right;">-0.58635</td>
+<td style="text-align: right;">0.33476</td>
+<td style="text-align: right;">-1.1432</td>
+<td style="text-align: right;">-0.11480</td>
+<td style="text-align: right;">-0.250910</td>
+<td style="text-align: right;">-0.459070</td>
+<td style="text-align: right;">-0.096819</td>
+<td style="text-align: right;">-0.17946</td>
+<td style="text-align: right;">-0.063351</td>
+<td style="text-align: right;">-0.674120</td>
+<td style="text-align: right;">-0.068895</td>
+<td style="text-align: right;">0.53604</td>
+<td style="text-align: right;">-0.87773</td>
+<td style="text-align: right;">0.31802</td>
+<td style="text-align: right;">-0.392420</td>
+<td style="text-align: right;">-0.23394</td>
+<td style="text-align: right;">0.47298</td>
+<td style="text-align: right;">-0.028803</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">of</td>
+<td style="text-align: right;">-0.152900</td>
+<td style="text-align: right;">-0.242790</td>
+<td style="text-align: right;">0.898370</td>
+<td style="text-align: right;">0.169960</td>
+<td style="text-align: right;">0.535160</td>
+<td style="text-align: right;">0.487840</td>
+<td style="text-align: right;">-0.588260</td>
+<td style="text-align: right;">-0.179820</td>
+<td style="text-align: right;">-1.35810</td>
+<td style="text-align: right;">0.425410</td>
+<td style="text-align: right;">0.153770</td>
+<td style="text-align: right;">0.24215</td>
+<td style="text-align: right;">0.13474</td>
+<td style="text-align: right;">0.41193</td>
+<td style="text-align: right;">0.67043</td>
+<td style="text-align: right;">-0.56418</td>
+<td style="text-align: right;">0.42985</td>
+<td style="text-align: right;">-0.012183</td>
+<td style="text-align: right;">-0.11677</td>
+<td style="text-align: right;">0.31781</td>
+<td style="text-align: right;">0.054177</td>
+<td style="text-align: right;">-0.054273</td>
+<td style="text-align: right;">0.35516</td>
+<td style="text-align: right;">-0.302410</td>
+<td style="text-align: right;">0.3143400</td>
+<td style="text-align: right;">-0.338460</td>
+<td style="text-align: right;">0.717150</td>
+<td style="text-align: right;">-0.26855</td>
+<td style="text-align: right;">-0.158370</td>
+<td style="text-align: right;">-0.474670</td>
+<td style="text-align: right;">0.051581</td>
+<td style="text-align: right;">-0.33252</td>
+<td style="text-align: right;">0.15003</td>
+<td style="text-align: right;">-0.129900</td>
+<td style="text-align: right;">-0.54617</td>
+<td style="text-align: right;">-0.378430</td>
+<td style="text-align: right;">0.64261</td>
+<td style="text-align: right;">0.82187</td>
+<td style="text-align: right;">-0.080006</td>
+<td style="text-align: right;">0.078479</td>
+<td style="text-align: right;">-0.96976</td>
+<td style="text-align: right;">-0.57741</td>
+<td style="text-align: right;">0.564910</td>
+<td style="text-align: right;">-0.39873</td>
+<td style="text-align: right;">-0.057099</td>
+<td style="text-align: right;">0.197430</td>
+<td style="text-align: right;">0.065706</td>
+<td style="text-align: right;">-0.48092</td>
+<td style="text-align: right;">-0.20125</td>
+<td style="text-align: right;">-0.40834</td>
+<td style="text-align: right;">0.3945600</td>
+<td style="text-align: right;">-0.02642</td>
+<td style="text-align: right;">-0.11838</td>
+<td style="text-align: right;">1.01200</td>
+<td style="text-align: right;">-0.531710</td>
+<td style="text-align: right;">-2.7474</td>
+<td style="text-align: right;">-0.042981</td>
+<td style="text-align: right;">-0.748490</td>
+<td style="text-align: right;">1.7574</td>
+<td style="text-align: right;">0.59085</td>
+<td style="text-align: right;">0.04885</td>
+<td style="text-align: right;">0.78267</td>
+<td style="text-align: right;">0.384970</td>
+<td style="text-align: right;">0.42097</td>
+<td style="text-align: right;">0.67882</td>
+<td style="text-align: right;">0.103370</td>
+<td style="text-align: right;">0.632800</td>
+<td style="text-align: right;">-0.026595</td>
+<td style="text-align: right;">0.586470</td>
+<td style="text-align: right;">-0.443320</td>
+<td style="text-align: right;">0.330570</td>
+<td style="text-align: right;">-0.12022</td>
+<td style="text-align: right;">-0.556450</td>
+<td style="text-align: right;">0.073611</td>
+<td style="text-align: right;">0.209150</td>
+<td style="text-align: right;">0.4339500</td>
+<td style="text-align: right;">-0.012761</td>
+<td style="text-align: right;">0.089874</td>
+<td style="text-align: right;">-1.79910</td>
+<td style="text-align: right;">0.084808</td>
+<td style="text-align: right;">0.77112</td>
+<td style="text-align: right;">0.631050</td>
+<td style="text-align: right;">-0.90685</td>
+<td style="text-align: right;">0.60326</td>
+<td style="text-align: right;">-1.7515</td>
+<td style="text-align: right;">0.18596</td>
+<td style="text-align: right;">-0.506870</td>
+<td style="text-align: right;">-0.702030</td>
+<td style="text-align: right;">0.665780</td>
+<td style="text-align: right;">-0.81304</td>
+<td style="text-align: right;">0.187120</td>
+<td style="text-align: right;">-0.018488</td>
+<td style="text-align: right;">-0.267570</td>
+<td style="text-align: right;">0.72700</td>
+<td style="text-align: right;">-0.59363</td>
+<td style="text-align: right;">-0.34839</td>
+<td style="text-align: right;">-0.560940</td>
+<td style="text-align: right;">-0.59100</td>
+<td style="text-align: right;">1.00390</td>
+<td style="text-align: right;">0.206640</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">to</td>
+<td style="text-align: right;">-0.189700</td>
+<td style="text-align: right;">0.050024</td>
+<td style="text-align: right;">0.190840</td>
+<td style="text-align: right;">-0.049184</td>
+<td style="text-align: right;">-0.089737</td>
+<td style="text-align: right;">0.210060</td>
+<td style="text-align: right;">-0.549520</td>
+<td style="text-align: right;">0.098377</td>
+<td style="text-align: right;">-0.20135</td>
+<td style="text-align: right;">0.342410</td>
+<td style="text-align: right;">-0.092677</td>
+<td style="text-align: right;">0.16100</td>
+<td style="text-align: right;">-0.13268</td>
+<td style="text-align: right;">-0.28160</td>
+<td style="text-align: right;">0.18737</td>
+<td style="text-align: right;">-0.42959</td>
+<td style="text-align: right;">0.96039</td>
+<td style="text-align: right;">0.139720</td>
+<td style="text-align: right;">-1.07810</td>
+<td style="text-align: right;">0.40518</td>
+<td style="text-align: right;">0.505390</td>
+<td style="text-align: right;">-0.550640</td>
+<td style="text-align: right;">0.48440</td>
+<td style="text-align: right;">0.380440</td>
+<td style="text-align: right;">-0.0029055</td>
+<td style="text-align: right;">-0.349420</td>
+<td style="text-align: right;">-0.099696</td>
+<td style="text-align: right;">-0.78368</td>
+<td style="text-align: right;">1.036300</td>
+<td style="text-align: right;">-0.231400</td>
+<td style="text-align: right;">-0.471210</td>
+<td style="text-align: right;">0.57126</td>
+<td style="text-align: right;">-0.21454</td>
+<td style="text-align: right;">0.359580</td>
+<td style="text-align: right;">-0.48319</td>
+<td style="text-align: right;">1.087500</td>
+<td style="text-align: right;">0.28524</td>
+<td style="text-align: right;">0.12447</td>
+<td style="text-align: right;">-0.039248</td>
+<td style="text-align: right;">-0.076732</td>
+<td style="text-align: right;">-0.76343</td>
+<td style="text-align: right;">-0.32409</td>
+<td style="text-align: right;">-0.574900</td>
+<td style="text-align: right;">-1.08930</td>
+<td style="text-align: right;">-0.418110</td>
+<td style="text-align: right;">0.451200</td>
+<td style="text-align: right;">0.121120</td>
+<td style="text-align: right;">-0.51367</td>
+<td style="text-align: right;">-0.13349</td>
+<td style="text-align: right;">-1.13780</td>
+<td style="text-align: right;">-0.2876800</td>
+<td style="text-align: right;">0.16774</td>
+<td style="text-align: right;">0.55804</td>
+<td style="text-align: right;">1.53870</td>
+<td style="text-align: right;">0.018859</td>
+<td style="text-align: right;">-2.9721</td>
+<td style="text-align: right;">-0.242160</td>
+<td style="text-align: right;">-0.924950</td>
+<td style="text-align: right;">2.1992</td>
+<td style="text-align: right;">0.28234</td>
+<td style="text-align: right;">-0.34780</td>
+<td style="text-align: right;">0.51621</td>
+<td style="text-align: right;">-0.433870</td>
+<td style="text-align: right;">0.36852</td>
+<td style="text-align: right;">0.74573</td>
+<td style="text-align: right;">0.072102</td>
+<td style="text-align: right;">0.279310</td>
+<td style="text-align: right;">0.925690</td>
+<td style="text-align: right;">-0.050336</td>
+<td style="text-align: right;">-0.858560</td>
+<td style="text-align: right;">-0.135800</td>
+<td style="text-align: right;">-0.92551</td>
+<td style="text-align: right;">-0.339910</td>
+<td style="text-align: right;">-1.039400</td>
+<td style="text-align: right;">-0.067203</td>
+<td style="text-align: right;">-0.2137900</td>
+<td style="text-align: right;">-0.476900</td>
+<td style="text-align: right;">0.213770</td>
+<td style="text-align: right;">-0.84008</td>
+<td style="text-align: right;">0.052536</td>
+<td style="text-align: right;">0.59298</td>
+<td style="text-align: right;">0.296040</td>
+<td style="text-align: right;">-0.67644</td>
+<td style="text-align: right;">0.13916</td>
+<td style="text-align: right;">-1.5504</td>
+<td style="text-align: right;">-0.20765</td>
+<td style="text-align: right;">0.722200</td>
+<td style="text-align: right;">0.520560</td>
+<td style="text-align: right;">-0.076221</td>
+<td style="text-align: right;">-0.15194</td>
+<td style="text-align: right;">-0.131340</td>
+<td style="text-align: right;">0.058617</td>
+<td style="text-align: right;">-0.318690</td>
+<td style="text-align: right;">-0.61419</td>
+<td style="text-align: right;">-0.62393</td>
+<td style="text-align: right;">-0.41548</td>
+<td style="text-align: right;">-0.038175</td>
+<td style="text-align: right;">-0.39804</td>
+<td style="text-align: right;">0.47647</td>
+<td style="text-align: right;">-0.159830</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">and</td>
+<td style="text-align: right;">-0.071953</td>
+<td style="text-align: right;">0.231270</td>
+<td style="text-align: right;">0.023731</td>
+<td style="text-align: right;">-0.506380</td>
+<td style="text-align: right;">0.339230</td>
+<td style="text-align: right;">0.195900</td>
+<td style="text-align: right;">-0.329430</td>
+<td style="text-align: right;">0.183640</td>
+<td style="text-align: right;">-0.18057</td>
+<td style="text-align: right;">0.289630</td>
+<td style="text-align: right;">0.204480</td>
+<td style="text-align: right;">-0.54960</td>
+<td style="text-align: right;">0.27399</td>
+<td style="text-align: right;">0.58327</td>
+<td style="text-align: right;">0.20468</td>
+<td style="text-align: right;">-0.49228</td>
+<td style="text-align: right;">0.19974</td>
+<td style="text-align: right;">-0.070237</td>
+<td style="text-align: right;">-0.88049</td>
+<td style="text-align: right;">0.29485</td>
+<td style="text-align: right;">0.140710</td>
+<td style="text-align: right;">-0.100900</td>
+<td style="text-align: right;">0.99449</td>
+<td style="text-align: right;">0.369730</td>
+<td style="text-align: right;">0.4455400</td>
+<td style="text-align: right;">0.289980</td>
+<td style="text-align: right;">-0.137600</td>
+<td style="text-align: right;">-0.56365</td>
+<td style="text-align: right;">-0.029365</td>
+<td style="text-align: right;">-0.412200</td>
+<td style="text-align: right;">-0.252690</td>
+<td style="text-align: right;">0.63181</td>
+<td style="text-align: right;">-0.44767</td>
+<td style="text-align: right;">0.243630</td>
+<td style="text-align: right;">-0.10813</td>
+<td style="text-align: right;">0.251640</td>
+<td style="text-align: right;">0.46967</td>
+<td style="text-align: right;">0.37550</td>
+<td style="text-align: right;">-0.236130</td>
+<td style="text-align: right;">-0.141290</td>
+<td style="text-align: right;">-0.44537</td>
+<td style="text-align: right;">-0.65737</td>
+<td style="text-align: right;">-0.042421</td>
+<td style="text-align: right;">-0.28636</td>
+<td style="text-align: right;">-0.288110</td>
+<td style="text-align: right;">0.063766</td>
+<td style="text-align: right;">0.202810</td>
+<td style="text-align: right;">-0.53542</td>
+<td style="text-align: right;">0.41307</td>
+<td style="text-align: right;">-0.59722</td>
+<td style="text-align: right;">-0.3861400</td>
+<td style="text-align: right;">0.19389</td>
+<td style="text-align: right;">-0.17809</td>
+<td style="text-align: right;">1.66180</td>
+<td style="text-align: right;">-0.011819</td>
+<td style="text-align: right;">-2.3737</td>
+<td style="text-align: right;">0.058427</td>
+<td style="text-align: right;">-0.269800</td>
+<td style="text-align: right;">1.2823</td>
+<td style="text-align: right;">0.81925</td>
+<td style="text-align: right;">-0.22322</td>
+<td style="text-align: right;">0.72932</td>
+<td style="text-align: right;">-0.053211</td>
+<td style="text-align: right;">0.43507</td>
+<td style="text-align: right;">0.85011</td>
+<td style="text-align: right;">-0.429350</td>
+<td style="text-align: right;">0.926640</td>
+<td style="text-align: right;">0.390510</td>
+<td style="text-align: right;">1.058500</td>
+<td style="text-align: right;">-0.245610</td>
+<td style="text-align: right;">-0.182650</td>
+<td style="text-align: right;">-0.53280</td>
+<td style="text-align: right;">0.059518</td>
+<td style="text-align: right;">-0.660190</td>
+<td style="text-align: right;">0.189910</td>
+<td style="text-align: right;">0.2883600</td>
+<td style="text-align: right;">-0.243400</td>
+<td style="text-align: right;">0.527840</td>
+<td style="text-align: right;">-0.65762</td>
+<td style="text-align: right;">-0.140810</td>
+<td style="text-align: right;">1.04910</td>
+<td style="text-align: right;">0.513400</td>
+<td style="text-align: right;">-0.23816</td>
+<td style="text-align: right;">0.69895</td>
+<td style="text-align: right;">-1.4813</td>
+<td style="text-align: right;">-0.24870</td>
+<td style="text-align: right;">-0.179360</td>
+<td style="text-align: right;">-0.059137</td>
+<td style="text-align: right;">-0.080560</td>
+<td style="text-align: right;">-0.48782</td>
+<td style="text-align: right;">0.014487</td>
+<td style="text-align: right;">-0.625900</td>
+<td style="text-align: right;">-0.323670</td>
+<td style="text-align: right;">0.41862</td>
+<td style="text-align: right;">-1.08070</td>
+<td style="text-align: right;">0.46742</td>
+<td style="text-align: right;">-0.499310</td>
+<td style="text-align: right;">-0.71895</td>
+<td style="text-align: right;">0.86894</td>
+<td style="text-align: right;">0.195390</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>In eine Tidyform bringen:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-21_3c9ed9f9db3203ad92820f376935ae6d">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="ot">&lt;-</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  glove6b <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">"d"</span>),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"dimension"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">item1 =</span> token)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">item1</th>
+<th style="text-align: left;">dimension</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">the</td>
+<td style="text-align: left;">d1</td>
+<td style="text-align: right;">-0.038194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">the</td>
+<td style="text-align: left;">d2</td>
+<td style="text-align: right;">-0.244870</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">the</td>
+<td style="text-align: left;">d3</td>
+<td style="text-align: right;">0.728120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">the</td>
+<td style="text-align: left;">d4</td>
+<td style="text-align: right;">-0.399610</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">the</td>
+<td style="text-align: left;">d5</td>
+<td style="text-align: right;">0.083172</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">the</td>
+<td style="text-align: left;">d6</td>
+<td style="text-align: right;">0.043953</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Ganz schön groß:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-22_68975cb3c5302132f16b286145979375">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>983837536 bytes</code></pre>
+</div>
+</div>
+<p>In Megabyte<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-23_94d633064f30e7f82d73653252067dfa">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove) <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">20</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>938.3 bytes</code></pre>
+</div>
+</div>
+<p>Einfacher und genauer geht es so:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-24_509161ed725702b83f710975e5119428">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">object_size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>983.83 MB</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-25_cf5918f581a018057bb0bad50e9ffe82">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">mem_used</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.49 GB</code></pre>
+</div>
+</div>
+<p>Um Speicher zu sparen, könnte man <code>glove6b</code> wieder direkt löschen, wenn man nur mit der Tidyform weiterarbeitet.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-26_3a279288abc801eeaafe623d25cc6b71">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(glove6b)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt können wir wieder nach Nachbarn fragen, im euklidischen Sinne, wie oben. Probieren wir aus, welche Wörter nah zu “inaccurate” stehen.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wie wir oben gesehen haben, ist der Datensatz riesig<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, was die Berechnungen (zeitaufwändig) und damit nervig machen können. Darüber hinaus kann es nötig sein, dass Sie mehr Speicher auf Ihrem Computer zur Verfügung stellen müssen<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Wir müssen noch <code>maximum_size = NULL</code>, um das Jonglieren mit riesigen Matrixen zu erlauben. Möge der Gott der RAMs und Arbeitsspeicher uns gnädig sein!</p>
+</div>
+</div>
+<p>Mit <code>pairwise_dist</code> dauert die Berechnung sehr lange und braucht wohl sehr viel Speicher. Mitunter kam folgender Fehler auf: “R error: vector memory exhausted (limit reached?)”.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-27_ce15a9be46315c2bd39cb85f947fc909">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>word_neighbors_glove6b <span class="ot">&lt;-</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">prop =</span> .<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_dist</span>(item1, dimension, value, <span class="at">maximum_size =</span> <span class="cn">NULL</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(word_neighbors_glove6b)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span> </span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"inaccurate"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>value) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Deswegen probieren wir doch die Funktion <code>nearest_neighbors</code>, so wies im Buch vorgeschlagen wird.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-28_bc6ed7e2e01ad7944272f368f93788ca">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>nearest_neighbors <span class="ot">&lt;-</span> <span class="cf">function</span>(df, token) {</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">widely</span>(</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> {</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        y <span class="ot">&lt;-</span> .[<span class="fu">rep</span>(token, <span class="fu">nrow</span>(.)), ]</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>        res <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(. <span class="sc">*</span> y) <span class="sc">/</span> </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>          (<span class="fu">sqrt</span>(<span class="fu">rowSums</span>(. <span class="sc">^</span> <span class="dv">2</span>)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(.[token, ] <span class="sc">^</span> <span class="dv">2</span>)))</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">matrix</span>(res, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">names</span>(res)))</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>      },</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">maximum_size =</span> <span class="cn">NULL</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    )(item1, dimension, value) <span class="sc">%&gt;%</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>item2)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="word-embedding_cache/html/tidy-glove-nearest-neighbors_05b693e829b70dcc6e4b599ceb0a4ab8">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slice_head(prob = .1) %&gt;% </span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nearest_neighbors</span>(<span class="st">"error"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">item1</th>
+<th style="text-align: right;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">error</td>
+<td style="text-align: right;">1.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">errors</td>
+<td style="text-align: right;">0.7916719</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mistake</td>
+<td style="text-align: right;">0.6641135</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">correct</td>
+<td style="text-align: right;">0.6205814</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">incorrect</td>
+<td style="text-align: right;">0.6132556</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fault</td>
+<td style="text-align: right;">0.6068035</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Entschachteln wir unsere Daten zu <code>complaints</code>:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnest-tidy-complaints3_57759d8c6482927be07e0a20a76e8e46">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="ot">&lt;-</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  nested_words3 <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(words)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann erstellen wir uns eine Tabelle, in der nur die Schnittmenge der Wörter aus den Beschwerden und Glove vorkommen. Dazu nutzen winr einen <a href="https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif">inneren Join</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/inner-join.gif" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Inner Join, Quelle: Garrick Adenbuie</figcaption><p></p>
+</figure>
+</div>
+<p><a href="https://github.com/gadenbuie/tidyexplain">Quelle</a></p>
+<div class="cell" data-hash="word-embedding_cache/html/join-complaints-glove_7e7e9d1b161457af12ef8d773a573e2f">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>complaints_glove <span class="ot">&lt;-</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"word"</span>, </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  tidy_glove <span class="sc">%&gt;%</span> </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(item1) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">word =</span> item1)) </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(complaints_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: right;">complaint_id</th>
+<th style="text-align: left;">word</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">3384392</td>
+<td style="text-align: left;">systems</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3384392</td>
+<td style="text-align: left;">inc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3384392</td>
+<td style="text-align: left;">is</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3384392</td>
+<td style="text-align: left;">trying</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3384392</td>
+<td style="text-align: left;">to</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3384392</td>
+<td style="text-align: left;">collect</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Wie viele unique (distinkte) Wörter gibt es in unserem Corpus?</p>
+<div class="cell" data-hash="word-embedding_cache/html/tidy_complaints3_distinct_words_n_46d25d8395197d57ba7f62e8a684053b">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>tidy_complaints3_distinct_words_n <span class="ot">&lt;-</span> </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="sc">%&gt;%</span> </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(word) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>tidy_complaints3_distinct_words_n</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 222</code></pre>
+</div>
+</div>
+<p>In <code>tidy_complaints</code> gibt es übrigens 222 verschiedene Wörter.</p>
+<div class="cell" data-hash="word-embedding_cache/html/word_matrix_515d7820fa89ea3207aa9996d743b1c2">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>word_matrix <span class="ot">&lt;-</span> tidy_complaints3 <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"word"</span>,</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>             tidy_glove <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">distinct</span>(item1) <span class="sc">%&gt;%</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">word =</span> item1)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(complaint_id, word) <span class="sc">%&gt;%</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_sparse</span>(complaint_id, word, n)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co">#word_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>word_matrix</code> zählt für jede der 10 Beschwerden, welche Wörter (und wie häufig) vorkommen.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-29_c8b765b2a780c285ec64ab54e8ca5a5c">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(word_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  10 222</code></pre>
+</div>
+</div>
+<p>10 Beschwerden (Dokumente) und 222 unique Wörter.</p>
+<div class="cell" data-hash="word-embedding_cache/html/glove_matrix_eb9668131fa8217619c77afb1d502521">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>glove_matrix <span class="ot">&lt;-</span> tidy_glove <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"item1"</span>,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>             tidy_complaints3 <span class="sc">%&gt;%</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">distinct</span>(word) <span class="sc">%&gt;%</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">item1 =</span> word)) <span class="sc">%&gt;%</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_sparse</span>(item1, dimension, value)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="co">#glove_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>glove_matrix</code> gibt für jedes unique Wort den Einbettungsvektor an.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-30_907615c116fa733d99192a80cf7b0c0e">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(glove_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 222 100</code></pre>
+</div>
+</div>
+<p>Das sind 222 unique Wörter und 100 Dimensionen des Einbettungsvektors.</p>
+<p>Jetzt können wir noch pro Dokument (10 in diesem Beispiel) die mittlere “Position” jedes Dokuments im Einbettungsvektor ausrechnen. Bildlich gesprochen: Was ist der mittlere Raumpunkt (Zentroid) des Bienenschwarms, wobei eine Biene ein Dokument darstellt und die Raumachsen die Dimensionen des Einbettungsvektors.</p>
+<p>Dazu gewichten wir jedes Wort eines Dokuments mit den Ladungen des Einbettungsvektor und summieren diese Terme. Es resultiert eine Matrix mit einem Einbettungsvektor pro Dokument. Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.</p>
+<div class="cell" data-hash="word-embedding_cache/html/doc_matrix_94f1999b56731c9ac9e6151bff177493">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>doc_matrix <span class="ot">&lt;-</span> word_matrix <span class="sc">%*%</span> glove_matrix</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>doc_matrix <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>6 x 100 sparse Matrix of class "dgCMatrix"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   [[ suppressing 100 column names 'd1', 'd2', 'd3' ... ]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                               
+3214857 -3.866734 14.396759 22.773258 -18.11822  0.521779 16.257103  -0.1846946
+3366475 -6.036361 21.454024 15.041353 -14.81193 -2.472711 11.950351  -3.6210140
+3379924 27.510337 55.391414  2.371269 -21.42267  1.524870  9.257292  31.5034761
+3384392 -1.827458  3.792128  5.880856  -5.20095  2.664376  1.485016  -1.3055380
+3385399 -4.998864 41.252481 54.421761 -29.87768  5.339714 32.431973 -20.0439631
+3417374 -1.698279  8.614548 12.176174 -10.68390 -3.231407 10.215512  -4.1665910
+                                                                      
+3214857 18.730054 -11.7760430   4.138195  9.642333  1.687003 24.494937
+3366475 14.569395  -8.1280469  -5.148346 16.310205 -2.342454 20.111788
+3379924 32.316483 -30.3051370   8.654242 32.795434 10.550730 25.338624
+3384392  2.355398  -0.3737200  -1.411449  3.923258 -2.003865  6.542645
+3385399 35.191956   0.6112781 -15.816367 40.775083  2.910472 60.437284
+3417374 12.148516   4.4717400   0.710255 15.419422  7.770850 11.682568
+                                                                      
+3214857  6.090346 18.578681 -23.716964 18.256532  -2.174991 -31.511338
+3366475  9.533289 16.297529 -25.321364 12.199668   6.118546 -30.621298
+3379924 25.832255 25.203719 -67.011231 30.160714 -11.737861 -64.840179
+3384392  2.370414  2.593407  -4.232261  6.003121   2.051527  -8.886743
+3385399 20.076703 31.829031 -67.506517 46.171946  12.913058 -80.999661
+3417374  2.298754  7.570983 -15.415939  4.880421   1.013316 -19.611427
+                                                                               
+3214857 11.165488 22.096537  -4.227522 25.510422 11.752882 24.193253 -14.393642
+3366475 20.127188 19.518136  -4.017034 20.228843  4.111301 10.552262 -11.284436
+3379924 26.690884 25.108716  41.011727 19.204268 43.271235 45.956050 -37.448871
+3384392  5.253741  4.843030   0.471750  5.741740  2.547046  2.756073  -3.989422
+3385399 43.490371 39.003157 -15.081911 44.552412 12.263552 13.102006 -34.702401
+3417374  9.021655  9.008896   4.307841  6.412447  4.848786  9.535585  -4.456543
+                                                                       
+3214857 -2.717443  -30.911946 -2.560281  -8.567232 -2.556932  28.764231
+3366475 -2.638939  -30.048858  1.484414  -6.873204  2.014008  28.975677
+3379924 -9.100078 -100.263070 16.566722 -14.464382 24.710188  36.373211
+3384392  0.161675   -7.823425 -1.783155  -2.477125 -0.744834   9.253195
+3385399 -2.940711  -73.897376  1.258289 -12.065657 21.629210 100.503486
+3417374 -5.128541  -21.367856  5.227329  -7.046402  7.189331  19.347253
+                                                                        
+3214857  -6.943561   6.5924380  -2.700294 21.511294   7.305981 24.421164
+3366475  -8.632996   0.0638204  -0.797919 22.823604   7.106567 18.579875
+3379924 -21.343867 -13.2609793 -45.574994 55.576876 -16.217996 13.915820
+3384392  -2.891468   0.8235620   0.940733  4.273223   2.144760  4.836764
+3385399 -17.035791   5.3684933   4.495126 51.889815   9.512937 31.551577
+3417374  -1.959475  -0.9517550  -8.529482  8.900918   0.308799  4.926808
+                                                                        
+3214857  -9.698690  -5.905470 -34.222967 -16.776294 11.598943 -19.201372
+3366475 -10.555681  -6.356370 -31.255715 -22.235286 10.038917 -18.001071
+3379924 -39.083141 -30.952245 -77.708738 -16.296651 39.615562 -16.794540
+3384392  -1.785591  -1.549121  -6.237988  -2.470061  0.050653  -5.654567
+3385399 -20.397731 -18.731635 -70.270261 -67.657789 24.166546 -56.990428
+3417374  -7.789725  -4.087567 -19.256573  -9.107438  7.160566 -12.704403
+                                                                         
+3214857   2.5241535   0.4570852 21.416889  -30.28647 -3.575934  -49.10730
+3366475  -5.3349168  -2.1313720 11.309576  -26.74365 -1.978739  -40.60939
+3379924  -0.3701984 -12.0710970 65.513886 -102.94128 23.401622  -83.93556
+3384392  -0.1346520  -1.2823200  4.884630   -3.99754 -0.793697  -12.14199
+3385399 -11.9740842 -17.8722302 18.883043  -66.29415 -6.427853 -143.44044
+3417374  -5.8601509  -4.4273770  3.955314  -19.70389  1.849942  -25.15778
+                                                                        
+3214857  -2.067902 -11.2375061 18.442610  86.34866 -26.645143 -172.48470
+3366475   1.884939  -5.6297311  6.926181  76.28883 -17.333463 -146.91210
+3379924 -12.866592 -93.3886566 25.741383 165.41176   0.860815 -297.29440
+3384392   0.995750  -2.2908386  5.193895  18.97275  -5.157679  -40.10210
+3385399  30.057876  -0.9178301 41.073526 212.02922 -47.871406 -439.65951
+3417374   7.494446  -5.6116668  5.379079  46.87438 -12.628942  -88.12049
+                                                                     
+3214857  -6.194706 -24.41466 107.44488  49.72489 -11.245923  53.62681
+3366475  -0.963204 -14.68462  98.43230  44.74691 -11.636741  57.00656
+3379924 -39.841204 -51.79263 188.12803  85.26945 -35.792526 116.33916
+3384392  -1.651158  -5.26928  29.55778  12.77084  -3.046027  12.81472
+3385399 -15.345371 -59.31657 320.25680 117.54072 -25.166120 141.02079
+3417374  -1.043794 -12.25310  67.79946  21.94859  -3.893692  33.37327
+                                                                               
+3214857 -13.225856 15.742855  45.11306  -5.041266 38.978989 23.655606 15.913329
+3366475 -13.621286 12.798173  48.47130   0.190122 36.871160 27.646098 20.643404
+3379924 -35.570316  5.025739  82.48041   8.697222 58.844023  5.167704 41.076277
+3384392  -1.788050  2.760323  12.42401  -2.871457  9.244536  4.994260  4.512390
+3385399 -45.078456 14.276761 152.70819 -19.270412 87.030243 78.975320 63.710262
+3417374  -7.483889  2.011667  31.50638  -1.264887 22.067285 12.014235  9.213131
+                                                                         
+3214857  -7.325626  -7.833902 -25.522296 -12.242973 -26.322375   2.498185
+3366475  -6.358081  -8.246034 -17.500184  -5.469173 -19.755037   7.391822
+3379924   8.685868  21.677006  -6.211015 -47.093470 -10.076078 -37.118933
+3384392  -1.206071  -2.768340  -6.001784  -1.708928  -8.226023   2.997055
+3385399 -21.902764 -28.650005 -42.218424 -16.005194 -64.129740  29.725312
+3417374  -3.471197  -2.645457  -4.576758  -2.057961 -12.039750   6.712096
+                                                                        
+3214857   2.900718  -8.950591  -0.0414272  -77.43993 -3.201027  47.45429
+3366475   5.884073  -4.561099  -2.8567790  -63.08357 -0.295391  45.43495
+3379924 -26.985775 -21.401363 -23.0662390 -141.70111 -6.024579  92.88033
+3384392  -0.314232  -2.176959   0.3241270  -19.57572 -3.709080  12.55106
+3385399  24.404646  -6.737528   0.6071581 -196.85852 -4.799263 122.40902
+3417374   2.382696  -2.037305  -1.8614290  -39.56541 -0.878992  27.79246
+                                                                       
+3214857   1.019417 -32.15706 18.4279795  -91.19263 -14.115698 12.393450
+3366475  -3.107603 -24.45025 15.5946124  -97.09021 -10.594208 -0.491786
+3379924   3.786187 -20.23066 48.9011838 -161.34424  -5.221408 -3.250359
+3384392   0.315836  -8.53275  0.8982266  -24.57154  -5.224529  2.688434
+3385399 -21.203146 -80.52827  8.1123205 -277.40124 -39.556410 27.166076
+3417374   1.378155 -10.77832  2.5356116  -57.76210  -6.688853  2.075999
+                                                                         
+3214857  -7.967760 -14.673148 -31.861687  -6.940370 -11.846643 -20.102416
+3366475  -7.773144 -14.683694 -25.078770  -9.735438 -11.788511 -16.029890
+3379924 -58.922627 -47.681109 -48.590038  -2.154827  -4.329365 -24.526417
+3384392  -1.689128  -1.249809  -6.334926  -1.637055  -2.367540  -3.333033
+3385399 -38.138676 -39.065188 -57.861674 -28.639724 -24.223429 -24.064229
+3417374  -8.104298  -7.941687  -7.682622  -5.692942  -4.869979  -7.210754
+                                                                        
+3214857 10.6973702  -37.053296 -2.075380 -21.500325 -21.816859  39.34560
+3366475  4.0448726  -46.975938 -4.853319 -25.145894 -20.153565  37.48514
+3379924 24.1256403 -103.815883 10.147355 -52.642984  -6.557345  32.07506
+3384392 -0.6480467   -9.990594  0.096534  -7.161495  -8.200051  10.01696
+3385399  1.1228502 -102.729281  6.801562 -46.012649 -64.047938 113.20986
+3417374  3.2086870  -23.976103  2.344804  -8.281528  -9.566221  14.95179
+                  
+3214857   3.065788
+3366475  10.844301
+3379924 -34.232897
+3384392   2.307684
+3385399  14.412614
+3417374   2.101466</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-31_cc2ab85d75d34ced2776d017237b680e">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(doc_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  10 100</code></pre>
+</div>
+</div>
+<p>Die Anzahl der Dokumente ist 10 und die Anzahl der Dimensionen (des Einbettungsvektors) ist 100.</p>
+</section>
+</section>
+<section id="fazit" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="fazit"><span class="header-section-number">6.4</span> Fazit</h2>
+<p>Worteinbettungen sind eine aufwändige Angelegenheit. Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat. Ist ja schon cooles Zeugs, die Word Embeddings. Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen Ansätzen wir Worthäufigkeiten oder tf-idf. Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten, und zu sehen, wie weit man kommt. Vielleicht ja weit genug.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="doc-biblioentry">
 Hvitfeldt, Emil, und Julia Silge. 2022. <em>Supervised Machine Learning for Text Analysis in R</em>. 1. Aufl. Boca Raton: Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
+<div id="ref-pennington_glove_2014" class="csl-entry" role="doc-biblioentry">
+Pennington, Jeffrey, Richard Socher, und Christopher Manning. 2014. <span>„<span>GloVe</span>: Global Vectors for Word Representation“</span>. In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (<span>EMNLP</span>)</em>, 1532–43. Doha, Qatar: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.
 </div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen…<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><span class="math inline">\(1024 \cdot 1024\)</span> Byte, und <span class="math inline">\(1024 =2^10\)</span>, daher <span class="math inline">\(2^{10} \cdot 2^{10} = 2^{20}\)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>zugegeben, ein subjektiver Ausdruck<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Kaufen…<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

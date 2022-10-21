@@ -6,6 +6,680 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 
 
+## Vorab
 
-Arbeiten Sie @smltar, [Kap. 5](https://smltar.com/embeddings.html) durch.
+
+### Lernziele
+
+
+- Die vorgestellten Techniken des Textminings mit R anwenden können
+
+
+
+### Vorbereitung
+
+- Arbeiten Sie @smltar, [Kap. 5](https://smltar.com/embeddings.html) durch.
+
+
+
+
+
+
+### Benötigte R-Pakete
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidytext)
+library(slider)  # slide
+library(widyr)  # pairwise_pmi
+library(furrr)  # mehrere Kerne gleichzeitig nutzen
+library(textdata)  # Worteinbettungen, vorgekocht
+```
+
+
+## Daten
+
+
+### Complaints-Datensatz
+
+Der Datensatz `complaints` stammt aus [dieser Quelle](https://www.consumerfinance.gov/data-research/consumer-complaints/).
+
+Den Datensatz `complaints` kann man [hier](https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz) herunterladen. Im Buch ist die Webseite nicht (direkt?) angegeben. Die Datei ist mit `gz` gepackt; `read_csv` sollte das automatisch entpacken. Achtung: Die Datei ist recht groß.
+
+```{r read-complaints-data}
+#| eval: false
+d_path <- "https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz"
+complaints <- read_csv(d_path)
+```
+
+Geschickter als jedes Mal die Datei herunterzuladen, ist es, sie einmal herunterzuladen, und dann lokal zu speichern,
+etwa im Unterordner `data` des RStudio-Projektordners.
+
+
+Nach dem Importieren wird der Datensatz in eine Tidy-Form gebracht (mit `unnest_tokens`) und dann verschachtelt, mit `nest`.
+
+
+### Complaints verkürzt und geschachtelt
+
+Um ein Herumprobieren zu erleichtern, ist hier der Datensatz `complaints` in zwei verkürzten Formen bereitgestellt:
+
+```{r}
+nested_words2_path <- "https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"
+nested_words3_path <- "https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words3.rds"
+```
+
+
+`nested_words2` enthält die ersten 10% des Datensatz `nested_words`und ist gut 4 MB groß (mit `gz` gezippt); er besteht aus ca. 11 Tausend Beschwerden.
+`nested_words3` enthält nur die ersten 10 Beschwerden, was ihn gut zum Handhaben macht.
+
+Beide sind verschachtelt und aus `tidy_complaints` (s. [Kap. 5.1](https://smltar.com/embeddings.html#motivatingsparse)) hervorgegangen.
+
+
+```{r read-rds-nested-data}
+nested_words3 <- read_rds(nested_words3_path)
+```
+
+
+Das sieht dann so aus:
+
+```{r}
+nested_words3
+```
+Werfen wir einen Blick in den TExt der ersten Beschwerde des Datensatzes mit der ID `nested_words3_path$complaint_id[1]`.
+
+```{r}
+beschwerde1_text <- nested_words3$words[[1]]
+```
+
+Das ist ein Tibble mit einer Spalte und 17 Wörtern; 
+da wir schon auf Unigramme aufgeteilt haben, ist jedes Wort ein Element des Vektors `word`: 
+
+```{r}
+beschwerde1_text %>% 
+  head()
+```
+
+```{r}
+beschwerde1_text$word
+```
+
+
+
+## Kommentare und Hilfestellungen
+
+
+
+
+
+
+### PMI berechnen
+
+
+Rufen Sie sich die Definition der PMI ins Gedächtnis, s. @eq-pmi.
+
+Mit R kann man die PMI z.B. so berechnen, s. `? pairwise_pmi` aus dem Paket `{widyr}`.
+
+
+Zum Paket `widyr` von Robinson und Silge:
+
+>   This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurrence counts, correlations, or clustering that are best done on a wide matrix.
+
+
+[Quelle](https://juliasilge.github.io/widyr/)
+
+Erzeugen wir uns Dummy-Daten:
+
+```{r}
+dat <- tibble(feature = rep(1:5, each = 2),
+              item = c("a", "b",
+                       "a", "c",
+                       "a", "c",
+                       "b", "e",
+                       "b", "f"))
+
+dat
+```
+
+Aus der Hilfe der Funktion:
+
+>   Find pointwise mutual information of pairs of items in a column, based on a "feature" column that links them together. This is an example of the spread-operate-retidy pattern.
+
+Die Argumente der Funktion sind:
+
+*item*
+
+Item to compare; will end up in item1 and item2 columns
+
+*feature*	
+
+Column describing the feature that links one item to others
+
+
+Manche Berechnungen (Operationen) lassen sich vielleicht leichter nicht in der Tidy-Form (Langform), sondern in der "breiten" oder Matrixform ausführen.
+Wandeln wir mal `dat` von der Langform in die Breitform um:
+
+
+```{r}
+table(dat$item, dat$feature)
+```
+
+Silge und Robinson verdeutlichen das Prinzip von `widyr` so, s. @fig-widyr.
+
+
+![Die Funktionsweise von widyr, Quelle: Silge und Robinson](img/widyr.jpeg){#fig-widyr}
+
+(Vgl. auch die [Erklärung hier](https://bookdown.org/Maxine/tidy-text-mining/counting-and-correlating-pairs-of-words-with-widyr.html).)
+
+Bauen wir das mal von Hand nach.
+
+
+
+Randwahrscheinlichkeiten von `a` und `c` sowie deren Produkt, `p_a_p_c`:
+
+```{r p_a_und_p_c}
+p_a <- 3/5
+p_c <- 2/5
+
+p_a_p_c <- p_a * p_c
+p_a_p_c
+```
+
+
+Gemeinsame Wahrscheinlichkeit von `a` und `c`:
+
+```{r p_ac}
+p_ac <- 2/5
+```
+
+
+PMI von Hand berechnet:
+
+```{r}
+log(p_ac/p_a_p_c)
+```
+
+Man beachte, dass hier als Basis $e$, der natürliche Logarithmus, verwendet wurde (nicht 2).
+
+Jetzt berechnen wir die PMI mit `pairwise_pmi`.
+
+```{r}
+pairwise_pmi(dat, item = item, feature = feature)
+```
+
+Wie man sieht, entspricht unserer Berechnung von Hand der Berechnung mit `pairwise_pmi`. 
+
+
+
+
+
+### Sliding
+
+Sliding ist ein interessantes Konzept, aber man braucht vielleicht etwas Zeit, 
+um sein Hirn um das Konzept zu wickeln...
+
+Hier eine Illustration:
+
+```{r}
+txt_vec <- "Das ist ein Test, von dem nicht viel zu erwarten ist"
+
+slider::slide(txt_vec, ~ .x, .before = 2)
+```
+
+
+Oh, da passiert nichts?! Kaputt? Nein, wir müssen jedes Wort als *ein Element* des Vektors auffassen.
+
+```{r}
+txt_df <-
+  tibble(txt = txt_vec) %>% 
+  unnest_tokens(input = txt, output = word)
+
+head(txt_df)
+```
+
+
+```{r}
+slider::slide(txt_df$word, ~ .x, .before = 2)
+```
+
+
+Ah!
+
+
+Das Aufteilen in einzelne Wörter pro Element des Vektors könnte man auch so erreichen:
+
+
+```{r}
+txt_vec2 <- str_split(txt_vec, pattern = boundary("word")) %>% 
+  simplify() 
+
+slide(txt_vec2, .f = ~.x, .before = 2)
+```
+
+
+
+
+In unserem Beispiel mit den Beschwerden:
+
+```{r}
+slide(beschwerde1_text$word,  ~.x, .before = 2)
+```
+
+
+
+### Funktion `slide_windows`
+
+
+Die Funktion `slide_windows` im [Kapitel 5.2](https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself) ist recht kompliziert. In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. Sind die Schritte in einer Funktion zusammengefasst, kann man mit `debug(fun)` sich die Schritte innerhalb der Funktion einzeln ausführen lassen.
+
+
+```{r}
+slide_windows <- function(tbl, window_size) {
+  skipgrams <- slider::slide(
+    tbl, 
+    ~.x, 
+    .after = window_size - 1, 
+    .step = 1, 
+    .complete = TRUE
+  )
+  
+  safe_mutate <- safely(mutate)
+  
+  out <- map2(skipgrams,
+              1:length(skipgrams),
+              ~ safe_mutate(.x, window_id = .y))
+  
+  out %>%
+    transpose() %>%
+    pluck("result") %>%
+    compact() %>%
+    bind_rows()
+}
+```
+
+
+
+Erschwerend kommt eine große Datenmenge und eine lange Berechnungszeit dazu, was das Debuggen (Nachvollziehen und Durchdenken) der Schritte zusätzlich erschwert.
+In solchen Fällen hilft die goldende Regel: Mach es dir so einfach wie möglich (aber nicht einfacher).
+Wir nutzen also den stark verkleinerten Datensatz `nested_words3`, den wir oben importiert haben.
+
+
+Hier ist der Syntax-Auszug:
+
+
+```{r}
+library(widyr)
+library(furrr)
+
+plan(multisession)  ## for parallel processing
+
+#debug(slide_windows)  # um sich die Schritte in `slide_windows` einzeln anzuschauen.
+
+tidy_pmi <- nested_words3 %>%  # <--- Kleiner Datensatz!
+  mutate(words = future_map(words, slide_windows, 4L)) %>%
+  unnest(words) %>%
+  unite(window_id, complaint_id, window_id) %>%
+  pairwise_pmi(word, window_id)
+
+tidy_pmi %>% 
+  head()
+```
+
+
+
+### SVD
+
+
+Die *Singulärwertzerlegung* (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse.
+Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt:
+Die Verben "gehen", "rennen", "laufen", "schwimmen", "fahren", "rutschen" könnten zu einer gemeinsamen Dimension, etwa "fortbewegen" reduziert werden.
+Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, das die konzeptionelle Nähe des Verbs
+zur "dahinterliegenden" Dimension (fortbewegen) quantifiziert; 
+die Zahl nennt man auch die "Ladung" des Items (Worts) auf die Dimension.
+Sagen wir, wir identifizieren 10 Dimensionen.
+Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionsen.
+Im genannten Beispiel wäre es ein 10-stelliger Vektor.
+So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt^[Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen...],
+beschreibt hier unser 10-stelliger Vektor die "Position" eines Worts in unserem *Einbettungsvektor*.
+
+
+Die Syntax dazu ist dieses Mal einfach:
+
+
+
+```{r widely-svd}
+tidy_word_vectors <- 
+  tidy_pmi %>%
+  widely_svd(
+    item1, item2, pmi,
+    nv = 100
+  )
+
+tidy_word_vectors %>% 
+  (head)
+```
+
+
+Mit `nv = 100` haben wir die Anzahl (`n`) der Dimensionen (Variablen, `v`) auf 100 bestimmt.
+
+
+
+### Wortähnlichkeit
+
+
+Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen.
+Das geht mit Hilfe des alten Pythagoras, s. @fig-euklid-distance.
+Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch *euklidische Distanz*.
+
+
+![Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh](img/euklid-distance.png){#fig-euklid-distance}
+
+Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, [aber der Algebra ist das egal](https://mathworld.wolfram.com/Distance.html). 
+Pythagoras' Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.
+
+
+
+
+
+Die Autoren basteln sich selber eine Funktion in [Kap. 5.3](https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings),
+aber der Einfachheit halber nehme ich (erstmal) die entsprechende Funktion aus `widyr`:
+
+
+```{r pairwise-dist}
+#| cache: true
+word_neighbors <- 
+tidy_word_vectors %>% 
+  pairwise_dist(item1, dimension, value)
+
+word_neighbors %>% 
+  head()
+```
+
+
+Was sind die Nachbarn von "inaccurate"?
+
+```{r}
+word_neighbors %>% 
+  filter(item1 == "inaccurate") %>% 
+  arrange(distance) %>% 
+  head()
+```
+
+Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen.
+Aber "incorrectly", "correct", "balance" sind wohl plausible Nachbarn von "inaccurate".
+
+
+
+
+
+### Word-Embeddings vorgekocht: Glove6B
+
+In [Kap. 5.4](https://smltar.com/embeddings.html#glove) schreiben die Autoren:
+
+>   If your data set is too small, you typically cannot train reliable word embeddings.
+
+Ein paar Millionen Wörter sollte der Corpus schon enthalten, so die Autoren.
+Da solche "Worteinbettungen" (word embedings) aufwändig zu erstellen sind, 
+kann man fertige, "vorgekochte" Produkte nutzen.
+
+Glove6B wurde anhand von Wikipedia und anderen Datenquellen erstellt [@pennington_glove_2014].
+
+:::callout-note
+Die zugehörigen Daten sind recht groß; für [`glove6b`](https://nlp.stanford.edu/projects/glove/) [@pennington_glove_2014] ist fast ein Gigabyte fällig.
+Sie sollten sich die Daten in einem ruhigen Moment (mit stabiler Internetverbindung) herunterladen und in einem Verzeichnis meiner Wahl abgespeichert (`datasets`).
+Da bei mir Download abbrach, als ich `embedding_glove6b(dimensions = 100)` aufrief, habe ich die Daten manuell heruntergeladen, s.u.
+:::
+
+
+
+```{r load-glove}
+#| cache: true
+glove6b <- embedding_glove6b(dir = "~/datasets", dimensions = 10, manual_download = TRUE)
+glove6b %>% 
+  head()
+```
+
+In eine Tidyform bringen:
+
+```{r}
+#| cache: true
+tidy_glove <- 
+  glove6b %>%
+  pivot_longer(contains("d"),
+               names_to = "dimension") %>%
+  rename(item1 = token)
+
+head(tidy_glove)
+```
+
+Ganz schön groß: 
+
+```{r}
+object.size(tidy_glove)
+```
+
+In Megabyte^[$1024 \cdot 1024$ Byte, und $1024 =2^10$, daher $2^{10} \cdot 2^{10} = 2^{20}$]
+
+```{r}
+object.size(tidy_glove) / 2^20
+```
+
+Einfacher und genauer geht es so:
+
+```{r}
+pryr::object_size(tidy_glove)
+```
+
+
+
+```{r}
+pryr::mem_used()
+```
+
+
+
+Um Speicher zu sparen, könnte man `glove6b` wieder direkt löschen, wenn man nur mit der Tidyform weiterarbeitet.
+
+```{r}
+rm(glove6b)
+```
+
+
+
+Jetzt können wir wieder nach Nachbarn fragen, im euklidischen Sinne, wie oben.
+Probieren wir aus, welche Wörter nah zu "inaccurate" stehen.
+
+
+:::callout-note
+Wie wir oben gesehen haben, ist der Datensatz riesig^[zugegeben, ein subjektiver Ausdruck],
+was die Berechnungen (zeitaufwändig) und damit nervig machen können.
+Darüber hinaus kann es nötig sein, dass Sie mehr Speicher auf Ihrem Computer zur Verfügung stellen müssen^[Kaufen...].
+Wir müssen noch `maximum_size = NULL`, um das Jonglieren mit riesigen Matrixen zu erlauben.
+Möge der Gott der RAMs und Arbeitsspeicher uns gnädig sein!
+:::
+
+
+
+
+
+Mit `pairwise_dist` dauert die Berechnung sehr lange und braucht wohl sehr viel Speicher.
+Mitunter kam folgender Fehler auf: "R error: vector memory exhausted (limit reached?)".
+
+
+```{r}
+#| eval: false
+word_neighbors_glove6b <- 
+tidy_glove %>% 
+  slice_head(prop = .1) %>% 
+  pairwise_dist(item1, dimension, value, maximum_size = NULL)
+
+head(word_neighbors_glove6b)
+
+tidy_glove %>% 
+  filter(item1 == "inaccurate") %>% 
+  arrange(-value) %>% 
+  slice_head(n = 5)
+```
+
+
+
+Deswegen probieren wir doch die Funktion `nearest_neighbors`, so wies im Buch vorgeschlagen wird.
+
+
+```{r}
+nearest_neighbors <- function(df, token) {
+  df %>%
+    widely(
+      ~ {
+        y <- .[rep(token, nrow(.)), ]
+        res <- rowSums(. * y) / 
+          (sqrt(rowSums(. ^ 2)) * sqrt(sum(.[token, ] ^ 2)))
+        matrix(res, ncol = 1, dimnames = list(x = names(res)))
+      },
+      sort = TRUE,
+      maximum_size = NULL
+    )(item1, dimension, value) %>%
+    select(-item2)
+}
+```
+
+
+
+```{r tidy-glove-nearest-neighbors}
+#| cache: true
+tidy_glove %>%
+  # slice_head(prob = .1) %>% 
+  nearest_neighbors("error") %>% 
+  head()
+```
+
+
+Entschachteln wir unsere Daten zu `complaints`: 
+
+
+```{r unnest-tidy-complaints3}
+tidy_complaints3 <-
+  nested_words3 %>% 
+  unnest(words)
+```
+
+
+
+Dann erstellen wir uns eine Tabelle, in der nur die Schnittmenge der Wörter aus den Beschwerden und Glove vorkommen.
+Dazu nutzen winr einen [inneren Join](https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif)
+
+![Inner Join, Quelle: Garrick Adenbuie](img/inner-join.gif)
+
+[Quelle](https://github.com/gadenbuie/tidyexplain)
+
+
+
+```{r join-complaints-glove}
+complaints_glove <- 
+tidy_complaints3 %>% 
+  inner_join(by = "word", 
+  tidy_glove %>% 
+  distinct(item1) %>% 
+  rename(word = item1)) 
+
+head(complaints_glove)
+```
+
+Wie viele unique (distinkte) Wörter gibt es in unserem Corpus?
+
+```{r tidy_complaints3_distinct_words_n}
+tidy_complaints3_distinct_words_n <- 
+tidy_complaints3 %>% 
+  distinct(word) %>% 
+  nrow()
+
+tidy_complaints3_distinct_words_n
+```
+
+
+In `tidy_complaints` gibt es übrigens `r tidy_complaints3_distinct_words_n` verschiedene Wörter.
+
+
+
+```{r word_matrix}
+word_matrix <- tidy_complaints3 %>%
+  inner_join(by = "word",
+             tidy_glove %>%
+               distinct(item1) %>%
+               rename(word = item1)) %>%
+  count(complaint_id, word) %>%
+  cast_sparse(complaint_id, word, n)
+
+#word_matrix
+```
+
+`word_matrix` zählt für jede der 10 Beschwerden, welche Wörter (und wie häufig) vorkommen.
+
+
+```{r}
+dim(word_matrix)
+```
+
+`r dim(word_matrix)[1]` Beschwerden (Dokumente) und `r dim(word_matrix)[2]` unique Wörter.
+
+
+```{r glove_matrix}
+glove_matrix <- tidy_glove %>%
+  inner_join(by = "item1",
+             tidy_complaints3 %>%
+               distinct(word) %>%
+               rename(item1 = word)) %>%
+  cast_sparse(item1, dimension, value)
+
+#glove_matrix
+```
+
+
+`glove_matrix` gibt für jedes unique Wort den Einbettungsvektor an.
+
+
+```{r}
+dim(glove_matrix)
+```
+
+Das sind `r dim(glove_matrix)[1]` unique Wörter und `r dim(glove_matrix)[2]` Dimensionen des Einbettungsvektors.
+
+
+
+Jetzt können wir noch pro Dokument (10 in diesem Beispiel) die mittlere "Position" jedes Dokuments im Einbettungsvektor ausrechnen.
+Bildlich gesprochen: Was ist der mittlere Raumpunkt (Zentroid) des Bienenschwarms, wobei eine Biene ein Dokument darstellt und die Raumachsen die Dimensionen des Einbettungsvektors.
+
+Dazu gewichten wir jedes Wort eines Dokuments mit den Ladungen des Einbettungsvektor und summieren diese Terme.
+Es resultiert eine Matrix mit einem Einbettungsvektor pro Dokument.
+Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.
+
+```{r doc_matrix}
+doc_matrix <- word_matrix %*% glove_matrix
+doc_matrix %>% head()
+```
+
+
+
+
+```{r}
+dim(doc_matrix)
+```
+
+
+Die Anzahl der Dokumente ist `r dim(doc_matrix)[1]` und die Anzahl der Dimensionen (des Einbettungsvektors) ist `r dim(doc_matrix)[2]`.
+
+
+## Fazit
+
+Worteinbettungen sind eine aufwändige Angelegenheit. 
+Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat.
+Ist ja schon cooles Zeugs, die Word Embeddings.
+Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen
+Ansätzen wir Worthäufigkeiten oder tf-idf.
+Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten,
+und zu sehen, wie weit man kommt.
+Vielleicht ja weit genug.
+
+
+
 

@@ -234,9 +234,16 @@ div.csl-indent {
   <li><a href="#entropie" id="toc-entropie" class="nav-link" data-scroll-target="#entropie"><span class="toc-section-number">5.1.2</span>  Entropie</a></li>
   <li><a href="#gemeinsame-information" id="toc-gemeinsame-information" class="nav-link" data-scroll-target="#gemeinsame-information"><span class="toc-section-number">5.1.3</span>  Gemeinsame Information</a></li>
   <li><a href="#maximumentropie" id="toc-maximumentropie" class="nav-link" data-scroll-target="#maximumentropie"><span class="toc-section-number">5.1.4</span>  Maximumentropie</a></li>
-  <li><a href="#ilustration" id="toc-ilustration" class="nav-link" data-scroll-target="#ilustration"><span class="toc-section-number">5.1.5</span>  Ilustration</a></li>
   </ul></li>
-  <li><a href="#zufallstext-erkennen" id="toc-zufallstext-erkennen" class="nav-link" data-scroll-target="#zufallstext-erkennen"><span class="toc-section-number">5.2</span>  Zufallstext erkennen</a></li>
+  <li><a href="#zufallstext-erkennen" id="toc-zufallstext-erkennen" class="nav-link" data-scroll-target="#zufallstext-erkennen"><span class="toc-section-number">5.2</span>  Zufallstext erkennen</a>
+  <ul class="collapse">
+  <li><a href="#entropie-von-zufallstext" id="toc-entropie-von-zufallstext" class="nav-link" data-scroll-target="#entropie-von-zufallstext"><span class="toc-section-number">5.2.1</span>  Entropie von Zufallstext</a></li>
+  <li><a href="#mi-von-zufallstext" id="toc-mi-von-zufallstext" class="nav-link" data-scroll-target="#mi-von-zufallstext"><span class="toc-section-number">5.2.2</span>  MI von Zufallstext</a></li>
+  </ul></li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur"><span class="toc-section-number">5.3</span>  Literatur</a>
+  <ul class="collapse">
+  <li><a href="#wikipedia" id="toc-wikipedia" class="nav-link" data-scroll-target="#wikipedia"><span class="toc-section-number">5.3.1</span>  Wikipedia</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -273,7 +280,7 @@ div.csl-indent {
 </section>
 <section id="benötigte-r-pakete" class="level3" data-number="5.0.3">
 <h3 data-number="5.0.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">5.0.3</span> Benötigte R-Pakete</h3>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-1_ef9f77b3c46559acc4229417c02e5bf0">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcandersenr)   <span class="co"># Textdaten</span></span>
@@ -310,7 +317,7 @@ div.csl-indent {
 </div>
 <p>Andere Logaritmusbasen sind möglich. Bei einem binären Logarithmus nennt man die Einheit <em>Bit</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>Ein Münwzurf<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> hat <em>1 Bit</em> Information:</p>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-2_e072da104ce091cb1dbcd379596c3b74">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
@@ -330,7 +337,7 @@ div.csl-indent {
 \]</span></p>
 <div id="exm-info1" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 5.1 (Information eines wahrscheinlichen Ereignisses) </strong></span>Die Information eines fast sicheren Ereignisses ist gering.</p>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-3_e3bf136dd0052d4b7f4a47bc4125cbf0">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">99</span><span class="sc">/</span><span class="dv">100</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01449957</code></pre>
@@ -339,7 +346,7 @@ div.csl-indent {
 </div>
 <div id="exm-info2" class="theorem example">
 <p><span class="theorem-title"><strong>Beispiel 5.2 (Information eines unwahrscheinlichen Ereignisses) </strong></span>Die Information eines unwahrscheinlichen Ereignisses ist hoch.</p>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-4_52ebe5a8066f3720ea5ebff8223f4bb4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">01</span><span class="sc">/</span><span class="dv">100</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.643856</code></pre>
@@ -352,7 +359,7 @@ div.csl-indent {
 <p>Die Wahrscheinlichkeit, eine 6 zu würfeln, ist <span class="math inline">\(Pr(X=6) = \frac{1}{6}\)</span>.</p>
 <p>Die Information von <span class="math inline">\(X=6\)</span> beträgt also</p>
 <p><span class="math inline">\(I(X=6) = -\log_2 \left( Pr(X=6) \right) = -\log_2(1/6) \approx 2.585 \, \text{bits}\)</span>.</p>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-5_c916ec436f89446639eb597f39e7201e">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.584963</code></pre>
@@ -363,7 +370,7 @@ div.csl-indent {
 <p><span class="theorem-title"><strong>Beispiel 5.4 (Information zweier Würfelwurfe) </strong></span>Die Wahrscheinlichkeit, mit zwei Würfeln, <span class="math inline">\(X\)</span> und <span class="math inline">\(Y\)</span>, jeweils <em>6</em> zu würfeln, beträgt <span class="math inline">\(Pr(X=6, Y=6) = \frac{1}{36}\)</span></p>
 <p>Die Information beträgt also</p>
 <p><span class="math inline">\(I(X=6, Y=6) = -\log_2 \left( Pr(6,6) \right)\)</span></p>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-6_d2e6db3315f4c4c9ff7446a8d8c53d0e">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">36</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.169925</code></pre>
@@ -371,7 +378,7 @@ div.csl-indent {
 </div>
 <p>Aufgrund der Additivität der Information gilt</p>
 <p><span class="math inline">\(I(6,6) = I(6) + I(6)\)</span></p>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-7_d0d18766698cb48b034e0c7cbe78797f">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">base =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.169925</code></pre>
@@ -387,6 +394,13 @@ div.csl-indent {
 <p><span class="math display">\[H(p) = - \text{E log} (p_i) = - \sum_{i = 1}^n p_i \text{log} (p_i) = E\left[I(X) \right]\]</span></p>
 </div>
 <p>Die Informationsentropie ist also die “mittlere” oder “erwartete Information einer Zufallsvariablen.</p>
+<p>Die Entropie eines Münzwurf-Versuchs (Bernoulli-Experiment) ist dann maximal (1 bit), wenn die Trefferwahrscheinlichkeit 50% beträgt: <span class="math inline">\(Pr(X=x) = 1/2\)</span>, s. Abb. <a href="#fig-bernoulli-entropy">Abbildung&nbsp;<span>5.1</span></a>.</p>
+<div id="fig-bernoulli-entropy" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/Binary_entropy_plot.svg.png" class="img-fluid figure-img" style="width:30.0%"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.1: Der Zusammenhang von Wahrscheinlichkeit und Entropie bei einem Bernoulli-Versuch, Quelle: Wikipedia, CC-BY-SA, Brona, Rubber Duck</figcaption><p></p>
+</figure>
+</div>
 </section>
 <section id="gemeinsame-information" class="level3" data-number="5.1.3">
 <h3 data-number="5.1.3" class="anchored" data-anchor-id="gemeinsame-information"><span class="header-section-number">5.1.3</span> Gemeinsame Information</h3>
@@ -399,31 +413,57 @@ div.csl-indent {
 <p>Das macht intuitiv Sinn: Sind zwei Variablen unabhängig, so erfährt man nichts über die zweite, wenn man die erste kennt. So ist Kenntnis der Sternzeichens einer Person und ihrer Körpergröße unabhängig.</p>
 <p>Das Gegenteil ist auch wahr: Sind zwei Variablen voneinander komplett abhängig, so weiß man alles über die zweite, wenn man die erste kennt.</p>
 <p>Die gemeinsame Information kann man sich als <em>Summe der einzelnen gemeinsamen Informationen</em> von <span class="math inline">\(XY\)</span> sehen (s. <span class="quarto-unresolved-ref">?tbl-mi1</span>):</p>
-<div id="tbl-mi1" class="cell tbl-parent quarto-layout-panel anchored" data-tbl-cap="Summe der punktweisen gemeinsamen Informationen">
-
+<div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="sc">~</span>x1,    <span class="sc">~</span>x2,    <span class="sc">~</span>x3,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"x1y2"</span>, <span class="st">"x2y1"</span>, <span class="st">"x3y1"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"x2y1"</span>, <span class="st">"x2y2"</span>, <span class="st">"x3y2"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"x1y3"</span>, <span class="st">"x2y3"</span>, <span class="st">"x3y3"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-mi1" class="cell tbl-parent quarto-layout-panel anchored" data-tbl-cap="Summe der punktweisen gemeinsamen Informationen" data-hash="Information_cache/html/tbl-mi1_22e5d6640ea6bab46c23e74f4d0a5f62">
+<div class="panel-caption table-caption">
+<p><strong>?(caption)</strong></p>
+</div>
+</div>
 </div>
 <p><span class="math inline">\(I(X,Y) = \Sigma_Y \Sigma_y Pr(x,y) \underbrace{\log \left( \frac{Pr(X,Y)}{Pr(X) Pr(Y)} \right)}_\text{punktweise MI}\)</span></p>
-<p>Die Summanden der gemeinsamen Information bezeichnet man auch als <em>punktweise gemeinsame Information</em> (pointwise mutual information, PMI).</p>
-<p>MI ist also der Erwartungswert der PMI.</p>
+<p>Die Summanden der gemeinsamen Information bezeichnet man auch als <em>punktweise gemeinsame Information</em> (pointwise mutual information, PMI), entsprechend, s. <a href="#eq-pmi">Gleichung&nbsp;<span>5.1</span></a>. MI ist also der Erwartungswert der PMI.</p>
+<p><span id="eq-pmi"><span class="math display">\[{\displaystyle \operatorname {PMI} (x,y)\equiv \log_{2}{\frac {p(x,y)}{p(x)p(y)}}=\log _{2}{\frac {p(x|y)}{p(x)}}=\log _{2}{\frac {p(y|x)}{p(y)}}}
+\tag{5.1}\]</span></span></p>
+<p>Andere Basen als <code>log2</code> sind gebräuchlich, vor allem der natürliche Logarithmus.</p>
+<div class="remark proof">
+<p><span class="proof-title"><em>Anmerkung</em>. </span>Die zwei rechten Umformungen in <a href="#eq-pmi">Gleichung&nbsp;<span>5.1</span></a> basieren auf der Umformung der gemeinsamen Wahrscheinlichkeit.</p>
+<p>Zur Erinnerung: <span class="math inline">\(p(x,y) = p(y)p(x|y) = p(x)p(y|x)\)</span></p>
+</div>
+<div id="exm-pmi" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 5.5 (Interpretation der PMI) </strong></span>Sei <span class="math inline">\(p(x) = p(y) = 1/10\)</span> und <span class="math inline">\(p(x,y) = 1/10\)</span>. Wären <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span> unabhängig, dann wäre <span class="math inline">\(p^{\prime}(x,y) = p(x)p(y) = 1/100\)</span>. Das Verhältnis der Produkte der einzelnen Wahrscheinlichkeit zur gemeinsamen Wahrscheinlichkeit wäre dann 1 und der Logarithmus von 1 ist 0. Das Verhältnis von 1 entspricht also der Unabhängigkeit. Ist das Verhältnis z.B. 5, so zeigt das eine gewisse Abhängigkeit an. Im obigen Beispiel gilt: <span class="math inline">\(\frac{1/20}{1/100}=5\)</span>.</p>
+</div>
+<p>Die MI wird auch über die sog. <em>Kullback-Leibler-Divergenz</em> definiert, die die Differenz zwischen gemeinsamer Wahrscheinlichkeitsfunktion bzw. -dichte und dem Produkt der jeweiligen Randwahrscheinlichkeiten bzw. -dichte angibt.</p>
 </section>
 <section id="maximumentropie" class="level3" data-number="5.1.4">
 <h3 data-number="5.1.4" class="anchored" data-anchor-id="maximumentropie"><span class="header-section-number">5.1.4</span> Maximumentropie</h3>
 <div id="def-maxent" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 5.3 (Maximumentropie) </strong></span>Die Verteilungsform, für die es die meisten Möglichkeiten (Pfade im Baumdiagramm) gibt, hat die höchste Informationsentropie.</p>
 </div>
-</section>
-<section id="ilustration" class="level3" data-number="5.1.5">
-<h3 data-number="5.1.5" class="anchored" data-anchor-id="ilustration"><span class="header-section-number">5.1.5</span> Ilustration</h3>
-<p>Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind <span class="citation" data-cites="mcelreath_statistical_2020">(<a href="references.html#ref-mcelreath_statistical_2020" role="doc-biblioref">McElreath 2020</a>)</span>. Weil Sie nichts besseres zu tun haben, werfen Sie die Kiesel in die Eimer und zwar so, dass die Wahrscheinlichkeit für einen Kiesel in einen bestimmten Eimer zu landen für alle Eimer gleich ist. Sie werfen also Ihre 10 Kiesel und betrachten das Ergebnis; die Kiesel sind jetzt in einem bestimmten (zufälligen) Arrangement auf die Eimer verteilt. Jede Aufteilung (der 10 Kiesel in den 5 Eimern) ist gleich wahrscheinlich<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> – die Wahrscheinlichkeit, dass alle 10 Kiesel in Eimer 1 landen ist also gleich hoch wie die Wahrscheinlichkeit, dass jeder Eimer einen Kiesel abkriegt. Jetzt kommt’s: Manche Arrangements können auf mehrere Arten erzielt werden als andere. So gibt es nur <em>eine</em> Aufteilung für alle 10 Kiesel in einem Eimer (Teildiagramm a, in <a href="#fig-kiesel">Abbildung&nbsp;<span>5.1</span></a>). Aber es gibt 90 Möglichkeiten, die Kiesel so aufzuteilen, dass 2 in Eimer 2 landen, 8 in Eimer 4 und 2 in Eimer 4, s. Teildiagramm b in <a href="#fig-kiesel">Abbildung&nbsp;<span>5.1</span></a>. Teildiagramme c bis e zeigen, dass die Anzahl der Aufteilungen schnell astronomisch hoch wird, wenn sich die Kiesel “gleichmäßiger” auf die Eimer verteilen. Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen. Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden.</p>
+<p><a href="#fig-muenz3">Abbildung&nbsp;<span>5.2</span></a> zeigt ein Baumdiagramm für einen 3-fachen Münzwurf. In den “Blättern” (Endknoten) sind die Ergebnisse des Experiments dargestellt sowie die Zufallsvariable <span class="math inline">\(X\)</span>, die die Anzahl der “Treffer” (Kopf) fasst. Wie man sieht, vereinen einige Werte der Zufallsvariable mehr Pfade auf sich als andere: Der Wert <span class="math inline">\(X=1\)</span> vereinigt 3 Pfade (von 8) auf sich; der Wert <span class="math inline">\(X=3\)</span> nur 1 Pfad.</p>
+<div id="fig-muenz3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/muenz3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.2: Pfade im Baumdiagramm: 3-facher Münzwurf</figcaption><p></p>
+</figure>
+</div>
+<section id="ilustration" class="level4" data-number="5.1.4.1">
+<h4 data-number="5.1.4.1" class="anchored" data-anchor-id="ilustration"><span class="header-section-number">5.1.4.1</span> Ilustration</h4>
+<p>Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind <span class="citation" data-cites="mcelreath_statistical_2020">(<a href="references.html#ref-mcelreath_statistical_2020" role="doc-biblioref">McElreath 2020</a>)</span>. Weil Sie nichts besseres zu tun haben, werfen Sie die Kiesel in die Eimer und zwar so, dass die Wahrscheinlichkeit für einen Kiesel in einen bestimmten Eimer zu landen für alle Eimer gleich ist. Sie werfen also Ihre 10 Kiesel und betrachten das Ergebnis; die Kiesel sind jetzt in einem bestimmten (zufälligen) Arrangement auf die Eimer verteilt. Jede Aufteilung (der 10 Kiesel in den 5 Eimern) ist gleich wahrscheinlich<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> – die Wahrscheinlichkeit, dass alle 10 Kiesel in Eimer 1 landen ist also gleich hoch wie die Wahrscheinlichkeit, dass jeder Eimer einen Kiesel abkriegt. Jetzt kommt’s: Manche Arrangements können auf mehrere Arten erzielt werden als andere. So gibt es nur <em>eine</em> Aufteilung für alle 10 Kiesel in einem Eimer (Teildiagramm a, in <a href="#fig-kiesel">Abbildung&nbsp;<span>5.3</span></a>). Aber es gibt 90 Möglichkeiten, die Kiesel so aufzuteilen, dass 2 in Eimer 2 landen, 8 in Eimer 4 und 2 in Eimer 4, s. Teildiagramm b in <a href="#fig-kiesel">Abbildung&nbsp;<span>5.3</span></a>. Teildiagramme c bis e zeigen, dass die Anzahl der Aufteilungen schnell astronomisch hoch wird, wenn sich die Kiesel “gleichmäßiger” auf die Eimer verteilen. Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen. Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden.</p>
 <p>Hier sind ein paar verschiedene Arrangements, deren Anzahl von Aufteilungen wir hier anschauen:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">0</span>),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">d =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">e =</span> <span class="dv">2</span>) </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-9_2f43b8f7651c14664feee0ba4a60bee5">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">0</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">d =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">e =</span> <span class="dv">2</span>) </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -477,20 +517,20 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="Information_cache/html/fig-kiesel_25dd73ea0e0816034ae929e95c0c7443">
 <div class="cell-output-display">
 <div id="fig-kiesel" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Information_files/figure-html/fig-kiesel-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.1: Anzahl von Aufteilungen der 10 Kiesel in 5 Eimer</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.3: Anzahl von Aufteilungen der 10 Kiesel in 5 Eimer</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Hier sind die Wahrscheinlichkeitsverteilungen der 5 Arrangements:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>. <span class="sc">/</span> <span class="fu">sum</span>(.))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Hier sind die Wahrscheinlichkeitsverteilungen der 5 Arrangements<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>:</p>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-11_088ae5ff207a594fc40206aac7e357df">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>. <span class="sc">/</span> <span class="fu">sum</span>(.))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -544,13 +584,13 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Dann kann man die Wahrscheinlichkeit einfach in Entropie umrechnen<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span> . <span class="sc">/</span> <span class="fu">sum</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(key) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">h =</span> <span class="sc">-</span><span class="fu">sum</span>(<span class="fu">ifelse</span>(value <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, value <span class="sc">*</span> <span class="fu">log</span>(value))))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Dann kann man die Wahrscheinlichkeit einfach in Entropie umrechnen<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>:</p>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-12_941c1de2fa7fa9ac91fafd3ad2afd1c5">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span> . <span class="sc">/</span> <span class="fu">sum</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(key) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">h =</span> <span class="sc">-</span><span class="fu">sum</span>(<span class="fu">ifelse</span>(value <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, value <span class="sc">*</span> <span class="fu">log</span>(value))))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -586,97 +626,100 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Das <code>ifelse</code> dient nur dazu, eine Wahrscheinlichkeit von 0 eine Eintropie von 0 zu verpassen<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>, denn sonst würden wir ein Problem rennen, wenn wir <span class="math inline">\(log(0)\)</span> ausrechnen.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Das <code>ifelse</code> dient nur dazu, eine Wahrscheinlichkeit von 0 eine Entropie von 0 zu verpassen<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, denn sonst würden wir ein Problem rennen, wenn wir <span class="math inline">\(log(0)\)</span> ausrechnen.</p>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-13_4542385575c1e35ab26589681fbfea05">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -Inf</code></pre>
 </div>
 </div>
 </section>
 </section>
+</section>
 <section id="zufallstext-erkennen" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="zufallstext-erkennen"><span class="header-section-number">5.2</span> Zufallstext erkennen</h2>
+<section id="entropie-von-zufallstext" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="entropie-von-zufallstext"><span class="header-section-number">5.2.1</span> Entropie von Zufallstext</h3>
 <p>Kann man wohl Zufallstext maschinell erkennen? Sicher gibt es viele Ansätze, um das Problem anzugehen. Lassen Sie uns einen Ansatz erforschen. Erforschen heißt, <em>wir</em> erforschen für <em>uns</em>, es handelt sich um eine didaktische Übung, das Ziel ist nicht, Neuland für die Menschheit zu betreten.</p>
 <p>Aber zuerst müssen wir überlegen, was “Zufallstext” bedeuten soll.</p>
 <p>Nehmen wir uns dazu zuerst einen richtigen Text, ein Märchen von H.C. Andersen zum Beispiel. Nehmen wir das Erste aus der Liste in dem Tibble <code>hcandersen_de</code>, “das Feuerzeug”.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>das_feuerzeug <span class="ot">&lt;-</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  hcandersen_de  <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> text, <span class="at">output =</span> word) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(word) </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(das_feuerzeug)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-14_4a86dad54c7fc181f2fd18083866086f">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>das_feuerzeug <span class="ot">&lt;-</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  hcandersen_de  <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> text, <span class="at">output =</span> word) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(word) </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(das_feuerzeug)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "es"         "kam"        "ein"        "soldat"     "die"       
 [6] "landstraße"</code></pre>
 </div>
 </div>
 <p>Das Märchen ist 2688 Wörter lang.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>wortliste <span class="ot">&lt;-</span> </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>hcandersen_de  <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(word) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wortliste)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-15_1eb3fdf036147b220915073f89a2d396">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>wortliste <span class="ot">&lt;-</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>hcandersen_de  <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(word) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wortliste)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "es"         "kam"        "ein"        "soldat"     "die"       
 [6] "landstraße"</code></pre>
 </div>
 </div>
-<p>Jetzt ziehen wir Stichproben (mit Zurücklegen) aus dieser Liste und erstellen damit eine Art “Prototext”.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>prototext <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> wortliste, <span class="at">size =</span> <span class="fu">length</span>(das_feuerzeug)<span class="sc">*</span><span class="dv">10</span><span class="sc">^</span><span class="dv">2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(prototext)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Jetzt ziehen wir Stichproben (mit Zurücklegen) aus dieser Liste und erstellen damit eine Art Zufallstext.</p>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-16_a047c57bf1a6ae2e5f01e5d18f5cdfa7">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>zufallstext <span class="ot">&lt;-</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="at">x =</span> wortliste, <span class="at">size =</span> <span class="fu">length</span>(das_feuerzeug)<span class="sc">*</span><span class="dv">10</span><span class="sc">^</span><span class="dv">2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(zufallstext)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "zweite"   "denen"    "zugeben"  "ebenso"   "hofdame"  "trommeln"</code></pre>
+<pre><code>[1] "oben"      "offiziere" "morgen"    "leg"       "soldaten"  "aber"     </code></pre>
 </div>
 </div>
 <p>Zählen wir, wie häufig jedes Wort vorkommt:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>prototext_count <span class="ot">&lt;-</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">prototext =</span> prototext) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(prototext)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(prototext_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-17_1878fccdf4123b4723c5d20552c35565">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>zufallstext_count <span class="ot">&lt;-</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">zufallstext =</span> zufallstext) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(zufallstext)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(zufallstext_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
 <thead>
 <tr class="header">
-<th style="text-align: left;">prototext</th>
+<th style="text-align: left;">zufallstext</th>
 <th style="text-align: right;">n</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ab</td>
-<td style="text-align: right;">373</td>
+<td style="text-align: right;">397</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">abend</td>
-<td style="text-align: right;">337</td>
+<td style="text-align: right;">357</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">aber</td>
-<td style="text-align: right;">364</td>
+<td style="text-align: right;">402</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">abflog</td>
-<td style="text-align: right;">383</td>
+<td style="text-align: right;">382</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">abschlagen</td>
-<td style="text-align: right;">381</td>
+<td style="text-align: right;">376</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">acht</td>
-<td style="text-align: right;">370</td>
+<td style="text-align: right;">390</td>
 </tr>
 </tbody>
 </table>
@@ -684,12 +727,12 @@ div.csl-indent {
 </div>
 </div>
 <p>Der Häufigkeitsvektor von <code>wortliste</code> besteht nur aus Einsen, so haben wir ja gerade die Wortliste definiert:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>wortliste_count <span class="ot">&lt;-</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">wortliste =</span> wortliste) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(wortliste)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wortliste_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-18_2f057cb0f26d44905767121c36d35dea">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>wortliste_count <span class="ot">&lt;-</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">wortliste =</span> wortliste) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(wortliste)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wortliste_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -730,26 +773,26 @@ div.csl-indent {
 </div>
 </div>
 <p>Daher ist ihre Informationsentropy maximal.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(wortliste_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-19_51f6c5cd5528e4c2ca69d4d9de6e5722">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(wortliste_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.47978</code></pre>
 </div>
 </div>
-<p>Die Häufigkeiten der Wörter in <code>prototext</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(prototext_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Die Häufigkeiten der Wörter in <code>zufallstext</code> hat eine hohe Entropie.</p>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-20_cfe7379fae9c1da504e2d35e820fd809">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(zufallstext_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.477858</code></pre>
+<pre><code>[1] 9.477938</code></pre>
 </div>
 </div>
-<p>Zählen wir die Häufigkeiten in der Geschichte “Das Feuerzeug”</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>das_feuerzeug_count <span class="ot">&lt;-</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">text =</span> das_feuerzeug) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(das_feuerzeug_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Zählen wir die Häufigkeiten in der Geschichte “Das Feuerzeug”.</p>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-21_d6a7b6ca5e8214dd36dc72274551bcec">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>das_feuerzeug_count <span class="ot">&lt;-</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">text =</span> das_feuerzeug) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(das_feuerzeug_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -789,12 +832,30 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(das_feuerzeug_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Und berechnen dann die Entropie:</p>
+<div class="cell" data-hash="Information_cache/html/unnamed-chunk-22_a02e25cc2c768b2b1a5c51ba08c8aab2">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(das_feuerzeug_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8.075194</code></pre>
 </div>
 </div>
+<p>Der Zufallstext hat also eine höhere Entropie als der echte Märchentext. Der Zufallstext ist also gleichverteilter in den Worthäufigkeiten.</p>
+<p>Pro Bit weniger Entropie halbiert sich die Anzahl der Möglichkeiten einer Häufigkeitsverteilung.</p>
+</section>
+<section id="mi-von-zufallstext" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="mi-von-zufallstext"><span class="header-section-number">5.2.2</span> MI von Zufallstext</h3>
+</section>
+</section>
+<section id="literatur" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="literatur"><span class="header-section-number">5.3</span> Literatur</h2>
+<section id="wikipedia" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="wikipedia"><span class="header-section-number">5.3.1</span> Wikipedia</h3>
+<p>Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information">Wikipedia: Pointwise Mutual Information</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mutual_information">Wikipedia: Mutual information</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Information_theory">Wikipedia: Information theory</a></li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
@@ -809,6 +870,7 @@ Shannon, C. E. 1948. <span>„A Mathematical Theory of Communication“</span>. 
 </div>
 </div>
 </section>
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -818,8 +880,9 @@ Shannon, C. E. 1948. <span>„A Mathematical Theory of Communication“</span>. 
 <li id="fn4"><p>auch als <em>marginalen</em> Wahrscheinlichkeiten oder <em>Randwahrscheinlichkeiten</em> bezeichnet<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Für stochastische Unabhängigkeit kann das Zeichen <span class="math inline">\(\bot\)</span> verwendet werden<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>so ähnlich wie mit den Lottozahlen<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>Syntax aus <span class="citation" data-cites="kurz_statistical_2021">Kurz (<a href="references.html#ref-kurz_statistical_2021" role="doc-biblioref">2021</a>)</span><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Regel von L’Hopital<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Ist das nicht eine elegante Syntax?! Solomon Kurz, der Autor der Syntax, hielt sich nicht an die aktuelle Version von <code>dplyr</code>; <code>mutate_all</code> ist eigentlich überholt zugunsten von <code>mutate</code> mit <code>across</code>, aber die Prägnanz der Syntax hier ist schon beeindruckend, wie ich finde.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Syntax aus <span class="citation" data-cites="kurz_statistical_2021">Kurz (<a href="references.html#ref-kurz_statistical_2021" role="doc-biblioref">2021</a>)</span><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Regel von L’Hopital<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
