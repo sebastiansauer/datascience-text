@@ -7,6 +7,49 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 
 
+
+
+## Vorab
+
+
+### Lernziele
+
+
+- Die Fallstudie erklären können
+
+
+
+### Vorbereitung
+
+- [Clonen Sie das Projekt-Repositorium](https://github.com/sebastiansauer/polits_tweet_mining) oder laden Sie es herunter^[[Hier](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/) finden Sie Hinweise, wie man ein Github-Repo clont oder herunterlädt.].
+- Arbeiten Sie [die Syntax zu dem Projekt](https://github.com/sebastiansauer/polits_tweet_mining/tree/master/code) durch.
+
+
+
+### Benötigte R-Pakete
+
+In dem vorgestellten Projekt werden die folgenden R-Pakete verwendet.
+
+```{r}
+#| message: false
+library(tidyverse)
+library(twitteR)
+library(tidytext)
+library(lubridate)
+library(magrittr)
+library(tidytext)
+library(stringr)
+library(viridis)
+library(wordcloud)
+library(SnowballC)
+library(knitr)
+library(testthat)
+```
+
+
+
+
+
 ## Wie populistisch tweeten unsere Politiker:innen?
 
 

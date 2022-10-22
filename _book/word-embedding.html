@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>datascience2: Prädiktive Modelle auf Basis von Textdaten - 6&nbsp; Word Embedding</title>
+<title>datascience2: Prädiktive Modelle auf Basis von Textdaten - 5&nbsp; Word Embedding</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,7 +113,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./Information.html" rel="prev">
+<link href="./populismus.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -153,7 +153,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Word Embedding</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -203,12 +203,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Information.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Informationstheorie</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./word-embedding.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></a>
+  <a href="./word-embedding.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Word Embedding</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -225,27 +220,45 @@ div.csl-indent {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="toc-section-number">6.1</span>  Vorab</a>
+  <li><a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="toc-section-number">5.1</span>  Vorab</a>
   <ul class="collapse">
-  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">6.1.1</span>  Lernziele</a></li>
-  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">6.1.2</span>  Vorbereitung</a></li>
-  <li><a href="#benötigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#benötigte-r-pakete"><span class="toc-section-number">6.1.3</span>  Benötigte R-Pakete</a></li>
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="toc-section-number">5.1.1</span>  Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="toc-section-number">5.1.2</span>  Vorbereitung</a></li>
+  <li><a href="#benötigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#benötigte-r-pakete"><span class="toc-section-number">5.1.3</span>  Benötigte R-Pakete</a></li>
   </ul></li>
-  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">6.2</span>  Daten</a>
+  <li><a href="#informationstheorie" id="toc-informationstheorie" class="nav-link" data-scroll-target="#informationstheorie"><span class="toc-section-number">5.2</span>  Informationstheorie</a>
   <ul class="collapse">
-  <li><a href="#complaints-datensatz" id="toc-complaints-datensatz" class="nav-link" data-scroll-target="#complaints-datensatz"><span class="toc-section-number">6.2.1</span>  Complaints-Datensatz</a></li>
-  <li><a href="#complaints-verkürzt-und-geschachtelt" id="toc-complaints-verkürzt-und-geschachtelt" class="nav-link" data-scroll-target="#complaints-verkürzt-und-geschachtelt"><span class="toc-section-number">6.2.2</span>  Complaints verkürzt und geschachtelt</a></li>
+  <li><a href="#einführung" id="toc-einführung" class="nav-link" data-scroll-target="#einführung"><span class="toc-section-number">5.2.1</span>  Einführung</a></li>
+  <li><a href="#shannon-information" id="toc-shannon-information" class="nav-link" data-scroll-target="#shannon-information"><span class="toc-section-number">5.2.2</span>  Shannon-Information</a></li>
+  <li><a href="#entropie" id="toc-entropie" class="nav-link" data-scroll-target="#entropie"><span class="toc-section-number">5.2.3</span>  Entropie</a></li>
+  <li><a href="#gemeinsame-information" id="toc-gemeinsame-information" class="nav-link" data-scroll-target="#gemeinsame-information"><span class="toc-section-number">5.2.4</span>  Gemeinsame Information</a></li>
+  <li><a href="#maximumentropie" id="toc-maximumentropie" class="nav-link" data-scroll-target="#maximumentropie"><span class="toc-section-number">5.2.5</span>  Maximumentropie</a></li>
+  <li><a href="#ilustration" id="toc-ilustration" class="nav-link" data-scroll-target="#ilustration"><span class="toc-section-number">5.2.6</span>  Ilustration</a></li>
   </ul></li>
-  <li><a href="#kommentare-und-hilfestellungen" id="toc-kommentare-und-hilfestellungen" class="nav-link" data-scroll-target="#kommentare-und-hilfestellungen"><span class="toc-section-number">6.3</span>  Kommentare und Hilfestellungen</a>
+  <li><a href="#zufallstext-erkennen" id="toc-zufallstext-erkennen" class="nav-link" data-scroll-target="#zufallstext-erkennen"><span class="toc-section-number">5.3</span>  Zufallstext erkennen</a>
   <ul class="collapse">
-  <li><a href="#pmi-berechnen" id="toc-pmi-berechnen" class="nav-link" data-scroll-target="#pmi-berechnen"><span class="toc-section-number">6.3.1</span>  PMI berechnen</a></li>
-  <li><a href="#sliding" id="toc-sliding" class="nav-link" data-scroll-target="#sliding"><span class="toc-section-number">6.3.2</span>  Sliding</a></li>
-  <li><a href="#funktion-slide_windows" id="toc-funktion-slide_windows" class="nav-link" data-scroll-target="#funktion-slide_windows"><span class="toc-section-number">6.3.3</span>  Funktion <code>slide_windows</code></a></li>
-  <li><a href="#svd" id="toc-svd" class="nav-link" data-scroll-target="#svd"><span class="toc-section-number">6.3.4</span>  SVD</a></li>
-  <li><a href="#wortähnlichkeit" id="toc-wortähnlichkeit" class="nav-link" data-scroll-target="#wortähnlichkeit"><span class="toc-section-number">6.3.5</span>  Wortähnlichkeit</a></li>
-  <li><a href="#word-embeddings-vorgekocht-glove6b" id="toc-word-embeddings-vorgekocht-glove6b" class="nav-link" data-scroll-target="#word-embeddings-vorgekocht-glove6b"><span class="toc-section-number">6.3.6</span>  Word-Embeddings vorgekocht: Glove6B</a></li>
+  <li><a href="#entropie-von-zufallstext" id="toc-entropie-von-zufallstext" class="nav-link" data-scroll-target="#entropie-von-zufallstext"><span class="toc-section-number">5.3.1</span>  Entropie von Zufallstext</a></li>
+  <li><a href="#mi-von-zufallstext" id="toc-mi-von-zufallstext" class="nav-link" data-scroll-target="#mi-von-zufallstext"><span class="toc-section-number">5.3.2</span>  MI von Zufallstext</a></li>
   </ul></li>
-  <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="toc-section-number">6.4</span>  Fazit</a></li>
+  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">5.4</span>  Daten</a>
+  <ul class="collapse">
+  <li><a href="#complaints-datensatz" id="toc-complaints-datensatz" class="nav-link" data-scroll-target="#complaints-datensatz"><span class="toc-section-number">5.4.1</span>  Complaints-Datensatz</a></li>
+  <li><a href="#complaints-verkürzt-und-geschachtelt" id="toc-complaints-verkürzt-und-geschachtelt" class="nav-link" data-scroll-target="#complaints-verkürzt-und-geschachtelt"><span class="toc-section-number">5.4.2</span>  Complaints verkürzt und geschachtelt</a></li>
+  </ul></li>
+  <li><a href="#kommentare-und-hilfestellungen" id="toc-kommentare-und-hilfestellungen" class="nav-link" data-scroll-target="#kommentare-und-hilfestellungen"><span class="toc-section-number">5.5</span>  Kommentare und Hilfestellungen</a>
+  <ul class="collapse">
+  <li><a href="#pmi-berechnen" id="toc-pmi-berechnen" class="nav-link" data-scroll-target="#pmi-berechnen"><span class="toc-section-number">5.5.1</span>  PMI berechnen</a></li>
+  <li><a href="#sliding" id="toc-sliding" class="nav-link" data-scroll-target="#sliding"><span class="toc-section-number">5.5.2</span>  Sliding</a></li>
+  <li><a href="#funktion-slide_windows" id="toc-funktion-slide_windows" class="nav-link" data-scroll-target="#funktion-slide_windows"><span class="toc-section-number">5.5.3</span>  Funktion <code>slide_windows</code></a></li>
+  <li><a href="#svd" id="toc-svd" class="nav-link" data-scroll-target="#svd"><span class="toc-section-number">5.5.4</span>  SVD</a></li>
+  <li><a href="#wortähnlichkeit" id="toc-wortähnlichkeit" class="nav-link" data-scroll-target="#wortähnlichkeit"><span class="toc-section-number">5.5.5</span>  Wortähnlichkeit</a></li>
+  <li><a href="#word-embeddings-vorgekocht-glove6b" id="toc-word-embeddings-vorgekocht-glove6b" class="nav-link" data-scroll-target="#word-embeddings-vorgekocht-glove6b"><span class="toc-section-number">5.5.6</span>  Word-Embeddings vorgekocht: Glove6B</a></li>
+  </ul></li>
+  <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="toc-section-number">5.6</span>  Fazit</a></li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur"><span class="toc-section-number">5.7</span>  Literatur</a>
+  <ul class="collapse">
+  <li><a href="#wikipedia" id="toc-wikipedia" class="nav-link" data-scroll-target="#wikipedia"><span class="toc-section-number">5.7.1</span>  Wikipedia</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -254,7 +267,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Word Embedding</span></h1>
 </div>
 
 
@@ -269,61 +282,628 @@ div.csl-indent {
 </header>
 
 <p><img src="img/text-mining-1476780_640.png" class="img-fluid" style="width:10.0%" alt="Text als Datenbasis prädiktiver Modelle"> Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
-<section id="vorab" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="vorab"><span class="header-section-number">6.1</span> Vorab</h2>
-<section id="lernziele" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="lernziele"><span class="header-section-number">6.1.1</span> Lernziele</h3>
+<section id="vorab" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="vorab"><span class="header-section-number">5.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="lernziele"><span class="header-section-number">5.1.1</span> Lernziele</h3>
 <ul>
+<li>Die grundlegenden Konzepte der Informationstheorie erklären können</li>
 <li>Die vorgestellten Techniken des Textminings mit R anwenden können</li>
 </ul>
 </section>
-<section id="vorbereitung" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">6.1.2</span> Vorbereitung</h3>
+<section id="vorbereitung" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">5.1.2</span> Vorbereitung</h3>
 <ul>
+<li>Lesen Sie <a href="https://www.science4all.org/article/shannons-information-theory/">diesen Text</a> als Vorbereitung</li>
 <li>Arbeiten Sie <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/embeddings.html">Kap. 5</a> durch.</li>
 </ul>
 </section>
-<section id="benötigte-r-pakete" class="level3" data-number="6.1.3">
-<h3 data-number="6.1.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">6.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-1_dc2c1ff055e9cfd8de10590c9cc611d0">
+<section id="benötigte-r-pakete" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">5.1.3</span> Benötigte R-Pakete</h3>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-1_79e2c8a2fc606b5672cedc7ed4d513f6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(slider)  <span class="co"># slide</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)  <span class="co"># pairwise_pmi</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)  <span class="co"># mehrere Kerne gleichzeitig nutzen</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)  <span class="co"># Worteinbettungen, vorgekocht</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcandersenr)   <span class="co"># Textdaten</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(slider)  <span class="co"># slide</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)  <span class="co"># pairwise_pmi</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)  <span class="co"># mehrere Kerne gleichzeitig nutzen</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)  <span class="co"># Worteinbettungen, vorgekocht</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(entropy)  <span class="co"># Entropie berechnen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
-<section id="daten" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="daten"><span class="header-section-number">6.2</span> Daten</h2>
-<section id="complaints-datensatz" class="level3" data-number="6.2.1">
-<h3 data-number="6.2.1" class="anchored" data-anchor-id="complaints-datensatz"><span class="header-section-number">6.2.1</span> Complaints-Datensatz</h3>
+<section id="informationstheorie" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="informationstheorie"><span class="header-section-number">5.2</span> Informationstheorie</h2>
+<section id="einführung" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="einführung"><span class="header-section-number">5.2.1</span> Einführung</h3>
+<p>Die Informationstheorie ist eine der Sternstunden der Wissenschaft. <a href="http://www.science4all.org/article/shannons-information-theory/">Manche sagen</a> dass Claude Shannon, der Autor der Theorie, auf einer Stufe mit Darwin und Einstein stehen sollte:</p>
+<blockquote class="blockquote">
+<p>In this single paper, Shannon introduced this new fundamental theory. He raised the right questions, which no one else even thought of asking. This would have been enough to make this contribution earthshaking. But amazingly enough, Shannon also provided most of the right answers with class and elegance. In comparison, it took decades for a dozen of top physicists to define the basics of quantum theory. Meanwhile, Shannon constructed something equivalent, all by himself, in a single paper. Shannon’s theory has since transformed the world like no other ever had, from information technologies to telecommunications, from theoretical physics to economical globalization, from everyday life to philosophy. (…) I don’t think Shannon has had the credits he deserves. He should be right up there, near Darwin and Einstein, among the few greatest scientists mankind has ever had the chance to have.</p>
+</blockquote>
+<p>Für die Statistik ist die Informationstheorie von hoher Bedeutung. Im Folgenden schauen wir uns einige Grundlagen an.</p>
+</section>
+<section id="shannon-information" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="shannon-information"><span class="header-section-number">5.2.2</span> Shannon-Information</h3>
+<p>Mit der <em>Shannon-Information</em> (Information, Selbstinformation) quantifizieren wir, wie viel “Überraschung” sich in einem Ereignis verbirgt <span class="citation" data-cites="shannon_1948">(<a href="references.html#ref-shannon_1948" role="doc-biblioref">Shannon 1948</a>)</span>.</p>
+<p>Ein Ereignis mit …</p>
+<ul>
+<li><em>geringer</em> Wahrscheinlichkeit: <em>Viel</em> Überraschung (Information)</li>
+<li><em>hoher</em> Wahrscheinlichkeit: <em>Wenig</em> Überraschung (Information)</li>
+</ul>
+<p>Wenn wir also erfahren, dass ein unwahrscheinliches Ereignis eingetreten ist (Schnee im Sommer), sind wir überraschter als wenn wir höhen, dass ein wahrscheinliches Ereignis eingetreten ist (Schnee im Winter).</p>
+<p>Die Information eines Ereignis ist also eng verbunden mit seiner Wahrscheinlichkeit oder auch mit den Odds eines Ereignisses.</p>
+<p>Die Shannon-Information ist die einzige Größe, die einige wünschenswerte Anforderungen<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> erfüllt:</p>
+<ol type="1">
+<li>Stetig</li>
+<li>Je mehr Ereignisse in einem Zufallsexperiment möglich sind, desto höher die Information, wenn ein bestimmtes Ereignis eintritt</li>
+<li>Additiv: Die Summe der Information zweier Teilereignisse ist gleich der Information des Gesamtereignis</li>
+</ol>
+<div id="def-info" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.1 (Shannon-Information) </strong></span>Die Information ist so definiert:</p>
+<p><span class="math display">\[I(x) = - \log_2 \left( Pr(x) \right)\]</span></p>
+</div>
+<p>Andere Logaritmusbasen sind möglich. Bei einem binären Logarithmus nennt man die Einheit <em>Bit</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>Ein Münwzurf<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> hat <em>1 Bit</em> Information:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-2_8aa06ce3a559e9b2a99a545d488ab943">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>Damit gilt: <span class="math inline">\(I = \frac{1}{Pr(x)}\)</span></p>
+<p>Die Information ist eng verwandt mit den Odds bzw. Log-Odds (Logits):</p>
+<p><span class="math inline">\(\text{log-odds}(x)=\log \left({\frac {p(x)}{p(\lnot x)}}\right)\)</span></p>
+<p>Logits können als Differenz zweier Shannon-Infos ausgedrückt werden:</p>
+<p><span class="math inline">\(\text{log-odds}(x)=I(\lnot x)-I(x)\)</span></p>
+<p>Die Information zweier unabhängiger Ereignisse ist additiv.</p>
+<p>Die gemeinsame Wahrscheinlichkeit zweier unabhängiger Ereignisse ist das Produkt der einzelnen Wahrscheinlichkeiten:</p>
+<p><span class="math inline">\(Pr(x,y) = Pr(x) \cdot Pr(y)\)</span></p>
+<p>Die <em>gemeinsame Information</em> ist dann</p>
+<p><span class="math display">\[
+{\displaystyle {\begin{aligned}\operatorname {I}(x,y)&amp;=-\log _{2}\left[p(x,y)\right]=-\log _{2}\left[p(x)p(y)\right]\\[5pt]&amp;=-\log _{2}\left[p{(x)}\right]-\log _{2}\left[p{(y)}\right]\\[5pt]&amp;=\operatorname {I} (x)+\operatorname {I} (y)\end{aligned}}}
+\]</span></p>
+<div id="exm-info1" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 5.1 (Information eines wahrscheinlichen Ereignisses) </strong></span>Die Information eines fast sicheren Ereignisses ist gering.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-3_b3ffdb6fb3fab73e9d2d34a7055db5b9">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">99</span><span class="sc">/</span><span class="dv">100</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01449957</code></pre>
+</div>
+</div>
+</div>
+<div id="exm-info2" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 5.2 (Information eines unwahrscheinlichen Ereignisses) </strong></span>Die Information eines unwahrscheinlichen Ereignisses ist hoch.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-4_a4438963111710a841089c1b5d43bc86">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">01</span><span class="sc">/</span><span class="dv">100</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.643856</code></pre>
+</div>
+</div>
+</div>
+<div id="exm-info3" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 5.3 (Information eines Würfelwurfs) </strong></span>Die Wahrscheinlichkeitsfunktion eines Würfel ist</p>
+<p><span class="math inline">\({\displaystyle Pr(k)={\begin{cases}{\frac {1}{6}},&amp;k\in \{1,2,3,4,5,6\}\\0,&amp;{\text{ansonsten}}\end{cases}}}\)</span></p>
+<p>Die Wahrscheinlichkeit, eine 6 zu würfeln, ist <span class="math inline">\(Pr(X=6) = \frac{1}{6}\)</span>.</p>
+<p>Die Information von <span class="math inline">\(X=6\)</span> beträgt also</p>
+<p><span class="math inline">\(I(X=6) = -\log_2 \left( Pr(X=6) \right) = -\log_2(1/6) \approx 2.585 \, \text{bits}\)</span>.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-5_0a5822206486d127da4bfb2ea152b40f">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.584963</code></pre>
+</div>
+</div>
+</div>
+<div id="exm-info3" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 5.4 (Information zweier Würfelwurfe) </strong></span>Die Wahrscheinlichkeit, mit zwei Würfeln, <span class="math inline">\(X\)</span> und <span class="math inline">\(Y\)</span>, jeweils <em>6</em> zu würfeln, beträgt <span class="math inline">\(Pr(X=6, Y=6) = \frac{1}{36}\)</span></p>
+<p>Die Information beträgt also</p>
+<p><span class="math inline">\(I(X=6, Y=6) = -\log_2 \left( Pr(6,6) \right)\)</span></p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-6_e79b94732bd7d511ee15b869ca4c2393">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">36</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.169925</code></pre>
+</div>
+</div>
+<p>Aufgrund der Additivität der Information gilt</p>
+<p><span class="math inline">\(I(6,6) = I(6) + I(6)\)</span></p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-7_cd015b8f1f3620edcaab684c332a50f1">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">base =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">base =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.169925</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="entropie" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="entropie"><span class="header-section-number">5.2.3</span> Entropie</h3>
+<p>(Informations)entropie ist die Summe der Informationen der Ereignisse einer Zufallsvariablen, <span class="math inline">\(X\)</span>.</p>
+<div id="def-entropie" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.2 (Informationsentropie) </strong></span><em>Informationsentropie</em> ist so definiert:</p>
+<p><span class="math display">\[H(p) = - \text{E log} (p_i) = - \sum_{i = 1}^n p_i \text{log} (p_i) = E\left[I(X) \right]\]</span></p>
+</div>
+<p>Die Informationsentropie ist also die “mittlere” oder “erwartete Information einer Zufallsvariablen.</p>
+<p>Die Entropie eines Münzwurf-Versuchs (Bernoulli-Experiment) ist dann maximal (1 bit), wenn die Trefferwahrscheinlichkeit 50% beträgt: <span class="math inline">\(Pr(X=x) = 1/2\)</span>, s. Abb. <a href="#fig-bernoulli-entropy">Abbildung&nbsp;<span>5.1</span></a>.</p>
+<div id="fig-bernoulli-entropy" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/Binary_entropy_plot.svg.png" class="img-fluid figure-img" style="width:30.0%"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.1: Der Zusammenhang von Wahrscheinlichkeit und Entropie bei einem Bernoulli-Versuch, Quelle: Wikipedia, CC-BY-SA, Brona, Rubber Duck</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="gemeinsame-information" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="gemeinsame-information"><span class="header-section-number">5.2.4</span> Gemeinsame Information</h3>
+<p>Die <em>gemeinsame Information</em> (mutual information, MI) zweier Zufallsvariablen <span class="math inline">\(X\)</span> und <span class="math inline">\(Y\)</span>, <span class="math inline">\(I(X,Y)\)</span>, quantifiziert die Informationsmenge, die man über <span class="math inline">\(Y\)</span> erhält, wenn man <span class="math inline">\(X\)</span> beobachtet. Mit anderen Worten: Die MI ist ein Maß des Zusammenhangs zweier (nominaler) Variablen. Im Gegensatz zur Korrelation ist die MI nicht auf lineare Abhängigkeiten beschränkt.</p>
+<p>Die MI quantifiziert den Unterschied zwischen der gemeinsamen Verteilung <span class="math inline">\(Pr(X,Y)\)</span> und dem Produkt einer einzelnen<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Wahrscheinlichkeitsverteilungen, d.h. <span class="math inline">\(Pr(X)\)</span> und <span class="math inline">\(Pr(Y)\)</span>.</p>
+<p>Wenn die beiden Variablen (stochastisch) unabhängig<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> sind, ist ihre gemeinsame Information Null:</p>
+<p><span class="math inline">\(I(X,Y) = 0 \quad \text{gdw} \quad \bot(X,Y)\)</span>.</p>
+<p>Dann gilt nämlich:</p>
+<p><span class="math inline">\(\log \left( \frac{Pr(X,Y)} {Pr(X) \cdot Pr(Y)} \right) =\log(1) = 0\)</span>.</p>
+<p>Das macht intuitiv Sinn: Sind zwei Variablen unabhängig, so erfährt man nichts über die zweite, wenn man die erste kennt. So ist Kenntnis der Sternzeichens einer Person und ihrer Körpergröße unabhängig.</p>
+<p>Das Gegenteil ist auch wahr: Sind zwei Variablen voneinander komplett abhängig, so weiß man alles über die zweite, wenn man die erste kennt.</p>
+<p>Die gemeinsame Information kann man sich als <em>Summe der einzelnen gemeinsamen Informationen</em> von <span class="math inline">\(XY\)</span> sehen (s. <span class="quarto-unresolved-ref">?tbl-mi1</span>):</p>
+<div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="sc">~</span>x1,    <span class="sc">~</span>x2,    <span class="sc">~</span>x3,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"x1y2"</span>, <span class="st">"x2y1"</span>, <span class="st">"x3y1"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"x2y1"</span>, <span class="st">"x2y2"</span>, <span class="st">"x3y2"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"x1y3"</span>, <span class="st">"x2y3"</span>, <span class="st">"x3y3"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-mi1" class="cell tbl-parent quarto-layout-panel anchored" data-tbl-cap="Summe der punktweisen gemeinsamen Informationen" data-hash="word-embedding_cache/html/tbl-mi1_0555439b9caf393354c855423beaf5b1">
+<div class="panel-caption table-caption">
+<p><strong>?(caption)</strong></p>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(I(X,Y) = \Sigma_Y \Sigma_y Pr(x,y) \underbrace{\log \left( \frac{Pr(X,Y)}{Pr(X) Pr(Y)} \right)}_\text{punktweise MI}\)</span></p>
+<p>Die Summanden der gemeinsamen Information bezeichnet man auch als <em>punktweise gemeinsame Information</em> (pointwise mutual information, PMI), entsprechend, s. <a href="#eq-pmi">Gleichung&nbsp;<span>5.1</span></a>. MI ist also der Erwartungswert der PMI.</p>
+<p><span id="eq-pmi"><span class="math display">\[{\displaystyle \operatorname {PMI} (x,y)\equiv \log_{2}{\frac {p(x,y)}{p(x)p(y)}}=\log _{2}{\frac {p(x|y)}{p(x)}}=\log _{2}{\frac {p(y|x)}{p(y)}}}
+\tag{5.1}\]</span></span></p>
+<p>Andere Basen als <code>log2</code> sind gebräuchlich, vor allem der natürliche Logarithmus.</p>
+<div class="remark proof">
+<p><span class="proof-title"><em>Anmerkung</em>. </span>Die zwei rechten Umformungen in <a href="#eq-pmi">Gleichung&nbsp;<span>5.1</span></a> basieren auf der Umformung der gemeinsamen Wahrscheinlichkeit.</p>
+<p>Zur Erinnerung: <span class="math inline">\(p(x,y) = p(y)p(x|y) = p(x)p(y|x)\)</span></p>
+</div>
+<div id="exm-pmi" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 5.5 (Interpretation der PMI) </strong></span>Sei <span class="math inline">\(p(x) = p(y) = 1/10\)</span> und <span class="math inline">\(p(x,y) = 1/10\)</span>. Wären <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span> unabhängig, dann wäre <span class="math inline">\(p^{\prime}(x,y) = p(x)p(y) = 1/100\)</span>. Das Verhältnis der Produkte der einzelnen Wahrscheinlichkeit zur gemeinsamen Wahrscheinlichkeit wäre dann 1 und der Logarithmus von 1 ist 0. Das Verhältnis von 1 entspricht also der Unabhängigkeit. Ist das Verhältnis z.B. 5, so zeigt das eine gewisse Abhängigkeit an. Im obigen Beispiel gilt: <span class="math inline">\(\frac{1/20}{1/100}=5\)</span>.</p>
+</div>
+<p>Die MI wird auch über die sog. <em>Kullback-Leibler-Divergenz</em> definiert, die die Differenz zwischen gemeinsamer Wahrscheinlichkeitsfunktion bzw. -dichte und dem Produkt der jeweiligen Randwahrscheinlichkeiten bzw. -dichte angibt.</p>
+</section>
+<section id="maximumentropie" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="maximumentropie"><span class="header-section-number">5.2.5</span> Maximumentropie</h3>
+<div id="def-maxent" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.3 (Maximumentropie) </strong></span>Die Verteilungsform, für die es die meisten Möglichkeiten (Pfade im Baumdiagramm) gibt, hat die höchste Informationsentropie.</p>
+</div>
+<p><a href="#fig-muenz3">Abbildung&nbsp;<span>5.2</span></a> zeigt ein Baumdiagramm für einen 3-fachen Münzwurf. In den “Blättern” (Endknoten) sind die Ergebnisse des Experiments dargestellt sowie die Zufallsvariable <span class="math inline">\(X\)</span>, die die Anzahl der “Treffer” (Kopf) fasst. Wie man sieht, vereinen einige Werte der Zufallsvariable mehr Pfade auf sich als andere: Der Wert <span class="math inline">\(X=1\)</span> vereinigt 3 Pfade (von 8) auf sich; der Wert <span class="math inline">\(X=3\)</span> nur 1 Pfad.</p>
+<div id="fig-muenz3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/muenz3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.2: Pfade im Baumdiagramm: 3-facher Münzwurf</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="ilustration" class="level3" data-number="5.2.6">
+<h3 data-number="5.2.6" class="anchored" data-anchor-id="ilustration"><span class="header-section-number">5.2.6</span> Ilustration</h3>
+<p>Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind <span class="citation" data-cites="mcelreath_statistical_2020">(<a href="references.html#ref-mcelreath_statistical_2020" role="doc-biblioref">McElreath 2020</a>)</span>. Weil Sie nichts besseres zu tun haben, werfen Sie die Kiesel in die Eimer und zwar so, dass die Wahrscheinlichkeit für einen Kiesel in einen bestimmten Eimer zu landen für alle Eimer gleich ist. Sie werfen also Ihre 10 Kiesel und betrachten das Ergebnis; die Kiesel sind jetzt in einem bestimmten (zufälligen) Arrangement auf die Eimer verteilt. Jede Aufteilung (der 10 Kiesel in den 5 Eimern) ist gleich wahrscheinlich<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> – die Wahrscheinlichkeit, dass alle 10 Kiesel in Eimer 1 landen ist also gleich hoch wie die Wahrscheinlichkeit, dass jeder Eimer einen Kiesel abkriegt. Jetzt kommt’s: Manche Arrangements können auf mehrere Arten erzielt werden als andere. So gibt es nur <em>eine</em> Aufteilung für alle 10 Kiesel in einem Eimer (Teildiagramm a, in <a href="#fig-kiesel">Abbildung&nbsp;<span>5.3</span></a>). Aber es gibt 90 Möglichkeiten, die Kiesel so aufzuteilen, dass 2 in Eimer 2 landen, 8 in Eimer 4 und 2 in Eimer 4, s. Teildiagramm b in <a href="#fig-kiesel">Abbildung&nbsp;<span>5.3</span></a>. Teildiagramme c bis e zeigen, dass die Anzahl der Aufteilungen schnell astronomisch hoch wird, wenn sich die Kiesel “gleichmäßiger” auf die Eimer verteilen. Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen. Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden.</p>
+<p>Hier sind ein paar verschiedene Arrangements, deren Anzahl von Aufteilungen wir hier anschauen:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-9_5d70669a4be8a04f7828bcb0b8a21687">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">0</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">d =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">e =</span> <span class="dv">2</span>) </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+<th style="text-align: right;">d</th>
+<th style="text-align: right;">e</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="word-embedding_cache/html/fig-kiesel_ef23d0da2ab08eb54c309418452a83d8">
+<div class="cell-output-display">
+<div id="fig-kiesel" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="word-embedding_files/figure-html/fig-kiesel-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.3: Anzahl von Aufteilungen der 10 Kiesel in 5 Eimer</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hier sind die Wahrscheinlichkeitsverteilungen der 5 Arrangements<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-10_f33e12b23079203272d79c0b96693cd5">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span>. <span class="sc">/</span> <span class="fu">sum</span>(.))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: right;">a</th>
+<th style="text-align: right;">b</th>
+<th style="text-align: right;">c</th>
+<th style="text-align: right;">d</th>
+<th style="text-align: right;">e</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Dann kann man die Wahrscheinlichkeit einfach in Entropie umrechnen<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-11_3f4879960810008ace21c7c71e781897">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span> . <span class="sc">/</span> <span class="fu">sum</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(key) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">h =</span> <span class="sc">-</span><span class="fu">sum</span>(<span class="fu">ifelse</span>(value <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, value <span class="sc">*</span> <span class="fu">log</span>(value))))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">key</th>
+<th style="text-align: right;">h</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">0.6390319</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">0.9502705</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">1.4708085</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">e</td>
+<td style="text-align: right;">1.6094379</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Das <code>ifelse</code> dient nur dazu, eine Wahrscheinlichkeit von 0 eine Entropie von 0 zu verpassen<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, denn sonst würden wir ein Problem rennen, wenn wir <span class="math inline">\(log(0)\)</span> ausrechnen.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-12_f6d7e861f940b9ddc306bf96e6ec8a08">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -Inf</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="zufallstext-erkennen" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="zufallstext-erkennen"><span class="header-section-number">5.3</span> Zufallstext erkennen</h2>
+<section id="entropie-von-zufallstext" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="entropie-von-zufallstext"><span class="header-section-number">5.3.1</span> Entropie von Zufallstext</h3>
+<p>Kann man wohl Zufallstext maschinell erkennen? Sicher gibt es viele Ansätze, um das Problem anzugehen. Lassen Sie uns einen Ansatz erforschen. Erforschen heißt, <em>wir</em> erforschen für <em>uns</em>, es handelt sich um eine didaktische Übung, das Ziel ist nicht, Neuland für die Menschheit zu betreten.</p>
+<p>Aber zuerst müssen wir überlegen, was “Zufallstext” bedeuten soll.</p>
+<p>Nehmen wir uns dazu zuerst einen richtigen Text, ein Märchen von H.C. Andersen zum Beispiel. Nehmen wir das Erste aus der Liste in dem Tibble <code>hcandersen_de</code>, “das Feuerzeug”.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-13_32e6fcc8e59535f44e2ed4edd0b75d62">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>das_feuerzeug <span class="ot">&lt;-</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  hcandersen_de  <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> text, <span class="at">output =</span> word) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(word) </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(das_feuerzeug)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "es"         "kam"        "ein"        "soldat"     "die"       
+[6] "landstraße"</code></pre>
+</div>
+</div>
+<p>Das Märchen ist 2688 Wörter lang.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-14_71ba9954d21cfe317fc569a87ed0d5a9">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>wortliste <span class="ot">&lt;-</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>hcandersen_de  <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(word) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wortliste)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "es"         "kam"        "ein"        "soldat"     "die"       
+[6] "landstraße"</code></pre>
+</div>
+</div>
+<p>Jetzt ziehen wir Stichproben (mit Zurücklegen) aus dieser Liste und erstellen damit eine Art Zufallstext.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-15_abd203a54f3e8fcadbc38c5e4d37b3c1">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>zufallstext <span class="ot">&lt;-</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="at">x =</span> wortliste, <span class="at">size =</span> <span class="fu">length</span>(das_feuerzeug)<span class="sc">*</span><span class="dv">10</span><span class="sc">^</span><span class="dv">2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(zufallstext)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hat"    "kreide" "ins"    "komme"  "seinen" "dort"  </code></pre>
+</div>
+</div>
+<p>Zählen wir, wie häufig jedes Wort vorkommt:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-16_c3f27ed56ab922e01cb21196a2b2be9a">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>zufallstext_count <span class="ot">&lt;-</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">zufallstext =</span> zufallstext) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(zufallstext)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(zufallstext_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">zufallstext</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ab</td>
+<td style="text-align: right;">356</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abend</td>
+<td style="text-align: right;">386</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">aber</td>
+<td style="text-align: right;">347</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abflog</td>
+<td style="text-align: right;">350</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">abschlagen</td>
+<td style="text-align: right;">388</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">acht</td>
+<td style="text-align: right;">379</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Der Häufigkeitsvektor von <code>wortliste</code> besteht nur aus Einsen, so haben wir ja gerade die Wortliste definiert:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-17_ae5696da43dc2786911b15218de0991f">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>wortliste_count <span class="ot">&lt;-</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">wortliste =</span> wortliste) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(wortliste)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wortliste_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">wortliste</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ab</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abend</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">aber</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abflog</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">abschlagen</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">acht</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Daher ist ihre Informationsentropy maximal.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-18_753ce5784a3d82555be6bf2185b4b396">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(wortliste_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.47978</code></pre>
+</div>
+</div>
+<p>Die Häufigkeiten der Wörter in <code>zufallstext</code> hat eine hohe Entropie.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-19_f956583dbf79979ae6261b315979c689">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(zufallstext_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.47792</code></pre>
+</div>
+</div>
+<p>Zählen wir die Häufigkeiten in der Geschichte “Das Feuerzeug”.</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-20_d1c0f6047444fdc6daf45e48fa267dce">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>das_feuerzeug_count <span class="ot">&lt;-</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">text =</span> das_feuerzeug) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(text)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(das_feuerzeug_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">text</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ab</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abend</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">aber</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">abflog</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">abschlagen</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">acht</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Und berechnen dann die Entropie:</p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-21_6c93f2b7d0a030e4698ef9d5f0bb6ea9">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entropy</span>(das_feuerzeug_count<span class="sc">$</span>n, <span class="at">unit =</span> <span class="st">"log2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.075194</code></pre>
+</div>
+</div>
+<p>Der Zufallstext hat also eine höhere Entropie als der echte Märchentext. Der Zufallstext ist also gleichverteilter in den Worthäufigkeiten.</p>
+<p>Pro Bit weniger Entropie halbiert sich die Anzahl der Möglichkeiten einer Häufigkeitsverteilung.</p>
+</section>
+<section id="mi-von-zufallstext" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="mi-von-zufallstext"><span class="header-section-number">5.3.2</span> MI von Zufallstext</h3>
+<p>Left as an exercises for the reader<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> 🥳.</p>
+</section>
+</section>
+<section id="daten" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="daten"><span class="header-section-number">5.4</span> Daten</h2>
+<section id="complaints-datensatz" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="complaints-datensatz"><span class="header-section-number">5.4.1</span> Complaints-Datensatz</h3>
 <p>Der Datensatz <code>complaints</code> stammt aus <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/">dieser Quelle</a>.</p>
 <p>Den Datensatz <code>complaints</code> kann man <a href="https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz">hier</a> herunterladen. Im Buch ist die Webseite nicht (direkt?) angegeben. Die Datei ist mit <code>gz</code> gepackt; <code>read_csv</code> sollte das automatisch entpacken. Achtung: Die Datei ist recht groß.</p>
 <div class="cell" data-hash="word-embedding_cache/html/read-complaints-data_c409b292bb4630e8366ac1dd05232d84">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>complaints <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>d_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz"</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>complaints <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Geschickter als jedes Mal die Datei herunterzuladen, ist es, sie einmal herunterzuladen, und dann lokal zu speichern, etwa im Unterordner <code>data</code> des RStudio-Projektordners.</p>
 <p>Nach dem Importieren wird der Datensatz in eine Tidy-Form gebracht (mit <code>unnest_tokens</code>) und dann verschachtelt, mit <code>nest</code>.</p>
 </section>
-<section id="complaints-verkürzt-und-geschachtelt" class="level3" data-number="6.2.2">
-<h3 data-number="6.2.2" class="anchored" data-anchor-id="complaints-verkürzt-und-geschachtelt"><span class="header-section-number">6.2.2</span> Complaints verkürzt und geschachtelt</h3>
+<section id="complaints-verkürzt-und-geschachtelt" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="complaints-verkürzt-und-geschachtelt"><span class="header-section-number">5.4.2</span> Complaints verkürzt und geschachtelt</h3>
 <p>Um ein Herumprobieren zu erleichtern, ist hier der Datensatz <code>complaints</code> in zwei verkürzten Formen bereitgestellt:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-2_087c90585315ec3d67bf919c950f1e97">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nested_words2_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nested_words3_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words3.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-22_810f6c1f29ae34c487584999b350aecd">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>nested_words2_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>nested_words3_path <span class="ot">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words3.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>nested_words2</code> enthält die ersten 10% des Datensatz <code>nested_words</code>und ist gut 4 MB groß (mit <code>gz</code> gezippt); er besteht aus ca. 11 Tausend Beschwerden. <code>nested_words3</code> enthält nur die ersten 10 Beschwerden, was ihn gut zum Handhaben macht.</p>
 <p>Beide sind verschachtelt und aus <code>tidy_complaints</code> (s. <a href="https://smltar.com/embeddings.html#motivatingsparse">Kap. 5.1</a>) hervorgegangen.</p>
 <div class="cell" data-hash="word-embedding_cache/html/read-rds-nested-data_c88ffa3ec00426f49ded9c22547b6571">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nested_words3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(nested_words3_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>nested_words3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(nested_words3_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das sieht dann so aus:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-3_dbe03c719865da9d7f16e723430f640e">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nested_words3 <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-23_5306c91bc18a5b8a67c20e5a2babc4e6">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>nested_words3 <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -356,13 +936,13 @@ div.csl-indent {
 </div>
 </div>
 <p>Werfen wir einen Blick in den TExt der ersten Beschwerde des Datensatzes mit der ID <code>nested_words3_path$complaint_id[1]</code>.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-4_9dda5578acb7d827f65585ff69641c20">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="ot">&lt;-</span> nested_words3<span class="sc">$</span>words[[<span class="dv">1</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-24_da7357e8851ee8124b1d54413e5698ae">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="ot">&lt;-</span> nested_words3<span class="sc">$</span>words[[<span class="dv">1</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das ist ein Tibble mit einer Spalte und 17 Wörtern; da wir schon auf Unigramme aufgeteilt haben, ist jedes Wort ein Element des Vektors <code>word</code>:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-5_ffe87d60bc09da5ee534bb388719365b">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-25_4ee48c79fd485dee3c81dd5e28241ba1">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -395,8 +975,8 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-6_a641385020f0c02b44453c8282431c4c">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text<span class="sc">$</span>word</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-26_9184357c6afde11114e5ce4e5c730121">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>beschwerde1_text<span class="sc">$</span>word</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "systems"    "inc"        "is"         "trying"     "to"        
  [6] "collect"    "a"          "debt"       "that"       "is"        
@@ -406,11 +986,11 @@ div.csl-indent {
 </div>
 </section>
 </section>
-<section id="kommentare-und-hilfestellungen" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="kommentare-und-hilfestellungen"><span class="header-section-number">6.3</span> Kommentare und Hilfestellungen</h2>
-<section id="pmi-berechnen" class="level3" data-number="6.3.1">
-<h3 data-number="6.3.1" class="anchored" data-anchor-id="pmi-berechnen"><span class="header-section-number">6.3.1</span> PMI berechnen</h3>
-<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="Information.html#eq-pmi">Gleichung&nbsp;<span>5.1</span></a>.</p>
+<section id="kommentare-und-hilfestellungen" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="kommentare-und-hilfestellungen"><span class="header-section-number">5.5</span> Kommentare und Hilfestellungen</h2>
+<section id="pmi-berechnen" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="pmi-berechnen"><span class="header-section-number">5.5.1</span> PMI berechnen</h3>
+<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="#eq-pmi">Gleichung&nbsp;<span>5.1</span></a>.</p>
 <p>Mit R kann man die PMI z.B. so berechnen, s. <code>? pairwise_pmi</code> aus dem Paket <code>{widyr}</code>.</p>
 <p>Zum Paket <code>widyr</code> von Robinson und Silge:</p>
 <blockquote class="blockquote">
@@ -418,15 +998,15 @@ div.csl-indent {
 </blockquote>
 <p><a href="https://juliasilge.github.io/widyr/">Quelle</a></p>
 <p>Erzeugen wir uns Dummy-Daten:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-7_7cce10395cc20cd9882e2aca7479ac34">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">feature =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">each =</span> <span class="dv">2</span>),</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">item =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"b"</span>, <span class="st">"e"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"b"</span>, <span class="st">"f"</span>))</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>dat</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-27_6fbd3724100ce7df990284127e7712ff">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">feature =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">item =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"b"</span>, <span class="st">"e"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"b"</span>, <span class="st">"f"</span>))</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>dat</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -492,8 +1072,8 @@ div.csl-indent {
 <p><em>feature</em></p>
 <p>Column describing the feature that links one item to others</p>
 <p>Manche Berechnungen (Operationen) lassen sich vielleicht leichter nicht in der Tidy-Form (Langform), sondern in der “breiten” oder Matrixform ausführen. Wandeln wir mal <code>dat</code> von der Langform in die Breitform um:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-8_607b663e3c2b33966516fd3beb451cf0">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>item, dat<span class="sc">$</span>feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-28_c48cdc131a6d6e4e5f3a254a5b0ac086">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>item, dat<span class="sc">$</span>feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
     1 2 3 4 5
@@ -504,41 +1084,41 @@ div.csl-indent {
   f 0 0 0 0 1</code></pre>
 </div>
 </div>
-<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr">Abbildung&nbsp;<span>6.1</span></a>.</p>
+<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr">Abbildung&nbsp;<span>5.4</span></a>.</p>
 <div id="fig-widyr" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/widyr.jpeg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.4: Die Funktionsweise von widyr, Quelle: Silge und Robinson</figcaption><p></p>
 </figure>
 </div>
 <p>(Vgl. auch die <a href="https://bookdown.org/Maxine/tidy-text-mining/counting-and-correlating-pairs-of-words-with-widyr.html">Erklärung hier</a>.)</p>
 <p>Bauen wir das mal von Hand nach.</p>
 <p>Randwahrscheinlichkeiten von <code>a</code> und <code>c</code> sowie deren Produkt, <code>p_a_p_c</code>:</p>
 <div class="cell" data-hash="word-embedding_cache/html/p_a_und_p_c_cb9d1c4dd674d63725e290cb7ecfe130">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p_a <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">5</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p_c <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">5</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>p_a_p_c <span class="ot">&lt;-</span> p_a <span class="sc">*</span> p_c</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>p_a_p_c</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>p_a <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>p_c <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>p_a_p_c <span class="ot">&lt;-</span> p_a <span class="sc">*</span> p_c</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>p_a_p_c</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.24</code></pre>
 </div>
 </div>
 <p>Gemeinsame Wahrscheinlichkeit von <code>a</code> und <code>c</code>:</p>
 <div class="cell" data-hash="word-embedding_cache/html/p_ac_9d3e2000f4997d5a67ea625b29577fc2">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p_ac <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">5</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>p_ac <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">5</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>PMI von Hand berechnet:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-9_7c8745ec7a9a622ab7a4941a49c34a48">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(p_ac<span class="sc">/</span>p_a_p_c)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-29_9dcafe4fe8438a34869a324e9fe3ee32">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(p_ac<span class="sc">/</span>p_a_p_c)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5108256</code></pre>
 </div>
 </div>
 <p>Man beachte, dass hier als Basis <span class="math inline">\(e\)</span>, der natürliche Logarithmus, verwendet wurde (nicht 2).</p>
 <p>Jetzt berechnen wir die PMI mit <code>pairwise_pmi</code>.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-10_e4a640cbc050b1bc4071447ebe44518d">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise_pmi</span>(dat, <span class="at">item =</span> item, <span class="at">feature =</span> feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-30_4c32a90400cbd80b70a90668a0632d56">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise_pmi</span>(dat, <span class="at">item =</span> item, <span class="at">feature =</span> feature)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -597,26 +1177,26 @@ div.csl-indent {
 </div>
 <p>Wie man sieht, entspricht unserer Berechnung von Hand der Berechnung mit <code>pairwise_pmi</code>.</p>
 </section>
-<section id="sliding" class="level3" data-number="6.3.2">
-<h3 data-number="6.3.2" class="anchored" data-anchor-id="sliding"><span class="header-section-number">6.3.2</span> Sliding</h3>
+<section id="sliding" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="sliding"><span class="header-section-number">5.5.2</span> Sliding</h3>
 <p>Sliding ist ein interessantes Konzept, aber man braucht vielleicht etwas Zeit, um sein Hirn um das Konzept zu wickeln…</p>
 <p>Hier eine Illustration:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-11_2017236132ec0ea8947a94a55053c119">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>txt_vec <span class="ot">&lt;-</span> <span class="st">"Das ist ein Test, von dem nicht viel zu erwarten ist"</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_vec, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-31_01b89f2ac57a47ab5158f42153a0f8a4">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>txt_vec <span class="ot">&lt;-</span> <span class="st">"Das ist ein Test, von dem nicht viel zu erwarten ist"</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_vec, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "Das ist ein Test, von dem nicht viel zu erwarten ist"</code></pre>
 </div>
 </div>
 <p>Oh, da passiert nichts?! Kaputt? Nein, wir müssen jedes Wort als <em>ein Element</em> des Vektors auffassen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-12_3145ef06f5fc92d1c9c5c7d478a246a2">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>txt_df <span class="ot">&lt;-</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">txt =</span> txt_vec) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> txt, <span class="at">output =</span> word)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(txt_df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-32_3259e770d90e6ae2d000d73963062b8c">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>txt_df <span class="ot">&lt;-</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">txt =</span> txt_vec) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> txt, <span class="at">output =</span> word)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(txt_df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -649,8 +1229,8 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-13_e93b9971e645e3044bc9dd12448aede0">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_df<span class="sc">$</span>word, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-33_a34ef1420c83a15cad31e783077d833e">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>slider<span class="sc">::</span><span class="fu">slide</span>(txt_df<span class="sc">$</span>word, <span class="sc">~</span> .x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "das"
@@ -688,147 +1268,79 @@ div.csl-indent {
 </div>
 <p>Ah!</p>
 <p>Das Aufteilen in einzelne Wörter pro Element des Vektors könnte man auch so erreichen:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-14_af356045369c209d429f7105fe532c78">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>txt_vec2 <span class="ot">&lt;-</span> <span class="fu">str_split</span>(txt_vec, <span class="at">pattern =</span> <span class="fu">boundary</span>(<span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simplify</span>() </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">slide</span>(txt_vec2, <span class="at">.f =</span> <span class="sc">~</span>.x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-34_ac0cff5f7c2d5622e41c16e324ab0af8">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>txt_vec2 <span class="ot">&lt;-</span> <span class="fu">str_split</span>(txt_vec, <span class="at">pattern =</span> <span class="fu">boundary</span>(<span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simplify</span>() </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">slide</span>(txt_vec2, <span class="at">.f =</span> <span class="sc">~</span>.x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Shifting non-numeric variables is not possible.
+  Try using 'to_numeric()' and specify the 'lowest' argument.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] "Das"
-
-[[2]]
-[1] "Das" "ist"
-
-[[3]]
-[1] "Das" "ist" "ein"
-
-[[4]]
-[1] "ist"  "ein"  "Test"
-
-[[5]]
-[1] "ein"  "Test" "von" 
-
-[[6]]
-[1] "Test" "von"  "dem" 
-
-[[7]]
-[1] "von"   "dem"   "nicht"
-
-[[8]]
-[1] "dem"   "nicht" "viel" 
-
-[[9]]
-[1] "nicht" "viel"  "zu"   
-
-[[10]]
-[1] "viel"     "zu"       "erwarten"
-
-[[11]]
-[1] "zu"       "erwarten" "ist"     </code></pre>
+<pre><code> [1] "Das"      "ist"      "ein"      "Test"     "von"      "dem"     
+ [7] "nicht"    "viel"     "zu"       "erwarten" "ist"     </code></pre>
 </div>
 </div>
 <p>In unserem Beispiel mit den Beschwerden:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-15_99fb5985d1204c80a0a80704f2783565">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slide</span>(beschwerde1_text<span class="sc">$</span>word,  <span class="sc">~</span>.x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-35_432ef4c78ac17709b38ba41647dc4bc1">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slide</span>(beschwerde1_text<span class="sc">$</span>word,  <span class="sc">~</span>.x, <span class="at">.before =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Shifting non-numeric variables is not possible.
+  Try using 'to_numeric()' and specify the 'lowest' argument.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] "systems"
-
-[[2]]
-[1] "systems" "inc"    
-
-[[3]]
-[1] "systems" "inc"     "is"     
-
-[[4]]
-[1] "inc"    "is"     "trying"
-
-[[5]]
-[1] "is"     "trying" "to"    
-
-[[6]]
-[1] "trying"  "to"      "collect"
-
-[[7]]
-[1] "to"      "collect" "a"      
-
-[[8]]
-[1] "collect" "a"       "debt"   
-
-[[9]]
-[1] "a"    "debt" "that"
-
-[[10]]
-[1] "debt" "that" "is"  
-
-[[11]]
-[1] "that" "is"   "not" 
-
-[[12]]
-[1] "is"   "not"  "mine"
-
-[[13]]
-[1] "not"  "mine" "not" 
-
-[[14]]
-[1] "mine" "not"  "owed"
-
-[[15]]
-[1] "not"  "owed" "and" 
-
-[[16]]
-[1] "owed" "and"  "is"  
-
-[[17]]
-[1] "and"        "is"         "inaccurate"</code></pre>
+<pre><code> [1] "systems"    "inc"        "is"         "trying"     "to"        
+ [6] "collect"    "a"          "debt"       "that"       "is"        
+[11] "not"        "mine"       "not"        "owed"       "and"       
+[16] "is"         "inaccurate"</code></pre>
 </div>
 </div>
 </section>
-<section id="funktion-slide_windows" class="level3" data-number="6.3.3">
-<h3 data-number="6.3.3" class="anchored" data-anchor-id="funktion-slide_windows"><span class="header-section-number">6.3.3</span> Funktion <code>slide_windows</code></h3>
+<section id="funktion-slide_windows" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="funktion-slide_windows"><span class="header-section-number">5.5.3</span> Funktion <code>slide_windows</code></h3>
 <p>Die Funktion <code>slide_windows</code> im <a href="https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself">Kapitel 5.2</a> ist recht kompliziert. In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. Sind die Schritte in einer Funktion zusammengefasst, kann man mit <code>debug(fun)</code> sich die Schritte innerhalb der Funktion einzeln ausführen lassen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-16_6914e18f121a517840897675ea87438a">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>slide_windows <span class="ot">&lt;-</span> <span class="cf">function</span>(tbl, window_size) {</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  skipgrams <span class="ot">&lt;-</span> slider<span class="sc">::</span><span class="fu">slide</span>(</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    tbl, </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>.x, </span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.after =</span> window_size <span class="sc">-</span> <span class="dv">1</span>, </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.step =</span> <span class="dv">1</span>, </span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.complete =</span> <span class="cn">TRUE</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  safe_mutate <span class="ot">&lt;-</span> <span class="fu">safely</span>(mutate)</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">map2</span>(skipgrams,</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(skipgrams),</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>              <span class="sc">~</span> <span class="fu">safe_mutate</span>(.x, <span class="at">window_id =</span> .y))</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  out <span class="sc">%&gt;%</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pluck</span>(<span class="st">"result"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compact</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>()</span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-36_af20fc2b859b43b702466e7af1d17cf2">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>slide_windows <span class="ot">&lt;-</span> <span class="cf">function</span>(tbl, window_size) {</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  skipgrams <span class="ot">&lt;-</span> slider<span class="sc">::</span><span class="fu">slide</span>(</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    tbl, </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>.x, </span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.after =</span> window_size <span class="sc">-</span> <span class="dv">1</span>, </span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.step =</span> <span class="dv">1</span>, </span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.complete =</span> <span class="cn">TRUE</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>  safe_mutate <span class="ot">&lt;-</span> <span class="fu">safely</span>(mutate)</span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">map2</span>(skipgrams,</span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(skipgrams),</span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>              <span class="sc">~</span> <span class="fu">safe_mutate</span>(.x, <span class="at">window_id =</span> .y))</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>  out <span class="sc">%&gt;%</span></span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pluck</span>(<span class="st">"result"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compact</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>()</span>
+<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Erschwerend kommt eine große Datenmenge und eine lange Berechnungszeit dazu, was das Debuggen (Nachvollziehen und Durchdenken) der Schritte zusätzlich erschwert. In solchen Fällen hilft die goldende Regel: Mach es dir so einfach wie möglich (aber nicht einfacher). Wir nutzen also den stark verkleinerten Datensatz <code>nested_words3</code>, den wir oben importiert haben.</p>
 <p>Hier ist der Syntax-Auszug:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-17_ace38d9959c4dac2b956554feaee86f6">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession)  <span class="do">## for parallel processing</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#debug(slide_windows)  # um sich die Schritte in `slide_windows` einzeln anzuschauen.</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>tidy_pmi <span class="ot">&lt;-</span> nested_words3 <span class="sc">%&gt;%</span>  <span class="co"># &lt;--- Kleiner Datensatz!</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">words =</span> <span class="fu">future_map</span>(words, slide_windows, 4L)) <span class="sc">%&gt;%</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(words) <span class="sc">%&gt;%</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(window_id, complaint_id, window_id) <span class="sc">%&gt;%</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_pmi</span>(word, window_id)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>tidy_pmi <span class="sc">%&gt;%</span> </span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-37_c4d73506a95449971503323235702761">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(furrr)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession)  <span class="do">## for parallel processing</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">#debug(slide_windows)  # um sich die Schritte in `slide_windows` einzeln anzuschauen.</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>tidy_pmi <span class="ot">&lt;-</span> nested_words3 <span class="sc">%&gt;%</span>  <span class="co"># &lt;--- Kleiner Datensatz!</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">words =</span> <span class="fu">future_map</span>(words, slide_windows, 4L)) <span class="sc">%&gt;%</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(words) <span class="sc">%&gt;%</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(window_id, complaint_id, window_id) <span class="sc">%&gt;%</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_pmi</span>(word, window_id)</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>tidy_pmi <span class="sc">%&gt;%</span> </span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -876,20 +1388,20 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="svd" class="level3" data-number="6.3.4">
-<h3 data-number="6.3.4" class="anchored" data-anchor-id="svd"><span class="header-section-number">6.3.4</span> SVD</h3>
-<p>Die <em>Singulärwertzerlegung</em> (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse. Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt: Die Verben “gehen”, “rennen”, “laufen”, “schwimmen”, “fahren”, “rutschen” könnten zu einer gemeinsamen Dimension, etwa “fortbewegen” reduziert werden. Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, das die konzeptionelle Nähe des Verbs zur “dahinterliegenden” Dimension (fortbewegen) quantifiziert; die Zahl nennt man auch die “Ladung” des Items (Worts) auf die Dimension. Sagen wir, wir identifizieren 10 Dimensionen. Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionsen. Im genannten Beispiel wäre es ein 10-stelliger Vektor. So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, beschreibt hier unser 10-stelliger Vektor die “Position” eines Worts in unserem <em>Einbettungsvektor</em>.</p>
+<section id="svd" class="level3" data-number="5.5.4">
+<h3 data-number="5.5.4" class="anchored" data-anchor-id="svd"><span class="header-section-number">5.5.4</span> SVD</h3>
+<p>Die <em>Singulärwertzerlegung</em> (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse. Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt: Die Verben “gehen”, “rennen”, “laufen”, “schwimmen”, “fahren”, “rutschen” könnten zu einer gemeinsamen Dimension, etwa “fortbewegen” reduziert werden. Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, das die konzeptionelle Nähe des Verbs zur “dahinterliegenden” Dimension (fortbewegen) quantifiziert; die Zahl nennt man auch die “Ladung” des Items (Worts) auf die Dimension. Sagen wir, wir identifizieren 10 Dimensionen. Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionsen. Im genannten Beispiel wäre es ein 10-stelliger Vektor. So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>, beschreibt hier unser 10-stelliger Vektor die “Position” eines Worts in unserem <em>Einbettungsvektor</em>.</p>
 <p>Die Syntax dazu ist dieses Mal einfach:</p>
 <div class="cell" data-hash="word-embedding_cache/html/widely-svd_0d6a1d676a38c10b6e7d5d212db344ba">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="ot">&lt;-</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  tidy_pmi <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">widely_svd</span>(</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    item1, item2, pmi,</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nv =</span> <span class="dv">100</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="sc">%&gt;%</span> </span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  (head)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="ot">&lt;-</span> </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  tidy_pmi <span class="sc">%&gt;%</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">widely_svd</span>(</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    item1, item2, pmi,</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">nv =</span> <span class="dv">100</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="sc">%&gt;%</span> </span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>  (head)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -938,24 +1450,24 @@ div.csl-indent {
 </div>
 <p>Mit <code>nv = 100</code> haben wir die Anzahl (<code>n</code>) der Dimensionen (Variablen, <code>v</code>) auf 100 bestimmt.</p>
 </section>
-<section id="wortähnlichkeit" class="level3" data-number="6.3.5">
-<h3 data-number="6.3.5" class="anchored" data-anchor-id="wortähnlichkeit"><span class="header-section-number">6.3.5</span> Wortähnlichkeit</h3>
-<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance">Abbildung&nbsp;<span>6.2</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
+<section id="wortähnlichkeit" class="level3" data-number="5.5.5">
+<h3 data-number="5.5.5" class="anchored" data-anchor-id="wortähnlichkeit"><span class="header-section-number">5.5.5</span> Wortähnlichkeit</h3>
+<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance">Abbildung&nbsp;<span>5.5</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
 <div id="fig-euklid-distance" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/euklid-distance.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.2: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;5.5: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh</figcaption><p></p>
 </figure>
 </div>
 <p>Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, <a href="https://mathworld.wolfram.com/Distance.html">aber der Algebra ist das egal</a>. Pythagoras’ Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.</p>
 <p>Die Autoren basteln sich selber eine Funktion in <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap. 5.3</a>, aber der Einfachheit halber nehme ich (erstmal) die entsprechende Funktion aus <code>widyr</code>:</p>
 <div class="cell" data-hash="word-embedding_cache/html/pairwise-dist_177476962fa68331a32177a2dd2f332d">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="ot">&lt;-</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_dist</span>(item1, dimension, value)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="sc">%&gt;%</span> </span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="ot">&lt;-</span> </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>tidy_word_vectors <span class="sc">%&gt;%</span> </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_dist</span>(item1, dimension, value)</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="sc">%&gt;%</span> </span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -1003,11 +1515,11 @@ div.csl-indent {
 </div>
 </div>
 <p>Was sind die Nachbarn von “inaccurate”?</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-18_b7920643190537b203305de1df9f3e72">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"inaccurate"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(distance) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-38_13585c6203c526b381f3fee4416e06c2">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>word_neighbors <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"inaccurate"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(distance) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -1056,8 +1568,8 @@ div.csl-indent {
 </div>
 <p>Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen. Aber “incorrectly”, “correct”, “balance” sind wohl plausible Nachbarn von “inaccurate”.</p>
 </section>
-<section id="word-embeddings-vorgekocht-glove6b" class="level3" data-number="6.3.6">
-<h3 data-number="6.3.6" class="anchored" data-anchor-id="word-embeddings-vorgekocht-glove6b"><span class="header-section-number">6.3.6</span> Word-Embeddings vorgekocht: Glove6B</h3>
+<section id="word-embeddings-vorgekocht-glove6b" class="level3" data-number="5.5.6">
+<h3 data-number="5.5.6" class="anchored" data-anchor-id="word-embeddings-vorgekocht-glove6b"><span class="header-section-number">5.5.6</span> Word-Embeddings vorgekocht: Glove6B</h3>
 <p>In <a href="https://smltar.com/embeddings.html#glove">Kap. 5.4</a> schreiben die Autoren:</p>
 <blockquote class="blockquote">
 <p>If your data set is too small, you typically cannot train reliable word embeddings.</p>
@@ -1078,9 +1590,9 @@ Hinweis
 </div>
 </div>
 <div class="cell" data-hash="word-embedding_cache/html/load-glove_04ef018bb908c2cd22a5a09c67ce0076">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>glove6b <span class="ot">&lt;-</span> <span class="fu">embedding_glove6b</span>(<span class="at">dir =</span> <span class="st">"~/datasets"</span>, <span class="at">dimensions =</span> <span class="dv">10</span>, <span class="at">manual_download =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>glove6b <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>glove6b <span class="ot">&lt;-</span> <span class="fu">embedding_glove6b</span>(<span class="at">dir =</span> <span class="st">"~/datasets"</span>, <span class="at">dimensions =</span> <span class="dv">10</span>, <span class="at">manual_download =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>glove6b <span class="sc">%&gt;%</span> </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -1917,14 +2429,14 @@ Hinweis
 </div>
 </div>
 <p>In eine Tidyform bringen:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-19_379fb7e700d7ded163f4502135a26a3a">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="ot">&lt;-</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  glove6b <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">"d"</span>),</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"dimension"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">item1 =</span> token)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-39_ae88ef4926dbf0717235dad48e2f63b7">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="ot">&lt;-</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  glove6b <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">"d"</span>),</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"dimension"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">item1 =</span> token)</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -1972,35 +2484,35 @@ Hinweis
 </div>
 </div>
 <p>Ganz schön groß:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-20_a7a703a0e5261812024c2c35b704d05e">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-40_3a405c64566b9ad57665b95b558f4e5e">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>983837536 bytes</code></pre>
 </div>
 </div>
-<p>In Megabyte<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-21_fe603a142b65ae107ff3d6c189c26851">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove) <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">20</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In Megabyte<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-41_06aaab927a96383d01ee0e7000261ffa">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(tidy_glove) <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">20</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>938.3 bytes</code></pre>
 </div>
 </div>
 <p>Einfacher und genauer geht es so:</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-22_eaf88443e962e3f37405f73f0235953e">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">object_size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-42_6d7c9e0198f960ba3236a35152f35dff">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">object_size</span>(tidy_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>983.83 MB</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-23_14f5b8da962e83a4d5c1dee8d0524da9">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">mem_used</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-43_3ddadeebca76d766e2d9b29481c9fe43">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">mem_used</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.48 GB</code></pre>
+<pre><code>1.51 GB</code></pre>
 </div>
 </div>
 <p>Um Speicher zu sparen, könnte man <code>glove6b</code> wieder direkt löschen, wenn man nur mit der Tidyform weiterarbeitet.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-24_6b0b502b9632516cdd90a3af160cee0d">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(glove6b)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-44_3aa443ae265214ee896682dbd4ffebd8">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(glove6b)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt können wir wieder nach Nachbarn fragen, im euklidischen Sinne, wie oben. Probieren wir aus, welche Wörter nah zu “inaccurate” stehen.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
@@ -2013,45 +2525,45 @@ Hinweis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Wie wir oben gesehen haben, ist der Datensatz riesig<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, was die Berechnungen (zeitaufwändig) und damit nervig machen können. Darüber hinaus kann es nötig sein, dass Sie mehr Speicher auf Ihrem Computer zur Verfügung stellen müssen<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Wir müssen noch <code>maximum_size = NULL</code>, um das Jonglieren mit riesigen Matrixen zu erlauben. Möge der Gott der RAMs und Arbeitsspeicher uns gnädig sein!</p>
+<p>Wie wir oben gesehen haben, ist der Datensatz riesig<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>, was die Berechnungen (zeitaufwändig) und damit nervig machen können. Darüber hinaus kann es nötig sein, dass Sie mehr Speicher auf Ihrem Computer zur Verfügung stellen müssen<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>. Wir müssen noch <code>maximum_size = NULL</code>, um das Jonglieren mit riesigen Matrixen zu erlauben. Möge der Gott der RAMs und Arbeitsspeicher uns gnädig sein!</p>
 </div>
 </div>
 <p>Mit <code>pairwise_dist</code> dauert die Berechnung sehr lange und braucht wohl sehr viel Speicher. Mitunter kam folgender Fehler auf: “R error: vector memory exhausted (limit reached?)”.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-25_6206963ffb4d125005675e344bc9d8f9">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>word_neighbors_glove6b <span class="ot">&lt;-</span> </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">prop =</span> .<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_dist</span>(item1, dimension, value, <span class="at">maximum_size =</span> <span class="cn">NULL</span>)</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(word_neighbors_glove6b)</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span> </span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"inaccurate"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>value) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-45_6f9c4e71aa051dca4041fa4efec69e9f">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>word_neighbors_glove6b <span class="ot">&lt;-</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span> </span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">prop =</span> .<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_dist</span>(item1, dimension, value, <span class="at">maximum_size =</span> <span class="cn">NULL</span>)</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(word_neighbors_glove6b)</span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span> </span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"inaccurate"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>value) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Deswegen probieren wir doch die Funktion <code>nearest_neighbors</code>, so wies im Buch vorgeschlagen wird.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-26_3ea1d35aff1457e99642ec17ea242695">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>nearest_neighbors <span class="ot">&lt;-</span> <span class="cf">function</span>(df, token) {</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">widely</span>(</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> {</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        y <span class="ot">&lt;-</span> .[<span class="fu">rep</span>(token, <span class="fu">nrow</span>(.)), ]</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>        res <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(. <span class="sc">*</span> y) <span class="sc">/</span> </span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>          (<span class="fu">sqrt</span>(<span class="fu">rowSums</span>(. <span class="sc">^</span> <span class="dv">2</span>)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(.[token, ] <span class="sc">^</span> <span class="dv">2</span>)))</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">matrix</span>(res, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">names</span>(res)))</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>      },</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">maximum_size =</span> <span class="cn">NULL</span></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    )(item1, dimension, value) <span class="sc">%&gt;%</span></span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>item2)</span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-46_48c2033e8dc510db68657668a44d4129">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>nearest_neighbors <span class="ot">&lt;-</span> <span class="cf">function</span>(df, token) {</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">widely</span>(</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> {</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>        y <span class="ot">&lt;-</span> .[<span class="fu">rep</span>(token, <span class="fu">nrow</span>(.)), ]</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>        res <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(. <span class="sc">*</span> y) <span class="sc">/</span> </span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>          (<span class="fu">sqrt</span>(<span class="fu">rowSums</span>(. <span class="sc">^</span> <span class="dv">2</span>)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(.[token, ] <span class="sc">^</span> <span class="dv">2</span>)))</span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">matrix</span>(res, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">names</span>(res)))</span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>      },</span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">maximum_size =</span> <span class="cn">NULL</span></span>
+<span id="cb80-12"><a href="#cb80-12" aria-hidden="true" tabindex="-1"></a>    )(item1, dimension, value) <span class="sc">%&gt;%</span></span>
+<span id="cb80-13"><a href="#cb80-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>item2)</span>
+<span id="cb80-14"><a href="#cb80-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="word-embedding_cache/html/tidy-glove-nearest-neighbors_05b693e829b70dcc6e4b599ceb0a4ab8">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slice_head(prob = .1) %&gt;% </span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nearest_neighbors</span>(<span class="st">"error"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>tidy_glove <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slice_head(prob = .1) %&gt;% </span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nearest_neighbors</span>(<span class="st">"error"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -2093,9 +2605,9 @@ Hinweis
 </div>
 <p>Entschachteln wir unsere Daten zu <code>complaints</code>:</p>
 <div class="cell" data-hash="word-embedding_cache/html/unnest-tidy-complaints3_57759d8c6482927be07e0a20a76e8e46">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="ot">&lt;-</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  nested_words3 <span class="sc">%&gt;%</span> </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(words)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="ot">&lt;-</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  nested_words3 <span class="sc">%&gt;%</span> </span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(words)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dann erstellen wir uns eine Tabelle, in der nur die Schnittmenge der Wörter aus den Beschwerden und Glove vorkommen. Dazu nutzen winr einen <a href="https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif">inneren Join</a></p>
 <div class="quarto-figure quarto-figure-center">
@@ -2106,14 +2618,14 @@ Hinweis
 </div>
 <p><a href="https://github.com/gadenbuie/tidyexplain">Quelle</a></p>
 <div class="cell" data-hash="word-embedding_cache/html/join-complaints-glove_7e7e9d1b161457af12ef8d773a573e2f">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>complaints_glove <span class="ot">&lt;-</span> </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="sc">%&gt;%</span> </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"word"</span>, </span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  tidy_glove <span class="sc">%&gt;%</span> </span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(item1) <span class="sc">%&gt;%</span> </span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">word =</span> item1)) </span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(complaints_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>complaints_glove <span class="ot">&lt;-</span> </span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="sc">%&gt;%</span> </span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"word"</span>, </span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  tidy_glove <span class="sc">%&gt;%</span> </span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(item1) <span class="sc">%&gt;%</span> </span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">word =</span> item1)) </span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(complaints_glove)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -2155,49 +2667,49 @@ Hinweis
 </div>
 <p>Wie viele unique (distinkte) Wörter gibt es in unserem Corpus?</p>
 <div class="cell" data-hash="word-embedding_cache/html/tidy_complaints3_distinct_words_n_46d25d8395197d57ba7f62e8a684053b">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>tidy_complaints3_distinct_words_n <span class="ot">&lt;-</span> </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="sc">%&gt;%</span> </span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(word) <span class="sc">%&gt;%</span> </span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>tidy_complaints3_distinct_words_n</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>tidy_complaints3_distinct_words_n <span class="ot">&lt;-</span> </span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>tidy_complaints3 <span class="sc">%&gt;%</span> </span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(word) <span class="sc">%&gt;%</span> </span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>tidy_complaints3_distinct_words_n</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 222</code></pre>
 </div>
 </div>
 <p>In <code>tidy_complaints</code> gibt es übrigens 222 verschiedene Wörter.</p>
 <div class="cell" data-hash="word-embedding_cache/html/word_matrix_515d7820fa89ea3207aa9996d743b1c2">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>word_matrix <span class="ot">&lt;-</span> tidy_complaints3 <span class="sc">%&gt;%</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"word"</span>,</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>             tidy_glove <span class="sc">%&gt;%</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">distinct</span>(item1) <span class="sc">%&gt;%</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">word =</span> item1)) <span class="sc">%&gt;%</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(complaint_id, word) <span class="sc">%&gt;%</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_sparse</span>(complaint_id, word, n)</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co">#word_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>word_matrix <span class="ot">&lt;-</span> tidy_complaints3 <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"word"</span>,</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>             tidy_glove <span class="sc">%&gt;%</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">distinct</span>(item1) <span class="sc">%&gt;%</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">word =</span> item1)) <span class="sc">%&gt;%</span></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(complaint_id, word) <span class="sc">%&gt;%</span></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_sparse</span>(complaint_id, word, n)</span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a><span class="co">#word_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>word_matrix</code> zählt für jede der 10 Beschwerden, welche Wörter (und wie häufig) vorkommen.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-27_b87334866a76548713b729cc85176969">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(word_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-47_41663adad6f1f8484f93386aacd77d66">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(word_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  10 222</code></pre>
 </div>
 </div>
 <p>10 Beschwerden (Dokumente) und 222 unique Wörter.</p>
 <div class="cell" data-hash="word-embedding_cache/html/glove_matrix_eb9668131fa8217619c77afb1d502521">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>glove_matrix <span class="ot">&lt;-</span> tidy_glove <span class="sc">%&gt;%</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"item1"</span>,</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>             tidy_complaints3 <span class="sc">%&gt;%</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">distinct</span>(word) <span class="sc">%&gt;%</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">item1 =</span> word)) <span class="sc">%&gt;%</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_sparse</span>(item1, dimension, value)</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="co">#glove_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>glove_matrix <span class="ot">&lt;-</span> tidy_glove <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(<span class="at">by =</span> <span class="st">"item1"</span>,</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>             tidy_complaints3 <span class="sc">%&gt;%</span></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">distinct</span>(word) <span class="sc">%&gt;%</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">rename</span>(<span class="at">item1 =</span> word)) <span class="sc">%&gt;%</span></span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_sparse</span>(item1, dimension, value)</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a><span class="co">#glove_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>glove_matrix</code> gibt für jedes unique Wort den Einbettungsvektor an.</p>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-28_2a216b00fa88a6905857c203a532be92">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(glove_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-48_6110adb674068746b9e82e25ea504825">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(glove_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 222 100</code></pre>
 </div>
@@ -2206,11 +2718,11 @@ Hinweis
 <p>Jetzt können wir noch pro Dokument (10 in diesem Beispiel) die mittlere “Position” jedes Dokuments im Einbettungsvektor ausrechnen. Bildlich gesprochen: Was ist der mittlere Raumpunkt (Zentroid) des Bienenschwarms, wobei eine Biene ein Dokument darstellt und die Raumachsen die Dimensionen des Einbettungsvektors.</p>
 <p>Dazu gewichten wir jedes Wort eines Dokuments mit den Ladungen des Einbettungsvektor und summieren diese Terme. Es resultiert eine Matrix mit einem Einbettungsvektor pro Dokument. Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.</p>
 <div class="cell" data-hash="word-embedding_cache/html/doc_matrix_0d6b8b779ddfebe4003e7986bb8f3e2f">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>doc_matrix <span class="ot">&lt;-</span> word_matrix <span class="sc">%*%</span> glove_matrix</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co">#doc_matrix %&gt;% head()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>doc_matrix <span class="ot">&lt;-</span> word_matrix <span class="sc">%*%</span> glove_matrix</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co">#doc_matrix %&gt;% head()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-29_f4b439726150082b54707ad3299d1323">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(doc_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="word-embedding_cache/html/unnamed-chunk-49_5d19f865977e601841ec3de61f5a5178">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(doc_matrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  10 100</code></pre>
 </div>
@@ -2218,27 +2730,58 @@ Hinweis
 <p>Die Anzahl der Dokumente ist 10 und die Anzahl der Dimensionen (des Einbettungsvektors) ist 100.</p>
 </section>
 </section>
-<section id="fazit" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="fazit"><span class="header-section-number">6.4</span> Fazit</h2>
+<section id="fazit" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="fazit"><span class="header-section-number">5.6</span> Fazit</h2>
 <p>Worteinbettungen sind eine aufwändige Angelegenheit. Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat. Ist ja schon cooles Zeugs, die Word Embeddings. Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen Ansätzen wir Worthäufigkeiten oder tf-idf. Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten, und zu sehen, wie weit man kommt. Vielleicht ja weit genug.</p>
+</section>
+<section id="literatur" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="literatur"><span class="header-section-number">5.7</span> Literatur</h2>
+<section id="wikipedia" class="level3" data-number="5.7.1">
+<h3 data-number="5.7.1" class="anchored" data-anchor-id="wikipedia"><span class="header-section-number">5.7.1</span> Wikipedia</h3>
+<p>Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information">Wikipedia: Pointwise Mutual Information</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mutual_information">Wikipedia: Mutual information</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Information_theory">Wikipedia: Information theory</a></li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="doc-biblioentry">
 Hvitfeldt, Emil, und Julia Silge. 2022. <em>Supervised Machine Learning for Text Analysis in R</em>. 1. Aufl. Boca Raton: Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
+<div id="ref-kurz_statistical_2021" class="csl-entry" role="doc-biblioentry">
+Kurz, A. Solomon. 2021. <em>Statistical rethinking with brms, ggplot2, and the tidyverse: Second edition</em>. <a href="https://bookdown.org/content/4857/">https://bookdown.org/content/4857/</a>.
+</div>
+<div id="ref-mcelreath_statistical_2020" class="csl-entry" role="doc-biblioentry">
+McElreath, Richard. 2020. <em>Statistical rethinking: a Bayesian course with examples in R and Stan</em>. 2. Aufl. <span>CRC</span> texts in statistical science. Boca Raton: Taylor; Francis, <span>CRC</span> Press.
+</div>
 <div id="ref-pennington_glove_2014" class="csl-entry" role="doc-biblioentry">
 Pennington, Jeffrey, Richard Socher, und Christopher Manning. 2014. <span>„<span>GloVe</span>: Global Vectors for Word Representation“</span>. In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (<span>EMNLP</span>)</em>, 1532–43. Doha, Qatar: Association for Computational Linguistics. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.
 </div>
+<div id="ref-shannon_1948" class="csl-entry" role="doc-biblioentry">
+Shannon, C. E. 1948. <span>„A Mathematical Theory of Communication“</span>. <em>Bell System Technical Journal</em> 27 (3): 379–423. <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">https://doi.org/10.1002/j.1538-7305.1948.tb01338.x</a>.
 </div>
+</div>
+</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen…<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><span class="math inline">\(1024 \cdot 1024\)</span> Byte, und <span class="math inline">\(1024 =2^10\)</span>, daher <span class="math inline">\(2^{10} \cdot 2^{10} = 2^{20}\)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>zugegeben, ein subjektiver Ausdruck<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>Kaufen…<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Desiderata, sagt man<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>oder <em>shannon</em><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>wie immer, als fair angenommen, wenn sonst nichts anderes angegeben ist<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>auch als <em>marginalen</em> Wahrscheinlichkeiten oder <em>Randwahrscheinlichkeiten</em> bezeichnet<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Für stochastische Unabhängigkeit kann das Zeichen <span class="math inline">\(\bot\)</span> verwendet werden<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>so ähnlich wie mit den Lottozahlen<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Ist das nicht eine elegante Syntax?! Solomon Kurz, der Autor der Syntax, hielt sich nicht an die aktuelle Version von <code>dplyr</code>; <code>mutate_all</code> ist eigentlich überholt zugunsten von <code>mutate</code> mit <code>across</code>, aber die Prägnanz der Syntax hier ist schon beeindruckend, wie ich finde.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Syntax aus <span class="citation" data-cites="kurz_statistical_2021">Kurz (<a href="references.html#ref-kurz_statistical_2021" role="doc-biblioref">2021</a>)</span><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Regel von L’Hopital<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><a href="https://academia.stackexchange.com/questions/20084/is-using-the-phrase-is-left-as-an-exercise-for-the-reader-considered-good">Vgl. hier</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen…<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><span class="math inline">\(1024 \cdot 1024\)</span> Byte, und <span class="math inline">\(1024 =2^10\)</span>, daher <span class="math inline">\(2^{10} \cdot 2^{10} = 2^{20}\)</span><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>zugegeben, ein subjektiver Ausdruck<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Kaufen…<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -2343,8 +2886,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Information.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span>
+      <a href="./populismus.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

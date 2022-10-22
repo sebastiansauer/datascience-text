@@ -12,12 +12,15 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 ### Lernziele
 
 
+
+- Die grundlegenden Konzepte der Informationstheorie erklären können
 - Die vorgestellten Techniken des Textminings mit R anwenden können
 
 
 
 ### Vorbereitung
 
+- Lesen Sie [diesen Text](https://www.science4all.org/article/shannons-information-theory/) als Vorbereitung
 - Arbeiten Sie @smltar, [Kap. 5](https://smltar.com/embeddings.html) durch.
 
 
@@ -30,12 +33,592 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 ```{r}
 #| message: false
 library(tidyverse)
+library(easystats)  # Komfort für deskriptive Statistiken, wie `describe_distribution`
 library(tidytext)
+library(hcandersenr)   # Textdaten
 library(slider)  # slide
 library(widyr)  # pairwise_pmi
 library(furrr)  # mehrere Kerne gleichzeitig nutzen
 library(textdata)  # Worteinbettungen, vorgekocht
+library(entropy)  # Entropie berechnen
 ```
+
+
+
+
+
+## Informationstheorie
+
+
+
+
+
+
+### Einführung
+
+
+Die Informationstheorie ist eine der Sternstunden der Wissenschaft. [Manche sagen](http://www.science4all.org/article/shannons-information-theory/) dass Claude Shannon, der Autor der Theorie, auf einer Stufe mit Darwin und Einstein stehen sollte:
+
+>    In this single paper, Shannon introduced this new fundamental theory. He raised the right questions, which no one else even thought of asking. This would have been enough to make this contribution earthshaking. But amazingly enough, Shannon also provided most of the right answers with class and elegance. In comparison, it took decades for a dozen of top physicists to define the basics of quantum theory. Meanwhile, Shannon constructed something equivalent, all by himself, in a single paper.
+Shannon’s theory has since transformed the world like no other ever had, from information technologies to telecommunications, from theoretical physics to economical globalization, from everyday life to philosophy. (...)
+I don’t think Shannon has had the credits he deserves. He should be right up there, near Darwin and Einstein, among the few greatest scientists mankind has ever had the chance to have. 
+
+
+Für die Statistik ist die Informationstheorie von hoher Bedeutung.
+Im Folgenden schauen wir uns einige Grundlagen an.
+
+
+
+
+### Shannon-Information
+
+Mit der *Shannon-Information* (Information, Selbstinformation) quantifizieren wir, wie viel "Überraschung" sich in einem Ereignis verbirgt [@shannon_1948].
+
+Ein Ereignis mit ...
+
+- *geringer* Wahrscheinlichkeit: *Viel* Überraschung (Information)
+- *hoher* Wahrscheinlichkeit: *Wenig* Überraschung (Information)
+
+
+
+Wenn wir also erfahren, dass ein unwahrscheinliches Ereignis eingetreten ist (Schnee im Sommer), sind wir überraschter als wenn wir höhen, dass ein wahrscheinliches Ereignis eingetreten ist (Schnee im Winter).
+
+Die Information eines Ereignis ist also eng verbunden mit seiner Wahrscheinlichkeit oder auch mit den Odds eines Ereignisses.
+
+Die Shannon-Information ist die einzige Größe, die einige wünschenswerte Anforderungen^[Desiderata, sagt man] erfüllt:
+
+1. Stetig
+2. Je mehr Ereignisse in einem Zufallsexperiment möglich sind, desto höher die Information, wenn ein bestimmtes Ereignis eintritt
+3. Additiv: Die Summe der Information zweier Teilereignisse ist gleich der Information des Gesamtereignis
+
+
+
+:::{#def-info}
+
+## Shannon-Information
+
+
+Die Information ist so definiert:
+
+
+$$I(x) = - \log_2 \left( Pr(x) \right)$$
+
+:::
+
+Andere Logaritmusbasen sind möglich. Bei einem binären Logarithmus nennt man die Einheit *Bit*^[oder *shannon*].
+
+
+Ein Münwzurf^[wie immer, als fair angenommen, wenn sonst nichts anderes angegeben ist] hat *1 Bit* Information:
+
+```{r}
+-log(1/2, base = 2)
+```
+
+
+
+
+Damit gilt: $I = \frac{1}{Pr(x)}$
+
+Die Information ist eng verwandt mit den Odds bzw. Log-Odds (Logits):
+
+
+$\text{log-odds}(x)=\log \left({\frac {p(x)}{p(\lnot x)}}\right)$
+
+Logits können als Differenz zweier Shannon-Infos ausgedrückt werden:
+
+
+$\text{log-odds}(x)=I(\lnot x)-I(x)$
+
+
+
+Die Information zweier unabhängiger Ereignisse ist additiv.
+
+Die gemeinsame Wahrscheinlichkeit zweier unabhängiger Ereignisse ist das Produkt der einzelnen Wahrscheinlichkeiten:
+
+$Pr(x,y) = Pr(x) \cdot Pr(y)$
+
+Die *gemeinsame Information* ist dann
+
+$$
+{\displaystyle {\begin{aligned}\operatorname {I}(x,y)&=-\log _{2}\left[p(x,y)\right]=-\log _{2}\left[p(x)p(y)\right]\\[5pt]&=-\log _{2}\left[p{(x)}\right]-\log _{2}\left[p{(y)}\right]\\[5pt]&=\operatorname {I} (x)+\operatorname {I} (y)\end{aligned}}}
+$$
+
+
+
+
+
+:::{#exm-info1}
+
+
+## Information eines wahrscheinlichen Ereignisses
+
+Die Information eines fast sicheren Ereignisses ist gering.
+
+```{r}
+-log(99/100, base = 2)
+```
+
+
+:::
+
+
+
+
+
+:::{#exm-info2}
+
+
+## Information eines unwahrscheinlichen Ereignisses
+
+Die Information eines unwahrscheinlichen Ereignisses ist hoch.
+
+```{r}
+-log(01/100, base = 2)
+```
+
+
+:::
+
+
+
+
+
+
+
+:::{#exm-info3}
+
+
+## Information eines Würfelwurfs
+
+
+Die Wahrscheinlichkeitsfunktion eines Würfel ist
+
+${\displaystyle Pr(k)={\begin{cases}{\frac {1}{6}},&k\in \{1,2,3,4,5,6\}\\0,&{\text{ansonsten}}\end{cases}}}$
+
+
+
+Die Wahrscheinlichkeit, eine 6 zu würfeln, ist $Pr(X=6) = \frac{1}{6}$.
+
+
+
+Die Information von $X=6$ beträgt also
+
+
+$I(X=6) = -\log_2 \left( Pr(X=6) \right) = -\log_2(1/6) \approx 2.585 \, \text{bits}$.
+
+
+```{r}
+-log(1/6, base = 2)
+```
+
+
+:::
+
+
+
+
+
+
+
+:::{#exm-info3}
+
+
+## Information zweier  Würfelwurfe
+
+
+
+
+
+
+
+Die Wahrscheinlichkeit, mit zwei Würfeln, $X$ und $Y$, jeweils *6* zu würfeln, 
+beträgt $Pr(X=6, Y=6) = \frac{1}{36}$
+
+
+
+Die Information beträgt also
+
+
+$I(X=6, Y=6) = -\log_2 \left( Pr(6,6) \right)$
+
+
+```{r}
+-log(1/36, base = 2)
+```
+
+
+Aufgrund der Additivität der Information gilt
+
+
+$I(6,6) = I(6) + I(6)$
+
+
+```{r}
+-log(1/6, base = 2) + -log(1/6, base = 2)
+```
+
+
+
+:::
+
+
+
+
+
+
+
+
+
+### Entropie
+
+
+(Informations)entropie ist die Summe der Informationen der Ereignisse einer Zufallsvariablen, $X$.
+
+
+
+:::{#def-entropie}
+
+
+## Informationsentropie
+
+
+*Informationsentropie*  ist so definiert:
+
+$$H(p) = - \text{E log} (p_i) = - \sum_{i = 1}^n p_i \text{log} (p_i) = E\left[I(X) \right]$$
+
+:::
+
+Die Informationsentropie ist also die "mittlere" oder "erwartete Information einer Zufallsvariablen.
+
+
+Die Entropie eines Münzwurf-Versuchs (Bernoulli-Experiment) ist dann maximal (1 bit), wenn die Trefferwahrscheinlichkeit 50% beträgt: $Pr(X=x) = 1/2$, s. Abb. @fig-bernoulli-entropy.
+
+
+![Der Zusammenhang von Wahrscheinlichkeit und Entropie bei einem Bernoulli-Versuch, Quelle: Wikipedia, CC-BY-SA, Brona, Rubber Duck](img/Binary_entropy_plot.svg.png){#fig-bernoulli-entropy width="30%"}
+
+
+
+### Gemeinsame Information
+
+Die *gemeinsame Information* (mutual information, MI) zweier Zufallsvariablen $X$ und $Y$, $I(X,Y)$, quantifiziert die Informationsmenge, die man über $Y$ erhält, wenn man $X$ beobachtet. Mit anderen Worten: Die MI ist ein Maß des Zusammenhangs zweier (nominaler) Variablen. Im Gegensatz zur Korrelation ist die MI nicht auf lineare Abhängigkeiten beschränkt.
+
+
+
+Die MI quantifiziert den Unterschied zwischen der gemeinsamen Verteilung $Pr(X,Y)$ und dem Produkt einer einzelnen^[auch als *marginalen* Wahrscheinlichkeiten oder *Randwahrscheinlichkeiten* bezeichnet] Wahrscheinlichkeitsverteilungen, d.h. $Pr(X)$ und $Pr(Y)$.
+
+Wenn die beiden Variablen (stochastisch) unabhängig^[Für stochastische Unabhängigkeit kann das Zeichen $\bot$ verwendet werden] sind, ist ihre gemeinsame Information Null:
+
+$I(X,Y) = 0 \quad \text{gdw} \quad \bot(X,Y)$.
+
+Dann gilt nämlich:
+
+$\log \left( \frac{Pr(X,Y)} {Pr(X) \cdot Pr(Y)} \right) =\log(1) = 0$.
+
+
+Das macht intuitiv Sinn: Sind zwei Variablen unabhängig, so erfährt man nichts über die zweite, wenn man die erste kennt. So ist Kenntnis der Sternzeichens einer Person und ihrer Körpergröße unabhängig.
+
+Das Gegenteil ist auch wahr: Sind zwei Variablen voneinander komplett abhängig, so weiß man alles über die zweite, wenn man die erste kennt.
+
+
+Die gemeinsame Information kann man sich als *Summe der einzelnen gemeinsamen Informationen* von $XY$ sehen (s. @tbl-mi1):
+
+```{r}
+#| label: tbl-mi1
+#| tbl-cap: Summe der punktweisen gemeinsamen Informationen
+#| echo: true
+d <- tibble::tribble(
+     ~x1,    ~x2,    ~x3,
+  "x1y2", "x2y1", "x3y1",
+  "x2y1", "x2y2", "x3y2",
+  "x1y3", "x2y3", "x3y3"
+  )
+```
+
+
+
+$I(X,Y) = \Sigma_Y \Sigma_y Pr(x,y) \underbrace{\log \left( \frac{Pr(X,Y)}{Pr(X) Pr(Y)} \right)}_\text{punktweise MI}$ 
+
+Die Summanden der gemeinsamen Information bezeichnet man auch als *punktweise gemeinsame Information* (pointwise mutual information, PMI), entsprechend, s. @eq-pmi. MI ist also der Erwartungswert der PMI.
+
+
+$${\displaystyle \operatorname {PMI} (x,y)\equiv \log_{2}{\frac {p(x,y)}{p(x)p(y)}}=\log _{2}{\frac {p(x|y)}{p(x)}}=\log _{2}{\frac {p(y|x)}{p(y)}}}
+$${#eq-pmi}
+
+
+Andere Basen als `log2` sind gebräuchlich, vor allem der natürliche Logarithmus.
+
+
+
+
+::: {.remark}
+
+Die zwei rechten Umformungen in @eq-pmi basieren auf der Umformung der gemeinsamen Wahrscheinlichkeit. 
+
+Zur Erinnerung: $p(x,y) = p(y)p(x|y) = p(x)p(y|x)$
+:::
+
+
+
+
+::: {#exm-pmi}
+
+## Interpretation der PMI
+
+Sei $p(x) = p(y) = 1/10$ und $p(x,y) = 1/10$. Wären $x$ und $y$ unabhängig, dann wäre $p^{\prime}(x,y) = p(x)p(y) = 1/100$.
+Das Verhältnis der Produkte der einzelnen Wahrscheinlichkeit zur gemeinsamen Wahrscheinlichkeit wäre dann 1 und der Logarithmus von 1 ist 0. Das Verhältnis von 1 entspricht also der Unabhängigkeit. Ist das Verhältnis z.B. 5, so zeigt das eine gewisse Abhängigkeit an.
+Im obigen Beispiel gilt: $\frac{1/20}{1/100}=5$.
+
+:::
+
+
+Die MI wird auch über die sog. *Kullback-Leibler-Divergenz* definiert,
+die die Differenz zwischen gemeinsamer Wahrscheinlichkeitsfunktion bzw. -dichte und dem Produkt der jeweiligen Randwahrscheinlichkeiten bzw. -dichte angibt.
+
+
+
+### Maximumentropie
+
+
+:::{#def-maxent}
+
+
+## Maximumentropie
+
+Die Verteilungsform, für die es die meisten Möglichkeiten (Pfade im Baumdiagramm) gibt,
+hat die höchste Informationsentropie.
+
+:::
+
+@fig-muenz3 zeigt ein Baumdiagramm für einen 3-fachen Münzwurf.
+In den "Blättern" (Endknoten) sind die Ergebnisse des Experiments dargestellt
+sowie die Zufallsvariable $X$, die die Anzahl der "Treffer" (Kopf) fasst.
+Wie man sieht, vereinen einige Werte der Zufallsvariable mehr Pfade auf sich als andere:
+Der Wert $X=1$ vereinigt 3 Pfade (von 8) auf sich; der Wert $X=3$ nur 1 Pfad.
+
+![Pfade im Baumdiagramm: 3-facher Münzwurf](img/muenz3.png){#fig-muenz3}
+
+
+
+### Ilustration 
+
+
+Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind [@mcelreath_statistical_2020].
+Weil Sie nichts besseres zu tun haben, werfen Sie die Kiesel in die Eimer und zwar so, 
+dass die Wahrscheinlichkeit für einen Kiesel in einen bestimmten Eimer zu landen für alle Eimer gleich ist.
+Sie werfen also Ihre 10 Kiesel und betrachten das Ergebnis; die Kiesel sind jetzt in einem bestimmten (zufälligen)
+Arrangement auf die Eimer verteilt.
+Jede Aufteilung (der 10 Kiesel in den 5 Eimern) ist gleich wahrscheinlich^[so ähnlich wie mit den Lottozahlen] -- 
+die Wahrscheinlichkeit, dass alle 10 Kiesel in Eimer 1 landen ist also gleich hoch wie die Wahrscheinlichkeit,
+dass jeder Eimer einen Kiesel abkriegt.
+Jetzt kommt's: Manche Arrangements können auf mehrere Arten erzielt werden als andere. 
+So gibt es nur *eine* Aufteilung für alle 10 Kiesel in einem Eimer (Teildiagramm a, in @fig-kiesel).
+Aber es gibt 90 Möglichkeiten, die Kiesel so aufzuteilen, dass 2 in Eimer 2 landen, 8 in Eimer 4 und 2 in Eimer 4,
+s. Teildiagramm b in @fig-kiesel [@kurz_statistical_2021]. 
+Teildiagramme c bis e zeigen, dass die Anzahl der Aufteilungen schnell astronomisch hoch wird,
+wenn sich die Kiesel "gleichmäßiger" auf die Eimer verteilen.
+Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen.
+Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden.
+
+Hier sind ein paar verschiedene Arrangements, deren Anzahl von Aufteilungen wir hier anschauen:
+
+```{r}
+d <-
+  tibble(a = c(0, 0, 10, 0, 0),
+         b = c(0, 1, 8, 1, 0),
+         c = c(0, 2, 6, 2, 0),
+         d = c(1, 2, 4, 2, 1),
+         e = 2) 
+d
+```
+
+
+
+```{r fig-kiesel}
+#| echo: false
+#| fig-cap: Anzahl von Aufteilungen der 10 Kiesel in 5 Eimer
+#| label: fig-kiesel
+d %>% 
+  mutate(bucket = 1:5) %>% 
+  gather(letter, pebbles, - bucket) %>% 
+  
+  ggplot(aes(x = bucket, y = pebbles)) +
+  geom_col(width = 1/5) +
+  geom_text(aes(y = pebbles + 1, label = pebbles)) +
+  geom_text(data = tibble(
+    letter  = letters[1:5],
+    bucket  = 5.5,
+    pebbles = 10,
+    label   = str_c(c(1, 90, 1260, 37800, 113400), 
+                    rep(c(" Pfad", " Pfade"), times = c(1, 4)))),
+    aes(label = label), hjust = 1) +
+  scale_y_continuous(breaks = c(0, 5, 10)) +
+  theme(panel.grid = element_blank()) +
+  facet_wrap(~letter, ncol = 3)
+```
+
+Hier sind die Wahrscheinlichkeitsverteilungen der 5 Arrangements^[Ist das nicht eine elegante Syntax?! Solomon Kurz, der Autor der Syntax, hielt sich nicht an die aktuelle Version von `dplyr`; `mutate_all` ist eigentlich überholt zugunsten von `mutate` mit `across`, aber die Prägnanz der Syntax hier ist schon beeindruckend, wie ich finde.]:
+
+```{r}
+d %>% 
+  mutate_all(~. / sum(.))
+```
+
+
+Dann kann man die Wahrscheinlichkeit einfach in Entropie umrechnen^[Syntax aus @kurz_statistical_2021]:
+
+```{r}
+d %>% 
+  mutate_all(~ . / sum(.)) %>% 
+  gather() %>% 
+  group_by(key) %>% 
+  summarise(h = -sum(ifelse(value == 0, 0, value * log(value))))
+```
+
+
+Das `ifelse` dient nur dazu, eine Wahrscheinlichkeit von 0 eine Entropie von 0 zu verpassen^[Regel von L'Hopital], denn sonst würden wir ein Problem rennen, wenn wir $log(0)$ ausrechnen.
+
+```{r}
+log(0)
+```
+
+
+
+## Zufallstext erkennen
+
+
+### Entropie von Zufallstext
+
+
+Kann man wohl Zufallstext maschinell erkennen? Sicher gibt es viele Ansätze,
+um das Problem anzugehen.
+Lassen Sie uns einen Ansatz erforschen. 
+Erforschen heißt, *wir* erforschen für *uns*, es handelt sich um eine didaktische Übung, 
+das Ziel ist nicht, Neuland für die Menschheit zu betreten.
+
+Aber zuerst müssen wir überlegen, was "Zufallstext" bedeuten soll.
+
+
+Nehmen wir uns dazu zuerst einen richtigen Text, ein Märchen von H.C. Andersen zum Beispiel.
+Nehmen wir das Erste aus der Liste in dem Tibble `hcandersen_de`, "das Feuerzeug".
+
+```{r}
+das_feuerzeug <-
+  hcandersen_de  %>% 
+  filter(book == "Das Feuerzeug") %>% 
+  unnest_tokens(input = text, output = word) %>% 
+  pull(word) 
+
+head(das_feuerzeug)
+```
+
+
+Das Märchen ist `r length(das_feuerzeug)` Wörter lang.
+
+```{r}
+wortliste <- 
+hcandersen_de  %>% 
+  filter(book == "Das Feuerzeug") %>% 
+  unnest_tokens(output = word, input = text) %>% 
+  pull(word) %>% 
+  unique()
+
+head(wortliste)
+```
+
+
+Jetzt ziehen wir Stichproben (mit Zurücklegen) aus dieser Liste und erstellen damit eine Art Zufallstext.
+
+```{r}
+zufallstext <- 
+  sample(x = wortliste, size = length(das_feuerzeug)*10^2, replace = TRUE)
+head(zufallstext)
+```
+
+
+Zählen wir, wie häufig jedes Wort vorkommt:
+
+```{r}
+zufallstext_count <-
+tibble(zufallstext = zufallstext) %>% 
+  count(zufallstext)
+
+head(zufallstext_count)
+```
+
+
+Der Häufigkeitsvektor von `wortliste` besteht nur aus Einsen, 
+so haben wir ja gerade die Wortliste definiert:
+
+```{r}
+wortliste_count <-
+tibble(wortliste = wortliste) %>% 
+  count(wortliste)
+
+head(wortliste_count)
+```
+
+
+Daher ist ihre Informationsentropy maximal.
+
+```{r}
+entropy(wortliste_count$n, unit = "log2")
+```
+
+
+
+Die Häufigkeiten der Wörter in `zufallstext` hat eine hohe Entropie.
+
+```{r}
+entropy(zufallstext_count$n, unit = "log2")
+```
+
+
+Zählen wir die Häufigkeiten in der Geschichte "Das Feuerzeug".
+
+```{r}
+das_feuerzeug_count <-
+  tibble(text = das_feuerzeug) %>% 
+  count(text)
+
+head(das_feuerzeug_count)
+```
+Und berechnen dann die Entropie:
+
+```{r}
+entropy(das_feuerzeug_count$n, unit = "log2")
+```
+
+
+Der Zufallstext hat also eine höhere Entropie als der echte Märchentext.
+Der Zufallstext ist also gleichverteilter in den Worthäufigkeiten.
+
+
+Pro Bit weniger Entropie halbiert sich die Anzahl der Möglichkeiten einer Häufigkeitsverteilung.
+
+
+
+### MI von Zufallstext
+
+
+
+Left as an exercises for the reader^[[Vgl. hier](https://academia.stackexchange.com/questions/20084/is-using-the-phrase-is-left-as-an-exercise-for-the-reader-considered-good)] 🥳.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Daten
@@ -680,6 +1263,22 @@ Ansätzen wir Worthäufigkeiten oder tf-idf.
 Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten,
 und zu sehen, wie weit man kommt.
 Vielleicht ja weit genug.
+
+
+
+
+
+
+## Literatur
+
+
+### Wikipedia
+
+Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.
+
+- [Wikipedia: Pointwise Mutual Information](https://en.wikipedia.org/wiki/Pointwise_mutual_information)
+- [Wikipedia: Mutual information](https://en.wikipedia.org/wiki/Mutual_information)
+- [Wikipedia: Information theory](https://en.wikipedia.org/wiki/Information_theory)
 
 
 
