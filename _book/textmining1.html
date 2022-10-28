@@ -234,16 +234,17 @@ div.csl-indent {
   <li><a href="#stemming-wortstamm-finden" id="toc-stemming-wortstamm-finden" class="nav-link" data-scroll-target="#stemming-wortstamm-finden"><span class="toc-section-number">3.2.4</span>  Stemming (Wortstamm finden)</a></li>
   <li><a href="#fallstudie-afd-parteiprogramm" id="toc-fallstudie-afd-parteiprogramm" class="nav-link" data-scroll-target="#fallstudie-afd-parteiprogramm"><span class="toc-section-number">3.2.5</span>  Fallstudie AfD-Parteiprogramm</a></li>
   <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="toc-section-number">3.2.6</span>  Stringverarbeitung</a></li>
+  <li><a href="#emoji-analyse" id="toc-emoji-analyse" class="nav-link" data-scroll-target="#emoji-analyse"><span class="toc-section-number">3.2.7</span>  Emoji-Analyse</a></li>
+  <li><a href="#text-aufräumen" id="toc-text-aufräumen" class="nav-link" data-scroll-target="#text-aufräumen"><span class="toc-section-number">3.2.8</span>  Text aufräumen</a></li>
+  <li><a href="#diverse-wortlisten" id="toc-diverse-wortlisten" class="nav-link" data-scroll-target="#diverse-wortlisten"><span class="toc-section-number">3.2.9</span>  Diverse Wortlisten</a></li>
+  <li><a href="#sec-sentimentanalyse" id="toc-sec-sentimentanalyse" class="nav-link" data-scroll-target="#sec-sentimentanalyse"><span class="toc-section-number">3.2.10</span>  Sentimentanalyse</a></li>
+  <li><a href="#weitere-sentiment-lexika" id="toc-weitere-sentiment-lexika" class="nav-link" data-scroll-target="#weitere-sentiment-lexika"><span class="toc-section-number">3.2.11</span>  Weitere Sentiment-Lexika</a></li>
   </ul></li>
-  <li><a href="#regex-im-texteditor" id="toc-regex-im-texteditor" class="nav-link" data-scroll-target="#regex-im-texteditor"><span class="toc-section-number">3.3</span>  Regex im Texteditor</a>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">3.3</span>  Aufgaben</a></li>
+  <li><a href="#fallstudie-hate-speech" id="toc-fallstudie-hate-speech" class="nav-link" data-scroll-target="#fallstudie-hate-speech"><span class="toc-section-number">3.4</span>  Fallstudie Hate-Speech</a>
   <ul class="collapse">
-  <li><a href="#sec-sentimentanalyse" id="toc-sec-sentimentanalyse" class="nav-link" data-scroll-target="#sec-sentimentanalyse"><span class="toc-section-number">3.3.1</span>  Sentimentanalyse</a></li>
-  </ul></li>
-  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">3.4</span>  Aufgaben</a></li>
-  <li><a href="#fallstudie-hate-speech" id="toc-fallstudie-hate-speech" class="nav-link" data-scroll-target="#fallstudie-hate-speech"><span class="toc-section-number">3.5</span>  Fallstudie Hate-Speech</a>
-  <ul class="collapse">
-  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">3.5.1</span>  Daten</a></li>
-  <li><a href="#grundlegendes-text-mining" id="toc-grundlegendes-text-mining" class="nav-link" data-scroll-target="#grundlegendes-text-mining"><span class="toc-section-number">3.5.2</span>  Grundlegendes Text Mining</a></li>
+  <li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="toc-section-number">3.4.1</span>  Daten</a></li>
+  <li><a href="#grundlegendes-text-mining" id="toc-grundlegendes-text-mining" class="nav-link" data-scroll-target="#grundlegendes-text-mining"><span class="toc-section-number">3.4.2</span>  Grundlegendes Text Mining</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -284,7 +285,7 @@ div.csl-indent {
 </section>
 <section id="benötigte-r-pakete" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">3.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-1_9a5335aa4b1eaf46d0f2f34bb7740833">
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-1_1f0958e18fc5ef5a9e5561bafa6490b2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tokenizers)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -292,7 +293,8 @@ div.csl-indent {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hcandersenr)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)  <span class="co"># Stemming</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lsa)  <span class="co"># Stopwörter</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textclean)  <span class="co"># Emojis ersetzen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -660,10 +662,8 @@ div.csl-indent {
 <p>Mit dem Negationsoperator <code>[^x]</code> wird der Regulärausrck <code>x</code> negiert; die Syntax oben heißt also “ersetze in <code>string</code> alles außer Buchstaben durch Nichts”. Mit “Nichts” sind hier Strings der Länge Null gemeint; ersetzt man einen belieibgen String durch einen String der Länge Null, so hat man den String gelöscht.</p>
 <p>Das Cheatsheet zur Strings bzw zu <code>stringr</code> von RStudio gibt einen guten Überblick über Regex; im Internet finden sich viele Beispiele.</p>
 </section>
-</section>
-</section>
-<section id="regex-im-texteditor" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="regex-im-texteditor"><span class="header-section-number">3.3</span> Regex im Texteditor</h2>
+<section id="regex-im-texteditor" class="level4" data-number="3.2.6.2">
+<h4 data-number="3.2.6.2" class="anchored" data-anchor-id="regex-im-texteditor"><span class="header-section-number">3.2.6.2</span> Regex im Texteditor</h4>
 <p>Einige Texteditoren unterstützen Regex, so auch RStudio.</p>
 <p>Das ist eine praktische Sache. Ein Beispiel: Sie haben eine Liste mit Namen der Art:</p>
 <ul>
@@ -679,10 +679,257 @@ div.csl-indent {
 <p></p><figcaption class="figure-caption">Abbildung&nbsp;3.1: <strong>?(caption)</strong></figcaption><p></p>
 </figure>
 </div>
-<section id="sec-sentimentanalyse" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="sec-sentimentanalyse"><span class="header-section-number">3.3.1</span> Sentimentanalyse</h3>
-<section id="einführung" class="level4" data-number="3.3.1.1">
-<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="einführung"><span class="header-section-number">3.3.1.1</span> Einführung</h4>
+</section>
+</section>
+<section id="emoji-analyse" class="level3" data-number="3.2.7">
+<h3 data-number="3.2.7" class="anchored" data-anchor-id="emoji-analyse"><span class="header-section-number">3.2.7</span> Emoji-Analyse</h3>
+<p>Eine einfache Art, Emojis in einer Textmining-Analyse zu verarbeiten, bietet das Paket <code>textclean</code>:</p>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-24_eed7d547f858c081170431da38bc71d4">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fls <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"docs/emoji_sample.txt"</span>, <span class="at">package =</span> <span class="st">"textclean"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">readLines</span>(fls)[<span class="dv">1</span>]</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Proin 😍 ut maecenas 😏 condimentum 😔 purus eget. Erat, 😂vitae nunc elit. Condimentum 😢 semper iaculis bibendum sed tellus. Ut suscipit interdum😑 in. Faucib😞 us nunc quis a vitae posuere. 😛 Eget amet sit condimentum non. Nascetur vitae ☹ et. Auctor ornare ☺ vestibulum primis justo congue 😀urna ac magna. Quam 😥 pharetra 😟 eros 😒facilisis ac lectus nibh est 😙vehicula 😐 ornare! Vitae, malesuada 😎 erat sociosqu urna, 😏 nec sed ad aliquet 😮 ."</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-25_ea3301d4c4f8a9a979b18140436730a6">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_emoji</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Proin smiling face with heart-eyes ut maecenas smirking face condimentum pensive face purus eget. Erat, face with tears of joy vitae nunc elit. Condimentum crying face semper iaculis bibendum sed tellus. Ut suscipit interdum expressionless face in. Faucib disappointed face us nunc quis a vitae posuere. face with tongue Eget amet sit condimentum non. Nascetur vitae frowning face et. Auctor ornare smiling face vestibulum primis justo congue grinning face urna ac magna. Quam sad but relieved face pharetra worried face eros unamused face facilisis ac lectus nibh est kissing face with smiling eyes vehicula neutral face ornare! Vitae, malesuada smiling face with sunglasses erat sociosqu urna, smirking face nec sed ad aliquet face with open mouth ."</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_emoji_identifier</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Proin lexiconwiutsdotskrupggpgmhm ut maecenas lexiconwizbukzesopzflfinotj condimentum lexiconwlnxqescoesytfatoevi purus eget. Erat, lexiconwcaiviebiytolowkanmb vitae nunc elit. Condimentum lexiconwpujksvgujncexktvyrn semper iaculis bibendum sed tellus. Ut suscipit interdum lexiconwknnasgueiicggptyzbx in. Faucib lexiconwoxfeslcareuqfkbyjgy us nunc quis a vitae posuere. lexiconwobmhqdrrzgygdexhnkk Eget amet sit condimentum non. Nascetur vitae lexiconbfalxvockmnmtmycmwyq et. Auctor ornare lexiconbgmujofaalvxqrklfqgd vestibulum primis justo congue lexiconvygwtlyrpywfarytvfis urna ac magna. Quam lexiconwurhpvewhizayynmfxqo pharetra lexiconwpmuduwgbxxrxeltrueb eros lexiconwkrvakxddtqckcjxeksl facilisis ac lectus nibh est lexiconwmsjgfnelqfeyhgudmfj vehicula lexiconwjfhkpcsgcjtotwlapxa ornare! Vitae, malesuada lexiconwivnupleicqgksianinp erat sociosqu urna, lexiconwizbukzesopzflfinotj nec sed ad aliquet lexiconxbwhfeflxbuupjezgdwl ."</code></pre>
+</div>
+</div>
+</section>
+<section id="text-aufräumen" class="level3" data-number="3.2.8">
+<h3 data-number="3.2.8" class="anchored" data-anchor-id="text-aufräumen"><span class="header-section-number">3.2.8</span> Text aufräumen</h3>
+<p>Eine Reihe generischer Tests bietet das Paket <code>textclean</code> von <a href="https://github.com/trinker/textclean">Tyler Rinker</a>:</p>
+<p>Hier ist ein “unaufgeräumeter” Text:</p>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-26_accaf35381679501b56e431b101450e4">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"i like"</span>, <span class="st">"&lt;p&gt;i want. &lt;/p&gt;. thet them ther ."</span>, <span class="st">"I am ! that|"</span>, <span class="st">""</span>, <span class="cn">NA</span>, </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;quot;they&amp;quot; they,were there"</span>, <span class="st">"."</span>, <span class="st">"   "</span>, <span class="st">"?"</span>, <span class="st">"3;"</span>, <span class="st">"I like goud eggs!"</span>, </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bi</span><span class="sc">\xdfc</span><span class="st">hen Z</span><span class="sc">\xfc</span><span class="st">rcher"</span>, <span class="st">"i 4like..."</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">tgreat"</span>,  <span class="st">"She said </span><span class="sc">\"</span><span class="st">yes</span><span class="sc">\"</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lassen wir uns dazu ein paar Diagnostiken ausgeben.</p>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-27_d1f45575de3319eafc553eee800b6cfc">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Encoding</span>(x) <span class="ot">&lt;-</span> <span class="st">"latin1"</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_text</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=============
+NON CHARACTER
+=============
+
+The text variable is not a character column (likely `factor`):
+
+
+*Suggestion: Consider using `as.character` or `stringsAsFactors = FALSE` when reading in
+             Also, consider rerunning `check_text` after fixing
+
+
+=====
+DIGIT
+=====
+
+The following observations contain digits/numbers:
+
+10, 13
+
+This issue affected the following text:
+
+10: 3;
+13: i 4like...
+
+*Suggestion: Consider using `replace_number`
+
+
+========
+EMOTICON
+========
+
+The following observations contain emoticons:
+
+6
+
+This issue affected the following text:
+
+6: &amp;quot;they&amp;quot; they,were there
+
+*Suggestion: Consider using `replace_emoticons`
+
+
+=====
+EMPTY
+=====
+
+The following observations contain empty text cells (all white space):
+
+1
+
+This issue affected the following text:
+
+1: i like
+
+*Suggestion: Consider running `drop_empty_row`
+
+
+=======
+ESCAPED
+=======
+
+The following observations contain escaped back spaced characters:
+
+14
+
+This issue affected the following text:
+
+14: \tgreat
+
+*Suggestion: Consider using `replace_white`
+
+
+====
+HTML
+====
+
+The following observations contain HTML markup:
+
+2, 6
+
+This issue affected the following text:
+
+2: &lt;p&gt;i want. &lt;/p&gt;. thet them ther .
+6: &amp;quot;they&amp;quot; they,were there
+
+*Suggestion: Consider running `replace_html`
+
+
+==========
+INCOMPLETE
+==========
+
+The following observations contain incomplete sentences (e.g., uses ending punctuation like '...'):
+
+13
+
+This issue affected the following text:
+
+13: i 4like...
+
+*Suggestion: Consider using `replace_incomplete`
+
+
+=============
+MISSING VALUE
+=============
+
+The following observations contain missing values:
+
+5
+
+*Suggestion: Consider running `drop_NA`
+
+
+========
+NO ALPHA
+========
+
+The following observations contain elements with no alphabetic (a-z) letters:
+
+4, 7, 8, 9, 10
+
+This issue affected the following text:
+
+4: 
+7: .
+8:    
+9: ?
+10: 3;
+
+*Suggestion: Consider cleaning the raw text or running `filter_row`
+
+
+==========
+NO ENDMARK
+==========
+
+The following observations contain elements with missing ending punctuation:
+
+1, 3, 4, 6, 8, 10, 12, 14, 15
+
+This issue affected the following text:
+
+1: i like
+3: I am ! that|
+4: 
+6: &amp;quot;they&amp;quot; they,were there
+8:    
+10: 3;
+12: bißchen Zürcher
+14: \tgreat
+15: She said "yes"
+
+*Suggestion: Consider cleaning the raw text or running `add_missing_endmark`
+
+
+====================
+NO SPACE AFTER COMMA
+====================
+
+The following observations contain commas with no space afterwards:
+
+6
+
+This issue affected the following text:
+
+6: &amp;quot;they&amp;quot; they,were there
+
+*Suggestion: Consider running `add_comma_space`
+
+
+=========
+NON ASCII
+=========
+
+The following observations contain non-ASCII text:
+
+12
+
+This issue affected the following text:
+
+12: bißchen Zürcher
+
+*Suggestion: Consider running `replace_non_ascii`
+
+
+==================
+NON SPLIT SENTENCE
+==================
+
+The following observations contain unsplit sentences (more than one sentence per element):
+
+2, 3
+
+This issue affected the following text:
+
+2: &lt;p&gt;i want. &lt;/p&gt;. thet them ther .
+3: I am ! that|
+
+*Suggestion: Consider running `textshape::split_sentence`</code></pre>
+</div>
+</div>
+</section>
+<section id="diverse-wortlisten" class="level3" data-number="3.2.9">
+<h3 data-number="3.2.9" class="anchored" data-anchor-id="diverse-wortlisten"><span class="header-section-number">3.2.9</span> Diverse Wortlisten</h3>
+<p><a href="https://github.com/trinker/lexicon">Tyler Rinker</a> stellt mit dem Paket <code>lexicon</code> eine Zusammenstellung von Wortlisten zu diversen Zwecken zur Verfügung.</p>
+</section>
+<section id="sec-sentimentanalyse" class="level3" data-number="3.2.10">
+<h3 data-number="3.2.10" class="anchored" data-anchor-id="sec-sentimentanalyse"><span class="header-section-number">3.2.10</span> Sentimentanalyse</h3>
+<section id="einführung" class="level4" data-number="3.2.10.1">
+<h4 data-number="3.2.10.1" class="anchored" data-anchor-id="einführung"><span class="header-section-number">3.2.10.1</span> Einführung</h4>
 <p>Eine weitere interessante Analyse ist, die “Stimmung” oder “Emotionen” (Sentiments) eines Textes auszulesen. Die Anführungszeichen deuten an, dass hier ein Maß an Verständnis suggeriert wird, welches nicht (unbedingt) von der Analyse eingehalten wird. Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so:</p>
 <ol type="1">
 <li>Schau dir jeden Token aus dem Text an.<br>
@@ -695,18 +942,18 @@ div.csl-indent {
 </li>
 <li>Liefere zum Schluss die Summenwerte pro Sentiment zurück.</li>
 </ol>
-<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-24_8ad2e7baefbfeacaa335826a7feef4c9">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/x89wq/?action=download"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das <em>deutsche</em> Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-28_c0143040b002dc88bca1f2dc76a5427b">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/x89wq/?action=download"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Den Volltext zum Paper finden Sie z.B. <a href="http://www.lrec-conf.org/proceedings/lrec2010/pdf/490_Paper.pdf">hier</a>.</p>
 <p>Alternativ können Sie die Daten aus dem Paket <code>pradadata</code> laden. Allerdings müssen Sie dieses Paket von Github installieren:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-25_1a27f7890768945a92e92f9a9cca9fae">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>, <span class="at">dep =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"sebastiansauer/pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-29_757bdeb9fa6f6e5130691c8bdf297520">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>, <span class="at">dep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"sebastiansauer/pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="textmining1_cache/html/parse-sentiment-dics_7b392074be7f9e2faa3b256a45bdc064">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sentiws, <span class="at">package =</span> <span class="st">"pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sentiws, <span class="at">package =</span> <span class="st">"pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><a href="#tbl-afdcount">Tabelle&nbsp;<span>3.1</span></a> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
 <div class="cell" data-hash="textmining1_cache/html/tbl-afdcount_65282fac3f90acfc5d9eab2b6e2ed3a2">
@@ -767,21 +1014,21 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="ungewichtete-sentiment-analyse" class="level4" data-number="3.3.1.2">
-<h4 data-number="3.3.1.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse"><span class="header-section-number">3.3.1.2</span> Ungewichtete Sentiment-Analyse</h4>
+<section id="ungewichtete-sentiment-analyse" class="level4" data-number="3.2.10.2">
+<h4 data-number="3.2.10.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse"><span class="header-section-number">3.2.10.2</span> Ungewichtete Sentiment-Analyse</h4>
 <p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span>3.2</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
 <p>Wir nutzen die Tabelle <code>afd_long</code>, die wir oben definiert haben.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-26_0293f7dece3068970384c2f6230d7de2">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sentiws, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"token"</span> <span class="ot">=</span> <span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>inflections) <span class="ot">-&gt;</span> afd_senti  <span class="co"># die Spalte brauchen wir nicht</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(neg_pos) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">polarity_sum =</span> <span class="fu">sum</span>(value),</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">polarity_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">polarity_prop =</span> (polarity_count <span class="sc">/</span> <span class="fu">sum</span>(polarity_count)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="ot">-&gt;</span></span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  afd_senti_tab</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-30_707fe98e74ded25482644dadd60aae0c">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sentiws, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"token"</span> <span class="ot">=</span> <span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>inflections) <span class="ot">-&gt;</span> afd_senti  <span class="co"># die Spalte brauchen wir nicht</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(neg_pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">polarity_sum =</span> <span class="fu">sum</span>(value),</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">polarity_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">polarity_prop =</span> (polarity_count <span class="sc">/</span> <span class="fu">sum</span>(polarity_count)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="ot">-&gt;</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  afd_senti_tab</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="textmining1_cache/html/tbl-afdsenti_696f0b6db6c35d405ff61879bfb85427">
 <div class="cell-output-display">
@@ -818,12 +1065,12 @@ div.csl-indent {
 </div>
 <p>Die Analyse zeigt, dass die emotionale Bauart des Textes durchaus interessant ist: Es gibt viel mehr positiv getönte Wörter als negativ getönte. Allerdings sind die negativen Wörter offenbar deutlich stärker emotional aufgeladen, denn die Summe an Emotionswert der negativen Wörter ist (überraschenderweise?) deutlich größer als die der positiven.</p>
 <p>Betrachten wir also die intensivsten negativ und positive konnotierten Wörter näher.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-27_6613f238aea52792eba0132df476e213">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(token, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value_abs =</span> <span class="fu">abs</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, value_abs) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(token)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-31_512c91a06b1a2c8903e0b27a947e9ca2">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(token, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value_abs =</span> <span class="fu">abs</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, value_abs) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(token)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "ungerecht"    "besonders"    "gefährlich"   "überflüssig"  "behindern"   
  [6] "gelungen"     "brechen"      "unzureichend" "gemein"       "verletzt"    
@@ -833,13 +1080,13 @@ div.csl-indent {
 </div>
 <p>Diese “Hitliste” wird zumeist (19/20) von negativ polarisierten Begriffen aufgefüllt, wobei “besonders” ein Intensivierwort ist, welches das Bezugswort verstärt (“besonders gefährlich”). Das Argument <code>keep_all = TRUE</code> sorgt dafür, dass alle Spalten zurückgegeben werden, nicht nur die durchsuchte Spalte <code>token</code>. Mit <code>pull</code> haben wir aus dem Dataframe, der von den dplyr-Verben übergeben wird, die Spalte <code>pull</code> “herausgezogen”; hier nur um Platz zu sparen bzw. der Übersichtlichkeit halber.</p>
 <p>Nun könnte man noch den erzielten “Netto-Sentimentswert” des Corpus ins Verhältnis setzen Sentimentswert des Lexikons: Wenn es insgesamt im Sentiment-Lexikon sehr negativ zuginge, wäre ein negativer Sentimentwer in einem beliebigen Corpus nicht überraschend. <code>describe_distribution</code> aus <code>{easystats}</code> gibt uns einen Überblick der üblichen deskriptiven Statistiken.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-28_d7da1db757a6f38ef261af25853942a6">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="sc">%&gt;%</span> </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(value, neg_pos) <span class="sc">%&gt;%</span> </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(neg_pos) %&gt;% </span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe_distribution</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-32_0445709d6f1761b617852fba29515c5e">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(value, neg_pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(neg_pos) %&gt;% </span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe_distribution</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-29_da138c62b0f5e7afff42e03cebcaf2b9">
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-33_7867415b58e715fcaf44c27ec0c293da">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <colgroup>
@@ -883,9 +1130,9 @@ div.csl-indent {
 </div>
 </div>
 <p>Insgesamt ist das Lexikon ziemlich ausgewogen; negative Werte sind leicht in der Überzahl im Lexikon. Unser Corpus hat eine ähnliche mittlere emotionale Konnotation wie das Lexikon:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-30_30ffd9129d123c883f5454f1b428e32f">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">senti_sum =</span> <span class="fu">mean</span>(value) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-34_290f545f9e0e6d3a403067ddbf26432b">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">senti_sum =</span> <span class="fu">mean</span>(value) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -905,9 +1152,13 @@ div.csl-indent {
 </div>
 </section>
 </section>
+<section id="weitere-sentiment-lexika" class="level3" data-number="3.2.11">
+<h3 data-number="3.2.11" class="anchored" data-anchor-id="weitere-sentiment-lexika"><span class="header-section-number">3.2.11</span> Weitere Sentiment-Lexika</h3>
+<p><a href="https://github.com/trinker/sentimentr">Tyler Rinker</a> stellt das Paket <code>sentimentr</code> zur Verfügung. <a href="https://www.matthewjockers.net/2015/02/02/syuzhet/">Matthew Jockers</a> stellt das Paket <code>Syushet</code> zur Verfügung.</p>
 </section>
-<section id="aufgaben" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">3.4</span> Aufgaben</h2>
+</section>
+<section id="aufgaben" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">3.3</span> Aufgaben</h2>
 <ul>
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map01/purrr-map01.html">purrr-map01</a></li>
 <li><a href="https://datenwerk.netlify.app/posts/purrr-map02/purrr-map02.html">purrr-map02</a></li>
@@ -917,10 +1168,10 @@ div.csl-indent {
 <li><a href="https://datenwerk.netlify.app/#category=textmining">Aufgaben zum Textmining von Tweets</a></li>
 </ul>
 </section>
-<section id="fallstudie-hate-speech" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="fallstudie-hate-speech"><span class="header-section-number">3.5</span> Fallstudie Hate-Speech</h2>
-<section id="daten" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="daten"><span class="header-section-number">3.5.1</span> Daten</h3>
+<section id="fallstudie-hate-speech" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="fallstudie-hate-speech"><span class="header-section-number">3.4</span> Fallstudie Hate-Speech</h2>
+<section id="daten" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="daten"><span class="header-section-number">3.4.1</span> Daten</h3>
 <p>Es finden sich mehrere Datensätze zum Thema Hate-Speech im öffentlichen Internet, eine Quelle ist <a href="https://ckan.hatespeechdata.com/">Hate Speech Data</a>, ein Repositorium, das mehrere Datensätze beinhaltet.</p>
 <ul>
 <li><a href="https://www.kaggle.com/datasets/mrmorj/hate-speech-and-offensive-language-dataset?select=labeled_data.csv">Kaggle Hate Speech and Offensive Language Dataset</a></li>
@@ -931,8 +1182,8 @@ div.csl-indent {
 <p>Twitterdaten dürfen nur in “dehydrierter” Form weitergegeben werden, so dass kein Rückschluss von ID zum Inhalt des Tweets möglich ist. Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, also ohne den eigentlichen Inhalt des Tweets, bereitgestellt.</p>
 <p>Über die Twitter-API kann man sich, wie oben dargestellt, dann die Tweets wieder “rehydrieren”, also wieder mit dem zugehörigen Tweet-Text (und sonstigen Infos des Tweets) zu versehen.</p>
 </section>
-<section id="grundlegendes-text-mining" class="level3" data-number="3.5.2">
-<h3 data-number="3.5.2" class="anchored" data-anchor-id="grundlegendes-text-mining"><span class="header-section-number">3.5.2</span> Grundlegendes Text Mining</h3>
+<section id="grundlegendes-text-mining" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="grundlegendes-text-mining"><span class="header-section-number">3.4.2</span> Grundlegendes Text Mining</h3>
 <p>Wenden Sie die oben aufgeführten Techniken des grundlegenden Textminings auf einen der oben dargestellten Hate-Speech-Datensätze an. Erstellen Sie ein (HTML-Dokument) mit Ihren Ergebnissen. Stellen Sie die Ergebnisse auf dem Github-Repo dieses Kurses ein. Vergleichen Sie Ihre Lösung mit den Lösungen der anderen Kursmitglieder.</p>
 <p>Wir nutzen noch nicht eigene Daten, die wir von Twitter ausgelesen haben, das heben wir uns für später auf.</p>
 

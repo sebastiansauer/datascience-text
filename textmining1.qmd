@@ -36,6 +36,7 @@ library(hcandersenr)
 library(SnowballC)  # Stemming
 library(lsa)  # Stopwörter
 library(easystats)  # Komfort für deskriptive Statistiken, wie `describe_distribution`
+library(textclean)  # Emojis ersetzen
 ```
 
 
@@ -292,7 +293,14 @@ Das Cheatsheet zur Strings bzw zu `stringr` von RStudio gibt einen guten Überbl
 
 
 
-## Regex im Texteditor
+
+
+
+
+
+
+
+#### Regex im Texteditor
 
 
 Einige Texteditoren unterstützen Regex, so auch RStudio.
@@ -316,6 +324,64 @@ RStudio mit Regex macht's möglich, s. @fig-regex-rstudio.
 ![Vorher; mit Regex-Syntax](img/regex2.png){#fig-nacher-regex}
 
 :::
+
+
+
+
+
+### Emoji-Analyse
+
+Eine einfache Art, Emojis in einer Textmining-Analyse zu verarbeiten, 
+bietet das Paket `textclean`:
+
+```{r}
+fls <- system.file("docs/emoji_sample.txt", package = "textclean")
+x <- readLines(fls)[1]
+x
+```
+
+
+```{r}
+replace_emoji(x)
+replace_emoji_identifier(x)
+```
+
+
+
+
+### Text aufräumen
+
+Eine Reihe generischer Tests bietet das Paket `textclean` von [Tyler Rinker](https://github.com/trinker/textclean):
+
+
+Hier ist ein "unaufgeräumeter" Text:
+
+```{r}
+x <- c("i like", "<p>i want. </p>. thet them ther .", "I am ! that|", "", NA, 
+    "&quot;they&quot; they,were there", ".", "   ", "?", "3;", "I like goud eggs!", 
+    "bi\xdfchen Z\xfcrcher", "i 4like...", "\\tgreat",  "She said \"yes\"")
+```
+
+
+
+Lassen wir uns dazu ein paar Diagnostiken ausgeben.
+
+```{r}
+Encoding(x) <- "latin1"
+x <- as.factor(x)
+check_text(x)
+```
+
+
+
+
+### Diverse Wortlisten
+
+
+[Tyler Rinker](https://github.com/trinker/lexicon) stellt mit dem Paket `lexicon` eine Zusammenstellung von Wortlisten zu diversen Zwecken zur Verfügung.
+
+
+
 
 
 
@@ -343,7 +409,7 @@ Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so:
 
 
      
-Es gibt Sentiment-Lexika, die lediglich einen Punkt für "positive Konnotation" bzw. "negative Konnotation" geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das Sentimentlexikon `sentiws` [@Remus2010]. Sie können das Lexikon als CSV hier herunterladen:
+Es gibt Sentiment-Lexika, die lediglich einen Punkt für "positive Konnotation" bzw. "negative Konnotation" geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das *deutsche* Sentimentlexikon `sentiws` [@Remus2010]. Sie können das Lexikon als CSV hier herunterladen:
 
 ```{r}
 #| message: false
@@ -466,6 +532,10 @@ afd_senti %>%
 
 
 
+### Weitere Sentiment-Lexika
+
+[Tyler Rinker](https://github.com/trinker/sentimentr) stellt das Paket `sentimentr` zur Verfügung.
+[Matthew Jockers](https://www.matthewjockers.net/2015/02/02/syuzhet/) stellt das Paket `Syushet` zur Verfügung.
 
 
 ## Aufgaben
