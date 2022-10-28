@@ -495,11 +495,24 @@ Es finden sich mehrere Datensätze zum Thema Hate-Speech im öffentlichen Intern
 - [Daten zum Fachartikel"Large Scale Crowdsourcing and Characterization of Twitter Abusive Behavior"](https://github.com/ENCASEH2020/hatespeech-twitter/blob/master/hatespeech_labels.csv)
 
 
+Für Textmining kann eine Liste mit anstößigen (obszönen) Wörten nützlich sein,
+auch wenn man solche Dinge ungern anfässt, verständlicherweise.
+[Jenyay](https://github.com/Jenyay/Obscene-Words-List) bietet solche Listen in verschiedenen Sprachen an. Die Liste von [KDNOOBW](https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words) sieht sehr ähnlich aus (zumindest die deutsche Version).
+Eine lange Sammlung deutscher Schimpfwörter findet sich im [insult.wiki](https://www.insult.wiki/schimpfwort-liste);
+ähnlich bei [Hyperhero](http://www.hyperhero.com/de/insults.htm).
+
+
+
+
+
+
+
 Twitterdaten dürfen nur in "dehydrierter" Form weitergegeben werden, so dass kein Rückschluss von ID zum Inhalt des Tweets möglich ist. 
-Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, a
-lso ohne den eigentlichen Inhalt des Tweets, bereitgestellt.
+Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, also ohne den eigentlichen Inhalt des Tweets, bereitgestellt.
 
 Über die Twitter-API kann man sich, wie oben dargestellt, dann die Tweets wieder "rehydrieren", also wieder mit dem zugehörigen Tweet-Text (und sonstigen Infos des Tweets) zu versehen.
+
+
 
 
 ### Grundlegendes Text Mining
