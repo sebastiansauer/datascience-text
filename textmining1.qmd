@@ -69,6 +69,35 @@ Erarbeiten Sie dieses Kapitel: s. @smltar, [Kap. 3](https://smltar.com/stopwords
 
 
 
+Eine alternative Quelle von Stopwörtern - in verschiedenen Sprachen - 
+biwetet das Paket `quanteda`:
+
+```{r}
+stop2 <-
+  tibble(word = quanteda::stopwords("german"))
+
+head(stop2)
+```
+
+Es bestehst (in der deutschen Version) aus `r length(quanteda::stopwords("german"))` Wörtern.
+
+
+
+
+### Wörter zählen {#sec-woerterzaehlen}
+
+Ist der Text tokenisiert, kann man einfach mit "Bordmitteln" die Wörter zählen.
+
+
+```{r}
+hcandersen_de %>% 
+  filter(book == "Das Feuerzeug") %>% 
+  unnest_tokens(output = word, input = text) %>% 
+  anti_join(stop2) %>% 
+  count(word, sort = TRUE) %>% 
+  head()
+```
+
 
 
 
@@ -290,7 +319,7 @@ RStudio mit Regex macht's möglich, s. @fig-regex-rstudio.
 
 
 
-### Sentimentanalyse
+### Sentimentanalyse {#sec-sentimentanalyse}
 
 
 #### Einführung
@@ -447,6 +476,8 @@ afd_senti %>%
 - [purrr-map03](https://datenwerk.netlify.app/posts/purrr-map03/purrr-map03.html)
 - [purrr-map04](https://datenwerk.netlify.app/posts/purrr-map04/purrr-map04.html)
 - [Regex-Übungen](https://regexone.com/)
+- [Aufgaben zum Textmining von Tweets](https://datenwerk.netlify.app/#category=textmining)
+
 
 
 

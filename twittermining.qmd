@@ -37,6 +37,7 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 #| message: false
 library(tidyverse)
 library(rtweet)
+library(tweetbotornot)
 ```
 
 ![R-Paket {rtweet}](https://docs.ropensci.org/rtweet/logo.png){width=10%}
@@ -78,7 +79,7 @@ Die Seite von [rtweet](https://docs.ropensci.org/rtweet/) gibt eine gute Starthi
 ### Zugangsdaten
 
 
-Zugangsdaten sollte man geschützt speichern, also z.B. nicht in einem geteilten Ordner.
+Zugangsdaten sollte man geschützt speichern, also z.B. *nicht* in einem geteilten Ordner.
 
 
 ```{r source-credentials-twitter}
@@ -90,12 +91,20 @@ Anmelden:
 
 ```{r oauth-twitter}
 #| eval: false
-#auth_setup_default() 
-
 auth <- rtweet_bot(api_key = api_key,
                    api_secret = api_secret,
                    access_token = access_token,
                    access_secret = access_secret)
+```
+
+
+Alternativ kann man sich auch als `App` anmelden,
+damit kann man z.B. nicht posten, aber dafür mehr herunterladen.
+
+
+```{r}
+#| eval: false
+auth <- rtweet_app(bearer_token = Bearer_Token)
 ```
 
 
@@ -146,10 +155,6 @@ saveRDS(tweets, file = "tweets/tweets01.rds")
 ### Retweets einlesen
 
 
-```{r}
-options(rtweet.retryonratelimit = TRUE)
-```
-
 
 ```{r get-retweets1}
 #| eval: false
@@ -163,6 +168,15 @@ tweets01_retweets <-
 
 
 Da die meisten Retweets aber nix sagen, sondern nur auf das einen Tweet wiederholen, ist das Sammeln der Retweets ziemlich langweilig.
+
+
+Möchte man `retry on rate limit` im Standard auf `TRUE` setzen, 
+so kann man das über die Optionen von R tun.
+
+```{r}
+options(rtweet.retryonratelimit = TRUE)
+```
+
 
 
 ### EPINetz Twitter Politicians 2021
@@ -208,14 +222,94 @@ followers01 <-
   d$screenname %>% 
  map_dfr( ~ get_followers(user = .x, retryonratelimit = TRUE))
 
+```
+
+
+Da es dauern kann, Daten auszulesen (wir dürfen pro 15 Min. nur eine begrenzte Zahl an Information abrufen), kann es Sinn machen, die Daten lokal zu speichern.
+
+
+
+```{r save-flllowers01}
+#| eval: false
 saveRDS(followers01, file = "tweets/followers01.rds")
 ```
+
+
+Und ggf. wieder importieren:
+
+```{r read-flllowers0}
+followers01 <- read_rds(file = "tweets/followers01.rds")
+```
+
+
+Wie viele unique Followers haben wir identifiziert?
+
+```{r}
+followers02 <- 
+  followers01 %>% 
+  distinct(from_id)
+```
+
+
+Die Screennames wären noch nützlich:
+
+
+```{r}
+#| eval: false
+lookup_users(users = "1690868335")
+```
+
+
+Die Anzahl der Users, die man nachschauen kann, ist begrenzt auf 180 pro 15 Minuten.
+
+```{r}
+#| eval: false
+followers03 <-
+  followers02 %>% 
+  mutate(screenname = 
+           list(lookup_users(users = from_id, retryonratelimit = TRUE,verbose = TRUE)))
+```
+
+
+
+
+Entsprechend kann man wieder einlesen:
+
+
 
 
 Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können,
 z.B. nach Hate Speech.
 
 Im Gegensatz zu Followers heißen bei Twitter die Accounts, denen ei Nutzi folgt "Friends".
+
+
+Lesen wir mal die Followers von `karl_lauterbach` ein:
+
+
+```{r}
+#| eval: false
+karl_followers <- get_followers(user = "karl_lauterbach", verbose = TRUE)
+```
+
+
+Um nicht jedes Mal aufs Neue die Daten herunterzuladen, 
+bietet es sich an, die Daten lokal zu speichern:
+
+
+```{r}
+#| eval: false
+write_rds(karl_followers, file = "tweets/karl_followers.rds",
+          compress = "gz")
+```
+
+Entsprechend kann man die Daten dann auch wieder einlesen:
+
+
+```{r read-karl-followers}
+karl_followers <- read_rds(file = "tweets/karl_followers.rds")
+```
+
 
 
 
@@ -226,6 +320,53 @@ Im Gegensatz zu Followers heißen bei Twitter die Accounts, denen ei Nutzi folgt
 #| eval: false
 followers_tweets <- get_timeline(user = head(followers01$from_id), n = 10)
 ```
+
+
+
+
+
+
+
+
+## Tweets verarbeiten
+
+
+### Grundlegende Verarbeitung
+
+Sind die Tweets eingelesen, kann man z.B. eine Sentimentanalyse, s. @sec-sentimentanalyse, durchführen, oder schlicht vergleichen, welche Personen welche Wörter häufig verwenden, s. @sec-woerterzaehlen.
+
+
+
+### Bot or not?
+
+Eine interessante Methode, Tweets zu verarbeiten, bietet das R-Paket `tweetbotornot` von [M. Kearney](https://github.com/mkearney/tweetbotornot).
+
+
+Aus der `Readme`: 
+
+
+>   Due to Twitter’s REST API rate limits, users are limited to only 180 estimates per every 15 minutes. To maximize the number of estimates per 15 minutes (at the cost of being less accurate), use the fast = TRUE argument. This method uses only users-level data, which increases the maximum number of estimates per 15 minutes to 90,000! Due to losses in accuracy, this method should be used with caution!
+
+
+
+
+
+```{r}
+#| eval: FALSE
+users <- c("sauer_sebastian")
+bot01 <-
+  tweetbotornot(users)
+```
+
+
+
+:::callout-important
+Ich habe ein Fehlermeldung bekommen bei `tweetbotornot`.
+Da könnte ein technisches Problem in der Funktion vorliegen.
+:::
+
+
+
 
 
 
@@ -243,6 +384,7 @@ Das wird dann vom Cron Job übernommen.
 In R gibt es eine API zum Programm Cron mit dem Paket `{cronR}`, s. [Anleitung hier](https://github.com/bnosac/cronR).
 
 Das analoge R-Paket für Windows heißt [`{taskscheduleR}`](https://github.com/bnosac/taskscheduleR).
+
 
 
 ### Beispiel für einen Cron Job
