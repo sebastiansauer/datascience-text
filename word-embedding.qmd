@@ -41,6 +41,8 @@ library(widyr)  # pairwise_pmi
 library(furrr)  # mehrere Kerne gleichzeitig nutzen
 library(textdata)  # Worteinbettungen, vorgekocht
 library(entropy)  # Entropie berechnen
+library(widyr)  # Ähnlichkeit berechnen mit widyr_svd
+library(furrr)  # Mehrere Kerne gleichzeitig
 ```
 
 
@@ -67,6 +69,17 @@ I don’t think Shannon has had the credits he deserves. He should be right up t
 Für die Statistik ist die Informationstheorie von hoher Bedeutung.
 Im Folgenden schauen wir uns einige Grundlagen an.
 
+
+### Wozu ist das gut?
+
+
+Bevor man sich mit einem Thema wie der Informationtheorie (Informationsentropie mit verwandten Konstrukten oder kurz Entropie) beschäftigt, sollte die Frage
+geklärt sein, wozu das Thema gut ist.
+Hier sind drei Antworten dazu:
+
+1. Im Maschinenlernen wird die Informationtheorie verwendet, um die Güte von Klassifikationsmodellen zu berechnen.
+2. Speziell im Textmining wird die Entropie verwendet, um den Zusammenhang von Wörtern zu quantifizieren.
+3. Wenige Theorien haben so viel neue Forschung initiert, wie  @shannon_1948 berühmtes Paper. Es ist also auf jeden Fall eine Perle der Geistesgeschichte.
 
 
 
@@ -332,6 +345,7 @@ d <- tibble::tribble(
   "x2y1", "x2y2", "x3y2",
   "x1y3", "x2y3", "x3y3"
   )
+d
 ```
 
 
@@ -419,9 +433,12 @@ wenn sich die Kiesel "gleichmäßiger" auf die Eimer verteilen.
 Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen.
 Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden.
 
-Hier sind ein paar verschiedene Arrangements, deren Anzahl von Aufteilungen wir hier anschauen:
+Hier sind ein paar verschiedene Arrangements, deren Anzahl von Aufteilungen wir hier anschauen, s. @tbl-arr:
 
 ```{r}
+#| label: tbl-arr
+#| tbl-cap: Ein paar verschiedene Arrangements (a-e) der Kiesel in den fünf Eimern
+#| echo: true
 d <-
   tibble(a = c(0, 0, 10, 0, 0),
          b = c(0, 1, 8, 1, 0),
@@ -475,7 +492,7 @@ d %>%
 ```
 
 
-Das `ifelse` dient nur dazu, eine Wahrscheinlichkeit von 0 eine Entropie von 0 zu verpassen^[Regel von L'Hopital], denn sonst würden wir ein Problem rennen, wenn wir $log(0)$ ausrechnen.
+Das `ifelse` dient nur dazu, eine Wahrscheinlichkeit von 0 eine Entropie von 0 zu verpassen^[[Regel von L'Hospital](https://de.wikipedia.org/wiki/Regel_von_de_L%E2%80%99Hospital); [s. auch hier](https://www.mathebibel.de/regel-von-lhospital)], denn sonst würden wir ein Problem rennen, wenn wir $log(0)$ ausrechnen.
 
 ```{r}
 log(0)
@@ -833,7 +850,7 @@ Ah!
 Das Aufteilen in einzelne Wörter pro Element des Vektors könnte man auch so erreichen:
 
 
-```{r}
+```{r slide2}
 txt_vec2 <- str_split(txt_vec, pattern = boundary("word")) %>% 
   simplify() 
 
@@ -845,7 +862,7 @@ slide(txt_vec2, .f = ~.x, .before = 2)
 
 In unserem Beispiel mit den Beschwerden:
 
-```{r}
+```{r slide3}
 slide(beschwerde1_text$word,  ~.x, .before = 2)
 ```
 
@@ -854,14 +871,18 @@ slide(beschwerde1_text$word,  ~.x, .before = 2)
 ### Funktion `slide_windows`
 
 
-Die Funktion `slide_windows` im [Kapitel 5.2](https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself) ist recht kompliziert. In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. Sind die Schritte in einer Funktion zusammengefasst, kann man mit `debug(fun)` sich die Schritte innerhalb der Funktion einzeln ausführen lassen.
+Die Funktion `slide_windows` im [Kapitel 5.2](https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself) ist recht kompliziert. 
+In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. 
+Das machen wir jetzt mal.
+
+Hier ist die Syntax der Funktion `slide_windows`: 
 
 
-```{r}
+```{r fun-slide-win}
 slide_windows <- function(tbl, window_size) {
   skipgrams <- slider::slide(
     tbl, 
-    ~.x, 
+    ~.x,  # Syntax ähnlich zu purrr::map()
     .after = window_size - 1, 
     .step = 1, 
     .complete = TRUE
@@ -883,27 +904,197 @@ slide_windows <- function(tbl, window_size) {
 
 
 
+
 Erschwerend kommt eine große Datenmenge und eine lange Berechnungszeit dazu, was das Debuggen (Nachvollziehen und Durchdenken) der Schritte zusätzlich erschwert.
-In solchen Fällen hilft die goldende Regel: Mach es dir so einfach wie möglich (aber nicht einfacher).
+In solchen Fällen hilft die goldene Regel: Mach es dir so einfach wie möglich (aber nicht einfacher).
 Wir nutzen also den stark verkleinerten Datensatz `nested_words3`, den wir oben importiert haben.
 
 
-Hier ist der Syntax-Auszug:
+Zuerst erlauben wir mal, 
+dasss unsere R-Session mehrere Kerne benutzen darf.
 
 
 ```{r}
-library(widyr)
-library(furrr)
-
 plan(multisession)  ## for parallel processing
+```
 
-#debug(slide_windows)  # um sich die Schritte in `slide_windows` einzeln anzuschauen.
+Die Funktion `slide_windows` ist recht kompliziert.
+Es hilft oft, sich mit `debug(fun)` eine Funktion Schritt für Schritt anzuschauen.
 
-tidy_pmi <- nested_words3 %>%  # <--- Kleiner Datensatz!
-  mutate(words = future_map(words, slide_windows, 4L)) %>%
-  unnest(words) %>%
-  unite(window_id, complaint_id, window_id) %>%
-  pairwise_pmi(word, window_id)
+
+
+Gehen wir Schritt für Schritt durch die Syntax von `slide_windows`.
+
+
+
+Werfen wir einen Blick in `words`, erstes Element (ein Tibble mit einer Spalte). 
+Denn `die einzelnen Elemente von `words` werden an die Funktion `slide_windows` als "Futter" übergeben.
+
+```{r}
+futter1 <- nested_words3[["words"]][[1]]
+futter1
+```
+
+Das ist der Text der ersten Beschwerde.
+
+Okay, also dann geht's los durch die einzelnen Schritte der Funktion `slide_windows`.
+
+
+Zunächst holen wir uns die "Fenster" oder "Skipgrams":
+
+```{r skipgrams1}
+skipgrams1 <- slider::slide(
+   futter1, 
+    ~.x, 
+    .after = 3, 
+    .step = 1, 
+    .complete = TRUE
+  )
+```
+
+
+Bei `slide(tbl, ~.x)` geben wir die Funktion an, die auf `tbl` angewendet werden soll. 
+Daher auch die Tilde, die uns von `purrr::map()` her bekannt ist.
+In unserem Fall wollen wir nur die Elemente auslesen;
+Elemente auslesen erreicht man,
+in dem man sie mit Namen anspricht,
+in diesem Fall mit dem Platzhalter `.x`.
+
+
+Jedes Element von `skipgrams1` ist ein 4*1-Tibble und ist ein Skripgram.
+
+
+```{r}
+skipgrams1 %>% str()
+```
+
+
+Das zweite Skipgram von `skipgrams1` enthält, naja, das zweite Skipgram.
+
+```{r}
+skipgrams1[[2]] %>% str()
+```
+
+Und so weiter.
+
+
+
+
+Okay, weiter im Programm. Jetzt mappen wir das Erstellen der Skipgrams 
+
+```{r skipgrams2}
+safe_mutate <- safely(mutate)
+  
+out1 <- map2(skipgrams1,
+             1:length(skipgrams1),
+             ~ safe_mutate(.x, window_id = .y))
+  
+out1 %>% 
+  head(2) %>% 
+  str()
+```
+
+`out1` ist eine Liste mit 17 Elementen; jedes Element  mit jeweils zwei Elementen: Den Ergebnissen und ob es einen Fehler gab bei `safe_mutate`.
+Die 10 Elemente entsprechen den 10 Skipgrams.
+Wir können aber `out1` auch "drehen", transponieren genauer gesagt.
+so dass wir eine Liste mit *zwei* Elementen bekommen: 
+das erste Element hat die (zehn) Ergebnisse (nämlich die Skipgrams) und das zweite Elemente, ob es Fehler gab.
+
+Das Prinzip des Transponierens ist in @fig-Matrix-transpose dargestellt.
+
+![Transponieren einer Matrix ("Tabelle")](img/Matrix_transpose.gif){#fig-Matrix-transpose}
+
+
+
+
+```{r}
+out2 <-
+out1 %>%
+  transpose() 
+```
+
+
+Puh, das ist schon anstrengendes Datenyoga...
+
+
+Aber jetzt ist es einfach. 
+Wir ziehen das erste der beiden Elemente, die Ergebnisse heraus (`pluck`), 
+entfernen leere Elemente (`compact`) und machen einen Tibble daraus (`bind_rows`):
+
+```{r skipgrams3}
+out2 %>% 
+  pluck("result") %>%
+  compact() %>%
+  bind_rows() %>% 
+  head()
+```
+
+Geschafft!
+
+
+### Ähnlichkeit berechnen
+
+
+Nachdem wir jetzt `slide_windows` kennen, schauen wir uns die nächsten Schritte an:
+
+
+```{r tidy-pmi1}
+tidy_pmi1 <- nested_words3 %>%  # <--- Kleiner Datensatz!
+  mutate(words = future_map(words, slide_windows, 4L))
+```
+
+Wir werden `slide_windows` auf die Liste `words` an,
+die die Beschwerden enthält. 
+Für jede Beschwerde erstellen wir die Skipgrams;
+diese Schleife wird realisiert über `map` bzw. `future_map`,
+die uns erlaubt, mehrere Kerne des Rechners gleichzeitig zu nutzen,
+damit es schneller geht.
+
+Hier sehen wir z.B. die Skipgram-IDs der ersten Beschwerde.
+
+```{r}
+tidy_pmi1[["words"]][[1]] %>% 
+  head()
+```
+
+
+Genestet siehst es so aus:
+
+```{r}
+tidy_pmi1 %>% 
+  head(1)
+```
+
+
+Die Listenspalte entschachteln wir mal:
+
+```{r}
+tidy_pmi2 <- tidy_pmi1 %>% 
+  unnest(words)  # entschachtele
+
+tidy_pmi2 %>% 
+  head()
+```
+
+Zum Berechnen der Ähnlichkeit brauchen wir eineindeutige IDs, 
+nach dem Prinzip "1. Skipgram der 1. Beschwerde" etc:
+
+```{r tidy-pmi3}
+tidy_pmi3 <- tidy_pmi2 %>% 
+  unite(window_id, complaint_id, window_id)  # führe Spalten zusammen
+
+tidy_pmi3 %>% 
+  head()
+```
+
+Schließlich berechnen wir die Ähnlichkeit mit `pairwise_pmi`,
+das hatten wir uns oben schon mal näher angeschaut:
+
+```{r tidy-pmi4}
+tidy_pmi4 <- tidy_pmi3 %>% 
+  pairwise_pmi(word, window_id)  # berechne Ähnlichkeit
+
+tidy_pmi <- tidy_pmi4  # mit dem Objekt arbeiten wir dann weiter
 
 tidy_pmi %>% 
   head()
@@ -911,23 +1102,26 @@ tidy_pmi %>%
 
 
 
-### SVD
+
+### SVD 
 
 
 Die *Singulärwertzerlegung* (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse.
 Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt:
 Die Verben "gehen", "rennen", "laufen", "schwimmen", "fahren", "rutschen" könnten zu einer gemeinsamen Dimension, etwa "fortbewegen" reduziert werden.
-Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, das die konzeptionelle Nähe des Verbs
+Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, 
+das die konzeptionelle Nähe des Verbs
 zur "dahinterliegenden" Dimension (fortbewegen) quantifiziert; 
 die Zahl nennt man auch die "Ladung" des Items (Worts) auf die Dimension.
 Sagen wir, wir identifizieren 10 Dimensionen.
-Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionsen.
+Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionen.
 Im genannten Beispiel wäre es ein 10-stelliger Vektor.
 So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt^[Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen...],
 beschreibt hier unser 10-stelliger Vektor die "Position" eines Worts in unserem *Einbettungsvektor*.
 
 
 Die Syntax dazu ist dieses Mal einfach:
+
 
 
 
@@ -980,6 +1174,11 @@ word_neighbors %>%
 ```
 
 
+
+
+
+
+Schauen wir uns ein Beispiel an.
 Was sind die Nachbarn von "inaccurate"?
 
 ```{r}
@@ -993,7 +1192,70 @@ Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen.
 Aber "incorrectly", "correct", "balance" sind wohl plausible Nachbarn von "inaccurate".
 
 
+### Cosinus-Ähnlichkeit
 
+
+Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die [Cosinus-Ähnlichkeit](https://en.wikipedia.org/wiki/Cosine_similarity) (Cosine similarity) berechnen, vgl. auch @fig-dotproduct:
+
+![Die Cosinus-Ähnlichkeit zweier Vektoren](img/dotproduct.png){#fig-dotproduct}
+
+[Quelle:  Mazin07, Lizenz: PD](https://en.wikipedia.org/wiki/Dot_product#/media/File:Dot_Product.svg)
+
+
+$${\displaystyle {\text{Cosinus-Ähnlichkeit}}=S_{C}(A,B):=\cos(\theta )={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|\|\mathbf {B} \|}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},}$$
+
+wobei $A$ und $B$  zwei Vektoren sind und $\|\mathbf {A} \|$ das Skalarprodukt von A (und B genauso).
+Das [Skalarprodukt](https://en.wikipedia.org/wiki/Dot_product) von $\color {red} {a =  {\displaystyle [a_{1},a_{2},\cdots ,a_{n}]}}$ und $\color {blue} {b =  {\displaystyle [b_{1},b_{2},\cdots ,b_{n}]}}$ ist so definiert:
+
+
+$${\displaystyle \mathbf {\color {red}a} \cdot \mathbf {\color {blue}b} =\sum _{i=1}^{n}{\color {red}a}_{i}{\color {blue}b}_{i}={\color {red}a}_{1}{\color {blue}b}_{1}+{\color {red}a}_{2}{\color {blue}b}_{2}+\cdots +{\color {red}a}_{n}{\color {blue}b}_{n}}$$
+
+
+Entsprechend ist die Funktion `nearest_neighbors` zu verstehen aus [Kap. 5.3](https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings):
+
+```{r}
+nearest_neighbors <- function(df, token) {
+  df %>%
+    widely(
+      ~ {
+        y <- .[rep(token, nrow(.)), ]
+        res <- rowSums(. * y) / 
+          (sqrt(rowSums(. ^ 2)) * sqrt(sum(.[token, ] ^ 2)))
+        
+        matrix(res, ncol = 1, dimnames = list(x = names(res)))
+      },
+      sort = TRUE
+    )(item1, dimension, value) %>%
+    select(-item2)
+}
+```
+
+Wobei mit `widely` zuerst noch von der Langform in die Breitform umformatiert wird,
+da die Breitform von der Formel verlangt wird bzw. das Rechnen einfacher macht.
+
+Der eine Vektor ist das Embedding des Tokens,
+der andere Vektor ist das *mittlere* Embedding über alle Tokens des Corpus.
+Wenn die Anzahl der Elemente konstant bleibt,
+kann man sich das Teilen durch $n$ schenken,
+wenn man einen Mittelwert berechnen;
+so hält es auch die Syntax von `nearest_neighbors`.
+
+Ein nützlicher Post zur Cosinus-Ähnlichkeit findet sich [hier](https://towardsdatascience.com/cosine-similarity-how-does-it-measure-the-similarity-maths-behind-and-usage-in-python-50ad30aad7db).
+[Dieses Bild](https://datascience-enthusiast.com/figures/cosine_sim.png) zeigt das
+Konzept der Cosinus-Ähnlichkeit anschaulich.
+
+Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse^[Quelle: https://de.wikipedia.org/wiki/Sinus_und_Kosinus] in einem rechtwinkligen, vgl. @fig-dreieck.
+
+![Ein rechtwinkliges Dreieck als Grundlage der trigonometrischen Funktionen](img/dreieck.png){#fig-dreieck}
+
+Also: ${\displaystyle \cos \alpha ={\frac {b}{c}}}$
+
+
+
+[Quelle: PaterSigmund, Wikipedia,dre CC-BY-SA 2.5](https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:RechtwinkligesDreieck.svg)
+
+
+Hilfreich ist auch [die Visualisierung von Sinus und Cosinus am Einheitskreis](https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:Sinus_und_Kosinus_am_Einheitskreis_1.svg); gerne [animiert](https://upload.wikimedia.org/wikipedia/commons/f/f3/Sinus_und_Cosinus_am_Einheitskreis.gif) betrachten.
 
 
 ### Word-Embeddings vorgekocht: Glove6B
@@ -1018,8 +1280,11 @@ Da bei mir Download abbrach, als ich `embedding_glove6b(dimensions = 100)` aufri
 
 ```{r load-glove}
 #| cache: true
-glove6b <- embedding_glove6b(dir = "~/datasets", dimensions = 10, manual_download = TRUE)
+glove6b <- 
+  embedding_glove6b(dir = "~/datasets", dimensions = 50, manual_download = TRUE)
+
 glove6b %>% 
+  select(1:5) %>% 
   head()
 ```
 
@@ -1042,7 +1307,7 @@ Ganz schön groß:
 object.size(tidy_glove)
 ```
 
-In Megabyte^[$1024 \cdot 1024$ Byte, und $1024 =2^10$, daher $2^{10} \cdot 2^{10} = 2^{20}$]
+In Megabyte^[$1024 \cdot 1024$ Byte, und $1024 =2^{10}$, daher $2^{10} \cdot 2^{10} = 2^{20}$]
 
 ```{r}
 object.size(tidy_glove) / 2^20
@@ -1107,10 +1372,10 @@ tidy_glove %>%
 
 
 
-Deswegen probieren wir doch die Funktion `nearest_neighbors`, so wies im Buch vorgeschlagen wird.
+Deswegen probieren wir doch die Funktion `nearest_neighbors`, so wie es im Buch vorgeschlagen wird, s. [Kap 5.3](https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings).
 
 
-```{r}
+```{r fun-nearest-neighbors2}
 nearest_neighbors <- function(df, token) {
   df %>%
     widely(

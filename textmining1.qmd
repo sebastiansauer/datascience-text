@@ -538,6 +538,15 @@ afd_senti %>%
 [Matthew Jockers](https://www.matthewjockers.net/2015/02/02/syuzhet/) stellt das Paket `Syushet` zur Verfügung.
 
 
+
+### Google Trends
+
+Eine weitere Möglichkeit, "Worthäufigkeiten" zu identifizieren ist [Google Trends](https://trends.google.com/trends/?geo=US).
+Dieser Post zeigt Ihnen eine Einsatzmöglichkeit.
+
+
+
+
 ## Aufgaben
 
 

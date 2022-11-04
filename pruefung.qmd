@@ -30,6 +30,21 @@ Als Prüfungsleistung ist ein Corpus an Twitter-Daten, die an deutsche, aktuelle
 
 
 
+## Politiker-Accounts
+
+Folgende Politiker-Accounts könnten als Prüfungsgegenstand verwendet werden (nach Hinweisen des Dozenten):
+
+- Olaf Scholz
+- Annalena Baerbock
+- Christian Lindner
+- Robert Habeck (bzw. der Account seines Ministeriums)
+- Cem Özdemir
+- Volker Wissing
+- Nancy Faeser
+- Friedrich Merz
+- Björn Höcke
+- Sarah Wagenknecht
+
 
 
 ```{r child1}
