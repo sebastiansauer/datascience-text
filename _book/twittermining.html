@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>datascience2: Prädiktive Modelle auf Basis von Textdaten - 2&nbsp; Twitter Mining</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle - 2&nbsp; Twitter Mining</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -165,7 +165,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">datascience2: Prädiktive Modelle auf Basis von Textdaten</a> 
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle</a> 
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -250,7 +250,11 @@ div.csl-indent {
   <li><a href="#was-ist-ein-cron-job" id="toc-was-ist-ein-cron-job" class="nav-link" data-scroll-target="#was-ist-ein-cron-job"><span class="toc-section-number">2.5.1</span>  Was ist ein Cron Job?</a></li>
   <li><a href="#beispiel-für-einen-cron-job" id="toc-beispiel-für-einen-cron-job" class="nav-link" data-scroll-target="#beispiel-für-einen-cron-job"><span class="toc-section-number">2.5.2</span>  Beispiel für einen Cron Job</a></li>
   </ul></li>
-  <li><a href="#workshop-zu-rtweet" id="toc-workshop-zu-rtweet" class="nav-link" data-scroll-target="#workshop-zu-rtweet"><span class="toc-section-number">2.6</span>  Workshop zu rtweet</a></li>
+  <li><a href="#datenbank-an-tweets-aufbauen" id="toc-datenbank-an-tweets-aufbauen" class="nav-link" data-scroll-target="#datenbank-an-tweets-aufbauen"><span class="toc-section-number">2.6</span>  Datenbank an Tweets aufbauen</a>
+  <ul class="collapse">
+  <li><a href="#stamm-an-bisherigen-tweets" id="toc-stamm-an-bisherigen-tweets" class="nav-link" data-scroll-target="#stamm-an-bisherigen-tweets"><span class="toc-section-number">2.6.1</span>  Stamm an bisherigen Tweets</a></li>
+  <li><a href="#neue-tweets-per-cron-job" id="toc-neue-tweets-per-cron-job" class="nav-link" data-scroll-target="#neue-tweets-per-cron-job"><span class="toc-section-number">2.6.2</span>  Neue Tweets per Cron Job</a></li>
+  </ul></li>
   <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="toc-section-number">2.7</span>  Aufgaben</a></li>
   </ul>
 </nav>
@@ -318,7 +322,7 @@ div.csl-indent {
 <h2 data-number="2.2" class="anchored" data-anchor-id="anmelden-bei-twitter"><span class="header-section-number">2.2</span> Anmelden bei Twitter</h2>
 <section id="welche-accounts-interessieren-uns" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="welche-accounts-interessieren-uns"><span class="header-section-number">2.2.1</span> Welche Accounts interessieren uns?</h3>
-<p>Hier ist eine (subjektive) Auswahl von deutschen Politikern, die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.</p>
+<p>Hier ist eine (subjektive) Auswahl von deutschen Politikern<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.</p>
 <div class="cell" data-hash="twittermining_cache/html/politicians-df-load_6be8a5376d3d9c6db892597e3d6a2da7">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>d_path <span class="ot">&lt;-</span> <span class="st">"data/twitter-german-politicians.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -797,12 +801,366 @@ Wichtig
 <span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir hängen hier die neu ausgelesenen Daten an die Datei an.</p>
-<p>Leider ist es mit <code>rtweet</code> nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Leider ist es mit <code>rtweet</code> nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 </section>
 </section>
-<section id="workshop-zu-rtweet" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="workshop-zu-rtweet"><span class="header-section-number">2.6</span> Workshop zu rtweet</h2>
-<p>Erarbeiten Sie die Folien zu diesem <a href="https://rtweet-workshop.mikewk.com/#1">rtweet-Workshop</a>. Eine Menge guter Tipps!</p>
+<section id="datenbank-an-tweets-aufbauen" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="datenbank-an-tweets-aufbauen"><span class="header-section-number">2.6</span> Datenbank an Tweets aufbauen</h2>
+<section id="stamm-an-bisherigen-tweets" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="stamm-an-bisherigen-tweets"><span class="header-section-number">2.6.1</span> Stamm an bisherigen Tweets</h3>
+<p>In diesem Abschnitt kümmern wir uns in größerem Detail um das Aufbauen einer Tweets-Datenbank.</p>
+<p>Diese Pakete benötigen wir:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-14_e72f5fa45919ee09b2159f411a556b4d">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)  <span class="co"># R Data import/export</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann melden wir uns an:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-15_4e3ade0d5be82d0af5ce654b9e9197a7">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">rtweet_app</span>(<span class="at">bearer_token =</span> Bearer_Token)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann brauchen wir eine Liste an Twitterkonten, die uns interessieren. Im Kontext von Hate Speech soll uns hier interessieren, welche Tweets <em>an</em> deutsche Spitzenpolitikis<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> gesendet werden. Wir suchen also nach Tweets mit dem Text <code>@karl_lauterbach</code>, um ein Beispiel für einen Spitzenpolitiker zu nennen, der vermutlich von Hate Speech in höherem Maße betroffen ist.</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-16_09e4b612cf55b853b5bf42dfefb3b576">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>politicians_twitter_path <span class="ot">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/data/twitter-german-politicians.csv"</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>politicians_twitter <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> politicians_twitter_path)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In der Liste befinden sich 13 Politiker. Es macht die Sache vielleicht einfacher, wenn wir die Rate nicht überziehen. Bleiben wir daher bei 1000 Tweets pro Politiki:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-17_b61bd90b72b5cd2b7da16a2f2e03a2f6">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>n_tweets_per_politician <span class="ot">&lt;-</span> <span class="fl">1e3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die R-Syntax, die die Arbeit leistet, ist in Funktionen ausgelagert, der Übersichtlichkeit halber.</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-18_6dc606af5aef736d8abada34beeb88f9">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"funs/filter_recent_tweets.R"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"funs/download_recent_tweets.R"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"funs/add_tweets_to_tweet_db.R"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-19_330551b66079e2daf6eb75d5377c63e2">
+
+</div>
+<p>Jetzt laden wir einfach die aktuellsten 1000 Tweets pro Konto herunter, daher brauchen wir keine Tweet-ID angeben, die ein Mindest- oder Maximum-Datum (bzw. ID) für einen Tweet angibt:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-20_bcb9ca766a24adb6e580b1f323519d1c">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>tweets_older <span class="ot">&lt;-</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download_recent_tweets</span>(<span class="at">screenname =</span> politicians_twitter<span class="sc">$</span>screenname,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">max_or_since_id_str =</span> <span class="cn">NULL</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> n_tweets_per_politician,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">strip_columns =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">reverse =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wie weit in die Vergangenheit reicht unsere Tweet-Sammlung?</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-21_e19205c4fe6d30e7542650218e5e4440">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>oldest_tweets <span class="ot">&lt;-</span> <span class="fu">filter_recent_tweets</span>(tweets_older, <span class="at">max_or_min_id_str =</span> is_min_id_str)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>oldest_tweets</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 19%">
+<col style="width: 23%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_str</th>
+<th style="text-align: left;">screenname</th>
+<th style="text-align: left;">created_at</th>
+<th style="text-align: left;">is_min_id_str</th>
+<th style="text-align: left;">is_max_id_str</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1590754620649115648</td>
+<td style="text-align: left;">Karl_Lauterbach</td>
+<td style="text-align: left;">2022-11-10 18:13:51</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1589837879693352960</td>
+<td style="text-align: left;">OlafScholz</td>
+<td style="text-align: left;">2022-11-08 05:31:02</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1590485330742083585</td>
+<td style="text-align: left;">ABaerbock</td>
+<td style="text-align: left;">2022-11-10 00:23:47</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1589983737621942272</td>
+<td style="text-align: left;">BMWK</td>
+<td style="text-align: left;">2022-11-08 15:10:38</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1590646264433373184</td>
+<td style="text-align: left;">_FriedrichMerz</td>
+<td style="text-align: left;">2022-11-10 11:03:16</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1588595577360875520</td>
+<td style="text-align: left;">Markus_Soeder</td>
+<td style="text-align: left;">2022-11-04 19:14:34</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1590097264613425152</td>
+<td style="text-align: left;">cem_oezdemir</td>
+<td style="text-align: left;">2022-11-08 22:41:45</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1588082031656898560</td>
+<td style="text-align: left;">Janine_Wissler</td>
+<td style="text-align: left;">2022-11-03 09:13:56</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1588082031656898560</td>
+<td style="text-align: left;">schirdewan</td>
+<td style="text-align: left;">2022-11-03 09:13:56</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1590628128791007233</td>
+<td style="text-align: left;">c_lindner</td>
+<td style="text-align: left;">2022-11-10 09:51:13</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1589277825152208898</td>
+<td style="text-align: left;">MAStrackZi</td>
+<td style="text-align: left;">2022-11-06 16:25:35</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1587964349993422848</td>
+<td style="text-align: left;">Tino_Chrupalla</td>
+<td style="text-align: left;">2022-11-03 01:26:18</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1589696708447186945</td>
+<td style="text-align: left;">Alice_Weidel</td>
+<td style="text-align: left;">2022-11-07 20:10:05</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Was sind die neuesten Tweets, die wir habven?</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-22_3b32c8fcc3785cc72deeb2255834f838">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>most_recent_tweets <span class="ot">&lt;-</span> <span class="fu">filter_recent_tweets</span>(oldest_tweets)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>most_recent_tweets</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 19%">
+<col style="width: 23%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_str</th>
+<th style="text-align: left;">screenname</th>
+<th style="text-align: left;">created_at</th>
+<th style="text-align: left;">is_min_id_str</th>
+<th style="text-align: left;">is_max_id_str</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1590754620649115648</td>
+<td style="text-align: left;">Karl_Lauterbach</td>
+<td style="text-align: left;">2022-11-10 18:13:51</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1589837879693352960</td>
+<td style="text-align: left;">OlafScholz</td>
+<td style="text-align: left;">2022-11-08 05:31:02</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1590485330742083585</td>
+<td style="text-align: left;">ABaerbock</td>
+<td style="text-align: left;">2022-11-10 00:23:47</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1589983737621942272</td>
+<td style="text-align: left;">BMWK</td>
+<td style="text-align: left;">2022-11-08 15:10:38</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1590646264433373184</td>
+<td style="text-align: left;">_FriedrichMerz</td>
+<td style="text-align: left;">2022-11-10 11:03:16</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1588595577360875520</td>
+<td style="text-align: left;">Markus_Soeder</td>
+<td style="text-align: left;">2022-11-04 19:14:34</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1590097264613425152</td>
+<td style="text-align: left;">cem_oezdemir</td>
+<td style="text-align: left;">2022-11-08 22:41:45</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1588082031656898560</td>
+<td style="text-align: left;">Janine_Wissler</td>
+<td style="text-align: left;">2022-11-03 09:13:56</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1588082031656898560</td>
+<td style="text-align: left;">schirdewan</td>
+<td style="text-align: left;">2022-11-03 09:13:56</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1590628128791007233</td>
+<td style="text-align: left;">c_lindner</td>
+<td style="text-align: left;">2022-11-10 09:51:13</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1589277825152208898</td>
+<td style="text-align: left;">MAStrackZi</td>
+<td style="text-align: left;">2022-11-06 16:25:35</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1587964349993422848</td>
+<td style="text-align: left;">Tino_Chrupalla</td>
+<td style="text-align: left;">2022-11-03 01:26:18</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1589696708447186945</td>
+<td style="text-align: left;">Alice_Weidel</td>
+<td style="text-align: left;">2022-11-07 20:10:05</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Jetzt laden wir die <em>neueren</em> Tweets herunter, also mit einer ID <em>größer</em> als die größte in unserer Sammlung:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-23_63701e77d803ae48284277467a74cc1e">
+
+</div>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-24_b53add5bfdea4788be254829540d6cea">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>tweets_new <span class="ot">&lt;-</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download_recent_tweets</span>(<span class="at">screenname =</span> most_recent_tweets<span class="sc">$</span>screenname,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">max_or_since_id_str =</span> most_recent_tweets<span class="sc">$</span>id_str)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>tweets_new <span class="sc">%&gt;%</span> </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(screenname, created_at, id_str) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt - und jedes Mal, wenn wir Tweets herunterladen - fügen wir diese einer Datenbank (oder zumindest einer “Gesamt-Tabelle”) hinzu:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-25_d04dc87928ac06dbbb0593f9890fcf61">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>tweets_db <span class="ot">&lt;-</span> <span class="fu">add_tweets_to_tweets_db</span>(tweets_new, tweets_older)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(tweets_db)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10969</code></pre>
+</div>
+</div>
+<p>Schließlich sollten wir nicht vergessen diese in einer Datei zu speichern:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-26_c3f2f9d2c56e2771e045fa7782de8ee5">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(tweets_db, <span class="at">file =</span> <span class="st">"~/datasets/Twitter/tweets-db-2022-11-11.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>… … So, einige Zeit ist vergangen. Laden wir noch ältere Tweets herunter und fügen Sie unserer Datenbank hinzu:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-27_e475390e92a4edc5fd4d743ce84ca849">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>tweets_older2 <span class="ot">&lt;-</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download_recent_tweets</span>(<span class="at">screenname =</span> politicians_twitter<span class="sc">$</span>screenname,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">max_or_since_id_str =</span> oldest_tweets<span class="sc">$</span>id_str,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> <span class="fl">1e3</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">strip_columns =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">reverse =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-28_b306a3eaa2beabbea531a1bd5f467cde">
+
+</div>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-29_cae6616800845efe3d46d75ec39aacdf">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>tweets_db <span class="ot">&lt;-</span> <span class="fu">add_tweets_to_tweets_db</span>(tweets_new, tweets_older2)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(tweets_db)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10011</code></pre>
+</div>
+</div>
+<p>Und wieder speichern wir die vergrößerte Datenbasis auf der Festplatte:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-30_71d77d4a759d4b6f120942ad10aa571e">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(tweets_db, <span class="at">file =</span> <span class="st">"~/datasets/Twitter/hate-speech-twitter.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Leider ist die Datenbasis nicht mehr deutlich gewachsen. Eine plausible Ursache ist, dass Twitter den Zugriff auf alte Tweets einschränkt.</p>
+</section>
+<section id="neue-tweets-per-cron-job" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="neue-tweets-per-cron-job"><span class="header-section-number">2.6.2</span> Neue Tweets per Cron Job</h3>
+<p>Wie oben schon ausprobiert, legen wir uns einen Cron Job an.</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-31_169acdd12daaf91676443b0c5bb05f1e">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cronR)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>scrape_script <span class="ot">&lt;-</span> <span class="fu">cron_rscript</span>(<span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/funs/get_tweets_politicians.R"</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Cron Job hinzufügen:</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_add</span>(<span class="at">command =</span> scrape_script, </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">frequency =</span> <span class="st">'daily'</span>, </span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">at =</span> <span class="st">"10AM"</span>,</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="st">'Hate Speech'</span>)  <span class="co"># Name des Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das Skript <code>get_tweets_politicians.R</code> birgt die Schritte, die wir in diesem Abschnitt ausprobiert haben. Kurz gesagt sucht es nach neuen Tweets, die also noch nicht in Ihrer “Datenbank” vorhanden sind, und lädt diese herunter. Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13) heruntergeladen.</p>
+<p>Möchte man den Cron Job wieder löschen, so kann man das so tun:</p>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-32_41e768454431c8d49fe0e2b485cd93d9">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_clear</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)  <span class="co"># Alle Cron Jobs löschen</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_ls</span>()  <span class="co"># Liste aller Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 <section id="aufgaben" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="aufgaben"><span class="header-section-number">2.7</span> Aufgaben</h2>
@@ -812,6 +1170,7 @@ Wichtig
 <li>Überlegen Sie Korrelate, oder besser noch: (mögliche) Ursachen, des Hasses in den Tweets, gerichtet auf Polikter:innen. Sie können auch Gruppen von Ursachen bilden, etwas personengebundene Variablen der Politiker:innen (z.B. Alter? Geschlecht? Migrationshintergrund?).</li>
 <li>Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.</li>
 <li>Das Skript zu <code>scrape_tweets.R</code> könnte man noch verbessern, in dem man jeden Tag nur die neuesten Tweets herunterlädt. Dazu kann man bei <a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline()</a> mit dem Argument <code>since_id</code> eine Untergrenze der ID festlegen, so dass nur neuere Tweets (d.h. mit größerem Wert bei ID) ausgelesen werden. Ändern Sie das Skript entsprechend, so dass nur neuerer Tweets gelesen werden.</li>
+<li>Erarbeiten Sie die Folien zu diesem <a href="https://rtweet-workshop.mikewk.com/#1">rtweet-Workshop</a>. Eine Menge guter Tipps!</li>
 </ol>
 
 
@@ -828,7 +1187,9 @@ König, Tim, Wolf J. Schünemann, Alexander Brand, Julian Freyberg, und Michael 
 <hr>
 <ol>
 <li id="fn1"><p>Sie können <a href="https://www.howtogeek.com/343877/what-is-an-api/">hier</a> nachlesen, was eine API ist.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Mit dem R-Paket <code>twitteR</code>, das mittlerweile zugunsten von <code>rtweet</code> aufgegeben wurde, war das möglich. Allerdings zeigt ein <a href="https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline">Blick in die Dokumentation der Twitter-API</a>, das Datumsangaben offenbar gar nicht unterstützt werden.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Stand November 2022<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Mit dem R-Paket <code>twitteR</code>, das mittlerweile zugunsten von <code>rtweet</code> aufgegeben wurde, war das möglich. Allerdings zeigt ein <a href="https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline">Blick in die Dokumentation der Twitter-API</a>, das Datumsangaben offenbar gar nicht unterstützt werden.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>zur Zeit, als diese Zeilen geschrieben wurden<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

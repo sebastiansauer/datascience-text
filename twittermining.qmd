@@ -53,7 +53,7 @@ Einen Überblick über die Funktionen des Pakets (function reference) findet sic
 ### Welche Accounts interessieren uns?
 
 
-Hier ist eine (subjektive) Auswahl von deutschen Politikern,
+Hier ist eine (subjektive) Auswahl von deutschen Politikern^[Stand November 2022],
 die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.
 
 ```{r politicians-df-load}
@@ -442,9 +442,227 @@ Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir häng
 Leider ist es mit `rtweet` nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte^[Mit dem R-Paket `twitteR`, das mittlerweile zugunsten von `rtweet` aufgegeben wurde, war das möglich. Allerdings zeigt ein [Blick in die Dokumentation der Twitter-API](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline), das Datumsangaben offenbar gar nicht unterstützt werden.]
 
 
-## Workshop zu rtweet
+## Datenbank an Tweets aufbauen
 
-Erarbeiten Sie die Folien zu diesem [rtweet-Workshop](https://rtweet-workshop.mikewk.com/#1). Eine Menge guter Tipps!
+
+### Stamm an bisherigen Tweets
+
+In diesem Abschnitt kümmern wir uns in größerem Detail um das Aufbauen einer Tweets-Datenbank.
+
+
+Diese Pakete benötigen wir:
+
+```{r}
+library(rtweet)
+library(tidyverse)
+library(rio)  # R Data import/export
+```
+
+
+Dann melden wir uns an:
+
+```{r}
+source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
+auth <- rtweet_app(bearer_token = Bearer_Token)
+```
+
+
+Dann brauchen wir eine Liste an Twitterkonten,
+die uns interessieren.
+Im Kontext von Hate Speech soll uns hier interessieren,
+welche Tweets *an* deutsche Spitzenpolitikis^[zur Zeit, als diese Zeilen geschrieben wurden] gesendet werden.
+Wir suchen also nach Tweets mit dem Text `@karl_lauterbach`,
+um ein Beispiel für einen Spitzenpolitiker zu nennen, der vermutlich von Hate Speech in höherem Maße betroffen ist.
+
+
+```{r}
+politicians_twitter_path <- "/Users/sebastiansaueruser/github-repos/datascience-text/data/twitter-german-politicians.csv"
+
+politicians_twitter <- rio::import(file = politicians_twitter_path)
+```
+
+
+
+In der Liste befinden sich 13 Politiker.
+Es macht die Sache vielleicht einfacher,
+wenn wir die Rate nicht überziehen.
+Bleiben wir daher bei 1000 Tweets pro Politiki:
+
+
+```{r}
+n_tweets_per_politician <- 1e3
+```
+
+
+Die R-Syntax, die die Arbeit leistet,
+ist in Funktionen ausgelagert,
+der Übersichtlichkeit halber.
+```{r}
+source("funs/filter_recent_tweets.R")
+source("funs/download_recent_tweets.R")
+source("funs/add_tweets_to_tweet_db.R")
+```
+
+
+
+```{r}
+#| echo: false
+tweets_older <- read_rds(file = "~/datasets/Twitter/tweets-politicians-2022-11-11.rds")
+```
+
+Jetzt laden wir einfach die aktuellsten 1000 Tweets
+pro Konto herunter,
+daher brauchen wir keine Tweet-ID angeben,
+die ein Mindest- oder Maximum-Datum (bzw. ID) für einen 
+Tweet angibt:
+
+```{r}
+#| eval: false
+tweets_older <-
+  download_recent_tweets(screenname = politicians_twitter$screenname,
+                         max_or_since_id_str = NULL,
+                         n = n_tweets_per_politician,
+                         strip_columns = TRUE,
+                         reverse = TRUE)
+```
+
+
+Wie weit in die Vergangenheit reicht unsere Tweet-Sammlung?
+
+```{r}
+oldest_tweets <- filter_recent_tweets(tweets_older, max_or_min_id_str = is_min_id_str)
+oldest_tweets
+```
+
+
+Was sind die neuesten Tweets, die wir habven?
+
+```{r}
+most_recent_tweets <- filter_recent_tweets(oldest_tweets)
+most_recent_tweets
+```
+
+
+Jetzt laden wir die *neueren* Tweets herunter,
+also mit einer ID *größer* als die größte in unserer Sammlung:
+
+```{r}
+#| echo: false
+tweets_new <- 
+  read_rds(file = "~/datasets/Twitter/tweets-politicians-2022-11-11a.rds")
+```
+
+
+```{r}
+#| eval: false
+tweets_new <- 
+  download_recent_tweets(screenname = most_recent_tweets$screenname,
+                         max_or_since_id_str = most_recent_tweets$id_str)
+
+tweets_new %>% 
+  select(screenname, created_at, id_str) %>% 
+  head()
+```
+
+
+
+Jetzt - und jedes Mal, wenn wir Tweets herunterladen - 
+fügen wir diese einer Datenbank (oder zumindest einer "Gesamt-Tabelle") hinzu:
+
+```{r}
+tweets_db <- add_tweets_to_tweets_db(tweets_new, tweets_older)
+
+nrow(tweets_db)
+```
+
+
+Schließlich sollten wir nicht vergessen
+diese in einer Datei zu speichern:
+
+```{r}
+#| eval: false
+write_rds(tweets_db, file = "~/datasets/Twitter/tweets-db-2022-11-11.rds")
+```
+
+
+
+... ... So, einige Zeit ist vergangen.
+Laden wir noch ältere Tweets herunter und fügen Sie unserer Datenbank hinzu:
+
+```{r}
+#| eval: false
+tweets_older2 <-
+  download_recent_tweets(screenname = politicians_twitter$screenname,
+                         max_or_since_id_str = oldest_tweets$id_str,
+                         n = 1e3,
+                         strip_columns = TRUE,
+                         reverse = TRUE)
+```
+
+
+```{r}
+#| echo: false
+tweets_older2 <- read_rds(file = "~/datasets/Twitter/tweets-politicians-2022-11-11b.rds")
+```
+
+
+
+```{r}
+tweets_db <- add_tweets_to_tweets_db(tweets_new, tweets_older2)
+
+nrow(tweets_db)
+```
+
+
+Und wieder speichern wir die vergrößerte Datenbasis auf der Festplatte:
+
+```{r}
+write_rds(tweets_db, file = "~/datasets/Twitter/hate-speech-twitter.rds")
+```
+
+Leider ist die Datenbasis nicht mehr deutlich gewachsen.
+Eine plausible Ursache ist, dass Twitter den Zugriff auf alte Tweets einschränkt.
+
+
+
+### Neue Tweets per Cron Job
+
+
+Wie oben schon ausprobiert,
+legen wir uns einen Cron Job an.
+
+```{r}
+#| eval: false
+library(cronR)
+
+scrape_script <- cron_rscript("/Users/sebastiansaueruser/github-repos/datascience-text/funs/get_tweets_politicians.R")
+
+# Cron Job hinzufügen:
+cron_add(command = scrape_script, 
+         frequency = 'daily', 
+         at = "10AM",
+         id = 'Hate Speech')  # Name des Cron Jobs
+
+```
+
+
+Das Skript `get_tweets_politicians.R` birgt die Schritte,
+die wir in diesem Abschnitt ausprobiert haben.
+Kurz gesagt sucht es nach neuen Tweets, die 
+also noch nicht in Ihrer "Datenbank" vorhanden sind,
+und lädt diese herunter.
+Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13)
+heruntergeladen.
+
+Möchte man den Cron Job wieder löschen, so kann man das so tun:
+
+
+```{r}
+#| eval: false
+cron_clear(ask = FALSE)  # Alle Cron Jobs löschen
+cron_ls()  # Liste aller Cron Jobs
+```
+
 
 
 
@@ -455,3 +673,4 @@ Erarbeiten Sie die Folien zu diesem [rtweet-Workshop](https://rtweet-workshop.mi
 3. Überlegen Sie Korrelate, oder besser noch: (mögliche) Ursachen, des Hasses in den Tweets, gerichtet auf Polikter:innen. Sie können auch Gruppen von Ursachen bilden, etwas personengebundene Variablen der Politiker:innen (z.B. Alter? Geschlecht? Migrationshintergrund?).
 1. Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.
 6. Das Skript zu `scrape_tweets.R` könnte man noch verbessern, in dem man jeden Tag nur die neuesten Tweets herunterlädt. Dazu kann man bei [get_timeline()](https://docs.ropensci.org/rtweet/reference/get_timeline.html) mit dem Argument `since_id` eine Untergrenze der ID festlegen, so dass nur neuere Tweets (d.h. mit größerem Wert bei ID) ausgelesen werden. Ändern Sie das Skript entsprechend, so dass nur neuerer Tweets gelesen werden.
+7. Erarbeiten Sie die Folien zu diesem [rtweet-Workshop](https://rtweet-workshop.mikewk.com/#1). Eine Menge guter Tipps!
