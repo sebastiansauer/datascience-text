@@ -654,6 +654,17 @@ und lädt diese herunter.
 Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13)
 heruntergeladen.
 
+:::callout-note
+Schauen Sie sich die Funktionen im Ordner `/funs` einmal in Ruhe an.
+[Hier](https://github.com/sebastiansauer/datascience-text/tree/main/funs) geht es zu dem Ordner im Github-Repo.
+Es ist alles keine Zauberei,
+aber im Detail gibt es immer wieder Schwierigkeiten.
+Am meisten lernt man,
+wenn man selber Hand anlegt.
+:::
+
+
+
 Möchte man den Cron Job wieder löschen, so kann man das so tun:
 
 

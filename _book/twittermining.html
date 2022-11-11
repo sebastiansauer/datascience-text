@@ -1155,6 +1155,19 @@ Wichtig
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="st">'Hate Speech'</span>)  <span class="co"># Name des Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das Skript <code>get_tweets_politicians.R</code> birgt die Schritte, die wir in diesem Abschnitt ausprobiert haben. Kurz gesagt sucht es nach neuen Tweets, die also noch nicht in Ihrer “Datenbank” vorhanden sind, und lädt diese herunter. Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13) heruntergeladen.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Schauen Sie sich die Funktionen im Ordner <code>/funs</code> einmal in Ruhe an. <a href="https://github.com/sebastiansauer/datascience-text/tree/main/funs">Hier</a> geht es zu dem Ordner im Github-Repo. Es ist alles keine Zauberei, aber im Detail gibt es immer wieder Schwierigkeiten. Am meisten lernt man, wenn man selber Hand anlegt.</p>
+</div>
+</div>
 <p>Möchte man den Cron Job wieder löschen, so kann man das so tun:</p>
 <div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-32_41e768454431c8d49fe0e2b485cd93d9">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_clear</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)  <span class="co"># Alle Cron Jobs löschen</span></span>
