@@ -623,6 +623,11 @@ write_rds(tweets_db, file = "~/datasets/Twitter/hate-speech-twitter.rds")
 Leider ist die Datenbasis nicht mehr deutlich gewachsen.
 Eine plausible Ursache ist, dass Twitter den Zugriff auf alte Tweets einschränkt.
 
+Aus der Hilfe von `search_tweets`:
+
+>   Returns Twitter statuses matching a user provided search query. ONLY RETURNS DATA FROM THE PAST 6-9 DAYS.
+
+
 
 
 ### Neue Tweets per Cron Job
@@ -647,7 +652,7 @@ cron_add(command = scrape_script,
 
 
 Das Skript `get_tweets_politicians.R` birgt die Schritte,
-die wir in diesem Abschnitt ausprobiert haben.
+die wir in diesem Abschnitt ausprobiert haben, [hier](https://github.com/sebastiansauer/datascience-text/blob/main/specifics/get_tweets_politicians.R) liegt es.
 Kurz gesagt sucht es nach neuen Tweets, die 
 also noch nicht in Ihrer "Datenbank" vorhanden sind,
 und lädt diese herunter.
@@ -673,7 +678,6 @@ Möchte man den Cron Job wieder löschen, so kann man das so tun:
 cron_clear(ask = FALSE)  # Alle Cron Jobs löschen
 cron_ls()  # Liste aller Cron Jobs
 ```
-
 
 
 

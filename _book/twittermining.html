@@ -1139,6 +1139,10 @@ Wichtig
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(tweets_db, <span class="at">file =</span> <span class="st">"~/datasets/Twitter/hate-speech-twitter.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Leider ist die Datenbasis nicht mehr deutlich gewachsen. Eine plausible Ursache ist, dass Twitter den Zugriff auf alte Tweets einschränkt.</p>
+<p>Aus der Hilfe von <code>search_tweets</code>:</p>
+<blockquote class="blockquote">
+<p>Returns Twitter statuses matching a user provided search query. ONLY RETURNS DATA FROM THE PAST 6-9 DAYS.</p>
+</blockquote>
 </section>
 <section id="neue-tweets-per-cron-job" class="level3" data-number="2.6.2">
 <h3 data-number="2.6.2" class="anchored" data-anchor-id="neue-tweets-per-cron-job"><span class="header-section-number">2.6.2</span> Neue Tweets per Cron Job</h3>
@@ -1154,7 +1158,7 @@ Wichtig
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">at =</span> <span class="st">"10AM"</span>,</span>
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="st">'Hate Speech'</span>)  <span class="co"># Name des Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Das Skript <code>get_tweets_politicians.R</code> birgt die Schritte, die wir in diesem Abschnitt ausprobiert haben. Kurz gesagt sucht es nach neuen Tweets, die also noch nicht in Ihrer “Datenbank” vorhanden sind, und lädt diese herunter. Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13) heruntergeladen.</p>
+<p>Das Skript <code>get_tweets_politicians.R</code> birgt die Schritte, die wir in diesem Abschnitt ausprobiert haben, <a href="https://github.com/sebastiansauer/datascience-text/blob/main/specifics/get_tweets_politicians.R">hier</a> liegt es. Kurz gesagt sucht es nach neuen Tweets, die also noch nicht in Ihrer “Datenbank” vorhanden sind, und lädt diese herunter. Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13) heruntergeladen.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
