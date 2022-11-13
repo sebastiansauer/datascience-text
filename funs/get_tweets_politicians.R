@@ -4,6 +4,7 @@
 get_tweets_politicians <- function() {
   library(rtweet)
   library(tidyverse)
+  library(lubridate)
   source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
   auth <- rtweet_app(bearer_token = Bearer_Token)
   
@@ -14,14 +15,28 @@ get_tweets_politicians <- function() {
   
   # Define constants:
   n_tweets_per_politician <- 1e3
+  data_path <- "/Users/sebastiansaueruser/datasets/Twitter/hate-speech/"
   
   # source funs:
   source("funs/filter_recent_tweets.R")
   source("funs/download_recent_tweets.R")
   source("funs/add_tweets_to_tweet_db.R")
   
+  # find all datafiles:
+  data_files_df <- 
+    tibble(data_files =  list.files(path = data_path,
+                                   pattern = "\\.rds$"),
+           data_files_date = str_extract(data_files, pattern = "\\d{4}-\\d{2}-\\d{2}") %>% as_date(),
+           date_most_recent = data_files_date == max(data_files_date))
+  
+  # identify most reecent data file:
+  data_file_most_recent <-
+    data_files_df %>% 
+    filter(date_most_recent == TRUE)
+  
+  
   # load existing database
-  tweets_db <- read_rds(file = "~/datasets/Twitter/hate-speech-twitter.rds")
+  tweets_db <- read_rds(file = paste0(data_path, data_file_most_recent$data_files))
   
   # What are the most recent tweets that we have?
   most_recent_tweets <- filter_recent_tweets(tweets_db)
@@ -31,10 +46,10 @@ get_tweets_politicians <- function() {
                                        max_or_since_id_str = most_recent_tweets$id_str)
   
   #undebug(add_tweets_to_tweets_db)
-  tweets_db <- add_tweets_to_tweets_db(tweets_new, tweets_older)
+  # tweets_db <- add_tweets_to_tweets_db(tweets_new, tweets_older)
   
   # save to disk again:
-  write_rds(tweets_db, file = "~/datasets/Twitter/hate-speech-twitter.rds")
+  write_rds(tweets_new, file = paste0(data_path, "hate-speech-twitter_", today(), ".rds"))
 }
 
 
