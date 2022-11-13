@@ -677,6 +677,7 @@ cron_ls()  # Liste aller Cron Jobs
 
 
 
+
 ## Aufgaben
 
 1. Überlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.
