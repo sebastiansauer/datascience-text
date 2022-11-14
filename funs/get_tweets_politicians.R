@@ -18,9 +18,9 @@ get_tweets_politicians <- function() {
   data_path <- "/Users/sebastiansaueruser/datasets/Twitter/hate-speech/"
   
   # source funs:
-  source("funs/filter_recent_tweets.R")
-  source("funs/download_recent_tweets.R")
-  source("funs/add_tweets_to_tweet_db.R")
+  source("/Users/sebastiansaueruser/github-repos/datascience-text/funs/download_recent_tweets.R")
+  source("/Users/sebastiansaueruser/github-repos/datascience-text/funs/filter_recent_tweets.R")
+  #source("funs/add_tweets_to_tweet_db.R")
   
   # find all datafiles:
   data_files_df <- 

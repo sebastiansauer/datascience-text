@@ -628,6 +628,10 @@ Aus der Hilfe von `search_tweets`:
 >   Returns Twitter statuses matching a user provided search query. ONLY RETURNS DATA FROM THE PAST 6-9 DAYS.
 
 
+Mit Hilfe des [Academic Research Access](https://developer.twitter.com/en/products/twitter-api/academic-research) sind deutlich höhere Raten möglich.
+
+
+
 
 
 ### Neue Tweets per Cron Job
@@ -659,6 +663,15 @@ und lädt diese herunter.
 Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13)
 heruntergeladen.
 
+Bei einem Cronjob sollten *absolute* Pfade angegeben werden, da der Cronjob *nicht* aus dem aktuellen Projekt-Repo startet.
+
+Die Ergebnisse eines Cronjob-Durchlaufs werden in einer Log-Datei abgelegt, und 
+zwar in dem Ordner, in dem auch das Skript liegt, das 
+im Rahmen des Cronjobs durchgeführt wird.
+
+
+
+
 :::callout-note
 Schauen Sie sich die Funktionen im Ordner `/funs` einmal in Ruhe an.
 [Hier](https://github.com/sebastiansauer/datascience-text/tree/main/funs) geht es zu dem Ordner im Github-Repo.
@@ -667,6 +680,8 @@ aber im Detail gibt es immer wieder Schwierigkeiten.
 Am meisten lernt man,
 wenn man selber Hand anlegt.
 :::
+
+
 
 
 

@@ -1,0 +1,23 @@
+-- Attaching packages --------------------------------------- tidyverse 1.3.2 --
+v ggplot2 3.3.6      v purrr   0.3.5 
+v tibble  3.1.8      v dplyr   1.0.10
+v tidyr   1.2.1      v stringr 1.4.1 
+v readr   2.1.3      v forcats 0.5.2 
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter()  masks stats::filter()
+x purrr::flatten() masks rtweet::flatten()
+x dplyr::lag()     masks stats::lag()
+
+Attache Paket: 'lubridate'
+
+Die folgenden Objekte sind maskiert von 'package:base':
+
+    date, intersect, setdiff, union
+
+Fehler in file(filename, "r", encoding = encoding) : 
+  kann Verbindung nicht "offnen
+Ruft auf: get_tweets_politicians -> source -> file
+Zus"atzlich: Warnmeldung:
+In file(filename, "r", encoding = encoding) :
+  kann Datei 'funs/filter_recent_tweets.R' nicht "offnen: No such file or directory
+Ausf"uhrung angehalten
