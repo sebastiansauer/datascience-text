@@ -70,6 +70,8 @@ d
 
 [Tutorial](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html)
 
+[Auf der Twitter Developer Seite](https://developer.twitter.com/en/portal/dashboard) können Sie sich ein Konto erstellen und dann anmelden.
+
 
 ### Intro
 
@@ -98,6 +100,10 @@ auth <- rtweet_bot(api_key = api_key,
 ```
 
 
+
+
+
+
 Alternativ kann man sich auch als `App` anmelden,
 damit kann man z.B. nicht posten, aber dafür mehr herunterladen.
 
@@ -105,6 +111,70 @@ damit kann man z.B. nicht posten, aber dafür mehr herunterladen.
 ```{r}
 #| eval: false
 auth <- rtweet_app(bearer_token = Bearer_Token)
+```
+
+
+
+### Schützen Sie Ihre Zugangsdaten
+
+
+Achtung, Sicherheitshinweis ...
+Passwörter und andere sensitive (Anmelde-)Informationen muss man schützen,
+das weiß jeder.
+Konkret bedeutet es, dass Sie diese Daten *nicht* in einem öffentlichen oder
+geteilten Repo herumliegen lassen.
+Achten Sie auch darauf, dass, wenn Sie diese Information `source`en,
+so wie ich gerade, diese dann ungeschützt in Ihrem RStudio  `Environment` Fenster
+zu sehen sind. Falls Sie also den Bildschirm teilen,
+oder Ihnen jemand über die Schulter schaut,
+sind Ihre Zugangsdaten nicht geschützt.
+
+Einen sichereren Zugang bietet z.B. das [Paket `keyring`](https://r-lib.github.io/keyring/index.html).
+Dieses Paket bietet eine Anbindung zur Schlüsselbundverwaltung Ihres Betriebssystems:
+
+
+>   Platform independent API to access the operating systems credential store. 
+
+
+Im MacOS wird die zentrale Schlüsselbundverwaltung genutzt, in Windows und Linux die analoge Vorrichtungen.
+
+```{r}
+library(keyring)
+```
+
+
+Wir erstellen uns einen Schlüsselbund:
+
+```{r}
+#| eval: false
+keyring_create(keyring = "hate-speech-twitter")
+```
+
+
+
+Dann können wir einen Eintrag im Schlüsselbund erstellen.
+Ggf. werden Sie zuerst nach dem Password des Schlüsselbunds gefragt.
+
+```{r}
+#| eval: false
+key_set(service = "client_id",
+        keyring = "hate-speech-twitter")
+```
+
+
+```{r}
+#| eval: false
+key_set(service = "client_secret",
+        keyring = "hate-speech-twitter")
+```
+
+
+Künftig können wir dann die Passwörter aus dem Schlüsselbund abrufen:
+
+```{r}
+#| eval: false
+key_get(service = "client_id",
+        keyring = "hate-speech-twitter")
 ```
 
 
