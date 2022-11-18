@@ -16,10 +16,12 @@
 #' @export
 #'
 #' @examples
-#' download_recent_tweets("sebastiansauer", id_str)
+#' download_recent_tweets("sebastiansauer", max_or_since_id_str = my_id_str)
 download_recent_tweets <- function(screenname, 
-                                   max_or_since_id_str = NULL, n_tweets_per_politician = 1L,
-                                   reverse = FALSE, verbose = TRUE, 
+                                   max_or_since_id_str = NULL, 
+                                   n_tweets_per_politician = 1L,
+                                   reverse = FALSE, 
+                                   verbose = TRUE, 
                                    strip_columns = TRUE) {
   
  

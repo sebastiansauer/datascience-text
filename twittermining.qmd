@@ -129,7 +129,17 @@ zu sehen sind. Falls Sie also den Bildschirm teilen,
 oder Ihnen jemand über die Schulter schaut,
 sind Ihre Zugangsdaten nicht geschützt.
 
-Einen sichereren Zugang bietet z.B. das [Paket `keyring`](https://r-lib.github.io/keyring/index.html).
+
+Ein ähnlicher Fehler wäre, die History-Dateien von R in ein öffentliches Repo einzustellen (z.B. via Git).
+In der Datei `.gitignore` sollten  daher folgende Dateien aufgeführt sein:
+
+```
+.Rhistory
+.Rapp.history
+````
+
+
+Einen alternativen, sichereren Zugang bietet z.B. das [Paket `keyring`](https://r-lib.github.io/keyring/index.html).
 Dieses Paket bietet eine Anbindung zur Schlüsselbundverwaltung Ihres Betriebssystems:
 
 
@@ -710,6 +720,8 @@ Mit Hilfe des [Academic Research Access](https://developer.twitter.com/en/produc
 Wie oben schon ausprobiert,
 legen wir uns einen Cron Job an.
 
+Das ist übrigens auch eine komfortable Lösung.
+
 ```{r}
 #| eval: false
 library(cronR)
@@ -764,6 +776,16 @@ cron_clear(ask = FALSE)  # Alle Cron Jobs löschen
 cron_ls()  # Liste aller Cron Jobs
 ```
 
+
+Um die Tweets "händisch" herunterzuladen,
+kann man `get_tweets_politicians()` aufrufen:
+
+```{r}
+#| eval: false
+
+source("funs/get_tweets_politicians.R")
+get_tweets_politicians()
+```
 
 
 

@@ -2,9 +2,9 @@
 #'
 #' Searches data frame for the most recent (and oldest) tweets per screenname.
 #' 
-#' @param tweets_db Tweets dataframe to search for 
-#' @max_or_min_id_str `is_min_id_str` for oldest tweet, or `is_max_id_str` for most recent tweets (default)
-#'
+#' @param tweets_db Tweets dataframe to search through 
+#' @param max_or_min_id_str `is_min_id_str` for oldest tweet, or `is_max_id_str` for most recent tweets (default)
+#' 
 #' @return tweets_db tibble with 3 cols: screenanme, most recent tweet (min_id_str), oldest tweet (max_id_str)
 #' @export
 #'

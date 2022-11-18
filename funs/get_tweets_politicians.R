@@ -1,7 +1,7 @@
 # authentificate at Twitter API:
 
 
-get_tweets_politicians <- function() {
+get_tweets_politicians <- function(verbose = TRUE) {
   library(rtweet)
   library(tidyverse)
   library(lubridate)
@@ -34,6 +34,8 @@ get_tweets_politicians <- function() {
     data_files_df %>% 
     filter(date_most_recent == TRUE)
   
+  if (verbose) print(paste0("Most recent date: ", data_file_most_recent$date_most_recent, "\n"))
+  
   
   # load existing database
   tweets_db <- read_rds(file = paste0(data_path, data_file_most_recent$data_files))
@@ -45,13 +47,18 @@ get_tweets_politicians <- function() {
   tweets_new <- download_recent_tweets(screenname = most_recent_tweets$screenname,
                                        max_or_since_id_str = most_recent_tweets$id_str)
   
+  if (verbose) print(paste0("Number of tweets downloaded: ", nrow(tweets_new), "\n"))
+  
   #undebug(add_tweets_to_tweets_db)
   # tweets_db <- add_tweets_to_tweets_db(tweets_new, tweets_older)
   
   # save to disk again:
   write_rds(tweets_new, file = paste0(data_path, "hate-speech-twitter_", today(), ".rds"))
+  
+  print("Saved to a csv file.\n")
+  
 }
 
 
 
-get_tweets_politicians()
+#get_tweets_politicians()
