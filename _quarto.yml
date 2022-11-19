@@ -14,6 +14,7 @@ book:
     - textmining1.qmd
     - populismus.qmd
     - word-embedding.qmd
+    - hassrede.qmd
     - references.qmd
 
 bibliography: references.bib

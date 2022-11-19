@@ -1,0 +1,99 @@
+# Hassrede
+
+
+
+## Vorab
+
+
+### Lernziele
+
+
+- Finden Sie eine operationale Definition für Hassrede (engl. *hate speech*) bzw. Hatespeech^[Zur korrekten deutschen Schreibweise vgl. [Duden](https://www.duden.de/rechtschreibung/Hatespeech)]!
+
+
+
+### Vorbereitung
+
+- Lesen Sie die unten aufgeführte Literatur
+
+
+
+### Benötigte R-Pakete
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+
+
+
+
+
+## Worum geht's?
+
+
+Wir möchten eine treffende und praktikable Definition,
+um zu erkennen, wann eis deutschis Politiki Hass entgegenschlägt.
+
+*Treffend* meint, dass Hassrede als Hassrede erkannt wird von unserer Definition,
+und Nicht-Hassrede als Nicht-Hassrede erkannt wird.
+Mit anderen Worten: Wir verlangen, dass die Sensitivität und Spezifität unserer Definition hoch ist.
+
+*Praktikabel* meint, dass wir diese Definition in der Praxis gut umsetzen können.
+Wir denken dabei an die Schwierigkeiten, einer (tumben) Maschine unsere Regeln beizubringen.
+Insbesondere muss die Definition *objektiv* sein in dem Sinne, 
+dass mehrere Gutachtis zur gleichen Einschätzung kommen würden.
+
+
+## Einstieg
+
+### Einstiegsdefinition
+
+Hier ist eine Definition als *Startpunkt* für Ihre Überlegungen.
+
+Hassrede liegt vor, wenn eine oder mehrere der folgenden Inhalte in einem Text verwendet werden:
+
+
+1. Schimpfwörter ("Vollpfosten")
+2. Rassismus, Sexismus, Antisemitismus oder andere Formen von gruppenbezogener Menschenfeindlichkeit ("Der Schwarze schnackselt gerne")
+3. Aufruf oder Androhung zur Gewalt, auch in indirekter Form ("Da könnte mal jemand mit der Pistole bei dir vorbeikommen")
+4. Herabsetzung ("Volksverräter")
+
+
+Dabei sollten wir uns mit Blick auf das Ziel, Hass gegen einzelne Personen zu erkennen,
+nicht auf *gruppenbezogene* Menschenfeindlichkeit begrenzen,
+sondern auch Hass auf Individuen einbeziehen.
+Vielleicht ist daher der Begriff *Cybermobbing* passender als Hatespeech.
+
+
+
+
+### Einstiegsliteratur
+
+[Der Artikel zu Hatespeech der Stanford-Enzyklopädie](https://plato.stanford.edu/entries/hate-speech/) birgt (am Anfang) gute Hinweise;
+im weiteren Verlauf geht der Text mehr in die Tiefe.
+
+
+In dieser [Zotero-Gruppe](https://www.zotero.org/groups/4852579/hate-speech) finden Sie empfehlenswerte 
+(und öffentlich zugängliche) Artikel zum Thema Hatespeech und Hate-Speech-Erkennung.
+
+
+### Trainingsdaten
+
+
+Die [Universität Heidelberg veröffentlicht Daten](https://heidata.uni-heidelberg.de/dataset.xhtml?persistentId=doi:10.11588/data/0B5VML), die Tweets (oder ähnliche Kurztexte)
+nach Hatespeech hin untersucht [@wiegand_germeval-2018_2019]. 
+Nutzen Sie dieser Ressource.
+
+
+
+### Los geht's!
+
+
+Lesen Sie diese und weitere Literatur,
+um zu einer Arbeitsdefinition von Hassrede zu kommen.
+
+
+
+

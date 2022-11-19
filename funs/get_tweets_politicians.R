@@ -8,6 +8,7 @@ get_tweets_politicians <- function(verbose = TRUE,
   library(lubridate)
   source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
   auth <- rtweet_app(bearer_token = Bearer_Token)
+  auth_as(auth)
   
   # Get list of Twitter screennames:
   politicians_twitter_path <- "/Users/sebastiansaueruser/github-repos/datascience-text/data/twitter-german-politicians.csv"

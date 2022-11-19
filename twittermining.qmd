@@ -37,9 +37,12 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 #| message: false
 library(tidyverse)
 library(rtweet)
+library(rio)  
+library(glue)
 library(tweetbotornot)  # optional
 library(keyring)  # optional
 library(askpass)  # optional
+library(academictwitteR)
 ```
 
 ![R-Paket {rtweet}](https://docs.ropensci.org/rtweet/logo.png){width=10%}
@@ -52,7 +55,7 @@ Einen Überblick über die Funktionen des Pakets (function reference) findet sic
 ## Anmelden bei Twitter
 
 
-### Welche Accounts interessieren uns?
+### Welche Accounts interessieren uns? {#sec-politicians-accounts}
 
 
 Hier ist eine (subjektive) Auswahl von deutschen Politikern^[Stand November 2022],
@@ -62,8 +65,8 @@ die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerich
 #| message: false
 d_path <- "data/twitter-german-politicians.csv"
 
-d <- read_csv(d_path)
-d
+politicians <- import(d_path)
+politicians
 ```
 
 
@@ -257,7 +260,7 @@ writeLines(sesa_test$full_text)
 
 ```{r get-timeline1}
 #| eval: false
-tweets <- get_timeline(user = d$screenname)
+tweets <- get_timeline(user = politicians$screenname)
 saveRDS(tweets, file = "tweets/tweets01.rds")
 ```
 
@@ -333,7 +336,7 @@ Natürlich könnte man auch mehr als 10 Tweets pro Konto einsammeln, braucht nur
 ```{r save-followers1}
 #| eval: false
 followers01 <-
-  d$screenname %>% 
+  politicians$screenname %>% 
  map_dfr( ~ get_followers(user = .x, retryonratelimit = TRUE))
 
 ```
@@ -747,6 +750,7 @@ der Übersichtlichkeit halber.
 source("funs/filter_recent_tweets.R")
 source("funs/download_recent_tweets.R")
 source("funs/add_tweets_to_tweet_db.R")
+source("funs/sanitize_tweets.R")
 ```
 
 
@@ -1009,6 +1013,8 @@ z.B. 10 Millionen Tweets pro Monat pro Projekt.
 
 
 
+
+
 ```{r}
 #| eval: false
 auth_academic <- rtweet_app(bearer_token = askpass::askpass("bearer token"))
@@ -1027,15 +1033,70 @@ Aus der Hilfe:
 >   Prompt the user for a password to authenticate or read a protected key. By default, this function automatically uses the most appropriate method based on the user platform and front-end. Users or IDEs can override this and set a custom password entry function via the askpass option.
 
 
+
+
+Twitter bietet [in diesem Repo](https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research) einen nützlichen Kurs an,
+um sich mit der API vertraut zu machen.
+
+
 ```{r}
 #| eval: false
-auth_as(auth_academic)
-
-rate_limit_academic <- rate_limit()
-rate_limit_academic[2, "limit"]
+tweets_to__FriedrichMerz_2021 <-
+  get_all_tweets(query = "to:_FriedrichMerz -is:retweet",
+                 start_tweets = "2021-01-01T00:00:00Z",
+                 end_tweets = "2021-12-31T23:59:59Z",
+                 bearer_token = askpass("Bearer token"),
+                 file = "~/datasets/Twitter/tweets_to__FriedrichMerz_2021.rds",
+                 data_path = "~/datasets/Twitter/_FriedrichMerz",
+                 n = 1)
 ```
 
 
+
+Oder als Funktion,
+das ist praktischer, wenn man die Syntax mehrfach verwendet:
+
+```{r}
+get_all_tweets_politicians <- function(screenname, bearer_token, n = 1e5) {
+  get_all_tweets(query = paste0("to:", screenname, " -is:retweet"),
+                 start_tweets = "2021-01-01T00:00:00Z",
+                 end_tweets = "2021-12-31T23:59:59Z",
+                 bearer_token = bearer_token,
+                 file = glue::glue("~/datasets/Twitter/tweets_to_{screenname}_2021.rds"),
+                 data_path = glue::glue("~/datasets/Twitter/{screenname}"),
+                 n = n)
+}
+```
+
+
+```{r}
+#| eval: false
+#debug(get_all_tweets_politicians)
+get_all_tweets_politicians(screenname = politicians$screenname[5],
+                           bearer_token = askpass("Bearer token"),
+                           n = 1e05)
+```
+
+
+Den Datensatz `politicians` hatten wir oben angelegt, s. @sec-politicians-accounts.
+Er beinhaltet die Kontonamen (`screennames`) einiger deutscher Politikis.
+
+
+
+Wichtig ist, mit den Lizenzregeln in Einklang zu bleiben.
+
+Zentral ist dabei sicherlich die Frage, ob und wie man Tweets weitergeben darf.
+Dazu:
+
+>   Academic researchers are permitted to distribute an unlimited number of Tweet IDs and/or User IDs if they are doing so for the purposes of non-commercial research and to validate or replicate previous academic studies. You should not share the entire Tweet text directly. Instead, you can build a list of Tweet IDs and share those. The researchers who you share this set of Tweet IDs with, can then use the Twitter API to hydrate and get the full Tweet objects from the Tweet IDs.
+
+[Quelle](https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research/blob/main/modules/7-storage-and-compliance.md)
+
+
+Mehr Details finden sich den [Entwicklerrichtlinien von Twitter](https://developer.twitter.com/en/developer-terms/policy).
+
+
+Twitter stellt eine Reihe von [Lehrmaterialien](https://developer.twitter.com/en/use-cases/do-research/academic-research/resources) für die wissenschaftliche Nutzung von Tweets bereit.
 
 
 ## Aufgaben
