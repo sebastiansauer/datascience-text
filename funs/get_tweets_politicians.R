@@ -1,7 +1,8 @@
 # authentificate at Twitter API:
 
 
-get_tweets_politicians <- function(verbose = TRUE) {
+get_tweets_politicians <- function(verbose = TRUE,
+                                   n_tweets_per_politician = 1000L) {
   library(rtweet)
   library(tidyverse)
   library(lubridate)
@@ -20,6 +21,7 @@ get_tweets_politicians <- function(verbose = TRUE) {
   # source funs:
   source("/Users/sebastiansaueruser/github-repos/datascience-text/funs/download_recent_tweets.R")
   source("/Users/sebastiansaueruser/github-repos/datascience-text/funs/filter_recent_tweets.R")
+  source("/Users/sebastiansaueruser/github-repos/datascience-text/funs/sanitize_tweets.R")
   #source("funs/add_tweets_to_tweet_db.R")
   
   # find all datafiles:
@@ -45,6 +47,7 @@ get_tweets_politicians <- function(verbose = TRUE) {
  
   #debug(download_recent_tweets)
   tweets_new <- download_recent_tweets(screenname = most_recent_tweets$screenname,
+                                       n_tweets_per_politician = n_tweets_per_politician,
                                        max_or_since_id_str = most_recent_tweets$id_str)
   
   if (verbose) print(paste0("Number of tweets downloaded: ", nrow(tweets_new), "\n"))
@@ -60,5 +63,5 @@ get_tweets_politicians <- function(verbose = TRUE) {
 }
 
 
-
-#get_tweets_politicians()
+# debug(get_tweets_politicians)
+# get_tweets_politicians()

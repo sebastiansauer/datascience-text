@@ -315,7 +315,7 @@ Ein Beispiel: Sie haben eine Liste mit Namen der Art:
 
 Und Sie möchten jetzt aber die Liste mit Stil *Vorname Nachname* sortiert haben.
 
-RStudio mit Regex macht's möglich, s. @fig-regex-rstudio.
+RStudio mit Regex macht's möglich, s. @fig-vorher-regex.
 
 
 ::: {#fig-regrex-rstudio}

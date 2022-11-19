@@ -1,4 +1,4 @@
-#' Download recent (or oldest) tweets
+#' Download recent (or older) tweets
 #' 
 #' Tweets directed to a given list of screennames is downloaded from Twitter.
 #' Authentification is assumed. The search term is "@" followed by the screenname,
@@ -9,8 +9,8 @@
 #' @param n_tweets_per_politician number of tweets to download per screenname (default: 1)
 #' @param reverse (lgl) Defaults to FALSE, set to TRUE if you want the tweets older than a threshold
 #' @param verbose print details
-#' @param stri_columns retain only a selection of cols in order to reduce object size, removes attributes as well.
-#' @param ...useful for retryonratelimit
+#' @param strip_columns retain only a selection of cols in order to reduce object size, removes attributes as well.
+
 #'
 #' @return
 #' @export
@@ -19,7 +19,7 @@
 #' download_recent_tweets("sebastiansauer", max_or_since_id_str = my_id_str)
 download_recent_tweets <- function(screenname, 
                                    max_or_since_id_str = NULL, 
-                                   n_tweets_per_politician = 1L,
+                                   n_tweets_per_politician = 1000L,
                                    reverse = FALSE, 
                                    verbose = TRUE, 
                                    strip_columns = TRUE) {
@@ -36,18 +36,7 @@ download_recent_tweets <- function(screenname,
   
   names(screenname) <- screenname_raw
   
-  sanitize_tweets <- function(tweets_df) {
-    # sometimes the type of some column is `lgl` or `character`, sometimes `list`, we need to be type-stable, that's why we better stick to `list`:
-    tweets_df %>% 
-      mutate(possibly_sensitive = list(possibly_sensitive),
-             metadata = list(metadata),
-             coordinates = list(coordinates),
-             place = list(place),
-             quoted_status = list(quoted_status),
-             quoted_status_id_str = list(quoted_status_id_str),
-             withheld_in_countries = list(withheld_in_countries)
-      )
-  }
+
       
   
   
@@ -105,6 +94,7 @@ download_recent_tweets <- function(screenname,
                         "retweet_count", 
                         "favorite_count",
                         "lang")
+    
     if (all(cols_to_select %in% names(tweets_new))) { 
     tweets_new <-
       tweets_new %>% 

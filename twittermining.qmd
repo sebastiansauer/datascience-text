@@ -37,7 +37,9 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 #| message: false
 library(tidyverse)
 library(rtweet)
-library(tweetbotornot)
+library(tweetbotornot)  # optional
+library(keyring)  # optional
+library(askpass)  # optional
 ```
 
 ![R-Paket {rtweet}](https://docs.ropensci.org/rtweet/logo.png){width=10%}
@@ -93,10 +95,10 @@ Anmelden:
 
 ```{r oauth-twitter}
 #| eval: false
-auth <- rtweet_bot(api_key = api_key,
-                   api_secret = api_secret,
-                   access_token = access_token,
-                   access_secret = access_secret)
+auth <- rtweet_bot(api_key = API_Key,
+                   api_secret = API_Key_Secret,
+                   access_token = Access_Token,
+                   access_secret = Access_Token_Secret)
 ```
 
 
@@ -105,7 +107,9 @@ auth <- rtweet_bot(api_key = api_key,
 
 
 Alternativ kann man sich auch als `App` anmelden,
-damit kann man z.B. nicht posten, aber dafür mehr herunterladen.
+damit kann man z.B. nicht posten, aber dafür mehr herunterladen [Quelle](https://docs.ropensci.org/rtweet/articles/auth.html).
+
+
 
 
 ```{r}
@@ -113,6 +117,19 @@ damit kann man z.B. nicht posten, aber dafür mehr herunterladen.
 auth <- rtweet_app(bearer_token = Bearer_Token)
 ```
 
+
+Jetzt haben wir ein Anmeldeobjekt, 
+das wir für die weiteren Anfragen dieser Session nutzen können.
+Das sagen wir jetzt der Twitter-API:
+
+```{r}
+#| eval: false
+auth_as(auth)
+```
+
+
+Infos über Ihre aktuellen Raten kann man sich mittels
+`rate_limit()` ausgeben lassen.
 
 
 ### Schützen Sie Ihre Zugangsdaten
@@ -138,6 +155,10 @@ In der Datei `.gitignore` sollten  daher folgende Dateien aufgeführt sein:
 .Rapp.history
 ````
 
+[Ein Rat von `rtweet` dazu](https://docs.ropensci.org/rtweet/articles/auth.html):
+
+>   It’s good practice to only provide secrets interactively, because that makes it harder to accidentally share them in either your .Rhistory or an .R file.
+
 
 Einen alternativen, sichereren Zugang bietet z.B. das [Paket `keyring`](https://r-lib.github.io/keyring/index.html).
 Dieses Paket bietet eine Anbindung zur Schlüsselbundverwaltung Ihres Betriebssystems:
@@ -147,10 +168,6 @@ Dieses Paket bietet eine Anbindung zur Schlüsselbundverwaltung Ihres Betriebssy
 
 
 Im MacOS wird die zentrale Schlüsselbundverwaltung genutzt, in Windows und Linux die analoge Vorrichtungen.
-
-```{r}
-library(keyring)
-```
 
 
 Wir erstellen uns einen Schlüsselbund:
@@ -163,7 +180,9 @@ keyring_create(keyring = "hate-speech-twitter")
 
 
 Dann können wir einen Eintrag im Schlüsselbund erstellen.
-Ggf. werden Sie zuerst nach dem Password des Schlüsselbunds gefragt.
+Es öffnet sich eine Maske, die nach einem Passwort fragt.
+Geben Sie dort die sensitiven Informationen ein, etwa die Client-ID.
+Ggf. werden Sie noch nach dem Passwort des Schlüsselbunds an sich gefragt^[was beruhigend ist: Man darf nicht ohne Erlaubnis in Ihrer Passwort-Sammlung herumfuhrwerken.]
 
 ```{r}
 #| eval: false
@@ -179,6 +198,16 @@ key_set(service = "client_secret",
 ```
 
 
+
+```{r}
+#| eval: false
+key_set(service = "bearer_token",
+        keyring = "hate-speech-twitter")
+```
+
+
+
+
 Künftig können wir dann die Passwörter aus dem Schlüsselbund abrufen:
 
 ```{r}
@@ -188,6 +217,11 @@ key_get(service = "client_id",
 ```
 
 
+```{r}
+#| eval: false
+key_get(service = "bearer_token",
+        keyring = "hate-speech-twitter")
+```
 
 ## Tweets einlesen
 
@@ -403,8 +437,137 @@ followers_tweets <- get_timeline(user = head(followers01$from_id), n = 10)
 
 
 
+### Tweets nach Stichwort suchen
 
 
+Um nach einem Stichwort, allgemeiner nach einem bestimmten Text,
+in einem Tweet zu suchen,
+kann man die Funktion `search_tweets` nutzen:
+
+```{r}
+#| eval: false
+my_tweet <- search_tweets("Sebastian Sauer", n = 1)
+my_tweet$full_text
+```
+
+
+```{r}
+#| echo: false
+my_tweet <- read_rds(file = "~/datasets/Twitter/my_tweet.rds")
+```
+
+
+
+Schaut man sich das zurückgelieferte Objekt (einen Tibble) näher an,
+entdeckt man eine Fülle an Informationen.
+Satte 43 Spalten (teilweise Listenspalten) finden sich dort:
+
+```{r}
+names(my_tweet)
+```
+
+
+Die Tweet-ID dieses Tweets bekommen Sie,
+wenn Sie die Variable `id_str` auslesen:
+
+```{r}
+my_tweet$id_str
+```
+
+
+
+```{r}
+#| eval: true
+my_tweet$source
+```
+
+
+
+
+Dabei ist `source` nicht etwa die Person, die tweetet,
+wie man vielleicht meinen könnte,
+sondern das Frontend, das dabei verwendet wurde,
+also z.B. die iphone-App oder die Twitter-Webseite.
+
+Leider sucht man den `screenname` zu einen Tweet vergeblich in `my_tweet`.
+
+Gegeben eines Dataframes mit Tweets kann man sich aber wie folgt den Nutzernamen (`screen_name`) ausgeben lassen.
+
+```{r}
+users_data(my_tweet)
+```
+
+
+
+Außerdem gibt es einen "Trick" [laut dieser Quelle](https://www.bram.us/2017/11/22/accessing-a-tweet-using-only-its-id-and-without-the-twitter-api/), vgl. auch [diesen SO-Post](https://stackoverflow.com/questions/897107/can-i-fetch-the-tweet-from-twitter-if-i-know-the-tweets-id): 
+Gibt man in die URL eines Tweets einen beliebigen Nutzernamen - 
+das kann ein Fantasiename sein - 
+so wird man automatisch zum richtigen Nutzer geleitet.
+
+
+Die Rohform der URL sieht also so aus:
+
+`https://twitter.com/irgendeinnutzer/status/<id_str>`
+
+Geben Sie also z.B. Folgende URL in Ihren Browser sein:
+
+`https://twitter.com/irgendeinnutzer/status/1593598440675500032`
+
+Und Sie werden zum Nutzer `sauer_sebastian` weitergeleitet bzw.
+zu seinem Tweet mit obiger ID.
+
+
+### Der Volltext ist manchmal abgeschniten
+
+Manchmal ist der Volltext abgeschnitten
+
+```{r}
+#| eval: false
+my_tweet$full_text
+```
+
+```
+Hier steht der Beginn des Tweet-Textes, aber dann endet der Text abrup..."
+```
+
+
+Glücklicherweise - sofern man bei einer so umständlichen Darstellung  von Glück reden kann - findet man den kompletten Text andernorts [Quelle](https://stackoverflow.com/questions/47211501/twitter-streaming-api-not-return-full-tweets?noredirect=1&lq=1).
+
+
+Dazu schreibt [in diesem SO-Post](https://stackoverflow.com/questions/47211501/twitter-streaming-api-not-return-full-tweets?noredirect=1&lq=1) der Nutzer `Jonas`: 
+
+
+>   You will need to check if the tweet is a retweet. If it is, use the retweet's full_text. If it is not, use the tweet's full_text. – Jonas,  Nov 13, 2017 at 15:00
+
+
+```{r}
+#| eval: false
+my_tweet$retweeted_status[[1]][["full_text"]]
+```
+
+
+```
+Hier steht der Beginn des Tweet-Textes, aber dann endet der Text abrupt? 
+Nein,er geht weiter und irgendwann ist der dann wirklich aus."
+```
+
+
+
+
+
+
+### Tweets nach ID suchen
+
+Mit `lookup_tweets(id_des_tweets)` können Sie sich die Informationen zu einen Tweet ausgeben lassen.
+Das ist natürlich primär der Volltext:
+
+```{r}
+#| eval: false
+tweet_example <- lookup_tweets("1593598440675500032")
+tweet_example$full_text
+```
+
+Aber auch die übrigen Informationen können interessant sein.
 
 
 
@@ -414,6 +577,9 @@ followers_tweets <- get_timeline(user = head(followers01$from_id), n = 10)
 ### Grundlegende Verarbeitung
 
 Sind die Tweets eingelesen, kann man z.B. eine Sentimentanalyse, s. @sec-sentimentanalyse, durchführen, oder schlicht vergleichen, welche Personen welche Wörter häufig verwenden, s. @sec-woerterzaehlen.
+
+
+
 
 
 
@@ -786,6 +952,89 @@ kann man `get_tweets_politicians()` aufrufen:
 source("funs/get_tweets_politicians.R")
 get_tweets_politicians()
 ```
+
+### Tweets in Excel exportieren
+
+Um prädiktive Modelle zu erstellen, braucht man ein
+Trainingsset, Tweets also, die schon vorklassifiziert sind, 
+z.B. im Hinblick auf Hassrede mit `ja` oder `nein`.
+Technisch bietet sich ein `1` vs. `0` an.
+
+Dazu laden wir einen Datensatz mit Tweets,
+z.B. diesen hier:
+
+```{r}
+#| eval: false
+tweets_to_kl <- import("/Users/sebastiansaueruser/datasets/Twitter/tweets_to_karl_lauterbach.rds")
+```
+
+
+Da es viele Spalten gibt, die teilweise Listenspalten sind,
+also komplex, begrenzen wir uns auf das Wesentliche,
+den Tweet-Text und die ID des Tweets.
+
+```{r}
+#| eval: false
+tweets_to_kl2 <-
+  tweets_to_kl %>% 
+  select(id_str, full_text) 
+```
+
+
+:::callout-note
+Die Tweet-ID wird einmal als String und einmal als Integer gespeichert.
+Allerdings übersteigt die Anzahl der Ziffern die Speichergröße von (normalen) Integer-Formaten in R. 
+Daher ist die Twitter-ID als Integer *nicht* zuverlässig;
+als Text hingegen schon.
+:::
+
+Und schließlich können wir die Excel-Datei importieren.
+
+```{r}
+#| eval: false
+export(tweets_to_kl2, file = "~/datasets/Twitter/tweets_to_kl.xlsx")
+```
+
+Die Excel-Tabelle können wir dann bequem hernehmen,
+um Tweets manuell zu klassifizieren.
+
+
+
+### Twitterkonten für Wissenschaftler 
+
+Twitter stellt spezielle [Konten für Wissentschaftlis](https://developer.twitter.com/en/products/twitter-api/academic-research) bereit,
+die über [höhere Raten und mehr Funktionen](https://developer.twitter.com/en/products/twitter-api/academic-research/product-details) verfügen,
+also mehr Tweets herunterladen können,
+z.B. 10 Millionen Tweets pro Monat pro Projekt.
+
+
+
+```{r}
+#| eval: false
+auth_academic <- rtweet_app(bearer_token = askpass::askpass("bearer token"))
+auth_academic
+```
+
+Das R-Paket `{askpass}` stellt eine weitere Möglichkeit bereit,
+um Zugangsdaten zu schützen.
+Es öffnet eine Maske,
+die interaktiv und als Punkte geschützte Buchstaben nach einem Passwort fragt,
+in diesem Fall nach dem Bearer-Token.
+
+Aus der Hilfe:
+
+
+>   Prompt the user for a password to authenticate or read a protected key. By default, this function automatically uses the most appropriate method based on the user platform and front-end. Users or IDEs can override this and set a custom password entry function via the askpass option.
+
+
+```{r}
+#| eval: false
+auth_as(auth_academic)
+
+rate_limit_academic <- rate_limit()
+rate_limit_academic[2, "limit"]
+```
+
 
 
 
