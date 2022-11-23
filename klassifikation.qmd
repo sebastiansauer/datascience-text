@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 # Klassifikation von Hatespeech
 
@@ -28,7 +33,10 @@ library(tidyverse)
 library(rio)
 library(tidymodels)
 library(tidytext)
-
+library(textrecipes)
+library(lsa)  # stopwords
+library(discrim)  # naive bayes classification
+library(naivebayes)
 ```
 
 
@@ -105,6 +113,8 @@ d_raw %>%
 
 Entsprechend in ca. 1/3 der Fälle wurde jeweils nicht mit `OTHER` klassifiziert.
 
+
+Wir begnügen uns hier mit der ersten, gröberen Klassifikation.
 
 
 ## Feature Engineering
@@ -280,5 +290,347 @@ head(d_schimpf2)
 d_main <-
   d3 %>% 
   full_join(d_schimpf2)
+```
+
+### Worteinbettungen
+
+Hier könnte ein schöner Abschnitt stehen über Worteinbettungen in deutscher Sprache,
+allerdings ist dieses Schmankerl außen vorgelassen zum Übungsnutzen der Lesis 
+🏋️🙂.
+
+
+
+
+
+## Datenaufbereitung
+
+
+### Worthäufigkeiten
+
+
+
+## Modell 1: Naive-Bayes
+
+
+### Dummy-Rezept
+
+
+Hier ist ein einfaches Beispiel,
+um die Textvorbereitung mit `{textrecipes}` zu verdeutlichen.
+
+Wir erstellen uns einen Dummy-Text:
+
+```{r}
+dummy <- 
+  tibble(text = c("Ich gehe heim und der die das nicht in ein and the"))
+```
+
+
+Dann tokenisieren wir den Text:
+
+```{r}
+rec_dummy <-
+  recipe(text ~ 1, data = dummy) %>% 
+  step_tokenize(text)
+  
+rec_dummy
+```
+
+
+Die Tokens kann man sich so zeigen lassen:
+
+```{r}
+show_tokens(rec_dummy, text)
+```
+
+
+Jetzt entfernen wir die Stopwörter deutscher Sprache;
+dafür nutzen wir die Stopwort-Quelle `snowball`:
+
+
+```{r}
+rec_dummy <-
+  recipe(text ~ 1, data = dummy) %>% 
+  step_tokenize(text) %>% 
+  step_stopwords(text, language = "de", stopword_source = "snowball")
+
+rec_dummy
+```
+
+
+Prüfen wir die Tokens; 
+sind die Stopwörter wirklich entfernt?
+
+```{r}
+show_tokens(rec_dummy, text)
+```
+
+
+Ja, die deutschen Stopwörter sind entfernt. Die englischen nicht;
+das macht Sinn!
+
+
+### Datenaufteilung
+
+
+```{r}
+d_split <- initial_split(d_main, strata = c1)
+
+d_train <- training(d_split)
+d_test <- testing(d_split)
+```
+
+
+
+### Rezept 1
+
+
+```{r}
+rec1 <- 
+  recipe(c1 ~ text, data = select(d_main, text, c1)) %>% 
+  step_tokenize(text) %>% 
+  step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
+  step_stem(text) %>% 
+  step_tokenfilter(text, max_tokens = 1e1) %>% 
+  step_tfidf(text)
+
+rec1
+```
+
+
+
+```{r}
+d_rec1 <- bake(prep(rec1), new_data = NULL)
+
+head(d_rec1)
+```
+
+
+
+### Modellspezifikation 1
+
+Wir definiere einen Naive-Bayes-Algorithmus:
+
+```{r}
+nb_spec <- naive_Bayes() %>%
+  set_mode("classification") %>%
+  set_engine("naivebayes")
+
+nb_spec
+```
+
+
+
+Und setzen auf die klassische zehnfache Kreuzvalidierung.
+
+
+```{r}
+set.seed(42)
+folds1 <- vfold_cv(d_train)
+
+folds1
+```
+
+
+
+### Workflow 1
+
+
+```{r}
+wf1 <-
+  workflow() %>% 
+  add_recipe(rec1) %>% 
+  add_model(nb_spec)
+
+wf1
+```
+
+
+### Fitting 1
+
+
+```{r}
+fit1 <-
+  fit_resamples(
+    wf1,
+    folds1,
+    control = control_resamples(save_pred = TRUE)
+  )
+```
+
+
+
+### Performanz 1
+
+```{r}
+wf1_performance <-
+  collect_metrics(fit1)
+
+wf1_performance
+```
+
+
+
+```{r}
+wf_preds <-
+  collect_predictions(fit1)
+
+wf_preds %>% 
+  group_by(id) %>% 
+  roc_curve(truth = c1, .pred_OFFENSE) %>% 
+  autoplot()
+```
+
+
+```{r}
+conf_mat_resampled(fit1, tidy = FALSE) %>% 
+  autoplot(type = "heatmap")
+```
+
+
+
+
+## Nullmodell
+
+
+```{r}
+null_classification <- 
+  parsnip::null_model() %>%
+  set_engine("parsnip") %>%
+  set_mode("classification")
+
+null_rs <- workflow() %>%
+  add_recipe(rec1) %>%
+  add_model(null_classification) %>%
+  fit_resamples(
+    folds1
+  )
+```
+
+
+Hier ist die Performanz des Nullmodells.
+
+```{r}
+null_rs %>%
+  collect_metrics()
+```
+
+
+
+
+
+## Modell 2: Lasso
+
+
+
+```{r}
+lasso_spec <- logistic_reg(penalty = tune(), mixture = 1) %>%
+  set_mode("classification") %>%
+  set_engine("glmnet")
+
+lasso_spec
+```
+
+
+
+Wir definieren die Ausprägungen von `penalty`, 
+die wir ausprobieren wollen:
+
+
+```{r}
+lambda_grid <- grid_regular(penalty(), levels = 30)
+```
+
+
+
+```{r}
+wf2 <-
+  workflow() %>% 
+  add_recipe(rec1) %>% 
+  add_model(lasso_spec)
+
+wf2
+```
+
+
+Tunen und Fitten:
+
+```{r}
+set.seed(42)
+
+fit2 <-
+  tune_grid(
+    wf2,
+    folds1,
+    grid = lambda_grid,
+    control = control_resamples(save_pred = TRUE)
+  )
+
+fit2
+```
+
+
+
+Hier ist die Performanz:
+
+```{r}
+collect_metrics(fit2)
+```
+
+
+```{r}
+autoplot(fit2)
+```
+
+
+
+```{r}
+fit2 %>% 
+  show_best("roc_auc")
+```
+
+
+
+```{r}
+chosen_auc <- 
+  fit2 %>%
+  select_by_one_std_err(metric = "roc_auc", -penalty)
+```
+
+
+
+Finalisieren:
+
+
+```{r}
+wf2_final <-
+  finalize_workflow(wf2, chosen_auc)
+
+wf2_final
+```
+
+
+
+```{r}
+fit2_final_train <-
+  fit(wf2_final, d_train)
+```
+
+
+```{r}
+fit2_final_train %>% 
+  extract_fit_parsnip() %>% 
+  tidy() %>% 
+  arrange(-abs(estimate))
+  
+```
+
+
+
+```{r}
+fit2_final_test <-
+  last_fit(wf2_final, d_split)
+
+collect_metrics(fit2_final_test)
 ```
 
