@@ -707,7 +707,7 @@ beschwerde1_text$word
 
 
 
-## Kommentare und Hilfestellungen
+## Wordembeddings selber erstellen
 
 
 
@@ -1258,7 +1258,9 @@ Also: ${\displaystyle \cos \alpha ={\frac {b}{c}}}$
 Hilfreich ist auch [die Visualisierung von Sinus und Cosinus am Einheitskreis](https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:Sinus_und_Kosinus_am_Einheitskreis_1.svg); gerne [animiert](https://upload.wikimedia.org/wikipedia/commons/f/f3/Sinus_und_Cosinus_am_Einheitskreis.gif) betrachten.
 
 
-### Word-Embeddings vorgekocht: Glove6B
+## Word-Embeddings vorgekocht
+
+### Glove6B
 
 In [Kap. 5.4](https://smltar.com/embeddings.html#glove) schreiben die Autoren:
 
@@ -1288,6 +1290,16 @@ glove6b %>%
   head()
 ```
 
+
+
+Die ersten paar Tokens sind:
+
+```{r}
+glove6b$token %>% head(20)
+```
+
+
+
 In eine Tidyform bringen:
 
 ```{r}
@@ -1301,7 +1313,13 @@ tidy_glove <-
 head(tidy_glove)
 ```
 
-Ganz schön groß: 
+
+Ganz schön groß:
+
+```{r}
+dim(glove6b)
+```
+
 
 ```{r}
 object.size(tidy_glove)
@@ -1516,6 +1534,13 @@ dim(doc_matrix)
 
 
 Die Anzahl der Dokumente ist `r dim(doc_matrix)[1]` und die Anzahl der Dimensionen (des Einbettungsvektors) ist `r dim(doc_matrix)[2]`.
+
+
+### Wordembeddings für die deutsche Sprache
+
+
+In diesem [Github-Projekt](https://devmount.github.io/GermanWordEmbeddings/) finden sich die Materialien für ein deutsches Wordembedding [@mueller2015].
+
 
 
 ## Fazit

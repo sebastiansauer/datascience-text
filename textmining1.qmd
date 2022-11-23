@@ -379,6 +379,7 @@ check_text(x)
 
 
 [Tyler Rinker](https://github.com/trinker/lexicon) stellt mit dem Paket `lexicon` eine Zusammenstellung von Wortlisten zu diversen Zwecken zur Verfügung.
+Allerding nur für die englische Sprache.
 
 
 

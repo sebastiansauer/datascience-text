@@ -1,0 +1,284 @@
+
+# Klassifikation von Hatespeech
+
+
+
+
+
+## Vorab
+
+
+### Lernziele
+
+
+- Sie können grundlegende Verfahren zur Klassifikation von Hatespeech einsetzen und erklären
+
+
+
+
+
+
+
+
+### Benötigte R-Pakete
+
+```{r}
+#| message: false
+library(tidyverse)
+library(rio)
+library(tidymodels)
+library(tidytext)
+
+```
+
+
+## Daten
+
+
+Wir nutzen die Daten von @wiegand_germeval bzw. @wiegand-data.
+Die Daten sind unter CC-By-4.0 Int. lizensiert.
+
+```{r}
+d_raw <- 
+  import("data/germeval2018.training.txt",
+         header = FALSE)
+```
+
+
+Da die Daten keine Spaltenköpfe haben, informieren wir die Funktion dazu mit `header = FALSE`.
+
+Benennen wir die die Spalten um:
+
+```{r}
+names(d_raw) <- c("text", "c1", "c2")
+```
+
+Dabei soll `c1` und `c2` für die 1. bzw. 2. Klassifikation stehen.
+
+
+In `c1` finden sich diese Werte:
+
+```{r}
+d_raw %>% 
+  count(c1)
+```
+
+Hier wurde klassifiziert,
+ob beleidigende Sprache (offensive language) vorlag oder nicht [@isch-etal-2021-overview, S. 2]:
+
+
+>   Task 1 was to decide whether a tweet includes some form of offensive language or not. The tweets had to be classiﬁed into the two classes OFFENSE and OTHER. The OFFENSE category covered abusive language, insults, as well as merely profane statements.
+
+
+Und in `c2` finden sich folgende Ausprägungen:
+
+```{r}
+d_raw %>% 
+  count(c2)
+```
+
+
+In `c2` ging es um eine feinere Klassifikation beleidigender Sprache [@isch-etal-2021-overview, S. 2]:
+
+>   The second task involved four categories, a nonoffensive OTHER class and three sub-categories of what is OFFENSE in Task 1. In the case of PROFANITY, profane words are used, however, the tweet does not want to insult anyone. This typically concerns the usage of swearwords (Scheiße, Fuck etc.) and cursing (Zur Hölle! Verdammt! etc.). This can be often found in youth language. Swearwords and cursing may, but need not, co-occur with insults or abusive speech. Profane language may in fact be used in tweets with positive sentiment to express emphasis. Whenever profane words are not directed towards a speciﬁc person or group of persons and there are no separate cues of INSULT or ABUSE, then tweets are labeled as simple cases of PROFANITY.
+
+
+
+
+Sind Texte, die als `OFFENSE` klassifiziert sind,
+auch (fast) immer als `ABUSE`, `INSULT` oder `PROFANITY` klassifiziert?
+
+
+```{r}
+d_raw %>% 
+  filter(c1 == "OTHER", c2 == "OTHER") %>% 
+  nrow() / nrow(d_raw)
+```
+
+In ca. 2/3 der Fälle wurden in beiden Klassifikation `OTHER` klassifiziert.
+
+```{r}
+d_raw %>% 
+  filter(c1 != "OTHER", c2 != "OTHER") %>% 
+  nrow() / nrow(d_raw)
+```
+
+Entsprechend in ca. 1/3 der Fälle wurde jeweils nicht mit `OTHER` klassifiziert.
+
+
+
+## Feature Engineering
+
+
+Reichern wir die Daten mit weiteren Features an,
+in der Hoffnung, damit eine bessere Klassifikation erzielen zu können.
+
+
+### Textlänge
+
+
+
+
+```{r}
+d2 <-
+  d_raw %>% 
+  mutate(text_length = str_length(text)) %>% 
+  mutate(id = 1:nrow(.))
+
+head(d2)
+```
+
+
+
+### Sentimentanalyse
+
+Wir nutzen dazu `SentiWS` [@Remus2010].
+
+```{r}
+sentiws <- read_csv("https://osf.io/x89wq/?action=download")
+```
+
+
+
+
+```{r}
+d2_long <-
+  d2 %>% 
+  unnest_tokens(input = text, output = token)
+
+head(d2_long)
+```
+
+Jetzt filtern wir unsere Textdaten so,
+dass nur Wörter mit Sentimentwert übrig bleiben:
+
+```{r}
+d2_long_senti <- 
+  d2_long %>%  
+  inner_join(sentiws %>% select(-inflections), by = c("token" = "word"))
+
+head(d2_long)
+```
+
+
+Schließlich berechnen wir die Sentimentwert pro Polarität und pro Tweet:
+
+```{r}
+d2_sentis <-
+  d2_long %>% 
+  group_by(id, neg_pos) %>% 
+  summarise(senti_avg = mean(value))
+
+head(d2_sentis)
+```
+
+
+Diese Tabelle bringen wir wieder eine breitere Form,
+um sie dann wieder mit den Hauptdaten zu vereinigen.
+
+
+```{r}
+d2_sentis_wide <-
+  d2_sentis %>% 
+  pivot_wider(names_from = "neg_pos", values_from = "senti_avg")
+
+d2_sentis_wide %>% head()
+```
+
+
+```{r}
+d3 <-
+  d2 %>% 
+  full_join(d2_sentis_wide)
+
+head(d3)
+```
+
+
+:::callout-note
+Die Sentimentanalyse hier vernachlässigt Flexionen der Wörter. 
+Der  Autor fühlt den Drang zu schreiben: "Left as an exercise for the reader" :-)
+:::
+
+
+### Schimpfwörter
+
+
+Zählen wir die Schimpfwörter pro Text.
+Dazu nutzen wir die Daten von [LDNOOBW](https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/blob/master/LICENSE), lizensiert nach CC-BY-4.0-Int.
+
+
+
+
+```{r}
+schimpf1 <- import("https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/de", format = ",", header = FALSE)
+```
+
+
+Länger aber noch ist die Liste aus dem [InsultWiki](https://www.insult.wiki/schimpfwort-liste), lizensiert CC0.
+
+
+```{r}
+schimpf2 <- 
+  import("data/insult-de.txt", header = FALSE) %>% 
+  mutate_all(str_to_lower)
+```
+
+
+Binden wir die Listen zusammen:
+
+```{r}
+schimpf <-
+  schimpf1 %>% 
+  bind_rows(schimpf2) %>% 
+  distinct() %>% 
+  rename(word = "V1")
+
+nrow(schimpf)
+```
+
+
+Um die Lesis vor (unnötiger?) Kopfverschmutzung zu bewahren,
+sind diese Schimpfwörter hier nicht abgedruckt.
+
+Jetzt zählen wir, ob unsere Tweets/Texte solcherlei Wörter enthalten.
+
+
+```{r}
+d_schimpf <- 
+d2_long %>% 
+  select(id, token) %>% 
+  mutate(schimpf = token %in% schimpf$word)
+  
+d_schimpf %>% 
+  filter(schimpf)
+```
+
+
+Wie viele Schimpfwörter haben wir gefunden?
+
+```{r}
+d_schimpf %>% 
+  count(schimpf)
+```
+
+
+Etwa ein Prozent der Wörter sind Schimpfwörter in unserem Corpus.
+
+
+```{r}
+d_schimpf2 <-
+  d_schimpf %>% 
+  group_by(id) %>% 
+  summarise(schimpf_n = sum(schimpf))
+
+head(d_schimpf2)
+```
+
+
+```{r}
+d_main <-
+  d3 %>% 
+  full_join(d_schimpf2)
+```
+
