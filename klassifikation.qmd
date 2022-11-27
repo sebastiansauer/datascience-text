@@ -37,11 +37,17 @@ library(textrecipes)
 library(lsa)  # stopwords
 library(discrim)  # naive bayes classification
 library(naivebayes)
+library(tictoc)  # Zeitmessung
+library(fastrtext)
 ```
 
 
 ## Daten
 
+
+Für Maschinenlernen brauchen wir Trainingsdaten,
+Daten also, bei denen wir pro Beobachtung der Wert der Zielvariablen kennen.
+Man spricht auch von "gelabelten" Daten.
 
 Wir nutzen die Daten von @wiegand_germeval bzw. @wiegand-data.
 Die Daten sind unter CC-By-4.0 Int. lizensiert.
@@ -175,7 +181,7 @@ Schließlich berechnen wir die Sentimentwert pro Polarität und pro Tweet:
 
 ```{r}
 d2_sentis <-
-  d2_long %>% 
+  d2_long_senti %>% 
   group_by(id, neg_pos) %>% 
   summarise(senti_avg = mean(value))
 
@@ -385,22 +391,32 @@ d_test <- testing(d_split)
 ### Rezept 1
 
 
+Rezept definieren:
+
 ```{r}
 rec1 <- 
-  recipe(c1 ~ text, data = select(d_main, text, c1)) %>% 
+  recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
+  update_role(id, new_role = "id") %>% 
   step_tokenize(text) %>% 
   step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
   step_stem(text) %>% 
-  step_tokenfilter(text, max_tokens = 1e1) %>% 
+  step_tokenfilter(text, max_tokens = 1e2) %>% 
   step_tfidf(text)
 
 rec1
 ```
 
 
+Preppen:
 
 ```{r}
-d_rec1 <- bake(prep(rec1), new_data = NULL)
+rec1_prepped <- prep(rec1)
+```
+
+Und backen:
+
+```{r}
+d_rec1 <- bake(rec1_prepped, new_data = NULL)
 
 head(d_rec1)
 ```
@@ -456,6 +472,18 @@ fit1 <-
     folds1,
     control = control_resamples(save_pred = TRUE)
   )
+```
+
+
+Möchte man sich die Zeit sparen, die Syntax wieder durchlaufen zu lassen,
+kann man das Objekt speichern. 
+Aber vorsicht: Dabei kann es passieren, dass man mit veralteten Objekten arbeitet.
+
+
+
+```{r}
+#| eval: false
+write_rds(fit1, "objects/chap_classific_fit1.rds")
 ```
 
 
@@ -571,6 +599,14 @@ fit2
 
 
 
+
+
+```{r}
+#| eval: false
+write_rds(fit2, "objects/chap_classific_fit2.rds")
+```
+
+
 Hier ist die Performanz:
 
 ```{r}
@@ -633,4 +669,318 @@ fit2_final_test <-
 
 collect_metrics(fit2_final_test)
 ```
+
+
+
+## Vorhersage
+
+
+### Vohersagedaten
+
+Pfad zu den Daten:
+
+```{r}
+tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data/"
+```
+
+
+
+```{r}
+tweet_data_files_names <- list.files(path = tweet_data_path,
+                                     pattern  = "tweets-to-.*\\.rds$")
+head(tweet_data_files_names)
+```
+
+
+Wie viele Dateien sind es?
+
+```{r}
+length(tweet_data_files_names)
+```
+
+
+Wir geben den Elementen des Vektors gängige Namen,
+das hilft uns gleich bei `map`:
+
+
+```{r}
+names(tweet_data_files_names) <- str_remove(tweet_data_files_names, "\\.rds")
+```
+
+
+
+
+
+OK, weiter: So können wir *eine* der Datendateien einlesen:
+
+```{r}
+d_raw <-
+  read_rds(file = paste0(tweet_data_path, tweet_data_files_names[1])) 
+
+d <- 
+  d_raw %>% 
+  select(id, author_id, created_at, public_metrics) %>% 
+  unnest_wider(public_metrics)
+
+head(d)
+```
+
+
+Und so lesen wir alle ein:
+
+
+Zunächst erstellen wir uns eine Helper-Funktion:
+
+
+```{r}
+read_and_select <- function(file_name, path_to_tweet_data = tweet_data_path) {
+  
+  out <- 
+    read_rds(file = paste0(path_to_tweet_data, file_name)) %>% 
+    select(id, author_id, created_at, text, public_metrics) %>% 
+    unnest_wider(public_metrics)
+  
+  cat("Data file was read.\n")
+  
+  return(out)
+}
+```
+
+Testen:
+
+```{r}
+d1 <- read_and_select(tweet_data_files_names[1])
+
+head(d)
+```
+
+
+
+Die Funktion `read_and_select`  mappen wir auf alle Datendateien:
+
+
+```{r}
+#| eval: false
+tic()
+ds <-
+  tweet_data_files_names %>% 
+  map_dfr(read_and_select, .id = "dataset")
+toc()
+```
+
+
+`214.531 sec elapsed`
+
+Da wir den Elementen von `tweet_data_files_names` Namen gegeben haben, 
+finden wir diese Namen praktischerweise wieder in `ds`:
+
+```{r}
+head(ds)
+```
+
+```{r}
+#| echo: false
+#| eval: false
+write_rds(ds, file = paste0(tweet_data_path, "ds.rds"))
+```
+
+
+
+```{r}
+#| echo: false
+ds_short <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_short.rds")
+```
+
+
+Vielleicht ist es zum Entwickeln besser,
+mit einem kleineren Datensatz einstweilen zu arbeiten:
+
+```{r}
+#| eval: false
+ds_short <- slice_sample(ds, prop = .05)
+```
+
+
+
+```{r}
+#| echo: false
+#| eval: false
+write_rds(ds_short, "/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_short.rds")
+ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/ds.rds")
+```
+
+
+
+
+### Vokabular erstellen
+
+
+```{r}
+#| eval: false
+ds_long <-
+  ds %>% 
+  select(text) %>% 
+  unnest_tweets(input = text, output = word)
+```
+
+Puh, das hat gedauert!
+
+Speichern wir uns diese Daten daher auf die Festplatte:
+
+```{r}
+#| eval: false
+write_rds(ds_long, file = paste0(tweet_data_path, "ds_long.rds"))
+```
+
+Entfernen wir daraus die Duplikate,
+um uns ein Vokabular zu erstellen:
+
+```{r}
+#| eval: false
+ds_voc <-
+  ds_long %>% 
+  #slice_head(n = 10) %>% 
+  distinct(word)
+```
+
+Und das resultierende Objekt speichern wir wieder ab:
+
+
+```{r}
+#| eval: false
+write_rds(ds_voc, file = paste0(tweet_data_path, "ds_voc.rds"))
+```
+
+
+```{r}
+#| echo: false
+ds_voc <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_voc.rds")
+```
+
+
+
+
+
+### Worteinbettungen erstellen
+
+
+```{r}
+texts <- ds %>% pull(text)
+texts <- tolower(texts)
+tmp_file_txt <- tempfile()
+tmp_file_model <- tempfile()
+writeLines(text = texts, con = tmp_file_txt)
+execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", tmp_file_model, "-verbose", 1))
+```
+
+
+```
+Read 22M words
+Number of words:  130328
+Number of labels: 0
+Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA:   0h 0m 0s
+```
+
+Jetzt laden wir das Modell von der Festplatte:
+
+```{r}
+model <- load_model(tmp_file_model)
+dict <- get_dictionary(model)
+```
+
+
+Schauen wir uns einige Begriffe aus dem Vokabular an:
+
+```{r}
+print(head(dict, 125))
+```
+
+Hier ist der Vektor für `menschen`:
+
+
+```{r}
+print(get_word_vectors(model, c("menschen")))
+```
+
+
+```{r}
+get_word_vectors(model, words = dict[1:100])
+```
+
+
+Erstellen wir uns einen Tibble, der 
+als erste Spalte das Vokabular und in den übrigen 100 Spalten die Dimensionen enthält:
+
+```{r}
+word_embedding_twitter <-
+  tibble(
+    word = dict
+  )
+```
+
+
+```{r}
+words_vecs_twitter <-
+  get_word_vectors(model)
+```
+
+
+
+```{r}
+word_embedding_twitter <-
+  word_embedding_twitter %>% 
+  bind_cols(words_vecs_twitter)
+```
+
+Namen verschönern:
+
+```{r}
+names(word_embedding_twitter) <- c("word", paste0("v", sprintf("%03d", 1:100)))
+```
+
+
+Und als Worteinbettungs-Datei abspeichern:
+
+```{r}
+#| eval: false:
+write_rds(word_embedding_twitter, file = paste0(tweet_data_path, "word_embedding_twitter.rds"))
+```
+
+
+
+### Aufbereiten
+
+Am besten nur die Spalten behalten,
+die wir zum Modellieren nutzen:
+
+```{r}
+ds_short2 <-
+  ds_short %>% 
+  select(text, id)
+```
+
+
+Dann backen wir die Daten mit dem vorhandenen Rezept:
+
+
+
+```{r}
+ds_baked <- bake(rec1_prepped, new_data = ds_short2)
+
+head(ds_baked)
+```
+
+
+Ist das nicht komfortabel?
+Das Textrezept übernimmt die Arbeit für uns,
+mit den richtigen Features zu arbeiten,
+die tf-idfs für die richtigen Tokens zu berechnen.
+
+Wer dem Frieden nicht traut,
+dem sei geraten, nachzuprüfen :-)
+
+
+
+
+
 
