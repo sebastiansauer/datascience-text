@@ -311,7 +311,7 @@ da es unter Garantie ein "final-final geben wird, oder der "Haupt-Datensat" plö
 ### Emojis
 
 
-```{r}
+```{r get-emoji-list}
 emj <- emoji(list_emoji(), pad = FALSE)
 
 head(emj)
@@ -326,7 +326,7 @@ gut das Doppelte.
 Selbstkuratierte Liste an "wilden" Emoji;
 diese Liste ist inspiriert von [emojicombos.com](https://emojicombos.com/disgust).
 
-```{r}
+```{r wild-emojis}
 wild_emojis <- 
   c(
     emoji(find_emoji("gun")),
@@ -339,7 +339,7 @@ wild_emojis <-
     "💩",
     "☠",
     "🖕",
-    emoji(find_emoji("middle finger"))
+    emoji(find_emoji("middle finger")),
     "😡",
     "🤢",
     "🤮",
@@ -361,11 +361,8 @@ wild_emojis <-
 
 
 
-## Datenaufbereitung
-
-
-### Worthäufigkeiten
-
+Auf dieser Basis können wir einen Prädiktor erstellen,
+der zählt, ob ein Tweet einen oder mehrere der "wilden" Emojis enthält.
 
 
 ## Workflow 1: Rezept 1 + Naive-Bayes
@@ -387,7 +384,7 @@ dummy <-
 
 Dann tokenisieren wir den Text:
 
-```{r}
+```{r rec-dummy1}
 rec_dummy <-
   recipe(text ~ 1, data = dummy) %>% 
   step_tokenize(text)
@@ -407,7 +404,7 @@ Jetzt entfernen wir die Stopwörter deutscher Sprache;
 dafür nutzen wir die Stopwort-Quelle `snowball`:
 
 
-```{r}
+```{r rec-dummy2}
 rec_dummy <-
   recipe(text ~ 1, data = dummy) %>% 
   step_tokenize(text) %>% 
@@ -432,7 +429,7 @@ das macht Sinn!
 ### Datenaufteilung
 
 
-```{r}
+```{r d-split2}
 d_split <- initial_split(d_main, strata = c1)
 
 d_train <- training(d_split)
@@ -446,7 +443,7 @@ d_test <- testing(d_split)
 
 Rezept definieren:
 
-```{r}
+```{r rec1}
 rec1 <- 
   recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
   update_role(id, new_role = "id") %>% 
@@ -463,13 +460,13 @@ rec1
 
 Preppen:
 
-```{r}
+```{r rec1-prepped}
 rec1_prepped <- prep(rec1)
 ```
 
 Und backen:
 
-```{r}
+```{r rec1-baked}
 d_rec1 <- bake(rec1_prepped, new_data = NULL)
 
 head(d_rec1)
@@ -481,7 +478,7 @@ head(d_rec1)
 
 Wir definiere einen Naive-Bayes-Algorithmus:
 
-```{r}
+```{r nb-spec}
 nb_spec <- naive_Bayes() %>%
   set_mode("classification") %>%
   set_engine("naivebayes")
@@ -494,11 +491,9 @@ nb_spec
 Und setzen auf die klassische zehnfache Kreuzvalidierung.
 
 
-```{r}
+```{r folds1}
 set.seed(42)
 folds1 <- vfold_cv(d_train)
-
-folds1
 ```
 
 
@@ -506,7 +501,7 @@ folds1
 ### Workflow 1
 
 
-```{r}
+```{r wf1}
 wf1 <-
   workflow() %>% 
   add_recipe(rec1) %>% 
@@ -519,7 +514,8 @@ wf1
 ### Fitting 1
 
 
-```{r}
+```{r fit1}
+#| eval: false
 fit1 <-
   fit_resamples(
     wf1,
@@ -528,23 +524,32 @@ fit1 <-
   )
 ```
 
+Die Vorhersagen speichern wir ab,
+um die Performanz in den Faltungen des Hold-out-Samples zu berechnen.
+
 
 Möchte man sich die Zeit sparen, die Syntax wieder durchlaufen zu lassen,
 kann man das Objekt speichern. 
-Aber vorsicht: Dabei kann es passieren, dass man mit veralteten Objekten arbeitet.
+Aber Vorsicht: Dabei kann es passieren, dass man mit veralteten Objekten arbeitet.
 
 
 
-```{r}
+```{r write-fit1}
 #| eval: false
 write_rds(fit1, "objects/chap_classific_fit1.rds")
+```
+
+
+```{r read-fit1}
+#| echo: false
+fit1 <- read_rds("objects/chap_classific_fit1.rds")
 ```
 
 
 
 ### Performanz 1
 
-```{r}
+```{r wf1-perf}
 wf1_performance <-
   collect_metrics(fit1)
 
@@ -553,7 +558,7 @@ wf1_performance
 
 
 
-```{r}
+```{r wf1-preds}
 wf_preds <-
   collect_predictions(fit1)
 
@@ -575,7 +580,8 @@ conf_mat_resampled(fit1, tidy = FALSE) %>%
 ## Nullmodell
 
 
-```{r}
+```{r nullmodel}
+#| eval: false
 null_classification <- 
   parsnip::null_model() %>%
   set_engine("parsnip") %>%
@@ -588,6 +594,20 @@ null_rs <- workflow() %>%
     folds1
   )
 ```
+
+
+```{r}
+#| eval: false
+#| echo: false
+write_rds(null_rs, file = "/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit_nullmodel.rds")
+```
+
+
+```{r}
+#| echo: false
+null_rs <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds")
+```
+
 
 
 Hier ist die Performanz des Nullmodells.
@@ -605,7 +625,7 @@ null_rs %>%
 
 
 
-```{r}
+```{r lasso-spec}
 lasso_spec <- logistic_reg(penalty = tune(), mixture = 1) %>%
   set_mode("classification") %>%
   set_engine("glmnet")
@@ -619,13 +639,13 @@ Wir definieren die Ausprägungen von `penalty`,
 die wir ausprobieren wollen:
 
 
-```{r}
+```{r lambda-grid}
 lambda_grid <- grid_regular(penalty(), levels = 30)
 ```
 
 
 
-```{r}
+```{r wf2}
 wf2 <-
   workflow() %>% 
   add_recipe(rec1) %>% 
@@ -637,7 +657,8 @@ wf2
 
 Tunen und Fitten:
 
-```{r}
+```{r fit2}
+#| eval: false
 set.seed(42)
 
 fit2 <-
@@ -652,13 +673,19 @@ fit2
 ```
 
 
-
-
+Vorsicht beim Abspeichern.
 
 ```{r}
 #| eval: false
 write_rds(fit2, "objects/chap_classific_fit2.rds")
 ```
+
+
+```{r read-fit2}
+#| echo: false
+fit2 <- read_rds("objects/chap_classific_fit2.rds")
+```
+
 
 
 Hier ist die Performanz:
@@ -681,7 +708,7 @@ fit2 %>%
 
 
 
-```{r}
+```{r chosen-auc-fit2}
 chosen_auc <- 
   fit2 %>%
   select_by_one_std_err(metric = "roc_auc", -penalty)
@@ -692,7 +719,7 @@ chosen_auc <-
 Finalisieren:
 
 
-```{r}
+```{r wf2-final}
 wf2_final <-
   finalize_workflow(wf2, chosen_auc)
 
@@ -701,7 +728,7 @@ wf2_final
 
 
 
-```{r}
+```{r fit2-final-train}
 fit2_final_train <-
   fit(wf2_final, d_train)
 ```
@@ -712,12 +739,11 @@ fit2_final_train %>%
   extract_fit_parsnip() %>% 
   tidy() %>% 
   arrange(-abs(estimate))
-  
 ```
 
 
 
-```{r}
+```{r fit2-final-test}
 fit2_final_test <-
   last_fit(wf2_final, d_split)
 
@@ -767,7 +793,7 @@ names(tweet_data_files_names) <- str_remove(tweet_data_files_names, "\\.rds")
 
 OK, weiter: So können wir *eine* der Datendateien einlesen:
 
-```{r}
+```{r read-tweets}
 d_raw <-
   read_rds(file = paste0(tweet_data_path, tweet_data_files_names[1])) 
 
@@ -786,7 +812,7 @@ Und so lesen wir alle ein:
 Zunächst erstellen wir uns eine Helper-Funktion:
 
 
-```{r}
+```{r fun-read-and-select}
 read_and_select <- function(file_name, path_to_tweet_data = tweet_data_path) {
   
   out <- 
@@ -802,10 +828,11 @@ read_and_select <- function(file_name, path_to_tweet_data = tweet_data_path) {
 
 Testen:
 
-```{r}
+```{r read-and-seelct-test}
+#| eval: false
 d1 <- read_and_select(tweet_data_files_names[1])
 
-head(d)
+head(d1)
 ```
 
 
@@ -813,7 +840,7 @@ head(d)
 Die Funktion `read_and_select`  mappen wir auf alle Datendateien:
 
 
-```{r}
+```{r map-read-and-select}
 #| eval: false
 tic()
 ds <-
@@ -828,9 +855,6 @@ toc()
 Da wir den Elementen von `tweet_data_files_names` Namen gegeben haben, 
 finden wir diese Namen praktischerweise wieder in `ds`:
 
-```{r}
-head(ds)
-```
 
 ```{r}
 #| echo: false
@@ -840,17 +864,24 @@ write_rds(ds, file = paste0(tweet_data_path, "ds.rds"))
 
 
 
-```{r}
+```{r read-ds}
 #| echo: false
-ds_short <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_short.rds")
+ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/ds.rds")
 ```
+
+
+
+
+```{r}
+head(ds)
+```
+
 
 
 Vielleicht ist es zum Entwickeln besser,
 mit einem kleineren Datensatz einstweilen zu arbeiten:
 
-```{r}
-#| eval: false
+```{r ds-short}
 ds_short <- slice_sample(ds, prop = .05)
 ```
 
@@ -860,7 +891,6 @@ ds_short <- slice_sample(ds, prop = .05)
 #| echo: false
 #| eval: false
 write_rds(ds_short, "/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_short.rds")
-ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/ds.rds")
 ```
 
 
@@ -869,7 +899,7 @@ ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/ds.rds")
 ### Vokabular erstellen
 
 
-```{r}
+```{r ds-long}
 #| eval: false
 ds_long <-
   ds %>% 
@@ -889,7 +919,7 @@ write_rds(ds_long, file = paste0(tweet_data_path, "ds_long.rds"))
 Entfernen wir daraus die Duplikate,
 um uns ein Vokabular zu erstellen:
 
-```{r}
+```{r ds-voc}
 #| eval: false
 ds_voc <-
   ds_long %>% 
@@ -920,12 +950,23 @@ ds_voc <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_v
 
 ### FastText-Modell
 
-```{r}
+Definiere die Konstanten für das fastText-Modell:
+
+```{r fastText-constants}
 #| eval: false
 texts <- ds %>% pull(text)
 texts <- tolower(texts)
+```
+
+
+```{r fastText-filenames}
 out_file_txt <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.vec"
 out_file_model <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.bin"
+```
+
+
+```{r fasttext-modell}
+#| eval: false
 writeLines(text = texts, con = out_file_txt)
 execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))
 ```
@@ -940,9 +981,9 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 
 Jetzt laden wir das Modell von der Festplatte:
 
-```{r}
+```{r twitter-fasttext-model}
 twitter_fasttext_model <- load_model(out_file_model)
-dict <- get_dictionary(model)
+dict <- get_dictionary(twitter_fasttext_model)
 ```
 
 
@@ -952,17 +993,19 @@ Schauen wir uns einige Begriffe aus dem Vokabular an:
 print(head(dict, 10))
 ```
 
-Hier ist der Vektor für `menschen`:
+Hier sind die ersten paar Elemente des Vektors für `menschen`:
 
 
-```{r}
-print(get_word_vectors(model, c("menschen")))
+```{r vector-menschen}
+#| eval: false
+get_word_vectors(twitter_fasttext_model, c("menschen")) %>% `[`(1:10)
 ```
 
 
-```{r}
-get_word_vectors(model, words = dict[1:100])
 ```
+ [1]  0.14156282  0.44875699  0.23911817 -0.02580349  0.29811972  0.03870077
+ [7]  0.06518744  0.22527063  0.28198120  0.39931887
+ ```
 
 
 Erstellen wir uns einen Tibble, der 
@@ -976,31 +1019,35 @@ word_embedding_twitter <-
 ```
 
 
-```{r}
+```{r words-vec-twitter}
+#| eval: false
 words_vecs_twitter <-
-  get_word_vectors(model)
+  get_word_vectors(twitter_fasttext_model)
 ```
 
 
 
-```{r}
+```{r df-word-embedding-twitter}
+#| eval: false
 word_embedding_twitter <-
   word_embedding_twitter %>% 
   bind_cols(words_vecs_twitter)
-```
 
-Namen verschönern:
-
-```{r}
-names(word_embedding_twitter) <- c("word", paste0("v", sprintf("%03d", 1:100)))
+names(word_embedding_twitter) <- c("word", paste0("v", sprintf("%03d", 1:100)))  # Namen verschönern
 ```
 
 
 Und als Worteinbettungs-Datei abspeichern:
 
 ```{r}
-#| eval: false:
+#| eval: false
 write_rds(word_embedding_twitter, file = paste0(tweet_data_path, "word_embedding_twitter.rds"))
+```
+
+
+```{r}
+#| echo: false
+word_embedding_twitter <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/word_embedding_twitter.rds")
 ```
 
 
@@ -1010,7 +1057,7 @@ write_rds(word_embedding_twitter, file = paste0(tweet_data_path, "word_embedding
 Am besten nur die Spalten behalten,
 die wir zum Modellieren nutzen:
 
-```{r}
+```{r ds-short2}
 ds_short2 <-
   ds_short %>% 
   select(text, id)
@@ -1021,7 +1068,7 @@ Dann backen wir die Daten mit dem vorhandenen Rezept:
 
 
 
-```{r}
+```{r ds-baked}
 ds_baked <- bake(rec1_prepped, new_data = ds_short2)
 
 head(ds_baked)
@@ -1044,7 +1091,7 @@ dem sei geraten, nachzuprüfen :-)
 
 
 
-```{r}
+```{r split-data3}
 d_split <- initial_split(d2, strata = c1)
 
 d_train <- training(d_split)
@@ -1102,7 +1149,7 @@ count_wild_emojis(dummy)
 
 ### Rezept mit Worteinbettungen
 
-```{r}
+```{r rec2}
 rec2 <- 
   recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
   update_role(id, new_role = "id") %>% 
@@ -1122,7 +1169,7 @@ rec2
 ```
 
 
-```{r}
+```{r rec2-prepped-baked}
 rec2_prepped <- prep(rec2)
 rec2_baked <- bake(rec2_prepped, new_data = NULL)
 ```
@@ -1141,7 +1188,7 @@ rec2_baked %>%
 
 
 
-```{r}
+```{r wf3}
 wf3 <-
   workflow() %>% 
   add_recipe(rec2) %>% 
@@ -1156,7 +1203,8 @@ wf3
 
 Tunen und Fitten:
 
-```{r}
+```{r wf3-fit}
+#| eval: false
 set.seed(42)
 
 tic()
@@ -1181,6 +1229,13 @@ write_rds(fit3, "objects/chap_classific_fit3.rds")
 ```
 
 
+```{r}
+#| echo: false
+fit3 <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds")
+```
+
+
+
 Hier ist die Performanz:
 
 ```{r}
@@ -1201,7 +1256,7 @@ fit3 %>%
 
 
 
-```{r}
+```{r chosenauc-fit3}
 chosen_auc_fit3 <- 
   fit3 %>%
   select_by_one_std_err(metric = "roc_auc", -penalty)
@@ -1212,7 +1267,7 @@ chosen_auc_fit3 <-
 Finalisieren:
 
 
-```{r}
+```{r wf3-final}
 wf3_final <-
   finalize_workflow(wf3, chosen_auc_fit3)
 
@@ -1221,13 +1276,13 @@ wf3_final
 
 
 
-```{r}
+```{r fit3-final-train}
 fit3_final_train <-
   fit(wf3_final, d_train)
 ```
 
 
-```{r}
+```{r fit3-final-train2}
 fit3_final_train %>% 
   extract_fit_parsnip() %>% 
   tidy() %>% 
@@ -1237,7 +1292,7 @@ fit3_final_train %>%
 
 
 
-```{r}
+```{r fit3-final-test}
 fit3_final_test <-
   last_fit(wf3_final, d_split)
 
@@ -1249,6 +1304,13 @@ Am Ende so eines Arbeitsganges,
 bei dem man wieder (und wieder) die gleichen Funktionen kopiert,
 und nur aufpassen muss, aus `fit2` an der richtigen Stelle `fit3` zu machen:
 Da blickt man jedem Umbau dieses Codes zu einer Funktion freudig ins Gesicht.
+
+Ein anderes Problem,
+für das hier keine elegante Lösung vorliegt,
+sind die langen Berechnungszeiten, die, wenn man Pecht hat, auch noch
+mehrfach wiederholt werden müssen.
+
+Zu diesen Punkten später mehr.
 
 
 
