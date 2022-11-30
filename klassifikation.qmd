@@ -267,9 +267,6 @@ d_schimpf <-
 d2_long %>% 
   select(id, token) %>% 
   mutate(schimpf = token %in% schimpf$word)
-  
-d_schimpf %>% 
-  filter(schimpf)
 ```
 
 
@@ -550,6 +547,7 @@ fit1 <- read_rds("objects/chap_classific_fit1.rds")
 ### Performanz 1
 
 ```{r wf1-perf}
+#| eval: false
 wf1_performance <-
   collect_metrics(fit1)
 
@@ -613,10 +611,15 @@ null_rs <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/obj
 Hier ist die Performanz des Nullmodells.
 
 ```{r}
+#| eval: false
 null_rs %>%
   collect_metrics()
 ```
 
+
+```{r}
+show_best(null_rs)
+```
 
 
 
@@ -691,7 +694,10 @@ fit2 <- read_rds("objects/chap_classific_fit2.rds")
 Hier ist die Performanz:
 
 ```{r}
-collect_metrics(fit2)
+#| eval: false
+collect_metrics(fit2) %>% 
+  filter(.metric == "roc_auc") %>% 
+  slice_max(mean, n = 3)
 ```
 
 
@@ -738,7 +744,8 @@ fit2_final_train <-
 fit2_final_train %>% 
   extract_fit_parsnip() %>% 
   tidy() %>% 
-  arrange(-abs(estimate))
+  arrange(-abs(estimate)) %>% 
+  head()
 ```
 
 
@@ -869,12 +876,6 @@ write_rds(ds, file = paste0(tweet_data_path, "ds.rds"))
 ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/ds.rds")
 ```
 
-
-
-
-```{r}
-head(ds)
-```
 
 
 
@@ -1070,8 +1071,6 @@ Dann backen wir die Daten mit dem vorhandenen Rezept:
 
 ```{r ds-baked}
 ds_baked <- bake(rec1_prepped, new_data = ds_short2)
-
-head(ds_baked)
 ```
 
 
@@ -1239,6 +1238,7 @@ fit3 <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/object
 Hier ist die Performanz:
 
 ```{r}
+#| eval: false
 collect_metrics(fit3)
 ```
 
