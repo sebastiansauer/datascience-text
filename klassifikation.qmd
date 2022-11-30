@@ -38,7 +38,7 @@ library(lsa)  # stopwords
 library(discrim)  # naive bayes classification
 library(naivebayes)
 library(tictoc)  # Zeitmessung
-library(fastrtext)
+library(fastrtext)  # Worteinbettungen
 ```
 
 
@@ -672,7 +672,7 @@ collect_metrics(fit2_final_test)
 
 
 
-## Vorhersage
+### Vorhersage
 
 
 ### Vohersagedaten
@@ -865,12 +865,13 @@ ds_voc <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_v
 
 
 ```{r}
+#| eval: false
 texts <- ds %>% pull(text)
 texts <- tolower(texts)
-tmp_file_txt <- tempfile()
-tmp_file_model <- tempfile()
-writeLines(text = texts, con = tmp_file_txt)
-execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", tmp_file_model, "-verbose", 1))
+out_file_txt <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.vec"
+out_file_model <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.bin"
+writeLines(text = texts, con = out_file_txt)
+execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))
 ```
 
 
@@ -884,7 +885,7 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 Jetzt laden wir das Modell von der Festplatte:
 
 ```{r}
-model <- load_model(tmp_file_model)
+model <- load_model(out_file_model)
 dict <- get_dictionary(model)
 ```
 
@@ -892,7 +893,7 @@ dict <- get_dictionary(model)
 Schauen wir uns einige Begriffe aus dem Vokabular an:
 
 ```{r}
-print(head(dict, 125))
+print(head(dict, 10))
 ```
 
 Hier ist der Vektor für `menschen`:
