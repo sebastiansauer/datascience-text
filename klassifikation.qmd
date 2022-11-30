@@ -39,6 +39,8 @@ library(discrim)  # naive bayes classification
 library(naivebayes)
 library(tictoc)  # Zeitmessung
 library(fastrtext)  # Worteinbettungen
+library(remoji)  # Emojis
+library(tokenizers)  # Vektoren tokenisieren
 ```
 
 
@@ -52,7 +54,7 @@ Man spricht auch von "gelabelten" Daten.
 Wir nutzen die Daten von @wiegand_germeval bzw. @wiegand-data.
 Die Daten sind unter CC-By-4.0 Int. lizensiert.
 
-```{r}
+```{r import-heidelberg-data}
 d_raw <- 
   import("data/germeval2018.training.txt",
          header = FALSE)
@@ -135,7 +137,7 @@ in der Hoffnung, damit eine bessere Klassifikation erzielen zu können.
 
 
 
-```{r}
+```{r d2}
 d2 <-
   d_raw %>% 
   mutate(text_length = str_length(text)) %>% 
@@ -150,14 +152,14 @@ head(d2)
 
 Wir nutzen dazu `SentiWS` [@Remus2010].
 
-```{r}
+```{r read-sentiws}
 sentiws <- read_csv("https://osf.io/x89wq/?action=download")
 ```
 
 
 
 
-```{r}
+```{r d2-long}
 d2_long <-
   d2 %>% 
   unnest_tokens(input = text, output = token)
@@ -168,7 +170,7 @@ head(d2_long)
 Jetzt filtern wir unsere Textdaten so,
 dass nur Wörter mit Sentimentwert übrig bleiben:
 
-```{r}
+```{r d2-senti-long}
 d2_long_senti <- 
   d2_long %>%  
   inner_join(sentiws %>% select(-inflections), by = c("token" = "word"))
@@ -179,7 +181,7 @@ head(d2_long)
 
 Schließlich berechnen wir die Sentimentwert pro Polarität und pro Tweet:
 
-```{r}
+```{r d2-sentis}
 d2_sentis <-
   d2_long_senti %>% 
   group_by(id, neg_pos) %>% 
@@ -193,7 +195,7 @@ Diese Tabelle bringen wir wieder eine breitere Form,
 um sie dann wieder mit den Hauptdaten zu vereinigen.
 
 
-```{r}
+```{r d2-sentis-wide}
 d2_sentis_wide <-
   d2_sentis %>% 
   pivot_wider(names_from = "neg_pos", values_from = "senti_avg")
@@ -202,7 +204,7 @@ d2_sentis_wide %>% head()
 ```
 
 
-```{r}
+```{r d3}
 d3 <-
   d2 %>% 
   full_join(d2_sentis_wide)
@@ -226,7 +228,7 @@ Dazu nutzen wir die Daten von [LDNOOBW](https://github.com/LDNOOBW/List-of-Dirty
 
 
 
-```{r}
+```{r schimpf1}
 schimpf1 <- import("https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/de", format = ",", header = FALSE)
 ```
 
@@ -234,7 +236,7 @@ schimpf1 <- import("https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naug
 Länger aber noch ist die Liste aus dem [InsultWiki](https://www.insult.wiki/schimpfwort-liste), lizensiert CC0.
 
 
-```{r}
+```{r schimpf2}
 schimpf2 <- 
   import("data/insult-de.txt", header = FALSE) %>% 
   mutate_all(str_to_lower)
@@ -243,7 +245,7 @@ schimpf2 <-
 
 Binden wir die Listen zusammen:
 
-```{r}
+```{r schimpf}
 schimpf <-
   schimpf1 %>% 
   bind_rows(schimpf2) %>% 
@@ -260,7 +262,7 @@ sind diese Schimpfwörter hier nicht abgedruckt.
 Jetzt zählen wir, ob unsere Tweets/Texte solcherlei Wörter enthalten.
 
 
-```{r}
+```{r d_schimpf}
 d_schimpf <- 
 d2_long %>% 
   select(id, token) %>% 
@@ -282,7 +284,7 @@ d_schimpf %>%
 Etwa ein Prozent der Wörter sind Schimpfwörter in unserem Corpus.
 
 
-```{r}
+```{r d-schimpf2}
 d_schimpf2 <-
   d_schimpf %>% 
   group_by(id) %>% 
@@ -292,18 +294,69 @@ head(d_schimpf2)
 ```
 
 
-```{r}
+```{r d_main}
 d_main <-
   d3 %>% 
   full_join(d_schimpf2)
 ```
 
-### Worteinbettungen
 
-Hier könnte ein schöner Abschnitt stehen über Worteinbettungen in deutscher Sprache,
-allerdings ist dieses Schmankerl außen vorgelassen zum Übungsnutzen der Lesis 
-🏋️🙂.
+:::callout-important
+Namen wie `final`, `main` oder `result` sind gefährlich,
+da es unter Garantie ein "final-final geben wird, oder der "Haupt-Datensat" plötzlich nicht mehr so wichtig erscheint und so weiter.
+:::
 
+
+
+### Emojis
+
+
+```{r}
+emj <- emoji(list_emoji(), pad = FALSE)
+
+head(emj)
+```
+
+Diese Liste umfasst knapp 900 Emojis, 
+das sind allerdings noch nicht alle, die es gibt.
+[Diese Liste](https://unicode.org/emoji/charts/full-emoji-list.html) umfasst mit gut 1800 Emojis
+gut das Doppelte.
+
+
+Selbstkuratierte Liste an "wilden" Emoji;
+diese Liste ist inspiriert von [emojicombos.com](https://emojicombos.com/disgust).
+
+```{r}
+wild_emojis <- 
+  c(
+    emoji(find_emoji("gun")),
+    emoji(find_emoji("bomb")),
+    emoji(find_emoji("fist")),
+    emoji(find_emoji("knife"))[1],
+     emoji(find_emoji("ambulance")),
+    "😠",
+    "👹",
+    "💩",
+    "☠",
+    "🖕",
+    emoji(find_emoji("middle finger"))
+    "😡",
+    "🤢",
+    "🤮",
+    "😖",
+    "😣",
+    "😩",
+    "😨",
+    "😝",
+    "😳",
+    "😬",
+    "😱",
+    "😵",
+    "😤",
+    "🤦‍♀️",
+    "🤦‍♂️"
+  )
+```
 
 
 
@@ -315,7 +368,7 @@ allerdings ist dieses Schmankerl außen vorgelassen zum Übungsnutzen der Lesis
 
 
 
-## Modell 1: Naive-Bayes
+## Workflow 1: Rezept 1 + Naive-Bayes
 
 
 ### Dummy-Rezept
@@ -401,7 +454,8 @@ rec1 <-
   step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
   step_stem(text) %>% 
   step_tokenfilter(text, max_tokens = 1e2) %>% 
-  step_tfidf(text)
+  step_tfidf(text) %>% 
+  step_normalize(all_numeric_predictors())
 
 rec1
 ```
@@ -547,7 +601,7 @@ null_rs %>%
 
 
 
-## Modell 2: Lasso
+## Workflow 2: Rezept 1 + Lasso
 
 
 
@@ -861,8 +915,10 @@ ds_voc <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_v
 
 
 
-### Worteinbettungen erstellen
+## Worteinbettungen erstellen
 
+
+### FastText-Modell
 
 ```{r}
 #| eval: false
@@ -885,7 +941,7 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 Jetzt laden wir das Modell von der Festplatte:
 
 ```{r}
-model <- load_model(out_file_model)
+twitter_fasttext_model <- load_model(out_file_model)
 dict <- get_dictionary(model)
 ```
 
@@ -981,6 +1037,218 @@ Wer dem Frieden nicht traut,
 dem sei geraten, nachzuprüfen :-)
 
 
+
+## Workflow 3: Rezept 2 + Lasso
+
+### Daten aufteilen
+
+
+
+```{r}
+d_split <- initial_split(d2, strata = c1)
+
+d_train <- training(d_split)
+d_test <- testing(d_split)
+```
+
+
+
+### Hilfsfunktionen
+
+```{r}
+dummy <- c("hallo", "baby", "fatal")
+```
+
+
+```{r}
+count_profane <- function(text) {
+  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% schimpf$word)
+}
+
+count_profane(dummy) 
+```
+
+
+
+```{r}
+count_emo_words <- function(text) {
+  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% sentiws$word)
+}
+
+count_emo_words(dummy)
+```
+
+
+```{r}
+count_emojis <- function(text){
+  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% trimws(emj))
+}
+
+dummy <- c("baby", "und", "🆗", "🖕")
+
+count_emojis(dummy)
+```
+
+
+```{r}
+count_wild_emojis <- function(text){
+  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% wild_emojis)
+}
+
+count_wild_emojis(dummy) 
+```
+
+
+
+### Rezept mit Worteinbettungen
+
+```{r}
+rec2 <- 
+  recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
+  update_role(id, new_role = "id") %>% 
+  step_text_normalization(text) %>% 
+  step_mutate(text_copy = text,
+              profane_n = map_int(text, count_profane),
+              emo_words_n = map_int(text, count_emo_words),
+              emojis_n = map_int(text, count_emojis),
+              wild_emojis_n = map_int(text, count_wild_emojis)
+  ) %>% 
+  step_textfeature(text_copy) %>% 
+  step_tokenize(text, token = "tweets") %>% 
+  step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
+  step_word_embeddings(text, embeddings = word_embedding_twitter)
+ 
+rec2
+```
+
+
+```{r}
+rec2_prepped <- prep(rec2)
+rec2_baked <- bake(rec2_prepped, new_data = NULL)
+```
+
+
+```{r}
+rec2_baked %>% 
+  select(1:15) %>% 
+  glimpse()
+```
+
+
+
+### Fitting 3
+
+
+
+
+```{r}
+wf3 <-
+  workflow() %>% 
+  add_recipe(rec2) %>% 
+  add_model(lasso_spec)
+
+wf3
+```
+
+
+
+
+
+Tunen und Fitten:
+
+```{r}
+set.seed(42)
+
+tic()
+fit3 <-
+  tune_grid(
+    wf3,
+    folds1,
+    grid = lambda_grid,
+    control = control_resamples(save_pred = TRUE)
+  )
+(toc)
+fit3
+```
+
+
+
+
+
+```{r}
+#| eval: false
+write_rds(fit3, "objects/chap_classific_fit3.rds")
+```
+
+
+Hier ist die Performanz:
+
+```{r}
+collect_metrics(fit3)
+```
+
+
+```{r}
+autoplot(fit3)
+```
+
+
+
+```{r}
+fit3 %>% 
+  show_best("roc_auc")
+```
+
+
+
+```{r}
+chosen_auc_fit3 <- 
+  fit3 %>%
+  select_by_one_std_err(metric = "roc_auc", -penalty)
+```
+
+
+
+Finalisieren:
+
+
+```{r}
+wf3_final <-
+  finalize_workflow(wf3, chosen_auc_fit3)
+
+wf3_final
+```
+
+
+
+```{r}
+fit3_final_train <-
+  fit(wf3_final, d_train)
+```
+
+
+```{r}
+fit3_final_train %>% 
+  extract_fit_parsnip() %>% 
+  tidy() %>% 
+  arrange(-abs(estimate)) %>% 
+  head()
+```
+
+
+
+```{r}
+fit3_final_test <-
+  last_fit(wf3_final, d_split)
+
+collect_metrics(fit3_final_test)
+```
+
+
+Am Ende so eines Arbeitsganges,
+bei dem man wieder (und wieder) die gleichen Funktionen kopiert,
+und nur aufpassen muss, aus `fit2` an der richtigen Stelle `fit3` zu machen:
+Da blickt man jedem Umbau dieses Codes zu einer Funktion freudig ins Gesicht.
 
 
 

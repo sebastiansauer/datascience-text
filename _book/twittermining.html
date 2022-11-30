@@ -1473,15 +1473,14 @@ Hinweis
 <p>Prompt the user for a password to authenticate or read a protected key. By default, this function automatically uses the most appropriate method based on the user platform and front-end. Users or IDEs can override this and set a custom password entry function via the askpass option.</p>
 </blockquote>
 <p>Twitter bietet <a href="https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research">in diesem Repo</a> einen nützlichen Kurs an, um sich mit der API vertraut zu machen.</p>
-<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-54_201a6fcbb090882b5a49d7e832a9260a">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>tweets_to__FriedrichMerz_2021 <span class="ot">&lt;-</span></span>
+<div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-54_b37c701e5dd839edf625f810166b1d7a">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>tweets_to__FriedrichMerz_2022 <span class="ot">&lt;-</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_all_tweets</span>(<span class="at">query =</span> <span class="st">"to:_FriedrichMerz -is:retweet"</span>,</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">start_tweets =</span> <span class="st">"2021-01-01T00:00:00Z"</span>,</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">end_tweets =</span> <span class="st">"2021-12-31T23:59:59Z"</span>,</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">start_tweets =</span> <span class="st">"2022-01-01T00:00:00Z"</span>,</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">end_tweets =</span> <span class="st">"2022-11-23T23:59:59Z"</span>,</span>
 <span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bearer_token =</span> <span class="fu">askpass</span>(<span class="st">"Bearer token"</span>),</span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">file =</span> <span class="st">"~/datasets/Twitter/tweets_to__FriedrichMerz_2021.rds"</span>,</span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data_path =</span> <span class="st">"~/datasets/Twitter/_FriedrichMerz"</span>,</span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n =</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">file =</span> <span class="st">"~/datasets/Twitter/tweets-to-_FriedrichMerz_2022.rds"</span>,</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n =</span> <span class="fl">1e5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Oder als Funktion, das ist praktischer, wenn man die Syntax mehrfach verwendet:</p>
 <div class="cell" data-hash="twittermining_cache/html/unnamed-chunk-55_f1f41326f1dae247963aab863536dd91">
@@ -1501,6 +1500,7 @@ Hinweis
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">bearer_token =</span> <span class="fu">askpass</span>(<span class="st">"Bearer token"</span>),</span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">n =</span> <span class="fl">1e05</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Dann kann man die Objekte abespeichern, etwas als RDS-Datei oder als Feather-Datei.</p>
 <p>Den Datensatz <code>politicians</code> hatten wir oben angelegt, s. <a href="#sec-politicians-accounts"><span>Kapitel&nbsp;2.2.1</span></a>. Er beinhaltet die Kontonamen (<code>screennames</code>) einiger deutscher Politikis.</p>
 <p>Wichtig ist, mit den Lizenzregeln in Einklang zu bleiben.</p>
 <p>Zentral ist dabei sicherlich die Frage, ob und wie man Tweets weitergeben darf. Dazu:</p>
