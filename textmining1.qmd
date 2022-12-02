@@ -37,6 +37,7 @@ library(SnowballC)  # Stemming
 library(lsa)  # Stopwörter
 library(easystats)  # Komfort für deskriptive Statistiken, wie `describe_distribution`
 library(textclean)  # Emojis ersetzen
+library(wordcloud)
 ```
 
 
@@ -91,14 +92,55 @@ Ist der Text tokenisiert, kann man einfach mit "Bordmitteln" die Wörter zählen
 
 
 ```{r}
-hcandersen_de %>% 
+hc_andersen_count <- 
+  hcandersen_de %>% 
   filter(book == "Das Feuerzeug") %>% 
   unnest_tokens(output = word, input = text) %>% 
   anti_join(stop2) %>% 
-  count(word, sort = TRUE) %>% 
+  count(word, sort = TRUE) 
+
+hc_andersen_count %>% 
   head()
 ```
 
+
+
+Zur Visualisierung eignen sich Balkendiagramme, s. @fig-hcandersen-count.
+
+
+```{r}
+#| label: fig-hc-andersen-count
+#| fig.cap: "Die häufigsten Wörter in H.C. Anderssens Feuerzeug"
+
+hc_andersen_count %>% 
+  slice_max(order_by = n, n = 10) %>% 
+  mutate(word = factor(word)) %>% 
+  ggplot() +
+  aes(y = reorder(word, n), x = n) +
+  geom_col()
+  
+```
+
+
+Dabei macht es Sinn, aus `word` einen Faktor zu machen,
+denn Faktorstufen kann man sortieren,
+zumindest ist das die einfachste Lösung in `ggplot2` (wenn auch nicht super komfortabel).
+
+
+Eine (beliebite?) Methode, um Worthäufigkeiten in Corpora darzustellen, 
+sind *Wortwolken*, s. @fig-wordcloud1.
+Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale
+perzeptorische Qualitäten aufweisen.
+
+```{r}
+#| label: fig-wordcloud1
+#| fig.cap: "Eine Wortwolke zu den häufigsten Wörtern in H.C. Andersens Feuerzeug"
+wordcloud(words = hc_andersen_count$word,
+          freq = hc_andersen_count$n,
+          max.words = 50,
+          rot.per = 0.35,
+          colors = brewer.pal(8, "Dark2"))
+```
 
 
 
@@ -107,7 +149,7 @@ hcandersen_de %>%
 Erarbeiten Sie dieses Kapitel: @smltar, [Kap. 4](https://smltar.com/stemming.html#stemming)
 
 
-Vertiefende Hinweise zum UpSet plot finden Sie [hier](https://ieeexplore.ieee.org/document/6876017), @lex_upset_2014.
+Vertiefende Hinweise zum *UpSet plot* finden Sie [hier](https://ieeexplore.ieee.org/document/6876017), @lex_upset_2014.
 
 
 Für welche Sprachen gibt es Stemming im Paket `SnowballC`?

@@ -296,7 +296,7 @@ div.csl-indent {
 </section>
 <section id="benötigte-r-pakete" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="benötigte-r-pakete"><span class="header-section-number">3.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-1_1f0958e18fc5ef5a9e5561bafa6490b2">
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-1_01e6353efc42fb6aa62c5ca4163a8d42">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tokenizers)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -305,7 +305,8 @@ div.csl-indent {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)  <span class="co"># Stemming</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lsa)  <span class="co"># Stopwörter</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textclean)  <span class="co"># Emojis ersetzen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textclean)  <span class="co"># Emojis ersetzen</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -371,16 +372,18 @@ div.csl-indent {
 <section id="sec-woerterzaehlen" class="level3" data-number="3.2.3">
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="sec-woerterzaehlen"><span class="header-section-number">3.2.3</span> Wörter zählen</h3>
 <p>Ist der Text tokenisiert, kann man einfach mit “Bordmitteln” die Wörter zählen.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-4_420b7dc93f1e442209602a7e4db4348b">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hcandersen_de <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop2) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-4_435e970983c14ead9fb624b1a8c7b533">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hc_andersen_count <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  hcandersen_de <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(book <span class="sc">==</span> <span class="st">"Das Feuerzeug"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop2) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "word"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hc_andersen_count <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -420,15 +423,49 @@ div.csl-indent {
 </div>
 </div>
 </div>
+<p>Zur Visualisierung eignen sich Balkendiagramme, s. <span class="quarto-unresolved-ref">?fig-hcandersen-count</span>.</p>
+<div class="cell" data-hash="textmining1_cache/html/fig-hc-andersen-count_5eb103ccd6a17e1ec06dcfe2100c1fa3">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>hc_andersen_count <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> n, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">factor</span>(word)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(word, n), <span class="at">x =</span> n) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-hc-andersen-count" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="textmining1_files/figure-html/fig-hc-andersen-count-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.1: Die häufigsten Wörter in H.C. Anderssens Feuerzeug</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Dabei macht es Sinn, aus <code>word</code> einen Faktor zu machen, denn Faktorstufen kann man sortieren, zumindest ist das die einfachste Lösung in <code>ggplot2</code> (wenn auch nicht super komfortabel).</p>
+<p>Eine (beliebite?) Methode, um Worthäufigkeiten in Corpora darzustellen, sind <em>Wortwolken</em>, s. <a href="#fig-wordcloud1">Abbildung&nbsp;<span>3.2</span></a>. Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale perzeptorische Qualitäten aufweisen.</p>
+<div class="cell" data-hash="textmining1_cache/html/fig-wordcloud1_3c7d5f73eda022ace7aa2fa18e5904ee">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words =</span> hc_andersen_count<span class="sc">$</span>word,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">freq =</span> hc_andersen_count<span class="sc">$</span>n,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words =</span> <span class="dv">50</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">rot.per =</span> <span class="fl">0.35</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">colors =</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Dark2"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-wordcloud1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="textmining1_files/figure-html/fig-wordcloud1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.2: Eine Wortwolke zu den häufigsten Wörtern in H.C. Andersens Feuerzeug</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="stemming-wortstamm-finden" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="stemming-wortstamm-finden"><span class="header-section-number">3.2.4</span> Stemming (Wortstamm finden)</h3>
 <p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></p>
-<p>Vertiefende Hinweise zum UpSet plot finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="references.html#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
+<p>Vertiefende Hinweise zum <em>UpSet plot</em> finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="references.html#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
 <p>Für welche Sprachen gibt es Stemming im Paket <code>SnowballC</code>?</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-5_c1a65ebfb517c53003faa3b11a1cf801">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getStemLanguages</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-7_fc8180c9c2f93f6517c56eec5ff2bef2">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getStemLanguages</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "arabic"     "basque"     "catalan"    "danish"     "dutch"     
  [6] "english"    "finnish"    "french"     "german"     "greek"     
@@ -439,8 +476,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Einfacher Test: Suchen wir den Wordstamm für das Wort “wissensdurstigen”, wie in “die wissensdurstigen Studentis löcherten dis armi Professi”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-6_dc5783d3c9f3bc9d557ba00e0ebad168">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wordStem</span>(<span class="st">"wissensdurstigen"</span>, <span class="at">language =</span> <span class="st">"german"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-8_3ca0a28df16a342d22e728de613cf10d">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wordStem</span>(<span class="st">"wissensdurstigen"</span>, <span class="at">language =</span> <span class="st">"german"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "wissensdurst"</code></pre>
 </div>
@@ -450,52 +487,52 @@ div.csl-indent {
 <section id="fallstudie-afd-parteiprogramm" class="level3" data-number="3.2.5">
 <h3 data-number="3.2.5" class="anchored" data-anchor-id="fallstudie-afd-parteiprogramm"><span class="header-section-number">3.2.5</span> Fallstudie AfD-Parteiprogramm</h3>
 <p>Daten einlesen:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-7_1f4740dcfc79e1aa551240f1e2a6211f">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d_link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/sebastiansauer/pradadata/master/data-raw/afd_2022.csv"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>afd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_link, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-9_a7833140de147171123b127987553461">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d_link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/sebastiansauer/pradadata/master/data-raw/afd_2022.csv"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>afd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(d_link, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wie viele Seiten hat das Dokument?</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-8_87826efe7c441852270a057af8766720">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(afd)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-10_ff75e741a4331e3f73413dfa2ae12221">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(afd)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 190</code></pre>
 </div>
 </div>
 <p>Und wie viele Wörter?</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-9_04a3d2a2d0d640a1cbdbefcad3cc70dc">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(afd<span class="sc">$</span>text, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">w"</span>) <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-11_12ba0484e88e9fbe879b5be307d35f4b">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(afd<span class="sc">$</span>text, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">w"</span>) <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 179375</code></pre>
 </div>
 </div>
 <p>Aus breit mach lang, oder: wir tokenisieren (nach Wörtern):</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-10_a0bf20fc807ddc3e52351cb24add2ce3">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>afd <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> token, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(token, <span class="st">"[a-z]"</span>)) <span class="ot">-&gt;</span> afd_long</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-12_9613d83bd52f79436ac093c3371492a5">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>afd <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> token, <span class="at">input =</span> text) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(token, <span class="st">"[a-z]"</span>)) <span class="ot">-&gt;</span> afd_long</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Stopwörter entfernen:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-11_1a2f426f18fda46468d2881d40a2cdb4">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(stopwords_de, <span class="at">package =</span> <span class="st">"lsa"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>stopwords_de <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">word =</span> stopwords_de)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Für das Joinen werden gleiche Spaltennamen benötigt:</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>stopwords_de <span class="ot">&lt;-</span> stopwords_de <span class="sc">%&gt;%</span> </span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">token =</span> word)  </span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stopwords_de) <span class="ot">-&gt;</span> afd_no_stop</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-13_fcd2b777cf53fa3c864990314fb99abb">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(stopwords_de, <span class="at">package =</span> <span class="st">"lsa"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>stopwords_de <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">word =</span> stopwords_de)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Für das Joinen werden gleiche Spaltennamen benötigt:</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>stopwords_de <span class="ot">&lt;-</span> stopwords_de <span class="sc">%&gt;%</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">token =</span> word)  </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stopwords_de) <span class="ot">-&gt;</span> afd_no_stop</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "token"</code></pre>
 </div>
 </div>
 <p>Wörter zählen:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-12_b3e1b3d7c343e763cc1c9dfcbec5a0d2">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>afd_no_stop <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> afd_count</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(afd_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-14_75c2db6d353587f0e66cd7efd6fb2085">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>afd_no_stop <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> afd_count</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(afd_count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -536,12 +573,12 @@ div.csl-indent {
 </div>
 </div>
 <p>Wörter trunkieren:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-13_f45d847b3e66ed4b9fc65f8246e09a9f">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>afd_no_stop <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token_stem =</span> <span class="fu">wordStem</span>(token, <span class="at">language =</span> <span class="st">"de"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token_stem, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> afd_count_stemmed</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(afd_no_stop)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-15_3e8d436928338af1249eecf4a76f7cf6">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>afd_no_stop <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token_stem =</span> <span class="fu">wordStem</span>(token, <span class="at">language =</span> <span class="st">"de"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(token_stem, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> afd_count_stemmed</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(afd_no_stop)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -588,40 +625,40 @@ div.csl-indent {
 <section id="regex" class="level4" data-number="3.2.6.1">
 <h4 data-number="3.2.6.1" class="anchored" data-anchor-id="regex"><span class="header-section-number">3.2.6.1</span> Regulärausdrücke</h4>
 <p>Das <code>"[a-z]"</code> in der Syntax oben steht für “alle Buchstaben von a-z”. D iese flexible Art von “String-Verarbeitung mit Jokern” nennt man <em>Regulärausdrücke</em> (regular expressions; regex). Es gibt eine ganze Reihe von diesen Regulärausdrücken, die die Verarbeitung von Texten erleichert. Mit dem Paket <code>stringr</code> geht das - mit etwas Übung - gut von der Hand. Nehmen wir als Beispiel den Text eines Tweets:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-14_dbba7363cab79afe240df8158b78556d">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">"Correlation of unemployment and #AfD votes at #btw17: ***r = 0.18***</span><span class="sc">\n\n</span><span class="st">https://t.co/YHyqTguVWx"</span>  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-16_11848d099811bd31b05660100b2c4e17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">"Correlation of unemployment and #AfD votes at #btw17: ***r = 0.18***</span><span class="sc">\n\n</span><span class="st">https://t.co/YHyqTguVWx"</span>  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Möchte man Ziffern identifizieren, so hilft der Reulärausdruck <code>[:digit:]</code>:</p>
 <p>“Gibt es mindestens eine Ziffer in dem String?”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-15_aeaf8aacc91fd2df9a3ac435eddd6810">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-17_c6aab1a9e8c4196219c2d22a480210cf">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <p>“Finde die Position der ersten Ziffer! Welche Ziffer ist es?”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-16_a2217b2303a948a0c7baf89568567ebf">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-18_ab69150a8fc91ef1079eca837ace64b8">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     start end
 [1,]    51  51</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "1"</code></pre>
 </div>
 </div>
 <p>“Finde alle Ziffern!”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-17_710c01105055e42e63d13b6de50a99c1">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-19_b4bed49595c5e4487bc21e64a03063ee">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:digit:]"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "1" "7" "0" "1" "8"</code></pre>
 </div>
 </div>
 <p>“Finde alle Stellen an denen genau 2 Ziffern hintereinander folgen!”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-18_2457cf00cd118564ab7e8e5b6453fd2b">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:digit:]{2}"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-20_69856ea51a9a3041ab82cf0cdc903115">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:digit:]{2}"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "17" "18"</code></pre>
@@ -629,8 +666,8 @@ div.csl-indent {
 </div>
 <p>Der Quantitätsoperator <code>{n}</code> findet alle Stellen, in der der der gesuchte Ausdruck genau <span class="math inline">\(n\)</span> mal auftaucht.</p>
 <p>“Zeig die Hashtags!”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-19_a38b594b6abcacdf5dac6402e6e6c7a5">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"#[:alnum:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-21_07c53b41d97d090b276a28ecb5e78862">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"#[:alnum:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "#AfD"   "#btw17"</code></pre>
@@ -638,8 +675,8 @@ div.csl-indent {
 </div>
 <p>Der Operator <code>[:alnum:]</code> steht für “alphanumerischer Charakter” - also eine Ziffer oder ein Buchstabe; synonym hätte man auch <code>\\w</code> schreiben können (w wie word). Warum werden zwei Backslashes gebraucht? Mit <code>\\w</code> wird signalisiert, dass nicht der Buchstabe <em>w</em>, sondern etwas Besonderes, eben der Regex-Operator <code>\w</code> gesucht wird.</p>
 <p>“Zeig die URLs!”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-20_f5cafffeb49c286a6cbe5f41dd83fa69">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"https?://[:graph:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-22_563e3a7cd574ddd30d719d9feb8cba1c">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"https?://[:graph:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] "https://t.co/YHyqTguVWx"</code></pre>
@@ -647,15 +684,15 @@ div.csl-indent {
 </div>
 <p>Das Fragezeichen <code>?</code> ist eine Quantitätsoperator, der einen Treffer liefert, wenn das vorherige Zeichen (hier <em>s</em>) null oder einmal gefunden wird. <code>[:graph:]</code> ist die Summe von <code>[:alpha:]</code> (Buchstaben, groß und klein), <code>[:digit:]</code> (Ziffern) und <code>[:punct:]</code> (Satzzeichen u.ä.).</p>
 <p>“Zähle die Wörter im String!”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-21_cdcaebb13d7ebf5a13293c87f9b20bbd">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(string, <span class="fu">boundary</span>(<span class="st">"word"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-23_d6272b3e2681d13ff1ef7132f4977c6c">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(string, <span class="fu">boundary</span>(<span class="st">"word"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13</code></pre>
 </div>
 </div>
 <p>“Liefere nur Buchstaben<em>folgen</em> zurück, lösche alles übrige”</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-22_2c2e1ea1cc900b579836bd516aa271b7">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:alpha:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-24_e9832a656f26f2700232effb461af34a">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(string, <span class="st">"[:alpha:]+"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
  [1] "Correlation"  "of"           "unemployment" "and"          "AfD"         
@@ -664,8 +701,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Der Quantitätsoperator <code>+</code> liefert alle Stellen zurück, in denen der gesuchte Ausdruck <em>einmal oder häufiger</em> vorkommt. Die Ergebnisse werden als Vektor von Wörtern zurückgegeben. Ein anderer Quantitätsoperator ist <code>*</code>, der für 0 oder mehr Treffer steht. Möchte man einen Vektor, der aus Stringen-Elementen besteht zu einem Strring zusammenfüngen, hilft <code>paste(string)</code> oder <code>str_c(string, collapse = " ")</code>.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-23_f0b099c5d6d9d081aaa05a90c589b314">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(string, <span class="st">"[^[:alpha:]+]"</span>, <span class="st">""</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-25_3f23cdf821e6c6ea6c8e894588cf1de1">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(string, <span class="st">"[^[:alpha:]+]"</span>, <span class="st">""</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "CorrelationofunemploymentandAfDvotesatbtwrhttpstcoYHyqTguVWx"</code></pre>
 </div>
@@ -687,7 +724,7 @@ div.csl-indent {
 <div id="fig-regrex-rstudio" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/regex1.png" id="fig-vorher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"> <img src="img/regex2.png" id="fig-nacher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.1: <strong>?(caption)</strong></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;3.3: <strong>?(caption)</strong></figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -695,20 +732,20 @@ div.csl-indent {
 <section id="emoji-analyse" class="level3" data-number="3.2.7">
 <h3 data-number="3.2.7" class="anchored" data-anchor-id="emoji-analyse"><span class="header-section-number">3.2.7</span> Emoji-Analyse</h3>
 <p>Eine einfache Art, Emojis in einer Textmining-Analyse zu verarbeiten, bietet das Paket <code>textclean</code>:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-24_eed7d547f858c081170431da38bc71d4">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fls <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"docs/emoji_sample.txt"</span>, <span class="at">package =</span> <span class="st">"textclean"</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">readLines</span>(fls)[<span class="dv">1</span>]</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-26_3544cff4f7ada37b3a70203a3ba2073b">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fls <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"docs/emoji_sample.txt"</span>, <span class="at">package =</span> <span class="st">"textclean"</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">readLines</span>(fls)[<span class="dv">1</span>]</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Proin 😍 ut maecenas 😏 condimentum 😔 purus eget. Erat, 😂vitae nunc elit. Condimentum 😢 semper iaculis bibendum sed tellus. Ut suscipit interdum😑 in. Faucib😞 us nunc quis a vitae posuere. 😛 Eget amet sit condimentum non. Nascetur vitae ☹ et. Auctor ornare ☺ vestibulum primis justo congue 😀urna ac magna. Quam 😥 pharetra 😟 eros 😒facilisis ac lectus nibh est 😙vehicula 😐 ornare! Vitae, malesuada 😎 erat sociosqu urna, 😏 nec sed ad aliquet 😮 ."</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-25_ea3301d4c4f8a9a979b18140436730a6">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_emoji</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-27_561e378ff4a7143199c8cb2d3d36c003">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_emoji</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Proin smiling face with heart-eyes ut maecenas smirking face condimentum pensive face purus eget. Erat, face with tears of joy vitae nunc elit. Condimentum crying face semper iaculis bibendum sed tellus. Ut suscipit interdum expressionless face in. Faucib disappointed face us nunc quis a vitae posuere. face with tongue Eget amet sit condimentum non. Nascetur vitae frowning face et. Auctor ornare smiling face vestibulum primis justo congue grinning face urna ac magna. Quam sad but relieved face pharetra worried face eros unamused face facilisis ac lectus nibh est kissing face with smiling eyes vehicula neutral face ornare! Vitae, malesuada smiling face with sunglasses erat sociosqu urna, smirking face nec sed ad aliquet face with open mouth ."</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_emoji_identifier</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_emoji_identifier</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Proin lexiconwiutsdotskrupggpgmhm ut maecenas lexiconwizbukzesopzflfinotj condimentum lexiconwlnxqescoesytfatoevi purus eget. Erat, lexiconwcaiviebiytolowkanmb vitae nunc elit. Condimentum lexiconwpujksvgujncexktvyrn semper iaculis bibendum sed tellus. Ut suscipit interdum lexiconwknnasgueiicggptyzbx in. Faucib lexiconwoxfeslcareuqfkbyjgy us nunc quis a vitae posuere. lexiconwobmhqdrrzgygdexhnkk Eget amet sit condimentum non. Nascetur vitae lexiconbfalxvockmnmtmycmwyq et. Auctor ornare lexiconbgmujofaalvxqrklfqgd vestibulum primis justo congue lexiconvygwtlyrpywfarytvfis urna ac magna. Quam lexiconwurhpvewhizayynmfxqo pharetra lexiconwpmuduwgbxxrxeltrueb eros lexiconwkrvakxddtqckcjxeksl facilisis ac lectus nibh est lexiconwmsjgfnelqfeyhgudmfj vehicula lexiconwjfhkpcsgcjtotwlapxa ornare! Vitae, malesuada lexiconwivnupleicqgksianinp erat sociosqu urna, lexiconwizbukzesopzflfinotj nec sed ad aliquet lexiconxbwhfeflxbuupjezgdwl ."</code></pre>
 </div>
@@ -718,16 +755,16 @@ div.csl-indent {
 <h3 data-number="3.2.8" class="anchored" data-anchor-id="text-aufräumen"><span class="header-section-number">3.2.8</span> Text aufräumen</h3>
 <p>Eine Reihe generischer Tests bietet das Paket <code>textclean</code> von <a href="https://github.com/trinker/textclean">Tyler Rinker</a>:</p>
 <p>Hier ist ein “unaufgeräumeter” Text:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-26_accaf35381679501b56e431b101450e4">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"i like"</span>, <span class="st">"&lt;p&gt;i want. &lt;/p&gt;. thet them ther ."</span>, <span class="st">"I am ! that|"</span>, <span class="st">""</span>, <span class="cn">NA</span>, </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;quot;they&amp;quot; they,were there"</span>, <span class="st">"."</span>, <span class="st">"   "</span>, <span class="st">"?"</span>, <span class="st">"3;"</span>, <span class="st">"I like goud eggs!"</span>, </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bi</span><span class="sc">\xdfc</span><span class="st">hen Z</span><span class="sc">\xfc</span><span class="st">rcher"</span>, <span class="st">"i 4like..."</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">tgreat"</span>,  <span class="st">"She said </span><span class="sc">\"</span><span class="st">yes</span><span class="sc">\"</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-28_1d7b61740c8e10c347fab6504f364a51">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"i like"</span>, <span class="st">"&lt;p&gt;i want. &lt;/p&gt;. thet them ther ."</span>, <span class="st">"I am ! that|"</span>, <span class="st">""</span>, <span class="cn">NA</span>, </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;quot;they&amp;quot; they,were there"</span>, <span class="st">"."</span>, <span class="st">"   "</span>, <span class="st">"?"</span>, <span class="st">"3;"</span>, <span class="st">"I like goud eggs!"</span>, </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bi</span><span class="sc">\xdfc</span><span class="st">hen Z</span><span class="sc">\xfc</span><span class="st">rcher"</span>, <span class="st">"i 4like..."</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">tgreat"</span>,  <span class="st">"She said </span><span class="sc">\"</span><span class="st">yes</span><span class="sc">\"</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Lassen wir uns dazu ein paar Diagnostiken ausgeben.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-27_d1f45575de3319eafc553eee800b6cfc">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Encoding</span>(x) <span class="ot">&lt;-</span> <span class="st">"latin1"</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_text</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-29_fbc8f139c6ec31fb4b01451d72065e4a">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Encoding</span>(x) <span class="ot">&lt;-</span> <span class="st">"latin1"</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(x)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_text</span>(x)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 =============
@@ -954,17 +991,17 @@ This issue affected the following text:
 <li>Liefere zum Schluss die Summenwerte pro Sentiment zurück.</li>
 </ol>
 <p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das <em>deutsche</em> Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-28_c0143040b002dc88bca1f2dc76a5427b">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/x89wq/?action=download"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-30_00d41c0855658e445e91666af1480c2d">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/x89wq/?action=download"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Den Volltext zum Paper finden Sie z.B. <a href="http://www.lrec-conf.org/proceedings/lrec2010/pdf/490_Paper.pdf">hier</a>.</p>
 <p>Alternativ können Sie die Daten aus dem Paket <code>pradadata</code> laden. Allerdings müssen Sie dieses Paket von Github installieren:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-29_757bdeb9fa6f6e5130691c8bdf297520">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>, <span class="at">dep =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"sebastiansauer/pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-31_b66d7cbd332c384e9e6a63072242e69d">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>, <span class="at">dep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"sebastiansauer/pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="textmining1_cache/html/parse-sentiment-dics_7b392074be7f9e2faa3b256a45bdc064">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sentiws, <span class="at">package =</span> <span class="st">"pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sentiws, <span class="at">package =</span> <span class="st">"pradadata"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><a href="#tbl-afdcount">Tabelle&nbsp;<span>3.1</span></a> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
 <div class="cell" data-hash="textmining1_cache/html/tbl-afdcount_65282fac3f90acfc5d9eab2b6e2ed3a2">
@@ -1029,17 +1066,17 @@ This issue affected the following text:
 <h4 data-number="3.2.10.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse"><span class="header-section-number">3.2.10.2</span> Ungewichtete Sentiment-Analyse</h4>
 <p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span>3.2</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
 <p>Wir nutzen die Tabelle <code>afd_long</code>, die wir oben definiert haben.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-30_707fe98e74ded25482644dadd60aae0c">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sentiws, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"token"</span> <span class="ot">=</span> <span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>inflections) <span class="ot">-&gt;</span> afd_senti  <span class="co"># die Spalte brauchen wir nicht</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(neg_pos) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">polarity_sum =</span> <span class="fu">sum</span>(value),</span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">polarity_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">polarity_prop =</span> (polarity_count <span class="sc">/</span> <span class="fu">sum</span>(polarity_count)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="ot">-&gt;</span></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  afd_senti_tab</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-32_f988accdf275dca7db6310ee3ffb2773">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>afd_long <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sentiws, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"token"</span> <span class="ot">=</span> <span class="st">"word"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>inflections) <span class="ot">-&gt;</span> afd_senti  <span class="co"># die Spalte brauchen wir nicht</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(neg_pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">polarity_sum =</span> <span class="fu">sum</span>(value),</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">polarity_count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">polarity_prop =</span> (polarity_count <span class="sc">/</span> <span class="fu">sum</span>(polarity_count)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="ot">-&gt;</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>  afd_senti_tab</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="textmining1_cache/html/tbl-afdsenti_696f0b6db6c35d405ff61879bfb85427">
 <div class="cell-output-display">
@@ -1076,12 +1113,12 @@ This issue affected the following text:
 </div>
 <p>Die Analyse zeigt, dass die emotionale Bauart des Textes durchaus interessant ist: Es gibt viel mehr positiv getönte Wörter als negativ getönte. Allerdings sind die negativen Wörter offenbar deutlich stärker emotional aufgeladen, denn die Summe an Emotionswert der negativen Wörter ist (überraschenderweise?) deutlich größer als die der positiven.</p>
 <p>Betrachten wir also die intensivsten negativ und positive konnotierten Wörter näher.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-31_512c91a06b1a2c8903e0b27a947e9ca2">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(token, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value_abs =</span> <span class="fu">abs</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, value_abs) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(token)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-33_e630ea50155dad425d47d2c1bac72db2">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(token, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value_abs =</span> <span class="fu">abs</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, value_abs) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(token)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "ungerecht"    "besonders"    "gefährlich"   "überflüssig"  "behindern"   
  [6] "gelungen"     "brechen"      "unzureichend" "gemein"       "verletzt"    
@@ -1091,13 +1128,13 @@ This issue affected the following text:
 </div>
 <p>Diese “Hitliste” wird zumeist (19/20) von negativ polarisierten Begriffen aufgefüllt, wobei “besonders” ein Intensivierwort ist, welches das Bezugswort verstärt (“besonders gefährlich”). Das Argument <code>keep_all = TRUE</code> sorgt dafür, dass alle Spalten zurückgegeben werden, nicht nur die durchsuchte Spalte <code>token</code>. Mit <code>pull</code> haben wir aus dem Dataframe, der von den dplyr-Verben übergeben wird, die Spalte <code>pull</code> “herausgezogen”; hier nur um Platz zu sparen bzw. der Übersichtlichkeit halber.</p>
 <p>Nun könnte man noch den erzielten “Netto-Sentimentswert” des Corpus ins Verhältnis setzen Sentimentswert des Lexikons: Wenn es insgesamt im Sentiment-Lexikon sehr negativ zuginge, wäre ein negativer Sentimentwer in einem beliebigen Corpus nicht überraschend. <code>describe_distribution</code> aus <code>{easystats}</code> gibt uns einen Überblick der üblichen deskriptiven Statistiken.</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-32_0445709d6f1761b617852fba29515c5e">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="sc">%&gt;%</span> </span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(value, neg_pos) <span class="sc">%&gt;%</span> </span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(neg_pos) %&gt;% </span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe_distribution</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-34_638b2c9714b4d9e0b9ad2ca7e4bc0c9e">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>sentiws <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(value, neg_pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(neg_pos) %&gt;% </span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe_distribution</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-33_7867415b58e715fcaf44c27ec0c293da">
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-35_8c6419082d4792976e196788ba4ebc87">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <colgroup>
@@ -1141,9 +1178,9 @@ This issue affected the following text:
 </div>
 </div>
 <p>Insgesamt ist das Lexikon ziemlich ausgewogen; negative Werte sind leicht in der Überzahl im Lexikon. Unser Corpus hat eine ähnliche mittlere emotionale Konnotation wie das Lexikon:</p>
-<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-34_290f545f9e0e6d3a403067ddbf26432b">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">senti_sum =</span> <span class="fu">mean</span>(value) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="textmining1_cache/html/unnamed-chunk-36_62e1fc94513ca3b8970f67ecb1beff54">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>afd_senti <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">senti_sum =</span> <span class="fu">mean</span>(value) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
