@@ -30,7 +30,7 @@ editor_options:
 ```{r}
 #| message: false
 library(tidyverse)
-library(rio)
+library(easystats)
 library(tidymodels)
 library(tidytext)
 library(textrecipes)
@@ -55,11 +55,14 @@ Wir nutzen die Daten von @wiegand_germeval bzw. @wiegand-data.
 Die Daten sind unter CC-By-4.0 Int. lizensiert.
 
 ```{r import-heidelberg-data}
+#| message: false
 d_raw <- 
-  import("data/germeval2018.training.txt",
+  data_read("data/germeval2018.training.txt",
          header = FALSE)
 ```
 
+
+Die Daten finden sich auch im Paket [pradadata](https://github.com/sebastiansauer/pradadata).
 
 Da die Daten keine Spaltenköpfe haben, informieren wir die Funktion dazu mit `header = FALSE`.
 
@@ -125,6 +128,30 @@ Entsprechend in ca. 1/3 der Fälle wurde jeweils nicht mit `OTHER` klassifiziert
 Wir begnügen uns hier mit der ersten, gröberen Klassifikation.
 
 
+
+Fügen wir abschließend noch eine ID-Variable hinzu:
+
+```{r}
+d1 <-
+  d_raw %>% 
+  mutate(id = as.character(1:nrow(.)))
+```
+
+
+Die ID-Variable definieren als Text (nicht als Integer),
+da die Twitter-IDs zwar natürliche Zahlen sind,
+aber zu groß, um von R als Integer verarbeitet zu werden.
+Faktisch sind sie für uns auch nur nominal skalierte Variablen,
+so dass wir keinen Informationsverlust haben.
+
+
+```{r}
+#| eval: false
+#write_rds(d1, "objects/d1.rds")
+```
+
+
+
 ## Feature Engineering
 
 
@@ -140,8 +167,7 @@ in der Hoffnung, damit eine bessere Klassifikation erzielen zu können.
 ```{r d2}
 d2 <-
   d_raw %>% 
-  mutate(text_length = str_length(text)) %>% 
-  mutate(id = 1:nrow(.))
+  mutate(text_length = str_length(text))
 
 head(d2)
 ```
@@ -243,6 +269,9 @@ schimpf2 <-
 ```
 
 
+
+Die Daten finden sich auch im Paket [pradadata](https://github.com/sebastiansauer/pradadata).
+
 Binden wir die Listen zusammen:
 
 ```{r schimpf}
@@ -330,31 +359,24 @@ wild_emojis <-
     emoji(find_emoji("bomb")),
     emoji(find_emoji("fist")),
     emoji(find_emoji("knife"))[1],
-     emoji(find_emoji("ambulance")),
-    "😠",
-    "👹",
-    "💩",
-    "☠",
-    "🖕",
-    emoji(find_emoji("middle finger")),
-    "😡",
-    "🤢",
-    "🤮",
-    "😖",
-    "😣",
-    "😩",
-    "😨",
-    "😝",
-    "😳",
-    "😬",
-    "😱",
-    "😵",
-    "😤",
-    "🤦‍♀️",
-    "🤦‍♂️"
+    emoji(find_emoji("ambulance")),
+    emoji(find_emoji("fist")),
+    emoji(find_emoji("skull")),
+    "☠️",     "🗑",       "😠",    "👹",    "💩" ,
+    "🖕",    "👎️",
+    emoji(find_emoji("middle finger")),    "😡",    "🤢",    "🤮",  
+    "😖",    "😣",    "😩",    "😨",    "😝",    "😳",    "😬",    "😱",    "😵",
+       "😤",    "🤦‍♀️",    "🤦‍"
   )
 ```
 
+
+```{r}
+wild_emojis_df <-
+  tibble(emoji = wild_emojis)
+
+save(wild_emojis_df, file = "data/wild_emojis.RData")
+```
 
 
 
@@ -432,6 +454,8 @@ d_split <- initial_split(d_main, strata = c1)
 d_train <- training(d_split)
 d_test <- testing(d_split)
 ```
+
+
 
 
 
@@ -533,7 +557,7 @@ Aber Vorsicht: Dabei kann es passieren, dass man mit veralteten Objekten arbeite
 
 ```{r write-fit1}
 #| eval: false
-write_rds(fit1, "objects/chap_classific_fit1.rds")
+#write_rds(fit1, "objects/chap_classific_fit1.rds")
 ```
 
 
@@ -597,7 +621,7 @@ null_rs <- workflow() %>%
 ```{r}
 #| eval: false
 #| echo: false
-write_rds(null_rs, file = "/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit_nullmodel.rds")
+#write_rds(null_rs, file = "/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit_nullmodel.rds")
 ```
 
 
@@ -680,7 +704,7 @@ Vorsicht beim Abspeichern.
 
 ```{r}
 #| eval: false
-write_rds(fit2, "objects/chap_classific_fit2.rds")
+#write_rds(fit2, "objects/chap_classific_fit2.rds")
 ```
 
 
@@ -860,13 +884,13 @@ toc()
 `214.531 sec elapsed`
 
 Da wir den Elementen von `tweet_data_files_names` Namen gegeben haben, 
-finden wir diese Namen praktischerweise wieder in `ds`:
+finden wir diese Namen praktischerweise wieder in `ds`.
 
 
 ```{r}
 #| echo: false
 #| eval: false
-write_rds(ds, file = paste0(tweet_data_path, "ds.rds"))
+#write_rds(ds, file = paste0(tweet_data_path, "ds.rds"))
 ```
 
 
@@ -891,7 +915,7 @@ ds_short <- slice_sample(ds, prop = .05)
 ```{r}
 #| echo: false
 #| eval: false
-write_rds(ds_short, "/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_short.rds")
+#write_rds(ds_short, "/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_short.rds")
 ```
 
 
@@ -914,7 +938,7 @@ Speichern wir uns diese Daten daher auf die Festplatte:
 
 ```{r}
 #| eval: false
-write_rds(ds_long, file = paste0(tweet_data_path, "ds_long.rds"))
+#write_rds(ds_long, file = paste0(tweet_data_path, "ds_long.rds"))
 ```
 
 Entfernen wir daraus die Duplikate,
@@ -933,7 +957,7 @@ Und das resultierende Objekt speichern wir wieder ab:
 
 ```{r}
 #| eval: false
-write_rds(ds_voc, file = paste0(tweet_data_path, "ds_voc.rds"))
+#write_rds(ds_voc, file = paste0(tweet_data_path, "ds_voc.rds"))
 ```
 
 
@@ -949,7 +973,7 @@ ds_voc <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_v
 ## Worteinbettungen erstellen
 
 
-### FastText-Modell
+### FastText-Modell {#sec-fasttext}
 
 Definiere die Konstanten für das fastText-Modell:
 
@@ -968,8 +992,8 @@ out_file_model <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-mode
 
 ```{r fasttext-modell}
 #| eval: false
-writeLines(text = texts, con = out_file_txt)
-execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))
+#writeLines(text = texts, con = out_file_txt)
+#execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))
 ```
 
 
@@ -1042,7 +1066,7 @@ Und als Worteinbettungs-Datei abspeichern:
 
 ```{r}
 #| eval: false
-write_rds(word_embedding_twitter, file = paste0(tweet_data_path, "word_embedding_twitter.rds"))
+#write_rds(word_embedding_twitter, file = paste0(tweet_data_path, "word_embedding_twitter.rds"))
 ```
 
 
@@ -1101,49 +1125,29 @@ d_test <- testing(d_split)
 
 ### Hilfsfunktionen
 
+
+
+```{r}
+source("funs/helper-funs-recipes.R")
+```
+
+
+
+Testen wir die Funktionen:
+
 ```{r}
 dummy <- c("hallo", "baby", "fatal")
-```
-
-
-```{r}
-count_profane <- function(text) {
-  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% schimpf$word)
-}
 
 count_profane(dummy) 
-```
-
-
-
-```{r}
-count_emo_words <- function(text) {
-  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% sentiws$word)
-}
 
 count_emo_words(dummy)
-```
-
-
-```{r}
-count_emojis <- function(text){
-  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% trimws(emj))
-}
 
 dummy <- c("baby", "und", "🆗", "🖕")
 
 count_emojis(dummy)
-```
-
-
-```{r}
-count_wild_emojis <- function(text){
-  sum((tokenize_tweets(text, simplify = TRUE) %>% simplify()) %in% wild_emojis)
-}
 
 count_wild_emojis(dummy) 
 ```
-
 
 
 ### Rezept mit Worteinbettungen
@@ -1168,8 +1172,40 @@ rec2
 ```
 
 
-```{r rec2-prepped-baked}
+
+
+Jetzt preppen:
+
+
+```{r rec2-prepped}
 rec2_prepped <- prep(rec2)
+```
+
+
+Vielleicht macht es Sinn, sich das Objekt zur späteren
+Verwendung abzuspeichern.^[Aber Vorsicht beim Abspeichern, man könnte versehentlich mit einer veralteten Version weiterarbeiten.]
+`Feather` verarbeitet nur Dataframes,
+daher nutzen wir hier RDS.
+
+
+```{r}
+#| eval: false
+#write_rds(rec2_prepped, file = "~/datasets/Twitter/klassifik-rec2-prepped.rds")
+```
+
+
+
+Das Element `rec2_prepped` ist recht groß:
+
+
+```{r}
+format(object.size(rec2_prepped), units  = "Mb")
+```
+
+Jetzt können wir das präparierte ("gepreppte") Rezept "backen":
+
+
+```{r rec2-prepped-baked}
 rec2_baked <- bake(rec2_prepped, new_data = NULL)
 ```
 
@@ -1182,7 +1218,7 @@ rec2_baked %>%
 
 
 
-### Fitting 3
+### Fitting 3 {#sec-klassifik-fit3}
 
 
 
@@ -1224,7 +1260,7 @@ fit3
 
 ```{r}
 #| eval: false
-write_rds(fit3, "objects/chap_classific_fit3.rds")
+#write_rds(fit3, "objects/chap_classific_fit3.rds")
 ```
 
 
@@ -1280,6 +1316,13 @@ wf3_final
 fit3_final_train <-
   fit(wf3_final, d_train)
 ```
+
+
+```{r}
+#| echo: false
+write_rds(fit3_final_train, file = "fit3_final_triain.rds")
+```
+
 
 
 ```{r fit3-final-train2}

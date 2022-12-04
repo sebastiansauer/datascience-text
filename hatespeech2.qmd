@@ -1,0 +1,539 @@
+# Fallstudie Hatespeech
+
+
+
+
+Wir sagen vorher, welche Tweets an führende deutsche Politikis Hassrede bzw. hasserfüllte Rede enthalten.
+
+
+## Vorab
+
+
+
+
+### Lernziele
+
+
+- Sie können grundlegende Verfahren zur Klassifikation von Hatespeech einsetzen und erklären
+
+
+
+
+
+
+
+
+### Benötigte R-Pakete
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(easystats)
+library(tidytext)
+library(textrecipes)
+library(tictoc)  # Zeitmessung
+library(beepr)  # piebt, wenn fertig
+library(remoji)  # Emojis
+library(feather)  # Daten speichern
+library(pradadata)  # Hilfsdaten wie Schimpfwoerter
+library(lubridate)  # Datum und Zeit
+library(tokenizers)
+```
+
+
+```{r}
+#| echo: false
+theme_set(theme_minimal())
+```
+
+
+## Daten
+
+
+### Traindaten
+
+
+```{r}
+d1 <- read_rds("objects/d1.rds")
+```
+
+
+```{r d-split-d1}
+d_split <- initial_split(d1, strata = c1)
+
+d_train <- training(d_split)
+d_test <- testing(d_split)
+```
+
+
+
+
+
+
+### Testdaten
+
+Wir importieren die Tweets führender deutscher Politikis.
+
+
+
+Pfad zu den Daten:
+
+```{r}
+tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data/"
+```
+
+
+
+
+
+
+So lesen wir alle ein:
+
+
+Zunächst erstellen wir uns eine Helper-Funktion:
+
+
+```{r source-fun-read-and-select}
+source("funs/read-and-select.R")
+```
+
+
+
+Die Funktion `read_and_select`  mappen wir auf alle Datendateien:
+
+
+```{r map-read-and-select}
+#| eval: false
+tic()
+ds <-
+  tweet_data_files_names %>% 
+  map_dfr(read_and_select, .id = "dataset")
+toc()
+```
+
+
+`214.531 sec elapsed`
+
+Da wir den Elementen von `tweet_data_files_names` Namen gegeben haben, 
+finden wir diese Namen praktischerweise wieder in `ds`.
+
+
+```{r}
+#| echo: false
+#| eval: false
+#write_rds(ds, file = paste0(tweet_data_path, "ds.rds"))
+#write_feather(ds, path = paste0(tweet_data_path, "ds.feather"))
+```
+
+
+
+Recht groß, das Objekt `ds`, knapp ein halbes Gigabyte.
+
+
+Eine Alternative besteht darin, 
+den vereinigten Datensatz (Summe aller Datendateien) in einer Datei zu speichern.
+Ein interessantes neues Format ist [Feather](https://github.com/wesm/feather):
+
+>   Feather: fast, interoperable data frame storage
+Feather provides binary columnar serialization for data frames. 
+It is designed to make reading and writing data frames efficient, and to make sharing data across data analysis languages easy. 
+
+
+
+
+
+```{r read-ds}
+#| echo: false
+#| results: hide
+tic()
+ds <- read_feather(path = "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds.feather")
+toc()
+```
+
+Weil der Datensatz so groß ist, nämlich `r nrow(ds)` Zeilen,
+teilen wir ihn in zwei Hälften auf:
+
+
+
+
+```{r}
+ds_short_part1 <- 
+  ds %>% 
+  slice_head(n = 5e5)
+
+ds_short_part2 <-
+  ds %>% 
+  slice(n = 5e5+1:n())
+```
+
+
+Weil wir im Folgenden schwieriges Gelände betreten,
+also nicht im ersten Versuch zum Ziel gelangen - vielleicht - ,
+speichern wir diese Daten auf der Festplatte ab:
+
+```{r}
+#| eval: false
+write_rds(ds_short_part1, file = "/Users/sebastiansaueruser/datasets/Twitter/ds_short_part1.rds")
+write_rds(ds_short_part1, file = "/Users/sebastiansaueruser/datasets/Twitter/ds_short_part2.rds")
+```
+
+
+
+Ein Blick in die Daten:
+
+```{r}
+glimpse(ds)
+```
+
+
+### Worteinbettungen
+
+Wie in @sec-fasttext dargestellt, importieren wir unser FastText-Modell.
+
+```{r}
+#| eval: false
+word_embedding_twitter <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/word_embedding_twitter.rds")
+```
+
+
+Wie viel Speicher benötigt das Worteinbettungsobjekt?
+
+```{r}
+format(object.size(word_embedding_twitter), units = "Mb")
+```
+
+
+
+### Hilfsdaten
+
+```{r}
+data("schimpwoerter")
+data("sentiws")
+data("wild_emojis")
+```
+
+
+
+## Aufbereiten der Vorhersagedaten
+
+### Hilfsfunktionen
+
+
+
+```{r}
+source("funs/helper-funs-recipes.R")
+```
+
+
+## Rezept
+
+
+Da wir schon ein Rezept "trainiert" haben,
+können wir die Test-Daten einfach mit dem Rezept "backen".
+
+Streng genommen müssten wir nicht mal das tun,
+denn `tidymodels` würde das beim Vorhersagen für uns übernehmen.
+Aber es ist nützlich, die Daten in aufbereiteter Form zu sehen,
+bzw. sie direkt zugänglich zu haben.
+
+
+
+```{r rec2}
+#| eval: false
+rec2 <- 
+  recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
+  update_role(id, new_role = "id") %>% 
+  step_text_normalization(text) %>% 
+  step_mutate(text_copy = text,
+              profane_n = map_int(text, count_profane, profane_list = schimpfwoerter$word),
+              emo_words_n = map_int(text, count_emo_words, emo_list = sentiws$word),
+              emojis_n = map_int(text, count_emojis, emoji_list = emoji(list_emoji(), pad = FALSE)),
+              wild_emojis_n = map_int(text, count_wild_emojis, wild_emoji_list = wild_emojis$emojis)
+  ) %>% 
+  step_textfeature(text_copy) %>% 
+  step_tokenize(text, token = "tweets") %>% 
+  step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
+  step_word_embeddings(text, embeddings = word_embedding_twitter)
+ 
+rec2
+```
+
+
+### Preppen und Backen
+
+Preppen:
+
+```{r rec2-prepped-baked}
+#| eval: false
+tic()
+rec2_prepped <- prep(rec2)
+toc()
+```
+
+
+```
+29.377 sec elapsed
+````
+
+Zur Sicherheit speichern wir auch dieses Objekt ab.
+
+```{r}
+#| echo: true
+#| eval: false
+# write_rds(rec2_prepped, "objects/rec2_prepped.rds")
+```
+
+
+
+Als nächstes kommt das Backen der Vorhersagedaten.
+Das ist die Stelle, an der zum ersten Mal die neuen Daten (die Vorhersagedaten) ins Spiel kommen.
+
+
+```{r}
+#| eval: false
+tic()
+d_predict <-
+  bake(rec2_prepped, new_data = head(ds, 1e3))
+toc()
+beepr:beep()
+```
+
+Puh, das Backen dauert ewig!
+Daher ist das `beep`en praktisch:
+Es klingelt, wenn die Berechnung fertig ist.
+Außerdem kann es helfen, die Arbeit in zwei Hälften aufzuteilen:
+
+
+Teil 1:
+
+```{r}
+ds_short_part1 <- ds %>% 
+  slice_head(n = 5e5)
+
+tic()
+d_predict_part1 <-
+  bake(rec2_prepped, new_data = ds_short_part1)
+toc()
+beep()
+```
+
+
+
+
+Teil 2:
+
+```{r}
+ds_short_part2 <- ds %>% 
+  slice(n = 5e5+1:n())
+
+
+tic()
+d_predict_part2 <-
+  bake(rec2_prepped, new_data = ds_short_part2)
+toc()
+beep()
+```
+
+
+
+```{r}
+#| echo: false
+d_predict <- read_feather("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds_predict_short.feather")
+```
+
+
+Auch dieses Objekt ist groß:
+
+```{r}
+format(object.size(d_predict), unit = "Mb")
+```
+
+
+
+### Metadaten
+
+
+Metadaten wieder hinzufügen:
+
+
+```{r}
+d_predict2 <-
+  d_predict %>% 
+  left_join(ds, by = "id") %>% 
+  relocate(dataset, id, author_id, created_at, text, retweet_count, reply_count, quote_count, .after = id) %>% 
+  mutate(id = as.integer(id))
+```
+
+Wir müssen die `id` als Integer setzen, 
+das dies im Rezept bzw. im Train-Datensatz so definiert ist.
+Was im Nachhinein betrachtet nicht optimal ist,
+da wir hier gerade die Information zerstört haben.
+Aber kein Drama,
+wir fügen die ID-Spalte nachher einfach wieder dazu.
+
+
+Spaltennamen mal anschauen:
+
+```{r}
+names(d_predict2)[1:33]
+```
+
+
+
+## Vorhersagen
+
+Wir beziehen uns auf das Modell von @sec-klassifik-fit3.
+
+```{r}
+fit3 <- read_rds("/Users/sebastiansaueruser/githuxob-repos/datascience-text/objects/chap_classific_fit3.rds")
+```
+
+
+
+
+
+
+Und nutzen dann die [predict](https://parsnip.tidymodels.org/reference/predict.model_fit.html)-Methode von `{tidymodels}`:
+
+```{r}
+#| eval: false
+tic()
+d_predict3 <- predict(fit3_final_train, d_predict2)
+toc()
+beep()
+```
+
+
+
+Puh, hat lange gedauert, eine gute Stunde. 
+Und das resultierende Objekt ist ca.
+ein halbes Gigabyte groß.
+
+
+
+:::callout-note
+Mit dieser Datenstruktur ist es möglich,
+die Daten in mehreren "Happen" zu analysieren.
+Das macht die Analyse dann zugänglicher und robuster.
+:::
+
+
+
+
+
+Vorhersagen mit den übrigen Spalten der Vorhersage-Daten vereinigen:
+
+```{r}
+#| eval: false
+d_predict4 <-
+  d_predict %>% 
+  select(id) %>% 
+  bind_cols(d_predict3) %>% 
+  bind_cols(d_predict2 %>% select(-id, -text))
+```
+
+```{r}
+#| eval: false
+#feather::write_feather(d_predict4, "objects/d_predict4.feather")
+```
+
+
+```{r}
+#| echo: false
+d_predict4 <- feather::read_feather("objects/d_predict4.feather")
+```
+
+
+Schauen wir uns zur Sicherheit ein paar Namen des Datensatzes an:
+
+```{r}
+names(d_predict4)[1:37gi]
+```
+
+
+Sieht soweit gut aus: ID-Spalten (`id`, `dataset`), Vorhersage-Saplte (`.pred_class`),
+Zeitinformation (`created_at)`, Hassrede-Proxies (`profane_n` bis `wid_emojis_n`),
+Text-Features und dann die Wordeinbettungen.
+
+
+## Ergebnisse
+
+### Hass-Proxis pro Politiki insgesamt
+
+
+```{r}
+res_summary1 <- 
+d_predict4 %>% 
+  group_by(dataset) %>% 
+  summarise(emo_words_n_mean = mean(emo_words_n),
+            profane_words_count_mean = mean(profane_n),
+            wild_emojis_n_mean = mean(wild_emojis_n),
+            exclaims_n_mean = mean(textfeature_text_copy_n_exclaims))
+
+
+res_summary1_long <-
+  res_summary1 %>% 
+    pivot_longer(-dataset, names_to = "hate_proxy", values_to = "prop")
+```
+
+
+```{r}
+res_summary1_long %>% 
+  ggplot(aes(x = prop, y = hate_proxy)) +
+  geom_col() +
+  facet_wrap(~ dataset)
+```
+
+
+
+
+### Hass-Proxis pro Politiki im Zeitverlauf
+
+
+```{r}
+res_summary2 <- 
+d_predict4 %>%
+  select(created_at, profane_n, dataset, emo_words_n, wild_emojis_n, textfeature_text_copy_n_exclaims) %>% 
+  mutate(month = ymd_hms(created_at) %>% round_date(unit = "month")) %>% 
+  group_by(month, dataset) %>% 
+  summarise(emo_words_n_mean = mean(emo_words_n),
+            profane_words_count_mean = mean(profane_n),
+            wild_emojis_n_mean = mean(wild_emojis_n),
+            exclaims_n_mean = mean(textfeature_text_copy_n_exclaims)) %>% 
+  rowwise() %>% 
+  mutate(hate_proxy = mean(c_across(emo_words_n_mean:exclaims_n_mean))) %>% 
+  ungroup()
+  
+res_summary2 %>% 
+  head()
+```
+
+Langifizieren fürs Plotten:
+
+```{r}
+res_summary2_long <- 
+  res_summary2 %>% 
+  pivot_longer(emo_words_n_mean:hate_proxy)
+
+res_summary2_long %>% 
+  head()
+```
+
+```{r}
+res_summary2_long %>% 
+  count(month)
+```
+
+
+```{r}
+res_summary2_long %>% 
+  ggplot() +
+  aes(x = month, y = value) +
+  facet_grid(dataset  ~ name) +
+  geom_point() +
+  geom_line(group=1, alpha = .7)
+```
+
+
+
