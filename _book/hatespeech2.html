@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./projektmgt.html" rel="next">
 <link href="./klassifikation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -199,6 +199,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hatespeech2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projektmgt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Projektmanagement</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -466,9 +471,9 @@ $ quote_count   &lt;int&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <pre><code>29.377 sec elapsed</code></pre>
 <p>Braucht ganz schön Zeit …</p>
 <p>Zur Sicherheit speichern wir auch dieses Objekt ab.</p>
-<div class="cell" data-hash="hatespeech2_cache/html/read-rec2-prepped_af177e22a23e4e9f50ded524260e5858">
+<div class="cell" data-hash="hatespeech2_cache/html/read-rec2-prepped_341fe12cc93d1de1ed98afc400e8e15c">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write_rds(rec2_prepped, "objects/rec2_prepped.rds")</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>rec2_prepped <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/objects/rec2_prepped.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>rec2_prepped <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"/Users/sebastiansaueruser/datasets/Twitter/hate-classific/rec2_prepped.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Als nächstes kommt das Backen der Vorhersagedaten. Das ist die Stelle, an der zum ersten Mal die neuen Daten (die Vorhersagedaten) ins Spiel kommen.</p>
 <div class="cell" data-hash="hatespeech2_cache/html/bake-rec2_7ad99dda95b8ce97aa91fa701fae73c9">
@@ -533,13 +538,13 @@ range</code></pre>
 <section id="vorhersagen" class="level2" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="vorhersagen"><span class="header-section-number">8.5</span> Vorhersagen</h2>
 <p>Wir beziehen uns auf das Modell von <a href="klassifikation.html#sec-klassifik-fit3"><span>Kapitel&nbsp;7.8.4</span></a>.</p>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-10_88836b9e613e21ec02bcb9eaa5d5f253">
+<div class="cell" data-hash="hatespeech2_cache/html/read-fit3-fit3-final_3a47449f796328bae92fff96a16d7043">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds"</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>fit3_final_train <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"/Users/sebastiansaueruser/datasets/Twitter/hate-classific/fit3_final_train.rds"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und nutzen dann die <a href="https://parsnip.tidymodels.org/reference/predict.model_fit.html">predict</a>-Methode von <code>{tidymodels}</code>:</p>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-11_5e038992b7ccb5ec3950dca5f9e8cacf">
+<div class="cell" data-hash="hatespeech2_cache/html/predict-fit3_d8791596d628c4bdc3a93ea45814a99f">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>d_predicted_values <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit3_final_train, d_predict2)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span>
@@ -547,204 +552,13 @@ range</code></pre>
 </div>
 <p>Puh, hier ist mein Rechner abgestürzt, als ich es mit ca. 2 Millionen Tweets versucht habe!</p>
 <p>Besser, wir probieren erstmal mit einem winzigen Teil der Daten, ob unsere Funktion “im Prinzip” oder “grundsätzlich” funktioniert:</p>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-12_4902e850d3b5368d63d4be8e88111cc0">
+<div class="cell" data-hash="hatespeech2_cache/html/predict-fit3-tiny_c6312bfb3d59cf6332171d891113fe52">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>d_predicted_values_tiny <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit3_final_train, <span class="fu">head</span>(d_predict2))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_sub(out[index_twitter], 1, 1): argument is not an atomic vector;
-coercing</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in stri_replace_all_charclass(out[index_twitter], "\\p{P}", ""):
-argument is not an atomic vector; coercing</code></pre>
-</div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in out[!(index_twitter | index_url)] &lt;- stri_trans_tolower(out[!(index_twitter | : NAs are not allowed in subscripted assignments</code></pre>
+<pre><code>Error:
+! Can't convert `data$id` &lt;integer&gt; to match type of `id` &lt;character&gt;.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>d_predicted_values_tiny</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>d_predicted_values_tiny</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'd_predicted_values_tiny' not found</code></pre>
 </div>
@@ -756,51 +570,51 @@ argument is not an atomic vector; coercing</code></pre>
 <h2 data-number="8.6" class="anchored" data-anchor-id="ergebnisse"><span class="header-section-number">8.6</span> Ergebnisse</h2>
 <section id="hass-proxis-pro-politiki-insgesamt" class="level3" data-number="8.6.1">
 <h3 data-number="8.6.1" class="anchored" data-anchor-id="hass-proxis-pro-politiki-insgesamt"><span class="header-section-number">8.6.1</span> Hass-Proxis pro Politiki insgesamt</h3>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-13_ae76f760c4c39517ca9501e805490304">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>res_summary1 <span class="ot">&lt;-</span> </span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>d_predict2 <span class="sc">%&gt;%</span> </span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dataset) <span class="sc">%&gt;%</span> </span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">emo_words_n_mean =</span> <span class="fu">mean</span>(emo_words_n),</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">profane_words_count_mean =</span> <span class="fu">mean</span>(profane_n),</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">wild_emojis_n_mean =</span> <span class="fu">mean</span>(wild_emojis_n),</span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">exclaims_n_mean =</span> <span class="fu">mean</span>(textfeature_text_copy_n_exclaims))</span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>res_summary1_long <span class="ot">&lt;-</span></span>
-<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>  res_summary1 <span class="sc">%&gt;%</span> </span>
-<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="sc">-</span>dataset, <span class="at">names_to =</span> <span class="st">"hate_proxy"</span>, <span class="at">values_to =</span> <span class="st">"prop"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="hatespeech2_cache/html/res-summary1_1114359ad5d049bb5ad440fc33a33946">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>res_summary1 <span class="ot">&lt;-</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>d_predict2 <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dataset) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">emo_words_n_mean =</span> <span class="fu">mean</span>(emo_words_n),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">profane_words_count_mean =</span> <span class="fu">mean</span>(profane_n),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">wild_emojis_n_mean =</span> <span class="fu">mean</span>(wild_emojis_n),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">exclaims_n_mean =</span> <span class="fu">mean</span>(textfeature_text_copy_n_exclaims))</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>res_summary1_long <span class="ot">&lt;-</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  res_summary1 <span class="sc">%&gt;%</span> </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="sc">-</span>dataset, <span class="at">names_to =</span> <span class="st">"hate_proxy"</span>, <span class="at">values_to =</span> <span class="st">"prop"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-14_039635462a46771b829db131be77aa24">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>res_summary1_long <span class="sc">%&gt;%</span> </span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> prop, <span class="at">y =</span> hate_proxy)) <span class="sc">+</span></span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> dataset)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-10_e99abd9f9d875c71e13334457b28a036">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>res_summary1_long <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> prop, <span class="at">y =</span> hate_proxy)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> dataset)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="hatespeech2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="hatespeech2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="hass-proxis-pro-politiki-im-zeitverlauf" class="level3" data-number="8.6.2">
 <h3 data-number="8.6.2" class="anchored" data-anchor-id="hass-proxis-pro-politiki-im-zeitverlauf"><span class="header-section-number">8.6.2</span> Hass-Proxis pro Politiki im Zeitverlauf</h3>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-15_7118f064d960e6ebe0d1c20de309bcf8">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>res_summary2 <span class="ot">&lt;-</span> </span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>d_predict2 <span class="sc">%&gt;%</span></span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(created_at, profane_n, dataset, emo_words_n, wild_emojis_n, textfeature_text_copy_n_exclaims) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">ymd_hms</span>(created_at) <span class="sc">%&gt;%</span> <span class="fu">round_date</span>(<span class="at">unit =</span> <span class="st">"month"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month, dataset) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">emo_words_n_mean =</span> <span class="fu">mean</span>(emo_words_n),</span>
-<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">profane_words_count_mean =</span> <span class="fu">mean</span>(profane_n),</span>
-<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">wild_emojis_n_mean =</span> <span class="fu">mean</span>(wild_emojis_n),</span>
-<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">exclaims_n_mean =</span> <span class="fu">mean</span>(textfeature_text_copy_n_exclaims)) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hate_proxy =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(emo_words_n_mean<span class="sc">:</span>exclaims_n_mean))) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-12"><a href="#cb85-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="hatespeech2_cache/html/res-summary2_daf832d4ab51da7463e3f70ffac5b40a">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>res_summary2 <span class="ot">&lt;-</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>d_predict2 <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(created_at, profane_n, dataset, emo_words_n, wild_emojis_n, textfeature_text_copy_n_exclaims) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">ymd_hms</span>(created_at) <span class="sc">%&gt;%</span> <span class="fu">round_date</span>(<span class="at">unit =</span> <span class="st">"month"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month, dataset) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">emo_words_n_mean =</span> <span class="fu">mean</span>(emo_words_n),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">profane_words_count_mean =</span> <span class="fu">mean</span>(profane_n),</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">wild_emojis_n_mean =</span> <span class="fu">mean</span>(wild_emojis_n),</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">exclaims_n_mean =</span> <span class="fu">mean</span>(textfeature_text_copy_n_exclaims)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hate_proxy =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(emo_words_n_mean<span class="sc">:</span>exclaims_n_mean))) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'month'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>res_summary2 <span class="sc">%&gt;%</span> </span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>res_summary2 <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -885,13 +699,13 @@ argument is not an atomic vector; coercing</code></pre>
 </div>
 </div>
 <p>Langifizieren fürs Plotten:</p>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-16_d9eba2afcfe1adbf87ca87c8cfe22faf">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="ot">&lt;-</span> </span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  res_summary2 <span class="sc">%&gt;%</span> </span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(emo_words_n_mean<span class="sc">:</span>hate_proxy)</span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="sc">%&gt;%</span> </span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-11_e05952af94cf481f892570f48c8935be">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="ot">&lt;-</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  res_summary2 <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(emo_words_n_mean<span class="sc">:</span>hate_proxy)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="sc">%&gt;%</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -945,9 +759,9 @@ argument is not an atomic vector; coercing</code></pre>
 </div>
 </div>
 </div>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-17_afe517e1e4c6a913e7971bffe5df21ca">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="sc">%&gt;%</span> </span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(month)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-12_a4544cb13dce9ec32d4fcf586a860263">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(month)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped">
@@ -1007,13 +821,13 @@ argument is not an atomic vector; coercing</code></pre>
 </div>
 </div>
 </div>
-<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-18_983fceeab4bbf43bf3618e90c2fd3296">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="sc">%&gt;%</span> </span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> value) <span class="sc">+</span></span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(dataset  <span class="sc">~</span> name) <span class="sc">+</span></span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">group=</span><span class="dv">1</span>, <span class="at">alpha =</span> .<span class="dv">7</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="hatespeech2_cache/html/unnamed-chunk-13_b98322adb04b5ce889a3c9c73ca93b9c">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>res_summary2_long <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> value) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(dataset  <span class="sc">~</span> name) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">group=</span><span class="dv">1</span>, <span class="at">alpha =</span> .<span class="dv">7</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 5 rows containing missing values (`geom_point()`).</code></pre>
 </div>
@@ -1021,7 +835,7 @@ argument is not an atomic vector; coercing</code></pre>
 <pre><code>Warning: Removed 5 rows containing missing values (`geom_line()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="hatespeech2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="hatespeech2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
@@ -1135,8 +949,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./projektmgt.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

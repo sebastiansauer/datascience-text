@@ -17,6 +17,7 @@ book:
     - hassrede.qmd
     - klassifikation.qmd
     - hatespeech2.qmd
+    - projektmgt.qmd
     - references.qmd
 
 bibliography: references.bib
