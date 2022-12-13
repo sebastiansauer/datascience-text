@@ -15,6 +15,7 @@ Wir sagen vorher, welche Tweets an führende deutsche Politikis Hassrede bzw. ha
 
 
 - Sie können grundlegende Verfahren zur Klassifikation von Hatespeech einsetzen und erklären
+- Sie können mit echten Daten umgehen im Sinne eines Projektmanagement von Data Science
 
 
 
@@ -54,7 +55,7 @@ theme_set(theme_minimal())
 ## Daten
 
 
-### Traindaten
+### Train- und Testdaten
 
 
 ```{r}
@@ -76,26 +77,51 @@ d_test <- testing(d_split)
 
 
 
-### Testdaten
+### Vorhersagedaten
 
 Wir importieren die Tweets führender deutscher Politikis.
+
+Für diese Daten haben wir keine Werte der Zielvariablen. 
+Wir können nur vorhersagen,
+aber nicht unsere Modellgüte berechnen.
+Diese Daten bezeichnen wir als *Vorhersagedaten*.
 
 
 
 Pfad zu den Daten:
 
 ```{r}
-tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data/"
+tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets-small"
+
+file.exists(tweet_data_path)
+```
+
+
+Die Nutzungsrechte von Twitter erlauben nicht, diese Daten öffentlich zu teilen.
+
+
+```{r}
+tweet_data_files_names <-
+  list.files(
+    path = tweet_data_path,
+    full.names = TRUE,
+    pattern = ".rds")
+
+
+names(tweet_data_files_names) <-  
+  list.files(
+    path = tweet_data_path,
+    full.names = FALSE,
+    pattern = ".rds") %>% 
+  str_remove(".rds$") %>% 
+  str_remove("^tweets-to-")
+
+tweet_data_files_names
 ```
 
 
 
-
-
-
-So lesen wir alle ein:
-
-
+So lesen wir alle Dateien aus diesem Ordner ein.
 Zunächst erstellen wir uns eine Helper-Funktion:
 
 
@@ -109,7 +135,7 @@ Die Funktion `read_and_select`  mappen wir auf alle Datendateien:
 
 
 ```{r map-read-and-select}
-#| eval: false
+#| eval: true
 tic()
 ds <-
   tweet_data_files_names %>% 
@@ -118,7 +144,14 @@ toc()
 ```
 
 
-`214.531 sec elapsed`
+Ein Blick zur Probe:
+
+```{r}
+ds %>% 
+  glimpse()
+```
+
+
 
 Da wir den Elementen von `tweet_data_files_names` Namen gegeben haben, 
 finden wir diese Namen praktischerweise wieder in `ds`.
@@ -133,12 +166,8 @@ finden wir diese Namen praktischerweise wieder in `ds`.
 
 
 
-Recht groß, das Objekt `ds`, knapp ein halbes Gigabyte.
 
-
-Eine Alternative besteht darin, 
-den vereinigten Datensatz (Summe aller Datendateien) in einer Datei zu speichern.
-Ein interessantes neues Format ist [Feather](https://github.com/wesm/feather):
+Eine Alternative zum Format RDS besteht im Format [Feather](https://github.com/wesm/feather):
 
 >   Feather: fast, interoperable data frame storage
 Feather provides binary columnar serialization for data frames. 
@@ -148,56 +177,12 @@ It is designed to make reading and writing data frames efficient, and to make sh
 
 
 
-```{r read-ds}
-#| echo: false
-#| results: hide
-tic()
-ds <- read_feather(path = "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds.feather")
-toc()
-```
-
-Weil der Datensatz so groß ist, nämlich `r nrow(ds)` Zeilen,
-teilen wir ihn in zwei Hälften auf:
-
-
-
-
-```{r}
-ds_short_part1 <- 
-  ds %>% 
-  slice_head(n = 5e5)
-
-ds_short_part2 <-
-  ds %>% 
-  slice(n = 5e5+1:n())
-```
-
-
-Weil wir im Folgenden schwieriges Gelände betreten,
-also nicht im ersten Versuch zum Ziel gelangen - vielleicht - ,
-speichern wir diese Daten auf der Festplatte ab:
-
-```{r}
-#| eval: false
-#write_rds(ds_short_part1, file = "/Users/sebastiansaueruser/datasets/Twitter/ds_short_part1.rds")
-#write_rds(ds_short_part1, file = "/Users/sebastiansaueruser/datasets/Twitter/ds_short_part2.rds")
-```
-
-
-
-Ein Blick in die Daten:
-
-```{r}
-glimpse(ds)
-```
-
-
 ### Worteinbettungen
 
 Wie in @sec-fasttext dargestellt, importieren wir unser FastText-Modell.
 
-```{r}
-#| eval: false
+```{r read-fastext-twitter}
+#| eval: true
 word_embedding_twitter <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/word_embedding_twitter.rds")
 ```
 
@@ -212,7 +197,7 @@ format(object.size(word_embedding_twitter), units = "Mb")
 
 ### Hilfsdaten
 
-```{r}
+```{r load-helper-data}
 data("schimpwoerter")
 data("sentiws")
 data("wild_emojis")
@@ -226,7 +211,7 @@ data("wild_emojis")
 
 
 
-```{r}
+```{r source-helper-funs-recipe}
 source("funs/helper-funs-recipes.R")
 ```
 
@@ -279,15 +264,20 @@ toc()
 
 ```
 29.377 sec elapsed
-````
+```
+
+Braucht ganz schön Zeit ...
+
+
+
 
 Zur Sicherheit speichern wir auch dieses Objekt ab.
 
-```{r}
+```{r read-rec2-prepped}
 #| echo: true
 #| eval: false
 # write_rds(rec2_prepped, "objects/rec2_prepped.rds")
-rec2_prepped <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/rec2_prepped.rds")
+rec2_prepped <- read_rds("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/rec2_prepped.rds")
 ```
 
 
@@ -296,91 +286,29 @@ Als nächstes kommt das Backen der Vorhersagedaten.
 Das ist die Stelle, an der zum ersten Mal die neuen Daten (die Vorhersagedaten) ins Spiel kommen.
 
 
-```{r}
+```{r bake-rec2}
 #| eval: false
 tic()
-d_predict <-
-  bake(rec2_prepped, new_data = head(ds, 1e3))
+d_predict_baken <-
+  bake(rec2_prepped, new_data = ds)
+
+d_predict_baken$id <- ds$id
 toc()
-beepr:beep()
+beepr::beep()
 ```
 
-Puh, das Backen dauert ewig!
+Puh, das Backen dauert - bei großen Datensätzen - gefühlt ewig!
 Daher ist das `beep`en praktisch:
 Es klingelt, wenn die Berechnung fertig ist.
-Außerdem kann es helfen, die Arbeit in zwei Hälften aufzuteilen:
 
 
-Teil 1:
-
-```{r}
-ds_short_part1 <- ds %>% 
-  slice_head(n = 5e5)
-
-tic()
-d_predict_part1 <-
-  bake(rec2_prepped, new_data = ds_short_part1)
-toc()
-beep()
-```
-
-
-
-
-Teil 2:
-
-```{r}
-ds_short_part2 <- ds %>% 
-  slice(n = 5e5+1:n())
-
-
-tic()
-d_predict_part2 <-
-  bake(rec2_prepped, new_data = ds_short_part2)
-toc()
-beep()
-```
-
-
-
-```{r}
+```{r read-predict-baken}
 #| echo: false
-d_predict_part1 <- read_feather("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds_predict_part1.feather")
-
-d_predict_part2 <- read_feather("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds_predict_part2.feather")
+d_predict_baken <- read_rds(file = "objects/d_predict_baken.rds")
 ```
 
 
-Auch solche Objekte sind groß:
-
-```{r}
-format(object.size(d_predict_part1), unit = "Mb")
-```
-
-
-
-
-### Vereinigen
-
-Wir vereinigen die beiden Teile von `d_predict` wieder:
-
-```{r}
-d_predict <-
-  d_predict_part1 %>% 
-  bind_rows(d_predict_part2)
-```
-
-
-
-```{r}
-#| echo :false
-#| eval: false
-#write_rds(d_predict, "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/d_predict.feather")
-d_predict_baken <- read_rds("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/d_predict.feather")
-```
-
-
-Zur Erinnerung: `d_predict` ist der "gebackene" Testdatensatz.
+Zur Erinnerung: `d_predict_baken` ist der "gebackene" Testdatensatz.
 Der Testdatensatz also,
 auf dem die ganzen Operationen der Vorverarbeitung angewandt wurden.
 
@@ -399,7 +327,7 @@ etwa Daten im RDS-Format.
 Solche binären Formante funktionieren nicht wirklich aus der Sicht von Git,
 sie lassen sich nicht zeilenweise nachverfolgen.
 Kurz gesagt sollte man sie aus diesem Grund nicht in Git nachverfolgen.
-Eine bequeme Lösung ist das *Large File System* von Github (git lfs),
+Eine bequeme Lösung ist das[ *Large File System* von Github (git lfs)](https://git-lfs.github.com/),
 das diese großen Dateien außerhalb des Git-Index verwaltet.
 Trotzdem sieht es für Nutzis aus wie immer,
 ist also sehr komfortabel.
@@ -414,19 +342,19 @@ Dazu ist es nötig, [git lfs](https://www.veit-schiele.de/dienstleistungen/techn
 Metadaten wieder hinzufügen:
 
 
-```{r}
+```{r re-add-metadata3}
 d_predict2 <-
   d_predict_baken %>% 
   left_join(ds, by = "id") %>% 
-  relocate(dataset, id, author_id, created_at, text, retweet_count, reply_count, quote_count, .after = id)
+  relocate(dataset, id, author_id, created_at, text, retweet_count, reply_count, quote_count, .after = id) %>% 
+  mutate(id = as.integer(id))
 ```
 
-<!-- Wir müssen die `id` als Integer setzen, -->
-<!-- das dies im Rezept bzw. im Train-Datensatz so definiert ist. -->
-<!-- Was im Nachhinein betrachtet nicht optimal ist, -->
-<!-- da wir hier gerade die Information zerstört haben. -->
-<!-- Aber kein Drama, -->
-<!-- wir fügen die ID-Spalte nachher einfach wieder dazu. -->
+Leider müssen wir `id` in Integer umwandeln,
+das wir dies im Rezept auch so gemacht hatten.
+Dabei geht die Spalte kaputt, bzw. die Daten werden NA,
+da die resultierende Integerzahl zu groß für R ist.
+Aber nicht so schlimm: Wir fügen sie später wieder hinzu.
 
 
 Spaltennamen mal anschauen:
@@ -441,12 +369,9 @@ names(d_predict2)[1:33]
 
 Wir beziehen uns auf das Modell von @sec-klassifik-fit3.
 
-```{r}
+```{r read-fit3-fit3-final}
 fit3 <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds")
-```
 
-
-```{r}
 fit3_final_train <- read_rds("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/fit3_final_train.rds")
 ```
 
@@ -455,44 +380,25 @@ fit3_final_train <- read_rds("/Users/sebastiansaueruser/datasets/Twitter/hate-cl
 
 Und nutzen dann die [predict](https://parsnip.tidymodels.org/reference/predict.model_fit.html)-Methode von `{tidymodels}`:
 
-```{r}
+```{r predict-fit3}
 #| eval: false
 tic()
-#d_predicted_values <- predict(fit3_final_train, d_predict2)
+d_predicted_values <- predict(fit3_final_train, d_predict2)
 toc()
 beep()
 ```
 
 
 
-Puh, hier ist mein Rechner abgestürzt!
+Puh, hier ist mein Rechner abgestürzt,
+als ich es mit ca. 2 Millionen Tweets versucht habe!
 
 Besser, wir probieren erstmal mit einem winzigen Teil der Daten,
 ob unsere Funktion "im Prinzip" oder "grundsätzlich" funktioniert:
 
 
-```{r error = TRUE}
-d_predicted_values_tiny <- predict(fit3_final_train, head(d_predict2))
-```
 
-
-Moment! Wir hatten im letzten Kapitel `id` als Integer definiert...
-Das müssen wir hier noch nachholen:
-
-```{r}
-d_predict2 <-
-  d_predict2 %>% 
-  mutate(id = as.integer(id))
-```
-
-
-Dabei haben wir uns die Information zerstört,
-da die Zahl (als String) zu groß war,
-um als Integer konvertiert zu werden.
-Nicht so schlimm, das machen wir später wieder gut.
-
-
-```{r}
+```{r predict-fit3-tiny, error = TRUE}
 d_predicted_values_tiny <- predict(fit3_final_train, head(d_predict2))
 
 d_predicted_values_tiny
@@ -502,139 +408,10 @@ d_predicted_values_tiny
 Funktioniert! Gut! Also weiter.
 
 
-:::callout-note
-Mit dieser Datenstruktur ist es möglich,
-die Daten in mehreren "Happen" zu analysieren.
-Das macht die Analyse dann zugänglicher und robuster.
-:::
-
-
-Wir teilen den Datensatz in, sagen wir, $k=10$ Teile.
-Dazu können wir folgende Überlegung nutzen:
-
-Teilt man die Folge der natürlichen Zahlen durch $k$ und betrachtet nur den Rest,
-so kann man so bequem in $k$ Gruppen aufteilen.
-
-Kurz gesagt:
-
-```{r}
-1:20 %>% 
-  `%%`(3)
-```
-
-
-Oder im Beispiel von `mtcars`, mit $k=3$ Gruppen:
-
-```{r}
-mtcars <-
-  mtcars %>% 
-  mutate(group_id = row_number() %% 3)
-
-
-mtcars %>% 
-  group_by(group_id) %>% 
-  summarise(n())
-```
-
-
-
-Das wenden wir an unseren großen Datensatz an:
-
-```{r}
-d_predict2 <-
-  d_predict2 %>% 
-  mutate(group_id = row_number() %% 10)
-```
-
-
-
-Check:
-
-```{r}
-d_predict2 %>% 
-  head(30) %>% 
-  group_by(group_id) %>% 
-  summarise(n())
-```
-
-Noch ein Check:
-
-```{r}
-d_predict2 %>% 
-  head(30) %>% 
-  filter(group_id == 1) %>% 
-  select(id, dataset, group_id)
-```
-
-
-
 
 Passt!
 
 
-```{r}
-#| echo :false
-#| eval: false
-#write_rds(d_predict2, "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/d_predict.feather")
-#d_predict2 <- read_rds("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/d_predict2.feather")
-```
-
-
-
-
-
-So, das probieren wir jetzt für den ersten Teil aus
-
-
-```{r}
-#| eval: false
-tic()
-d_predicted_values_part1 <- predict(fit3_final_train, d_predict2 %>% filter(group_id == 1))
-toc()
-beep()
-```
-
-
-
-
-
-
-IN ENTWICKLUNG
-
-
-Vorhersagen mit den übrigen Spalten der Vorhersage-Daten vereinigen:
-
-```{r}
-#| eval: false
-# d_predict4 <-
-#   d_predict %>% 
-#   select(id) %>% 
-#   bind_cols(d_predict3) %>% 
-#   bind_cols(d_predict2 %>% select(-id, -text))
-```
-
-```{r}
-#| eval: false
-#feather::write_feather(d_predict4, "objects/d_predict4.feather")
-```
-
-
-```{r}
-#| echo: false
-d_predict4 <- feather::read_feather("objects/d_predict4.feather")
-```
-
-
-Schauen wir uns zur Sicherheit ein paar Namen des Datensatzes an:
-
-```{r}
-names(d_predict4)[1:37]
-```
-
-
-Sieht soweit gut aus: ID-Spalten (`id`, `dataset`), Vorhersage-Saplte (`.pred_class`),
-Zeitinformation (`created_at)`, Hassrede-Proxies (`profane_n` bis `wid_emojis_n`),
-Text-Features und dann die Wordeinbettungen.
 
 
 ## Ergebnisse
@@ -642,9 +419,9 @@ Text-Features und dann die Wordeinbettungen.
 ### Hass-Proxis pro Politiki insgesamt
 
 
-```{r}
+```{r res-summary1}
 res_summary1 <- 
-d_predict4 %>% 
+d_predict2 %>% 
   group_by(dataset) %>% 
   summarise(emo_words_n_mean = mean(emo_words_n),
             profane_words_count_mean = mean(profane_n),
@@ -671,9 +448,9 @@ res_summary1_long %>%
 ### Hass-Proxis pro Politiki im Zeitverlauf
 
 
-```{r}
+```{r res-summary2}
 res_summary2 <- 
-d_predict4 %>%
+d_predict2 %>%
   select(created_at, profane_n, dataset, emo_words_n, wild_emojis_n, textfeature_text_copy_n_exclaims) %>% 
   mutate(month = ymd_hms(created_at) %>% round_date(unit = "month")) %>% 
   group_by(month, dataset) %>% 

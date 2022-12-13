@@ -16,6 +16,7 @@ book:
     - word-embedding.qmd
     - hassrede.qmd
     - klassifikation.qmd
+    - hatespeech2.qmd
     - references.qmd
 
 bibliography: references.bib

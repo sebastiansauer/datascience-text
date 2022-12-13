@@ -166,7 +166,7 @@ in der Hoffnung, damit eine bessere Klassifikation erzielen zu können.
 
 ```{r d2}
 d2 <-
-  d_raw %>% 
+  d1 %>% 
   mutate(text_length = str_length(text))
 
 head(d2)
@@ -255,7 +255,7 @@ Dazu nutzen wir die Daten von [LDNOOBW](https://github.com/LDNOOBW/List-of-Dirty
 
 
 ```{r schimpf1}
-schimpf1 <- import("https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/de", format = ",", header = FALSE)
+schimpf1 <- data_read("https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/de", format = ",", header = FALSE)
 ```
 
 
@@ -264,7 +264,7 @@ Länger aber noch ist die Liste aus dem [InsultWiki](https://www.insult.wiki/sch
 
 ```{r schimpf2}
 schimpf2 <- 
-  import("data/insult-de.txt", header = FALSE) %>% 
+  data_read("data/insult-de.txt", header = FALSE) %>% 
   mutate_all(str_to_lower)
 ```
 
@@ -591,6 +591,8 @@ wf_preds %>%
 ```
 
 
+conf_mat_resampled(fit1, tidy = FALSE) %>% 
+  autoplot(type = "heatmap")
 ```{r}
 conf_mat_resampled(fit1, tidy = FALSE) %>% 
   autoplot(type = "heatmap")
@@ -667,7 +669,7 @@ die wir ausprobieren wollen:
 
 
 ```{r lambda-grid}
-lambda_grid <- grid_regular(penalty(), levels = 30)
+lambda_grid <- grid_regular(penalty(), levels = 3)  # hier nur 3 Werte, um Rechenzeit zu sparen
 ```
 
 
@@ -791,7 +793,7 @@ collect_metrics(fit2_final_test)
 Pfad zu den Daten:
 
 ```{r}
-tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data/"
+tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets/"
 ```
 
 
@@ -825,6 +827,7 @@ names(tweet_data_files_names) <- str_remove(tweet_data_files_names, "\\.rds")
 OK, weiter: So können wir *eine* der Datendateien einlesen:
 
 ```{r read-tweets}
+#| eval: false
 d_raw <-
   read_rds(file = paste0(tweet_data_path, tweet_data_files_names[1])) 
 
@@ -897,7 +900,8 @@ finden wir diese Namen praktischerweise wieder in `ds`.
 
 ```{r read-ds}
 #| echo: false
-ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/ds.rds")
+#| eval: false
+ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds.rds")
 ```
 
 
@@ -907,7 +911,9 @@ Vielleicht ist es zum Entwickeln besser,
 mit einem kleineren Datensatz einstweilen zu arbeiten:
 
 ```{r ds-short}
-ds_short <- slice_sample(ds, prop = .05)
+ds_short <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds_short.rds")
+
+ds <- ds_short
 ```
 
 
@@ -915,7 +921,7 @@ ds_short <- slice_sample(ds, prop = .05)
 ```{r}
 #| echo: false
 #| eval: false
-#write_rds(ds_short, "/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_short.rds")
+#write_rds(ds_short, "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds_short.rds")
 ```
 
 
@@ -948,7 +954,6 @@ um uns ein Vokabular zu erstellen:
 #| eval: false
 ds_voc <-
   ds_long %>% 
-  #slice_head(n = 10) %>% 
   distinct(word)
 ```
 
@@ -957,13 +962,14 @@ Und das resultierende Objekt speichern wir wieder ab:
 
 ```{r}
 #| eval: false
-#write_rds(ds_voc, file = paste0(tweet_data_path, "ds_voc.rds"))
+#write_rds(ds_voc, file = paste0("objects/", "ds_voc.rds"))
 ```
 
 
 ```{r}
 #| echo: false
-ds_voc <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech/data/ds_voc.rds")
+#| eval: false
+ds_voc <- read_rds("objects/ds_voc.rds")
 ```
 
 
@@ -987,6 +993,9 @@ texts <- tolower(texts)
 ```{r fastText-filenames}
 out_file_txt <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.vec"
 out_file_model <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.bin"
+
+file.exists(out_file_txt)
+file.exists(out_file_model)
 ```
 
 
@@ -1313,6 +1322,7 @@ wf3_final
 
 
 ```{r fit3-final-train}
+#| eval: false
 fit3_final_train <-
   fit(wf3_final, d_train)
 ```
@@ -1320,7 +1330,8 @@ fit3_final_train <-
 
 ```{r}
 #| echo: false
-write_rds(fit3_final_train, file = "fit3_final_triain.rds")
+#write_rds(fit3_final_train, file = "objects/fit3_final_train.rds")
+fit3_final_train <- read_rds("objects/fit3_final_train.rds")
 ```
 
 
@@ -1336,9 +1347,22 @@ fit3_final_train %>%
 
 
 ```{r fit3-final-test}
+#| eval: false
 fit3_final_test <-
   last_fit(wf3_final, d_split)
+```
 
+
+
+```{r load-fit3-final-test}
+#| echo: false
+fit3_final_test <- read_rds(file = "objects/fit3_final_test.rds")
+```
+
+
+Und endlich: Wie gut ist die Performanz?
+
+```{r}
 collect_metrics(fit3_final_test)
 ```
 
@@ -1350,8 +1374,11 @@ Da blickt man jedem Umbau dieses Codes zu einer Funktion freudig ins Gesicht.
 
 Ein anderes Problem,
 für das hier keine elegante Lösung vorliegt,
-sind die langen Berechnungszeiten, die, wenn man Pecht hat, auch noch
+sind die langen Berechnungszeiten, die, wenn man Pech hat, auch noch
 mehrfach wiederholt werden müssen.
+
+Die Gefahr mit dem Abspeichern via `write_rds` ist klar:
+Man riskiert, später ein veraltetes Objekt zu laden.
 
 Zu diesen Punkten später mehr.
 
