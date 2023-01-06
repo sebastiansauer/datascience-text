@@ -220,9 +220,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#am-anfang" id="toc-am-anfang" class="nav-link active" data-scroll-target="#am-anfang"><span class="toc-section-number">9.1</span>  Am Anfang</a></li>
-  <li><a href="#sie-träumen-von-einem-werkzeug" id="toc-sie-träumen-von-einem-werkzeug" class="nav-link" data-scroll-target="#sie-träumen-von-einem-werkzeug"><span class="toc-section-number">9.2</span>  Sie träumen von einem Werkzeug</a></li>
-  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets"><span class="toc-section-number">9.3</span>  Targets</a></li>
+  <li><a href="#pipeline-management" id="toc-pipeline-management" class="nav-link active" data-scroll-target="#pipeline-management"><span class="toc-section-number">9.1</span>  Pipeline-Management</a>
+  <ul class="collapse">
+  <li><a href="#am-anfang" id="toc-am-anfang" class="nav-link" data-scroll-target="#am-anfang"><span class="toc-section-number">9.1.1</span>  Am Anfang</a></li>
+  <li><a href="#sie-träumen-von-einem-werkzeug" id="toc-sie-träumen-von-einem-werkzeug" class="nav-link" data-scroll-target="#sie-träumen-von-einem-werkzeug"><span class="toc-section-number">9.1.2</span>  Sie träumen von einem Werkzeug</a></li>
+  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets"><span class="toc-section-number">9.1.3</span>  Targets</a></li>
+  <li><a href="#eine-pipeline-als-spielwiese" id="toc-eine-pipeline-als-spielwiese" class="nav-link" data-scroll-target="#eine-pipeline-als-spielwiese"><span class="toc-section-number">9.1.4</span>  Eine Pipeline als Spielwiese</a></li>
+  </ul></li>
+  <li><a href="#publizieren" id="toc-publizieren" class="nav-link" data-scroll-target="#publizieren"><span class="toc-section-number">9.2</span>  Publizieren</a></li>
+  <li><a href="#komplexitätsmanagement" id="toc-komplexitätsmanagement" class="nav-link" data-scroll-target="#komplexitätsmanagement"><span class="toc-section-number">9.3</span>  Komplexitätsmanagement</a>
+  <ul class="collapse">
+  <li><a href="#geben-sie-gute-namen" id="toc-geben-sie-gute-namen" class="nav-link" data-scroll-target="#geben-sie-gute-namen"><span class="toc-section-number">9.3.1</span>  Geben Sie gute Namen</a></li>
+  <li><a href="#portionieren" id="toc-portionieren" class="nav-link" data-scroll-target="#portionieren"><span class="toc-section-number">9.3.2</span>  Portionieren</a></li>
+  <li><a href="#debugging-mit-einem-logger" id="toc-debugging-mit-einem-logger" class="nav-link" data-scroll-target="#debugging-mit-einem-logger"><span class="toc-section-number">9.3.3</span>  Debugging mit einem Logger</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -245,14 +256,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="am-anfang" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="am-anfang"><span class="header-section-number">9.1</span> Am Anfang</h2>
+<section id="pipeline-management" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="pipeline-management"><span class="header-section-number">9.1</span> Pipeline-Management</h2>
+<section id="am-anfang" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="am-anfang"><span class="header-section-number">9.1.1</span> Am Anfang</h3>
 <p>Sie haben Großes vor! Naja, zumindest planen Sie ein neues Data-Science-Projekt.</p>
-<p>Und, schlau wie Sie sind, stürzen Sie nicht sofort an die Tastatur, um sich einige Modelle berechnen zu lassen. Nein! Sie denken erst einmal nach. Zum Beispiel, wie die einzelnen Analyseschritte aussehen, worin sie bestehen, und in welcher Abfolge sie zu berechnen sind, s. <span class="quarto-unresolved-ref">?fig-projekt1</span>.</p>
-<p><a href="img/project1.JPG" id="fig-projekt1">So könnte Ihr Projektplan am Anfang aussehen, man spricht auch von einer Pipeline</a></p>
+<p>Und, schlau wie Sie sind, stürzen Sie nicht sofort an die Tastatur, um sich einige Modelle berechnen zu lassen. Nein! Sie denken erst einmal nach. Zum Beispiel, wie die einzelnen Analyseschritte aussehen, worin sie bestehen, und in welcher Abfolge sie zu berechnen sind, s. <a href="#fig-projekt1">Abbildung&nbsp;<span>9.1</span></a>.</p>
+<div id="fig-projekt1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="img/project1.JPG" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;9.1: So könnte Ihr Projektplan am Anfang aussehen, man spricht auch von einer Pipeline</figcaption><p></p>
+</figure>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Den Graph der einzelnen Analyseschritte in ihrer Abhängigkeit bezeichnet man als *Pipeline.</p>
+</div>
+</div>
 </section>
-<section id="sie-träumen-von-einem-werkzeug" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="sie-träumen-von-einem-werkzeug"><span class="header-section-number">9.2</span> Sie träumen von einem Werkzeug</h2>
+<section id="sie-träumen-von-einem-werkzeug" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="sie-träumen-von-einem-werkzeug"><span class="header-section-number">9.1.2</span> Sie träumen von einem Werkzeug</h3>
 <p>Nach einiger Zeit überlegen Sie sich, dass Sie ein System bräuchten, das Ihre Skizze umsetzt in tatsächliche Berechnungen. Und zwar suchen Sie ein Projektmanagement-System das folgendes Desiderata erfüllt:</p>
 <ol type="1">
 <li>Es führt die einzelnen Schritte Ihres Projekt, die “Pipeline” in der richtigen Reihenfolge</li>
@@ -262,8 +293,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Ja, von so einem Werkzeug träumen Sie.</p>
 <p>Und tatsächlich, Ihr Traum geht in Erfüllung. Dieses System existiert. Genau genommen gibt es viele Systeme, die sich anschicken, Ihre Wünsche zu erfüllen. Wir schauen uns eines näher an, das speziell für R gemacht ist. Das <a href="https://books.ropensci.org/targets/">R-Paket <code>targets</code></a>.</p>
 </section>
-<section id="targets" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="targets"><span class="header-section-number">9.3</span> Targets</h2>
+<section id="targets" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="targets"><span class="header-section-number">9.1.3</span> Targets</h3>
 <p>Es lohnt sich, an dieser Stelle den <a href="https://books.ropensci.org/targets/walkthrough.html">“Walkthrough” aus dem Benutzerhandbuch</a> von Targets durchzuarbeiten.</p>
 <p>Für ein Projekt ähnlich zu den, die wir in diesem Buch bearbeiten, ist folgende <code>_targets.R</code>-Datei ein guter Start.</p>
 <div class="cell" data-hash="projektmgt_cache/html/unnamed-chunk-1_7e8518c2425ba9101f4ccad3051cab5b">
@@ -348,8 +379,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 <p>Einzelne Objekte kann man sich komfortabel anschauen mit <code>tar_load(objekt)</code>, z.B. <code>tar_load(fit1)</code> usw.</p>
+</section>
+<section id="eine-pipeline-als-spielwiese" class="level3" data-number="9.1.4">
+<h3 data-number="9.1.4" class="anchored" data-anchor-id="eine-pipeline-als-spielwiese"><span class="header-section-number">9.1.4</span> Eine Pipeline als Spielwiese</h3>
+<p><a href="https://github.com/sebastiansauer/targets-playground">Dieses Github-Repo</a> stellt Ihnen eine “Spielwiese” zur Verfügung, wo Sie sich mit Pipleines à la Targets vertraut machen können.</p>
+</section>
+</section>
+<section id="publizieren" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="publizieren"><span class="header-section-number">9.2</span> Publizieren</h2>
+<p>Sie haben eine super Analyse geschrieben, eine schicke Pipeline, und jetzt soll die Welt davon erfahren? Es gibt einige komfortable Möglichkeiten, Ihre Arbeit zu publizieren, z.B. als Blog mit <a href="https://quarto.org/">Quarto</a>.</p>
+<p><img src="https://youtu.be/d3Xnvi2_HB4.png" class="img-fluid" alt="Dieses Video"> zeigt Ihnen wie man einen Quarto-Blog in RStudio erstellt und ihn bei <a href="https://www.netlify.com/">Netlify</a> publiziert.</p>
+<p>Das Hosten bzw. Deployen bei Netlify ist kostenlos (in der Basis-Variante).</p>
+<p>Sie können alternativ <a href="https://youtu.be/-GA_Afz_jI4">Github Page</a> als Hosting-Dienst verwenden. <a href="">Dieses Video</a> gibt dazu eine Anleitung.</p>
+</section>
+<section id="komplexitätsmanagement" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="komplexitätsmanagement"><span class="header-section-number">9.3</span> Komplexitätsmanagement</h2>
+<p>Programmieren ist faszinierend. Vor allem, wenn das Program funktioniert. Genau genommen ist es eigentlich nur dann faszinierend, ansonsten wird es anstrengend? aufregend? süchtig? faszinierend? nervig? Wie auch immer: Bugs treten auf und mit steigender Komplexitit Ihrer Software steigen die Bugs nicht linear, sondern eher quadratisch oder gar exponentiell an.</p>
+<p>Es gibt viele Ansätze, sich gegen die Komplexität zu “wehren”. Der beste ist vielleicht: Die Software so einfach wie möglich zu halten - und nur so komplex wie nötig. Sozusagen: Das beste Feature ist das, das Sie nicht implementieren.</p>
+<section id="geben-sie-gute-namen" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="geben-sie-gute-namen"><span class="header-section-number">9.3.1</span> Geben Sie gute Namen</h3>
+<p>Daraus leitet sich ab, dass die zentralen Methoden, um der Fehler Herr zu werden im Komplexitätsmanagement liegen. Den Variablen (Objekten) gute, “sprechende” aber prägnante Namen zu geben, ist in diesem Lichte auch als Komplexitätsmanagement (Reduktion) zu verstehen.</p>
+<p>Ein typischer Fehler, der mir immer mal wieder passiert, ist: Ich ändere den Namen eines Objekts, aber vergesse, an <em>allen</em> Stellen im Code den Namen anzupassen. Glücklicherweise gibt es hier eine einfache Abhilfe: Replace-All.</p>
+</section>
+<section id="portionieren" class="level3" data-number="9.3.2">
+<h3 data-number="9.3.2" class="anchored" data-anchor-id="portionieren"><span class="header-section-number">9.3.2</span> Portionieren</h3>
+<p>Eine andere, zentrale Maßnahme ist es, den Code in handlichen “Häppchen” zu verpacken. Statt einer Skriptdatei mit zich Tausend Zeilen, wünschen Sie sich doch sicher ein Skript der Art:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mache_1</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mache_2</span>()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mache_3</span>()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gratuliere_fertig</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Funktionales Programmieren ist eine Umsetzung davon: Jedes Häppchen, jeder Schritt ist eine Funktion. Eine Funktion hat Input und Output; der Output ist dann der Input für die Funktion des nächsten Schrittes. <code>{targets}</code> ist eine Umsetzung dieser Idee.</p>
+</section>
+<section id="debugging-mit-einem-logger" class="level3" data-number="9.3.3">
+<h3 data-number="9.3.3" class="anchored" data-anchor-id="debugging-mit-einem-logger"><span class="header-section-number">9.3.3</span> Debugging mit einem Logger</h3>
+<p>Wenn das Kind in dem Brunnen gefallen ist, hilft nur <del>Heulen und Wehklagen</del> Das Problem finden und lösen. Mit einem Logger kann man sich das Entwanzen, das Finden der Fehler, erleichtern. Ein Logger schreibt Zwischenschritte in eine Log-Datei.</p>
+<p>Hier ist ein Beispiel mit dem <a href="https://github.com/zatonovo/futile.logger"><code>futile</code> Logger:</a>. Mein Problem war, dass ich eine dynamische Aufgabe für eine Statistik-Klausur programmiert hatte, aber leider gab es einen Bug, den ich nicht gefunden habe<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Die Lösung brachte ein Logger, mit dem ich den Wert zentraler Variablen im Verlauf des Durchlaufens des Codes - bis eben der Laufzeitfehler aufkam<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>Hier ist ein Ausschnitt der Syntax. Zuerst initialisiert man den Logger mit einer Datei, hier <code>exams.log</code>. Neue Logging-Inhalte sollen an die bestehenden Logs angehängt werden (appender).</p>
+<div class="cell" data-hash="projektmgt_cache/html/unnamed-chunk-4_fe8110b01f736ef0a10bddbb897f2a81">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(futile.logger)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">flog.appender</span>(<span class="fu">appender.file</span>(<span class="st">"/Users/sebastiansaueruser/github-repos/rexams-exams/exams.log"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann gebe ich eine Loggings vom Typ “Info” zum Protokoll:</p>
+<div class="cell" data-hash="projektmgt_cache/html/unnamed-chunk-5_2993e3dfd1b39a0f0b8021d7cafa1808">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">flog.info</span>(<span class="fu">paste0</span>(<span class="st">"Ex: post-uncertainty1"</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">flog.info</span>(<span class="at">msg =</span> <span class="fu">paste0</span>(<span class="st">"Data set: "</span>, d_name))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">flog.info</span>(<span class="fu">paste0</span>(<span class="st">"Preds chosen: "</span>, stringr<span class="sc">::</span><span class="fu">str_c</span>(preds_chosen, <span class="at">collapse =</span> <span class="st">", "</span>)))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">flog.info</span>(<span class="fu">paste0</span>(<span class="st">"Output var: "</span>, av))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Ergebnisse kann man dann in der Logging-Datei anschauen:</p>
+<pre><code>NFO [2023-01-05 11:27:51] Rhats: 1.004503053029
+INFO [2023-01-05 11:27:51] Sol: 0.18
+INFO [2023-01-05 11:27:51] Sol typeof: double
+INFO [2023-01-05 11:27:52] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:52] Data set: tips
+INFO [2023-01-05 11:27:52] Preds chosen: size, total_bill
+INFO [2023-01-05 11:27:52] Output var: tip
+INFO [2023-01-05 11:27:53] Rhats: 0.999004883794722
+INFO [2023-01-05 11:27:53] Rhats: 1.00021605674421
+INFO [2023-01-05 11:27:53] Rhats: 1.00091357638756
+INFO [2023-01-05 11:27:53] Sol: 0.32
+INFO [2023-01-05 11:27:53] Sol typeof: double
+INFO [2023-01-05 11:27:54] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:54] Data set: TeachingRatings
+INFO [2023-01-05 11:27:54] Preds chosen: prof, beauty
+INFO [2023-01-05 11:27:54] Output var: eval
+INFO [2023-01-05 11:27:55] Rhats: 0.999060308710712
+INFO [2023-01-05 11:27:55] Rhats: 0.999032305267221
+INFO [2023-01-05 11:27:55] Rhats: 0.999229003550072
+INFO [2023-01-05 11:27:55] Sol: 0
+INFO [2023-01-05 11:27:55] Sol typeof: double
+INFO [2023-01-05 11:27:56] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:56] Data set: gtcars
+INFO [2023-01-05 11:27:56] Preds chosen: mpg_c, year
+INFO [2023-01-05 11:27:56] Output var: msrp
+INFO [2023-01-05 11:28:00] Rhats: 0.99913061005524
+INFO [2023-01-05 11:28:00] Rhats: 0.998999786100339
+INFO [2023-01-05 11:28:00] Rhats: 0.999130286784586
+INFO [2023-01-05 11:28:01] Sol: 21959.35
+INFO [2023-01-05 11:28:01] Sol typeof: double</code></pre>
+<p>Ja, das sieht nicht schön aus. Aber es brachte mir die Lösung: Mir fiel auf, dass der Fehler nur auftrat, wenn <code>sol</code> einen großen Wert hatte (1000 oder mehr). Danke, Logger!</p>
 
 
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>StackOverflow hat mich dann gerettet<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>ERROR!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

@@ -1,7 +1,9 @@
 # Projektmanagement
 
 
-## Am Anfang
+## Pipeline-Management
+
+### Am Anfang
 
 
 Sie haben Großes vor! 
@@ -17,11 +19,17 @@ worin sie bestehen, und in welcher Abfolge sie zu berechnen sind,
 s. @fig-projekt1.
 
 
-[So könnte Ihr Projektplan am Anfang aussehen, man spricht auch von einer Pipeline](img/project1.JPG){#fig-projekt1}
+![So könnte Ihr Projektplan am Anfang aussehen, man spricht auch von einer Pipeline](img/project1.JPG){#fig-projekt1 width=80%}
+
+
+:::callout-note
+Den Graph der einzelnen Analyseschritte in ihrer Abhängigkeit bezeichnet man als *Pipeline.
+:::
 
 
 
-## Sie träumen von einem Werkzeug
+
+### Sie träumen von einem Werkzeug
 
 
 Nach einiger Zeit überlegen Sie sich,
@@ -43,7 +51,7 @@ Das [R-Paket `targets`](https://books.ropensci.org/targets/).
 
 
 
-## Targets
+### Targets
 
 
 Es lohnt sich, an dieser Stelle den ["Walkthrough" aus dem Benutzerhandbuch](https://books.ropensci.org/targets/walkthrough.html) von Targets durchzuarbeiten.
@@ -153,6 +161,155 @@ tar_visnetwork()
 
 Einzelne Objekte kann man sich komfortabel anschauen mit `tar_load(objekt)`,
 z.B. `tar_load(fit1)` usw.
+
+
+
+### Eine Pipeline als Spielwiese
+
+
+[Dieses Github-Repo](https://github.com/sebastiansauer/targets-playground) stellt Ihnen eine "Spielwiese" zur Verfügung,
+wo Sie sich mit Pipleines à la Targets vertraut machen können.
+
+
+
+
+## Publizieren 
+
+
+Sie haben eine super Analyse geschrieben, eine schicke Pipeline, und jetzt soll die Welt davon erfahren?
+Es gibt einige komfortable Möglichkeiten, Ihre Arbeit zu publizieren,
+z.B. als Blog mit [Quarto](https://quarto.org/).
+
+![Dieses Video](https://youtu.be/d3Xnvi2_HB4) zeigt Ihnen wie man einen Quarto-Blog in RStudio erstellt und ihn bei [Netlify](https://www.netlify.com/) publiziert.
+
+Das Hosten bzw. Deployen bei Netlify ist kostenlos (in der Basis-Variante).
+
+Sie können alternativ [Github Page](https://youtu.be/-GA_Afz_jI4) als Hosting-Dienst verwenden. [Dieses Video]() gibt dazu eine Anleitung.
+
+
+
+## Komplexitätsmanagement
+
+
+Programmieren ist faszinierend. Vor allem, wenn das Program funktioniert. 
+Genau genommen ist es eigentlich nur dann faszinierend, ansonsten wird es anstrengend? aufregend? süchtig? faszinierend? nervig?
+Wie auch immer: Bugs treten auf und mit steigender Komplexitit Ihrer Software steigen die Bugs nicht linear,
+sondern eher quadratisch oder gar exponentiell an.
+
+Es gibt viele Ansätze, sich gegen die Komplexität zu "wehren". 
+Der beste ist vielleicht: Die Software so einfach wie möglich zu halten - und
+nur so komplex wie nötig. Sozusagen:
+Das beste Feature ist das, das Sie nicht implementieren.
+
+### Geben Sie gute Namen
+
+Daraus leitet sich ab, 
+dass die zentralen Methoden, um der Fehler Herr zu werden im Komplexitätsmanagement liegen.
+Den Variablen (Objekten) gute, "sprechende" aber prägnante Namen zu geben, ist
+in diesem Lichte auch als Komplexitätsmanagement (Reduktion) zu verstehen.
+
+Ein typischer Fehler, der mir immer mal wieder passiert, ist: Ich ändere den Namen eines Objekts,
+aber vergesse, an *allen* Stellen im Code den Namen anzupassen.
+Glücklicherweise gibt es hier eine einfache Abhilfe: Replace-All.
+
+
+### Portionieren
+
+Eine andere, zentrale Maßnahme ist es, den Code in handlichen "Häppchen" zu verpacken.
+Statt einer Skriptdatei mit zich Tausend Zeilen, wünschen Sie sich doch sicher ein Skript der Art:
+
+```r
+mache_1()
+mache_2()
+mache_3()
+gratuliere_fertig()
+```
+
+Funktionales Programmieren ist eine Umsetzung davon: Jedes Häppchen, jeder Schritt
+ist eine Funktion. 
+Eine Funktion hat Input und Output; der Output ist dann der Input für die Funktion des nächsten Schrittes.
+`{targets}` ist eine Umsetzung dieser Idee.
+
+
+### Debugging mit einem Logger
+
+Wenn das Kind in dem Brunnen gefallen ist, hilft nur ~~Heulen und Wehklagen~~ Das Problem finden und lösen.
+Mit einem Logger kann man sich das Entwanzen, das Finden der Fehler, erleichtern.
+Ein Logger schreibt Zwischenschritte in eine Log-Datei.
+
+Hier ist ein Beispiel mit dem [`futile` Logger:](https://github.com/zatonovo/futile.logger).
+Mein Problem war, dass ich eine dynamische Aufgabe für eine Statistik-Klausur programmiert hatte,
+aber leider gab es einen Bug, den ich nicht gefunden habe^[StackOverflow hat mich dann gerettet].
+
+Die Lösung brachte ein Logger, mit dem ich den Wert zentraler Variablen im Verlauf des Durchlaufens des Codes - bis eben der Laufzeitfehler aufkam^[ERROR!].
+
+Hier ist ein Ausschnitt der Syntax. 
+Zuerst initialisiert man den Logger mit einer Datei, hier `exams.log`.
+Neue Logging-Inhalte sollen an die bestehenden Logs angehängt werden (appender).
+
+
+```{r}
+#| eval: false
+library(futile.logger)
+flog.appender(appender.file("/Users/sebastiansaueruser/github-repos/rexams-exams/exams.log"))
+```
+
+Dann gebe ich eine Loggings vom Typ "Info" zum Protokoll:
+
+
+```{r}
+#| eval: false
+flog.info(paste0("Ex: post-uncertainty1"))
+flog.info(msg = paste0("Data set: ", d_name))
+flog.info(paste0("Preds chosen: ", stringr::str_c(preds_chosen, collapse = ", ")))
+flog.info(paste0("Output var: ", av))
+```
+
+
+Die Ergebnisse kann man dann in der Logging-Datei anschauen:
+
+```
+NFO [2023-01-05 11:27:51] Rhats: 1.004503053029
+INFO [2023-01-05 11:27:51] Sol: 0.18
+INFO [2023-01-05 11:27:51] Sol typeof: double
+INFO [2023-01-05 11:27:52] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:52] Data set: tips
+INFO [2023-01-05 11:27:52] Preds chosen: size, total_bill
+INFO [2023-01-05 11:27:52] Output var: tip
+INFO [2023-01-05 11:27:53] Rhats: 0.999004883794722
+INFO [2023-01-05 11:27:53] Rhats: 1.00021605674421
+INFO [2023-01-05 11:27:53] Rhats: 1.00091357638756
+INFO [2023-01-05 11:27:53] Sol: 0.32
+INFO [2023-01-05 11:27:53] Sol typeof: double
+INFO [2023-01-05 11:27:54] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:54] Data set: TeachingRatings
+INFO [2023-01-05 11:27:54] Preds chosen: prof, beauty
+INFO [2023-01-05 11:27:54] Output var: eval
+INFO [2023-01-05 11:27:55] Rhats: 0.999060308710712
+INFO [2023-01-05 11:27:55] Rhats: 0.999032305267221
+INFO [2023-01-05 11:27:55] Rhats: 0.999229003550072
+INFO [2023-01-05 11:27:55] Sol: 0
+INFO [2023-01-05 11:27:55] Sol typeof: double
+INFO [2023-01-05 11:27:56] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:56] Data set: gtcars
+INFO [2023-01-05 11:27:56] Preds chosen: mpg_c, year
+INFO [2023-01-05 11:27:56] Output var: msrp
+INFO [2023-01-05 11:28:00] Rhats: 0.99913061005524
+INFO [2023-01-05 11:28:00] Rhats: 0.998999786100339
+INFO [2023-01-05 11:28:00] Rhats: 0.999130286784586
+INFO [2023-01-05 11:28:01] Sol: 21959.35
+INFO [2023-01-05 11:28:01] Sol typeof: double
+```
+
+Ja, das sieht nicht schön aus.
+Aber es brachte mir die Lösung:
+Mir fiel auf, 
+dass der Fehler nur auftrat, wenn `sol` einen großen Wert hatte (1000 oder mehr).
+Danke, Logger!
+
+
+
+
 
 
 
