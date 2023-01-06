@@ -180,26 +180,32 @@ Sie haben eine super Analyse geschrieben, eine schicke Pipeline, und jetzt soll 
 Es gibt einige komfortable Möglichkeiten, Ihre Arbeit zu publizieren,
 z.B. als Blog mit [Quarto](https://quarto.org/).
 
-![Dieses Video](https://youtu.be/d3Xnvi2_HB4) zeigt Ihnen wie man einen Quarto-Blog in RStudio erstellt und ihn bei [Netlify](https://www.netlify.com/) publiziert.
+[Dieses Video](https://youtu.be/d3Xnvi2_HB4) zeigt Ihnen wie man einen Quarto-Blog in RStudio erstellt und ihn bei [Netlify](https://www.netlify.com/) publiziert.
+
+
+{{< video https://youtu.be/d3Xnvi2_HB4 width="400" height="300" >}}
 
 Das Hosten bzw. Deployen bei Netlify ist kostenlos (in der Basis-Variante).
 
-Sie können alternativ [Github Page](https://youtu.be/-GA_Afz_jI4) als Hosting-Dienst verwenden. [Dieses Video]() gibt dazu eine Anleitung.
+Sie können alternativ [Github Pages](https://pages.github.com/) als Hosting-Dienst verwenden. [Dieses Video](https://youtu.be/-GA_Afz_jI4) gibt dazu eine Anleitung.
 
 
 
 ## Komplexitätsmanagement
 
 
-Programmieren ist faszinierend. Vor allem, wenn das Program funktioniert. 
+Programmieren ist faszinierend. Vor allem, wenn das Programm funktioniert. 
 Genau genommen ist es eigentlich nur dann faszinierend, ansonsten wird es anstrengend? aufregend? süchtig? faszinierend? nervig?
-Wie auch immer: Bugs treten auf und mit steigender Komplexitit Ihrer Software steigen die Bugs nicht linear,
+Wie auch immer: Bugs treten auf und mit steigender Komplexität Ihrer Software steigen die Bugs nicht linear,
 sondern eher quadratisch oder gar exponentiell an.
 
 Es gibt viele Ansätze, sich gegen die Komplexität zu "wehren". 
 Der beste ist vielleicht: Die Software so einfach wie möglich zu halten - und
 nur so komplex wie nötig. Sozusagen:
 Das beste Feature ist das, das Sie nicht implementieren.
+
+
+
 
 ### Geben Sie gute Namen
 
@@ -224,6 +230,8 @@ mache_2()
 mache_3()
 gratuliere_fertig()
 ```
+
+Schaut man dann in `mache_1()` rein, sieht man wiederum übersichtlichen Code.
 
 Funktionales Programmieren ist eine Umsetzung davon: Jedes Häppchen, jeder Schritt
 ist eine Funktion. 
