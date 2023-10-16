@@ -81,7 +81,8 @@ $$I(x) = - \log_2 \left( Pr(x) \right)$$
 
 :::
 
-Andere Logaritmusbasen sind möglich. Bei einem binären Logarithmus nennt man die Einheit *Bit*^[oder *shannon*].
+Andere Logaritmusbasen sind möglich. 
+Bei einem binären Logarithmus nennt man die Einheit *Bit*^[oder *shannon*].
 
 
 Ein Münwzurf^[wie immer, als fair angenommen, wenn sonst nichts anderes angegeben ist] hat *1 Bit* Information:
@@ -93,7 +94,7 @@ Ein Münwzurf^[wie immer, als fair angenommen, wenn sonst nichts anderes angegeb
 
 
 
-Damit gilt: $I = \frac{1}{Pr(x)}$
+Damit gilt: $I = log \left(\frac{1}{Pr(x)}\right)$
 
 Die Information ist eng verwandt mit den Odds bzw. Log-Odds (Logits):
 
