@@ -81,6 +81,7 @@ $$I(x) = - \log_2 \left( Pr(x) \right)\qquad \square$$
 
 :::
 
+
 Andere Logarithmusbasen (als 2) sind möglich. Bei einem binären Logarithmus (Basis 2, logarithmus dualis) nennt man die Einheit *Bit*^[oder *shannon*].
 
 
@@ -97,7 +98,13 @@ Von 1 Bit Information spricht man, wenn ein Zufallsvorgang zwei Ausgänge hat un
 :::
 
 
+<<<<<<< HEAD:065-Information.qmd
 Damit gilt: $I = \log_2\left( \frac{1}{Pr(x)} \right)$
+||||||| 1f89485:Information.qmd
+Damit gilt: $I = \frac{1}{Pr(x)}$
+=======
+Damit gilt: $I = log \left(\frac{1}{Pr(x)}\right)$
+>>>>>>> 604c7d35efd688f42c60b46835cf2afdad300ac6:Information.qmd
 
 Die Information ist eng verwandt mit den Odds bzw. Log-Odds (Logits):
 
