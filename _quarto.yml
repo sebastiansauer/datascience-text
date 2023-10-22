@@ -1,45 +1,61 @@
 project:
   type: book
   
-
-
 book:
-  title: "Data Science 2: Textdaten als Grundlage prädiktiver Modelle"
+  title: "Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮"
   author: "Sebastian Sauer"
-  date: "9/13/2022"
+  date: now
   chapters:
     - index.qmd
-    - pruefung.qmd
-    - twittermining.qmd
-    - textmining1.qmd
-    - populismus.qmd
-    - word-embedding.qmd
-    - hassrede.qmd
-    - klassifikation.qmd
-    - hatespeech2.qmd
-    - projektmgt.qmd
+    - 010-Hinweise.qmd
+    - 020-pruefung.qmd
+    - 025-twittermining.qmd
+    - 030-textmining1.qmd
+    - 040-populismus.qmd
+    - 050-word-embedding.qmd
+    - 060-hassrede.qmd
+    - 065-Information.qmd 
+    - 070-hatespeech2.qmd
+    - 080-klassifikation.qmd
+    - 100-nn-quickstart.qmd
+    - 200-projektmgt.qmd
+    - 300-fallstudien.qmd
     - references.qmd
 
-bibliography: references.bib
+bibliography: 
+  - bib/bib.bib
+  - packages.bib
+
 
 lang: de
 
 format:
   html:
-    theme: cerulean
-    df-print: kable
-    code-fold: false
     toc: true
-  # pdf:
-  #   documentclass: scrreprt
+    theme: 
+      light: [lumen, my-theme.scss]
+      dark: darkly
+    css: styles.css
+    number-sections: true
+    df-print: paged
+    code-fold: false
+    fig-align: center
+    code-link: true
+    mermaid:
+      theme: neutral
 
 editor: source
 keep-md: false
 
-knitr: 
-  opts_chunk: 
+knitr:
+  opts_knit:
+    verbose: true
     fig-align: center
-    out-width: "70%"
+  opts_chunk:
+    collapse: true
+    # comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: false
 
     
 execute:

@@ -34,5 +34,44 @@
   },
   "projektmgt.qmd": {
     "projektmgt.html": "4340cc52"
+  },
+  "010-Hinweise.qmd": {
+    "010-Hinweise.html": "b9519acf"
+  },
+  "020-pruefung.qmd": {
+    "020-pruefung.html": "6f06b142"
+  },
+  "025-twittermining.qmd": {
+    "025-twittermining.html": "2ec55faf"
+  },
+  "030-textmining1.qmd": {
+    "030-textmining1.html": "894aefa6"
+  },
+  "040-populismus.qmd": {
+    "040-populismus.html": "67b50bcd"
+  },
+  "050-word-embedding.qmd": {
+    "050-word-embedding.html": "258e0c6d"
+  },
+  "060-hassrede.qmd": {
+    "060-hassrede.html": "8412b2e9"
+  },
+  "065-Information.qmd": {
+    "065-Information.html": "23a67c86"
+  },
+  "070-hatespeech2.qmd": {
+    "070-hatespeech2.html": "719a1374"
+  },
+  "080-klassifikation.qmd": {
+    "080-klassifikation.html": "a13b79fa"
+  },
+  "100-nn-quickstart.qmd": {
+    "100-nn-quickstart.html": "ada0273d"
+  },
+  "200-projektmgt.qmd": {
+    "200-projektmgt.html": "b7786f87"
+  },
+  "300-fallstudien.qmd": {
+    "300-fallstudien.html": "fe73b391"
   }
 }

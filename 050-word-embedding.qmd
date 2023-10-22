@@ -1,0 +1,1575 @@
+# Word Embedding
+
+
+![Text als Datenbasis prädiktiver Modelle](img/text-mining-1476780_640.png){width=10%}
+Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a>
+
+
+
+## Vorab
+
+
+### Lernziele
+
+
+
+<!-- - Die grundlegenden Konzepte der Informationstheorie erklären können -->
+- Die Erstellung von Word-Embeddings anhand grundlegender R-Funktionen erläutern können.
+
+
+
+### Vorbereitung
+
+<!-- - Lesen Sie [diesen Text](https://www.science4all.org/article/shannons-information-theory/) als Vorbereitung -->
+- Arbeiten Sie @smltar, [Kap. 5](https://smltar.com/embeddings.html) durch.
+
+
+
+
+
+
+### Benötigte R-Pakete
+
+```{r}
+#| message: false
+library(tidyverse)
+library(easystats)  # Komfort für deskriptive Statistiken, wie `describe_distribution`
+library(tidytext)
+library(hcandersenr)   # Textdaten
+library(slider)  # slide
+library(widyr)  # pairwise_pmi
+library(furrr)  # mehrere Kerne gleichzeitig nutzen
+library(textdata)  # Worteinbettungen, vorgekocht
+library(entropy)  # Entropie berechnen
+library(widyr)  # Ähnlichkeit berechnen mit widyr_svd
+library(furrr)  # Mehrere Kerne gleichzeitig
+```
+
+
+
+
+
+<!-- ## Informationstheorie -->
+
+
+
+
+
+
+<!-- ### Einführung -->
+
+
+<!-- Die Informationstheorie ist eine der Sternstunden der Wissenschaft. [Manche sagen](http://www.science4all.org/article/shannons-information-theory/) dass Claude Shannon, der Autor der Theorie, auf einer Stufe mit Darwin und Einstein stehen sollte: -->
+
+<!-- >    In this single paper, Shannon introduced this new fundamental theory. He raised the right questions, which no one else even thought of asking. This would have been enough to make this contribution earthshaking. But amazingly enough, Shannon also provided most of the right answers with class and elegance. In comparison, it took decades for a dozen of top physicists to define the basics of quantum theory. Meanwhile, Shannon constructed something equivalent, all by himself, in a single paper. -->
+<!-- Shannon’s theory has since transformed the world like no other ever had, from information technologies to telecommunications, from theoretical physics to economical globalization, from everyday life to philosophy. (...) -->
+<!-- I don’t think Shannon has had the credits he deserves. He should be right up there, near Darwin and Einstein, among the few greatest scientists mankind has ever had the chance to have.  -->
+
+
+<!-- Für die Statistik ist die Informationstheorie von hoher Bedeutung. -->
+<!-- Im Folgenden schauen wir uns einige Grundlagen an. -->
+
+
+<!-- ### Wozu ist das gut? -->
+
+
+<!-- Bevor man sich mit einem Thema wie der Informationtheorie (Informationsentropie mit verwandten Konstrukten oder kurz Entropie) beschäftigt, sollte die Frage -->
+<!-- geklärt sein, wozu das Thema gut ist. -->
+<!-- Hier sind drei Antworten dazu: -->
+
+<!-- 1. Im Maschinenlernen wird die Informationtheorie verwendet, um die Güte von Klassifikationsmodellen zu berechnen. -->
+<!-- 2. Speziell im Textmining wird die Entropie verwendet, um den Zusammenhang von Wörtern zu quantifizieren. -->
+<!-- 3. Wenige Theorien haben so viel neue Forschung initiert, wie  @shannon_1948 berühmtes Paper. Es ist also auf jeden Fall eine Perle der Geistesgeschichte. -->
+
+
+
+<!-- ### Shannon-Information -->
+
+<!-- Mit der *Shannon-Information* (Information, Selbstinformation) quantifizieren wir, wie viel "Überraschung" sich in einem Ereignis verbirgt [@shannon_1948]. -->
+
+<!-- Ein Ereignis mit ... -->
+
+<!-- - *geringer* Wahrscheinlichkeit: *Viel* Überraschung (Information) -->
+<!-- - *hoher* Wahrscheinlichkeit: *Wenig* Überraschung (Information) -->
+
+
+
+<!-- Wenn wir also erfahren, dass ein unwahrscheinliches Ereignis eingetreten ist (Schnee im Sommer), sind wir überraschter als wenn wir höhen, dass ein wahrscheinliches Ereignis eingetreten ist (Schnee im Winter). -->
+
+<!-- Die Information eines Ereignis ist also eng verbunden mit seiner Wahrscheinlichkeit oder auch mit den Odds eines Ereignisses. -->
+
+<!-- Die Shannon-Information ist die einzige Größe, die einige wünschenswerte Anforderungen^[Desiderata, sagt man] erfüllt: -->
+
+<!-- 1. Stetig -->
+<!-- 2. Je mehr Ereignisse in einem Zufallsexperiment möglich sind, desto höher die Information, wenn ein bestimmtes Ereignis eintritt -->
+<!-- 3. Additiv: Die Summe der Information zweier Teilereignisse ist gleich der Information des Gesamtereignis -->
+
+
+
+<!-- :::{#def-info} -->
+
+<!-- ## Shannon-Information -->
+
+
+<!-- Die Information ist so definiert: -->
+
+
+<!-- $$I(x) = - \log_2 \left( Pr(x) \right)$$ -->
+
+<!-- ::: -->
+
+<!-- Andere Logaritmusbasen sind möglich. Bei einem binären Logarithmus nennt man die Einheit *Bit*^[oder *shannon*]. -->
+
+
+<!-- Ein Münwzurf^[wie immer, als fair angenommen, wenn sonst nichts anderes angegeben ist] hat *1 Bit* Information: -->
+
+<!-- ```{r} -->
+<!-- -log(1/2, base = 2) -->
+<!-- ``` -->
+
+
+
+
+<!-- Damit gilt: $I = \frac{1}{Pr(x)}$ -->
+
+<!-- Die Information ist eng verwandt mit den Odds bzw. Log-Odds (Logits): -->
+
+
+<!-- $\text{log-odds}(x)=\log \left({\frac {p(x)}{p(\lnot x)}}\right)$ -->
+
+<!-- Logits können als Differenz zweier Shannon-Infos ausgedrückt werden: -->
+
+
+<!-- $\text{log-odds}(x)=I(\lnot x)-I(x)$ -->
+
+
+
+<!-- Die Information zweier unabhängiger Ereignisse ist additiv. -->
+
+<!-- Die gemeinsame Wahrscheinlichkeit zweier unabhängiger Ereignisse ist das Produkt der einzelnen Wahrscheinlichkeiten: -->
+
+<!-- $Pr(x,y) = Pr(x) \cdot Pr(y)$ -->
+
+<!-- Die *gemeinsame Information* ist dann -->
+
+<!-- $$ -->
+<!-- {\displaystyle {\begin{aligned}\operatorname {I}(x,y)&=-\log _{2}\left[p(x,y)\right]=-\log _{2}\left[p(x)p(y)\right]\\[5pt]&=-\log _{2}\left[p{(x)}\right]-\log _{2}\left[p{(y)}\right]\\[5pt]&=\operatorname {I} (x)+\operatorname {I} (y)\end{aligned}}} -->
+<!-- $$ -->
+
+
+
+
+
+<!-- :::{#exm-info1} -->
+
+
+<!-- ## Information eines wahrscheinlichen Ereignisses -->
+
+<!-- Die Information eines fast sicheren Ereignisses ist gering. -->
+
+<!-- ```{r} -->
+<!-- -log(99/100, base = 2) -->
+<!-- ``` -->
+
+
+<!-- ::: -->
+
+
+
+
+
+<!-- :::{#exm-info2} -->
+
+
+<!-- ## Information eines unwahrscheinlichen Ereignisses -->
+
+<!-- Die Information eines unwahrscheinlichen Ereignisses ist hoch. -->
+
+<!-- ```{r} -->
+<!-- -log(01/100, base = 2) -->
+<!-- ``` -->
+
+
+<!-- ::: -->
+
+
+
+
+
+
+
+<!-- :::{#exm-info3} -->
+
+
+<!-- ## Information eines Würfelwurfs -->
+
+
+<!-- Die Wahrscheinlichkeitsfunktion eines Würfel ist -->
+
+<!-- ${\displaystyle Pr(k)={\begin{cases}{\frac {1}{6}},&k\in \{1,2,3,4,5,6\}\\0,&{\text{ansonsten}}\end{cases}}}$ -->
+
+
+
+<!-- Die Wahrscheinlichkeit, eine 6 zu würfeln, ist $Pr(X=6) = \frac{1}{6}$. -->
+
+
+
+<!-- Die Information von $X=6$ beträgt also -->
+
+
+<!-- $I(X=6) = -\log_2 \left( Pr(X=6) \right) = -\log_2(1/6) \approx 2.585 \, \text{bits}$. -->
+
+
+<!-- ```{r} -->
+<!-- -log(1/6, base = 2) -->
+<!-- ``` -->
+
+
+<!-- ::: -->
+
+
+
+
+
+
+
+<!-- :::{#exm-info3} -->
+
+
+<!-- ## Information zweier  Würfelwurfe -->
+
+
+
+
+
+
+
+<!-- Die Wahrscheinlichkeit, mit zwei Würfeln, $X$ und $Y$, jeweils *6* zu würfeln,  -->
+<!-- beträgt $Pr(X=6, Y=6) = \frac{1}{36}$ -->
+
+
+
+<!-- Die Information beträgt also -->
+
+
+<!-- $I(X=6, Y=6) = -\log_2 \left( Pr(6,6) \right)$ -->
+
+
+<!-- ```{r} -->
+<!-- -log(1/36, base = 2) -->
+<!-- ``` -->
+
+
+<!-- Aufgrund der Additivität der Information gilt -->
+
+
+<!-- $I(6,6) = I(6) + I(6)$ -->
+
+
+<!-- ```{r} -->
+<!-- -log(1/6, base = 2) + -log(1/6, base = 2) -->
+<!-- ``` -->
+
+
+
+<!-- ::: -->
+
+
+
+
+
+
+
+
+
+<!-- ### Entropie -->
+
+
+<!-- (Informations)entropie ist die Summe der Informationen der Ereignisse einer Zufallsvariablen, $X$. -->
+
+
+
+<!-- :::{#def-entropie} -->
+
+
+<!-- ## Informationsentropie -->
+
+
+<!-- *Informationsentropie*  ist so definiert: -->
+
+<!-- $$H(p) = - \text{E log} (p_i) = - \sum_{i = 1}^n p_i \text{log} (p_i) = E\left[I(X) \right]$$ -->
+
+<!-- ::: -->
+
+<!-- Die Informationsentropie ist also die "mittlere" oder "erwartete Information einer Zufallsvariablen. -->
+
+
+<!-- Die Entropie eines Münzwurf-Versuchs (Bernoulli-Experiment) ist dann maximal (1 bit), wenn die Trefferwahrscheinlichkeit 50% beträgt: $Pr(X=x) = 1/2$, s. Abb. @fig-bernoulli-entropy. -->
+
+
+<!-- ![Der Zusammenhang von Wahrscheinlichkeit und Entropie bei einem Bernoulli-Versuch, Quelle: Wikipedia, CC-BY-SA, Brona, Rubber Duck](img/Binary_entropy_plot.svg.png){#fig-bernoulli-entropy width="30%"} -->
+
+
+
+<!-- ### Gemeinsame Information -->
+
+<!-- Die *gemeinsame Information* (mutual information, MI) zweier Zufallsvariablen $X$ und $Y$, $I(X,Y)$, quantifiziert die Informationsmenge, die man über $Y$ erhält, wenn man $X$ beobachtet. Mit anderen Worten: Die MI ist ein Maß des Zusammenhangs zweier (nominaler) Variablen. Im Gegensatz zur Korrelation ist die MI nicht auf lineare Abhängigkeiten beschränkt. -->
+
+
+
+<!-- Die MI quantifiziert den Unterschied zwischen der gemeinsamen Verteilung $Pr(X,Y)$ und dem Produkt einer einzelnen^[auch als *marginalen* Wahrscheinlichkeiten oder *Randwahrscheinlichkeiten* bezeichnet] Wahrscheinlichkeitsverteilungen, d.h. $Pr(X)$ und $Pr(Y)$. -->
+
+<!-- Wenn die beiden Variablen (stochastisch) unabhängig^[Für stochastische Unabhängigkeit kann das Zeichen $\bot$ verwendet werden] sind, ist ihre gemeinsame Information Null: -->
+
+<!-- $I(X,Y) = 0 \quad \text{gdw} \quad \bot(X,Y)$. -->
+
+<!-- Dann gilt nämlich: -->
+
+<!-- $\log \left( \frac{Pr(X,Y)} {Pr(X) \cdot Pr(Y)} \right) =\log(1) = 0$. -->
+
+
+<!-- Das macht intuitiv Sinn: Sind zwei Variablen unabhängig, so erfährt man nichts über die zweite, wenn man die erste kennt. So ist Kenntnis der Sternzeichens einer Person und ihrer Körpergröße unabhängig. -->
+
+<!-- Das Gegenteil ist auch wahr: Sind zwei Variablen voneinander komplett abhängig, so weiß man alles über die zweite, wenn man die erste kennt. -->
+
+
+<!-- Die gemeinsame Information kann man sich als *Summe der einzelnen gemeinsamen Informationen* von $XY$ sehen (s. @tbl-mi1): -->
+
+<!-- ```{r} -->
+<!-- #| label: tbl-mi1 -->
+<!-- #| tbl-cap: Summe der punktweisen gemeinsamen Informationen -->
+<!-- #| echo: true -->
+<!-- d <- tibble::tribble( -->
+<!--      ~x1,    ~x2,    ~x3, -->
+<!--   "x1y2", "x2y1", "x3y1", -->
+<!--   "x2y1", "x2y2", "x3y2", -->
+<!--   "x1y3", "x2y3", "x3y3" -->
+<!--   ) -->
+<!-- d -->
+<!-- ``` -->
+
+
+
+<!-- $I(X,Y) = \Sigma_Y \Sigma_y Pr(x,y) \underbrace{\log \left( \frac{Pr(X,Y)}{Pr(X) Pr(Y)} \right)}_\text{punktweise MI}$  -->
+
+<!-- Die Summanden der gemeinsamen Information bezeichnet man auch als *punktweise gemeinsame Information* (pointwise mutual information, PMI), entsprechend, s. @eq-pmi. MI ist also der Erwartungswert der PMI. -->
+
+
+<!-- $${\displaystyle \operatorname {PMI} (x,y)\equiv \log_{2}{\frac {p(x,y)}{p(x)p(y)}}=\log _{2}{\frac {p(x|y)}{p(x)}}=\log _{2}{\frac {p(y|x)}{p(y)}}} -->
+<!-- $${#eq-pmi} -->
+
+
+<!-- Andere Basen als `log2` sind gebräuchlich, vor allem der natürliche Logarithmus. -->
+
+
+
+
+<!-- ::: {.remark} -->
+
+<!-- Die zwei rechten Umformungen in @eq-pmi basieren auf der Umformung der gemeinsamen Wahrscheinlichkeit.  -->
+
+<!-- Zur Erinnerung: $p(x,y) = p(y)p(x|y) = p(x)p(y|x)$ -->
+<!-- ::: -->
+
+
+
+
+<!-- ::: {#exm-pmi} -->
+
+<!-- ## Interpretation der PMI -->
+
+<!-- Sei $p(x) = p(y) = 1/10$ und $p(x,y) = 1/10$. Wären $x$ und $y$ unabhängig, dann wäre $p^{\prime}(x,y) = p(x)p(y) = 1/100$. -->
+<!-- Das Verhältnis der Produkte der einzelnen Wahrscheinlichkeit zur gemeinsamen Wahrscheinlichkeit wäre dann 1 und der Logarithmus von 1 ist 0. Das Verhältnis von 1 entspricht also der Unabhängigkeit. Ist das Verhältnis z.B. 5, so zeigt das eine gewisse Abhängigkeit an. -->
+<!-- Im obigen Beispiel gilt: $\frac{1/20}{1/100}=5$. -->
+
+<!-- ::: -->
+
+
+<!-- Die MI wird auch über die sog. *Kullback-Leibler-Divergenz* definiert, -->
+<!-- die die Differenz zwischen gemeinsamer Wahrscheinlichkeitsfunktion bzw. -dichte und dem Produkt der jeweiligen Randwahrscheinlichkeiten bzw. -dichte angibt. -->
+
+
+
+<!-- ### Maximumentropie -->
+
+
+<!-- :::{#def-maxent} -->
+
+
+<!-- ## Maximumentropie -->
+
+<!-- Die Verteilungsform, für die es die meisten Möglichkeiten (Pfade im Baumdiagramm) gibt, -->
+<!-- hat die höchste Informationsentropie. -->
+
+<!-- ::: -->
+
+<!-- @fig-muenz3 zeigt ein Baumdiagramm für einen 3-fachen Münzwurf. -->
+<!-- In den "Blättern" (Endknoten) sind die Ergebnisse des Experiments dargestellt -->
+<!-- sowie die Zufallsvariable $X$, die die Anzahl der "Treffer" (Kopf) fasst. -->
+<!-- Wie man sieht, vereinen einige Werte der Zufallsvariable mehr Pfade auf sich als andere: -->
+<!-- Der Wert $X=1$ vereinigt 3 Pfade (von 8) auf sich; der Wert $X=3$ nur 1 Pfad. -->
+
+<!-- ![Pfade im Baumdiagramm: 3-facher Münzwurf](img/muenz3.png){#fig-muenz3} -->
+
+
+
+<!-- ### Ilustration  -->
+
+
+<!-- Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind [@mcelreath_statistical_2020]. -->
+<!-- Weil Sie nichts besseres zu tun haben, werfen Sie die Kiesel in die Eimer und zwar so,  -->
+<!-- dass die Wahrscheinlichkeit für einen Kiesel in einen bestimmten Eimer zu landen für alle Eimer gleich ist. -->
+<!-- Sie werfen also Ihre 10 Kiesel und betrachten das Ergebnis; die Kiesel sind jetzt in einem bestimmten (zufälligen) -->
+<!-- Arrangement auf die Eimer verteilt. -->
+<!-- Jede Aufteilung (der 10 Kiesel in den 5 Eimern) ist gleich wahrscheinlich^[so ähnlich wie mit den Lottozahlen] --  -->
+<!-- die Wahrscheinlichkeit, dass alle 10 Kiesel in Eimer 1 landen ist also gleich hoch wie die Wahrscheinlichkeit, -->
+<!-- dass jeder Eimer einen Kiesel abkriegt. -->
+<!-- Jetzt kommt's: Manche Arrangements können auf mehrere Arten erzielt werden als andere.  -->
+<!-- So gibt es nur *eine* Aufteilung für alle 10 Kiesel in einem Eimer (Teildiagramm a, in @fig-kiesel). -->
+<!-- Aber es gibt 90 Möglichkeiten, die Kiesel so aufzuteilen, dass 2 in Eimer 2 landen, 8 in Eimer 4 und 2 in Eimer 4, -->
+<!-- s. Teildiagramm b in @fig-kiesel [@kurz_statistical_2021].  -->
+<!-- Teildiagramme c bis e zeigen, dass die Anzahl der Aufteilungen schnell astronomisch hoch wird, -->
+<!-- wenn sich die Kiesel "gleichmäßiger" auf die Eimer verteilen. -->
+<!-- Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen. -->
+<!-- Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden. -->
+
+<!-- Hier sind ein paar verschiedene Arrangements, deren Anzahl von Aufteilungen wir hier anschauen, s. @tbl-arr: -->
+
+<!-- ```{r} -->
+<!-- #| label: tbl-arr -->
+<!-- #| tbl-cap: Ein paar verschiedene Arrangements (a-e) der Kiesel in den fünf Eimern -->
+<!-- #| echo: true -->
+<!-- d <- -->
+<!--   tibble(a = c(0, 0, 10, 0, 0), -->
+<!--          b = c(0, 1, 8, 1, 0), -->
+<!--          c = c(0, 2, 6, 2, 0), -->
+<!--          d = c(1, 2, 4, 2, 1), -->
+<!--          e = 2)  -->
+<!-- d -->
+<!-- ``` -->
+
+
+
+<!-- ```{r fig-kiesel} -->
+<!-- #| echo: false -->
+<!-- #| fig-cap: Anzahl von Aufteilungen der 10 Kiesel in 5 Eimer -->
+<!-- #| label: fig-kiesel -->
+<!-- d %>%  -->
+<!--   mutate(bucket = 1:5) %>%  -->
+<!--   gather(letter, pebbles, - bucket) %>%  -->
+
+<!--   ggplot(aes(x = bucket, y = pebbles)) + -->
+<!--   geom_col(width = 1/5) + -->
+<!--   geom_text(aes(y = pebbles + 1, label = pebbles)) + -->
+<!--   geom_text(data = tibble( -->
+<!--     letter  = letters[1:5], -->
+<!--     bucket  = 5.5, -->
+<!--     pebbles = 10, -->
+<!--     label   = str_c(c(1, 90, 1260, 37800, 113400),  -->
+<!--                     rep(c(" Pfad", " Pfade"), times = c(1, 4)))), -->
+<!--     aes(label = label), hjust = 1) + -->
+<!--   scale_y_continuous(breaks = c(0, 5, 10)) + -->
+<!--   theme(panel.grid = element_blank()) + -->
+<!--   facet_wrap(~letter, ncol = 3) -->
+<!-- ``` -->
+
+<!-- Hier sind die Wahrscheinlichkeitsverteilungen der 5 Arrangements^[Ist das nicht eine elegante Syntax?! Solomon Kurz, der Autor der Syntax, hielt sich nicht an die aktuelle Version von `dplyr`; `mutate_all` ist eigentlich überholt zugunsten von `mutate` mit `across`, aber die Prägnanz der Syntax hier ist schon beeindruckend, wie ich finde.]: -->
+
+<!-- ```{r} -->
+<!-- d %>%  -->
+<!--   mutate_all(~. / sum(.)) -->
+<!-- ``` -->
+
+
+<!-- Dann kann man die Wahrscheinlichkeit einfach in Entropie umrechnen^[Syntax aus @kurz_statistical_2021]: -->
+
+<!-- ```{r} -->
+<!-- d %>%  -->
+<!--   mutate_all(~ . / sum(.)) %>%  -->
+<!--   gather() %>%  -->
+<!--   group_by(key) %>%  -->
+<!--   summarise(h = -sum(ifelse(value == 0, 0, value * log(value)))) -->
+<!-- ``` -->
+
+
+<!-- Das `ifelse` dient nur dazu, eine Wahrscheinlichkeit von 0 eine Entropie von 0 zu verpassen^[[Regel von L'Hospital](https://de.wikipedia.org/wiki/Regel_von_de_L%E2%80%99Hospital); [s. auch hier](https://www.mathebibel.de/regel-von-lhospital)], denn sonst würden wir ein Problem rennen, wenn wir $log(0)$ ausrechnen. -->
+
+<!-- ```{r} -->
+<!-- log(0) -->
+<!-- ``` -->
+
+
+
+<!-- ## Zufallstext erkennen -->
+
+
+<!-- ### Entropie von Zufallstext -->
+
+
+<!-- Kann man wohl Zufallstext maschinell erkennen? Sicher gibt es viele Ansätze, -->
+<!-- um das Problem anzugehen. -->
+<!-- Lassen Sie uns einen Ansatz erforschen.  -->
+<!-- Erforschen heißt, *wir* erforschen für *uns*, es handelt sich um eine didaktische Übung,  -->
+<!-- das Ziel ist nicht, Neuland für die Menschheit zu betreten. -->
+
+<!-- Aber zuerst müssen wir überlegen, was "Zufallstext" bedeuten soll. -->
+
+
+<!-- Nehmen wir uns dazu zuerst einen richtigen Text, ein Märchen von H.C. Andersen zum Beispiel. -->
+<!-- Nehmen wir das Erste aus der Liste in dem Tibble `hcandersen_de`, "das Feuerzeug". -->
+
+<!-- ```{r} -->
+<!-- das_feuerzeug <- -->
+<!--   hcandersen_de  %>%  -->
+<!--   filter(book == "Das Feuerzeug") %>%  -->
+<!--   unnest_tokens(input = text, output = word) %>%  -->
+<!--   pull(word)  -->
+
+<!-- head(das_feuerzeug) -->
+<!-- ``` -->
+
+
+<!-- Das Märchen ist `r length(das_feuerzeug)` Wörter lang. -->
+
+<!-- ```{r} -->
+<!-- wortliste <-  -->
+<!-- hcandersen_de  %>%  -->
+<!--   filter(book == "Das Feuerzeug") %>%  -->
+<!--   unnest_tokens(output = word, input = text) %>%  -->
+<!--   pull(word) %>%  -->
+<!--   unique() -->
+
+<!-- head(wortliste) -->
+<!-- ``` -->
+
+
+<!-- Jetzt ziehen wir Stichproben (mit Zurücklegen) aus dieser Liste und erstellen damit eine Art Zufallstext. -->
+
+<!-- ```{r} -->
+<!-- zufallstext <-  -->
+<!--   sample(x = wortliste, size = length(das_feuerzeug)*10^2, replace = TRUE) -->
+<!-- head(zufallstext) -->
+<!-- ``` -->
+
+
+<!-- Zählen wir, wie häufig jedes Wort vorkommt: -->
+
+<!-- ```{r} -->
+<!-- zufallstext_count <- -->
+<!-- tibble(zufallstext = zufallstext) %>%  -->
+<!--   count(zufallstext) -->
+
+<!-- head(zufallstext_count) -->
+<!-- ``` -->
+
+
+<!-- Der Häufigkeitsvektor von `wortliste` besteht nur aus Einsen,  -->
+<!-- so haben wir ja gerade die Wortliste definiert: -->
+
+<!-- ```{r} -->
+<!-- wortliste_count <- -->
+<!-- tibble(wortliste = wortliste) %>%  -->
+<!--   count(wortliste) -->
+
+<!-- head(wortliste_count) -->
+<!-- ``` -->
+
+
+<!-- Daher ist ihre Informationsentropy maximal. -->
+
+<!-- ```{r} -->
+<!-- entropy(wortliste_count$n, unit = "log2") -->
+<!-- ``` -->
+
+
+
+<!-- Die Häufigkeiten der Wörter in `zufallstext` hat eine hohe Entropie. -->
+
+<!-- ```{r} -->
+<!-- entropy(zufallstext_count$n, unit = "log2") -->
+<!-- ``` -->
+
+
+<!-- Zählen wir die Häufigkeiten in der Geschichte "Das Feuerzeug". -->
+
+<!-- ```{r} -->
+<!-- das_feuerzeug_count <- -->
+<!--   tibble(text = das_feuerzeug) %>%  -->
+<!--   count(text) -->
+
+<!-- head(das_feuerzeug_count) -->
+<!-- ``` -->
+<!-- Und berechnen dann die Entropie: -->
+
+<!-- ```{r} -->
+<!-- entropy(das_feuerzeug_count$n, unit = "log2") -->
+<!-- ``` -->
+
+
+<!-- Der Zufallstext hat also eine höhere Entropie als der echte Märchentext. -->
+<!-- Der Zufallstext ist also gleichverteilter in den Worthäufigkeiten. -->
+
+
+<!-- Pro Bit weniger Entropie halbiert sich die Anzahl der Möglichkeiten einer Häufigkeitsverteilung. -->
+
+
+
+<!-- ### MI von Zufallstext -->
+
+
+
+<!-- Left as an exercises for the reader^[[Vgl. hier](https://academia.stackexchange.com/questions/20084/is-using-the-phrase-is-left-as-an-exercise-for-the-reader-considered-good)] 🥳. -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Daten
+
+
+### Complaints-Datensatz
+
+Der Datensatz `complaints` stammt aus [dieser Quelle](https://www.consumerfinance.gov/data-research/consumer-complaints/).
+
+Den Datensatz `complaints` kann man [hier](https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz) herunterladen. Im Buch ist die Webseite nicht (direkt?) angegeben. Die Datei ist mit `gz` gepackt; `read_csv` sollte das automatisch entpacken. Achtung: Die Datei ist recht groß.
+
+```{r read-complaints-data}
+#| eval: false
+d_path <- "https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz"
+complaints <- read_csv(d_path)
+```
+
+Geschickter als jedes Mal die Datei herunterzuladen, ist es, sie einmal herunterzuladen, und dann lokal zu speichern,
+etwa im Unterordner `data` des RStudio-Projektordners.
+
+
+Nach dem Importieren wird der Datensatz in eine Tidy-Form gebracht (mit `unnest_tokens`) und dann verschachtelt, mit `nest`.
+
+
+### Complaints verkürzt und geschachtelt
+
+Um ein Herumprobieren zu erleichtern, ist hier der Datensatz `complaints` in zwei verkürzten Formen bereitgestellt:
+
+```{r}
+nested_words2_path <- "https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"
+nested_words3_path <- "https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words3.rds"
+```
+
+
+`nested_words2` enthält die ersten 10% des Datensatz `nested_words`und ist gut 4 MB groß (mit `gz` gezippt); er besteht aus ca. 11 Tausend Beschwerden.
+`nested_words3` enthält nur die ersten 10 Beschwerden, was ihn gut zum Handhaben macht.
+
+Beide sind verschachtelt und aus `tidy_complaints` (s. [Kap. 5.1](https://smltar.com/embeddings.html#motivatingsparse)) hervorgegangen.
+
+
+```{r read-rds-nested-data}
+nested_words3 <- read_rds(nested_words3_path)
+```
+
+
+Das sieht dann so aus:
+
+```{r}
+nested_words3 %>% 
+  head(3)
+```
+Werfen wir einen Blick in den TExt der ersten Beschwerde des Datensatzes mit der ID `nested_words3_path$complaint_id[1]`.
+
+```{r}
+beschwerde1_text <- nested_words3$words[[1]]
+```
+
+Das ist ein Tibble mit einer Spalte und 17 Wörtern; 
+da wir schon auf Unigramme aufgeteilt haben, ist jedes Wort ein Element des Vektors `word`: 
+
+```{r}
+beschwerde1_text %>% 
+  head()
+```
+
+```{r}
+beschwerde1_text$word
+```
+
+
+
+## Wordembeddings selber erstellen
+
+
+
+
+
+
+### PMI berechnen
+
+
+Rufen Sie sich die Definition der PMI ins Gedächtnis, s. @eq-pmi.
+
+Mit R kann man die PMI z.B. so berechnen, s. `? pairwise_pmi` aus dem Paket `{widyr}`.
+
+
+Zum Paket `widyr` von Robinson und Silge:
+
+>   This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurrence counts, correlations, or clustering that are best done on a wide matrix.
+
+
+[Quelle](https://juliasilge.github.io/widyr/)
+
+Erzeugen wir uns Dummy-Daten:
+
+```{r}
+dat <- tibble(feature = rep(1:5, each = 2),
+              item = c("a", "b",
+                       "a", "c",
+                       "a", "c",
+                       "b", "e",
+                       "b", "f"))
+
+dat
+```
+
+Aus der Hilfe der Funktion:
+
+>   Find pointwise mutual information of pairs of items in a column, based on a "feature" column that links them together. This is an example of the spread-operate-retidy pattern.
+
+Die Argumente der Funktion sind:
+
+*item*
+
+Item to compare; will end up in item1 and item2 columns
+
+*feature*	
+
+Column describing the feature that links one item to others
+
+
+Manche Berechnungen (Operationen) lassen sich vielleicht leichter nicht in der Tidy-Form (Langform), sondern in der "breiten" oder Matrixform ausführen.
+Wandeln wir mal `dat` von der Langform in die Breitform um:
+
+
+```{r}
+table(dat$item, dat$feature)
+```
+
+Silge und Robinson verdeutlichen das Prinzip von `widyr` so, s. @fig-widyr.
+
+
+![Die Funktionsweise von widyr, Quelle: Silge und Robinson](img/widyr.jpeg){#fig-widyr}
+
+(Vgl. auch die [Erklärung hier](https://bookdown.org/Maxine/tidy-text-mining/counting-and-correlating-pairs-of-words-with-widyr.html).)
+
+Bauen wir das mal von Hand nach.
+
+
+
+Randwahrscheinlichkeiten von `a` und `c` sowie deren Produkt, `p_a_p_c`:
+
+```{r p_a_und_p_c}
+p_a <- 3/5
+p_c <- 2/5
+
+p_a_p_c <- p_a * p_c
+p_a_p_c
+```
+
+
+Gemeinsame Wahrscheinlichkeit von `a` und `c`:
+
+```{r p_ac}
+p_ac <- 2/5
+```
+
+
+PMI von Hand berechnet:
+
+```{r}
+log(p_ac/p_a_p_c)
+```
+
+Man beachte, dass hier als Basis $e$, der natürliche Logarithmus, verwendet wurde (nicht 2).
+
+Jetzt berechnen wir die PMI mit `pairwise_pmi`.
+
+```{r}
+pairwise_pmi(dat, item = item, feature = feature)
+```
+
+Wie man sieht, entspricht unserer Berechnung von Hand der Berechnung mit `pairwise_pmi`. 
+
+
+
+
+
+### Sliding
+
+Sliding ist ein interessantes Konzept, aber man braucht vielleicht etwas Zeit, 
+um sein Hirn um das Konzept zu wickeln...
+
+Hier eine Illustration:
+
+```{r}
+txt_vec <- "Das ist ein Test, von dem nicht viel zu erwarten ist"
+
+slider::slide(txt_vec, ~ .x, .before = 2)
+```
+
+
+Oh, da passiert nichts?! Kaputt? Nein, wir müssen jedes Wort als *ein Element* des Vektors auffassen.
+
+```{r}
+txt_df <-
+  tibble(txt = txt_vec) %>% 
+  unnest_tokens(input = txt, output = word)
+
+head(txt_df)
+```
+
+
+```{r}
+slider::slide(txt_df$word, ~ .x, .before = 2)
+```
+
+
+Ah!
+
+
+Das Aufteilen in einzelne Wörter pro Element des Vektors könnte man auch so erreichen:
+
+
+```{r slide2}
+txt_vec2 <- str_split(txt_vec, pattern = boundary("word")) %>% 
+  simplify() 
+
+slide(txt_vec2, .f = ~.x, .before = 2)
+```
+
+
+
+
+In unserem Beispiel mit den Beschwerden:
+
+```{r slide3}
+slide(beschwerde1_text$word,  ~.x, .before = 2)
+```
+
+
+
+### Funktion `slide_windows`
+
+
+Die Funktion `slide_windows` im [Kapitel 5.2](https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself) ist recht kompliziert. 
+In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. 
+Das machen wir jetzt mal.
+
+Hier ist die Syntax der Funktion `slide_windows`: 
+
+
+```{r fun-slide-win}
+slide_windows <- function(tbl, window_size) {
+  skipgrams <- slider::slide(
+    tbl, 
+    ~.x,  # Syntax ähnlich zu purrr::map()
+    .after = window_size - 1, 
+    .step = 1, 
+    .complete = TRUE
+  )
+  
+  safe_mutate <- safely(mutate)
+  
+  out <- map2(skipgrams,
+              1:length(skipgrams),
+              ~ safe_mutate(.x, window_id = .y))
+  
+  out %>%
+    transpose() %>%
+    pluck("result") %>%
+    compact() %>%
+    bind_rows()
+}
+```
+
+
+
+
+Erschwerend kommt eine große Datenmenge und eine lange Berechnungszeit dazu, was das Debuggen (Nachvollziehen und Durchdenken) der Schritte zusätzlich erschwert.
+In solchen Fällen hilft die goldene Regel: Mach es dir so einfach wie möglich (aber nicht einfacher).
+Wir nutzen also den stark verkleinerten Datensatz `nested_words3`, den wir oben importiert haben.
+
+
+Zuerst erlauben wir mal, 
+dasss unsere R-Session mehrere Kerne benutzen darf.
+
+
+```{r}
+plan(multisession)  ## for parallel processing
+```
+
+Die Funktion `slide_windows` ist recht kompliziert.
+Es hilft oft, sich mit `debug(fun)` eine Funktion Schritt für Schritt anzuschauen.
+
+
+
+Gehen wir Schritt für Schritt durch die Syntax von `slide_windows`.
+
+
+
+Werfen wir einen Blick in `words`, erstes Element (ein Tibble mit einer Spalte). 
+Denn `die einzelnen Elemente von `words` werden an die Funktion `slide_windows` als "Futter" übergeben.
+
+```{r}
+futter1 <- nested_words3[["words"]][[1]]
+futter1
+```
+
+Das ist der Text der ersten Beschwerde.
+
+Okay, also dann geht's los durch die einzelnen Schritte der Funktion `slide_windows`.
+
+
+Zunächst holen wir uns die "Fenster" oder "Skipgrams":
+
+```{r skipgrams1}
+skipgrams1 <- slider::slide(
+   futter1, 
+    ~.x, 
+    .after = 3, 
+    .step = 1, 
+    .complete = TRUE
+  )
+```
+
+
+Bei `slide(tbl, ~.x)` geben wir die Funktion an, die auf `tbl` angewendet werden soll. 
+Daher auch die Tilde, die uns von `purrr::map()` her bekannt ist.
+In unserem Fall wollen wir nur die Elemente auslesen;
+Elemente auslesen erreicht man,
+in dem man sie mit Namen anspricht,
+in diesem Fall mit dem Platzhalter `.x`.
+
+
+Jedes Element von `skipgrams1` ist ein 4*1-Tibble und ist ein Skripgram.
+
+
+```{r}
+skipgrams1 %>% str()
+```
+
+
+Das zweite Skipgram von `skipgrams1` enthält, naja, das zweite Skipgram.
+
+```{r}
+skipgrams1[[2]] %>% str()
+```
+
+Und so weiter.
+
+
+
+
+Okay, weiter im Programm. Jetzt mappen wir das Erstellen der Skipgrams 
+
+```{r skipgrams2}
+safe_mutate <- safely(mutate)
+  
+out1 <- map2(skipgrams1,
+             1:length(skipgrams1),
+             ~ safe_mutate(.x, window_id = .y))
+  
+out1 %>% 
+  head(2) %>% 
+  str()
+```
+
+`out1` ist eine Liste mit 17 Elementen; jedes Element  mit jeweils zwei Elementen: Den Ergebnissen und ob es einen Fehler gab bei `safe_mutate`.
+Die 10 Elemente entsprechen den 10 Skipgrams.
+Wir können aber `out1` auch "drehen", transponieren genauer gesagt.
+so dass wir eine Liste mit *zwei* Elementen bekommen: 
+das erste Element hat die (zehn) Ergebnisse (nämlich die Skipgrams) und das zweite Elemente, ob es Fehler gab.
+
+Das Prinzip des Transponierens ist in @fig-Matrix-transpose dargestellt.
+
+![Transponieren einer Matrix ("Tabelle")](img/Matrix_transpose.gif){#fig-Matrix-transpose}
+
+
+
+
+```{r}
+out2 <-
+out1 %>%
+  transpose() 
+```
+
+
+Puh, das ist schon anstrengendes Datenyoga...
+
+
+Aber jetzt ist es einfach. 
+Wir ziehen das erste der beiden Elemente, die Ergebnisse heraus (`pluck`), 
+entfernen leere Elemente (`compact`) und machen einen Tibble daraus (`bind_rows`):
+
+```{r skipgrams3}
+out2 %>% 
+  pluck("result") %>%
+  compact() %>%
+  bind_rows() %>% 
+  head()
+```
+
+Geschafft!
+
+
+### Ähnlichkeit berechnen
+
+
+Nachdem wir jetzt `slide_windows` kennen, schauen wir uns die nächsten Schritte an:
+
+
+```{r tidy-pmi1}
+tidy_pmi1 <- nested_words3 %>%  # <--- Kleiner Datensatz!
+  mutate(words = future_map(words, slide_windows, 4L))
+```
+
+Wir werden `slide_windows` auf die Liste `words` an,
+die die Beschwerden enthält. 
+Für jede Beschwerde erstellen wir die Skipgrams;
+diese Schleife wird realisiert über `map` bzw. `future_map`,
+die uns erlaubt, mehrere Kerne des Rechners gleichzeitig zu nutzen,
+damit es schneller geht.
+
+Hier sehen wir z.B. die Skipgram-IDs der ersten Beschwerde.
+
+```{r}
+tidy_pmi1[["words"]][[1]] %>% 
+  head()
+```
+
+
+Genestet siehst es so aus:
+
+```{r}
+tidy_pmi1 %>% 
+  head(1)
+```
+
+
+Die Listenspalte entschachteln wir mal:
+
+```{r}
+tidy_pmi2 <- tidy_pmi1 %>% 
+  unnest(words)  # entschachtele
+
+tidy_pmi2 %>% 
+  head()
+```
+
+Zum Berechnen der Ähnlichkeit brauchen wir eineindeutige IDs, 
+nach dem Prinzip "1. Skipgram der 1. Beschwerde" etc:
+
+```{r tidy-pmi3}
+tidy_pmi3 <- tidy_pmi2 %>% 
+  unite(window_id, complaint_id, window_id)  # führe Spalten zusammen
+
+tidy_pmi3 %>% 
+  head()
+```
+
+Schließlich berechnen wir die Ähnlichkeit mit `pairwise_pmi`,
+das hatten wir uns oben schon mal näher angeschaut:
+
+```{r tidy-pmi4}
+tidy_pmi4 <- tidy_pmi3 %>% 
+  pairwise_pmi(word, window_id)  # berechne Ähnlichkeit
+
+tidy_pmi <- tidy_pmi4  # mit dem Objekt arbeiten wir dann weiter
+
+tidy_pmi %>% 
+  head()
+```
+
+
+
+
+### SVD 
+
+
+Die *Singulärwertzerlegung* (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse.
+Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt:
+Die Verben "gehen", "rennen", "laufen", "schwimmen", "fahren", "rutschen" könnten zu einer gemeinsamen Dimension, etwa "fortbewegen" reduziert werden.
+Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, 
+das die konzeptionelle Nähe des Verbs
+zur "dahinterliegenden" Dimension (fortbewegen) quantifiziert; 
+die Zahl nennt man auch die "Ladung" des Items (Worts) auf die Dimension.
+Sagen wir, wir identifizieren 10 Dimensionen.
+Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionen.
+Im genannten Beispiel wäre es ein 10-stelliger Vektor.
+So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt^[Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen...],
+beschreibt hier unser 10-stelliger Vektor die "Position" eines Worts in unserem *Einbettungsvektor*.
+
+
+Die Syntax dazu ist dieses Mal einfach:
+
+
+
+
+```{r widely-svd}
+tidy_word_vectors <- 
+  tidy_pmi %>%
+  widely_svd(
+    item1, item2, pmi,
+    nv = 100
+  )
+
+tidy_word_vectors %>% 
+  (head)
+```
+
+
+Mit `nv = 100` haben wir die Anzahl (`n`) der Dimensionen (Variablen, `v`) auf 100 bestimmt.
+
+
+
+### Wortähnlichkeit
+
+
+Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen.
+Das geht mit Hilfe des alten Pythagoras, s. @fig-euklid-distance.
+Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch *euklidische Distanz*.
+
+
+![Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh](img/euklid-distance.png){#fig-euklid-distance width=50%}
+
+Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, [aber der Algebra ist das egal](https://mathworld.wolfram.com/Distance.html). 
+Pythagoras' Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.
+
+
+
+
+
+Die Autoren basteln sich selber eine Funktion in [Kap. 5.3](https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings),
+aber der Einfachheit halber nehme ich (erstmal) die entsprechende Funktion aus `widyr`:
+
+
+```{r pairwise-dist}
+#| cache: true
+word_neighbors <- 
+tidy_word_vectors %>% 
+  pairwise_dist(item1, dimension, value)
+
+word_neighbors %>% 
+  head()
+```
+
+
+
+
+
+
+Schauen wir uns ein Beispiel an.
+Was sind die Nachbarn von "inaccurate"?
+
+```{r}
+word_neighbors %>% 
+  filter(item1 == "inaccurate") %>% 
+  arrange(distance) %>% 
+  head()
+```
+
+Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen.
+Aber "incorrectly", "correct", "balance" sind wohl plausible Nachbarn von "inaccurate".
+
+
+### Cosinus-Ähnlichkeit
+
+
+Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die [Cosinus-Ähnlichkeit](https://en.wikipedia.org/wiki/Cosine_similarity) (Cosine similarity) berechnen, vgl. auch @fig-dotproduct:
+
+![Die Cosinus-Ähnlichkeit zweier Vektoren](img/dotproduct.png){#fig-dotproduct}
+
+[Quelle:  Mazin07, Lizenz: PD](https://en.wikipedia.org/wiki/Dot_product#/media/File:Dot_Product.svg)
+
+
+$${\displaystyle {\text{Cosinus-Ähnlichkeit}}=S_{C}(A,B):=\cos(\theta )={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|\|\mathbf {B} \|}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},}$$
+
+wobei $A$ und $B$  zwei Vektoren sind und $\|\mathbf {A} \|$ das Skalarprodukt von A (und B genauso).
+Das [Skalarprodukt](https://en.wikipedia.org/wiki/Dot_product) von $\color {red} {a =  {\displaystyle [a_{1},a_{2},\cdots ,a_{n}]}}$ und $\color {blue} {b =  {\displaystyle [b_{1},b_{2},\cdots ,b_{n}]}}$ ist so definiert:
+
+
+$${\displaystyle \mathbf {\color {red}a} \cdot \mathbf {\color {blue}b} =\sum _{i=1}^{n}{\color {red}a}_{i}{\color {blue}b}_{i}={\color {red}a}_{1}{\color {blue}b}_{1}+{\color {red}a}_{2}{\color {blue}b}_{2}+\cdots +{\color {red}a}_{n}{\color {blue}b}_{n}}$$
+
+
+Entsprechend ist die Funktion `nearest_neighbors` zu verstehen aus [Kap. 5.3](https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings):
+
+```{r}
+nearest_neighbors <- function(df, token) {
+  df %>%
+    widely(
+      ~ {
+        y <- .[rep(token, nrow(.)), ]
+        res <- rowSums(. * y) / 
+          (sqrt(rowSums(. ^ 2)) * sqrt(sum(.[token, ] ^ 2)))
+        
+        matrix(res, ncol = 1, dimnames = list(x = names(res)))
+      },
+      sort = TRUE
+    )(item1, dimension, value) %>%
+    select(-item2)
+}
+```
+
+Wobei mit `widely` zuerst noch von der Langform in die Breitform umformatiert wird,
+da die Breitform von der Formel verlangt wird bzw. das Rechnen einfacher macht.
+
+Der eine Vektor ist das Embedding des Tokens,
+der andere Vektor ist das *mittlere* Embedding über alle Tokens des Corpus.
+Wenn die Anzahl der Elemente konstant bleibt,
+kann man sich das Teilen durch $n$ schenken,
+wenn man einen Mittelwert berechnen;
+so hält es auch die Syntax von `nearest_neighbors`.
+
+Ein nützlicher Post zur Cosinus-Ähnlichkeit findet sich [hier](https://towardsdatascience.com/cosine-similarity-how-does-it-measure-the-similarity-maths-behind-and-usage-in-python-50ad30aad7db).
+[Dieses Bild](https://datascience-enthusiast.com/figures/cosine_sim.png) zeigt das
+Konzept der Cosinus-Ähnlichkeit anschaulich.
+
+Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse^[Quelle: https://de.wikipedia.org/wiki/Sinus_und_Kosinus] in einem rechtwinkligen, vgl. @fig-dreieck.
+
+![Ein rechtwinkliges Dreieck als Grundlage der trigonometrischen Funktionen](img/dreieck.png){#fig-dreieck}
+
+Also: ${\displaystyle \cos \alpha ={\frac {b}{c}}}$
+
+
+
+[Quelle: PaterSigmund, Wikipedia,dre CC-BY-SA 2.5](https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:RechtwinkligesDreieck.svg)
+
+
+Hilfreich ist auch [die Visualisierung von Sinus und Cosinus am Einheitskreis](https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:Sinus_und_Kosinus_am_Einheitskreis_1.svg); gerne [animiert](https://upload.wikimedia.org/wikipedia/commons/f/f3/Sinus_und_Cosinus_am_Einheitskreis.gif) betrachten.
+
+
+## Word-Embeddings vorgekocht
+
+### Glove6B
+
+In [Kap. 5.4](https://smltar.com/embeddings.html#glove) schreiben die Autoren:
+
+>   If your data set is too small, you typically cannot train reliable word embeddings.
+
+Ein paar Millionen Wörter sollte der Corpus schon enthalten, so die Autoren.
+Da solche "Worteinbettungen" (word embedings) aufwändig zu erstellen sind, 
+kann man fertige, "vorgekochte" Produkte nutzen.
+
+Glove6B wurde anhand von Wikipedia und anderen Datenquellen erstellt [@pennington_glove_2014].
+
+:::callout-note
+Die zugehörigen Daten sind recht groß; für [`glove6b`](https://nlp.stanford.edu/projects/glove/) [@pennington_glove_2014] ist fast ein Gigabyte fällig.
+Sie sollten sich die Daten in einem ruhigen Moment (mit stabiler Internetverbindung) herunterladen und in einem Verzeichnis meiner Wahl abgespeichert (`datasets`).
+Da bei mir Download abbrach, als ich `embedding_glove6b(dimensions = 100)` aufrief, habe ich die Daten manuell heruntergeladen, s.u.
+:::
+
+
+
+```{r load-glove}
+#| cache: true
+glove6b <- 
+  embedding_glove6b(dir = "~/datasets", dimensions = 50, manual_download = TRUE)
+
+glove6b %>% 
+  select(1:5) %>% 
+  head()
+```
+
+
+
+Die ersten paar Tokens sind:
+
+```{r}
+glove6b$token %>% head(20)
+```
+
+
+
+In eine Tidyform bringen:
+
+```{r}
+#| cache: true
+tidy_glove <- 
+  glove6b %>%
+  pivot_longer(contains("d"),
+               names_to = "dimension") %>%
+  rename(item1 = token)
+
+head(tidy_glove)
+```
+
+
+Ganz schön groß:
+
+```{r}
+dim(glove6b)
+```
+
+
+```{r}
+object.size(tidy_glove)
+```
+
+In Megabyte^[$1024 \cdot 1024$ Byte, und $1024 =2^{10}$, daher $2^{10} \cdot 2^{10} = 2^{20}$]
+
+```{r}
+object.size(tidy_glove) / 2^20
+```
+
+Einfacher und genauer geht es so:
+
+```{r}
+pryr::object_size(tidy_glove)
+```
+
+
+
+```{r}
+pryr::mem_used()
+```
+
+
+
+Um Speicher zu sparen, könnte man `glove6b` wieder direkt löschen, wenn man nur mit der Tidyform weiterarbeitet.
+
+```{r}
+rm(glove6b)
+```
+
+
+
+Jetzt können wir wieder nach Nachbarn fragen, im euklidischen Sinne, wie oben.
+Probieren wir aus, welche Wörter nah zu "inaccurate" stehen.
+
+
+:::callout-note
+Wie wir oben gesehen haben, ist der Datensatz riesig^[zugegeben, ein subjektiver Ausdruck],
+was die Berechnungen (zeitaufwändig) und damit nervig machen können.
+Darüber hinaus kann es nötig sein, dass Sie mehr Speicher auf Ihrem Computer zur Verfügung stellen müssen^[Kaufen...].
+Wir müssen noch `maximum_size = NULL`, um das Jonglieren mit riesigen Matrixen zu erlauben.
+Möge der Gott der RAMs und Arbeitsspeicher uns gnädig sein!
+:::
+
+
+
+
+
+Mit `pairwise_dist` dauert die Berechnung sehr lange und braucht wohl sehr viel Speicher.
+Mitunter kam folgender Fehler auf: "R error: vector memory exhausted (limit reached?)".
+
+
+```{r}
+#| eval: false
+word_neighbors_glove6b <- 
+tidy_glove %>% 
+  slice_head(prop = .1) %>% 
+  pairwise_dist(item1, dimension, value, maximum_size = NULL)
+
+head(word_neighbors_glove6b)
+
+tidy_glove %>% 
+  filter(item1 == "inaccurate") %>% 
+  arrange(-value) %>% 
+  slice_head(n = 5)
+```
+
+
+
+Deswegen probieren wir doch die Funktion `nearest_neighbors`, so wie es im Buch vorgeschlagen wird, s. [Kap 5.3](https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings).
+
+
+```{r fun-nearest-neighbors2}
+nearest_neighbors <- function(df, token) {
+  df %>%
+    widely(
+      ~ {
+        y <- .[rep(token, nrow(.)), ]
+        res <- rowSums(. * y) / 
+          (sqrt(rowSums(. ^ 2)) * sqrt(sum(.[token, ] ^ 2)))
+        matrix(res, ncol = 1, dimnames = list(x = names(res)))
+      },
+      sort = TRUE,
+      maximum_size = NULL
+    )(item1, dimension, value) %>%
+    select(-item2)
+}
+```
+
+
+
+```{r tidy-glove-nearest-neighbors}
+#| cache: true
+tidy_glove %>%
+  # slice_head(prob = .1) %>% 
+  nearest_neighbors("error") %>% 
+  head()
+```
+
+
+Entschachteln wir unsere Daten zu `complaints`: 
+
+
+```{r unnest-tidy-complaints3}
+tidy_complaints3 <-
+  nested_words3 %>% 
+  unnest(words)
+```
+
+
+
+Dann erstellen wir uns eine Tabelle, in der nur die Schnittmenge der Wörter aus den Beschwerden und Glove vorkommen.
+Dazu nutzen winr einen [inneren Join](https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif)
+
+![Inner Join, Quelle: Garrick Adenbuie](img/inner-join.gif)
+
+[Quelle](https://github.com/gadenbuie/tidyexplain)
+
+
+
+```{r join-complaints-glove}
+complaints_glove <- 
+tidy_complaints3 %>% 
+  inner_join(by = "word", 
+  tidy_glove %>% 
+  distinct(item1) %>% 
+  rename(word = item1)) 
+
+head(complaints_glove)
+```
+
+Wie viele unique (distinkte) Wörter gibt es in unserem Corpus?
+
+```{r tidy_complaints3_distinct_words_n}
+tidy_complaints3_distinct_words_n <- 
+tidy_complaints3 %>% 
+  distinct(word) %>% 
+  nrow()
+
+tidy_complaints3_distinct_words_n
+```
+
+
+In `tidy_complaints` gibt es übrigens `r tidy_complaints3_distinct_words_n` verschiedene Wörter.
+
+
+
+```{r word_matrix}
+word_matrix <- tidy_complaints3 %>%
+  inner_join(by = "word",
+             tidy_glove %>%
+               distinct(item1) %>%
+               rename(word = item1)) %>%
+  count(complaint_id, word) %>%
+  cast_sparse(complaint_id, word, n)
+
+#word_matrix
+```
+
+`word_matrix` zählt für jede der 10 Beschwerden, welche Wörter (und wie häufig) vorkommen.
+
+
+```{r}
+dim(word_matrix)
+```
+
+`r dim(word_matrix)[1]` Beschwerden (Dokumente) und `r dim(word_matrix)[2]` unique Wörter.
+
+
+```{r glove_matrix}
+glove_matrix <- tidy_glove %>%
+  inner_join(by = "item1",
+             tidy_complaints3 %>%
+               distinct(word) %>%
+               rename(item1 = word)) %>%
+  cast_sparse(item1, dimension, value)
+
+#glove_matrix
+```
+
+
+`glove_matrix` gibt für jedes unique Wort den Einbettungsvektor an.
+
+
+```{r}
+dim(glove_matrix)
+```
+
+Das sind `r dim(glove_matrix)[1]` unique Wörter und `r dim(glove_matrix)[2]` Dimensionen des Einbettungsvektors.
+
+
+
+Jetzt können wir noch pro Dokument (10 in diesem Beispiel) die mittlere "Position" jedes Dokuments im Einbettungsvektor ausrechnen.
+Bildlich gesprochen: Was ist der mittlere Raumpunkt (Zentroid) des Bienenschwarms, wobei eine Biene ein Dokument darstellt und die Raumachsen die Dimensionen des Einbettungsvektors.
+
+Dazu gewichten wir jedes Wort eines Dokuments mit den Ladungen des Einbettungsvektor und summieren diese Terme.
+Es resultiert eine Matrix mit einem Einbettungsvektor pro Dokument.
+Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.
+
+```{r doc_matrix}
+doc_matrix <- word_matrix %*% glove_matrix
+#doc_matrix %>% head()
+```
+
+
+
+
+```{r}
+dim(doc_matrix)
+```
+
+
+Die Anzahl der Dokumente ist `r dim(doc_matrix)[1]` und die Anzahl der Dimensionen (des Einbettungsvektors) ist `r dim(doc_matrix)[2]`.
+
+
+### Wordembeddings für die deutsche Sprache
+
+
+In diesem [Github-Projekt](https://devmount.github.io/GermanWordEmbeddings/) finden sich die Materialien für ein deutsches Wordembedding [@mueller2015].
+
+
+
+## Fazit
+
+Worteinbettungen sind eine aufwändige Angelegenheit. 
+Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat.
+Ist ja schon cooles Zeugs, die Word Embeddings.
+Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen
+Ansätzen wir Worthäufigkeiten oder tf-idf.
+Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten,
+und zu sehen, wie weit man kommt.
+Vielleicht ja weit genug.
+
+
+
+
+
+
+## Literatur
+
+
+### Wikipedia
+
+Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.
+
+- [Wikipedia: Pointwise Mutual Information](https://en.wikipedia.org/wiki/Pointwise_mutual_information)
+- [Wikipedia: Mutual information](https://en.wikipedia.org/wiki/Mutual_information)
+- [Wikipedia: Information theory](https://en.wikipedia.org/wiki/Information_theory)
+
+
+
+

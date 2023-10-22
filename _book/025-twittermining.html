@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 3&nbsp; Twitter Mining</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./030-textmining1.html" rel="next">
+<link href="./020-pruefung.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zu diesem Buch</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+<li>
+<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">3.1</span> Vorab</a>
+  <ul class="collapse">
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">3.1.1</span> Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">3.1.2</span> Vorbereitung</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">3.1.3</span> Benötigte R-Pakete</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#anmelden-bei-twitter" id="toc-anmelden-bei-twitter" class="nav-link" data-scroll-target="#anmelden-bei-twitter"><span class="header-section-number">3.2</span> Anmelden bei Twitter</a>
+  <ul class="collapse">
+<li><a href="#sec-politicians-accounts" id="toc-sec-politicians-accounts" class="nav-link" data-scroll-target="#sec-politicians-accounts"><span class="header-section-number">3.2.1</span> Welche Accounts interessieren uns?</a></li>
+  <li><a href="#twitter-app-erstellen" id="toc-twitter-app-erstellen" class="nav-link" data-scroll-target="#twitter-app-erstellen"><span class="header-section-number">3.2.2</span> Twitter App erstellen</a></li>
+  <li><a href="#intro" id="toc-intro" class="nav-link" data-scroll-target="#intro"><span class="header-section-number">3.2.3</span> Intro</a></li>
+  <li><a href="#zugangsdaten" id="toc-zugangsdaten" class="nav-link" data-scroll-target="#zugangsdaten"><span class="header-section-number">3.2.4</span> Zugangsdaten</a></li>
+  <li><a href="#sch%C3%BCtzen-sie-ihre-zugangsdaten" id="toc-schützen-sie-ihre-zugangsdaten" class="nav-link" data-scroll-target="#sch%C3%BCtzen-sie-ihre-zugangsdaten"><span class="header-section-number">3.2.5</span> Schützen Sie Ihre Zugangsdaten</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#tweets-einlesen" id="toc-tweets-einlesen" class="nav-link" data-scroll-target="#tweets-einlesen"><span class="header-section-number">3.3</span> Tweets einlesen</a>
+  <ul class="collapse">
+<li><a href="#timeline-einlesen-einzelner-accounts" id="toc-timeline-einlesen-einzelner-accounts" class="nav-link" data-scroll-target="#timeline-einlesen-einzelner-accounts"><span class="header-section-number">3.3.1</span> Timeline einlesen einzelner Accounts</a></li>
+  <li><a href="#retweets-einlesen" id="toc-retweets-einlesen" class="nav-link" data-scroll-target="#retweets-einlesen"><span class="header-section-number">3.3.2</span> Retweets einlesen</a></li>
+  <li><a href="#epinetz-twitter-politicians-2021" id="toc-epinetz-twitter-politicians-2021" class="nav-link" data-scroll-target="#epinetz-twitter-politicians-2021"><span class="header-section-number">3.3.3</span> EPINetz Twitter Politicians 2021</a></li>
+  <li><a href="#followers-suchen" id="toc-followers-suchen" class="nav-link" data-scroll-target="#followers-suchen"><span class="header-section-number">3.3.4</span> Followers suchen</a></li>
+  <li><a href="#follower-tweets-einlesen" id="toc-follower-tweets-einlesen" class="nav-link" data-scroll-target="#follower-tweets-einlesen"><span class="header-section-number">3.3.5</span> Follower Tweets einlesen</a></li>
+  <li><a href="#tweets-nach-stichwort-suchen" id="toc-tweets-nach-stichwort-suchen" class="nav-link" data-scroll-target="#tweets-nach-stichwort-suchen"><span class="header-section-number">3.3.6</span> Tweets nach Stichwort suchen</a></li>
+  <li><a href="#der-volltext-ist-manchmal-abgeschniten" id="toc-der-volltext-ist-manchmal-abgeschniten" class="nav-link" data-scroll-target="#der-volltext-ist-manchmal-abgeschniten"><span class="header-section-number">3.3.7</span> Der Volltext ist manchmal abgeschniten</a></li>
+  <li><a href="#tweets-nach-id-suchen" id="toc-tweets-nach-id-suchen" class="nav-link" data-scroll-target="#tweets-nach-id-suchen"><span class="header-section-number">3.3.8</span> Tweets nach ID suchen</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#tweets-verarbeiten" id="toc-tweets-verarbeiten" class="nav-link" data-scroll-target="#tweets-verarbeiten"><span class="header-section-number">3.4</span> Tweets verarbeiten</a>
+  <ul class="collapse">
+<li><a href="#grundlegende-verarbeitung" id="toc-grundlegende-verarbeitung" class="nav-link" data-scroll-target="#grundlegende-verarbeitung"><span class="header-section-number">3.4.1</span> Grundlegende Verarbeitung</a></li>
+  <li><a href="#bot-or-not" id="toc-bot-or-not" class="nav-link" data-scroll-target="#bot-or-not"><span class="header-section-number">3.4.2</span> Bot or not?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#cron-jobs" id="toc-cron-jobs" class="nav-link" data-scroll-target="#cron-jobs"><span class="header-section-number">3.5</span> Cron Jobs</a>
+  <ul class="collapse">
+<li><a href="#was-ist-ein-cron-job" id="toc-was-ist-ein-cron-job" class="nav-link" data-scroll-target="#was-ist-ein-cron-job"><span class="header-section-number">3.5.1</span> Was ist ein Cron Job?</a></li>
+  <li><a href="#beispiel-f%C3%BCr-einen-cron-job" id="toc-beispiel-für-einen-cron-job" class="nav-link" data-scroll-target="#beispiel-f%C3%BCr-einen-cron-job"><span class="header-section-number">3.5.2</span> Beispiel für einen Cron Job</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#datenbank-an-tweets-aufbauen" id="toc-datenbank-an-tweets-aufbauen" class="nav-link" data-scroll-target="#datenbank-an-tweets-aufbauen"><span class="header-section-number">3.6</span> Datenbank an Tweets aufbauen</a>
+  <ul class="collapse">
+<li><a href="#stamm-an-bisherigen-tweets" id="toc-stamm-an-bisherigen-tweets" class="nav-link" data-scroll-target="#stamm-an-bisherigen-tweets"><span class="header-section-number">3.6.1</span> Stamm an bisherigen Tweets</a></li>
+  <li><a href="#neue-tweets-per-cron-job" id="toc-neue-tweets-per-cron-job" class="nav-link" data-scroll-target="#neue-tweets-per-cron-job"><span class="header-section-number">3.6.2</span> Neue Tweets per Cron Job</a></li>
+  <li><a href="#tweets-in-excel-exportieren" id="toc-tweets-in-excel-exportieren" class="nav-link" data-scroll-target="#tweets-in-excel-exportieren"><span class="header-section-number">3.6.3</span> Tweets in Excel exportieren</a></li>
+  <li><a href="#twitterkonten-f%C3%BCr-wissenschaftler" id="toc-twitterkonten-für-wissenschaftler" class="nav-link" data-scroll-target="#twitterkonten-f%C3%BCr-wissenschaftler"><span class="header-section-number">3.6.4</span> Twitterkonten für Wissenschaftler</a></li>
+  </ul>
+</li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="header-section-number">3.7</span> Aufgaben</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="img/text-mining-1476780_640.png" class="img-fluid figure-img" style="width:10.0%"></p>
+<figcaption class="figure-caption">Text als Datenbasis prädiktiver Modelle</figcaption></figure>
+</div>
+<p>Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
+<section id="vorab" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="vorab">
+<span class="header-section-number">3.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">3.1.1</span> Lernziele</h3>
+<ul>
+<li>Twitterdaten via API von Twitter auslesen</li>
+</ul></section><section id="vorbereitung" class="level3" data-number="3.1.2"><h3 data-number="3.1.2" class="anchored" data-anchor-id="vorbereitung">
+<span class="header-section-number">3.1.2</span> Vorbereitung</h3>
+<ul>
+<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span> Kap. 1.</li>
+<li>Legen Sie sich ein Konto bei <a href="https://github.com/">Github</a> an.</li>
+<li>Legen Sie sich ein Konto bei <a href="twitter.com">Twitter</a> an.</li>
+<li>Lesen Sie <a href="https://docs.ropensci.org/rtweet/articles/auth.html">diesen Artikel zur Anmeldung bei der Twitter API</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+</li>
+</ul></section><section id="benötigte-r-pakete" class="level3" data-number="3.1.3"><h3 data-number="3.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">3.1.3</span> Benötigte R-Pakete</h3>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-1_3acc0511e641244d5769b89ee262a5ed">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rtweet/">rtweet</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/chainsawriot/rio">rio</a></span><span class="op">)</span>  </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tweetbotornot.mikewk.com">tweetbotornot</a></span><span class="op">)</span>  <span class="co"># optional</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-lib.github.io/keyring/index.html">keyring</a></span><span class="op">)</span>  <span class="co"># optional</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/askpass">askpass</a></span><span class="op">)</span>  <span class="co"># optional</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cjbarrie/academictwitteR">academictwitteR</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="https://docs.ropensci.org/rtweet/logo.png" class="img-fluid figure-img" style="width:10.0%"></p>
+<figcaption class="figure-caption">R-Paket {rtweet}</figcaption></figure>
+</div>
+<p>Einen Überblick über die Funktionen des Pakets (function reference) findet sich <a href="https://docs.ropensci.org/rtweet/reference/index.html">hier</a>.</p>
+</section></section><section id="anmelden-bei-twitter" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="anmelden-bei-twitter">
+<span class="header-section-number">3.2</span> Anmelden bei Twitter</h2>
+<section id="sec-politicians-accounts" class="level3" data-number="3.2.1"><h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-politicians-accounts">
+<span class="header-section-number">3.2.1</span> Welche Accounts interessieren uns?</h3>
+<p>Hier ist eine (subjektive) Auswahl von deutschen Politikern<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/politicians-df-load_fc98929c4753a2af23bf86958763e19c">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_path</span> <span class="op">&lt;-</span> <span class="st">"data/twitter-german-politicians.csv"</span></span>
+<span></span>
+<span><span class="va">politicians</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="va">d_path</span><span class="op">)</span></span>
+<span><span class="va">politicians</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["party"],"name":[2],"type":["chr"],"align":["left"]},{"label":["screenname"],"name":[3],"type":["chr"],"align":["left"]},{"label":["comment"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Karl Lauterbach","2":"SPD","3":"Karl_Lauterbach","4":"NA","_rn_":"1"},{"1":"Olaf Scholz","2":"SPD","3":"OlafScholz","4":"NA","_rn_":"2"},{"1":"Annalena Baerback","2":"Gruene","3":"ABaerbock","4":"NA","_rn_":"3"},{"1":"Bundesministerium für Wirtschaft und Klimaschutz","2":"Gruene","3":"BMWK","4":"Robert Habeck ist der Minister im BMWK","_rn_":"4"},{"1":"Friedrich Merz","2":"CDU","3":"_FriedrichMerz","4":"CDU-Chef","_rn_":"5"},{"1":"Markus Söder","2":"CSU","3":"Markus_Soeder","4":"CSU-Chef","_rn_":"6"},{"1":"Cem Özdemir","2":"Gruene","3":"cem_oezdemir","4":"BMEL","_rn_":"7"},{"1":"Janine Wissler","2":"Linke","3":"Janine_Wissler","4":"Linke-Chefin","_rn_":"8"},{"1":"Martin Schirdewan","2":"Linke","3":"schirdewan","4":"Linke-Chef","_rn_":"9"},{"1":"Christian Lindner","2":"FDP","3":"c_lindner","4":"FDP-Chef","_rn_":"10"},{"1":"Marie-Agnes Strack-Zimmermann","2":"FDP","3":"MAStrackZi","4":"Vorsitzende Verteidigungsausschuss","_rn_":"11"},{"1":"Tino Chrupalla","2":"AFD","3":"Tino_Chrupalla","4":"AFD-Bundessprecher","_rn_":"12"},{"1":"Alice Weidel","2":"AFD","3":"Alice_Weidel","4":"AFD-Bundessprecherin","_rn_":"13"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section><section id="twitter-app-erstellen" class="level3" data-number="3.2.2"><h3 data-number="3.2.2" class="anchored" data-anchor-id="twitter-app-erstellen">
+<span class="header-section-number">3.2.2</span> Twitter App erstellen</h3>
+<p><a href="https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html">Tutorial</a></p>
+<p><a href="https://developer.twitter.com/en/portal/dashboard">Auf der Twitter Developer Seite</a> können Sie sich ein Konto erstellen und dann anmelden.</p>
+</section><section id="intro" class="level3" data-number="3.2.3"><h3 data-number="3.2.3" class="anchored" data-anchor-id="intro">
+<span class="header-section-number">3.2.3</span> Intro</h3>
+<p>Die Seite von <a href="https://docs.ropensci.org/rtweet/">rtweet</a> gibt eine gute Starthilfe in die Benutzung des Pakets.</p>
+</section><section id="zugangsdaten" class="level3" data-number="3.2.4"><h3 data-number="3.2.4" class="anchored" data-anchor-id="zugangsdaten">
+<span class="header-section-number">3.2.4</span> Zugangsdaten</h3>
+<p>Zugangsdaten sollte man geschützt speichern, also z.B. <em>nicht</em> in einem geteilten Ordner.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/source-credentials-twitter_d52572e52037992263b2a558867ff239">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Anmelden:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/oauth-twitter_77beed63775e2a57adc491527b36d9be">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">auth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/rtweet_user.html">rtweet_bot</a></span><span class="op">(</span>api_key <span class="op">=</span> <span class="va">API_Key</span>,</span>
+<span>                   api_secret <span class="op">=</span> <span class="va">API_Key_Secret</span>,</span>
+<span>                   access_token <span class="op">=</span> <span class="va">Access_Token</span>,</span>
+<span>                   access_secret <span class="op">=</span> <span class="va">Access_Token_Secret</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternativ kann man sich auch als <code>App</code> anmelden, damit kann man z.B. nicht posten, aber dafür mehr herunterladen <a href="https://docs.ropensci.org/rtweet/articles/auth.html">Quelle</a>.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-2_e87079d4d4d99fd57b6631b4b6db6898">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">auth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/rtweet_user.html">rtweet_app</a></span><span class="op">(</span>bearer_token <span class="op">=</span> <span class="va">Bearer_Token</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt haben wir ein Anmeldeobjekt, das wir für die weiteren Anfragen dieser Session nutzen können. Das sagen wir jetzt der Twitter-API:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-3_091e4826beb72262c1b0a401034980fc">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/auth_as.html">auth_as</a></span><span class="op">(</span><span class="va">auth</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Infos über Ihre aktuellen Raten kann man sich mittels <code><a href="https://docs.ropensci.org/rtweet/reference/rate_limit.html">rate_limit()</a></code> ausgeben lassen.</p>
+</section><section id="schützen-sie-ihre-zugangsdaten" class="level3" data-number="3.2.5"><h3 data-number="3.2.5" class="anchored" data-anchor-id="schützen-sie-ihre-zugangsdaten">
+<span class="header-section-number">3.2.5</span> Schützen Sie Ihre Zugangsdaten</h3>
+<p>Achtung, Sicherheitshinweis … Passwörter und andere sensitive (Anmelde-)Informationen muss man schützen, das weiß jeder. Konkret bedeutet es, dass Sie diese Daten <em>nicht</em> in einem öffentlichen oder geteilten Repo herumliegen lassen. Achten Sie auch darauf, dass, wenn Sie diese Information <code>source</code>en, so wie ich gerade, diese dann ungeschützt in Ihrem RStudio <code>Environment</code> Fenster zu sehen sind. Falls Sie also den Bildschirm teilen, oder Ihnen jemand über die Schulter schaut, sind Ihre Zugangsdaten nicht geschützt.</p>
+<p>Ein ähnlicher Fehler wäre, die History-Dateien von R in ein öffentliches Repo einzustellen (z.B. via Git). In der Datei <code>.gitignore</code> sollten daher folgende Dateien aufgeführt sein:</p>
+<pre><code>.Rhistory
+.Rapp.history</code></pre>
+<p><a href="https://docs.ropensci.org/rtweet/articles/auth.html">Ein Rat von <code>rtweet</code> dazu</a>:</p>
+<blockquote class="blockquote">
+<p>It’s good practice to only provide secrets interactively, because that makes it harder to accidentally share them in either your .Rhistory or an .R file.</p>
+</blockquote>
+<p>Einen alternativen, sichereren Zugang bietet z.B. das <a href="https://r-lib.github.io/keyring/index.html">Paket <code>keyring</code></a>. Dieses Paket bietet eine Anbindung zur Schlüsselbundverwaltung Ihres Betriebssystems:</p>
+<blockquote class="blockquote">
+<p>Platform independent API to access the operating systems credential store.</p>
+</blockquote>
+<p>Im MacOS wird die zentrale Schlüsselbundverwaltung genutzt, in Windows und Linux die analoge Vorrichtungen.</p>
+<p>Wir erstellen uns einen Schlüsselbund:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-4_6c965b2c6d5e107abd9f991d07c4c695">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/has_keyring_support.html">keyring_create</a></span><span class="op">(</span>keyring <span class="op">=</span> <span class="st">"hate-speech-twitter"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann können wir einen Eintrag im Schlüsselbund erstellen. Es öffnet sich eine Maske, die nach einem Passwort fragt. Geben Sie dort die sensitiven Informationen ein, etwa die Client-ID. Ggf. werden Sie noch nach dem Passwort des Schlüsselbunds an sich gefragt<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-5_a856a4903f2ce1423d7e8c8e70a43303">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_set</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"client_id"</span>,</span>
+<span>        keyring <span class="op">=</span> <span class="st">"hate-speech-twitter"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-6_510f82bf753bdd86eb8695855abaf353">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_set</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"client_secret"</span>,</span>
+<span>        keyring <span class="op">=</span> <span class="st">"hate-speech-twitter"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-7_e316f35c494efdc07273eb6aeec8353a">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_set</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"bearer_token"</span>,</span>
+<span>        keyring <span class="op">=</span> <span class="st">"hate-speech-twitter"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Künftig können wir dann die Passwörter aus dem Schlüsselbund abrufen:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-8_047c473d3edfbd4f46c4ca5b8147c79a">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"client_id"</span>,</span>
+<span>        keyring <span class="op">=</span> <span class="st">"hate-speech-twitter"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-9_366547e707dc5c4b09b589198cabc795">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span>service <span class="op">=</span> <span class="st">"bearer_token"</span>,</span>
+<span>        keyring <span class="op">=</span> <span class="st">"hate-speech-twitter"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="tweets-einlesen" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="tweets-einlesen">
+<span class="header-section-number">3.3</span> Tweets einlesen</h2>
+<p>Zu beachten ist, dass es Limits gibt, wie viele Informationen (pro Zeiteinheit) man über die Twitter-API auslesen darf. Informationen dazu findet man z.B. <a href="https://developer.twitter.com/en/docs/twitter-api/rate-limits">hier</a> oder auch mit <code><a href="https://docs.ropensci.org/rtweet/reference/rate_limit.html">rate_limit()</a></code>.</p>
+<p>Ein gängiges Limit der Twitter-API sind 900 Anfragen (z.B. Tweets auslesen) pro 15 Minuten.</p>
+<section id="timeline-einlesen-einzelner-accounts" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="timeline-einlesen-einzelner-accounts">
+<span class="header-section-number">3.3.1</span> Timeline einlesen einzelner Accounts</h3>
+<p>Mal ein paar Tweets zur Probe:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-10_5f74de80980402176e53b11f5b8831be">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sesa_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"sauer_sebastian"</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">full_text</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-11_a7f57d898ae7ee2591226b64bc2a8549">
+<pre><code>## RT @pia_lamberty: Ein Ansatz, der sich beim Debunking wissenschaftlich als erfolgreich herausgestellt hat, ist das sog. Faktensandwich: htt…
+## RT @ianbremmer: sure, it’s the hottest summer europe has ever had in history 
+## 
+## but look at the upside
+## 
+## it’s one of the coolest summers euro…
+## RT @twisteddoodles: Balanced news reporting https://t.co/O1iiItEQrs</code></pre>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/get-timeline1_361a2f4a404bb7fd9013a270e193444c">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline</a></span><span class="op">(</span>user <span class="op">=</span> <span class="va">politicians</span><span class="op">$</span><span class="va">screenname</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">tweets</span>, file <span class="op">=</span> <span class="st">"data/tweets/tweets01.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="https://rtweet-workshop.mikewk.com/#25">Michael Kearney</a> rät uns:</p>
+<blockquote class="blockquote">
+<p>PRO TIP #4: (for developer accounts only) Use <code><a href="https://docs.ropensci.org/rtweet/reference/bearer_token.html">bearer_token()</a></code> to increase rate limit to 45,000 per fifteen minutes.</p>
+</blockquote>
+</section><section id="retweets-einlesen" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="retweets-einlesen">
+<span class="header-section-number">3.3.2</span> Retweets einlesen</h3>
+<div class="cell" data-hash="025-twittermining_cache/html/get-retweets1_280a336c44d172797fc0db2d35e7ccf5">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets01_retweets</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">tweets</span><span class="op">$</span><span class="va">id_str</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map_dfr</a></span><span class="op">(</span> <span class="op">~</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_retweets.html">get_retweets</a></span><span class="op">(</span>status_id <span class="op">=</span> <span class="va">.x</span>, retryonratelimit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Da die meisten Retweets aber nix sagen, sondern nur auf das einen Tweet wiederholen, ist das Sammeln der Retweets ziemlich langweilig.</p>
+<p>Möchte man <code>retry on rate limit</code> im Standard auf <code>TRUE</code> setzen, so kann man das über die Optionen von R tun.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-12_ea0a51dbaea3e5c6b650a8486a1711fa">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>rtweet.retryonratelimit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="epinetz-twitter-politicians-2021" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="epinetz-twitter-politicians-2021">
+<span class="header-section-number">3.3.3</span> EPINetz Twitter Politicians 2021</h3>
+<p><span class="citation" data-cites="konig_epinetz_2022">König u.&nbsp;a. (<a href="#ref-konig_epinetz_2022" role="doc-biblioref">2022</a>)</span> <a href="https://link.springer.com/article/10.1007/s11615-022-00405-7">Volltext hier</a> haben einen Datensatz mit knapp 2500 Twitter Accounts deutscher Politiker zusammengestellt, zum Stand 2021.</p>
+<p>Der Datensatz kann über <a href="https://search.gesis.org/research_data/SDN-10.7802-2415?doi=10.7802/2415">Gesis</a> bezogen werden.</p>
+<p>Auf der gleichen Seite findet sich auch eine <a href="https://access.gesis.org/sharing/2415/3675">Dokumentation des Vorgehens</a>.</p>
+<p>Nachdem wir den Datensatz heruntergeladen haben, können wir ihn einlesen:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/read-epinetz_eef141a2cb040b38c743c1af47647459">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">politicians_path</span> <span class="op">&lt;-</span> <span class="st">"data/tweets/EPINetz_TwitterPoliticians_2021.RDs"</span></span>
+<span><span class="va">politicians_twitter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="va">politicians_path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">politicians_twitter</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["ID"],"name":[1],"type":["int"],"align":["right"]},{"label":["official_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["party"],"name":[3],"type":["chr"],"align":["left"]},{"label":["region"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institution"],"name":[5],"type":["chr"],"align":["left"]},{"label":["office"],"name":[6],"type":["chr"],"align":["left"]},{"label":["user_id"],"name":[7],"type":["chr"],"align":["left"]},{"label":["twitter_name"],"name":[8],"type":["chr"],"align":["left"]},{"label":["twitter_handle"],"name":[9],"type":["chr"],"align":["left"]},{"label":["from"],"name":[10],"type":["date"],"align":["right"]},{"label":["until"],"name":[11],"type":["date"],"align":["right"]},{"label":["year_of_birth"],"name":[12],"type":["int"],"align":["right"]},{"label":["abgeordnetenwatch_id"],"name":[13],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[14],"type":["chr"],"align":["left"]},{"label":["wikidata_id"],"name":[15],"type":["chr"],"align":["left"]}],"data":[{"1":"535","2":"Manja Schüle","3":"SPD","4":"Brandenburg","5":"State Parliament","6":"Parliamentarian","7":"827090742162100224","8":"Manja Schüle","9":"ManjaSchuele","10":"2019-09-25","11":"<NA>","12":"1976","13":"146790","14":"female","15":"Q40974942"},{"1":"962","2":"Petra Pau","3":"DIE LINKE","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"1683845126","8":"Team PetraPau","9":"TeamPetraPau","10":"2017-10-24","11":"<NA>","12":"1963","13":"79091","14":"female","15":"Q77195"},{"1":"864","2":"Dagmar Schmidt","3":"SPD","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"1377117206","8":"Team #dieschmidt","9":"TeamDieSchmidt","10":"2017-10-24","11":"<NA>","12":"1973","13":"79036","14":"female","15":"Q15433815"},{"1":"2517","2":"Bernd Buchholz","3":"FDP","4":"Schleswig-Holstein","5":"State Parliament","6":"Parliamentarian","7":"1073605033","8":"Bernd Buchholz","9":"BerndBuchholz","10":"2017-06-06","11":"<NA>","12":"1961","13":"121092","14":"male","15":"Q823715"},{"1":"1378","2":"Ingrid Remmers","3":"DIE LINKE","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"551802475","8":"Ingrid Remmers MdB","9":"ingrid_remmers","10":"2017-10-24","11":"<NA>","12":"1965","13":"120775","14":"female","15":"Q1652660"},{"1":"1116","2":"Reinhard Brandl","3":"CSU","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"262730721","8":"Reinhard Brandl","9":"reinhardbrandl","10":"2017-10-24","11":"<NA>","12":"1977","13":"79427","14":"male","15":"Q111160"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Dann lesen wir die Timelines (die Tweets) dieser Konten aus; in diesem Beispiel nur 10 Tweets pro Account:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/get-timeline2_080c5ea3b350377cc2c3529e9aebdbd9">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">epi_tweets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline</a></span><span class="op">(</span>user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">politicians_twitter</span><span class="op">$</span><span class="va">twitter_name</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">epi_tweets</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Natürlich könnte man auch mehr als 10 Tweets pro Konto einsammeln, braucht nur seine Zeit.</p>
+</section><section id="followers-suchen" class="level3" data-number="3.3.4"><h3 data-number="3.3.4" class="anchored" data-anchor-id="followers-suchen">
+<span class="header-section-number">3.3.4</span> Followers suchen</h3>
+<div class="cell" data-hash="025-twittermining_cache/html/save-followers1_e2570e426993672fe7cf932f454fd839">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">followers01</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">politicians</span><span class="op">$</span><span class="va">screenname</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map_dfr</a></span><span class="op">(</span> <span class="op">~</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_followers.html">get_followers</a></span><span class="op">(</span>user <span class="op">=</span> <span class="va">.x</span>, retryonratelimit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Da es dauern kann, Daten auszulesen (wir dürfen pro 15 Min. nur eine begrenzte Zahl an Information abrufen), kann es Sinn machen, die Daten lokal zu speichern.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/save-flllowers01_a8bb0b2c967e23bdf25b6c4669150f3b">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">followers01</span>, file <span class="op">=</span> <span class="st">"data/tweets/followers01.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Und ggf. wieder importieren:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/read-flllowers0_118bd341b0449d0a187862b02a8b5a24">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">followers01</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/tweets/followers01.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wie viele unique Followers haben wir identifiziert?</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-13_ace6f1bf08c68377df27f11807d9ea23">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">followers02</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">followers01</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">from_id</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Screennames wären noch nützlich:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-14_cd70802d6181258137a21d11ad03ecd2">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/lookup_users.html">lookup_users</a></span><span class="op">(</span>users <span class="op">=</span> <span class="st">"1690868335"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Anzahl der Users, die man nachschauen kann, ist begrenzt auf 180 pro 15 Minuten.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-15_55625029c83efe322805f968f283c30a">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">followers03</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">followers02</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>screenname <span class="op">=</span> </span>
+<span>           <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/lookup_users.html">lookup_users</a></span><span class="op">(</span>users <span class="op">=</span> <span class="va">from_id</span>, retryonratelimit <span class="op">=</span> <span class="cn">TRUE</span>,verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Entsprechend kann man wieder einlesen:</p>
+<p>Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können, z.B. nach Hate Speech.</p>
+<p>Im Gegensatz zu Followers heißen bei Twitter die Accounts, denen ei Nutzi folgt “Friends”.</p>
+<p>Lesen wir mal die Followers von <code>karl_lauterbach</code> ein:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-16_9b156ad410a7ae16e8a383d84e20da19">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">karl_followers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_followers.html">get_followers</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"karl_lauterbach"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Um nicht jedes Mal aufs Neue die Daten herunterzuladen, bietet es sich an, die Daten lokal zu speichern:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-17_d72e726898c5ecda21da88748ead0abc">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="va">karl_followers</span>, file <span class="op">=</span> <span class="st">"data/tweets/karl_followers.rds"</span>,</span>
+<span>          compress <span class="op">=</span> <span class="st">"gz"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Entsprechend kann man die Daten dann auch wieder einlesen:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/read-karl-followers_ec34e3c6b246fc786e476b84aa118afc">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">karl_followers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/tweets/karl_followers.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="follower-tweets-einlesen" class="level3" data-number="3.3.5"><h3 data-number="3.3.5" class="anchored" data-anchor-id="follower-tweets-einlesen">
+<span class="header-section-number">3.3.5</span> Follower Tweets einlesen</h3>
+<div class="cell" data-hash="025-twittermining_cache/html/get-timeline3_bd2e01db9650d9c2e46c24c5d5f68ae5">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">followers_tweets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline</a></span><span class="op">(</span>user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">followers01</span><span class="op">$</span><span class="va">from_id</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="tweets-nach-stichwort-suchen" class="level3" data-number="3.3.6"><h3 data-number="3.3.6" class="anchored" data-anchor-id="tweets-nach-stichwort-suchen">
+<span class="header-section-number">3.3.6</span> Tweets nach Stichwort suchen</h3>
+<p>Um nach einem Stichwort, allgemeiner nach einem bestimmten Text, in einem Tweet zu suchen, kann man die Funktion <code>search_tweets</code> nutzen:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-18_841c7d465581eb179579dc1b65efe2ae">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_tweet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/search_tweets.html">search_tweets</a></span><span class="op">(</span><span class="st">"Sebastian Sauer"</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">my_tweet</span><span class="op">$</span><span class="va">full_text</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Schaut man sich das zurückgelieferte Objekt (einen Tibble) näher an, entdeckt man eine Fülle an Informationen. Satte 43 Spalten (teilweise Listenspalten) finden sich dort:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-20_ba8b80b1c92debac9e34d328535c8ed0">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">my_tweet</span><span class="op">)</span></span>
+<span><span class="co">##  [1] "created_at"                    "id"                           </span></span>
+<span><span class="co">##  [3] "id_str"                        "full_text"                    </span></span>
+<span><span class="co">##  [5] "truncated"                     "display_text_range"           </span></span>
+<span><span class="co">##  [7] "entities"                      "metadata"                     </span></span>
+<span><span class="co">##  [9] "source"                        "in_reply_to_status_id"        </span></span>
+<span><span class="co">## [11] "in_reply_to_status_id_str"     "in_reply_to_user_id"          </span></span>
+<span><span class="co">## [13] "in_reply_to_user_id_str"       "in_reply_to_screen_name"      </span></span>
+<span><span class="co">## [15] "geo"                           "coordinates"                  </span></span>
+<span><span class="co">## [17] "place"                         "contributors"                 </span></span>
+<span><span class="co">## [19] "retweeted_status"              "is_quote_status"              </span></span>
+<span><span class="co">## [21] "quoted_status_id"              "quoted_status_id_str"         </span></span>
+<span><span class="co">## [23] "retweet_count"                 "favorite_count"               </span></span>
+<span><span class="co">## [25] "favorited"                     "retweeted"                    </span></span>
+<span><span class="co">## [27] "lang"                          "possibly_sensitive"           </span></span>
+<span><span class="co">## [29] "quoted_status"                 "text"                         </span></span>
+<span><span class="co">## [31] "favorited_by"                  "scopes"                       </span></span>
+<span><span class="co">## [33] "display_text_width"            "quoted_status_permalink"      </span></span>
+<span><span class="co">## [35] "quote_count"                   "timestamp_ms"                 </span></span>
+<span><span class="co">## [37] "reply_count"                   "filter_level"                 </span></span>
+<span><span class="co">## [39] "query"                         "withheld_scope"               </span></span>
+<span><span class="co">## [41] "withheld_copyright"            "withheld_in_countries"        </span></span>
+<span><span class="co">## [43] "possibly_sensitive_appealable"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Tweet-ID dieses Tweets bekommen Sie, wenn Sie die Variable <code>id_str</code> auslesen:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-21_ff95c53de7a1933e89e107e61409ca27">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_tweet</span><span class="op">$</span><span class="va">id_str</span></span>
+<span><span class="co">## [1] "1593598440675500032"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-22_7ebf0a9012c47ea7cf44f489f38d7b19">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_tweet</span><span class="op">$</span><span class="va">source</span></span>
+<span><span class="co">## [1] "&lt;a href=\"https://mobile.twitter.com\" rel=\"nofollow\"&gt;Twitter Web App&lt;/a&gt;"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dabei ist <code>source</code> nicht etwa die Person, die tweetet, wie man vielleicht meinen könnte, sondern das Frontend, das dabei verwendet wurde, also z.B. die iphone-App oder die Twitter-Webseite.</p>
+<p>Leider sucht man den <code>screenname</code> zu einen Tweet vergeblich in <code>my_tweet</code>.</p>
+<p>Gegeben eines Dataframes mit Tweets kann man sich aber wie folgt den Nutzernamen (<code>screen_name</code>) ausgeben lassen.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-23_3fe4f7acc264d370a5aa7757e70eaf53">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/users_data.html">users_data</a></span><span class="op">(</span><span class="va">my_tweet</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["id_str"],"name":[2],"type":["chr"],"align":["left"]},{"label":["name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["screen_name"],"name":[4],"type":["chr"],"align":["left"]},{"label":["location"],"name":[5],"type":["chr"],"align":["left"]},{"label":["description"],"name":[6],"type":["chr"],"align":["left"]},{"label":["url"],"name":[7],"type":["chr"],"align":["left"]},{"label":["protected"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["followers_count"],"name":[9],"type":["int"],"align":["right"]},{"label":["friends_count"],"name":[10],"type":["int"],"align":["right"]},{"label":["listed_count"],"name":[11],"type":["int"],"align":["right"]},{"label":["created_at"],"name":[12],"type":["chr"],"align":["left"]},{"label":["favourites_count"],"name":[13],"type":["int"],"align":["right"]},{"label":["verified"],"name":[14],"type":["lgl"],"align":["right"]},{"label":["statuses_count"],"name":[15],"type":["int"],"align":["right"]},{"label":["profile_image_url_https"],"name":[16],"type":["chr"],"align":["left"]},{"label":["profile_banner_url"],"name":[17],"type":["chr"],"align":["left"]},{"label":["default_profile"],"name":[18],"type":["lgl"],"align":["right"]},{"label":["default_profile_image"],"name":[19],"type":["lgl"],"align":["right"]},{"label":["withheld_in_countries"],"name":[20],"type":["list"],"align":["right"]},{"label":["derived"],"name":[21],"type":["chr"],"align":["left"]},{"label":["withheld_scope"],"name":[22],"type":["lgl"],"align":["right"]},{"label":["entities"],"name":[23],"type":["list"],"align":["right"]}],"data":[{"1":"1690868335","2":"1690868335","3":"Sebastian Sauer 🇺🇦","4":"sauer_sebastian","5":"Nürnberg, Deutschland","6":"Data Science","7":"https://t.co/zwh3dCw3Dc","8":"FALSE","9":"485","10":"346","11":"34","12":"Thu Aug 22 11:49:09 +0000 2013","13":"7517","14":"FALSE","15":"1241","16":"https://pbs.twimg.com/profile_images/853024804676521984/VQ5YBKVu_normal.jpg","17":"https://pbs.twimg.com/profile_banners/1690868335/1453724621","18":"TRUE","19":"FALSE","20":"<list [0]>","21":"NA","22":"NA","23":"<named list [2]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Außerdem gibt es einen “Trick” <a href="https://www.bram.us/2017/11/22/accessing-a-tweet-using-only-its-id-and-without-the-twitter-api/">laut dieser Quelle</a>, vgl. auch <a href="https://stackoverflow.com/questions/897107/can-i-fetch-the-tweet-from-twitter-if-i-know-the-tweets-id">diesen SO-Post</a>: Gibt man in die URL eines Tweets einen beliebigen Nutzernamen - das kann ein Fantasiename sein - so wird man automatisch zum richtigen Nutzer geleitet.</p>
+<p>Die Rohform der URL sieht also so aus:</p>
+<p><code>https://twitter.com/irgendeinnutzer/status/&lt;id_str&gt;</code></p>
+<p>Geben Sie also z.B. Folgende URL in Ihren Browser sein:</p>
+<p><code>https://twitter.com/irgendeinnutzer/status/1593598440675500032</code></p>
+<p>Und Sie werden zum Nutzer <code>sauer_sebastian</code> weitergeleitet bzw. zu seinem Tweet mit obiger ID.</p>
+</section><section id="der-volltext-ist-manchmal-abgeschniten" class="level3" data-number="3.3.7"><h3 data-number="3.3.7" class="anchored" data-anchor-id="der-volltext-ist-manchmal-abgeschniten">
+<span class="header-section-number">3.3.7</span> Der Volltext ist manchmal abgeschniten</h3>
+<p>Manchmal ist der Volltext abgeschnitten</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-24_3ea929932a45a6947d21de2096773a34">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_tweet</span><span class="op">$</span><span class="va">full_text</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>Hier steht der Beginn des Tweet-Textes, aber dann endet der Text abrup..."</code></pre>
+<p>Glücklicherweise - sofern man bei einer so umständlichen Darstellung von Glück reden kann - findet man den kompletten Text andernorts <a href="https://stackoverflow.com/questions/47211501/twitter-streaming-api-not-return-full-tweets?noredirect=1&amp;lq=1">Quelle</a>.</p>
+<p>Dazu schreibt <a href="https://stackoverflow.com/questions/47211501/twitter-streaming-api-not-return-full-tweets?noredirect=1&amp;lq=1">in diesem SO-Post</a> der Nutzer <code>Jonas</code>:</p>
+<blockquote class="blockquote">
+<p>You will need to check if the tweet is a retweet. If it is, use the retweet’s full_text. If it is not, use the tweet’s full_text. – Jonas, Nov 13, 2017 at 15:00</p>
+</blockquote>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-25_e95bd98349c6ea77ffb0c68f7d1711ae">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_tweet</span><span class="op">$</span><span class="va">retweeted_status</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"full_text"</span><span class="op">]</span><span class="op">]</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>Hier steht der Beginn des Tweet-Textes, aber dann endet der Text abrupt? 
+Nein,er geht weiter und irgendwann ist der dann wirklich aus."</code></pre>
+</section><section id="tweets-nach-id-suchen" class="level3" data-number="3.3.8"><h3 data-number="3.3.8" class="anchored" data-anchor-id="tweets-nach-id-suchen">
+<span class="header-section-number">3.3.8</span> Tweets nach ID suchen</h3>
+<p>Mit <code>lookup_tweets(id_des_tweets)</code> können Sie sich die Informationen zu einen Tweet ausgeben lassen. Das ist natürlich primär der Volltext:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-26_fbfe8417ca30dce5990badd3cc71f980">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/lookup_tweets.html">lookup_tweets</a></span><span class="op">(</span><span class="st">"1593598440675500032"</span><span class="op">)</span></span>
+<span><span class="va">tweet_example</span><span class="op">$</span><span class="va">full_text</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aber auch die übrigen Informationen können interessant sein.</p>
+</section></section><section id="tweets-verarbeiten" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="tweets-verarbeiten">
+<span class="header-section-number">3.4</span> Tweets verarbeiten</h2>
+<section id="grundlegende-verarbeitung" class="level3" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="grundlegende-verarbeitung">
+<span class="header-section-number">3.4.1</span> Grundlegende Verarbeitung</h3>
+<p>Sind die Tweets eingelesen, kann man z.B. eine Sentimentanalyse, s. <a href="#sec-sentimentanalyse"><span class="quarto-unresolved-ref">sec-sentimentanalyse</span></a>, durchführen, oder schlicht vergleichen, welche Personen welche Wörter häufig verwenden, s. <a href="#sec-woerterzaehlen"><span class="quarto-unresolved-ref">sec-woerterzaehlen</span></a>.</p>
+</section><section id="bot-or-not" class="level3" data-number="3.4.2"><h3 data-number="3.4.2" class="anchored" data-anchor-id="bot-or-not">
+<span class="header-section-number">3.4.2</span> Bot or not?</h3>
+<p>Eine interessante Methode, Tweets zu verarbeiten, bietet das R-Paket <code>tweetbotornot</code> von <a href="https://github.com/mkearney/tweetbotornot">M. Kearney</a>.</p>
+<p>Aus der <code>Readme</code>:</p>
+<blockquote class="blockquote">
+<p>Due to Twitter’s REST API rate limits, users are limited to only 180 estimates per every 15 minutes. To maximize the number of estimates per 15 minutes (at the cost of being less accurate), use the fast = TRUE argument. This method uses only users-level data, which increases the maximum number of estimates per 15 minutes to 90,000! Due to losses in accuracy, this method should be used with caution!</p>
+</blockquote>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-27_e8fe70cbc0b4e74263af01d296f84d07">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sauer_sebastian"</span><span class="op">)</span></span>
+<span><span class="va">bot01</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://tweetbotornot.mikewk.com/reference/tweetbotornot.html">tweetbotornot</a></span><span class="op">(</span><span class="va">users</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ich habe ein Fehlermeldung bekommen bei <code>tweetbotornot</code>. Da könnte ein technisches Problem in der Funktion vorliegen.</p>
+</div>
+</div>
+</section></section><section id="cron-jobs" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="cron-jobs">
+<span class="header-section-number">3.5</span> Cron Jobs</h2>
+<section id="was-ist-ein-cron-job" class="level3" data-number="3.5.1"><h3 data-number="3.5.1" class="anchored" data-anchor-id="was-ist-ein-cron-job">
+<span class="header-section-number">3.5.1</span> Was ist ein Cron Job?</h3>
+<p><a href="https://en.wikipedia.org/wiki/Cron">Cron</a> ist ein Programm auf Unix-artigen Betriebssystemen, das Skripte zu eingestellten Zeiten (wiederholt) ausführt, das sind dann “Cron Jobs”. Auf Windows gibt es aber analoge Funktionen. Cron Jobs sind praktisch, da man nicht jedes Mal selber z.B. Tweets, die heute zu einem Thema getweetet wurden, herunterladen muss. Das wird dann vom Cron Job übernommen.</p>
+<p>In R gibt es eine API zum Programm Cron mit dem Paket <a href="https://github.com/bnosac/cronR">cronR</a>, s. <a href="https://github.com/bnosac/cronR">Anleitung hier</a>.</p>
+<p>Das analoge R-Paket für Windows heißt <a href="https://github.com/bnosac/taskscheduleR"><code>{taskscheduleR}</code></a>.</p>
+</section><section id="beispiel-für-einen-cron-job" class="level3" data-number="3.5.2"><h3 data-number="3.5.2" class="anchored" data-anchor-id="beispiel-für-einen-cron-job">
+<span class="header-section-number">3.5.2</span> Beispiel für einen Cron Job</h3>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-28_d6fb5b146a60e3c0a7f85e87dc6ed902">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bnosac/cronR">cronR</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">scrape_script</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_rscript.html">cron_rscript</a></span><span class="op">(</span><span class="st">"scrape_tweets.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cron Job hinzufügen:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_add.html">cron_add</a></span><span class="op">(</span>command <span class="op">=</span> <span class="va">scrape_script</span>, </span>
+<span>         frequency <span class="op">=</span> <span class="st">'daily'</span>, </span>
+<span>         at <span class="op">=</span> <span class="st">"10AM"</span>,</span>
+<span>         id <span class="op">=</span> <span class="st">'Hate Speech'</span><span class="op">)</span>  <span class="co"># Name des Cron Jobs</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_clear.html">cron_clear</a></span><span class="op">(</span>ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Alle Cron Jobs löschen</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_ls.html">cron_ls</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># Liste aller Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Im obigen Beispiel wird das R-Skript <code>scrape_tweets.R</code> täglich um 10h ausgeführt.</p>
+<p>Der Inhalt von <code>scrape_tweets.R</code> könnte dann, in Grundzügen, so aussehen:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-29_cd6c70379a44d420a54c6f766370d009">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rtweet/">rtweet</a></span><span class="op">)</span></span>
+<span><span class="va">followers_lauterbach</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">followers01</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">to_id</span> <span class="op">==</span> <span class="st">"Karl_Lauterbach"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">followers_lauterbach_tweets</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline</a></span><span class="op">(</span>user <span class="op">=</span> <span class="va">followers_lauterbach</span><span class="op">$</span><span class="va">from_id</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, n <span class="op">=</span> <span class="fl">10</span>, retryonratelimit <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">path_output</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/Google Drive/RRRing/Scrape-Tweets/tweets/"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">followers_lauterbach_tweets</span>,</span>
+<span>          file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">path_output</span>, <span class="st">"followers_lauterbach_tweets.csv"</span><span class="op">)</span>,</span>
+<span>          append <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir hängen hier die neu ausgelesenen Daten an die Datei an.</p>
+<p>Leider ist es mit <code>rtweet</code> nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section></section><section id="datenbank-an-tweets-aufbauen" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="datenbank-an-tweets-aufbauen">
+<span class="header-section-number">3.6</span> Datenbank an Tweets aufbauen</h2>
+<section id="stamm-an-bisherigen-tweets" class="level3" data-number="3.6.1"><h3 data-number="3.6.1" class="anchored" data-anchor-id="stamm-an-bisherigen-tweets">
+<span class="header-section-number">3.6.1</span> Stamm an bisherigen Tweets</h3>
+<p>In diesem Abschnitt kümmern wir uns in größerem Detail um das Aufbauen einer Tweets-Datenbank.</p>
+<p>Diese Pakete benötigen wir:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-30_82e5113b7278a67292f2f346b5ec3f7d">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rtweet/">rtweet</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/chainsawriot/rio">rio</a></span><span class="op">)</span>  <span class="co"># R Data import/export</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann melden wir uns an:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-31_072bdf2367c4976b4252bf742d8f0590">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R"</span><span class="op">)</span></span>
+<span><span class="va">auth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/rtweet_user.html">rtweet_app</a></span><span class="op">(</span>bearer_token <span class="op">=</span> <span class="va">Bearer_Token</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann brauchen wir eine Liste an Twitterkonten, die uns interessieren. Im Kontext von Hate Speech soll uns hier interessieren, welche Tweets <em>an</em> deutsche Spitzenpolitikis<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> gesendet werden. Wir suchen also nach Tweets mit dem Text <code>@karl_lauterbach</code>, um ein Beispiel für einen Spitzenpolitiker zu nennen, der vermutlich von Hate Speech in höherem Maße betroffen ist.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-32_377a9c088c43663aeba8829542f968ba">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">politicians_twitter_path</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/data/twitter-german-politicians.csv"</span></span>
+<span></span>
+<span><span class="va">politicians_twitter</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">politicians_twitter_path</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In der Liste befinden sich 13 Politiker. Es macht die Sache vielleicht einfacher, wenn wir die Rate nicht überziehen. Bleiben wir daher bei 1000 Tweets pro Politiki:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-33_417b2f0e24bbc3528021feed676b3234">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_tweets_per_politician</span> <span class="op">&lt;-</span> <span class="fl">1e3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die R-Syntax, die die Arbeit leistet, ist in Funktionen ausgelagert, der Übersichtlichkeit halber.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-34_83f3f556662dea16305d0be25c4330aa">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/filter_recent_tweets.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/download_recent_tweets.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/add_tweets_to_tweet_db.R"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/sanitize_tweets.R"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt laden wir einfach die aktuellsten 1000 Tweets pro Konto herunter, daher brauchen wir keine Tweet-ID angeben, die ein Mindest- oder Maximum-Datum (bzw. ID) für einen Tweet angibt:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-36_25c81efb0e00d4dc29fb79b6bb844e5e">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_older</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">download_recent_tweets</span><span class="op">(</span>screenname <span class="op">=</span> <span class="va">politicians_twitter</span><span class="op">$</span><span class="va">screenname</span>,</span>
+<span>                         max_or_since_id_str <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                         n <span class="op">=</span> <span class="va">n_tweets_per_politician</span>,</span>
+<span>                         strip_columns <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                         reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wie weit in die Vergangenheit reicht unsere Tweet-Sammlung?</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-37_27bb939a77000105140135b7f6030493">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">oldest_tweets</span> <span class="op">&lt;-</span> <span class="fu">filter_recent_tweets</span><span class="op">(</span><span class="va">tweets_older</span>, max_or_min_id_str <span class="op">=</span> <span class="va">is_min_id_str</span><span class="op">)</span></span>
+<span><span class="va">oldest_tweets</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id_str"],"name":[1],"type":["chr"],"align":["left"]},{"label":["screenname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["created_at"],"name":[3],"type":["dttm"],"align":["right"]},{"label":["is_min_id_str"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_max_id_str"],"name":[5],"type":["lgl"],"align":["right"]}],"data":[{"1":"1590754620649115648","2":"Karl_Lauterbach","3":"2022-11-10 18:13:51","4":"TRUE","5":"FALSE"},{"1":"1589837879693352960","2":"OlafScholz","3":"2022-11-08 05:31:02","4":"TRUE","5":"FALSE"},{"1":"1590485330742083585","2":"ABaerbock","3":"2022-11-10 00:23:47","4":"TRUE","5":"FALSE"},{"1":"1589983737621942272","2":"BMWK","3":"2022-11-08 15:10:38","4":"TRUE","5":"FALSE"},{"1":"1590646264433373184","2":"_FriedrichMerz","3":"2022-11-10 11:03:16","4":"TRUE","5":"FALSE"},{"1":"1588595577360875520","2":"Markus_Soeder","3":"2022-11-04 19:14:34","4":"TRUE","5":"FALSE"},{"1":"1590097264613425152","2":"cem_oezdemir","3":"2022-11-08 22:41:45","4":"TRUE","5":"FALSE"},{"1":"1588082031656898560","2":"Janine_Wissler","3":"2022-11-03 09:13:56","4":"TRUE","5":"FALSE"},{"1":"1588082031656898560","2":"schirdewan","3":"2022-11-03 09:13:56","4":"TRUE","5":"FALSE"},{"1":"1590628128791007233","2":"c_lindner","3":"2022-11-10 09:51:13","4":"TRUE","5":"FALSE"},{"1":"1589277825152208898","2":"MAStrackZi","3":"2022-11-06 16:25:35","4":"TRUE","5":"FALSE"},{"1":"1587964349993422848","2":"Tino_Chrupalla","3":"2022-11-03 01:26:18","4":"TRUE","5":"FALSE"},{"1":"1589696708447186945","2":"Alice_Weidel","3":"2022-11-07 20:10:05","4":"TRUE","5":"FALSE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Was sind die neuesten Tweets, die wir habven?</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-38_1d296280761c65993ce1a9e8835ab7cf">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">most_recent_tweets</span> <span class="op">&lt;-</span> <span class="fu">filter_recent_tweets</span><span class="op">(</span><span class="va">oldest_tweets</span><span class="op">)</span></span>
+<span><span class="va">most_recent_tweets</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id_str"],"name":[1],"type":["chr"],"align":["left"]},{"label":["screenname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["created_at"],"name":[3],"type":["dttm"],"align":["right"]},{"label":["is_min_id_str"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_max_id_str"],"name":[5],"type":["lgl"],"align":["right"]}],"data":[{"1":"1590754620649115648","2":"Karl_Lauterbach","3":"2022-11-10 18:13:51","4":"TRUE","5":"TRUE"},{"1":"1589837879693352960","2":"OlafScholz","3":"2022-11-08 05:31:02","4":"TRUE","5":"TRUE"},{"1":"1590485330742083585","2":"ABaerbock","3":"2022-11-10 00:23:47","4":"TRUE","5":"TRUE"},{"1":"1589983737621942272","2":"BMWK","3":"2022-11-08 15:10:38","4":"TRUE","5":"TRUE"},{"1":"1590646264433373184","2":"_FriedrichMerz","3":"2022-11-10 11:03:16","4":"TRUE","5":"TRUE"},{"1":"1588595577360875520","2":"Markus_Soeder","3":"2022-11-04 19:14:34","4":"TRUE","5":"TRUE"},{"1":"1590097264613425152","2":"cem_oezdemir","3":"2022-11-08 22:41:45","4":"TRUE","5":"TRUE"},{"1":"1588082031656898560","2":"Janine_Wissler","3":"2022-11-03 09:13:56","4":"TRUE","5":"TRUE"},{"1":"1588082031656898560","2":"schirdewan","3":"2022-11-03 09:13:56","4":"TRUE","5":"TRUE"},{"1":"1590628128791007233","2":"c_lindner","3":"2022-11-10 09:51:13","4":"TRUE","5":"TRUE"},{"1":"1589277825152208898","2":"MAStrackZi","3":"2022-11-06 16:25:35","4":"TRUE","5":"TRUE"},{"1":"1587964349993422848","2":"Tino_Chrupalla","3":"2022-11-03 01:26:18","4":"TRUE","5":"TRUE"},{"1":"1589696708447186945","2":"Alice_Weidel","3":"2022-11-07 20:10:05","4":"TRUE","5":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Jetzt laden wir die <em>neueren</em> Tweets herunter, also mit einer ID <em>größer</em> als die größte in unserer Sammlung:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-40_0c9233fcd3aebd7afefd9329b0438440">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_new</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">download_recent_tweets</span><span class="op">(</span>screenname <span class="op">=</span> <span class="va">most_recent_tweets</span><span class="op">$</span><span class="va">screenname</span>,</span>
+<span>                         max_or_since_id_str <span class="op">=</span> <span class="va">most_recent_tweets</span><span class="op">$</span><span class="va">id_str</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tweets_new</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">screenname</span>, <span class="va">created_at</span>, <span class="va">id_str</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt - und jedes Mal, wenn wir Tweets herunterladen - fügen wir diese einer Datenbank (oder zumindest einer “Gesamt-Tabelle”) hinzu:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-41_0c288536a8056a52c328efc456fb53d4">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_db</span> <span class="op">&lt;-</span> <span class="fu">add_tweets_to_tweets_db</span><span class="op">(</span><span class="va">tweets_new</span>, <span class="va">tweets_older</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">tweets_db</span><span class="op">)</span></span>
+<span><span class="co">## [1] 10969</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Schließlich sollten wir nicht vergessen diese in einer Datei zu speichern:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-42_69606152ecdba82453b9af399fdeaca6">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="va">tweets_db</span>, file <span class="op">=</span> <span class="st">"~/datasets/Twitter/tweets-db-2022-11-11.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>… … So, einige Zeit ist vergangen. Laden wir noch ältere Tweets herunter und fügen Sie unserer Datenbank hinzu:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-43_e2f0fc3b1bdea9fed77604d96d2a89aa">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_older2</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">download_recent_tweets</span><span class="op">(</span>screenname <span class="op">=</span> <span class="va">politicians_twitter</span><span class="op">$</span><span class="va">screenname</span>,</span>
+<span>                         max_or_since_id_str <span class="op">=</span> <span class="va">oldest_tweets</span><span class="op">$</span><span class="va">id_str</span>,</span>
+<span>                         n <span class="op">=</span> <span class="fl">1e3</span>,</span>
+<span>                         strip_columns <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                         reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-45_a7a4b891ba2efa9fb06a3e0948cccf0d">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_db</span> <span class="op">&lt;-</span> <span class="fu">add_tweets_to_tweets_db</span><span class="op">(</span><span class="va">tweets_new</span>, <span class="va">tweets_older2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">tweets_db</span><span class="op">)</span></span>
+<span><span class="co">## [1] 10011</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Und wieder speichern wir die vergrößerte Datenbasis auf der Festplatte:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-46_d04fb41e73f397048deb9b82ef14c5de">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="va">tweets_db</span>, file <span class="op">=</span> <span class="st">"~/datasets/Twitter/hate-speech-twitter.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Leider ist die Datenbasis nicht mehr deutlich gewachsen. Eine plausible Ursache ist, dass Twitter den Zugriff auf alte Tweets einschränkt.</p>
+<p>Aus der Hilfe von <code>search_tweets</code>:</p>
+<blockquote class="blockquote">
+<p>Returns Twitter statuses matching a user provided search query. ONLY RETURNS DATA FROM THE PAST 6-9 DAYS.</p>
+</blockquote>
+<p>Mit Hilfe des <a href="https://developer.twitter.com/en/products/twitter-api/academic-research">Academic Research Access</a> sind deutlich höhere Raten möglich.</p>
+</section><section id="neue-tweets-per-cron-job" class="level3" data-number="3.6.2"><h3 data-number="3.6.2" class="anchored" data-anchor-id="neue-tweets-per-cron-job">
+<span class="header-section-number">3.6.2</span> Neue Tweets per Cron Job</h3>
+<p>Wie oben schon ausprobiert, legen wir uns einen Cron Job an.</p>
+<p>Das ist übrigens auch eine komfortable Lösung.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-47_fb66aa9bb2188dd52fdb21687a93da4a">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bnosac/cronR">cronR</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">scrape_script</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_rscript.html">cron_rscript</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/funs/get_tweets_politicians.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Cron Job hinzufügen:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_add.html">cron_add</a></span><span class="op">(</span>command <span class="op">=</span> <span class="va">scrape_script</span>, </span>
+<span>         frequency <span class="op">=</span> <span class="st">'daily'</span>, </span>
+<span>         at <span class="op">=</span> <span class="st">"10AM"</span>,</span>
+<span>         id <span class="op">=</span> <span class="st">'Hate Speech'</span><span class="op">)</span>  <span class="co"># Name des Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das Skript <code>get_tweets_politicians.R</code> birgt die Schritte, die wir in diesem Abschnitt ausprobiert haben, <a href="https://github.com/sebastiansauer/datascience-text/blob/main/specifics/get_tweets_politicians.R">hier</a> liegt es. Kurz gesagt sucht es nach neuen Tweets, die also noch nicht in Ihrer “Datenbank” vorhanden sind, und lädt diese herunter. Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13) heruntergeladen.</p>
+<p>Bei einem Cronjob sollten <em>absolute</em> Pfade angegeben werden, da der Cronjob <em>nicht</em> aus dem aktuellen Projekt-Repo startet.</p>
+<p>Die Ergebnisse eines Cronjob-Durchlaufs werden in einer Log-Datei abgelegt, und zwar in dem Ordner, in dem auch das Skript liegt, das im Rahmen des Cronjobs durchgeführt wird.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Schauen Sie sich die Funktionen im Ordner <code>/funs</code> einmal in Ruhe an. <a href="https://github.com/sebastiansauer/datascience-text/tree/main/funs">Hier</a> geht es zu dem Ordner im Github-Repo. Es ist alles keine Zauberei, aber im Detail gibt es immer wieder Schwierigkeiten. Am meisten lernt man, wenn man selber Hand anlegt.</p>
+</div>
+</div>
+<p>Möchte man den Cron Job wieder löschen, so kann man das so tun:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-48_a5728ae8fdcfb49c3911d2d514206845">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_clear.html">cron_clear</a></span><span class="op">(</span>ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># Alle Cron Jobs löschen</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/cronR/man/cron_ls.html">cron_ls</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># Liste aller Cron Jobs</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Um die Tweets “händisch” herunterzuladen, kann man <code>get_tweets_politicians()</code> aufrufen:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-49_c269ab14b3b656a9eaab73eceb0784ee">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/get_tweets_politicians.R"</span><span class="op">)</span></span>
+<span><span class="fu">get_tweets_politicians</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="tweets-in-excel-exportieren" class="level3" data-number="3.6.3"><h3 data-number="3.6.3" class="anchored" data-anchor-id="tweets-in-excel-exportieren">
+<span class="header-section-number">3.6.3</span> Tweets in Excel exportieren</h3>
+<p>Um prädiktive Modelle zu erstellen, braucht man ein Trainingsset, Tweets also, die schon vorklassifiziert sind, z.B. im Hinblick auf Hassrede mit <code>ja</code> oder <code>nein</code>. Technisch bietet sich ein <code>1</code> vs.&nbsp;<code>0</code> an.</p>
+<p>Dazu laden wir einen Datensatz mit Tweets, z.B. diesen hier:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-50_d7c57b685f2aa382cfdf79bbaf0d8906">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_to_kl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/datasets/Twitter/tweets_to_karl_lauterbach.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Da es viele Spalten gibt, die teilweise Listenspalten sind, also komplex, begrenzen wir uns auf das Wesentliche, den Tweet-Text und die ID des Tweets.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-51_4f666de2c172da42d83fd1fe3675d4d6">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_to_kl2</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">tweets_to_kl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id_str</span>, <span class="va">full_text</span><span class="op">)</span> </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Tweet-ID wird einmal als String und einmal als Integer gespeichert. Allerdings übersteigt die Anzahl der Ziffern die Speichergröße von (normalen) Integer-Formaten in R. Daher ist die Twitter-ID als Integer <em>nicht</em> zuverlässig; als Text hingegen schon.</p>
+</div>
+</div>
+<p>Und schließlich können wir die Excel-Datei importieren.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-52_d0fd3b6b377a0c0ef2f3a8d632037e64">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/export.html">export</a></span><span class="op">(</span><span class="va">tweets_to_kl2</span>, file <span class="op">=</span> <span class="st">"~/datasets/Twitter/tweets_to_kl.xlsx"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Excel-Tabelle können wir dann bequem hernehmen, um Tweets manuell zu klassifizieren.</p>
+</section><section id="twitterkonten-für-wissenschaftler" class="level3" data-number="3.6.4"><h3 data-number="3.6.4" class="anchored" data-anchor-id="twitterkonten-für-wissenschaftler">
+<span class="header-section-number">3.6.4</span> Twitterkonten für Wissenschaftler</h3>
+<p>Twitter stellt spezielle <a href="https://developer.twitter.com/en/products/twitter-api/academic-research">Konten für Wissentschaftlis</a> bereit, die über <a href="https://developer.twitter.com/en/products/twitter-api/academic-research/product-details">höhere Raten und mehr Funktionen</a> verfügen, also mehr Tweets herunterladen können, z.B. 10 Millionen Tweets pro Monat pro Projekt.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-53_c8448bbae5c5615e0ab8650bb752e0d5">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">auth_academic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/rtweet_user.html">rtweet_app</a></span><span class="op">(</span>bearer_token <span class="op">=</span> <span class="fu">askpass</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/askpass/man/askpass.html">askpass</a></span><span class="op">(</span><span class="st">"bearer token"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">auth_academic</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das R-Paket <a href="https://github.com/r-lib/askpass">askpass</a> stellt eine weitere Möglichkeit bereit, um Zugangsdaten zu schützen. Es öffnet eine Maske, die interaktiv und als Punkte geschützte Buchstaben nach einem Passwort fragt, in diesem Fall nach dem Bearer-Token.</p>
+<p>Aus der Hilfe:</p>
+<blockquote class="blockquote">
+<p>Prompt the user for a password to authenticate or read a protected key. By default, this function automatically uses the most appropriate method based on the user platform and front-end. Users or IDEs can override this and set a custom password entry function via the askpass option.</p>
+</blockquote>
+<p>Twitter bietet <a href="https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research">in diesem Repo</a> einen nützlichen Kurs an, um sich mit der API vertraut zu machen.</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-54_318f38029d6d6fa1c2537639ed781f57">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets_to__FriedrichMerz_2022</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/academictwitteR/man/get_all_tweets.html">get_all_tweets</a></span><span class="op">(</span>query <span class="op">=</span> <span class="st">"to:_FriedrichMerz -is:retweet"</span>,</span>
+<span>                 start_tweets <span class="op">=</span> <span class="st">"2022-01-01T00:00:00Z"</span>,</span>
+<span>                 end_tweets <span class="op">=</span> <span class="st">"2022-11-23T23:59:59Z"</span>,</span>
+<span>                 bearer_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/askpass/man/askpass.html">askpass</a></span><span class="op">(</span><span class="st">"Bearer token"</span><span class="op">)</span>,</span>
+<span>                 file <span class="op">=</span> <span class="st">"~/datasets/Twitter/tweets-to-_FriedrichMerz_2022.rds"</span>,</span>
+<span>                 n <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Oder als Funktion, das ist praktischer, wenn man die Syntax mehrfach verwendet:</p>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-55_503af2eb125796e20347715aec6cf69d">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">get_all_tweets_politicians</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">screenname</span>, <span class="va">bearer_token</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/academictwitteR/man/get_all_tweets.html">get_all_tweets</a></span><span class="op">(</span>query <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"to:"</span>, <span class="va">screenname</span>, <span class="st">" -is:retweet"</span><span class="op">)</span>,</span>
+<span>                 start_tweets <span class="op">=</span> <span class="st">"2021-01-01T00:00:00Z"</span>,</span>
+<span>                 end_tweets <span class="op">=</span> <span class="st">"2021-12-31T23:59:59Z"</span>,</span>
+<span>                 bearer_token <span class="op">=</span> <span class="va">bearer_token</span>,</span>
+<span>                 file <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"~/datasets/Twitter/tweets_to_{screenname}_2021.rds"</span><span class="op">)</span>,</span>
+<span>                 data_path <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"~/datasets/Twitter/{screenname}"</span><span class="op">)</span>,</span>
+<span>                 n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-56_3815536361c0d0eedfa01b597d04f0fd">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#debug(get_all_tweets_politicians)</span></span>
+<span><span class="fu">get_all_tweets_politicians</span><span class="op">(</span>screenname <span class="op">=</span> <span class="va">politicians</span><span class="op">$</span><span class="va">screenname</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span>                           bearer_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/askpass/man/askpass.html">askpass</a></span><span class="op">(</span><span class="st">"Bearer token"</span><span class="op">)</span>,</span>
+<span>                           n <span class="op">=</span> <span class="fl">1e05</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann kann man die Objekte abespeichern, etwas als RDS-Datei oder als Feather-Datei.</p>
+<p>Den Datensatz <code>politicians</code> hatten wir oben angelegt, s. <a href="#sec-politicians-accounts"><span class="quarto-unresolved-ref">sec-politicians-accounts</span></a>. Er beinhaltet die Kontonamen (<code>screennames</code>) einiger deutscher Politikis.</p>
+<p>Wichtig ist, mit den Lizenzregeln in Einklang zu bleiben.</p>
+<p>Zentral ist dabei sicherlich die Frage, ob und wie man Tweets weitergeben darf. Dazu:</p>
+<blockquote class="blockquote">
+<p>Academic researchers are permitted to distribute an unlimited number of Tweet IDs and/or User IDs if they are doing so for the purposes of non-commercial research and to validate or replicate previous academic studies. You should not share the entire Tweet text directly. Instead, you can build a list of Tweet IDs and share those. The researchers who you share this set of Tweet IDs with, can then use the Twitter API to hydrate and get the full Tweet objects from the Tweet IDs.</p>
+</blockquote>
+<p><a href="https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research/blob/main/modules/7-storage-and-compliance.md">Quelle</a></p>
+<p>Mehr Details finden sich den <a href="https://developer.twitter.com/en/developer-terms/policy">Entwicklerrichtlinien von Twitter</a>.</p>
+<p>Twitter stellt eine Reihe von <a href="https://developer.twitter.com/en/use-cases/do-research/academic-research/resources">Lehrmaterialien</a> für die wissenschaftliche Nutzung von Tweets bereit.</p>
+</section></section><section id="aufgaben" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="aufgaben">
+<span class="header-section-number">3.7</span> Aufgaben</h2>
+<ol type="1">
+<li>Überlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.</li>
+<li>Argumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.</li>
+<li>Überlegen Sie Korrelate, oder besser noch: (mögliche) Ursachen, des Hasses in den Tweets, gerichtet auf Polikter:innen. Sie können auch Gruppen von Ursachen bilden, etwas personengebundene Variablen der Politiker:innen (z.B. Alter? Geschlecht? Migrationshintergrund?).</li>
+<li>Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.</li>
+<li>Das Skript zu <code>scrape_tweets.R</code> könnte man noch verbessern, in dem man jeden Tag nur die neuesten Tweets herunterlädt. Dazu kann man bei <a href="https://docs.ropensci.org/rtweet/reference/get_timeline.html">get_timeline()</a> mit dem Argument <code>since_id</code> eine Untergrenze der ID festlegen, so dass nur neuere Tweets (d.h. mit größerem Wert bei ID) ausgelesen werden. Ändern Sie das Skript entsprechend, so dass nur neuerer Tweets gelesen werden.</li>
+<li>Erarbeiten Sie die Folien zu diesem <a href="https://rtweet-workshop.mikewk.com/#1">rtweet-Workshop</a>. Eine Menge guter Tipps!</li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-smltar" class="csl-entry" role="listitem">
+Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
+</div>
+<div id="ref-konig_epinetz_2022" class="csl-entry" role="listitem">
+König, Tim, Wolf J. Schünemann, Alexander Brand, Julian Freyberg, und Michael Gertz. 2022. <span>„The <span>EPINetz</span> Twitter Politicians Dataset 2021. <span>A</span> New Resource for the Study of the German Twittersphere and Its Application for the 2021 Federal Elections“</span>. <em>Politische Vierteljahresschrift</em> 63 (3): 529–47. <a href="https://doi.org/10.1007/s11615-022-00405-7">https://doi.org/10.1007/s11615-022-00405-7</a>.
+</div>
+</div>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Sie können <a href="https://www.howtogeek.com/343877/what-is-an-api/">hier</a> nachlesen, was eine API ist.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Stand November 2022<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>was beruhigend ist: Man darf nicht ohne Erlaubnis in Ihrer Passwort-Sammlung herumfuhrwerken.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Mit dem R-Paket <code>twitteR</code>, das mittlerweile zugunsten von <code>rtweet</code> aufgegeben wurde, war das möglich. Allerdings zeigt ein <a href="https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline">Blick in die Dokumentation der Twitter-API</a>, das Datumsangaben offenbar gar nicht unterstützt werden.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>zur Zeit, als diese Zeilen geschrieben wurden<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./020-pruefung.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./030-textmining1.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

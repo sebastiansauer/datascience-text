@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 1&nbsp; Hinweise</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./020-pruefung.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script><meta name="mermaid-theme" content="neutral">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script><script src="site_libs/quarto-diagram/mermaid-init.js"></script><link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./010-Hinweise.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zu diesem Buch</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+<li>
+<a href="#ihr-lernerfolg" id="toc-ihr-lernerfolg" class="nav-link active" data-scroll-target="#ihr-lernerfolg"><span class="header-section-number">1.1</span> Ihr Lernerfolg</a>
+  <ul class="collapse">
+<li><a href="#was-sie-hier-lernen-und-wozu-das-gut-ist" id="toc-was-sie-hier-lernen-und-wozu-das-gut-ist" class="nav-link" data-scroll-target="#was-sie-hier-lernen-und-wozu-das-gut-ist"><span class="header-section-number">1.1.1</span> Was Sie hier lernen und wozu das gut ist</a></li>
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">1.1.2</span> Lernziele</a></li>
+  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">1.1.3</span> Überblick</a></li>
+  </ul>
+</li>
+  <li><a href="#selbst%C3%A4ndige-vorbereitung-vor-kursbeginn" id="toc-selbständige-vorbereitung-vor-kursbeginn" class="nav-link" data-scroll-target="#selbst%C3%A4ndige-vorbereitung-vor-kursbeginn"><span class="header-section-number">1.2</span> Selbständige Vorbereitung vor Kursbeginn</a></li>
+  <li>
+<a href="#lernhilfen" id="toc-lernhilfen" class="nav-link" data-scroll-target="#lernhilfen"><span class="header-section-number">1.3</span> Lernhilfen</a>
+  <ul class="collapse">
+<li><a href="#pdf-version" id="toc-pdf-version" class="nav-link" data-scroll-target="#pdf-version"><span class="header-section-number">1.3.1</span> PDF-Version</a></li>
+  <li><a href="#videos" id="toc-videos" class="nav-link" data-scroll-target="#videos"><span class="header-section-number">1.3.2</span> Videos</a></li>
+  <li><a href="#software-allgemein" id="toc-software-allgemein" class="nav-link" data-scroll-target="#software-allgemein"><span class="header-section-number">1.3.3</span> Software allgemein</a></li>
+  <li><a href="#software-bayes" id="toc-software-bayes" class="nav-link" data-scroll-target="#software-bayes"><span class="header-section-number">1.3.4</span> Software: Bayes</a></li>
+  <li><a href="#online-unterst%C3%BCtzung" id="toc-online-unterstützung" class="nav-link" data-scroll-target="#online-unterst%C3%BCtzung"><span class="header-section-number">1.3.5</span> Online-Unterstützung</a></li>
+  <li><a href="#fundorte-f%C3%BCr-datens%C3%A4tze" id="toc-fundorte-für-datensätze" class="nav-link" data-scroll-target="#fundorte-f%C3%BCr-datens%C3%A4tze"><span class="header-section-number">1.3.6</span> Fundorte für Datensätze</a></li>
+  <li><a href="#aufgabensammlung" id="toc-aufgabensammlung" class="nav-link" data-scroll-target="#aufgabensammlung"><span class="header-section-number">1.3.7</span> Aufgabensammlung</a></li>
+  <li><a href="#tipps-zum-lernerfolg" id="toc-tipps-zum-lernerfolg" class="nav-link" data-scroll-target="#tipps-zum-lernerfolg"><span class="header-section-number">1.3.8</span> Tipps zum Lernerfolg</a></li>
+  <li><a href="#selbstlernkontrolle" id="toc-selbstlernkontrolle" class="nav-link" data-scroll-target="#selbstlernkontrolle"><span class="header-section-number">1.3.9</span> Selbstlernkontrolle</a></li>
+  <li><a href="#lernen-lernen" id="toc-lernen-lernen" class="nav-link" data-scroll-target="#lernen-lernen"><span class="header-section-number">1.3.10</span> Lernen lernen</a></li>
+  </ul>
+</li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur"><span class="header-section-number">1.4</span> Literatur</a></li>
+  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq"><span class="header-section-number">1.5</span> FAQ</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Lernhilfen</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><a href="https://imgflip.com/i/689g8g"><img src="https://i.imgflip.com/689g8g.jpg" width="300" title="made at imgflip.com"></a>
+<div>
+<a href="https://imgflip.com/memegenerator">from Imgflip Meme Generator</a>
+</div>
+<section id="ihr-lernerfolg" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="ihr-lernerfolg">
+<span class="header-section-number">1.1</span> Ihr Lernerfolg</h2>
+<section id="was-sie-hier-lernen-und-wozu-das-gut-ist" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="was-sie-hier-lernen-und-wozu-das-gut-ist">
+<span class="header-section-number">1.1.1</span> Was Sie hier lernen und wozu das gut ist</h3>
+<p>Alle Welt spricht von Big Data, aber ohne die Analyse sind die großen Daten nur großes Rauschen. Was letztlich interessiert, sind die Erkenntnisse, die Einblicke, nicht die Daten an sich. Dabei ist es egal, ob die Daten groß oder klein sind. Natürlich erlauben die heutigen Datenmengen im Verbund mit leistungsfähigen Rechnern und neuen Analysemethoden ein Verständnis, das vor Kurzem noch nicht möglich war. Und wir stehen erst am Anfang dieser Entwicklung. Vielleicht handelt es sich bei diesem Feld um eines der dynamischsten Fachgebiete der heutigen Zeit. Sie sind dabei: Sie lernen einiges Handwerkszeugs des “Datenwissenschaftlers”. Wir konzentrieren uns auf das vielleicht bekannteste Teilgebiet: Ereignisse vorhersagen auf Basis von hoch strukturierten Daten und geeigneter Algorithmen und Verfahren. Nach diesem Kurs sollten Sie in der Lage sein, typisches Gebabbel des Fachgebiet mit Lässigkeit mitzumachen. Ach ja, und mit einigem Erfolg Vorhersagemodelle entwickeln.</p>
+</section><section id="lernziele" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">1.1.2</span> Lernziele</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kurz gesagt: Sie lernen die Grundlagen von Data Science zur Analyse von Text.<span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+<p>Nach diesem Kurs sollten Sie …</p>
+<ul>
+<li>Daten aus Sozialen Netzwerken wie Twitter automatisiert in großer Menge auslesen können</li>
+<li>Gängige Methoden des Textminings mit R anwenden können (z.B. Tokenizing, Stemming, Regex)</li>
+<li>Verfahren des Maschinenlernens auf Textdaten anwenden können</li>
+<li>Den Forschungsstand zum Thema Erkennung von Hatespeech in Ausschnitten kennen</li>
+</ul></section><section id="überblick" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="überblick">
+<span class="header-section-number">1.1.3</span> Überblick</h3>
+<p>Abb. <a href="#fig-ueberblick">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-ueberblick</span></a> gibt einen Überblick über den Verlauf und die Inhalte des Buches. Das Diagramm hilft Ihnen zu verorten, wo welches Thema im Gesamtzusammenhang steht.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ueberblick" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><div>
+<pre class="mermaid mermaid-js" data-label="fig-ueberblick">flowchart LR
+  subgraph R[Rahmen]
+    direction LR
+    subgraph V[Grundlagen]
+      direction TB
+      E[R] --- Um[Statistisches&lt;br&gt;Lernen]
+      Um --- tm[tidymodels]
+    end
+    subgraph M[Lernalgorithmen]
+      direction TB
+      M1[Regression] --- Vis[Baeume]
+      Vis --- U[Regularisierung]
+      U --- G[...]
+    end
+    subgraph N[Anwendung]
+      direction TB
+      D[Fallstudien]
+    end
+  V --&gt; M
+  M --&gt; N
+  end
+</pre>
+</div>
+<figcaption class="figure-caption">Abbildung&nbsp;1.1: Ein ‘Fahrplan’ als ‘Big Picture’ dieses Buches</figcaption></figure>
+</div>
+</div>
+</div>
+<!-- ### Modulzeitplan -->
+
+<!-- ```{r source-timetable, echo = FALSE, cache=FALSE} -->
+<!-- # zeitplan -->
+
+<!-- timetable_file <- "specifics/Modulverlauf.xlsx" -->
+<!-- stopifnot(file.exists(timetable_file)) -->
+<!-- timetable <- readxl::read_xlsx(timetable_file) -->
+<!-- gt::gt(timetable) |>  -->
+<!--   gt::cols_width( -->
+<!--     1 ~ gt::pct(5), -->
+<!--     2 ~ gt::pct(20), -->
+<!--     3 ~ gt::pct(20), -->
+<!--     4 ~ gt::pct(45) -->
+<!--   ) -->
+<!-- ``` -->
+</section></section><section id="selbständige-vorbereitung-vor-kursbeginn" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="selbständige-vorbereitung-vor-kursbeginn">
+<span class="header-section-number">1.2</span> Selbständige Vorbereitung vor Kursbeginn</h2>
+<p>Die folgenden Inhalte werden in diesem Buch/Kurs vorausgesetzt. Falls Ihnen der Stoff nicht geläufig ist, sollten Sie sich selbständig damit vertraut machen.</p>
+<ol type="1">
+<li>Grundlagen der Statistik wie im <a href="https://raw.githubusercontent.com/sebastiansauer/yacsda-bikerental/main/data/bikeshare_control.csv">Kurs Statistik1</a> vermittelt</li>
+<li>Einführung in die Inferenzstatistik wie im <a href="https://start-bayes.netlify.app/">Kurs Bayes:Start!</a> vermittelt</li>
+<li>Grundlagen der Prognosemodellierung wie im <a href="https://ds1-prognosemodellierung.netlify.app/">Kurs Data Science 1</a> vermittelt</li>
+</ol></section><section id="lernhilfen" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="lernhilfen">
+<span class="header-section-number">1.3</span> Lernhilfen</h2>
+<section id="pdf-version" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="pdf-version">
+<span class="header-section-number">1.3.1</span> PDF-Version</h3>
+<p>Um eine PDF-Version eines Kapitels zu erhalten, können Sie im Browser die Druckfunktion nutzen (Strg-P). Wählen Sie dort “PDF” als Ziel.</p>
+</section><section id="videos" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="videos">
+<span class="header-section-number">1.3.2</span> Videos</h3>
+<p>Auf dem <a href="https://www.youtube.com/channel/UCkvdtj8maE7g-SOCh4aDB9g">YouTube-Kanal des Autors</a> finden sich eine Reihe von Videos mit Bezug zum Inhalt dieses Buchs. Besonders <a href="https://youtube.com/playlist?list=PLRR4REmBgpIEzVFLvzCn76TB2VS4jXcfg">diese Playlist</a> passt zu den Inhalten dieses Buchs.</p>
+</section><section id="software-allgemein" class="level3" data-number="1.3.3"><h3 data-number="1.3.3" class="anchored" data-anchor-id="software-allgemein">
+<span class="header-section-number">1.3.3</span> Software allgemein</h3>
+<p>Installieren Sie <a href="https://data-se.netlify.app/2021/11/30/installation-von-r-und-seiner-freunde/">R und seine Freunde</a>.</p>
+<p>Installieren Sie bitte auch die folgende R-Pakete<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<ul>
+<li>tidyverse</li>
+<li>easystats</li>
+<li>weitere Pakete werden im Unterricht bekannt gegeben (es schadet aber nichts, jetzt schon Pakete nach eigenem Ermessen zu installieren)</li>
+</ul>
+<p><a href="https://github.com/sebastiansauer/Lehre">R Syntax aus dem Unterricht</a> findet sich im Github-Repo bzw. Ordner zum jeweiligen Semester.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+RStudio-Cloud-Project
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Ihnen die Lehrkraft ein RStudio-Cloud-Projekt zur Verfügung stellt, nutzen Sie es. Dort sind alle R-Pakete, Datensätze und Syntax-Vorlagen schon bereit gestellt. Sie sparen sich also eine Menge Installationsarbeit.<span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bei Installationsproblemen
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Gibt R eine <code>Warning</code> aus, ist das zumeist kein Problem und kann ignoriert werden.</li>
+<li>Starten Sie R neu, bevor Sie R-Pakete installieren.</li>
+<li>Wenn Sie Probleme mit der Installation auf Ihrem Computer haben, können Sie (übergangsweise oder dauerhaft) die Online-Version von RStudio, <a href="https://posit.cloud/">RStudio Cloud</a> verwenden (in gewissem Umfang kostenlos).<span class="math inline">\(\square\)</span>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="software-bayes" class="level3" data-number="1.3.4"><h3 data-number="1.3.4" class="anchored" data-anchor-id="software-bayes">
+<span class="header-section-number">1.3.4</span> Software: Bayes</h3>
+<p>Wenn in diesem Modul Inferenzstatistik nötig ist, benötigen Sie Software für <em>Bayes-Inferenz</em>.</p>
+<p>Folgendes R-Paket ist für die Bayes-Inferenz nötig:</p>
+<ul>
+<li>rstanarm</li>
+</ul>
+<!-- - Installieren Sie bitte ein *Literaturverwaltungsprogramm* wie [Zotero](https://www.zotero.org/). --><!--     - Denken Sie auch ggf. daran, das Plug-in für Word o.Ä. zu installieren. --></section><section id="online-unterstützung" class="level3" data-number="1.3.5"><h3 data-number="1.3.5" class="anchored" data-anchor-id="online-unterstützung">
+<span class="header-section-number">1.3.5</span> Online-Unterstützung</h3>
+<p>Dieser Kurs kann in Präsenz und Online angeboten werden. Wenn Sie die Wahl haben, empfehle ich die Teilnahme in Präsenz, da der Lernerfolg höher ist. Online ist es meist schwieriger, sich zu konzentrieren. Aber auch online ist es möglich, den Stoff gut zu lernen, s. <a href="#fig-believe-in-you">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-believe-in-you</span></a>.</p>
+<div id="fig-believe-in-you" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/monster_support.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;1.2: We believe in you! Image Credit: Allison Horst</figcaption></figure>
+</div>
+<p>Bitte beachten Sie, dass bei einer Teilnahme in Präsenz eine aktive Mitarbeit erwartet wird. Hingegen ist bei einer Online-Teilnahme keine/kaum aktive Mitarbeit möglich.</p>
+<p>Hier finden Sie einige Werkzeuge, die das Online-Zusammenarbeiten vereinfachen:</p>
+<ul>
+<li>
+<a href="https://frag.jetzt/home">Frag-Jetzt-Raum zum anonymen Fragen stellen während des Unterrichts</a>. Der Keycode wird Ihnen bei Bedarf vom Dozenten bereitgestellt.</li>
+<li>
+<a href="https://de.padlet.com/">Padlet</a> zum einfachen (und anonymen) Hochladen von Arbeitsergebnissen der Studentis im Unterricht. Wir nutzen es als eine Art Pinwand zum Sammeln von Arbeitsbeiträgen. Die Zugangsdaten stellt Ihnen der Dozent bereit.</li>
+<li>Nutzen Sie das vom Dozenten bereitgestelle Forum, um Fragen zu stellen und Fragen zu beantworten.</li>
+</ul></section><section id="fundorte-für-datensätze" class="level3" data-number="1.3.6"><h3 data-number="1.3.6" class="anchored" data-anchor-id="fundorte-für-datensätze">
+<span class="header-section-number">1.3.6</span> Fundorte für Datensätze</h3>
+<p>Hier finden Sie Datensätze, die sich eignen, um die Analyse von Daten zu lernen:</p>
+<ul>
+<li><p><a href="https://vincentarelbundock.github.io/Rdatasets/articles/data.html">Vincent Arel-Bundocks Datenseite</a></p></li>
+<li><p><a href="https://archive.ics.uci.edu/ml/datasets.php">Die Datenseite der University of California in Irvine (UCI)</a></p></li>
+</ul></section><section id="aufgabensammlung" class="level3" data-number="1.3.7"><h3 data-number="1.3.7" class="anchored" data-anchor-id="aufgabensammlung">
+<span class="header-section-number">1.3.7</span> Aufgabensammlung</h3>
+<p>Die Webseite <a href="https://datenwerk.netlify.app/">Datenwerk</a> beherbergt eine Sammlung an Übungsaufgaben rund um das Thema Datenanalyse. es gibt eine Suchfunktion (wenn Sie den Namen der Aufgabe wissen) und eine Tag-Liste, wenn Sie Aufgaben nach Themengebiet durchsehen wollen.</p>
+</section><section id="tipps-zum-lernerfolg" class="level3" data-number="1.3.8"><h3 data-number="1.3.8" class="anchored" data-anchor-id="tipps-zum-lernerfolg">
+<span class="header-section-number">1.3.8</span> Tipps zum Lernerfolg</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Stetige Mitarbeit - auch und gerade außerhalb des Unterrichts - ist der Schlüssel zum Prüfungserfolg. Vermeiden Sie, das Lernen aufzuschieben. Bleiben Sie dran!<span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+<ul>
+<li>
+<em>Lerngruppe</em>: Treten Sie einer Lerngruppe bei.</li>
+<li>
+<em>Tutorium</em>: Besuchen Sie ein Tutorium, falls eines angeboten wird.</li>
+<li>
+<em>Vor- und Nachbereitung</em>: Bereiten Sie den Unterricht vor und nach.</li>
+<li>
+<em>Selbsttest</em>: Testen Sie sich mit Flashcards (Karteikarten mit Vor- und Rückseite). Wenn Sie alle Aufgaben dieses Kurses aus dem FF beherrschen, sollte die Prüfung kein Problem sein.</li>
+<li>
+<em>Übungen</em>: Bearbeiten Sie alle Übungsaufgaben gewissenhaft.</li>
+<li>Portal <em>Datenwerk</em>: Gehen Sie die Aufgaben auf dem Portal <a href="https://datenwerk.netlify.app/">Datenwerk</a> durch (soweit relevant).</li>
+<li>
+<em>Fallstudien</em>: Schauen Sie sich meine Fallstudiensammlungen an: https://sebastiansauer-academic.netlify.app/courseware/casestudies/</li>
+<li>
+<em>Lehrkraft</em> ansprechen: Sprechen Sie die Lehrkraft an, wenn Sie Fragen haben. Haben Sie keine Scheu! Bitte lesen Sie aber vorab die Hinweise, um Redundanz zu vermeiden.</li>
+<li>
+<em>Dabei bleiben</em>: Vermeiden Sie “Bullimie-Lernen” (lange nix, dann alles auf einmal), sondern bevorzugen Sie “Lern-Snacks” (immer wieder ein bisschen)</li>
+</ul></section><section id="selbstlernkontrolle" class="level3" data-number="1.3.9"><h3 data-number="1.3.9" class="anchored" data-anchor-id="selbstlernkontrolle">
+<span class="header-section-number">1.3.9</span> Selbstlernkontrolle</h3>
+<p>Für jedes Kapitel sind (am Kapitelende) Aufgaben eingestellt, jeweils mit Lösung. Ein Teil dieser Aufgaben hat eine kurze, eindeutige Lösung (z.B. “42” oder “Antwort C”); ein (kleiner) Teil der Aufgaben verlangen komplexere Antworten (z.B. “Welche Arten von Prioris gibt es bei <code>stan_glm()</code>?). Nutzen Sie die Fragen mit eindeutiger, kurzer Lösung um sich selber zu prüfen. Nutzen Sie die Fragen mit komplexerer, längerer Lösung, um ein Themengebiet tiefer zu erarbeiten.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fortwährendes Feedback zu Ihrem Lernfortschritt ist wichtig, damit Sie Ihre Lernbemühungen steuern können. Bearbeiten Sie daher die bereitgestellten Arbeiten ernsthaft.<span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+</section><section id="lernen-lernen" class="level3" data-number="1.3.10"><h3 data-number="1.3.10" class="anchored" data-anchor-id="lernen-lernen">
+<span class="header-section-number">1.3.10</span> Lernen lernen</h3>
+<p>Hier sind einige Quellen (Literatur), die Ihnen helfen sollen, das Lernen (noch besser) zu lernen:</p>
+<ul>
+<li><a href="https://link.springer.com/book/9783642348648">Essentielle Tipps für Bachelor-Studierende der Psychologie</a></li>
+<li><a href="https://www.goodreads.com/book/show/34757555-konzentriert-arbeiten">Konzentriert arbeiten: Regeln für eine Welt voller Ablenkungen</a></li>
+<li><a href="https://www.goodreads.com/book/show/1674441.Wie_man_ein_Buch_liest?from_search=true&amp;from_srp=true&amp;qid=SBlve98pOT&amp;rank=1">Wie man ein Buch liest</a></li>
+<li><a href="https://www.amazon.de/gp/product/3946943179/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;tag=studienscheis-21&amp;camp=1638&amp;creative=6742&amp;linkCode=as2&amp;creativeASIN=3946943179&amp;linkId=c3cadef0bea902414965e5cf6e2a64df">Ersti-Hilfe: 112 Tipps für Studienanfänger - erfolgreich studieren ab der ersten Vorlesung</a></li>
+<li><a href="https://ia903405.us.archive.org/17/items/von-der-kuerze-des-lebens-seneca/Von_der_Kuerze_des_Lebens_Seneca.pdf">Von der Kürze des Lebens</a></li>
+<li><a href="https://www.studienscheiss.de/blog/">Blog “Studienscheiss”</a></li>
+</ul></section></section><section id="literatur" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="literatur">
+<span class="header-section-number">1.4</span> Literatur</h2>
+<p>Zentrale Kursliteratur für die theoretischen Konzepte ist <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>; das Buch ist frei online verfügbar.</p>
+<p>Eine gute Ergänzung ist das Lehrbuch von <span class="citation" data-cites="chollet_deep_2022">Chollet, Kalinowski, und Allaire (<a href="#ref-chollet_deep_2022" role="doc-biblioref">2022</a>)</span>, welches grundlegende Data-Science-Konzepte erläutert und mit tidymodels umsetzt. Es ist in einer [Online-Version beim Verlag frei zugänglich](https://livebook.manning.com/book/deep-learning-with-r-second-edition.</p>
+<p><span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="#ref-islr" role="doc-biblioref">2021</a>)</span> haben ein weithin renommiertes und sehr bekanntes Buch verfasst. Es ist allerdings etwas anspruchsvoller aus <span class="citation" data-cites="rhys">Rhys (<a href="#ref-rhys" role="doc-biblioref">2020</a>)</span>, daher steht es nicht im Fokus dieses Kurses, aber einige Schwenker zu Inhalten von <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="#ref-islr" role="doc-biblioref">2021</a>)</span> gibt es. Schauen Sie mal rein, das Buch ist gut!</p>
+</section><section id="faq" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="faq">
+<span class="header-section-number">1.5</span> FAQ</h2>
+<ul>
+<li>
+<em>Folien</em>
+<ul>
+<li>Frage: Gibt es ein Folienskript?</li>
+<li>Antwort: Wo es einfache, gute Literatur gibt, gibt es kein Skript. Wo es keine gute oder keine einfach zugängliche Literatur gibt, dort gibt es ein Skript.</li>
+</ul>
+</li>
+<li>
+<em>Englisch</em>
+<ul>
+<li>Ist die Literatur auf Englisch?</li>
+<li>Ja. Allerdings ist die Literatur gut zugänglich. Das Englisch ist nicht schwer. Bedenken Sie: Englisch ist die lingua franca in Wissenschaft und Wirtschaft. Ein solides Verständnis englischer (geschriebener) Sprache ist für eine gute Ausbildung unerlässlich. Zu dem sollte die Kursliteratur fachlich passende und gute Bücher umfassen; oft sind das englische Titel.</li>
+</ul>
+</li>
+<li>
+<em>Anstrengend</em>
+<ul>
+<li>Ist der Kurs sehr anstrengend, aufwändig?</li>
+<li>Der Kurs hat ein mittleres Anspruchsniveau.</li>
+</ul>
+</li>
+<li>
+<em>Mathe</em>
+<ul>
+<li>Muss man ein Mathe-Crack sein, um eine gute Note zu erreichen?</li>
+<li>Nein. Mathe steht nicht im Vordergrund. Schauen Sie sich die Literatur an, sie werden wenig Mathe darin finden.</li>
+</ul>
+</li>
+<li>
+<em>Prüfungsliteratur</em>
+<ul>
+<li>Welche Literatur ist prüfungsrelevant?</li>
+<li>Prüfungsrelevant im engeren Sinne ist das Skript sowie alles, was im Unterricht behandelt wurde.</li>
+</ul>
+</li>
+<li>
+<em>Prüfung</em>
+<ul>
+<li>Wie sieht die Prüfung aus?</li>
+<li>Die Prüfung ist angewandt, z.B. eine Datenanalyse. Es wird keine Klausur geben, in der reines Wissen abgefragt wird.</li>
+</ul>
+</li>
+<li>
+<em>Nur R?</em>
+<ul>
+<li>Wird nur R in dem Kurs gelehrt? Andere Programmiersprachen sind doch auch wichtig.</li>
+<li>In der Datenanalyse gibt es zwei zentrale Programmiersprachen, R und Python. Beide sind gut und beide werden viel verwendet. In einer Grundausbildung sollte man sich auf eine Sprache begrenzen, da sonst den Sprachen zu viel Zeit eingeräumt werden muss. Wichtiger als eine zweite Programmiersprache zu lernen, mit der man nicht viel mehr kann als mit der ersten, ist es, die Inhalte des Fachs zu lernen.</li>
+</ul>
+</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-chollet_deep_2022" class="csl-entry" role="listitem">
+Chollet, François, Tomasz Kalinowski, und J. J. Allaire. 2022. <em>Deep Learning with <span>R</span></em>. Second edition. <span>Shelter Island, NY</span>: <span>Manning</span>.
+</div>
+<div id="ref-smltar" class="csl-entry" role="listitem">
+Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
+</div>
+<div id="ref-islr" class="csl-entry" role="listitem">
+James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2021. <em>An Introduction to Statistical Learning: With Applications in <span>R</span></em>. Second edition. Springer Texts in Statistics. <span>New York</span>: <span>Springer</span>. <a href="https://link.springer.com/book/10.1007/978-1-0716-1418-1">https://link.springer.com/book/10.1007/978-1-0716-1418-1</a>.
+</div>
+<div id="ref-rhys" class="csl-entry" role="listitem">
+Rhys, Hefin. 2020. <em>Machine <span>Learning</span> with <span>R</span>, the Tidyverse, and Mlr</em>. <span>Shelter Island, NY</span>: <span>Manning publications</span>.
+</div>
+</div>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>falls Sie die Pakete schon installiert haben, können Sie in RStudio auf “update.packages” klicken<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Zu diesem Buch</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./020-pruefung.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

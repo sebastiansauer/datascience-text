@@ -45,7 +45,21 @@ vignettes/*.pdf
 .Renviron
 
 
+# lage data:
+
+objects/
+
 
 
 
 /.quarto/
+
+
+# Debugging:
+
+*test.R
+Test*.R
+*test.qmd
+Test*.qmd
+
+

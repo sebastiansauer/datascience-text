@@ -1,0 +1,1114 @@
+
+
+
+![Text als Datenbasis prädiktiver Modelle](img/text-mining-1476780_640.png){width=10%}
+
+Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a>
+
+# Twitter Mining
+
+
+
+## Vorab
+
+
+### Lernziele
+
+
+- Twitterdaten via API von Twitter auslesen
+
+
+
+### Vorbereitung
+
+- Lesen Sie in @smltar Kap. 1.
+- Legen Sie sich ein Konto bei [Github](https://github.com/) an.
+- Legen Sie sich ein Konto bei [Twitter](twitter.com) an.
+- Lesen Sie [diesen Artikel zur Anmeldung bei der Twitter API](https://docs.ropensci.org/rtweet/articles/auth.html)^[Sie können [hier](https://www.howtogeek.com/343877/what-is-an-api/) nachlesen, was eine API ist.]
+
+
+
+
+### Benötigte R-Pakete
+
+
+
+```{r}
+#| message: false
+library(tidyverse)
+library(rtweet)
+library(rio)  
+library(glue)
+library(tweetbotornot)  # optional
+library(keyring)  # optional
+library(askpass)  # optional
+library(academictwitteR)
+```
+
+![R-Paket {rtweet}](https://docs.ropensci.org/rtweet/logo.png){width=10%}
+
+
+Einen Überblick über die Funktionen des Pakets (function reference) findet sich [hier](https://docs.ropensci.org/rtweet/reference/index.html).
+
+
+
+## Anmelden bei Twitter
+
+
+### Welche Accounts interessieren uns? {#sec-politicians-accounts}
+
+
+Hier ist eine (subjektive) Auswahl von deutschen Politikern^[Stand November 2022],
+die einen Startpunkt gibt zur Analyse von Art und Ausmaß von Hate Speech gerichtet an deutsche Politiker:innen.
+
+```{r politicians-df-load}
+#| message: false
+d_path <- "data/twitter-german-politicians.csv"
+
+politicians <- import(d_path)
+politicians
+```
+
+
+
+### Twitter App erstellen
+
+[Tutorial](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html)
+
+[Auf der Twitter Developer Seite](https://developer.twitter.com/en/portal/dashboard) können Sie sich ein Konto erstellen und dann anmelden.
+
+
+### Intro
+
+Die Seite von [rtweet](https://docs.ropensci.org/rtweet/) gibt eine gute Starthilfe in die Benutzung des Pakets.
+
+
+### Zugangsdaten
+
+
+Zugangsdaten sollte man geschützt speichern, also z.B. *nicht* in einem geteilten Ordner.
+
+
+```{r source-credentials-twitter}
+source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
+```
+
+
+Anmelden:
+
+```{r oauth-twitter}
+#| eval: false
+auth <- rtweet_bot(api_key = API_Key,
+                   api_secret = API_Key_Secret,
+                   access_token = Access_Token,
+                   access_secret = Access_Token_Secret)
+```
+
+
+
+
+
+
+Alternativ kann man sich auch als `App` anmelden,
+damit kann man z.B. nicht posten, aber dafür mehr herunterladen [Quelle](https://docs.ropensci.org/rtweet/articles/auth.html).
+
+
+
+
+```{r}
+#| eval: false
+auth <- rtweet_app(bearer_token = Bearer_Token)
+```
+
+
+Jetzt haben wir ein Anmeldeobjekt, 
+das wir für die weiteren Anfragen dieser Session nutzen können.
+Das sagen wir jetzt der Twitter-API:
+
+```{r}
+#| eval: false
+auth_as(auth)
+```
+
+
+Infos über Ihre aktuellen Raten kann man sich mittels
+`rate_limit()` ausgeben lassen.
+
+
+### Schützen Sie Ihre Zugangsdaten
+
+
+Achtung, Sicherheitshinweis ...
+Passwörter und andere sensitive (Anmelde-)Informationen muss man schützen,
+das weiß jeder.
+Konkret bedeutet es, dass Sie diese Daten *nicht* in einem öffentlichen oder
+geteilten Repo herumliegen lassen.
+Achten Sie auch darauf, dass, wenn Sie diese Information `source`en,
+so wie ich gerade, diese dann ungeschützt in Ihrem RStudio  `Environment` Fenster
+zu sehen sind. Falls Sie also den Bildschirm teilen,
+oder Ihnen jemand über die Schulter schaut,
+sind Ihre Zugangsdaten nicht geschützt.
+
+
+Ein ähnlicher Fehler wäre, die History-Dateien von R in ein öffentliches Repo einzustellen (z.B. via Git).
+In der Datei `.gitignore` sollten  daher folgende Dateien aufgeführt sein:
+
+```
+.Rhistory
+.Rapp.history
+````
+
+[Ein Rat von `rtweet` dazu](https://docs.ropensci.org/rtweet/articles/auth.html):
+
+>   It’s good practice to only provide secrets interactively, because that makes it harder to accidentally share them in either your .Rhistory or an .R file.
+
+
+Einen alternativen, sichereren Zugang bietet z.B. das [Paket `keyring`](https://r-lib.github.io/keyring/index.html).
+Dieses Paket bietet eine Anbindung zur Schlüsselbundverwaltung Ihres Betriebssystems:
+
+
+>   Platform independent API to access the operating systems credential store. 
+
+
+Im MacOS wird die zentrale Schlüsselbundverwaltung genutzt, in Windows und Linux die analoge Vorrichtungen.
+
+
+Wir erstellen uns einen Schlüsselbund:
+
+```{r}
+#| eval: false
+keyring_create(keyring = "hate-speech-twitter")
+```
+
+
+
+Dann können wir einen Eintrag im Schlüsselbund erstellen.
+Es öffnet sich eine Maske, die nach einem Passwort fragt.
+Geben Sie dort die sensitiven Informationen ein, etwa die Client-ID.
+Ggf. werden Sie noch nach dem Passwort des Schlüsselbunds an sich gefragt^[was beruhigend ist: Man darf nicht ohne Erlaubnis in Ihrer Passwort-Sammlung herumfuhrwerken.]
+
+```{r}
+#| eval: false
+key_set(service = "client_id",
+        keyring = "hate-speech-twitter")
+```
+
+
+```{r}
+#| eval: false
+key_set(service = "client_secret",
+        keyring = "hate-speech-twitter")
+```
+
+
+
+```{r}
+#| eval: false
+key_set(service = "bearer_token",
+        keyring = "hate-speech-twitter")
+```
+
+
+
+
+Künftig können wir dann die Passwörter aus dem Schlüsselbund abrufen:
+
+```{r}
+#| eval: false
+key_get(service = "client_id",
+        keyring = "hate-speech-twitter")
+```
+
+
+```{r}
+#| eval: false
+key_get(service = "bearer_token",
+        keyring = "hate-speech-twitter")
+```
+
+## Tweets einlesen
+
+
+Zu beachten ist, dass es Limits gibt, wie viele Informationen (pro Zeiteinheit) man über die Twitter-API auslesen darf.
+Informationen dazu findet man z.B. [hier](https://developer.twitter.com/en/docs/twitter-api/rate-limits) oder auch mit `rate_limit()`.
+
+
+
+
+
+Ein gängiges Limit der Twitter-API sind 900 Anfragen (z.B. Tweets auslesen) pro 15 Minuten.
+
+### Timeline einlesen einzelner Accounts
+
+Mal ein paar Tweets zur Probe:
+
+```{r}
+#| eval: false
+sesa_test <- get_timeline(user = "sauer_sebastian", n = 3) %>% 
+  select(full_text)
+```
+
+
+```{r}
+#| echo: false
+sesa_test <- readRDS(file = "data/tweets/sesa-test.rds")
+
+writeLines(sesa_test$full_text)
+```
+
+
+
+```{r get-timeline1}
+#| eval: false
+tweets <- get_timeline(user = politicians$screenname)
+saveRDS(tweets, file = "data/tweets/tweets01.rds")
+```
+
+
+[Michael Kearney](https://rtweet-workshop.mikewk.com/#25) rät uns:
+
+>   PRO TIP #4: (for developer accounts only) Use `bearer_token()` to increase rate limit to 45,000 per fifteen minutes.
+
+### Retweets einlesen
+
+
+
+```{r get-retweets1}
+#| eval: false
+
+tweets01_retweets <- 
+  tweets$id_str %>% 
+  head(3) %>% 
+  map_dfr( ~ get_retweets(status_id = .x, retryonratelimit = TRUE))
+```
+
+
+
+Da die meisten Retweets aber nix sagen, sondern nur auf das einen Tweet wiederholen, ist das Sammeln der Retweets ziemlich langweilig.
+
+
+Möchte man `retry on rate limit` im Standard auf `TRUE` setzen, 
+so kann man das über die Optionen von R tun.
+
+```{r}
+options(rtweet.retryonratelimit = TRUE)
+```
+
+
+
+### EPINetz Twitter Politicians 2021
+
+
+@konig_epinetz_2022 [Volltext hier](https://link.springer.com/article/10.1007/s11615-022-00405-7) haben einen Datensatz mit knapp 2500 Twitter Accounts deutscher Politiker zusammengestellt, zum Stand 2021.
+
+
+Der Datensatz kann über [Gesis](https://search.gesis.org/research_data/SDN-10.7802-2415?doi=10.7802/2415) bezogen werden.
+
+Auf der gleichen Seite findet sich auch eine [Dokumentation des Vorgehens](https://access.gesis.org/sharing/2415/3675).
+
+Nachdem wir den Datensatz heruntergeladen haben, können wir ihn einlesen:
+
+```{r read-epinetz}
+politicians_path <- "data/tweets/EPINetz_TwitterPoliticians_2021.RDs"
+politicians_twitter <- read_rds(politicians_path)
+
+head(politicians_twitter)
+```
+
+Dann lesen wir die Timelines (die Tweets) dieser Konten aus;
+in diesem Beispiel nur 10 Tweets pro Account:
+
+
+```{r get-timeline2}
+#| eval: false
+epi_tweets <- get_timeline(user = head(politicians_twitter$twitter_name), n = 10)
+head(epi_tweets)
+```
+
+
+Natürlich könnte man auch mehr als 10 Tweets pro Konto einsammeln, braucht nur seine Zeit.
+
+### Followers suchen
+
+
+
+
+```{r save-followers1}
+#| eval: false
+followers01 <-
+  politicians$screenname %>% 
+ map_dfr( ~ get_followers(user = .x, retryonratelimit = TRUE))
+
+```
+
+
+Da es dauern kann, Daten auszulesen (wir dürfen pro 15 Min. nur eine begrenzte Zahl an Information abrufen), kann es Sinn machen, die Daten lokal zu speichern.
+
+
+
+```{r save-flllowers01}
+#| eval: false
+saveRDS(followers01, file = "data/tweets/followers01.rds")
+```
+
+
+Und ggf. wieder importieren:
+
+```{r read-flllowers0}
+#| eval: true
+followers01 <- read_rds(file = "data/tweets/followers01.rds")
+```
+
+
+Wie viele unique Followers haben wir identifiziert?
+
+```{r}
+followers02 <- 
+  followers01 %>% 
+  distinct(from_id)
+```
+
+
+Die Screennames wären noch nützlich:
+
+
+```{r}
+#| eval: false
+lookup_users(users = "1690868335")
+```
+
+
+Die Anzahl der Users, die man nachschauen kann, ist begrenzt auf 180 pro 15 Minuten.
+
+```{r}
+#| eval: false
+followers03 <-
+  followers02 %>% 
+  mutate(screenname = 
+           list(lookup_users(users = from_id, retryonratelimit = TRUE,verbose = TRUE)))
+```
+
+
+
+
+Entsprechend kann man wieder einlesen:
+
+
+
+
+Damit haben wir eine Liste an Followers, deren Tweets wir einlesen und analysieren können,
+z.B. nach Hate Speech.
+
+Im Gegensatz zu Followers heißen bei Twitter die Accounts, denen ei Nutzi folgt "Friends".
+
+
+Lesen wir mal die Followers von `karl_lauterbach` ein:
+
+
+```{r}
+#| eval: false
+karl_followers <- get_followers(user = "karl_lauterbach", verbose = TRUE)
+```
+
+
+Um nicht jedes Mal aufs Neue die Daten herunterzuladen, 
+bietet es sich an, die Daten lokal zu speichern:
+
+
+```{r}
+#| eval: false
+write_rds(karl_followers, file = "data/tweets/karl_followers.rds",
+          compress = "gz")
+```
+
+Entsprechend kann man die Daten dann auch wieder einlesen:
+
+
+```{r read-karl-followers}
+karl_followers <- read_rds(file = "data/tweets/karl_followers.rds")
+```
+
+
+
+
+### Follower Tweets einlesen
+
+
+```{r get-timeline3}
+#| eval: false
+followers_tweets <- get_timeline(user = head(followers01$from_id), n = 10)
+```
+
+
+
+### Tweets nach Stichwort suchen
+
+
+Um nach einem Stichwort, allgemeiner nach einem bestimmten Text,
+in einem Tweet zu suchen,
+kann man die Funktion `search_tweets` nutzen:
+
+```{r}
+#| eval: false
+my_tweet <- search_tweets("Sebastian Sauer", n = 1)
+my_tweet$full_text
+```
+
+
+```{r}
+#| echo: false
+my_tweet <- read_rds(file = "~/datasets/Twitter/my_tweet.rds")
+```
+
+
+
+Schaut man sich das zurückgelieferte Objekt (einen Tibble) näher an,
+entdeckt man eine Fülle an Informationen.
+Satte 43 Spalten (teilweise Listenspalten) finden sich dort:
+
+```{r}
+names(my_tweet)
+```
+
+
+Die Tweet-ID dieses Tweets bekommen Sie,
+wenn Sie die Variable `id_str` auslesen:
+
+```{r}
+my_tweet$id_str
+```
+
+
+
+```{r}
+#| eval: true
+my_tweet$source
+```
+
+
+
+
+Dabei ist `source` nicht etwa die Person, die tweetet,
+wie man vielleicht meinen könnte,
+sondern das Frontend, das dabei verwendet wurde,
+also z.B. die iphone-App oder die Twitter-Webseite.
+
+Leider sucht man den `screenname` zu einen Tweet vergeblich in `my_tweet`.
+
+Gegeben eines Dataframes mit Tweets kann man sich aber wie folgt den Nutzernamen (`screen_name`) ausgeben lassen.
+
+```{r}
+users_data(my_tweet)
+```
+
+
+
+Außerdem gibt es einen "Trick" [laut dieser Quelle](https://www.bram.us/2017/11/22/accessing-a-tweet-using-only-its-id-and-without-the-twitter-api/), vgl. auch [diesen SO-Post](https://stackoverflow.com/questions/897107/can-i-fetch-the-tweet-from-twitter-if-i-know-the-tweets-id): 
+Gibt man in die URL eines Tweets einen beliebigen Nutzernamen - 
+das kann ein Fantasiename sein - 
+so wird man automatisch zum richtigen Nutzer geleitet.
+
+
+Die Rohform der URL sieht also so aus:
+
+`https://twitter.com/irgendeinnutzer/status/<id_str>`
+
+Geben Sie also z.B. Folgende URL in Ihren Browser sein:
+
+`https://twitter.com/irgendeinnutzer/status/1593598440675500032`
+
+Und Sie werden zum Nutzer `sauer_sebastian` weitergeleitet bzw.
+zu seinem Tweet mit obiger ID.
+
+
+### Der Volltext ist manchmal abgeschniten
+
+Manchmal ist der Volltext abgeschnitten
+
+```{r}
+#| eval: false
+my_tweet$full_text
+```
+
+```
+Hier steht der Beginn des Tweet-Textes, aber dann endet der Text abrup..."
+```
+
+
+Glücklicherweise - sofern man bei einer so umständlichen Darstellung  von Glück reden kann - findet man den kompletten Text andernorts [Quelle](https://stackoverflow.com/questions/47211501/twitter-streaming-api-not-return-full-tweets?noredirect=1&lq=1).
+
+
+Dazu schreibt [in diesem SO-Post](https://stackoverflow.com/questions/47211501/twitter-streaming-api-not-return-full-tweets?noredirect=1&lq=1) der Nutzer `Jonas`: 
+
+
+>   You will need to check if the tweet is a retweet. If it is, use the retweet's full_text. If it is not, use the tweet's full_text. – Jonas,  Nov 13, 2017 at 15:00
+
+
+```{r}
+#| eval: false
+my_tweet$retweeted_status[[1]][["full_text"]]
+```
+
+
+```
+Hier steht der Beginn des Tweet-Textes, aber dann endet der Text abrupt? 
+Nein,er geht weiter und irgendwann ist der dann wirklich aus."
+```
+
+
+
+
+
+
+### Tweets nach ID suchen
+
+Mit `lookup_tweets(id_des_tweets)` können Sie sich die Informationen zu einen Tweet ausgeben lassen.
+Das ist natürlich primär der Volltext:
+
+```{r}
+#| eval: false
+tweet_example <- lookup_tweets("1593598440675500032")
+tweet_example$full_text
+```
+
+Aber auch die übrigen Informationen können interessant sein.
+
+
+
+## Tweets verarbeiten
+
+
+### Grundlegende Verarbeitung
+
+Sind die Tweets eingelesen, kann man z.B. eine Sentimentanalyse, s. @sec-sentimentanalyse, durchführen, oder schlicht vergleichen, welche Personen welche Wörter häufig verwenden, s. @sec-woerterzaehlen.
+
+
+
+
+
+
+### Bot or not?
+
+Eine interessante Methode, Tweets zu verarbeiten, bietet das R-Paket `tweetbotornot` von [M. Kearney](https://github.com/mkearney/tweetbotornot).
+
+
+Aus der `Readme`: 
+
+
+>   Due to Twitter’s REST API rate limits, users are limited to only 180 estimates per every 15 minutes. To maximize the number of estimates per 15 minutes (at the cost of being less accurate), use the fast = TRUE argument. This method uses only users-level data, which increases the maximum number of estimates per 15 minutes to 90,000! Due to losses in accuracy, this method should be used with caution!
+
+
+
+
+
+```{r}
+#| eval: FALSE
+users <- c("sauer_sebastian")
+bot01 <-
+  tweetbotornot(users)
+```
+
+
+
+:::callout-important
+Ich habe ein Fehlermeldung bekommen bei `tweetbotornot`.
+Da könnte ein technisches Problem in der Funktion vorliegen.
+:::
+
+
+
+
+
+
+## Cron Jobs
+
+
+
+### Was ist ein Cron Job?
+
+[Cron](https://en.wikipedia.org/wiki/Cron) ist ein Programm auf Unix-artigen Betriebssystemen, das Skripte zu eingestellten Zeiten (wiederholt) ausführt, das sind dann "Cron Jobs".
+Auf Windows gibt es aber analoge Funktionen.
+Cron Jobs sind praktisch, da man nicht jedes Mal selber z.B. Tweets, die heute zu einem Thema getweetet wurden, herunterladen muss.
+Das wird dann vom Cron Job übernommen.
+
+In R gibt es eine API zum Programm Cron mit dem Paket `{cronR}`, s. [Anleitung hier](https://github.com/bnosac/cronR).
+
+Das analoge R-Paket für Windows heißt [`{taskscheduleR}`](https://github.com/bnosac/taskscheduleR).
+
+
+
+### Beispiel für einen Cron Job
+
+
+```{r}
+#| eval: false
+library(cronR)
+
+scrape_script <- cron_rscript("scrape_tweets.R")
+
+# Cron Job hinzufügen:
+cron_add(command = scrape_script, 
+         frequency = 'daily', 
+         at = "10AM",
+         id = 'Hate Speech')  # Name des Cron Jobs
+
+cron_clear(ask = FALSE)  # Alle Cron Jobs löschen
+cron_ls()  # Liste aller Cron Jobs
+```
+
+
+Im obigen Beispiel wird das R-Skript `scrape_tweets.R` täglich um 10h ausgeführt.
+
+
+
+
+Der Inhalt von `scrape_tweets.R` könnte dann, in Grundzügen, so aussehen:
+
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(lubridate)
+library(rtweet)
+followers_lauterbach <-
+  followers01 %>% 
+  filter(to_id == "Karl_Lauterbach")
+
+followers_lauterbach_tweets <- 
+  get_timeline(user = followers_lauterbach$from_id[1:10], n = 10, retryonratelimit = TRUE, verbose = FALSE)
+
+
+path_output <- "/Users/sebastiansaueruser/Google Drive/RRRing/Scrape-Tweets/tweets/"
+
+write_csv(x = followers_lauterbach_tweets,
+          file = paste0(path_output, "followers_lauterbach_tweets.csv"),
+          append = TRUE)
+
+```
+
+
+Wir schreiben nicht jedes Mal (jeden Tag) eine neue CSV-Datei, sondern wir hängen hier die neu ausgelesenen Daten an die Datei an.
+
+Leider ist es mit `rtweet` nicht möglich, ein Datum anzugeben, ab dem man Tweets auslesen möchte^[Mit dem R-Paket `twitteR`, das mittlerweile zugunsten von `rtweet` aufgegeben wurde, war das möglich. Allerdings zeigt ein [Blick in die Dokumentation der Twitter-API](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline), das Datumsangaben offenbar gar nicht unterstützt werden.]
+
+
+## Datenbank an Tweets aufbauen
+
+
+### Stamm an bisherigen Tweets
+
+In diesem Abschnitt kümmern wir uns in größerem Detail um das Aufbauen einer Tweets-Datenbank.
+
+
+Diese Pakete benötigen wir:
+
+```{r}
+library(rtweet)
+library(tidyverse)
+library(rio)  # R Data import/export
+```
+
+
+Dann melden wir uns an:
+
+```{r}
+source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
+auth <- rtweet_app(bearer_token = Bearer_Token)
+```
+
+
+Dann brauchen wir eine Liste an Twitterkonten,
+die uns interessieren.
+Im Kontext von Hate Speech soll uns hier interessieren,
+welche Tweets *an* deutsche Spitzenpolitikis^[zur Zeit, als diese Zeilen geschrieben wurden] gesendet werden.
+Wir suchen also nach Tweets mit dem Text `@karl_lauterbach`,
+um ein Beispiel für einen Spitzenpolitiker zu nennen, der vermutlich von Hate Speech in höherem Maße betroffen ist.
+
+
+```{r}
+politicians_twitter_path <- "/Users/sebastiansaueruser/github-repos/datascience-text/data/twitter-german-politicians.csv"
+
+politicians_twitter <- rio::import(file = politicians_twitter_path)
+```
+
+
+
+In der Liste befinden sich 13 Politiker.
+Es macht die Sache vielleicht einfacher,
+wenn wir die Rate nicht überziehen.
+Bleiben wir daher bei 1000 Tweets pro Politiki:
+
+
+```{r}
+n_tweets_per_politician <- 1e3
+```
+
+
+Die R-Syntax, die die Arbeit leistet,
+ist in Funktionen ausgelagert,
+der Übersichtlichkeit halber.
+```{r}
+source("funs/filter_recent_tweets.R")
+source("funs/download_recent_tweets.R")
+source("funs/add_tweets_to_tweet_db.R")
+source("funs/sanitize_tweets.R")
+```
+
+
+
+```{r}
+#| echo: false
+tweets_older <- read_rds(file = "~/datasets/Twitter/tweets-politicians-2022-11-11.rds")
+```
+
+Jetzt laden wir einfach die aktuellsten 1000 Tweets
+pro Konto herunter,
+daher brauchen wir keine Tweet-ID angeben,
+die ein Mindest- oder Maximum-Datum (bzw. ID) für einen 
+Tweet angibt:
+
+```{r}
+#| eval: false
+tweets_older <-
+  download_recent_tweets(screenname = politicians_twitter$screenname,
+                         max_or_since_id_str = NULL,
+                         n = n_tweets_per_politician,
+                         strip_columns = TRUE,
+                         reverse = TRUE)
+```
+
+
+Wie weit in die Vergangenheit reicht unsere Tweet-Sammlung?
+
+```{r}
+oldest_tweets <- filter_recent_tweets(tweets_older, max_or_min_id_str = is_min_id_str)
+oldest_tweets
+```
+
+
+Was sind die neuesten Tweets, die wir habven?
+
+```{r}
+most_recent_tweets <- filter_recent_tweets(oldest_tweets)
+most_recent_tweets
+```
+
+
+Jetzt laden wir die *neueren* Tweets herunter,
+also mit einer ID *größer* als die größte in unserer Sammlung:
+
+```{r}
+#| echo: false
+tweets_new <- 
+  read_rds(file = "~/datasets/Twitter/tweets-politicians-2022-11-11a.rds")
+```
+
+
+```{r}
+#| eval: false
+tweets_new <- 
+  download_recent_tweets(screenname = most_recent_tweets$screenname,
+                         max_or_since_id_str = most_recent_tweets$id_str)
+
+tweets_new %>% 
+  select(screenname, created_at, id_str) %>% 
+  head()
+```
+
+
+
+Jetzt - und jedes Mal, wenn wir Tweets herunterladen - 
+fügen wir diese einer Datenbank (oder zumindest einer "Gesamt-Tabelle") hinzu:
+
+```{r}
+tweets_db <- add_tweets_to_tweets_db(tweets_new, tweets_older)
+
+nrow(tweets_db)
+```
+
+
+Schließlich sollten wir nicht vergessen
+diese in einer Datei zu speichern:
+
+```{r}
+#| eval: false
+write_rds(tweets_db, file = "~/datasets/Twitter/tweets-db-2022-11-11.rds")
+```
+
+
+
+... ... So, einige Zeit ist vergangen.
+Laden wir noch ältere Tweets herunter und fügen Sie unserer Datenbank hinzu:
+
+```{r}
+#| eval: false
+tweets_older2 <-
+  download_recent_tweets(screenname = politicians_twitter$screenname,
+                         max_or_since_id_str = oldest_tweets$id_str,
+                         n = 1e3,
+                         strip_columns = TRUE,
+                         reverse = TRUE)
+```
+
+
+```{r}
+#| echo: false
+tweets_older2 <- read_rds(file = "~/datasets/Twitter/tweets-politicians-2022-11-11b.rds")
+```
+
+
+
+```{r}
+tweets_db <- add_tweets_to_tweets_db(tweets_new, tweets_older2)
+
+nrow(tweets_db)
+```
+
+
+Und wieder speichern wir die vergrößerte Datenbasis auf der Festplatte:
+
+```{r}
+write_rds(tweets_db, file = "~/datasets/Twitter/hate-speech-twitter.rds")
+```
+
+Leider ist die Datenbasis nicht mehr deutlich gewachsen.
+Eine plausible Ursache ist, dass Twitter den Zugriff auf alte Tweets einschränkt.
+
+Aus der Hilfe von `search_tweets`:
+
+>   Returns Twitter statuses matching a user provided search query. ONLY RETURNS DATA FROM THE PAST 6-9 DAYS.
+
+
+Mit Hilfe des [Academic Research Access](https://developer.twitter.com/en/products/twitter-api/academic-research) sind deutlich höhere Raten möglich.
+
+
+
+
+
+### Neue Tweets per Cron Job
+
+
+Wie oben schon ausprobiert,
+legen wir uns einen Cron Job an.
+
+Das ist übrigens auch eine komfortable Lösung.
+
+```{r}
+#| eval: false
+library(cronR)
+
+scrape_script <- cron_rscript("/Users/sebastiansaueruser/github-repos/datascience-text/funs/get_tweets_politicians.R")
+
+# Cron Job hinzufügen:
+cron_add(command = scrape_script, 
+         frequency = 'daily', 
+         at = "10AM",
+         id = 'Hate Speech')  # Name des Cron Jobs
+
+```
+
+
+Das Skript `get_tweets_politicians.R` birgt die Schritte,
+die wir in diesem Abschnitt ausprobiert haben, [hier](https://github.com/sebastiansauer/datascience-text/blob/main/specifics/get_tweets_politicians.R) liegt es.
+Kurz gesagt sucht es nach neuen Tweets, die 
+also noch nicht in Ihrer "Datenbank" vorhanden sind,
+und lädt diese herunter.
+Dabei werden maximal 1000 Tweets pro Konto (derer sind es 13)
+heruntergeladen.
+
+Bei einem Cronjob sollten *absolute* Pfade angegeben werden, da der Cronjob *nicht* aus dem aktuellen Projekt-Repo startet.
+
+Die Ergebnisse eines Cronjob-Durchlaufs werden in einer Log-Datei abgelegt, und 
+zwar in dem Ordner, in dem auch das Skript liegt, das 
+im Rahmen des Cronjobs durchgeführt wird.
+
+
+
+
+:::callout-note
+Schauen Sie sich die Funktionen im Ordner `/funs` einmal in Ruhe an.
+[Hier](https://github.com/sebastiansauer/datascience-text/tree/main/funs) geht es zu dem Ordner im Github-Repo.
+Es ist alles keine Zauberei,
+aber im Detail gibt es immer wieder Schwierigkeiten.
+Am meisten lernt man,
+wenn man selber Hand anlegt.
+:::
+
+
+
+
+
+Möchte man den Cron Job wieder löschen, so kann man das so tun:
+
+
+```{r}
+#| eval: false
+cron_clear(ask = FALSE)  # Alle Cron Jobs löschen
+cron_ls()  # Liste aller Cron Jobs
+```
+
+
+Um die Tweets "händisch" herunterzuladen,
+kann man `get_tweets_politicians()` aufrufen:
+
+```{r}
+#| eval: false
+
+source("funs/get_tweets_politicians.R")
+get_tweets_politicians()
+```
+
+### Tweets in Excel exportieren
+
+Um prädiktive Modelle zu erstellen, braucht man ein
+Trainingsset, Tweets also, die schon vorklassifiziert sind, 
+z.B. im Hinblick auf Hassrede mit `ja` oder `nein`.
+Technisch bietet sich ein `1` vs. `0` an.
+
+Dazu laden wir einen Datensatz mit Tweets,
+z.B. diesen hier:
+
+```{r}
+#| eval: false
+tweets_to_kl <- import("/Users/sebastiansaueruser/datasets/Twitter/tweets_to_karl_lauterbach.rds")
+```
+
+
+Da es viele Spalten gibt, die teilweise Listenspalten sind,
+also komplex, begrenzen wir uns auf das Wesentliche,
+den Tweet-Text und die ID des Tweets.
+
+```{r}
+#| eval: false
+tweets_to_kl2 <-
+  tweets_to_kl %>% 
+  select(id_str, full_text) 
+```
+
+
+:::callout-note
+Die Tweet-ID wird einmal als String und einmal als Integer gespeichert.
+Allerdings übersteigt die Anzahl der Ziffern die Speichergröße von (normalen) Integer-Formaten in R. 
+Daher ist die Twitter-ID als Integer *nicht* zuverlässig;
+als Text hingegen schon.
+:::
+
+Und schließlich können wir die Excel-Datei importieren.
+
+```{r}
+#| eval: false
+export(tweets_to_kl2, file = "~/datasets/Twitter/tweets_to_kl.xlsx")
+```
+
+Die Excel-Tabelle können wir dann bequem hernehmen,
+um Tweets manuell zu klassifizieren.
+
+
+
+### Twitterkonten für Wissenschaftler 
+
+Twitter stellt spezielle [Konten für Wissentschaftlis](https://developer.twitter.com/en/products/twitter-api/academic-research) bereit,
+die über [höhere Raten und mehr Funktionen](https://developer.twitter.com/en/products/twitter-api/academic-research/product-details) verfügen,
+also mehr Tweets herunterladen können,
+z.B. 10 Millionen Tweets pro Monat pro Projekt.
+
+
+
+
+
+```{r}
+#| eval: false
+auth_academic <- rtweet_app(bearer_token = askpass::askpass("bearer token"))
+auth_academic
+```
+
+Das R-Paket `{askpass}` stellt eine weitere Möglichkeit bereit,
+um Zugangsdaten zu schützen.
+Es öffnet eine Maske,
+die interaktiv und als Punkte geschützte Buchstaben nach einem Passwort fragt,
+in diesem Fall nach dem Bearer-Token.
+
+Aus der Hilfe:
+
+
+>   Prompt the user for a password to authenticate or read a protected key. By default, this function automatically uses the most appropriate method based on the user platform and front-end. Users or IDEs can override this and set a custom password entry function via the askpass option.
+
+
+
+
+Twitter bietet [in diesem Repo](https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research) einen nützlichen Kurs an,
+um sich mit der API vertraut zu machen.
+
+
+```{r}
+#| eval: false
+tweets_to__FriedrichMerz_2022 <-
+  get_all_tweets(query = "to:_FriedrichMerz -is:retweet",
+                 start_tweets = "2022-01-01T00:00:00Z",
+                 end_tweets = "2022-11-23T23:59:59Z",
+                 bearer_token = askpass("Bearer token"),
+                 file = "~/datasets/Twitter/tweets-to-_FriedrichMerz_2022.rds",
+                 n = 1e5)
+```
+
+
+
+Oder als Funktion,
+das ist praktischer, wenn man die Syntax mehrfach verwendet:
+
+```{r}
+get_all_tweets_politicians <- function(screenname, bearer_token, n = 1e5) {
+  get_all_tweets(query = paste0("to:", screenname, " -is:retweet"),
+                 start_tweets = "2021-01-01T00:00:00Z",
+                 end_tweets = "2021-12-31T23:59:59Z",
+                 bearer_token = bearer_token,
+                 file = glue::glue("~/datasets/Twitter/tweets_to_{screenname}_2021.rds"),
+                 data_path = glue::glue("~/datasets/Twitter/{screenname}"),
+                 n = n)
+}
+```
+
+
+```{r}
+#| eval: false
+#debug(get_all_tweets_politicians)
+get_all_tweets_politicians(screenname = politicians$screenname[5],
+                           bearer_token = askpass("Bearer token"),
+                           n = 1e05)
+```
+
+Dann kann man die Objekte abespeichern, etwas als RDS-Datei oder als Feather-Datei.
+
+
+Den Datensatz `politicians` hatten wir oben angelegt, s. @sec-politicians-accounts.
+Er beinhaltet die Kontonamen (`screennames`) einiger deutscher Politikis.
+
+
+
+Wichtig ist, mit den Lizenzregeln in Einklang zu bleiben.
+
+Zentral ist dabei sicherlich die Frage, ob und wie man Tweets weitergeben darf.
+Dazu:
+
+>   Academic researchers are permitted to distribute an unlimited number of Tweet IDs and/or User IDs if they are doing so for the purposes of non-commercial research and to validate or replicate previous academic studies. You should not share the entire Tweet text directly. Instead, you can build a list of Tweet IDs and share those. The researchers who you share this set of Tweet IDs with, can then use the Twitter API to hydrate and get the full Tweet objects from the Tweet IDs.
+
+[Quelle](https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research/blob/main/modules/7-storage-and-compliance.md)
+
+
+Mehr Details finden sich den [Entwicklerrichtlinien von Twitter](https://developer.twitter.com/en/developer-terms/policy).
+
+
+Twitter stellt eine Reihe von [Lehrmaterialien](https://developer.twitter.com/en/use-cases/do-research/academic-research/resources) für die wissenschaftliche Nutzung von Tweets bereit.
+
+
+
+
+
+## Aufgaben
+
+1. Überlegen Sie, wie Sie das Ausmaß an Hate Speech, dem deutsche Politikerinnen und Politiker konfrontiert sind, messen können.
+2. Argumentieren Sie die Vorteile und Nachteile Ihres Ansatzes. Außerdem, auf welches Ergebnis dieser Analyse sie gespannt sind bzw. wären.
+3. Überlegen Sie Korrelate, oder besser noch: (mögliche) Ursachen, des Hasses in den Tweets, gerichtet auf Polikter:innen. Sie können auch Gruppen von Ursachen bilden, etwas personengebundene Variablen der Politiker:innen (z.B. Alter? Geschlecht? Migrationshintergrund?).
+1. Erstellen Sie sich eine Liste an Personen, deren Tweets sich lohnen (könnten), auf Hate Speech hin analysiert zu werden. Laden Sie deren Tweets (ggf. in Auszügen) herunter.
+6. Das Skript zu `scrape_tweets.R` könnte man noch verbessern, in dem man jeden Tag nur die neuesten Tweets herunterlädt. Dazu kann man bei [get_timeline()](https://docs.ropensci.org/rtweet/reference/get_timeline.html) mit dem Argument `since_id` eine Untergrenze der ID festlegen, so dass nur neuere Tweets (d.h. mit größerem Wert bei ID) ausgelesen werden. Ändern Sie das Skript entsprechend, so dass nur neuerer Tweets gelesen werden.
+7. Erarbeiten Sie die Folien zu diesem [rtweet-Workshop](https://rtweet-workshop.mikewk.com/#1). Eine Menge guter Tipps!

@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 4&nbsp; Textmining1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./040-populismus.html" rel="next">
+<link href="./025-twittermining.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./030-textmining1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zu diesem Buch</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+<li>
+<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">4.1</span> Vorab</a>
+  <ul class="collapse">
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">4.1.1</span> Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">4.1.2</span> Vorbereitung</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">4.1.3</span> Benötigte R-Pakete</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#einfache-methoden-des-textminings" id="toc-einfache-methoden-des-textminings" class="nav-link" data-scroll-target="#einfache-methoden-des-textminings"><span class="header-section-number">4.2</span> Einfache Methoden des Textminings</a>
+  <ul class="collapse">
+<li><a href="#tokenisierung" id="toc-tokenisierung" class="nav-link" data-scroll-target="#tokenisierung"><span class="header-section-number">4.2.1</span> Tokenisierung</a></li>
+  <li><a href="#stopw%C3%B6rter-entfernen" id="toc-stopwörter-entfernen" class="nav-link" data-scroll-target="#stopw%C3%B6rter-entfernen"><span class="header-section-number">4.2.2</span> Stopwörter entfernen</a></li>
+  <li><a href="#sec-woerterzaehlen" id="toc-sec-woerterzaehlen" class="nav-link" data-scroll-target="#sec-woerterzaehlen"><span class="header-section-number">4.2.3</span> Wörter zählen</a></li>
+  <li><a href="#stemming-wortstamm-finden" id="toc-stemming-wortstamm-finden" class="nav-link" data-scroll-target="#stemming-wortstamm-finden"><span class="header-section-number">4.2.4</span> Stemming (Wortstamm finden)</a></li>
+  <li><a href="#fallstudie-afd-parteiprogramm" id="toc-fallstudie-afd-parteiprogramm" class="nav-link" data-scroll-target="#fallstudie-afd-parteiprogramm"><span class="header-section-number">4.2.5</span> Fallstudie AfD-Parteiprogramm</a></li>
+  <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="header-section-number">4.2.6</span> Stringverarbeitung</a></li>
+  <li><a href="#emoji-analyse" id="toc-emoji-analyse" class="nav-link" data-scroll-target="#emoji-analyse"><span class="header-section-number">4.2.7</span> Emoji-Analyse</a></li>
+  <li><a href="#text-aufr%C3%A4umen" id="toc-text-aufräumen" class="nav-link" data-scroll-target="#text-aufr%C3%A4umen"><span class="header-section-number">4.2.8</span> Text aufräumen</a></li>
+  <li><a href="#diverse-wortlisten" id="toc-diverse-wortlisten" class="nav-link" data-scroll-target="#diverse-wortlisten"><span class="header-section-number">4.2.9</span> Diverse Wortlisten</a></li>
+  <li><a href="#sec-sentimentanalyse" id="toc-sec-sentimentanalyse" class="nav-link" data-scroll-target="#sec-sentimentanalyse"><span class="header-section-number">4.2.10</span> Sentimentanalyse</a></li>
+  <li><a href="#weitere-sentiment-lexika" id="toc-weitere-sentiment-lexika" class="nav-link" data-scroll-target="#weitere-sentiment-lexika"><span class="header-section-number">4.2.11</span> Weitere Sentiment-Lexika</a></li>
+  <li><a href="#google-trends" id="toc-google-trends" class="nav-link" data-scroll-target="#google-trends"><span class="header-section-number">4.2.12</span> Google Trends</a></li>
+  </ul>
+</li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="header-section-number">4.3</span> Aufgaben</a></li>
+  <li>
+<a href="#fallstudie-hate-speech" id="toc-fallstudie-hate-speech" class="nav-link" data-scroll-target="#fallstudie-hate-speech"><span class="header-section-number">4.4</span> Fallstudie Hate-Speech</a>
+  <ul class="collapse">
+<li><a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="header-section-number">4.4.1</span> Daten</a></li>
+  <li><a href="#grundlegendes-text-mining" id="toc-grundlegendes-text-mining" class="nav-link" data-scroll-target="#grundlegendes-text-mining"><span class="header-section-number">4.4.2</span> Grundlegendes Text Mining</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p><img src="img/text-mining-1476780_640.png" class="img-fluid" style="width:10.0%" alt="Text als Datenbasis prädiktiver Modelle"> Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
+<section id="vorab" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="vorab">
+<span class="header-section-number">4.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">4.1.1</span> Lernziele</h3>
+<ul>
+<li>Die vorgestellten Techniken des Textminings mit R anwenden können</li>
+</ul></section><section id="vorbereitung" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="vorbereitung">
+<span class="header-section-number">4.1.2</span> Vorbereitung</h3>
+<ul>
+<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span> Kap. 2.</li>
+</ul></section><section id="benötigte-r-pakete" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">4.1.3</span> Benötigte R-Pakete</h3>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-1_66765c85b41b11e961aad1156c554841">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tokenizers/">tokenizers</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/hcandersenr">hcandersenr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nalimilan/R.TeMiS">SnowballC</a></span><span class="op">)</span>  <span class="co"># Stemming</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lsa</span><span class="op">)</span>  <span class="co"># Stopwörter</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span>  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/trinker/textclean">textclean</a></span><span class="op">)</span>  <span class="co"># Emojis ersetzen</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://blog.fellstat.com/?cat=11">wordcloud</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="einfache-methoden-des-textminings" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="einfache-methoden-des-textminings">
+<span class="header-section-number">4.2</span> Einfache Methoden des Textminings</h2>
+<p>Arbeiten Sie die folgenden grundlegenden Methoden des Textminigs durch.</p>
+<section id="tokenisierung" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="tokenisierung">
+<span class="header-section-number">4.2.1</span> Tokenisierung</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></p>
+<p>Wie viele Zeilen hat das Märchen “The Fir tree” (in der englischen Fassung?)</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-2_5191bf3ecd573f03dff0bed65fd1b970">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hcandersen_en</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">book</span> <span class="op">==</span> <span class="st">"The fir tree"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## [1] 253</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="stopwörter-entfernen" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="stopwörter-entfernen">
+<span class="header-section-number">4.2.2</span> Stopwörter entfernen</h3>
+<p>Erarbeiten Sie dieses Kapitel: s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></p>
+<p>Eine alternative Quelle von Stopwörtern - in verschiedenen Sprachen - biwetet das Paket <code>quanteda</code>:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-3_5ab35cb3a22e8cb3ee39449f416b2a5d">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stop2</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>word <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stopwords/man/stopwords.html">stopwords</a></span><span class="op">(</span><span class="st">"german"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">stop2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"aber"},{"1":"alle"},{"1":"allem"},{"1":"allen"},{"1":"aller"},{"1":"alles"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Es bestehst (in der deutschen Version) aus 231 Wörtern.</p>
+</section><section id="sec-woerterzaehlen" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="sec-woerterzaehlen">
+<span class="header-section-number">4.2.3</span> Wörter zählen</h3>
+<p>Ist der Text tokenisiert, kann man einfach mit “Bordmitteln” die Wörter zählen.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-4_ffe513609bda502301a18c782b8ae143">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc_andersen_count</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">hcandersen_de</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">book</span> <span class="op">==</span> <span class="st">"Das Feuerzeug"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span><span class="op">(</span>output <span class="op">=</span> <span class="va">word</span>, input <span class="op">=</span> <span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">stop2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="co">## Joining with `by = join_by(word)`</span></span>
+<span></span>
+<span><span class="va">hc_andersen_count</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"soldat","2":"35"},{"1":"sagte","2":"28"},{"1":"hund","2":"23"},{"1":"prinzessin","2":"17"},{"1":"hexe","2":"16"},{"1":"feuerzeug","2":"14"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Zur Visualisierung eignen sich Balkendiagramme, s. <a href="#fig-hcandersen-count">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-hcandersen-count</span></a>.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/fig-hc-andersen-count_27f2041f9e08ad0aeb2d7b1d33a21d74">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc_andersen_count</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">n</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">word</span>, <span class="va">n</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-hc-andersen-count" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="030-textmining1_files/figure-html/fig-hc-andersen-count-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;4.1: Die häufigsten Wörter in H.C. Anderssens Feuerzeug</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Dabei macht es Sinn, aus <code>word</code> einen Faktor zu machen, denn Faktorstufen kann man sortieren, zumindest ist das die einfachste Lösung in <code>ggplot2</code> (wenn auch nicht super komfortabel).</p>
+<p>Eine (beliebite?) Methode, um Worthäufigkeiten in Corpora darzustellen, sind <em>Wortwolken</em>, s. <a href="#fig-wordcloud1">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-wordcloud1</span></a>. Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale perzeptorische Qualitäten aufweisen.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/fig-wordcloud1_91379675028cde3bc2f48a21364aa262">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/wordcloud/man/wordcloud.html">wordcloud</a></span><span class="op">(</span>words <span class="op">=</span> <span class="va">hc_andersen_count</span><span class="op">$</span><span class="va">word</span>,</span>
+<span>          freq <span class="op">=</span> <span class="va">hc_andersen_count</span><span class="op">$</span><span class="va">n</span>,</span>
+<span>          max.words <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>          rot.per <span class="op">=</span> <span class="fl">0.35</span>,</span>
+<span>          colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"Dark2"</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-wordcloud1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="030-textmining1_files/figure-html/fig-wordcloud1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;4.2: Eine Wortwolke zu den häufigsten Wörtern in H.C. Andersens Feuerzeug</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="stemming-wortstamm-finden" class="level3" data-number="4.2.4"><h3 data-number="4.2.4" class="anchored" data-anchor-id="stemming-wortstamm-finden">
+<span class="header-section-number">4.2.4</span> Stemming (Wortstamm finden)</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></p>
+<p>Vertiefende Hinweise zum <em>UpSet plot</em> finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
+<p>Für welche Sprachen gibt es Stemming im Paket <code>SnowballC</code>?</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-7_879a2f2860ce72906fa606c7354b66ff">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nalimilan/R.TeMiS">SnowballC</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SnowballC/man/getStemLanguages.html">getStemLanguages</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">##  [1] "arabic"     "basque"     "catalan"    "danish"     "dutch"     </span></span>
+<span><span class="co">##  [6] "english"    "finnish"    "french"     "german"     "greek"     </span></span>
+<span><span class="co">## [11] "hindi"      "hungarian"  "indonesian" "irish"      "italian"   </span></span>
+<span><span class="co">## [16] "lithuanian" "nepali"     "norwegian"  "porter"     "portuguese"</span></span>
+<span><span class="co">## [21] "romanian"   "russian"    "spanish"    "swedish"    "tamil"     </span></span>
+<span><span class="co">## [26] "turkish"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Einfacher Test: Suchen wir den Wordstamm für das Wort “wissensdurstigen”, wie in “die wissensdurstigen Studentis löcherten dis armi Professi”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-8_850971c4266ec6353fcd72d184dfb532">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SnowballC/man/wordStem.html">wordStem</a></span><span class="op">(</span><span class="st">"wissensdurstigen"</span>, language <span class="op">=</span> <span class="st">"german"</span><span class="op">)</span></span>
+<span><span class="co">## [1] "wissensdurst"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Werfen Sie mal einen Blick in das Handbuch von <a href="https://cran.r-project.org/web/packages/SnowballC/SnowballC.pdf">SnowballC</a>.</p>
+</section><section id="fallstudie-afd-parteiprogramm" class="level3" data-number="4.2.5"><h3 data-number="4.2.5" class="anchored" data-anchor-id="fallstudie-afd-parteiprogramm">
+<span class="header-section-number">4.2.5</span> Fallstudie AfD-Parteiprogramm</h3>
+<p>Daten einlesen:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-9_db293641fe85aa248e8e6f23da40ca92">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_link</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/sebastiansauer/pradadata/master/data-raw/afd_2022.csv"</span></span>
+<span><span class="va">afd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">d_link</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wie viele Seiten hat das Dokument?</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-10_a06db4bfc12d48856a4c8ed05e88fece">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">afd</span><span class="op">)</span></span>
+<span><span class="co">## [1] 190</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Und wie viele Wörter?</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-11_d6875ddf1f92c5f689ede87df4619bc6">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">afd</span><span class="op">$</span><span class="va">text</span>, pattern <span class="op">=</span> <span class="st">"\\w"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">## [1] 179375</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aus breit mach lang, oder: wir tokenisieren (nach Wörtern):</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-12_28d982a51f56e5033824275113fd80fc">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span><span class="op">(</span>output <span class="op">=</span> <span class="va">token</span>, input <span class="op">=</span> <span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">token</span>, <span class="st">"[a-z]"</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_long</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Stopwörter entfernen:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-13_a06089a367c4573d3c06b62d2c5ec2a5">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">stopwords_de</span>, package <span class="op">=</span> <span class="st">"lsa"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">stopwords_de</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>word <span class="op">=</span> <span class="va">stopwords_de</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Für das Joinen werden gleiche Spaltennamen benötigt:</span></span>
+<span><span class="va">stopwords_de</span> <span class="op">&lt;-</span> <span class="va">stopwords_de</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>token <span class="op">=</span> <span class="va">word</span><span class="op">)</span>  </span>
+<span></span>
+<span><span class="va">afd_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">stopwords_de</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_no_stop</span></span>
+<span><span class="co">## Joining with `by = join_by(token)`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wörter zählen:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-14_74e3a336b38a583386d80eb22e2c79d9">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_no_stop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">token</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_count</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">afd_count</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["token"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"afd","2":"174"},{"1":"deutschland","2":"113"},{"1":"wollen","2":"66"},{"1":"euro","2":"60"},{"1":"bürger","2":"57"},{"1":"eu","2":"54"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Wörter trunkieren:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-15_d14cb4e3e9df192746201708912b319b">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_no_stop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>token_stem <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SnowballC/man/wordStem.html">wordStem</a></span><span class="op">(</span><span class="va">token</span>, language <span class="op">=</span> <span class="st">"de"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">token_stem</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_count_stemmed</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">afd_no_stop</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["page"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["token"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"programm"},{"1":"1","2":"deutschland"},{"1":"1","2":"grundsatzprogramm"},{"1":"1","2":"alternative"},{"1":"1","2":"deutschland"},{"1":"2","2":"inhaltsverzeichnis"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section><section id="stringverarbeitung" class="level3" data-number="4.2.6"><h3 data-number="4.2.6" class="anchored" data-anchor-id="stringverarbeitung">
+<span class="header-section-number">4.2.6</span> Stringverarbeitung</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="#ref-r4ds" role="doc-biblioref">2016</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">Kap. 14</a></p>
+<section id="regex" class="level4" data-number="4.2.6.1"><h4 data-number="4.2.6.1" class="anchored" data-anchor-id="regex">
+<span class="header-section-number">4.2.6.1</span> Regulärausdrücke</h4>
+<p>Das <code>"[a-z]"</code> in der Syntax oben steht für “alle Buchstaben von a-z”. D iese flexible Art von “String-Verarbeitung mit Jokern” nennt man <em>Regulärausdrücke</em> (regular expressions; regex). Es gibt eine ganze Reihe von diesen Regulärausdrücken, die die Verarbeitung von Texten erleichert. Mit dem Paket <code>stringr</code> geht das - mit etwas Übung - gut von der Hand. Nehmen wir als Beispiel den Text eines Tweets:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-16_807243af845ebc14edfd282f30c2252e">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">string</span> <span class="op">&lt;-</span> <span class="st">"Correlation of unemployment and #AfD votes at #btw17: ***r = 0.18***\n\nhttps://t.co/YHyqTguVWx"</span>  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Möchte man Ziffern identifizieren, so hilft der Reulärausdruck <code>[:digit:]</code>:</p>
+<p>“Gibt es mindestens eine Ziffer in dem String?”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-17_ded740aa4abd02c305e835a8b2bf03a5">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
+<span><span class="co">## [1] TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>“Finde die Position der ersten Ziffer! Welche Ziffer ist es?”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-18_3aa8feaa1c7f2c4a7e920c8341ca0508">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_locate.html">str_locate</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
+<span><span class="co">##      start end</span></span>
+<span><span class="co">## [1,]    51  51</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
+<span><span class="co">## [1] "1"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>“Finde alle Ziffern!”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-19_b901149871acfd335d0d864106908f53">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
+<span><span class="co">## [[1]]</span></span>
+<span><span class="co">## [1] "1" "7" "0" "1" "8"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>“Finde alle Stellen an denen genau 2 Ziffern hintereinander folgen!”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-20_5c631ecd39dabb1bab479d2125f3bf0d">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]{2}"</span><span class="op">)</span></span>
+<span><span class="co">## [[1]]</span></span>
+<span><span class="co">## [1] "17" "18"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Der Quantitätsoperator <code>{n}</code> findet alle Stellen, in der der der gesuchte Ausdruck genau <span class="math inline">\(n\)</span> mal auftaucht.</p>
+<p>“Zeig die Hashtags!”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-21_b62e3fc8f9e985660da2367a50c9af07">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"#[:alnum:]+"</span><span class="op">)</span></span>
+<span><span class="co">## [[1]]</span></span>
+<span><span class="co">## [1] "#AfD"   "#btw17"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Der Operator <code>[:alnum:]</code> steht für “alphanumerischer Charakter” - also eine Ziffer oder ein Buchstabe; synonym hätte man auch <code>\\w</code> schreiben können (w wie word). Warum werden zwei Backslashes gebraucht? Mit <code>\\w</code> wird signalisiert, dass nicht der Buchstabe <em>w</em>, sondern etwas Besonderes, eben der Regex-Operator <code>\w</code> gesucht wird.</p>
+<p>“Zeig die URLs!”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-22_0fead28da2394b20b71e43651b9fab6c">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"https?://[:graph:]+"</span><span class="op">)</span></span>
+<span><span class="co">## [[1]]</span></span>
+<span><span class="co">## [1] "https://t.co/YHyqTguVWx"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das Fragezeichen <code>?</code> ist eine Quantitätsoperator, der einen Treffer liefert, wenn das vorherige Zeichen (hier <em>s</em>) null oder einmal gefunden wird. <code>[:graph:]</code> ist die Summe von <code>[:alpha:]</code> (Buchstaben, groß und klein), <code>[:digit:]</code> (Ziffern) und <code>[:punct:]</code> (Satzzeichen u.ä.).</p>
+<p>“Zähle die Wörter im String!”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-23_884acbc2400aef11508d026912150de7">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">string</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## [1] 13</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>“Liefere nur Buchstaben<em>folgen</em> zurück, lösche alles übrige”</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-24_fa1f222c477647d6411099a0966f6dd0">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:alpha:]+"</span><span class="op">)</span></span>
+<span><span class="co">## [[1]]</span></span>
+<span><span class="co">##  [1] "Correlation"  "of"           "unemployment" "and"          "AfD"         </span></span>
+<span><span class="co">##  [6] "votes"        "at"           "btw"          "r"            "https"       </span></span>
+<span><span class="co">## [11] "t"            "co"           "YHyqTguVWx"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Der Quantitätsoperator <code>+</code> liefert alle Stellen zurück, in denen der gesuchte Ausdruck <em>einmal oder häufiger</em> vorkommt. Die Ergebnisse werden als Vektor von Wörtern zurückgegeben. Ein anderer Quantitätsoperator ist <code>*</code>, der für 0 oder mehr Treffer steht. Möchte man einen Vektor, der aus Stringen-Elementen besteht zu einem Strring zusammenfüngen, hilft <code>paste(string)</code> oder <code>str_c(string, collapse = " ")</code>.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-25_8f21f1581e5144a4b845ec899526d792">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[^[:alpha:]+]"</span>, <span class="st">""</span><span class="op">)</span></span>
+<span><span class="co">## [1] "CorrelationofunemploymentandAfDvotesatbtwrhttpstcoYHyqTguVWx"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mit dem Negationsoperator <code>[^x]</code> wird der Regulärausrck <code>x</code> negiert; die Syntax oben heißt also “ersetze in <code>string</code> alles außer Buchstaben durch Nichts”. Mit “Nichts” sind hier Strings der Länge Null gemeint; ersetzt man einen belieibgen String durch einen String der Länge Null, so hat man den String gelöscht.</p>
+<p>Das Cheatsheet zur Strings bzw zu <code>stringr</code> von RStudio gibt einen guten Überblick über Regex; im Internet finden sich viele Beispiele.</p>
+</section><section id="regex-im-texteditor" class="level4" data-number="4.2.6.2"><h4 data-number="4.2.6.2" class="anchored" data-anchor-id="regex-im-texteditor">
+<span class="header-section-number">4.2.6.2</span> Regex im Texteditor</h4>
+<p>Einige Texteditoren unterstützen Regex, so auch RStudio.</p>
+<p>Das ist eine praktische Sache. Ein Beispiel: Sie haben eine Liste mit Namen der Art:</p>
+<ul>
+<li>Nachname1, Vorname1</li>
+<li>Nachname2, Vorname2</li>
+<li>Nachname3, Vorname3</li>
+</ul>
+<p>Und Sie möchten jetzt aber die Liste mit Stil <em>Vorname Nachname</em> sortiert haben.</p>
+<p>RStudio mit Regex macht’s möglich, s. <a href="#fig-vorher-regex">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-vorher-regex</span></a>.</p>
+<div id="fig-regrex-rstudio" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/regex1.png" id="fig-vorher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"><img src="img/regex2.png" id="fig-nacher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;4.3: <strong>?(caption)</strong></figcaption></figure>
+</div>
+</section></section><section id="emoji-analyse" class="level3" data-number="4.2.7"><h3 data-number="4.2.7" class="anchored" data-anchor-id="emoji-analyse">
+<span class="header-section-number">4.2.7</span> Emoji-Analyse</h3>
+<p>Eine einfache Art, Emojis in einer Textmining-Analyse zu verarbeiten, bietet das Paket <code>textclean</code>:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-26_bedd3d51c513a79a95ff111d9574816b">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"docs/emoji_sample.txt"</span>, package <span class="op">=</span> <span class="st">"textclean"</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fls</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">## [1] "Proin 😍 ut maecenas 😏 condimentum 😔 purus eget. Erat, 😂vitae nunc elit. Condimentum 😢 semper iaculis bibendum sed tellus. Ut suscipit interdum😑 in. Faucib😞 us nunc quis a vitae posuere. 😛 Eget amet sit condimentum non. Nascetur vitae ☹ et. Auctor ornare ☺ vestibulum primis justo congue 😀urna ac magna. Quam 😥 pharetra 😟 eros 😒facilisis ac lectus nibh est 😙vehicula 😐 ornare! Vitae, malesuada 😎 erat sociosqu urna, 😏 nec sed ad aliquet 😮 ."</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-27_06d75aa80e4aae2ca07bbd4f0d33fe4e">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/replace_emoji.html">replace_emoji</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">## [1] "Proin smiling face with heart-eyes ut maecenas smirking face condimentum pensive face purus eget. Erat, face with tears of joy vitae nunc elit. Condimentum crying face semper iaculis bibendum sed tellus. Ut suscipit interdum expressionless face in. Faucib disappointed face us nunc quis a vitae posuere. face with tongue Eget amet sit condimentum non. Nascetur vitae frowning face et. Auctor ornare smiling face vestibulum primis justo congue grinning face urna ac magna. Quam sad but relieved face pharetra worried face eros unamused face facilisis ac lectus nibh est kissing face with smiling eyes vehicula neutral face ornare! Vitae, malesuada smiling face with sunglasses erat sociosqu urna, smirking face nec sed ad aliquet face with open mouth ."</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/replace_emoji.html">replace_emoji_identifier</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">## [1] "Proin lexiconwiutsdotskrupggpgmhm ut maecenas lexiconwizbukzesopzflfinotj condimentum lexiconwlnxqescoesytfatoevi purus eget. Erat, lexiconwcaiviebiytolowkanmb vitae nunc elit. Condimentum lexiconwpujksvgujncexktvyrn semper iaculis bibendum sed tellus. Ut suscipit interdum lexiconwknnasgueiicggptyzbx in. Faucib lexiconwoxfeslcareuqfkbyjgy us nunc quis a vitae posuere. lexiconwobmhqdrrzgygdexhnkk Eget amet sit condimentum non. Nascetur vitae lexiconbfalxvockmnmtmycmwyq et. Auctor ornare lexiconbgmujofaalvxqrklfqgd vestibulum primis justo congue lexiconvygwtlyrpywfarytvfis urna ac magna. Quam lexiconwurhpvewhizayynmfxqo pharetra lexiconwpmuduwgbxxrxeltrueb eros lexiconwkrvakxddtqckcjxeksl facilisis ac lectus nibh est lexiconwmsjgfnelqfeyhgudmfj vehicula lexiconwjfhkpcsgcjtotwlapxa ornare! Vitae, malesuada lexiconwivnupleicqgksianinp erat sociosqu urna, lexiconwizbukzesopzflfinotj nec sed ad aliquet lexiconxbwhfeflxbuupjezgdwl ."</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="text-aufräumen" class="level3" data-number="4.2.8"><h3 data-number="4.2.8" class="anchored" data-anchor-id="text-aufräumen">
+<span class="header-section-number">4.2.8</span> Text aufräumen</h3>
+<p>Eine Reihe generischer Tests bietet das Paket <code>textclean</code> von <a href="https://github.com/trinker/textclean">Tyler Rinker</a>:</p>
+<p>Hier ist ein “unaufgeräumeter” Text:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-28_f51b11d7a9f7ce18b4956fed470ecf23">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"i like"</span>, <span class="st">"&lt;p&gt;i want. &lt;/p&gt;. thet them ther ."</span>, <span class="st">"I am ! that|"</span>, <span class="st">""</span>, <span class="cn">NA</span>, </span>
+<span>    <span class="st">"&amp;quot;they&amp;quot; they,were there"</span>, <span class="st">"."</span>, <span class="st">"   "</span>, <span class="st">"?"</span>, <span class="st">"3;"</span>, <span class="st">"I like goud eggs!"</span>, </span>
+<span>    <span class="st">"bi\xdfchen Z\xfcrcher"</span>, <span class="st">"i 4like..."</span>, <span class="st">"\\tgreat"</span>,  <span class="st">"She said \"yes\""</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lassen wir uns dazu ein paar Diagnostiken ausgeben.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-29_7d251693edb4d468c49855b9b676d9c5">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"latin1"</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/check_text.html">check_text</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## =============</span></span>
+<span><span class="co">## NON CHARACTER</span></span>
+<span><span class="co">## =============</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The text variable is not a character column (likely `factor`):</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider using `as.character` or `stringsAsFactors = FALSE` when reading in</span></span>
+<span><span class="co">##              Also, consider rerunning `check_text` after fixing</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## =====</span></span>
+<span><span class="co">## DIGIT</span></span>
+<span><span class="co">## =====</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain digits/numbers:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 10, 13</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 10: 3;</span></span>
+<span><span class="co">## 13: i 4like...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider using `replace_number`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ========</span></span>
+<span><span class="co">## EMOTICON</span></span>
+<span><span class="co">## ========</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain emoticons:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 6</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 6: &amp;quot;they&amp;quot; they,were there</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider using `replace_emoticons`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## =====</span></span>
+<span><span class="co">## EMPTY</span></span>
+<span><span class="co">## =====</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain empty text cells (all white space):</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 1: i like</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider running `drop_empty_row`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## =======</span></span>
+<span><span class="co">## ESCAPED</span></span>
+<span><span class="co">## =======</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain escaped back spaced characters:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 14</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 14: \tgreat</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider using `replace_white`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ====</span></span>
+<span><span class="co">## HTML</span></span>
+<span><span class="co">## ====</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain HTML markup:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 2, 6</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 2: &lt;p&gt;i want. &lt;/p&gt;. thet them ther .</span></span>
+<span><span class="co">## 6: &amp;quot;they&amp;quot; they,were there</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider running `replace_html`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ==========</span></span>
+<span><span class="co">## INCOMPLETE</span></span>
+<span><span class="co">## ==========</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain incomplete sentences (e.g., uses ending punctuation like '...'):</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 13</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 13: i 4like...</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider using `replace_incomplete`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## =============</span></span>
+<span><span class="co">## MISSING VALUE</span></span>
+<span><span class="co">## =============</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain missing values:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 5</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider running `drop_NA`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ========</span></span>
+<span><span class="co">## NO ALPHA</span></span>
+<span><span class="co">## ========</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain elements with no alphabetic (a-z) letters:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 4, 7, 8, 9, 10</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 4: </span></span>
+<span><span class="co">## 7: .</span></span>
+<span><span class="co">## 8:    </span></span>
+<span><span class="co">## 9: ?</span></span>
+<span><span class="co">## 10: 3;</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider cleaning the raw text or running `filter_row`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ==========</span></span>
+<span><span class="co">## NO ENDMARK</span></span>
+<span><span class="co">## ==========</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain elements with missing ending punctuation:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 1, 3, 4, 6, 8, 10, 12, 14, 15</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 1: i like</span></span>
+<span><span class="co">## 3: I am ! that|</span></span>
+<span><span class="co">## 4: </span></span>
+<span><span class="co">## 6: &amp;quot;they&amp;quot; they,were there</span></span>
+<span><span class="co">## 8:    </span></span>
+<span><span class="co">## 10: 3;</span></span>
+<span><span class="co">## 12: bißchen Zürcher</span></span>
+<span><span class="co">## 14: \tgreat</span></span>
+<span><span class="co">## 15: She said "yes"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider cleaning the raw text or running `add_missing_endmark`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ====================</span></span>
+<span><span class="co">## NO SPACE AFTER COMMA</span></span>
+<span><span class="co">## ====================</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain commas with no space afterwards:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 6</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 6: &amp;quot;they&amp;quot; they,were there</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider running `add_comma_space`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## =========</span></span>
+<span><span class="co">## NON ASCII</span></span>
+<span><span class="co">## =========</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain non-ASCII text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 12</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 12: bißchen Zürcher</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider running `replace_non_ascii`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ==================</span></span>
+<span><span class="co">## NON SPLIT SENTENCE</span></span>
+<span><span class="co">## ==================</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## The following observations contain unsplit sentences (more than one sentence per element):</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 2, 3</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## This issue affected the following text:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 2: &lt;p&gt;i want. &lt;/p&gt;. thet them ther .</span></span>
+<span><span class="co">## 3: I am ! that|</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## *Suggestion: Consider running `textshape::split_sentence`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="diverse-wortlisten" class="level3" data-number="4.2.9"><h3 data-number="4.2.9" class="anchored" data-anchor-id="diverse-wortlisten">
+<span class="header-section-number">4.2.9</span> Diverse Wortlisten</h3>
+<p><a href="https://github.com/trinker/lexicon">Tyler Rinker</a> stellt mit dem Paket <code>lexicon</code> eine Zusammenstellung von Wortlisten zu diversen Zwecken zur Verfügung. Allerding nur für die englische Sprache.</p>
+</section><section id="sec-sentimentanalyse" class="level3" data-number="4.2.10"><h3 data-number="4.2.10" class="anchored" data-anchor-id="sec-sentimentanalyse">
+<span class="header-section-number">4.2.10</span> Sentimentanalyse</h3>
+<section id="einführung" class="level4" data-number="4.2.10.1"><h4 data-number="4.2.10.1" class="anchored" data-anchor-id="einführung">
+<span class="header-section-number">4.2.10.1</span> Einführung</h4>
+<p>Eine weitere interessante Analyse ist, die “Stimmung” oder “Emotionen” (Sentiments) eines Textes auszulesen. Die Anführungszeichen deuten an, dass hier ein Maß an Verständnis suggeriert wird, welches nicht (unbedingt) von der Analyse eingehalten wird. Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so:</p>
+<ol type="1">
+<li>Schau dir jeden Token aus dem Text an.<br>
+</li>
+<li>Prüfe, ob sich das Wort im Lexikon der Sentiments wiederfindet.<br>
+</li>
+<li>Wenn ja, dann addiere den Sentimentswert dieses Tokens zum bestehenden Sentiments-Wert.<br>
+</li>
+<li>Wenn nein, dann gehe weiter zum nächsten Wort.<br>
+</li>
+<li>Liefere zum Schluss die Summenwerte pro Sentiment zurück.</li>
+</ol>
+<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das <em>deutsche</em> Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-30_971a4a17a2d5165a991c25f4a5bdc2f0">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://osf.io/x89wq/?action=download"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Den Volltext zum Paper finden Sie z.B. <a href="http://www.lrec-conf.org/proceedings/lrec2010/pdf/490_Paper.pdf">hier</a>.</p>
+<p>Alternativ können Sie die Daten aus dem Paket <code>pradadata</code> laden. Allerdings müssen Sie dieses Paket von Github installieren:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-31_5c32257741d76045cc582ed6c8b1a157">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span>, dep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"sebastiansauer/pradadata"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="030-textmining1_cache/html/parse-sentiment-dics_2f944246db19cf38ecaaf8715a47e148">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sentiws</span>, package <span class="op">=</span> <span class="st">"pradadata"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><a href="#tbl-afdcount">Tabelle&nbsp;<span class="quarto-unresolved-ref">tbl-afdcount</span></a> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/tbl-afdcount_26fc02040d3d50d76f5ef18f6ea63ed6">
+<div class="cell-output-display">
+<div id="tbl-afdcount" class="anchored">
+
+<div data-pagedtable="false"> <div class="table-caption">Tabelle&nbsp;4.1:  <p>Auszug aus SentiWS</p> </div>
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["neg_pos"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]},{"label":["value"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["inflections"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"neg","2":"Abbau","3":"-0.0580","4":"Abbaus,Abbaues,Abbauen,Abbaue"},{"1":"neg","2":"Abbruch","3":"-0.0048","4":"Abbruches,Abbrüche,Abbruchs,Abbrüchen"},{"1":"neg","2":"Abdankung","3":"-0.0048","4":"Abdankungen"},{"1":"neg","2":"Abdämpfung","3":"-0.0048","4":"Abdämpfungen"},{"1":"neg","2":"Abfall","3":"-0.0048","4":"Abfalles,Abfälle,Abfalls,Abfällen"},{"1":"neg","2":"Abfuhr","3":"-0.3367","4":"Abfuhren"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+</section><section id="ungewichtete-sentiment-analyse" class="level4" data-number="4.2.10.2"><h4 data-number="4.2.10.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse">
+<span class="header-section-number">4.2.10.2</span> Ungewichtete Sentiment-Analyse</h4>
+<p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span class="quarto-unresolved-ref">tbl-afdsenti</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
+<p>Wir nutzen die Tabelle <code>afd_long</code>, die wir oben definiert haben.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-32_b08798a0419e6b477151188f7aaee942">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">sentiws</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"token"</span> <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">inflections</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_senti</span>  <span class="co"># die Spalte brauchen wir nicht</span></span>
+<span><span class="co">## Warning in inner_join(., sentiws, by = c(token = "word")): Detected an unexpected many-to-many relationship between `x` and `y`.</span></span>
+<span><span class="co">## ℹ Row 9101 of `x` matches multiple rows in `y`.</span></span>
+<span><span class="co">## ℹ Row 3190 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">## ℹ If a many-to-many relationship is expected, set `relationship =</span></span>
+<span><span class="co">##   "many-to-many"` to silence this warning.</span></span>
+<span></span>
+<span><span class="va">afd_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">neg_pos</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>polarity_sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>,</span>
+<span>            polarity_count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>polarity_prop <span class="op">=</span> <span class="op">(</span><span class="va">polarity_count</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">polarity_count</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span></span>
+<span>  <span class="va">afd_senti_tab</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="030-textmining1_cache/html/tbl-afdsenti_4897d9a299a54aca47de12d879292a43">
+<div class="cell-output-display">
+<div id="tbl-afdsenti" class="anchored">
+
+<div data-pagedtable="false"> <div class="table-caption">Tabelle&nbsp;4.2:  <p>Zusammenfassung von SentiWS</p> </div>
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["neg_pos"],"name":[1],"type":["chr"],"align":["left"]},{"label":["polarity_sum"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["polarity_count"],"name":[3],"type":["int"],"align":["right"]},{"label":["polarity_prop"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"neg","2":"-48.5307","3":"210","4":"0.27"},{"1":"pos","2":"30.6595","3":"578","4":"0.73"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+<p>Die Analyse zeigt, dass die emotionale Bauart des Textes durchaus interessant ist: Es gibt viel mehr positiv getönte Wörter als negativ getönte. Allerdings sind die negativen Wörter offenbar deutlich stärker emotional aufgeladen, denn die Summe an Emotionswert der negativen Wörter ist (überraschenderweise?) deutlich größer als die der positiven.</p>
+<p>Betrachten wir also die intensivsten negativ und positive konnotierten Wörter näher.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-33_3ff2a31646341d604099cbe279011f24">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">token</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>value_abs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">value_abs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">token</span><span class="op">)</span></span>
+<span><span class="co">##  [1] "ungerecht"    "besonders"    "gefährlich"   "überflüssig"  "behindern"   </span></span>
+<span><span class="co">##  [6] "gelungen"     "brechen"      "unzureichend" "gemein"       "verletzt"    </span></span>
+<span><span class="co">## [11] "zerstören"    "trennen"      "falsch"       "vermeiden"    "zerstört"    </span></span>
+<span><span class="co">## [16] "schwach"      "belasten"     "schädlich"    "töten"        "verbieten"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Diese “Hitliste” wird zumeist (19/20) von negativ polarisierten Begriffen aufgefüllt, wobei “besonders” ein Intensivierwort ist, welches das Bezugswort verstärt (“besonders gefährlich”). Das Argument <code>keep_all = TRUE</code> sorgt dafür, dass alle Spalten zurückgegeben werden, nicht nur die durchsuchte Spalte <code>token</code>. Mit <code>pull</code> haben wir aus dem Dataframe, der von den dplyr-Verben übergeben wird, die Spalte <code>pull</code> “herausgezogen”; hier nur um Platz zu sparen bzw. der Übersichtlichkeit halber.</p>
+<p>Nun könnte man noch den erzielten “Netto-Sentimentswert” des Corpus ins Verhältnis setzen Sentimentswert des Lexikons: Wenn es insgesamt im Sentiment-Lexikon sehr negativ zuginge, wäre ein negativer Sentimentwer in einem beliebigen Corpus nicht überraschend. <code>describe_distribution</code> aus <a href="https://easystats.github.io/easystats/">easystats</a> gibt uns einen Überblick der üblichen deskriptiven Statistiken.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-34_17b8fed4fd872d4412e1174b34f1aa84">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">value</span>, <span class="va">neg_pos</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">#group_by(neg_pos) %&gt;% </span></span>
+<span>  <span class="fu">describe_distribution</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-35_a0e6662072146b99ad9d52dd46935c8a">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 18%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 13%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: center;">Mean</th>
+<th style="text-align: center;">SD</th>
+<th style="text-align: center;">IQR</th>
+<th style="text-align: center;">Range</th>
+<th style="text-align: center;">Skewness</th>
+<th style="text-align: center;">Kurtosis</th>
+<th style="text-align: center;">n</th>
+<th style="text-align: center;">n_Missing</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">value</td>
+<td style="text-align: center;">-0.05</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">(-1.00, 1.00)</td>
+<td style="text-align: center;">-0.68</td>
+<td style="text-align: center;">2.36</td>
+<td style="text-align: center;">3468</td>
+<td style="text-align: center;">0</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<p>Insgesamt ist das Lexikon ziemlich ausgewogen; negative Werte sind leicht in der Überzahl im Lexikon. Unser Corpus hat eine ähnliche mittlere emotionale Konnotation wie das Lexikon:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-36_c50d588899ebf63038908874edcf73f6">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>senti_sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["senti_sum"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"-0.02"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section></section><section id="weitere-sentiment-lexika" class="level3" data-number="4.2.11"><h3 data-number="4.2.11" class="anchored" data-anchor-id="weitere-sentiment-lexika">
+<span class="header-section-number">4.2.11</span> Weitere Sentiment-Lexika</h3>
+<p><a href="https://github.com/trinker/sentimentr">Tyler Rinker</a> stellt das Paket <code>sentimentr</code> zur Verfügung. <a href="https://www.matthewjockers.net/2015/02/02/syuzhet/">Matthew Jockers</a> stellt das Paket <code>Syushet</code> zur Verfügung.</p>
+</section><section id="google-trends" class="level3" data-number="4.2.12"><h3 data-number="4.2.12" class="anchored" data-anchor-id="google-trends">
+<span class="header-section-number">4.2.12</span> Google Trends</h3>
+<p>Eine weitere Möglichkeit, “Worthäufigkeiten” zu identifizieren ist <a href="https://trends.google.com/trends/?geo=US">Google Trends</a>. Dieser Post zeigt Ihnen eine Einsatzmöglichkeit.</p>
+</section></section><section id="aufgaben" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="aufgaben">
+<span class="header-section-number">4.3</span> Aufgaben</h2>
+<ul>
+<li><a href="https://datenwerk.netlify.app/posts/purrr-map01/purrr-map01.html">purrr-map01</a></li>
+<li><a href="https://datenwerk.netlify.app/posts/purrr-map02/purrr-map02.html">purrr-map02</a></li>
+<li><a href="https://datenwerk.netlify.app/posts/purrr-map03/purrr-map03.html">purrr-map03</a></li>
+<li><a href="https://datenwerk.netlify.app/posts/purrr-map04/purrr-map04.html">purrr-map04</a></li>
+<li><a href="https://regexone.com/">Regex-Übungen</a></li>
+<li><a href="https://datenwerk.netlify.app/#category=textmining">Aufgaben zum Textmining von Tweets</a></li>
+</ul></section><section id="fallstudie-hate-speech" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="fallstudie-hate-speech">
+<span class="header-section-number">4.4</span> Fallstudie Hate-Speech</h2>
+<section id="daten" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="daten">
+<span class="header-section-number">4.4.1</span> Daten</h3>
+<p>Es finden sich mehrere Datensätze zum Thema Hate-Speech im öffentlichen Internet, eine Quelle ist <a href="https://ckan.hatespeechdata.com/">Hate Speech Data</a>, ein Repositorium, das mehrere Datensätze beinhaltet.</p>
+<ul>
+<li><a href="https://www.kaggle.com/datasets/mrmorj/hate-speech-and-offensive-language-dataset?select=labeled_data.csv">Kaggle Hate Speech and Offensive Language Dataset</a></li>
+<li><a href="https://ckan.hatespeechdata.com/dataset/bretschneider-and-peters-prejudice-on-facebook-dataset">Bretschneider and Peters Prejudice on Facebook Dataset</a></li>
+<li><a href="https://github.com/ENCASEH2020/hatespeech-twitter/blob/master/hatespeech_labels.csv">Daten zum Fachartikel”Large Scale Crowdsourcing and Characterization of Twitter Abusive Behavior”</a></li>
+</ul>
+<p>Für Textmining kann eine Liste mit anstößigen (obszönen) Wörten nützlich sein, auch wenn man solche Dinge ungern anfässt, verständlicherweise. <a href="https://github.com/Jenyay/Obscene-Words-List">Jenyay</a> bietet solche Listen in verschiedenen Sprachen an. Die Liste von <a href="https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words">KDNOOBW</a> sieht sehr ähnlich aus (zumindest die deutsche Version). Eine lange Sammlung deutscher Schimpfwörter findet sich im <a href="https://www.insult.wiki/schimpfwort-liste">insult.wiki</a>; ähnlich bei <a href="http://www.hyperhero.com/de/insults.htm">Hyperhero</a>.</p>
+<p>Twitterdaten dürfen nur in “dehydrierter” Form weitergegeben werden, so dass kein Rückschluss von ID zum Inhalt des Tweets möglich ist. Daher werden öffentlich nur die IDs der Tweets, als einzige Information zum Tweet, also ohne den eigentlichen Inhalt des Tweets, bereitgestellt.</p>
+<p>Über die Twitter-API kann man sich, wie oben dargestellt, dann die Tweets wieder “rehydrieren”, also wieder mit dem zugehörigen Tweet-Text (und sonstigen Infos des Tweets) zu versehen.</p>
+</section><section id="grundlegendes-text-mining" class="level3" data-number="4.4.2"><h3 data-number="4.4.2" class="anchored" data-anchor-id="grundlegendes-text-mining">
+<span class="header-section-number">4.4.2</span> Grundlegendes Text Mining</h3>
+<p>Wenden Sie die oben aufgeführten Techniken des grundlegenden Textminings auf einen der oben dargestellten Hate-Speech-Datensätze an. Erstellen Sie ein (HTML-Dokument) mit Ihren Ergebnissen. Stellen Sie die Ergebnisse auf dem Github-Repo dieses Kurses ein. Vergleichen Sie Ihre Lösung mit den Lösungen der anderen Kursmitglieder.</p>
+<p>Wir nutzen noch nicht eigene Daten, die wir von Twitter ausgelesen haben, das heben wir uns für später auf.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-smltar" class="csl-entry" role="listitem">
+Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
+</div>
+<div id="ref-lex_upset_2014" class="csl-entry" role="listitem">
+Lex, Alexander, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot, und Hanspeter Pfister. 2014. <span>„<span>UpSet</span>: <span>Visualization</span> of Intersecting Sets“</span>. <em>IEEE Transactions on Visualization and Computer Graphics</em> 20 (12): 1983–92. <a href="https://doi.org/10.1109/TVCG.2014.2346248">https://doi.org/10.1109/TVCG.2014.2346248</a>.
+</div>
+<div id="ref-Remus2010" class="csl-entry" role="listitem">
+Remus, Robert, Uwe Quasthoff, und Gerhard Heyer. 2010. <span>„<span>SentiWS</span> - a Publicly Available German-Language Resource for Sentiment Analysis“</span>. <em>Proceedings of the 7th International Language Ressources and Evaluation (LREC’10)</em>, 1168–71.
+</div>
+<div id="ref-r4ds" class="csl-entry" role="listitem">
+Wickham, Hadley, und Garrett Grolemund. 2016. <em>R for <span>Data Science</span>: <span>Visualize</span>, <span>Model</span>, <span>Transform</span>, <span>Tidy</span>, and <span>Import Data</span></em>. <span>O’Reilly Media</span>. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
+</div>
+</div>
+</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p><a href="https://gender-i.de/#mit-bestimmtem-artikel">Gender-i</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./025-twittermining.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./040-populismus.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

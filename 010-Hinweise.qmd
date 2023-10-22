@@ -1,0 +1,181 @@
+# Hinweise
+
+
+
+```{r}
+#| echo: false
+knitr::opts_chunk$set(cache = FALSE)
+```
+
+
+
+
+<a href="https://imgflip.com/i/689g8g"><img src="https://i.imgflip.com/689g8g.jpg" width="300" title="made at imgflip.com"/></a><div><a href="https://imgflip.com/memegenerator">from Imgflip Meme Generator</a></div>
+
+
+```{r message = FALSE, echo = FALSE}
+library(tidyverse)
+```
+
+
+
+
+
+## Ihr Lernerfolg
+
+
+
+### Was Sie hier lernen und wozu das gut ist
+
+Alle Welt spricht von Big Data, aber ohne die Analyse sind die großen Daten nur großes Rauschen. 
+Was letztlich interessiert, sind die Erkenntnisse, die Einblicke, nicht die Daten an sich. 
+Dabei ist es egal, ob die Daten groß oder klein sind. 
+Natürlich erlauben die heutigen Datenmengen im Verbund mit leistungsfähigen Rechnern und neuen Analysemethoden ein Verständnis, 
+das vor Kurzem noch nicht möglich war. 
+Und wir stehen erst am Anfang dieser Entwicklung. 
+Vielleicht handelt es sich bei diesem Feld um eines der dynamischsten Fachgebiete der heutigen Zeit. 
+Sie sind dabei: Sie lernen einiges Handwerkszeugs des "Datenwissenschaftlers". 
+Wir konzentrieren uns auf das vielleicht bekannteste Teilgebiet: 
+Ereignisse vorhersagen auf Basis von hoch strukturierten Daten 
+und geeigneter Algorithmen und Verfahren.
+Nach diesem Kurs sollten Sie in der Lage sein,
+typisches Gebabbel des Fachgebiet mit Lässigkeit mitzumachen.
+Ach ja, und mit einigem Erfolg Vorhersagemodelle entwickeln.
+
+
+
+### Lernziele
+
+
+:::{.callout-important}
+Kurz gesagt: Sie lernen die Grundlagen von Data Science zur Analyse von Text.$\square$
+:::
+
+
+
+Nach diesem Kurs sollten Sie ...
+
+- Daten aus Sozialen Netzwerken wie Twitter automatisiert in großer Menge auslesen können
+- Gängige Methoden des Textminings mit R anwenden können (z.B. Tokenizing, Stemming, Regex)
+- Verfahren des Maschinenlernens auf Textdaten anwenden können
+- Den Forschungsstand zum Thema Erkennung von Hatespeech in Ausschnitten kennen
+
+
+
+
+### Überblick
+
+Abb. @fig-ueberblick gibt einen Überblick über den Verlauf und die Inhalte des Buches.
+Das Diagramm hilft Ihnen zu verorten, wo welches Thema im Gesamtzusammenhang steht.
+
+
+```{mermaid}
+%%| label: fig-ueberblick
+%%| fig-cap: "Ein 'Fahrplan' als 'Big Picture' dieses Buches"
+flowchart LR
+  subgraph R[Rahmen]
+    direction LR
+    subgraph V[Grundlagen]
+      direction TB
+      E[R] --- Um[Statistisches<br>Lernen]
+      Um --- tm[tidymodels]
+    end
+    subgraph M[Lernalgorithmen]
+      direction TB
+      M1[Regression] --- Vis[Baeume]
+      Vis --- U[Regularisierung]
+      U --- G[...]
+    end
+    subgraph N[Anwendung]
+      direction TB
+      D[Fallstudien]
+    end
+  V --> M
+  M --> N
+  end
+```
+
+
+
+
+
+<!-- ### Modulzeitplan -->
+
+
+
+
+
+<!-- ```{r source-timetable, echo = FALSE, cache=FALSE} -->
+<!-- # zeitplan -->
+<!-- timetable_file <- "specifics/Modulverlauf.xlsx" -->
+<!-- stopifnot(file.exists(timetable_file)) -->
+<!-- timetable <- readxl::read_xlsx(timetable_file) -->
+
+<!-- gt::gt(timetable) |>  -->
+<!--   gt::cols_width( -->
+<!--     1 ~ gt::pct(5), -->
+<!--     2 ~ gt::pct(20), -->
+<!--     3 ~ gt::pct(20), -->
+<!--     4 ~ gt::pct(45) -->
+<!--   ) -->
+<!-- ``` -->
+
+
+
+
+
+
+## Selbständige Vorbereitung vor Kursbeginn
+
+Die folgenden Inhalte werden in diesem Buch/Kurs vorausgesetzt.
+Falls Ihnen der Stoff nicht geläufig ist, sollten Sie sich selbständig damit vertraut machen.
+
+1. Grundlagen der Statistik wie im [Kurs Statistik1](https://raw.githubusercontent.com/sebastiansauer/yacsda-bikerental/main/data/bikeshare_control.csv) vermittelt
+2. Einführung in die Inferenzstatistik wie im [Kurs Bayes:Start!](https://start-bayes.netlify.app/) vermittelt
+3. Grundlagen der Prognosemodellierung wie im [Kurs Data Science 1](https://ds1-prognosemodellierung.netlify.app/) vermittelt
+
+
+
+
+
+## Lernhilfen
+
+
+
+
+{{< include children/Hinweise-Lernhilfen.qmd >}}
+
+
+
+
+
+## Literatur
+
+Zentrale Kursliteratur für die theoretischen Konzepte ist @smltar; das Buch ist frei online verfügbar. 
+
+Eine gute Ergänzung ist das Lehrbuch von @chollet_deep_2022,
+welches grundlegende Data-Science-Konzepte erläutert und mit tidymodels umsetzt.
+Es ist in einer [Online-Version beim Verlag frei zugänglich](https://livebook.manning.com/book/deep-learning-with-r-second-edition.
+
+
+@islr haben ein weithin renommiertes und sehr bekanntes Buch verfasst.
+Es ist allerdings etwas anspruchsvoller aus @rhys,
+daher steht es nicht im Fokus dieses Kurses,
+aber einige Schwenker zu Inhalten von @islr gibt es. Schauen Sie mal rein,
+das Buch ist gut!
+
+
+
+
+
+
+
+## FAQ
+
+{{< include children/faq.qmd >}}
+
+
+
+
+
+

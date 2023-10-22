@@ -1,0 +1,242 @@
+# Einstieg in Neuronale Netze
+
+
+## Quick-Start
+
+### Quick Start mit R
+
+Wir halten uns an das Tutorial von [TensforFlow for R, "Hello, World!"](https://tensorflow.rstudio.com/tutorials/quickstart/beginner).
+
+
+#### Setup
+
+Wir starten die benötigten Pakete:
+
+```{r}
+library(keras)  # TensorFlow API
+library(tensorflow)  # TensorFlow pur
+library(tidyverse)  # Datenjudo
+library(tictoc)  # Zeitmessung
+```
+
+Das Installieren von TensorFlow bzw. Keras kann Schwierigkeiten bereiten.
+Tipp: Stellen Sie in RStudio sicher, dass Sie die richtige Python-Version verwenden.
+
+
+```{r}
+mnist <- dataset_mnist()
+X_train <- mnist$train$x
+X_test <- mnist$test$x
+y_train <- mnist$train$y
+y_test <- mnist$test$y
+```
+
+In Kurzform kann man synonym schreiben:
+
+```{r}
+c(c(x_train, y_train), c(x_test, y_test)) %<-% keras::dataset_mnist()
+```
+
+
+#### Visualisieren
+
+Wählen wir ein Bild aus; das schauen wir uns näher an [Quelle](https://stackoverflow.com/questions/43420754/plot-mnist-digits-with-ggplot2).
+
+```{r}
+image_id <- 2
+my_image <- mnist$train$x[image_id, 1:28, 1:28] %>%
+                as_tibble()
+
+my_image
+```
+
+
+```{r}
+my_image_prepared <- 
+  my_image |> 
+  rownames_to_column(var = 'y') %>% 
+  pivot_longer(names_to = "x", values_to = "val", V1:V28) %>%
+  mutate(x = str_replace(x, 'V', '')) %>% 
+  mutate(x = as.numeric(x),
+         y = as.numeric(y)) %>% 
+  mutate(y = 28-y) 
+
+
+head(my_image_prepared)
+```
+
+
+So, genug der Vorarbeiten, jetzt plotten:
+
+```{r}
+my_image_prepared %>%
+  ggplot(aes(x, y))+
+  geom_tile(aes(fill = val + 1))+
+  coord_fixed()+
+  theme_void()+
+  theme(legend.position="none") +
+  scale_fill_viridis_c()
+```
+
+
+
+
+#### Neuronales Netz 1
+
+
+
+
+Für unser Netzwerk wollen wir Werte zwischen 0 und 1, daher teilen wir durch den Max-Wert, d.i. 255:
+
+```{r}
+x_train <- X_train / 255
+x_test <-  X_test / 255
+```
+
+
+
+```{r}
+model <- keras_model_sequential(input_shape = c(28, 28)) %>%
+  layer_flatten() %>%
+  layer_dense(128, activation = "relu") %>%
+  layer_dropout(0.2) %>%
+  layer_dense(10)
+```
+
+Hier ist eine Beschreibung des Modells:
+
+```{r}
+model
+```
+
+
+Dann definieren wir eine Fehlerfunktion:
+
+
+```{r}
+loss_fn <- loss_sparse_categorical_crossentropy(from_logits = TRUE)
+```
+
+
+Bevor wir das Modul trainieren, konfigurieren wir es und kompilieren wir es in Maschinencode:
+
+```{r}
+model %>% compile(
+  optimizer = "adam",
+  loss = loss_fn,
+  metrics = "accuracy"
+)
+```
+
+
+
+Jetzt ist Trainingszeit, das besorgt die `fit`-Methode:
+
+```{r}
+tic()
+model %>% fit(x_train, y_train, epochs = 5)
+toc()
+```
+
+
+Die Modellgüte überprüfen wir natürlich im Test-Set:
+
+```{r}
+model %>% evaluate(x_test,  y_test, verbose = 2)
+```
+
+Nicht schlecht: Knapp 98% Trefferquote.
+
+Und hier sind die Vorhersagen für die ersten zwei Bilder:
+
+```{r}
+predictions <- predict(model, x_test[1:2, , ])
+
+predictions
+```
+
+Hm, das sind ja keine Wahrscheinlichkeiten? Stimmt! Es sind Logits.
+Daher müssen wir noch konvertieren:
+
+```{r}
+tf$nn$softmax(predictions)
+```
+
+
+Ob ihr wirklich richtig steht, seht ihr, wenn das Licht angeht:
+
+
+```{r}
+y_test[1:2]
+```
+
+
+Sieht gut aus!
+
+
+#### Best-Bet-Digit
+
+
+Möchte man ein Modell, das gleich die "Best-Bet-Digit" nennt, kann man das so machen:
+
+
+```{r}
+predictions <- model %>%
+  predict(X_test[1:5, , ]) %>%  # nur die ersten 5
+  k_argmax()
+
+predictions$numpy()
+```
+
+
+Oder ein eigenes, dazu passendes Modell bauen:
+
+```{r}
+probability_model <- 
+  keras_model_sequential() %>%
+  model() %>%
+  layer_activation_softmax() %>%
+  layer_lambda(tf$argmax)
+```
+
+
+Hier sind die Vorhersagen:
+
+```{r}
+probability_model(x_test[1:5, , ])
+```
+
+
+```{r}
+y_test[1:5]
+```
+
+
+
+<!-- #### Modellgüte  -->
+
+<!-- Die Modellgüte wird von `evaluate` ausgegeben. -->
+<!-- Aber wir könne -->
+
+
+
+
+### Quick-Start mit Python und Colab
+
+Am einfachsten ist der Einstieg mit [Google Colab](https://colab.research.google.com/), wo Python voreingestellt ist.
+Beginnen Sie mit dem [MNIST-Tutorial](https://www.tensorflow.org/tutorials/quickstart/beginner.
+
+
+
+
+## Vertiefung
+
+Die [TensforFlow-Docs](https://www.tensorflow.org/guide/keras) bieten einen guten Einstieg in Keras und TensorFlow.
+
+
+
+## Fallstudien
+
+
+- [MNIST einen Schritt weiter](https://appsilon.com/r-keras-mnist/) 
+- [Fashion-MNIST](https://www.tensorflow.org/tutorials/keras/classification)

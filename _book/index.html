@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
-
+<meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Sebastian Sauer">
-
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,14 +15,15 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -39,9 +37,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
-
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -50,17 +46,18 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./pruefung.html" rel="next">
+<link href="./010-Hinweise.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -76,129 +73,156 @@ div.csl-indent {
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken"
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
   }
-}</script>
-
-
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><link rel="stylesheet" href="styles.css">
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Data Science 2: Textdaten als Grundlage prädiktiver Modelle</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Zu diesem Buch</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle</a> 
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Suchen"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Hinweise</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Zu diesem Buch</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pruefung.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prüfung</span></a>
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./twittermining.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a>
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./textmining1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Textmining1</span></a>
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./populismus.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></a>
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./word-embedding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Word Embedding</span></a>
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hassrede.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hassrede</span></a>
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./klassifikation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></a>
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hatespeech2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></a>
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projektmgt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Projektmanagement</span></a>
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
-    </div>
-</nav>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#hinweise" id="toc-hinweise" class="nav-link active" data-scroll-target="#hinweise">Hinweise</a>
+<li>
+<a href="#zu-diesem-buch" id="toc-zu-diesem-buch" class="nav-link active" data-scroll-target="#zu-diesem-buch">Zu diesem Buch</a>
   <ul class="collapse">
-  <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele">Lernziele</a></li>
-  <li><a href="#voraussetzungen" id="toc-voraussetzungen" class="nav-link" data-scroll-target="#voraussetzungen">Voraussetzungen</a></li>
-  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
-  <li><a href="#lernhilfen" id="toc-lernhilfen" class="nav-link" data-scroll-target="#lernhilfen">Lernhilfen</a>
-  <ul class="collapse">
-  <li><a href="#videos" id="toc-videos" class="nav-link" data-scroll-target="#videos">Videos</a></li>
-  <li><a href="#online-zusammenarbeit" id="toc-online-zusammenarbeit" class="nav-link" data-scroll-target="#online-zusammenarbeit">Online-Zusammenarbeit</a></li>
-  </ul></li>
-  <li><a href="#modulzeitplan" id="toc-modulzeitplan" class="nav-link" data-scroll-target="#modulzeitplan">Modulzeitplan</a></li>
+<li><a href="#was-r%C3%A4t-meister-yoda" id="toc-was-rät-meister-yoda" class="nav-link" data-scroll-target="#was-r%C3%A4t-meister-yoda">Was rät Meister Yoda?</a></li>
+  <li><a href="#zitation" id="toc-zitation" class="nav-link" data-scroll-target="#zitation">Zitation</a></li>
   <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur">Literatur</a></li>
+  <li><a href="#quellcode" id="toc-quellcode" class="nav-link" data-scroll-target="#quellcode">Quellcode</a></li>
   <li><a href="#technische-details" id="toc-technische-details" class="nav-link" data-scroll-target="#technische-details">Technische Details</a></li>
-  </ul></li>
   </ul>
-</nav>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">Data Science 2: Textdaten als Grundlage prädiktiver Modelle</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</h1>
 </div>
 
 
@@ -215,7 +239,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">13. September 2022</p>
+      <p class="date">22. Oktober 2023</p>
     </div>
   </div>
   
@@ -223,643 +247,80 @@ div.csl-indent {
   </div>
   
 
-</header>
-
-<section id="hinweise" class="level1 unnumbered">
-<h1 class="unnumbered">Hinweise</h1>
+</header><section id="zu-diesem-buch" class="level1 unnumbered"><h1 class="unnumbered">Zu diesem Buch</h1>
 <p><img src="img/text-mining-1476780_640.png" class="img-fluid" style="width:25.0%" alt="Text als Datenbasis prädiktiver Modelle"> Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
-<hr>
-<p>🚧WORK IN PROGRESS🚧</p>
-<hr>
-<section id="lernziele" class="level2">
-<h2 class="anchored" data-anchor-id="lernziele">Lernziele</h2>
-<p>Nach diesem Kurs sollten Sie …</p>
-<ul>
-<li>Daten aus Sozialen Netzwerken wie Twitter automatisiert in großer Menge auslesen können</li>
-<li>Gängige Methoden des Textminings mit R anwenden können (z.B. Tokenizing, Stemming, Regex)</li>
-<li>Verfahren des Maschinenlernens auf Textdaten anwenden können</li>
-<li>Den Forschungsstand zum Thema Erkennung von Hatespeech in Ausschnitten kennen</li>
-</ul>
-</section>
-<section id="voraussetzungen" class="level2">
-<h2 class="anchored" data-anchor-id="voraussetzungen">Voraussetzungen</h2>
-<p>Um von diesem Kurs am besten zu profitieren, sollten Sie folgendes Wissen mitbringen:</p>
-<ul>
-<li>fortgeschrittene Kenntnisse im Umgang mit R, möglichst auch mit dem tidyverse</li>
-<li>fortgeschrittene Kenntnisse der deskriptiven Statistik</li>
-<li>fortgeschrittene Kenntnis der Regressionsanalyse</li>
-<li>grundlegende Kenntnisse des Maschinenlernens</li>
-</ul>
-</section>
-<section id="software" class="level2">
-<h2 class="anchored" data-anchor-id="software">Software</h2>
-<ul>
-<li><p>Installieren Sie <a href="https://data-se.netlify.app/2021/11/30/installation-von-r-und-seiner-freunde/">R und seine Freunde</a>.</p></li>
-<li><p>Installieren Sie die folgende R-Pakete<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
-<ul>
-<li>tidyverse</li>
-<li>tidymodels</li>
-<li>easystats</li>
-<li>weitere Pakete werden im Unterricht bekannt gegeben (es schadet aber nichts, jetzt schon Pakete nach eigenem Ermessen zu installieren)</li>
-</ul></li>
-<li><p><a href="https://github.com/sebastiansauer/Lehre">R Syntax aus dem Unterricht</a> findet sich im Github-Repo bzw. Ordner zum jeweiligen Semester.</p></li>
-</ul>
-</section>
-<section id="lernhilfen" class="level2">
-<h2 class="anchored" data-anchor-id="lernhilfen">Lernhilfen</h2>
-<section id="videos" class="level3">
-<h3 class="anchored" data-anchor-id="videos">Videos</h3>
-<ul>
-<li>Auf dem <a href="https://www.youtube.com/channel/UCkvdtj8maE7g-SOCh4aDB9g">YouTube-Kanal des Autors</a> finden sich eine Reihe von Videos mit Bezug zum Inhalt dieses Buches.</li>
-</ul>
-</section>
-<section id="online-zusammenarbeit" class="level3">
-<h3 class="anchored" data-anchor-id="online-zusammenarbeit">Online-Zusammenarbeit</h3>
-<p>Hier finden Sie einige Werkzeuge, die das Online-Zusammenarbeiten vereinfachen:</p>
-<ul>
-<li><a href="https://frag.jetzt/home">Frag-Jetzt-Raum zum anonymen Fragen stellen während des Unterrichts</a>. Der Keycode wird Ihnen bei Bedarf vom Dozenten bereitgestellt.</li>
-<li><a href="https://de.padlet.com/">Padlet</a> zum einfachen (und anonymen) Hochladen von Arbeitsergebnissen der Studentis im Unterricht. Wir nutzen es als eine Art Pinwand zum Sammeln von Arbeitsbeiträgen. Die Zugangsdaten stellt Ihnen der Dozent bereit.</li>
-</ul>
-</section>
-</section>
-<section id="modulzeitplan" class="level2">
-<h2 class="anchored" data-anchor-id="modulzeitplan">Modulzeitplan</h2>
-<div class="cell" data-hash="index_cache/html/source-timetable_163b3a0bab0e6f99019842092404f2e1">
-<div class="cell-output-display">
-
-<div id="ovapgmsxuk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-:where(#ovapgmsxuk) .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-:where(#ovapgmsxuk) .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-:where(#ovapgmsxuk) .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-:where(#ovapgmsxuk) .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-:where(#ovapgmsxuk) .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-:where(#ovapgmsxuk) .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-:where(#ovapgmsxuk) .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-:where(#ovapgmsxuk) .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-:where(#ovapgmsxuk) .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-:where(#ovapgmsxuk) .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-:where(#ovapgmsxuk) .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-:where(#ovapgmsxuk) .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-:where(#ovapgmsxuk) .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#ovapgmsxuk) .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-:where(#ovapgmsxuk) .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-:where(#ovapgmsxuk) .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#ovapgmsxuk) .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-:where(#ovapgmsxuk) .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#ovapgmsxuk) .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-:where(#ovapgmsxuk) .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#ovapgmsxuk) .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#ovapgmsxuk) .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#ovapgmsxuk) .gt_left {
-  text-align: left;
-}
-
-:where(#ovapgmsxuk) .gt_center {
-  text-align: center;
-}
-
-:where(#ovapgmsxuk) .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-:where(#ovapgmsxuk) .gt_font_normal {
-  font-weight: normal;
-}
-
-:where(#ovapgmsxuk) .gt_font_bold {
-  font-weight: bold;
-}
-
-:where(#ovapgmsxuk) .gt_font_italic {
-  font-style: italic;
-}
-
-:where(#ovapgmsxuk) .gt_super {
-  font-size: 65%;
-}
-
-:where(#ovapgmsxuk) .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 75%;
-  vertical-align: 0.4em;
-}
-
-:where(#ovapgmsxuk) .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-:where(#ovapgmsxuk) .gt_indent_1 {
-  text-indent: 5px;
-}
-
-:where(#ovapgmsxuk) .gt_indent_2 {
-  text-indent: 10px;
-}
-
-:where(#ovapgmsxuk) .gt_indent_3 {
-  text-indent: 15px;
-}
-
-:where(#ovapgmsxuk) .gt_indent_4 {
-  text-indent: 20px;
-}
-
-:where(#ovapgmsxuk) .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">Nr</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">Thema</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">Datum</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">Kommentar</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">1</td>
-<td class="gt_row gt_left">Twitter Mining</td>
-<td class="gt_row gt_left">3. - 7. Okt. 2022</td>
-<td class="gt_row gt_left">Die erste Unterrichtsstunde fällt auf den 6. Okt. 2023.</td></tr>
-    <tr><td class="gt_row gt_right">2</td>
-<td class="gt_row gt_left">Text Mining Grundlagen</td>
-<td class="gt_row gt_left">10. - 14. Okt. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">3</td>
-<td class="gt_row gt_left">Text Mining Grundlagen</td>
-<td class="gt_row gt_left">17. - 21. Okt. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">4</td>
-<td class="gt_row gt_left">Fallstudie Populismus</td>
-<td class="gt_row gt_left">24. - 28. Okt. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">5</td>
-<td class="gt_row gt_left">Word Embeddings</td>
-<td class="gt_row gt_left">31. Okt. - 4. Nov. 22</td>
-<td class="gt_row gt_left">Am 3. November entfällt der Unterricht in diesem Modul.</td></tr>
-    <tr><td class="gt_row gt_right">6</td>
-<td class="gt_row gt_left">Projektwoche Twitter Hate Speech</td>
-<td class="gt_row gt_left">7. - 11. Nov. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">NA</td>
-<td class="gt_row gt_left">NA</td>
-<td class="gt_row gt_left">14. - 18. Nov. 22</td>
-<td class="gt_row gt_left">Kein regulärer Unterricht</td></tr>
-    <tr><td class="gt_row gt_right">7</td>
-<td class="gt_row gt_left">Hate Speech - Stand der Forschung</td>
-<td class="gt_row gt_left">21. - 25. Nov. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">8</td>
-<td class="gt_row gt_left">Regression</td>
-<td class="gt_row gt_left">28. Nov. - 2. Dez. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">9</td>
-<td class="gt_row gt_left">Klassifikation</td>
-<td class="gt_row gt_left">5. Dez. - 9. Dez. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">10</td>
-<td class="gt_row gt_left">Projektwoche Twitter Hate Speech 2</td>
-<td class="gt_row gt_left">12. - 16. Dez. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">11</td>
-<td class="gt_row gt_left">Quarto Blog</td>
-<td class="gt_row gt_left">19. - 23. Dez. 22</td>
-<td class="gt_row gt_left">NA</td></tr>
-    <tr><td class="gt_row gt_right">NA</td>
-<td class="gt_row gt_left">WEIHNACHTSFERIEN</td>
-<td class="gt_row gt_left">NA</td>
-<td class="gt_row gt_left">Kein Unterricht</td></tr>
-    <tr><td class="gt_row gt_right">12</td>
-<td class="gt_row gt_left">Abschluss</td>
-<td class="gt_row gt_left">9. Jan. 23 - 13. Jan. 23</td>
-<td class="gt_row gt_left">NA</td></tr>
-  </tbody>
-  
-  
-</table>
+<section id="was-rät-meister-yoda" class="level2"><h2 class="anchored" data-anchor-id="was-rät-meister-yoda">Was rät Meister Yoda?</h2>
+<p>Meister Yoda rät: Lesen Sie die Hinweise (<a href="#fig-yoda">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-yoda</span></a>).</p>
+<div id="fig-yoda" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/yoda.jpg" class="img-fluid figure-img" style="width:33.0%"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;1: Lesen Sie die folgenden Hinweise im eigenen Interesse</figcaption></figure>
 </div>
+<div class="xsmall">
+<p><a href="&quot;https://imgflip.com/memegenerator&quot;">Quelle: made at imageflip</a></p>
 </div>
-</div>
-</section>
-<section id="literatur" class="level2">
-<h2 class="anchored" data-anchor-id="literatur">Literatur</h2>
-<p>Zentrale Begleitliteratur ist <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2022</a>)</span>; der Volltext ist <a href="https://smltar.com/">hier</a> verfügbar.</p>
+</section><section id="zitation" class="level2"><h2 class="anchored" data-anchor-id="zitation">Zitation</h2>
+<p>Nutzen Sie folgende DOI, um dieses Buch zu zitieren: <a href="https://zenodo.org/badge/latestdoi/536004424"><img src="https://zenodo.org/badge/536004424.svg" class="img-fluid" alt="DOI"></a></p>
+<p>Hier ist die Zitation im Bibtex-Format:</p>
+<pre><code>
+</code></pre>
+</section><section id="literatur" class="level2"><h2 class="anchored" data-anchor-id="literatur">Literatur</h2>
+<p>Zentrale Begleitliteratur ist <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>; der Volltext ist <a href="https://smltar.com/">hier</a> verfügbar.</p>
 <p>Pro Thema wird ggf. weitere Literatur ausgewiesen.</p>
-</section>
-<section id="technische-details" class="level2">
-<h2 class="anchored" data-anchor-id="technische-details">Technische Details</h2>
-<p>Dieses Dokument wurde erzeut am/um 2022-12-02 09:17:12.</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-1_982bef02cc77fc4bdfadbc2d35cdfe87">
-<div class="cell-output cell-output-stdout">
-<pre><code>─ Session info ───────────────────────────────────────────────────────────────
- setting  value
- version  R version 4.2.1 (2022-06-23)
- os       macOS Big Sur ... 10.16
- system   x86_64, darwin17.0
- ui       X11
- language (EN)
- collate  en_US.UTF-8
- ctype    en_US.UTF-8
- tz       Europe/Berlin
- date     2022-10-21
- pandoc   2.19.2 @ /usr/local/bin/ (via rmarkdown)
-
-─ Packages ───────────────────────────────────────────────────────────────────
- package     * version    date (UTC) lib source
- assertthat    0.2.1      2019-03-21 [1] CRAN (R 4.2.0)
- cellranger    1.1.0      2016-07-27 [1] CRAN (R 4.2.0)
- cli           3.4.1      2022-09-23 [1] CRAN (R 4.2.0)
- codetools     0.2-18     2020-11-04 [2] CRAN (R 4.2.1)
- colorout    * 1.2-2      2022-06-13 [1] local
- colorspace    2.0-3      2022-02-21 [1] CRAN (R 4.2.0)
- DBI           1.1.3      2022-06-18 [1] CRAN (R 4.2.0)
- digest        0.6.29     2021-12-01 [1] CRAN (R 4.2.0)
- dplyr         1.0.10     2022-09-01 [1] CRAN (R 4.2.0)
- evaluate      0.17       2022-10-07 [1] CRAN (R 4.2.0)
- fansi         1.0.3      2022-03-24 [1] CRAN (R 4.2.0)
- fastmap       1.1.0      2021-01-25 [1] CRAN (R 4.2.0)
- generics      0.1.3      2022-07-05 [1] CRAN (R 4.2.0)
- ggplot2       3.3.6.9000 2022-09-05 [1] Github (tidyverse/ggplot2@a58b48c)
- glue          1.6.2      2022-02-24 [1] CRAN (R 4.2.0)
- gt            0.7.0      2022-08-25 [1] CRAN (R 4.2.0)
- gtable        0.3.1      2022-09-01 [1] CRAN (R 4.2.0)
- htmltools     0.5.3      2022-07-18 [1] CRAN (R 4.2.0)
- htmlwidgets   1.5.4      2021-09-08 [1] CRAN (R 4.2.0)
- jsonlite      1.8.2      2022-10-02 [1] CRAN (R 4.2.0)
- knitr         1.40       2022-08-24 [1] CRAN (R 4.2.0)
- lifecycle     1.0.3      2022-10-07 [1] CRAN (R 4.2.0)
- magrittr      2.0.3      2022-03-30 [1] CRAN (R 4.2.0)
- munsell       0.5.0      2018-06-12 [1] CRAN (R 4.2.0)
- pillar        1.8.1      2022-08-19 [1] CRAN (R 4.2.0)
- pkgconfig     2.0.3      2019-09-22 [1] CRAN (R 4.2.0)
- R6            2.5.1      2021-08-19 [1] CRAN (R 4.2.0)
- readxl        1.4.1      2022-08-17 [1] CRAN (R 4.2.0)
- rlang         1.0.6      2022-09-24 [1] CRAN (R 4.2.0)
- rmarkdown     2.17       2022-10-07 [1] CRAN (R 4.2.0)
- rstudioapi    0.14       2022-08-22 [1] CRAN (R 4.2.0)
- sass          0.4.2      2022-07-16 [1] CRAN (R 4.2.0)
- scales        1.2.1      2022-08-20 [1] CRAN (R 4.2.0)
- sessioninfo   1.2.2      2021-12-06 [1] CRAN (R 4.2.0)
- stringi       1.7.8      2022-07-11 [1] CRAN (R 4.2.0)
- stringr       1.4.1      2022-08-20 [1] CRAN (R 4.2.0)
- tibble        3.1.8      2022-07-22 [1] CRAN (R 4.2.0)
- tidyselect    1.2.0      2022-10-10 [1] CRAN (R 4.2.0)
- utf8          1.2.2      2021-07-24 [1] CRAN (R 4.2.0)
- vctrs         0.4.2      2022-09-29 [1] CRAN (R 4.2.0)
- withr         2.5.0      2022-03-03 [1] CRAN (R 4.2.0)
- xfun          0.33       2022-09-12 [1] CRAN (R 4.2.0)
- yaml          2.3.5      2022-02-21 [1] CRAN (R 4.2.0)
-
- [1] /Users/sebastiansaueruser/Rlibs
- [2] /Library/Frameworks/R.framework/Versions/4.2/Resources/library
-
-──────────────────────────────────────────────────────────────────────────────</code></pre>
-</div>
+</section><section id="quellcode" class="level2"><h2 class="anchored" data-anchor-id="quellcode">Quellcode</h2>
+<p>Der Quellcode liegt öffentlich zugänglich in <a href="https://github.com/sebastiansauer/datascience-text">diesem Github-Repositorium</a>.</p>
+</section><section id="technische-details" class="level2"><h2 class="anchored" data-anchor-id="technische-details">Technische Details</h2>
+<ul>
+<li><p>Diese Version des Buches wurde erstellt am: 2023-10-22 21:38:07</p></li>
+<li><p>Sie haben Feedback, Fehlerhinweise oder Wünsche zur Weiterentwicklung? Am besten stellen Sie <a href="https://github.com/sebastiansauer/datascience1/issues">hier</a> einen <em>Issue</em> ein.</p></li>
+<li><p>Dieses Projekt steht unter der <a href="https://github.com/sebastiansauer/datascience1/blob/main/LICENSE">MIT-Lizenz</a>.</p></li>
+<li><p>Dieses Buch wurde in <a href="http://www.rstudio.com/ide/">RStudio</a> mit Hilfe von <a href="http://bookdown.org/">bookdown</a> geschrieben.</p></li>
+<li><p>Diese Version des Buches wurde mit der R-Version R version 4.2.1 (2022-06-23) und den folgenden technischen Spezifikationen erstellt:</p></li>
+</ul>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-2_ae6e2e95af4800b810aed233f521c929">
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value
+##  version  R version 4.2.1 (2022-06-23)
+##  os       macOS Big Sur ... 10.16
+##  system   x86_64, darwin17.0
+##  ui       X11
+##  language (EN)
+##  collate  en_US.UTF-8
+##  ctype    en_US.UTF-8
+##  tz       Europe/Berlin
+##  date     2023-08-24
+##  pandoc   3.1.1 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/ (via rmarkdown)
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package     * version date (UTC) lib source
+##  cli           3.6.1   2023-03-23 [1] CRAN (R 4.2.0)
+##  colorout    * 1.2-2   2022-06-13 [1] local
+##  digest        0.6.32  2023-06-26 [1] CRAN (R 4.2.0)
+##  evaluate      0.21    2023-05-05 [1] CRAN (R 4.2.0)
+##  fastmap       1.1.1   2023-02-24 [1] CRAN (R 4.2.0)
+##  htmltools     0.5.5   2023-03-23 [1] CRAN (R 4.2.0)
+##  htmlwidgets   1.6.2   2023-03-17 [1] CRAN (R 4.2.0)
+##  jsonlite      1.8.7   2023-06-29 [1] CRAN (R 4.2.0)
+##  knitr         1.43    2023-05-25 [1] CRAN (R 4.2.0)
+##  rlang         1.1.1   2023-04-28 [1] CRAN (R 4.2.0)
+##  rmarkdown     2.23    2023-07-01 [1] CRAN (R 4.2.0)
+##  rstudioapi    0.14    2022-08-22 [1] CRAN (R 4.2.0)
+##  sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.2.0)
+##  xfun          0.39    2023-04-20 [1] CRAN (R 4.2.0)
+##  yaml          2.3.7   2023-01-23 [1] CRAN (R 4.2.0)
+## 
+##  [1] /Users/sebastiansaueruser/Rlibs
+##  [2] /Library/Frameworks/R.framework/Versions/4.2/Resources/library
+## 
+## ──────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
-<div id="ref-smltar" class="csl-entry" role="doc-biblioentry">
-Hvitfeldt, Emil, und Julia Silge. 2022. <em>Supervised Machine Learning for Text Analysis in R</em>. 1. Aufl. Boca Raton: Chapman; Hall/<span>CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-smltar" class="csl-entry" role="listitem">
+Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
 </div>
-</section>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>falls Sie die Pakete schon installiert haben, könnten Sie mal in RStudio auf “update.packages” klicken<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -879,6 +340,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -886,9 +462,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -953,6 +543,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -991,13 +667,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./pruefung.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prüfung</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./010-Hinweise.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

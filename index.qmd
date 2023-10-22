@@ -1,4 +1,68 @@
-# Hinweise {.unnumbered}
+# Zu diesem Buch {.unnumbered}
+
+
+
+
+```{r download-hinweise}
+#| echo: false
+#| cache: false
+
+# Hinweise-Lernhilfen.qmd
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Hinweise-Lernhilfen.qmd",
+              destfile = "children/Hinweise-Lernhilfen.qmd",
+              quiet = TRUE)
+
+
+# Hinweise-Unterricht.qmd
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Hinweise-Unterricht.qmd",
+              destfile = "children/Hinweise-Unterricht.qmd",
+              quiet = TRUE)
+
+
+# Hinweise-Didaktik.qmd 
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Hinweise-Didaktik.qmd",
+              destfile = "children/Hinweise-Didaktik.qmd",
+              quiet = TRUE)
+
+
+# Hinweise-Pruefungsvorbereitung.qmd
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Hinweise-Pruefungsvorbereitung.qmd",
+              destfile = "children/Hinweise-Pruefungsvorbereitung.qmd",
+              quiet = TRUE)
+
+# Hinweise-Pruefung-Open-Book-Child.qmd
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Hinweise-Pruefung-Open-Book-Child.qmd",
+              destfile = "children/Hinweise-Pruefung-Open-Book-Child.qmd",
+              quiet = TRUE)
+
+# Hinweise-Pruefung-Prognosewettbewerb-child.qmd
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Prognosewettbewerb/Hinweise-Pruefung-Prognosewettbewerb-child.qmd",
+              destfile = "children/Hinweise-Pruefung-Prognosewettbewerb-child.qmd",
+              quiet = FALSE)
+
+
+# Beispiele-Fehler-Prognosewettbewerb.md
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Prognosewettbewerb/Beispiele-Fehler-Prognosewettbewerb.md",
+              destfile = "children/Beispiele-Fehler-Prognosewettbewerb.md",
+              quiet = FALSE)
+
+
+# Pruefung-Fachgespraech.qmd
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Pruefung-Fachgespraech.qmd",
+              destfile = "children/Pruefung-Fachgespraech.qmd",
+              quiet = FALSE)
+
+# Hinweise/Hinweise-Prüfung-Datenanalyse-Child.1md
+download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main/Hinweise/Hinweise-Pruefung-Datenanalyse-Child.qmd",
+              destfile = "children/Hinweise-Pruefung-Datenanalyse-Child.qmd",
+              quiet = FALSE)
+
+# FAQ
+
+
+```
+
+
 
 
 
@@ -8,91 +72,35 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 
 
----
 
-🚧WORK IN PROGRESS🚧
-
----
+## Was rät Meister Yoda?
 
 
+Meister Yoda rät: Lesen Sie die Hinweise (@fig-yoda).
 
+![Lesen Sie die folgenden Hinweise im eigenen Interesse](img/yoda.jpg){#fig-yoda width="33%"}
 
-## Lernziele
-
-Nach diesem Kurs sollten Sie ...
-
-- Daten aus Sozialen Netzwerken wie Twitter automatisiert in großer Menge auslesen können
-- Gängige Methoden des Textminings mit R anwenden können (z.B. Tokenizing, Stemming, Regex)
-- Verfahren des Maschinenlernens auf Textdaten anwenden können
-- Den Forschungsstand zum Thema Erkennung von Hatespeech in Ausschnitten kennen
-
-
-
-
-## Voraussetzungen
-
-Um von diesem Kurs am besten zu profitieren,
-sollten Sie folgendes Wissen mitbringen:
-
-    
-- fortgeschrittene Kenntnisse im Umgang mit R, möglichst auch mit dem tidyverse
-- fortgeschrittene Kenntnisse der deskriptiven Statistik
-- fortgeschrittene Kenntnis der Regressionsanalyse
-- grundlegende Kenntnisse des Maschinenlernens
-
-
-
-
-## Software
-
-- Installieren Sie [R und seine Freunde](https://data-se.netlify.app/2021/11/30/installation-von-r-und-seiner-freunde/).
-
-- Installieren Sie die folgende R-Pakete^[falls Sie die Pakete schon installiert haben, könnten Sie mal in RStudio auf "update.packages" klicken]:
-    - tidyverse
-    - tidymodels
-    - easystats
-    - weitere Pakete werden im Unterricht bekannt gegeben (es schadet aber nichts, jetzt schon Pakete nach eigenem Ermessen zu installieren)
-- [R Syntax aus dem Unterricht](https://github.com/sebastiansauer/Lehre) findet sich im Github-Repo bzw. Ordner zum jeweiligen Semester.
-
-
-
-## Lernhilfen
-
-
-### Videos
-
-- Auf dem [YouTube-Kanal des Autors](https://www.youtube.com/channel/UCkvdtj8maE7g-SOCh4aDB9g) finden sich eine Reihe von Videos mit Bezug zum Inhalt dieses Buches.
-
-
-
-### Online-Zusammenarbeit
-
-Hier finden Sie einige Werkzeuge, 
-die das Online-Zusammenarbeiten vereinfachen: 
-
-- [Frag-Jetzt-Raum zum anonymen Fragen stellen während des Unterrichts](https://frag.jetzt/home). Der Keycode wird Ihnen bei Bedarf vom Dozenten bereitgestellt.
-- [Padlet](https://de.padlet.com/) zum einfachen (und anonymen) Hochladen von Arbeitsergebnissen der Studentis im Unterricht. Wir nutzen es als eine Art Pinwand zum Sammeln von Arbeitsbeiträgen. Die Zugangsdaten stellt Ihnen der Dozent bereit.
+:::{.xsmall}
+[Quelle: made at imageflip]("https://imgflip.com/memegenerator")
+:::
 
 
 
 
 
-## Modulzeitplan
+
+## Zitation
+
+Nutzen Sie folgende DOI, um dieses Buch zu zitieren: [![DOI](https://zenodo.org/badge/536004424.svg)](https://zenodo.org/badge/latestdoi/536004424)
 
 
 
+Hier ist die Zitation im Bibtex-Format:
 
-
-```{r source-timetable, echo = FALSE}
-timetable_file <- "specifics/DS2-22-WiSe-Modulverlauf.xlsx"
-stopifnot(file.exists(timetable_file))
-timetable <- readxl::read_xlsx(timetable_file)
-
-gt::gt(timetable)
 ```
 
 
-
+```
 
 
 
@@ -106,15 +114,57 @@ Pro Thema wird ggf. weitere Literatur ausgewiesen.
 
 
 
+
+
+## Quellcode
+
+Der Quellcode liegt öffentlich zugänglich in [diesem Github-Repositorium](https://github.com/sebastiansauer/datascience-text).
+
+
+
 ## Technische Details
 
-Dieses Dokument wurde erzeut am/um `r Sys.time()`.
 
+
+- Diese Version des Buches wurde erstellt am: `r Sys.time()`
+
+
+- Sie haben Feedback, Fehlerhinweise oder Wünsche zur Weiterentwicklung? Am besten stellen Sie  [hier](https://github.com/sebastiansauer/datascience1/issues) einen *Issue*  ein.
+
+- Dieses Projekt steht unter der [MIT-Lizenz](https://github.com/sebastiansauer/datascience1/blob/main/LICENSE). 
+
+- Dieses Buch wurde in [RStudio](http://www.rstudio.com/ide/) mit Hilfe von [bookdown](http://bookdown.org/) geschrieben. 
+
+- Diese Version des Buches wurde mit der R-Version `r R.version.string` und den folgenden technischen Spezifikationen erstellt:
+
+```{r, echo = FALSE, results="asis"}
+#| eval: false
+deps <- desc::desc_get_deps()
+pkgs <- sort(deps$package[deps$type == "Imports"])
+pkgs <- sessioninfo::package_info(pkgs, dependencies = FALSE)
+df <- tibble::tibble(
+  package = pkgs$package,
+  version = pkgs$ondiskversion,
+  source = gsub("@", "\\\\@", pkgs$source)
+)
+knitr::kable(df, format = "markdown")
+```
 
 ```{r}
 #| echo: false
-
 sessioninfo::session_info()
-
 ```
+
+
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+#| eval: true
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
 
