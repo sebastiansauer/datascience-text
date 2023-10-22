@@ -304,7 +304,7 @@ div.csl-indent {
 </ul></section><section id="vorbereitung" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="vorbereitung">
 <span class="header-section-number">4.1.2</span> Vorbereitung</h3>
 <ul>
-<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span> Kap. 2.</li>
+<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span> Kap. 2.</li>
 </ul></section><section id="benötigte-r-pakete" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
 <span class="header-section-number">4.1.3</span> Benötigte R-Pakete</h3>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-1_66765c85b41b11e961aad1156c554841">
@@ -324,7 +324,7 @@ div.csl-indent {
 <p>Arbeiten Sie die folgenden grundlegenden Methoden des Textminigs durch.</p>
 <section id="tokenisierung" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="tokenisierung">
 <span class="header-section-number">4.2.1</span> Tokenisierung</h3>
-<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></p>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></p>
 <p>Wie viele Zeilen hat das Märchen “The Fir tree” (in der englischen Fassung?)</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-2_5191bf3ecd573f03dff0bed65fd1b970">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hcandersen_en</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -334,7 +334,7 @@ div.csl-indent {
 </div>
 </section><section id="stopwörter-entfernen" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="stopwörter-entfernen">
 <span class="header-section-number">4.2.2</span> Stopwörter entfernen</h3>
-<p>Erarbeiten Sie dieses Kapitel: s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></p>
+<p>Erarbeiten Sie dieses Kapitel: s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></p>
 <p>Eine alternative Quelle von Stopwörtern - in verschiedenen Sprachen - biwetet das Paket <code>quanteda</code>:</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-3_5ab35cb3a22e8cb3ee39449f416b2a5d">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stop2</span> <span class="op">&lt;-</span></span>
@@ -374,7 +374,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Zur Visualisierung eignen sich Balkendiagramme, s. <a href="#fig-hcandersen-count">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-hcandersen-count</span></a>.</p>
+<p>Zur Visualisierung eignen sich Balkendiagramme, s. <span class="quarto-unresolved-ref">?fig-hcandersen-count</span>.</p>
 <div class="cell" data-hash="030-textmining1_cache/html/fig-hc-andersen-count_27f2041f9e08ad0aeb2d7b1d33a21d74">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc_andersen_count</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">n</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -391,7 +391,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Dabei macht es Sinn, aus <code>word</code> einen Faktor zu machen, denn Faktorstufen kann man sortieren, zumindest ist das die einfachste Lösung in <code>ggplot2</code> (wenn auch nicht super komfortabel).</p>
-<p>Eine (beliebite?) Methode, um Worthäufigkeiten in Corpora darzustellen, sind <em>Wortwolken</em>, s. <a href="#fig-wordcloud1">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-wordcloud1</span></a>. Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale perzeptorische Qualitäten aufweisen.</p>
+<p>Eine (beliebite?) Methode, um Worthäufigkeiten in Corpora darzustellen, sind <em>Wortwolken</em>, s. <a href="#fig-wordcloud1">Abbildung&nbsp;<span>4.2</span></a>. Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale perzeptorische Qualitäten aufweisen.</p>
 <div class="cell" data-hash="030-textmining1_cache/html/fig-wordcloud1_91379675028cde3bc2f48a21364aa262">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/wordcloud/man/wordcloud.html">wordcloud</a></span><span class="op">(</span>words <span class="op">=</span> <span class="va">hc_andersen_count</span><span class="op">$</span><span class="va">word</span>,</span>
 <span>          freq <span class="op">=</span> <span class="va">hc_andersen_count</span><span class="op">$</span><span class="va">n</span>,</span>
@@ -407,8 +407,8 @@ div.csl-indent {
 </div>
 </section><section id="stemming-wortstamm-finden" class="level3" data-number="4.2.4"><h3 data-number="4.2.4" class="anchored" data-anchor-id="stemming-wortstamm-finden">
 <span class="header-section-number">4.2.4</span> Stemming (Wortstamm finden)</h3>
-<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></p>
-<p>Vertiefende Hinweise zum <em>UpSet plot</em> finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></p>
+<p>Vertiefende Hinweise zum <em>UpSet plot</em> finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="references.html#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
 <p>Für welche Sprachen gibt es Stemming im Paket <code>SnowballC</code>?</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-7_879a2f2860ce72906fa606c7354b66ff">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nalimilan/R.TeMiS">SnowballC</a></span><span class="op">)</span></span>
@@ -496,7 +496,7 @@ div.csl-indent {
 </div>
 </section><section id="stringverarbeitung" class="level3" data-number="4.2.6"><h3 data-number="4.2.6" class="anchored" data-anchor-id="stringverarbeitung">
 <span class="header-section-number">4.2.6</span> Stringverarbeitung</h3>
-<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="#ref-r4ds" role="doc-biblioref">2016</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">Kap. 14</a></p>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="references.html#ref-r4ds" role="doc-biblioref">2016</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">Kap. 14</a></p>
 <section id="regex" class="level4" data-number="4.2.6.1"><h4 data-number="4.2.6.1" class="anchored" data-anchor-id="regex">
 <span class="header-section-number">4.2.6.1</span> Regulärausdrücke</h4>
 <p>Das <code>"[a-z]"</code> in der Syntax oben steht für “alle Buchstaben von a-z”. D iese flexible Art von “String-Verarbeitung mit Jokern” nennt man <em>Regulärausdrücke</em> (regular expressions; regex). Es gibt eine ganze Reihe von diesen Regulärausdrücken, die die Verarbeitung von Texten erleichert. Mit dem Paket <code>stringr</code> geht das - mit etwas Übung - gut von der Hand. Nehmen wir als Beispiel den Text eines Tweets:</p>
@@ -574,7 +574,7 @@ div.csl-indent {
 <li>Nachname3, Vorname3</li>
 </ul>
 <p>Und Sie möchten jetzt aber die Liste mit Stil <em>Vorname Nachname</em> sortiert haben.</p>
-<p>RStudio mit Regex macht’s möglich, s. <a href="#fig-vorher-regex">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-vorher-regex</span></a>.</p>
+<p>RStudio mit Regex macht’s möglich, s. <span class="quarto-unresolved-ref">?fig-vorher-regex</span>.</p>
 <div id="fig-regrex-rstudio" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="img/regex1.png" id="fig-vorher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"><img src="img/regex2.png" id="fig-nacher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"></p>
 <figcaption class="figure-caption">Abbildung&nbsp;4.3: <strong>?(caption)</strong></figcaption></figure>
@@ -829,7 +829,7 @@ div.csl-indent {
 </li>
 <li>Liefere zum Schluss die Summenwerte pro Sentiment zurück.</li>
 </ol>
-<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das <em>deutsche</em> Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
+<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das <em>deutsche</em> Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-30_971a4a17a2d5165a991c25f4a5bdc2f0">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://osf.io/x89wq/?action=download"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -842,7 +842,7 @@ div.csl-indent {
 <div class="cell" data-hash="030-textmining1_cache/html/parse-sentiment-dics_2f944246db19cf38ecaaf8715a47e148">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sentiws</span>, package <span class="op">=</span> <span class="st">"pradadata"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><a href="#tbl-afdcount">Tabelle&nbsp;<span class="quarto-unresolved-ref">tbl-afdcount</span></a> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
+<p><a href="#tbl-afdcount">Tabelle&nbsp;<span>4.1</span></a> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
 <div class="cell" data-hash="030-textmining1_cache/html/tbl-afdcount_26fc02040d3d50d76f5ef18f6ea63ed6">
 <div class="cell-output-display">
 <div id="tbl-afdcount" class="anchored">
@@ -857,7 +857,7 @@ div.csl-indent {
 </div>
 </section><section id="ungewichtete-sentiment-analyse" class="level4" data-number="4.2.10.2"><h4 data-number="4.2.10.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse">
 <span class="header-section-number">4.2.10.2</span> Ungewichtete Sentiment-Analyse</h4>
-<p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span class="quarto-unresolved-ref">tbl-afdsenti</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
+<p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span>4.2</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
 <p>Wir nutzen die Tabelle <code>afd_long</code>, die wir oben definiert haben.</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-32_b08798a0419e6b477151188f7aaee942">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -995,7 +995,7 @@ div.csl-indent {
 <p>Wir nutzen noch nicht eigene Daten, die wir von Twitter ausgelesen haben, das heben wir uns für später auf.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="listitem">
 Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>

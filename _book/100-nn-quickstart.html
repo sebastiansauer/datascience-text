@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 11&nbsp; Einstieg in Neuronale Netze</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./200-projektmgt.html" rel="next">
+<link href="./080-klassifikation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zu diesem Buch</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+<li>
+<a href="#quick-start" id="toc-quick-start" class="nav-link active" data-scroll-target="#quick-start"><span class="header-section-number">11.1</span> Quick-Start</a>
+  <ul class="collapse">
+<li><a href="#quick-start-mit-r" id="toc-quick-start-mit-r" class="nav-link" data-scroll-target="#quick-start-mit-r"><span class="header-section-number">11.1.1</span> Quick Start mit R</a></li>
+  <li><a href="#quick-start-mit-python-und-colab" id="toc-quick-start-mit-python-und-colab" class="nav-link" data-scroll-target="#quick-start-mit-python-und-colab"><span class="header-section-number">11.1.2</span> Quick-Start mit Python und Colab</a></li>
+  </ul>
+</li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">11.2</span> Vertiefung</a></li>
+  <li><a href="#fallstudien" id="toc-fallstudien" class="nav-link" data-scroll-target="#fallstudien"><span class="header-section-number">11.3</span> Fallstudien</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="quick-start" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="quick-start">
+<span class="header-section-number">11.1</span> Quick-Start</h2>
+<section id="quick-start-mit-r" class="level3" data-number="11.1.1"><h3 data-number="11.1.1" class="anchored" data-anchor-id="quick-start-mit-r">
+<span class="header-section-number">11.1.1</span> Quick Start mit R</h3>
+<p>Wir halten uns an das Tutorial von <a href="https://tensorflow.rstudio.com/tutorials/quickstart/beginner">TensforFlow for R, “Hello, World!”</a>.</p>
+<section id="setup" class="level4" data-number="11.1.1.1"><h4 data-number="11.1.1.1" class="anchored" data-anchor-id="setup">
+<span class="header-section-number">11.1.1.1</span> Setup</h4>
+<p>Wir starten die benötigten Pakete:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-1_7c84e414bbed3b0df2f5d04b8e742733">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tensorflow.rstudio.com/">keras</a></span><span class="op">)</span>  <span class="co"># TensorFlow API</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tensorflow">tensorflow</a></span><span class="op">)</span>  <span class="co"># TensorFlow pur</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>  <span class="co"># Datenjudo</span></span>
+<span><span class="co">## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
+<span><span class="co">## ✔ dplyr     1.1.3     ✔ readr     2.1.4</span></span>
+<span><span class="co">## ✔ forcats   1.0.0     ✔ stringr   1.5.0</span></span>
+<span><span class="co">## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1</span></span>
+<span><span class="co">## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0</span></span>
+<span><span class="co">## ✔ purrr     1.0.2     </span></span>
+<span><span class="co">## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co">## ✖ dplyr::filter() masks stats::filter()</span></span>
+<span><span class="co">## ✖ dplyr::lag()    masks stats::lag()</span></span>
+<span><span class="co">## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc">tictoc</a></span><span class="op">)</span>  <span class="co"># Zeitmessung</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das Installieren von TensorFlow bzw. Keras kann Schwierigkeiten bereiten. Tipp: Stellen Sie in RStudio sicher, dass Sie die richtige Python-Version verwenden.</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-2_1c0d4f5caf83d9e42847aa51d4cbf008">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mnist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_mnist.html">dataset_mnist</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">X_train</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">train</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">X_test</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">test</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">y_train</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">train</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="va">y_test</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">test</span><span class="op">$</span><span class="va">y</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In Kurzform kann man synonym schreiben:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-3_a0d11db01566046e252e5b59aae46675">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x_test</span>, <span class="va">y_test</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/zeallot/man/operator.html">%&lt;-%</a></span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_mnist.html">dataset_mnist</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="visualisieren" class="level4" data-number="11.1.1.2"><h4 data-number="11.1.1.2" class="anchored" data-anchor-id="visualisieren">
+<span class="header-section-number">11.1.1.2</span> Visualisieren</h4>
+<p>Wählen wir ein Bild aus; das schauen wir uns näher an <a href="https://stackoverflow.com/questions/43420754/plot-mnist-digits-with-ggplot2">Quelle</a>.</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-4_644ab5265ee58c48441c53c7e4a03a40">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">image_id</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span><span class="va">my_image</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">train</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">image_id</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">28</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">28</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>                <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if</span></span>
+<span><span class="co">## `.name_repair` is omitted as of tibble 2.0.0.</span></span>
+<span><span class="co">## ℹ Using compatibility `.name_repair`.</span></span>
+<span></span>
+<span><span class="va">my_image</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["V1"],"name":[1],"type":["int"],"align":["right"]},{"label":["V2"],"name":[2],"type":["int"],"align":["right"]},{"label":["V3"],"name":[3],"type":["int"],"align":["right"]},{"label":["V4"],"name":[4],"type":["int"],"align":["right"]},{"label":["V5"],"name":[5],"type":["int"],"align":["right"]},{"label":["V6"],"name":[6],"type":["int"],"align":["right"]},{"label":["V7"],"name":[7],"type":["int"],"align":["right"]},{"label":["V8"],"name":[8],"type":["int"],"align":["right"]},{"label":["V9"],"name":[9],"type":["int"],"align":["right"]},{"label":["V10"],"name":[10],"type":["int"],"align":["right"]},{"label":["V11"],"name":[11],"type":["int"],"align":["right"]},{"label":["V12"],"name":[12],"type":["int"],"align":["right"]},{"label":["V13"],"name":[13],"type":["int"],"align":["right"]},{"label":["V14"],"name":[14],"type":["int"],"align":["right"]},{"label":["V15"],"name":[15],"type":["int"],"align":["right"]},{"label":["V16"],"name":[16],"type":["int"],"align":["right"]},{"label":["V17"],"name":[17],"type":["int"],"align":["right"]},{"label":["V18"],"name":[18],"type":["int"],"align":["right"]},{"label":["V19"],"name":[19],"type":["int"],"align":["right"]},{"label":["V20"],"name":[20],"type":["int"],"align":["right"]},{"label":["V21"],"name":[21],"type":["int"],"align":["right"]},{"label":["V22"],"name":[22],"type":["int"],"align":["right"]},{"label":["V23"],"name":[23],"type":["int"],"align":["right"]},{"label":["V24"],"name":[24],"type":["int"],"align":["right"]},{"label":["V25"],"name":[25],"type":["int"],"align":["right"]},{"label":["V26"],"name":[26],"type":["int"],"align":["right"]},{"label":["V27"],"name":[27],"type":["int"],"align":["right"]},{"label":["V28"],"name":[28],"type":["int"],"align":["right"]}],"data":[{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"51","17":"159","18":"253","19":"159","20":"50","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"48","16":"238","17":"252","18":"252","19":"252","20":"237","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"54","15":"227","16":"253","17":"252","18":"239","19":"233","20":"252","21":"57","22":"6","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"10","13":"60","14":"224","15":"252","16":"253","17":"252","18":"202","19":"84","20":"252","21":"253","22":"122","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"163","13":"252","14":"252","15":"252","16":"253","17":"252","18":"252","19":"96","20":"189","21":"253","22":"167","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"51","12":"238","13":"253","14":"253","15":"190","16":"114","17":"253","18":"228","19":"47","20":"79","21":"255","22":"168","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"48","11":"238","12":"252","13":"252","14":"179","15":"12","16":"75","17":"121","18":"21","19":"0","20":"0","21":"253","22":"243","23":"50","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"38","10":"165","11":"253","12":"233","13":"208","14":"84","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"165","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"7","9":"178","10":"252","11":"240","12":"71","13":"19","14":"28","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"195","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"57","9":"252","10":"252","11":"63","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"195","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"198","9":"253","10":"190","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"255","22":"253","23":"196","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"76","8":"246","9":"252","10":"112","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"148","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"230","10":"25","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"7","20":"135","21":"253","22":"186","23":"12","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"223","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"7","19":"131","20":"252","21":"225","22":"71","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"145","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"48","18":"165","19":"252","20":"173","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"86","8":"253","9":"225","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"114","17":"238","18":"253","19":"162","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"249","10":"146","11":"48","12":"29","13":"85","14":"178","15":"225","16":"253","17":"223","18":"167","19":"56","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"252","10":"252","11":"229","12":"215","13":"252","14":"252","15":"252","16":"196","17":"130","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"28","8":"199","9":"252","10":"252","11":"253","12":"252","13":"252","14":"233","15":"145","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"25","9":"128","10":"252","11":"253","12":"252","13":"141","14":"37","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-5_5ada0f202b0d45e5781ab637406ad115">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_image_prepared</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">my_image</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">'y'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>names_to <span class="op">=</span> <span class="st">"x"</span>, values_to <span class="op">=</span> <span class="st">"val"</span>, <span class="va">V1</span><span class="op">:</span><span class="va">V28</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'V'</span>, <span class="st">''</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>         y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">28</span><span class="op">-</span><span class="va">y</span><span class="op">)</span> </span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">my_image_prepared</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["y"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["val"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"27","2":"1","3":"0"},{"1":"27","2":"2","3":"0"},{"1":"27","2":"3","3":"0"},{"1":"27","2":"4","3":"0"},{"1":"27","2":"5","3":"0"},{"1":"27","2":"6","3":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>So, genug der Vorarbeiten, jetzt plotten:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-6_00f3189484d81adc5b69e6cbe878cb00">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_image_prepared</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">val</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="100-nn-quickstart_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="neuronales-netz-1" class="level4" data-number="11.1.1.3"><h4 data-number="11.1.1.3" class="anchored" data-anchor-id="neuronales-netz-1">
+<span class="header-section-number">11.1.1.3</span> Neuronales Netz 1</h4>
+<p>Für unser Netzwerk wollen wir Werte zwischen 0 und 1, daher teilen wir durch den Max-Wert, d.i. 255:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-7_bd61a482f37bd74365ef0aa157ba4c59">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_train</span> <span class="op">&lt;-</span> <span class="va">X_train</span> <span class="op">/</span> <span class="fl">255</span></span>
+<span><span class="va">x_test</span> <span class="op">&lt;-</span>  <span class="va">X_test</span> <span class="op">/</span> <span class="fl">255</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-8_36d6db555394247c6ff0ca6c85e89131">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/keras_model_sequential.html">keras_model_sequential</a></span><span class="op">(</span>input_shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">28</span>, <span class="fl">28</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_flatten.html">layer_flatten</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_dense.html">layer_dense</a></span><span class="op">(</span><span class="fl">128</span>, activation <span class="op">=</span> <span class="st">"relu"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_dropout.html">layer_dropout</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_dense.html">layer_dense</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hier ist eine Beschreibung des Modells:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-9_949e618a716a2ce99c82b07ddb6003b2">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span></span>
+<span><span class="co">## Model: "sequential"</span></span>
+<span><span class="co">## ________________________________________________________________________________</span></span>
+<span><span class="co">##  Layer (type)                       Output Shape                    Param #     </span></span>
+<span><span class="co">## ================================================================================</span></span>
+<span><span class="co">##  flatten (Flatten)                  (None, 784)                     0           </span></span>
+<span><span class="co">##  dense_1 (Dense)                    (None, 128)                     100480      </span></span>
+<span><span class="co">##  dropout (Dropout)                  (None, 128)                     0           </span></span>
+<span><span class="co">##  dense (Dense)                      (None, 10)                      1290        </span></span>
+<span><span class="co">## ================================================================================</span></span>
+<span><span class="co">## Total params: 101770 (397.54 KB)</span></span>
+<span><span class="co">## Trainable params: 101770 (397.54 KB)</span></span>
+<span><span class="co">## Non-trainable params: 0 (0.00 Byte)</span></span>
+<span><span class="co">## ________________________________________________________________________________</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann definieren wir eine Fehlerfunktion:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-10_7f35294f7ceca42a2ba451a2e5321941">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">loss_fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/loss-functions.html">loss_sparse_categorical_crossentropy</a></span><span class="op">(</span>from_logits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bevor wir das Modul trainieren, konfigurieren wir es und kompilieren wir es in Maschinencode:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-11_f73dbccd288ceb70836e0ab8d02df480">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/compile.html">compile</a></span><span class="op">(</span></span>
+<span>  optimizer <span class="op">=</span> <span class="st">"adam"</span>,</span>
+<span>  loss <span class="op">=</span> <span class="va">loss_fn</span>,</span>
+<span>  metrics <span class="op">=</span> <span class="st">"accuracy"</span></span>
+<span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt ist Trainingszeit, das besorgt die <code>fit</code>-Methode:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-12_699f9eecb56320a3900865045aca1773">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span>, epochs <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">## Epoch 1/5</span></span>
+<span><span class="co">## 1875/1875 - 6s - loss: 0.2933 - accuracy: 0.9140 - 6s/epoch - 3ms/step</span></span>
+<span><span class="co">## Epoch 2/5</span></span>
+<span><span class="co">## 1875/1875 - 5s - loss: 0.1415 - accuracy: 0.9579 - 5s/epoch - 3ms/step</span></span>
+<span><span class="co">## Epoch 3/5</span></span>
+<span><span class="co">## 1875/1875 - 5s - loss: 0.1065 - accuracy: 0.9680 - 5s/epoch - 3ms/step</span></span>
+<span><span class="co">## Epoch 4/5</span></span>
+<span><span class="co">## 1875/1875 - 5s - loss: 0.0869 - accuracy: 0.9737 - 5s/epoch - 3ms/step</span></span>
+<span><span class="co">## Epoch 5/5</span></span>
+<span><span class="co">## 1875/1875 - 5s - loss: 0.0763 - accuracy: 0.9751 - 5s/epoch - 3ms/step</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## 27.897 sec elapsed</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Modellgüte überprüfen wir natürlich im Test-Set:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-13_d40d231a05360926ecb19b5fbebccfb8">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/tensorflow/man/evaluate.html">evaluate</a></span><span class="op">(</span><span class="va">x_test</span>,  <span class="va">y_test</span>, verbose <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">## 313/313 - 1s - loss: 0.0700 - accuracy: 0.9785 - 646ms/epoch - 2ms/step</span></span>
+<span><span class="co">##       loss   accuracy </span></span>
+<span><span class="co">## 0.06995549 0.97850001</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nicht schlecht: Knapp 98% Trefferquote.</p>
+<p>Und hier sind die Vorhersagen für die ersten zwei Bilder:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-14_ea9b9d0d9a062df9b7dd98bbd207ec82">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">x_test</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, , <span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">## 1/1 - 0s - 92ms/epoch - 92ms/step</span></span>
+<span></span>
+<span><span class="va">predictions</span></span>
+<span><span class="co">##           [,1]       [,2]      [,3]      [,4]      [,5]       [,6]       [,7]</span></span>
+<span><span class="co">## [1,] -3.905925 -10.611533 -1.400373  4.933351 -16.82393 -8.1285248 -18.969732</span></span>
+<span><span class="co">## [2,] -7.280436   5.272494 11.744059 -3.961411 -19.05402 -0.2386339  -2.736672</span></span>
+<span><span class="co">##            [,8]      [,9]     [,10]</span></span>
+<span><span class="co">## [1,]   9.691772 -4.551620  -1.77038</span></span>
+<span><span class="co">## [2,] -20.078672 -0.959926 -14.45026</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hm, das sind ja keine Wahrscheinlichkeiten? Stimmt! Es sind Logits. Daher müssen wir noch konvertieren:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-15_e1e41fc617abecca77cecbbc0a741bf1">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tf</span><span class="op">$</span><span class="va">nn</span><span class="op">$</span><span class="fu">softmax</span><span class="op">(</span><span class="va">predictions</span><span class="op">)</span></span>
+<span><span class="co">## tf.Tensor(</span></span>
+<span><span class="co">## [[1.23274579e-06 1.50891550e-09 1.51015303e-05 8.50593665e-03</span></span>
+<span><span class="co">##   3.02450936e-12 1.80726467e-08 3.53789682e-13 9.91466632e-01</span></span>
+<span><span class="co">##   6.46325897e-07 1.04310670e-05]</span></span>
+<span><span class="co">##  [5.45872712e-09 1.54439918e-03 9.98445655e-01 1.50843240e-07</span></span>
+<span><span class="co">##   4.20620588e-14 6.24176197e-06 5.13361230e-07 1.50969060e-14</span></span>
+<span><span class="co">##   3.03426854e-06 4.20024149e-12]], shape=(2, 10), dtype=float64)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ob ihr wirklich richtig steht, seht ihr, wenn das Licht angeht:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-16_3a6902ad707e1114586a68828911e7f3">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_test</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="co">## [1] 7 2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sieht gut aus!</p>
+</section><section id="best-bet-digit" class="level4" data-number="11.1.1.4"><h4 data-number="11.1.1.4" class="anchored" data-anchor-id="best-bet-digit">
+<span class="header-section-number">11.1.1.4</span> Best-Bet-Digit</h4>
+<p>Möchte man ein Modell, das gleich die “Best-Bet-Digit” nennt, kann man das so machen:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-17_fb575abd3979131c22b40a45867f4e9e">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">X_test</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, , <span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># nur die ersten 5</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_argmax.html">k_argmax</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## 1/1 - 0s - 65ms/epoch - 65ms/step</span></span>
+<span></span>
+<span><span class="va">predictions</span><span class="op">$</span><span class="fu">numpy</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## [1] 7 2 1 0 4</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Oder ein eigenes, dazu passendes Modell bauen:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-18_2679e049151925c540196fc7566c2e82">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">probability_model</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/keras_model_sequential.html">keras_model_sequential</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">model</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_activation_softmax.html">layer_activation_softmax</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_lambda.html">layer_lambda</a></span><span class="op">(</span><span class="va">tf</span><span class="op">$</span><span class="va">argmax</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hier sind die Vorhersagen:</p>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-19_1e1fb101d7c93b2f83c84a30b499b3c5">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">probability_model</span><span class="op">(</span><span class="va">x_test</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, , <span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">## tf.Tensor([3 2 1 0 4 2 2 0 2 4], shape=(10), dtype=int64)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-20_033f9bac725e3eb68e0d6e8fea31aaa3">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_test</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="co">## [1] 7 2 1 0 4</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!-- #### Modellgüte  -->
+<!-- Die Modellgüte wird von `evaluate` ausgegeben. -->
+<!-- Aber wir könne -->
+</section></section><section id="quick-start-mit-python-und-colab" class="level3" data-number="11.1.2"><h3 data-number="11.1.2" class="anchored" data-anchor-id="quick-start-mit-python-und-colab">
+<span class="header-section-number">11.1.2</span> Quick-Start mit Python und Colab</h3>
+<p>Am einfachsten ist der Einstieg mit <a href="https://colab.research.google.com/">Google Colab</a>, wo Python voreingestellt ist. Beginnen Sie mit dem [MNIST-Tutorial](https://www.tensorflow.org/tutorials/quickstart/beginner.</p>
+</section></section><section id="vertiefung" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">11.2</span> Vertiefung</h2>
+<p>Die <a href="https://www.tensorflow.org/guide/keras">TensforFlow-Docs</a> bieten einen guten Einstieg in Keras und TensorFlow.</p>
+</section><section id="fallstudien" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="fallstudien">
+<span class="header-section-number">11.3</span> Fallstudien</h2>
+<ul>
+<li><a href="https://appsilon.com/r-keras-mnist/">MNIST einen Schritt weiter</a></li>
+<li><a href="https://www.tensorflow.org/tutorials/keras/classification">Fashion-MNIST</a></li>
+</ul>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./080-klassifikation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./200-projektmgt.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

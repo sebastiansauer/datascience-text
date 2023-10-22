@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 12&nbsp; Projektmanagement</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./300-fallstudien.html" rel="next">
+<link href="./100-nn-quickstart.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./200-projektmgt.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zu diesem Buch</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+<li>
+<a href="#pipeline-management" id="toc-pipeline-management" class="nav-link active" data-scroll-target="#pipeline-management"><span class="header-section-number">12.1</span> Pipeline-Management</a>
+  <ul class="collapse">
+<li><a href="#am-anfang" id="toc-am-anfang" class="nav-link" data-scroll-target="#am-anfang"><span class="header-section-number">12.1.1</span> Am Anfang</a></li>
+  <li><a href="#sie-tr%C3%A4umen-von-einem-werkzeug" id="toc-sie-träumen-von-einem-werkzeug" class="nav-link" data-scroll-target="#sie-tr%C3%A4umen-von-einem-werkzeug"><span class="header-section-number">12.1.2</span> Sie träumen von einem Werkzeug</a></li>
+  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets"><span class="header-section-number">12.1.3</span> Targets</a></li>
+  <li><a href="#eine-pipeline-als-spielwiese" id="toc-eine-pipeline-als-spielwiese" class="nav-link" data-scroll-target="#eine-pipeline-als-spielwiese"><span class="header-section-number">12.1.4</span> Eine Pipeline als Spielwiese</a></li>
+  </ul>
+</li>
+  <li><a href="#zeit-sparen" id="toc-zeit-sparen" class="nav-link" data-scroll-target="#zeit-sparen"><span class="header-section-number">12.2</span> Zeit sparen</a></li>
+  <li><a href="#publizieren" id="toc-publizieren" class="nav-link" data-scroll-target="#publizieren"><span class="header-section-number">12.3</span> Publizieren</a></li>
+  <li>
+<a href="#komplexit%C3%A4tsmanagement" id="toc-komplexitätsmanagement" class="nav-link" data-scroll-target="#komplexit%C3%A4tsmanagement"><span class="header-section-number">12.4</span> Komplexitätsmanagement</a>
+  <ul class="collapse">
+<li><a href="#geben-sie-gute-namen" id="toc-geben-sie-gute-namen" class="nav-link" data-scroll-target="#geben-sie-gute-namen"><span class="header-section-number">12.4.1</span> Geben Sie gute Namen</a></li>
+  <li><a href="#portionieren" id="toc-portionieren" class="nav-link" data-scroll-target="#portionieren"><span class="header-section-number">12.4.2</span> Portionieren</a></li>
+  <li><a href="#debugging-mit-einem-logger" id="toc-debugging-mit-einem-logger" class="nav-link" data-scroll-target="#debugging-mit-einem-logger"><span class="header-section-number">12.4.3</span> Debugging mit einem Logger</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="pipeline-management" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="pipeline-management">
+<span class="header-section-number">12.1</span> Pipeline-Management</h2>
+<section id="am-anfang" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="am-anfang">
+<span class="header-section-number">12.1.1</span> Am Anfang</h3>
+<p>Sie haben Großes vor! Naja, zumindest planen Sie ein neues Data-Science-Projekt.</p>
+<p>Und, schlau wie Sie sind, stürzen Sie nicht sofort an die Tastatur, um sich einige Modelle berechnen zu lassen. Nein! Sie denken erst einmal nach. Zum Beispiel, wie die einzelnen Analyseschritte aussehen, worin sie bestehen, und in welcher Abfolge sie zu berechnen sind, s. <a href="#fig-projekt1">Abbildung&nbsp;<span>12.1</span></a>.</p>
+<div id="fig-projekt1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/project1.JPG" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;12.1: So könnte Ihr Projektplan am Anfang aussehen, man spricht auch von einer Pipeline</figcaption></figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Den Graph der einzelnen Analyseschritte in ihrer Abhängigkeit bezeichnet man als *Pipeline.</p>
+</div>
+</div>
+</section><section id="sie-träumen-von-einem-werkzeug" class="level3" data-number="12.1.2"><h3 data-number="12.1.2" class="anchored" data-anchor-id="sie-träumen-von-einem-werkzeug">
+<span class="header-section-number">12.1.2</span> Sie träumen von einem Werkzeug</h3>
+<p>Nach einiger Zeit überlegen Sie sich, dass Sie ein System bräuchten, das Ihre Skizze umsetzt in tatsächliche Berechnungen. Und zwar suchen Sie ein Projektmanagement-System das folgendes Desiderata erfüllt:</p>
+<ol type="1">
+<li>Es führt die einzelnen Schritte Ihres Projekt, die “Pipeline” in der richtigen Reihenfolge</li>
+<li>Es aktualisiert veraltete Objekte, aber es berechnet <em>nicht</em> Modelle neu, die unverändert sind</li>
+<li>Es ist gut zu debuggen</li>
+</ol>
+<p>Ja, von so einem Werkzeug träumen Sie.</p>
+<p>Und tatsächlich, Ihr Traum geht in Erfüllung. Dieses System existiert. Genau genommen gibt es viele Systeme, die sich anschicken, Ihre Wünsche zu erfüllen. Wir schauen uns eines näher an, das speziell für R gemacht ist. Das <a href="https://books.ropensci.org/targets/">R-Paket <code>targets</code></a>.</p>
+</section><section id="targets" class="level3" data-number="12.1.3"><h3 data-number="12.1.3" class="anchored" data-anchor-id="targets">
+<span class="header-section-number">12.1.3</span> Targets</h3>
+<p>Es lohnt sich, an dieser Stelle den <a href="https://books.ropensci.org/targets/walkthrough.html">“Walkthrough” aus dem Benutzerhandbuch</a> von Targets durchzuarbeiten.</p>
+<p>Für ein Projekt ähnlich zu den, die wir in diesem Buch bearbeiten, ist folgende <code>_targets.R</code>-Datei ein guter Start.</p>
+<div class="cell" data-hash="200-projektmgt_cache/html/unnamed-chunk-1_34a23fde8036e0d650ae79b66b5b5c91">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Funktionen einlesen:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#purrr::walk(list.files(path = "funs", pattern = ".R", full.names = TRUE), source)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"funs/def-recipe.R"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"funs/read-train-data.R"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"funs/read-test-data.R"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Optionen, z.B. allgemein verfügbare Pakete in den Targets:tar_option_set(packages = c("readr", </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"dplyr"</span>, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"ggplot2"</span>, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"purrr"</span>, </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"easystats"</span>, </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"tidymodels"</span>, </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"textrecipes"</span><span class="er">))</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition der Pipeline:</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(data_train, <span class="fu">read_train_data</span>()),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(data_test, <span class="fu">read_test_data</span>()),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(recipe1, <span class="fu">def_recipe</span>(data_train)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(model1,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>             <span class="fu">logistic_reg</span>(<span class="at">penalty =</span> <span class="fu">tune</span>(), <span class="at">mixture =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>               <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>               <span class="fu">set_engine</span>(<span class="st">"glmnet"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>             ),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(workflow1,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>             <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> <span class="fu">add_recipe</span>(recipe1) <span class="sc">%&gt;%</span> <span class="fu">add_model</span>(model1)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>             ),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(grid1,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>             <span class="fu">grid_regular</span>(<span class="fu">penalty</span>(), <span class="at">levels =</span> <span class="dv">3</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>             ),</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(grid_fitted,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>             <span class="fu">tune_grid</span>(workflow1, </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                       <span class="at">resamples =</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">v =</span> <span class="dv">2</span>),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                       <span class="at">grid =</span> grid1)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(best_hyperparams,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>             <span class="fu">select_by_one_std_err</span>(grid_fitted, <span class="at">metric =</span> <span class="st">"roc_auc"</span>, penalty)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>             ),</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(fit1,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>             workflow1 <span class="sc">%&gt;%</span> <span class="fu">finalize_workflow</span>(best_hyperparams) <span class="sc">%&gt;%</span> <span class="fu">fit</span>(data_train)),</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(preds,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>             fit1 <span class="sc">%&gt;%</span> </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>               <span class="fu">predict</span>(data_test) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>               <span class="fu">bind_cols</span>(data_test) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>               <span class="fu">mutate</span>(<span class="at">c1 =</span> <span class="fu">factor</span>(c1))),</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tar_target</span>(metrics1,</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>             preds <span class="sc">%&gt;%</span> <span class="fu">metrics</span>(<span class="at">truth =</span> c1, .pred_class))</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann kann man auf den Play-Button drücken und die ganze Pipeline wird berechnet:</p>
+<div class="cell" data-hash="200-projektmgt_cache/html/unnamed-chunk-2_3be315ec83a4e4573fec708fddff5fe4">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_make</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wenn die Pipeline aktuell ist, und nichts berechnet werden muss (und daher auch schon fehlerfrei durchgelaufen ist), sieht die Ausgabe so aus:</p>
+<pre><code>✔ skip target grid1
+✔ skip target model1
+✔ skip target data_train
+✔ skip target data_test
+✔ skip target recipe1
+✔ skip target workflow1
+✔ skip target grid_fitted
+✔ skip target best_hyperparams
+✔ skip target fit1
+✔ skip target preds
+✔ skip target metrics1
+✔ skip pipeline [0.121 seconds]</code></pre>
+<p>Die Pipeline kann man sich als DAG bzw. als Abhängigkeitsgraph visualisieren lassen:</p>
+<div class="cell" data-hash="200-projektmgt_cache/html/unnamed-chunk-3_983ad52e68d2b43f1d06791c6a7c6357">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_visnetwork</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="img/tar-network1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abhängigkeitsgraph der Pipeline</figcaption></figure>
+</div>
+<p>Einzelne Objekte kann man sich komfortabel anschauen mit <code>tar_load(objekt)</code>, z.B. <code>tar_load(fit1)</code> usw.</p>
+</section><section id="eine-pipeline-als-spielwiese" class="level3" data-number="12.1.4"><h3 data-number="12.1.4" class="anchored" data-anchor-id="eine-pipeline-als-spielwiese">
+<span class="header-section-number">12.1.4</span> Eine Pipeline als Spielwiese</h3>
+<p><a href="https://github.com/sebastiansauer/targets-playground">Dieses Github-Repo</a> stellt Ihnen eine “Spielwiese” zur Verfügung, wo Sie sich mit Pipleines à la Targets vertraut machen können.</p>
+</section></section><section id="zeit-sparen" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="zeit-sparen">
+<span class="header-section-number">12.2</span> Zeit sparen</h2>
+<p>Einer Maschine etwas beizubringen kann dauern … Ein einfaches Rechenbeispiel dazu:</p>
+<ul>
+<li>Sie haben eine Kreuzvalidierung mit 10 Faltungen</li>
+<li>und 3 Wiederholungen</li>
+<li>und 3 Tuningparameter</li>
+<li>mit je 10 Werten</li>
+</ul>
+<p>Das sind 10<em>3</em>3*10=900 Wiederholungen.</p>
+<p>Leider haben Sie noch in den ersten 10 Versuchen jeweils einen Bug, so dass sich die Rechenzeit noch einmal um den Faktor 10 erhöht…</p>
+<p>Die Rechenzeit kann also schnell ins astronomische steigen. Es braucht also Methoden, um Rechenzeit zu sparen.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Einige Methoden zum Rechenzeit sparen sind:</p>
+<ul>
+<li>
+<em>Cloud</em>: Cloud-Dienste in Anspruch nehmen (faktisch mietet man damit schnelle Rechner)</li>
+<li>
+<em>Parallelisierung</em>: Mehrere Kerne des eigenen Computers nutzen</li>
+<li>
+<em>Upgrade</em>: Kaufen Sie sich einen schnelleren Rechner…</li>
+<li>
+<em>Cleveres Grid-Search</em>: Methoden wie <a href="https://finetune.tidymodels.org/reference/tune_race_anova.html">ANOVA Racing</a> können die Rechenzeit - was das Tuning - betrifft - deutlich verringern.</li>
+</ul>
+<p><a href="https://uliniemann.com/blog/2022-07-04-comparing-hyperparameter-tuning-strategies-with-tidymodels/">Dieser Post</a> gibt einen Überblick zu Rechenzeiten bei verschiedenen Tuningparameter-Optionen mit Tidymodels.</p>
+<p>Natürlich ist die (mit Abstand) beste Methode: guten Code schreiben. Denn “guter Code” verringert die Wahrscheinlichkeit von Bugs, und damit die Gefahr, dass die ganze schöne Rechenzeit für die Katz war.</p>
+<p>“Guter Code” ist vielleicht primär von zwei Dingen abhängig: erstens einen guten Plan zu haben <em>bevor</em> man das Programmieren anfängt und zweitens gute Methoden des Projektmanagements. <span class="citation" data-cites="hunt_pragmatic_2000">Hunt und Thomas (<a href="references.html#ref-hunt_pragmatic_2000" role="doc-biblioref">2000</a>)</span> präsentieren eine weithin anerkannte Umsetzung, was “guter” Code bedeuten könnte.</p>
+</section><section id="publizieren" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="publizieren">
+<span class="header-section-number">12.3</span> Publizieren</h2>
+<p>Sie haben eine super Analyse geschrieben, eine schicke Pipeline, und jetzt soll die Welt davon erfahren? Es gibt einige komfortable Möglichkeiten, Ihre Arbeit zu publizieren, z.B. als Blog mit <a href="https://quarto.org/">Quarto</a>.</p>
+<p><a href="https://youtu.be/d3Xnvi2_HB4">Dieses Video</a> zeigt Ihnen wie man einen Quarto-Blog in RStudio erstellt und ihn bei <a href="https://www.netlify.com/">Netlify</a> publiziert.</p>
+<div class="quarto-video"><iframe data-external="1" src="https://www.youtube.com/embed/d3Xnvi2_HB4" width="400" height="300" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Das Hosten bzw. Deployen bei Netlify ist kostenlos (in der Basis-Variante).</p>
+<p>Sie können alternativ <a href="https://pages.github.com/">Github Pages</a> als Hosting-Dienst verwenden. <a href="https://youtu.be/-GA_Afz_jI4">Dieses Video</a> gibt dazu eine Anleitung.</p>
+</section><section id="komplexitätsmanagement" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="komplexitätsmanagement">
+<span class="header-section-number">12.4</span> Komplexitätsmanagement</h2>
+<p>Programmieren ist faszinierend. Vor allem, wenn das Programm funktioniert. Genau genommen ist es eigentlich nur dann faszinierend, ansonsten wird es anstrengend? aufregend? süchtig? faszinierend? nervig? Wie auch immer: Bugs treten auf und mit steigender Komplexität Ihrer Software steigen die Bugs nicht linear, sondern eher quadratisch oder gar exponentiell an.</p>
+<p>Es gibt viele Ansätze, sich gegen die Komplexität zu “wehren”. Der beste ist vielleicht: Die Software so einfach wie möglich zu halten - und nur so komplex wie nötig. Sozusagen: Das beste Feature ist das, das Sie nicht implementieren.</p>
+<section id="geben-sie-gute-namen" class="level3" data-number="12.4.1"><h3 data-number="12.4.1" class="anchored" data-anchor-id="geben-sie-gute-namen">
+<span class="header-section-number">12.4.1</span> Geben Sie gute Namen</h3>
+<p>Daraus leitet sich ab, dass die zentralen Methoden, um der Fehler Herr zu werden im Komplexitätsmanagement liegen. Den Variablen (Objekten) gute, “sprechende” aber prägnante Namen zu geben, ist in diesem Lichte auch als Komplexitätsmanagement (Reduktion) zu verstehen.</p>
+<p>Ein typischer Fehler, der mir immer mal wieder passiert, ist: Ich ändere den Namen eines Objekts, aber vergesse, an <em>allen</em> Stellen im Code den Namen anzupassen. Glücklicherweise gibt es hier eine einfache Abhilfe: Replace-All.</p>
+</section><section id="portionieren" class="level3" data-number="12.4.2"><h3 data-number="12.4.2" class="anchored" data-anchor-id="portionieren">
+<span class="header-section-number">12.4.2</span> Portionieren</h3>
+<p>Eine andere, zentrale Maßnahme ist es, den Code in handlichen “Häppchen” zu verpacken. Statt einer Skriptdatei mit zich Tausend Zeilen, wünschen Sie sich doch sicher ein Skript der Art:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mache_1</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">mache_2</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">mache_3</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">gratuliere_fertig</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Schaut man dann in <code>mache_1()</code> rein, sieht man wiederum übersichtlichen Code.</p>
+<p>Funktionales Programmieren ist eine Umsetzung davon: Jedes Häppchen, jeder Schritt ist eine Funktion. Eine Funktion hat Input und Output; der Output ist dann der Input für die Funktion des nächsten Schrittes. <a href="https://docs.ropensci.org/targets/">targets</a> ist eine Umsetzung dieser Idee.</p>
+</section><section id="debugging-mit-einem-logger" class="level3" data-number="12.4.3"><h3 data-number="12.4.3" class="anchored" data-anchor-id="debugging-mit-einem-logger">
+<span class="header-section-number">12.4.3</span> Debugging mit einem Logger</h3>
+<p>Wenn das Kind in dem Brunnen gefallen ist, hilft nur <del>Heulen und Wehklagen</del> Das Problem finden und lösen. Mit einem Logger kann man sich das Entwanzen, das Finden der Fehler, erleichtern. Ein Logger schreibt Zwischenschritte in eine Log-Datei.</p>
+<p>Hier ist ein Beispiel mit dem <a href="https://github.com/zatonovo/futile.logger"><code>futile</code> Logger:</a>. Mein Problem war, dass ich eine dynamische Aufgabe für eine Statistik-Klausur programmiert hatte, aber leider gab es einen Bug, den ich nicht gefunden habe<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>Die Lösung brachte ein Logger, mit dem ich den Wert zentraler Variablen im Verlauf des Durchlaufens des Codes - bis eben der Laufzeitfehler aufkam<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>Hier ist ein Ausschnitt der Syntax. Zuerst initialisiert man den Logger mit einer Datei, hier <code>exams.log</code>. Neue Logging-Inhalte sollen an die bestehenden Logs angehängt werden (appender).</p>
+<div class="cell" data-hash="200-projektmgt_cache/html/unnamed-chunk-4_e2291f99891a87d79bf8947b64220fa3">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">futile.logger</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/futile.logger/man/flog.appender.html">flog.appender</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/futile.logger/man/flog.appender.html">appender.file</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/github-repos/rexams-exams/exams.log"</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann gebe ich eine Loggings vom Typ “Info” zum Protokoll:</p>
+<div class="cell" data-hash="200-projektmgt_cache/html/unnamed-chunk-5_68960ee091f03b786b7672c4a2c8d96d">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/futile.logger/man/flog.logger.html">flog.info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Ex: post-uncertainty1"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/futile.logger/man/flog.logger.html">flog.info</a></span><span class="op">(</span>msg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Data set: "</span>, <span class="va">d_name</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/futile.logger/man/flog.logger.html">flog.info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Preds chosen: "</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">preds_chosen</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/futile.logger/man/flog.logger.html">flog.info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Output var: "</span>, <span class="va">av</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die Ergebnisse kann man dann in der Logging-Datei anschauen:</p>
+<pre><code>NFO [2023-01-05 11:27:51] Rhats: 1.004503053029
+INFO [2023-01-05 11:27:51] Sol: 0.18
+INFO [2023-01-05 11:27:51] Sol typeof: double
+INFO [2023-01-05 11:27:52] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:52] Data set: tips
+INFO [2023-01-05 11:27:52] Preds chosen: size, total_bill
+INFO [2023-01-05 11:27:52] Output var: tip
+INFO [2023-01-05 11:27:53] Rhats: 0.999004883794722
+INFO [2023-01-05 11:27:53] Rhats: 1.00021605674421
+INFO [2023-01-05 11:27:53] Rhats: 1.00091357638756
+INFO [2023-01-05 11:27:53] Sol: 0.32
+INFO [2023-01-05 11:27:53] Sol typeof: double
+INFO [2023-01-05 11:27:54] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:54] Data set: TeachingRatings
+INFO [2023-01-05 11:27:54] Preds chosen: prof, beauty
+INFO [2023-01-05 11:27:54] Output var: eval
+INFO [2023-01-05 11:27:55] Rhats: 0.999060308710712
+INFO [2023-01-05 11:27:55] Rhats: 0.999032305267221
+INFO [2023-01-05 11:27:55] Rhats: 0.999229003550072
+INFO [2023-01-05 11:27:55] Sol: 0
+INFO [2023-01-05 11:27:55] Sol typeof: double
+INFO [2023-01-05 11:27:56] Ex: post-uncertainty1
+INFO [2023-01-05 11:27:56] Data set: gtcars
+INFO [2023-01-05 11:27:56] Preds chosen: mpg_c, year
+INFO [2023-01-05 11:27:56] Output var: msrp
+INFO [2023-01-05 11:28:00] Rhats: 0.99913061005524
+INFO [2023-01-05 11:28:00] Rhats: 0.998999786100339
+INFO [2023-01-05 11:28:00] Rhats: 0.999130286784586
+INFO [2023-01-05 11:28:01] Sol: 21959.35
+INFO [2023-01-05 11:28:01] Sol typeof: double</code></pre>
+<p>Ja, das sieht nicht schön aus. Aber es brachte mir die Lösung: Mir fiel auf, dass der Fehler nur auftrat, wenn <code>sol</code> einen großen Wert hatte (1000 oder mehr). Danke, Logger!</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-hunt_pragmatic_2000" class="csl-entry" role="listitem">
+Hunt, Andrew, und David Thomas. 2000. <em>The Pragmatic Programmer from Journeyman to Master</em>. <span>Reading, Mass.</span>: <span>Addison-Wesley</span>.
+</div>
+</div>
+</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Allerdings haben lange Rechenzeiten auch Vorteile, wie <a href="https://xkcd.com/303/">dieses XKCD-Cartoon</a> zeigt.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>StackOverflow hat mich dann gerettet<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>ERROR!<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./100-nn-quickstart.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./300-fallstudien.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
