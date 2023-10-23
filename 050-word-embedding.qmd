@@ -464,7 +464,11 @@ Nachdem wir jetzt `slide_windows` kennen, schauen wir uns die nächsten Schritte
 
 ```{r tidy-pmi1}
 tidy_pmi1 <- nested_words3 %>%  # <--- Kleiner Datensatz!
-  mutate(words = future_map(words, slide_windows, 4L))
+  mutate(words = future_map(  # Schleife (mit mehreren Kernen) über ...
+    words,   #  alle Wörter
+    slide_windows,  # wobei jedes Mal diese Funtion angewendet wird
+    4L  # Parameter an `slide_windows`: Window-Größe ist 4 (L wie "Long", für Integer)
+  ))  
 ```
 
 Wir werden `slide_windows` auf die Liste `words` an,
@@ -703,17 +707,23 @@ Da bei mir Download abbrach, als ich `embedding_glove6b(dimensions = 100)` aufri
 :::
 
 
+Wie immer, Hilfe für eine Funktion bekommt man mit `?fun_name` oder interaktiv z.B. in RStudio.
+
 
 ```{r load-glove}
 #| cache: true
-#| eval: false
+#| eval: true
 glove6b <- 
-  embedding_glove6b(dir = "~/datasets", dimensions = 50, manual_download = TRUE)
+  embedding_glove6b(dir = "~/datasets", 
+                    dimensions = 50,  # mit nur 50 Dimensionen
+                    manual_download = FALSE)  # ist der Datensatz schon heruntergeladen?
 ```
 
 
 ```{r}
-glove6b <- read_rds("/Users/sebastiansaueruser/datasets/glove6b/glove_6b_50.rds")
+#| echo: false
+#| eval: false
+glove6b <- read_rds("~/datasets/glove6b/glove_6b_50.rds")
 ```
 
 
