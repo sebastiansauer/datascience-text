@@ -39,7 +39,7 @@ library(hcandersenr)   # Textdaten
 library(slider)  # slide
 library(widyr)  # pairwise_pmi
 library(furrr)  # mehrere Kerne gleichzeitig nutzen
-library(textdata)  # Worteinbettungen, vorgekocht
+library(textdata)  # Worteinbettungen wie Glove6b, vorgekocht
 library(entropy)  # Entropie berechnen
 library(widyr)  # Ähnlichkeit berechnen mit widyr_svd
 library(furrr)  # Mehrere Kerne gleichzeitig
@@ -716,7 +716,7 @@ Wie immer, Hilfe für eine Funktion bekommt man mit `?fun_name` oder interaktiv 
 glove6b <- 
   embedding_glove6b(dir = "~/datasets", 
                     dimensions = 50,  # mit nur 50 Dimensionen
-                    manual_download = FALSE)  # ist der Datensatz schon heruntergeladen?
+                    manual_download = TRUE)  # ist der Datensatz schon manuell heruntergeladen?
 ```
 
 
