@@ -1,0 +1,24 @@
+# Miniprojekt
+
+
+## Aufgabe
+
+Führen Sie eine deskriptive Textanalyse durch.
+Verwenden Sie einen Text (ca. 10-30k Wörter) Ihrer Wahl, von dem Sie einen engen Fokus auf bestimmte Themen sowie eine gewisse Emotionalität erwarten.
+Wenden Sie dann die Methoden an, die im Teil *Textmining* dieses Buch vorgestellt sind.
+Zusätzlich es es empfehlenswert, auf typische Methoden der explorativen Datenanalyse zurückzugreifen inklusive der Datenvisualisierung.
+
+Typische Arbeitsschritte dabei sind:
+
+- Importieren und Aufbereiten der Daten
+- Zählen häufiger Worte und n-Gramme
+- Entfernen von Stopwörtern
+- Berechnen von Sentimentstärken
+- Assoziationsanalyse von Wörtern und n-Grammen
+- Berechnung von Wortdistanzen
+- Worteinbettungen
+- Dimensionsreduktion von Worteinbettungen
+- Clusteranalysen von Wörtern anhand ihrer Einbettungen
+- Themenanalyse anhand einer Latenten-Dirichlet-Analyse
+
+

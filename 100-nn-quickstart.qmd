@@ -1,5 +1,14 @@
 # Einstieg in Neuronale Netze
 
+## Lernsteuerung
+
+
+### Lernziele
+
+Nach Abschluss dieses Kapitels können Sie ...
+
+- ein einfaches neuronales Netzwerk in R und Python erstellen
+
 
 ## Quick-Start
 
@@ -13,6 +22,7 @@ Wir halten uns an das Tutorial von [TensforFlow for R, "Hello, World!"](https://
 Wir starten die benötigten Pakete:
 
 ```{r}
+#| message: false
 library(keras)  # TensorFlow API
 library(tensorflow)  # TensorFlow pur
 library(tidyverse)  # Datenjudo

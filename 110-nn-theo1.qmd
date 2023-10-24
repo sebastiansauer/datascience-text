@@ -1,0 +1,57 @@
+# Theoretische Grundlagen neuronaler Netze
+
+## Lernsteuerung
+
+
+### Lernziele
+
+Nach Abschluss dieses Kapitels ...
+
+- können Sie die theoretischen Grundlagen eines einfachen neuronalen Netzwerks erklären.
+
+### Überblick
+
+Dieses Kapitel führt in die Grundlagen (einfacher) neuronaler Netze ein.
+Die Darstellung orientiert sich an @islr.
+Viele der gezeigten Abbildungen stammen aus @islr.^[und können [von dieser Quelle](https://www.statlearning.com/resources-second-edition) heruntergelanden werden.]
+
+
+## Netzwerke mit einer einzelnen Zwischenschicht
+
+Ein neuronales Netzwerk besteht auf 
+
+- einem Input-Vektor mit $p$ Variablen $X=(X_1, X_2, \ldots, X_p)$
+- einer nicht-linearen Funktion $f(X)$
+- sagt einen Output-Vektor $Y$ vorher.
+
+@fig-isrl10-1 zeigt ein einfaches sog. *Feed-Forward-Neuronales-Netzwerk*, um eine quantitative Output-Variable $Y$ vorherzusagen anhand von 4 Prädiktoren.
+Das Netzwerk besteht aus drei "Schichten", der Eingabeschicht (Input Layer), der Zwischenschicht (Hidden Layer) und der Ausgabeschicht (Output Layer).
+Jeder Kreis symbolisiert ein "Neuron". In der Zwischenschicht in @fig-islr10-1 gibt es $K=5$ Neuronen in der Zwischenschicht.
+
+![Ein neuronales Netzwerk mit einer Zwischenschicht](img/islr-10_1.png){#fig-islr10-1}
+
+Das Netzwerk (als Ganzes) hat folgende Struktur, s. @eq-nn1.
+
+
+$$\begin{align}
+f(X) &= \beta_0 + \sum_{k=1}^K \beta_k h_k(X) \\
+     &= \beta_0 + \sum_{k=1}^K \beta_k g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)
+\end{align}$${#eq-nn1}
+
+
+Wichtig ist, dass $g$ eine nicht-lineare Funktion ist, denn sonst würde das ganze Netzwerk "nur" ein lineares Gleichungssystem sein.
+Die nicht-lineare Funktion erlaubt aber ein viel flexibleres Verhalten,
+als es einer linearen Funktion möglich wäre.
+
+Eine häufige Wahl für $g$ ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. @fig-relu.
+
+
+![ReLU und sigmoide Funktion](img/islr10-2.png){#fig-relu}
+
+
+Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion,
+die minimiert wird.
+Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. @eq-sq-err.
+
+$$\sum_{i=1}^n(y_i - f(x_i))$${#eq-sq-err}
+

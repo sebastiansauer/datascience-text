@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 9&nbsp; Fallstudie Hatespeech</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 11&nbsp; Fallstudie Hatespeech</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,8 +60,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./080-klassifikation.html" rel="next">
-<link href="./065-Information.html" rel="prev">
+<link href="./100-nn-quickstart.html" rel="next">
+<link href="./080-klassifikation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./070-hatespeech2.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./080-klassifikation.html">Tidymodels</a></li><li class="breadcrumb-item"><a href="./070-hatespeech2.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -125,95 +125,150 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Organisatorisches</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zu diesem Buch</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Textmining</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./067-miniprojekt1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tidymodels</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Deep Learnning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Anwendung</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
-  </div>
+      </ul>
 </li>
     </ul>
 </div>
@@ -224,41 +279,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">9.1</span> Vorab</a>
+<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">11.1</span> Vorab</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">9.1.1</span> Lernziele</a></li>
-  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">9.1.2</span> Benötigte R-Pakete</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">11.1.1</span> Lernziele</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">11.1.2</span> Benötigte R-Pakete</a></li>
   </ul>
 </li>
   <li>
-<a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="header-section-number">9.2</span> Daten</a>
+<a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="header-section-number">11.2</span> Daten</a>
   <ul class="collapse">
-<li><a href="#train--und-testdaten" id="toc-train--und-testdaten" class="nav-link" data-scroll-target="#train--und-testdaten"><span class="header-section-number">9.2.1</span> Train- und Testdaten</a></li>
-  <li><a href="#vorhersagedaten" id="toc-vorhersagedaten" class="nav-link" data-scroll-target="#vorhersagedaten"><span class="header-section-number">9.2.2</span> Vorhersagedaten</a></li>
-  <li><a href="#worteinbettungen" id="toc-worteinbettungen" class="nav-link" data-scroll-target="#worteinbettungen"><span class="header-section-number">9.2.3</span> Worteinbettungen</a></li>
-  <li><a href="#hilfsdaten" id="toc-hilfsdaten" class="nav-link" data-scroll-target="#hilfsdaten"><span class="header-section-number">9.2.4</span> Hilfsdaten</a></li>
+<li><a href="#train--und-testdaten" id="toc-train--und-testdaten" class="nav-link" data-scroll-target="#train--und-testdaten"><span class="header-section-number">11.2.1</span> Train- und Testdaten</a></li>
+  <li><a href="#vorhersagedaten" id="toc-vorhersagedaten" class="nav-link" data-scroll-target="#vorhersagedaten"><span class="header-section-number">11.2.2</span> Vorhersagedaten</a></li>
+  <li><a href="#worteinbettungen" id="toc-worteinbettungen" class="nav-link" data-scroll-target="#worteinbettungen"><span class="header-section-number">11.2.3</span> Worteinbettungen</a></li>
+  <li><a href="#hilfsdaten" id="toc-hilfsdaten" class="nav-link" data-scroll-target="#hilfsdaten"><span class="header-section-number">11.2.4</span> Hilfsdaten</a></li>
   </ul>
 </li>
   <li>
-<a href="#aufbereiten-der-vorhersagedaten" id="toc-aufbereiten-der-vorhersagedaten" class="nav-link" data-scroll-target="#aufbereiten-der-vorhersagedaten"><span class="header-section-number">9.3</span> Aufbereiten der Vorhersagedaten</a>
+<a href="#aufbereiten-der-vorhersagedaten" id="toc-aufbereiten-der-vorhersagedaten" class="nav-link" data-scroll-target="#aufbereiten-der-vorhersagedaten"><span class="header-section-number">11.3</span> Aufbereiten der Vorhersagedaten</a>
   <ul class="collapse">
-<li><a href="#hilfsfunktionen" id="toc-hilfsfunktionen" class="nav-link" data-scroll-target="#hilfsfunktionen"><span class="header-section-number">9.3.1</span> Hilfsfunktionen</a></li>
+<li><a href="#hilfsfunktionen" id="toc-hilfsfunktionen" class="nav-link" data-scroll-target="#hilfsfunktionen"><span class="header-section-number">11.3.1</span> Hilfsfunktionen</a></li>
   </ul>
 </li>
   <li>
-<a href="#rezept" id="toc-rezept" class="nav-link" data-scroll-target="#rezept"><span class="header-section-number">9.4</span> Rezept</a>
+<a href="#rezept" id="toc-rezept" class="nav-link" data-scroll-target="#rezept"><span class="header-section-number">11.4</span> Rezept</a>
   <ul class="collapse">
-<li><a href="#preppen-und-backen" id="toc-preppen-und-backen" class="nav-link" data-scroll-target="#preppen-und-backen"><span class="header-section-number">9.4.1</span> Preppen und Backen</a></li>
-  <li><a href="#git-large-file-system" id="toc-git-large-file-system" class="nav-link" data-scroll-target="#git-large-file-system"><span class="header-section-number">9.4.2</span> Git Large File System</a></li>
-  <li><a href="#metadaten" id="toc-metadaten" class="nav-link" data-scroll-target="#metadaten"><span class="header-section-number">9.4.3</span> Metadaten</a></li>
+<li><a href="#preppen-und-backen" id="toc-preppen-und-backen" class="nav-link" data-scroll-target="#preppen-und-backen"><span class="header-section-number">11.4.1</span> Preppen und Backen</a></li>
+  <li><a href="#git-large-file-system" id="toc-git-large-file-system" class="nav-link" data-scroll-target="#git-large-file-system"><span class="header-section-number">11.4.2</span> Git Large File System</a></li>
+  <li><a href="#metadaten" id="toc-metadaten" class="nav-link" data-scroll-target="#metadaten"><span class="header-section-number">11.4.3</span> Metadaten</a></li>
   </ul>
 </li>
-  <li><a href="#vorhersagen" id="toc-vorhersagen" class="nav-link" data-scroll-target="#vorhersagen"><span class="header-section-number">9.5</span> Vorhersagen</a></li>
+  <li><a href="#vorhersagen" id="toc-vorhersagen" class="nav-link" data-scroll-target="#vorhersagen"><span class="header-section-number">11.5</span> Vorhersagen</a></li>
   <li>
-<a href="#ergebnisse" id="toc-ergebnisse" class="nav-link" data-scroll-target="#ergebnisse"><span class="header-section-number">9.6</span> Ergebnisse</a>
+<a href="#ergebnisse" id="toc-ergebnisse" class="nav-link" data-scroll-target="#ergebnisse"><span class="header-section-number">11.6</span> Ergebnisse</a>
   <ul class="collapse">
-<li><a href="#hass-proxis-pro-politiki-insgesamt" id="toc-hass-proxis-pro-politiki-insgesamt" class="nav-link" data-scroll-target="#hass-proxis-pro-politiki-insgesamt"><span class="header-section-number">9.6.1</span> Hass-Proxis pro Politiki insgesamt</a></li>
-  <li><a href="#hass-proxis-pro-politiki-im-zeitverlauf" id="toc-hass-proxis-pro-politiki-im-zeitverlauf" class="nav-link" data-scroll-target="#hass-proxis-pro-politiki-im-zeitverlauf"><span class="header-section-number">9.6.2</span> Hass-Proxis pro Politiki im Zeitverlauf</a></li>
+<li><a href="#hass-proxis-pro-politiki-insgesamt" id="toc-hass-proxis-pro-politiki-insgesamt" class="nav-link" data-scroll-target="#hass-proxis-pro-politiki-insgesamt"><span class="header-section-number">11.6.1</span> Hass-Proxis pro Politiki insgesamt</a></li>
+  <li><a href="#hass-proxis-pro-politiki-im-zeitverlauf" id="toc-hass-proxis-pro-politiki-im-zeitverlauf" class="nav-link" data-scroll-target="#hass-proxis-pro-politiki-im-zeitverlauf"><span class="header-section-number">11.6.2</span> Hass-Proxis pro Politiki im Zeitverlauf</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -266,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span>
+<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span>
 </h1>
 </div>
 
@@ -281,15 +336,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 </header><p>Wir sagen vorher, welche Tweets an führende deutsche Politikis Hassrede bzw. hasserfüllte Rede enthalten.</p>
-<section id="vorab" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="vorab">
-<span class="header-section-number">9.1</span> Vorab</h2>
-<section id="lernziele" class="level3" data-number="9.1.1"><h3 data-number="9.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">9.1.1</span> Lernziele</h3>
+<section id="vorab" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="vorab">
+<span class="header-section-number">11.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="11.1.1"><h3 data-number="11.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">11.1.1</span> Lernziele</h3>
 <ul>
 <li>Sie können grundlegende Verfahren zur Klassifikation von Hatespeech einsetzen und erklären</li>
 <li>Sie können mit echten Daten umgehen im Sinne eines Projektmanagement von Data Science</li>
-</ul></section><section id="benötigte-r-pakete" class="level3" data-number="9.1.2"><h3 data-number="9.1.2" class="anchored" data-anchor-id="benötigte-r-pakete">
-<span class="header-section-number">9.1.2</span> Benötigte R-Pakete</h3>
+</ul></section><section id="benötigte-r-pakete" class="level3" data-number="11.1.2"><h3 data-number="11.1.2" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">11.1.2</span> Benötigte R-Pakete</h3>
 <div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-1_855718cab53ea91450e645bd1750a2d3">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
@@ -307,10 +362,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sebastiansauer/pradadata">pradadata</a></span><span class="op">)</span>  <span class="co"># helper data</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">remoji</span><span class="op">)</span>  <span class="co"># processing emojis</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="daten" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="daten">
-<span class="header-section-number">9.2</span> Daten</h2>
-<section id="train--und-testdaten" class="level3" data-number="9.2.1"><h3 data-number="9.2.1" class="anchored" data-anchor-id="train--und-testdaten">
-<span class="header-section-number">9.2.1</span> Train- und Testdaten</h3>
+</section></section><section id="daten" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="daten">
+<span class="header-section-number">11.2</span> Daten</h2>
+<section id="train--und-testdaten" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="train--und-testdaten">
+<span class="header-section-number">11.2.1</span> Train- und Testdaten</h3>
 <div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-3_aa6813e565f02e67f9cca0c4cc4c9896">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"objects/d1.rds"</span><span class="op">)</span>  <span class="co"># Traindaten einlesen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -321,8 +376,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">d_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">d_split</span><span class="op">)</span></span>
 <span><span class="va">d_test</span> <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">d_split</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="vorhersagedaten" class="level3" data-number="9.2.2"><h3 data-number="9.2.2" class="anchored" data-anchor-id="vorhersagedaten">
-<span class="header-section-number">9.2.2</span> Vorhersagedaten</h3>
+</section><section id="vorhersagedaten" class="level3" data-number="11.2.2"><h3 data-number="11.2.2" class="anchored" data-anchor-id="vorhersagedaten">
+<span class="header-section-number">11.2.2</span> Vorhersagedaten</h3>
 <p>Wir importieren die Tweets führender deutscher Politikis.</p>
 <p>Für diese Daten haben wir keine Werte der Zielvariablen. Wir können nur vorhersagen, aber nicht unsere Modellgüte berechnen. Diese Daten bezeichnen wir als <em>Vorhersagedaten</em>.</p>
 <p>Pfad zu den Daten:</p>
@@ -394,8 +449,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>Feather: fast, interoperable data frame storage Feather provides binary columnar serialization for data frames. It is designed to make reading and writing data frames efficient, and to make sharing data across data analysis languages easy.</p>
 </blockquote>
-</section><section id="worteinbettungen" class="level3" data-number="9.2.3"><h3 data-number="9.2.3" class="anchored" data-anchor-id="worteinbettungen">
-<span class="header-section-number">9.2.3</span> Worteinbettungen</h3>
+</section><section id="worteinbettungen" class="level3" data-number="11.2.3"><h3 data-number="11.2.3" class="anchored" data-anchor-id="worteinbettungen">
+<span class="header-section-number">11.2.3</span> Worteinbettungen</h3>
 <p>Wie in <a href="080-klassifikation.html#sec-fasttext"><span>Kapitel&nbsp;10.7.1</span></a> dargestellt, importieren wir unser FastText-Modell.</p>
 <div class="cell" data-hash="070-hatespeech2_cache/html/read-fastext-twitter_011b9efe8fef62d7b2a5481a8ccfc704">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_embedding_twitter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"/Users/sebastiansaueruser/datasets/Twitter/word_embedding_twitter.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -405,23 +460,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">word_embedding_twitter</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"Mb"</span><span class="op">)</span></span>
 <span><span class="co">## [1] "108.3 Mb"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="hilfsdaten" class="level3" data-number="9.2.4"><h3 data-number="9.2.4" class="anchored" data-anchor-id="hilfsdaten">
-<span class="header-section-number">9.2.4</span> Hilfsdaten</h3>
+</section><section id="hilfsdaten" class="level3" data-number="11.2.4"><h3 data-number="11.2.4" class="anchored" data-anchor-id="hilfsdaten">
+<span class="header-section-number">11.2.4</span> Hilfsdaten</h3>
 <div class="cell" data-hash="070-hatespeech2_cache/html/load-helper-data_f2a721a5af010856cb3f469346308f1b">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"schimpwoerter"</span><span class="op">)</span></span>
 <span><span class="co">## Warning in data("schimpwoerter"): data set 'schimpwoerter' not found</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sentiws"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"wild_emojis"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="aufbereiten-der-vorhersagedaten" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="aufbereiten-der-vorhersagedaten">
-<span class="header-section-number">9.3</span> Aufbereiten der Vorhersagedaten</h2>
-<section id="hilfsfunktionen" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="hilfsfunktionen">
-<span class="header-section-number">9.3.1</span> Hilfsfunktionen</h3>
+</section></section><section id="aufbereiten-der-vorhersagedaten" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="aufbereiten-der-vorhersagedaten">
+<span class="header-section-number">11.3</span> Aufbereiten der Vorhersagedaten</h2>
+<section id="hilfsfunktionen" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="hilfsfunktionen">
+<span class="header-section-number">11.3.1</span> Hilfsfunktionen</h3>
 <div class="cell" data-hash="070-hatespeech2_cache/html/source-helper-funs-recipe_ee4e79c44a533f0904e04435d62cbdbd">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/helper-funs-recipes.R"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="rezept" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="rezept">
-<span class="header-section-number">9.4</span> Rezept</h2>
+</section></section><section id="rezept" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="rezept">
+<span class="header-section-number">11.4</span> Rezept</h2>
 <p>Da wir schon ein Rezept “trainiert” haben, können wir die Test-Daten einfach mit dem Rezept “backen”.</p>
 <p>Streng genommen müssten wir nicht mal das tun, denn <code>tidymodels</code> würde das beim Vorhersagen für uns übernehmen. Aber es ist nützlich, die Daten in aufbereiteter Form zu sehen, bzw. sie direkt zugänglich zu haben.</p>
 <div class="cell" data-hash="070-hatespeech2_cache/html/rec2_f1739f8f2d1f6854728c1ce49b46bcf9">
@@ -442,8 +497,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span> </span>
 <span><span class="va">rec2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="preppen-und-backen" class="level3" data-number="9.4.1"><h3 data-number="9.4.1" class="anchored" data-anchor-id="preppen-und-backen">
-<span class="header-section-number">9.4.1</span> Preppen und Backen</h3>
+<section id="preppen-und-backen" class="level3" data-number="11.4.1"><h3 data-number="11.4.1" class="anchored" data-anchor-id="preppen-und-backen">
+<span class="header-section-number">11.4.1</span> Preppen und Backen</h3>
 <p>Preppen:</p>
 <div class="cell" data-hash="070-hatespeech2_cache/html/rec2-prepped-baked_2fdf5209b4d666185aaca825ba4bd2f6">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -469,11 +524,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Puh, das Backen dauert - bei großen Datensätzen - gefühlt ewig! Daher ist das <code>beep</code>en praktisch: Es klingelt, wenn die Berechnung fertig ist.</p>
 <p>Zur Erinnerung: <code>d_predict_baken</code> ist der “gebackene” Testdatensatz. Der Testdatensatz also, auf dem die ganzen Operationen der Vorverarbeitung angewandt wurden.</p>
-</section><section id="git-large-file-system" class="level3" data-number="9.4.2"><h3 data-number="9.4.2" class="anchored" data-anchor-id="git-large-file-system">
-<span class="header-section-number">9.4.2</span> Git Large File System</h3>
+</section><section id="git-large-file-system" class="level3" data-number="11.4.2"><h3 data-number="11.4.2" class="anchored" data-anchor-id="git-large-file-system">
+<span class="header-section-number">11.4.2</span> Git Large File System</h3>
 <p>Wenn Sie Ihre Arbeit mit einem Versionierungssystem schützen - und Sie sollten es tun - dann verwenden Sie vermutlich Git. Git ist für Textdateien ausgelegt - was bei Quellcode ja auch Sinn macht, und für Quellcode ist Git gemacht. Allerdings will man manchmal auch binäre Dateien sichern, etwa Daten im RDS-Format. Solche binären Formante funktionieren nicht wirklich aus der Sicht von Git, sie lassen sich nicht zeilenweise nachverfolgen. Kurz gesagt sollte man sie aus diesem Grund nicht in Git nachverfolgen. Eine bequeme Lösung ist das<a href="https://git-lfs.github.com/"><em>Large File System</em> von Github (git lfs)</a>, das diese großen Dateien außerhalb des Git-Index verwaltet. Trotzdem sieht es für Nutzis aus wie immer, ist also sehr komfortabel. Dazu ist es nötig, <a href="https://www.veit-schiele.de/dienstleistungen/technische-dokumentation/git/git-lfs">git lfs</a> zu installieren.</p>
-</section><section id="metadaten" class="level3" data-number="9.4.3"><h3 data-number="9.4.3" class="anchored" data-anchor-id="metadaten">
-<span class="header-section-number">9.4.3</span> Metadaten</h3>
+</section><section id="metadaten" class="level3" data-number="11.4.3"><h3 data-number="11.4.3" class="anchored" data-anchor-id="metadaten">
+<span class="header-section-number">11.4.3</span> Metadaten</h3>
 <p>Metadaten wieder hinzufügen:</p>
 <div class="cell" data-hash="070-hatespeech2_cache/html/re-add-metadata3_64f34bb89b35dfcd83be725b9d00a8c4">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_predict2</span> <span class="op">&lt;-</span></span>
@@ -508,8 +563,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">## [31] "textfeature_text_copy_n_puncts"      "textfeature_text_copy_politeness"   </span></span>
 <span><span class="co">## [33] "textfeature_text_copy_first_person"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="vorhersagen" class="level2" data-number="9.5"><h2 data-number="9.5" class="anchored" data-anchor-id="vorhersagen">
-<span class="header-section-number">9.5</span> Vorhersagen</h2>
+</section></section><section id="vorhersagen" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="vorhersagen">
+<span class="header-section-number">11.5</span> Vorhersagen</h2>
 <p>Wir beziehen uns auf das Modell von <a href="080-klassifikation.html#sec-klassifik-fit3"><span>Kapitel&nbsp;10.8.4</span></a>.</p>
 <div class="cell" data-hash="070-hatespeech2_cache/html/read-fit3-fit3-final_4c36ba8a7964ffcede1d4aad275b5414">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds"</span><span class="op">)</span></span>
@@ -535,10 +590,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Funktioniert! Gut! Also weiter.</p>
 <p>Passt!</p>
-</section><section id="ergebnisse" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="ergebnisse">
-<span class="header-section-number">9.6</span> Ergebnisse</h2>
-<section id="hass-proxis-pro-politiki-insgesamt" class="level3" data-number="9.6.1"><h3 data-number="9.6.1" class="anchored" data-anchor-id="hass-proxis-pro-politiki-insgesamt">
-<span class="header-section-number">9.6.1</span> Hass-Proxis pro Politiki insgesamt</h3>
+</section><section id="ergebnisse" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="ergebnisse">
+<span class="header-section-number">11.6</span> Ergebnisse</h2>
+<section id="hass-proxis-pro-politiki-insgesamt" class="level3" data-number="11.6.1"><h3 data-number="11.6.1" class="anchored" data-anchor-id="hass-proxis-pro-politiki-insgesamt">
+<span class="header-section-number">11.6.1</span> Hass-Proxis pro Politiki insgesamt</h3>
 <div class="cell" data-hash="070-hatespeech2_cache/html/res-summary1_960f2a3c3e887fb5c9b1548322dad5c9">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary1</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">d_predict2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -562,8 +617,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="070-hatespeech2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="hass-proxis-pro-politiki-im-zeitverlauf" class="level3" data-number="9.6.2"><h3 data-number="9.6.2" class="anchored" data-anchor-id="hass-proxis-pro-politiki-im-zeitverlauf">
-<span class="header-section-number">9.6.2</span> Hass-Proxis pro Politiki im Zeitverlauf</h3>
+</section><section id="hass-proxis-pro-politiki-im-zeitverlauf" class="level3" data-number="11.6.2"><h3 data-number="11.6.2" class="anchored" data-anchor-id="hass-proxis-pro-politiki-im-zeitverlauf">
+<span class="header-section-number">11.6.2</span> Hass-Proxis pro Politiki im Zeitverlauf</h3>
 <div class="cell" data-hash="070-hatespeech2_cache/html/res-summary2_4c37ff9d1127a8c76651c32c44a53bd0">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary2</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">d_predict2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -983,13 +1038,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./065-Information.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span>
+      <a href="./080-klassifikation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./080-klassifikation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./100-nn-quickstart.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -6,21 +6,34 @@ book:
   author: "Sebastian Sauer"
   date: now
   chapters:
-    - index.qmd
-    - 010-Hinweise.qmd
-    - 020-pruefung.qmd
-    - 025-twittermining.qmd
-    - 030-textmining1.qmd
-    - 040-populismus.qmd
-    - 050-word-embedding.qmd
-    - 060-hassrede.qmd
-    - 065-Information.qmd 
-    - 070-hatespeech2.qmd
-    - 080-klassifikation.qmd
-    - 100-nn-quickstart.qmd
-    - 200-projektmgt.qmd
-    - 300-fallstudien.qmd
-    - references.qmd
+    - part: Organisatorisches
+      chapters:
+        - index.qmd
+        - 010-Hinweise.qmd
+        - 020-pruefung.qmd
+    - part: Textmining
+      chapters:
+        - 025-twittermining.qmd
+        - 030-textmining1.qmd
+        - 040-populismus.qmd
+        - 065-Information.qmd 
+        - 050-word-embedding.qmd
+        - 060-hassrede.qmd
+        - 067-miniprojekt1.qmd
+    - part: Tidymodels
+      chapters:
+        - 080-klassifikation.qmd
+        - 070-hatespeech2.qmd
+    - part: Deep Learning
+      chapters:
+        - 100-nn-quickstart.qmd
+        - 110-nn-theo1.qmd
+    - part: Anwendung
+      chapters: 
+        - 200-projektmgt.qmd
+        - 300-fallstudien.qmd
+      appendices:
+        - references.qmd
 
 bibliography: 
   - bib/bib.bib

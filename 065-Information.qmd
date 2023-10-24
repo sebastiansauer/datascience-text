@@ -1,6 +1,7 @@
 # Informationstheorie
 
 
+## Lernsteuerung
 
 ### Lernziele
 
@@ -98,13 +99,9 @@ Von 1 Bit Information spricht man, wenn ein Zufallsvorgang zwei Ausgänge hat un
 :::
 
 
-<<<<<<< HEAD:065-Information.qmd
+
 Damit gilt: $I = \log_2\left( \frac{1}{Pr(x)} \right)$
-||||||| 1f89485:Information.qmd
-Damit gilt: $I = \frac{1}{Pr(x)}$
-=======
-Damit gilt: $I = log \left(\frac{1}{Pr(x)}\right)$
->>>>>>> 604c7d35efd688f42c60b46835cf2afdad300ac6:Information.qmd
+
 
 Die Information ist eng verwandt mit den Odds bzw. Log-Odds (Logits):
 
@@ -139,14 +136,14 @@ $$
 
 ## Information eines wahrscheinlichen Ereignisses
 
-Die Information eines fast sicheren Ereignisses ist gering.
 
 ```{r}
 -log(99/100, base = 2)
 ```
 
-
+Die Information eines fast sicheren Ereignisses ist gering. $\square$
 :::
+
 
 
 
@@ -157,12 +154,12 @@ Die Information eines fast sicheren Ereignisses ist gering.
 
 ## Information eines unwahrscheinlichen Ereignisses
 
-Die Information eines unwahrscheinlichen Ereignisses ist hoch.
 
 ```{r}
 -log(01/100, base = 2)
 ```
 
+Die Information eines unwahrscheinlichen Ereignisses ist hoch. $\square$
 
 :::
 
@@ -237,7 +234,7 @@ $I(X=6, Y=6) = -\log_2 \left( Pr(6,6) \right)$
 Aufgrund der Additivität der Information gilt
 
 
-$I(6,6) = I(6) + I(6)$
+$I(6,6) = I(6) + I(6)$.
 
 
 ```{r}
@@ -266,7 +263,7 @@ $I(6,6) = I(6) + I(6)$
 :::{#def-entropie}
 
 
-## Informationsentropie
+### Informationsentropie
 
 
 *Informationsentropie*  ist so definiert:
@@ -287,7 +284,7 @@ Die Entropie eines Münzwurf-Versuchs (Bernoulli-Experiment) ist dann maximal (1
 
 ### Gemeinsame Information
 
-Die *gemeinsame Information* (mutual information, MI) zweier Zufallsvariablen $X$ und $Y$, $I(X,Y)$, quantifiziert die Informationsmenge, die man über $Y$ erhält, wenn man $X$ beobachtet. Mit anderen Worten: Die MI ist ein Maß des Zusammenhangs zweier (nominaler) Variablen. Im Gegensatz zur Korrelation ist die MI nicht auf lineare Abhängigkeiten beschränkt.
+Die *gemeinsame Information* (*mutual information*, MI) zweier Zufallsvariablen $X$ und $Y$, $I(X,Y)$, quantifiziert die Informationsmenge, die man über $Y$ erhält, wenn man $X$ beobachtet. Mit anderen Worten: Die MI ist ein *Maß des Zusammenhangs zweier (nominaler) Variablen*. Im Gegensatz zur Korrelation ist die MI nicht auf lineare Abhängigkeiten beschränkt.
 
 
 
@@ -350,7 +347,7 @@ Zur Erinnerung: $p(x,y) = p(y)p(x|y) = p(x)p(y|x)$
 
 ::: {#exm-pmi}
 
-## Interpretation der PMI
+### Interpretation der PMI
 
 Sei $p(x) = p(y) = 1/10$ und $p(x,y) = 1/10$. Wären $x$ und $y$ unabhängig, dann wäre $p^{\prime}(x,y) = p(x)p(y) = 1/100$.
 Das Verhältnis der Produkte der einzelnen Wahrscheinlichkeit zur gemeinsamen Wahrscheinlichkeit wäre dann 1 und der Logarithmus von 1 ist 0. Das Verhältnis von 1 entspricht also der Unabhängigkeit. Ist das Verhältnis z.B. 5, so zeigt das eine gewisse Abhängigkeit an.
@@ -370,7 +367,7 @@ die die Differenz zwischen gemeinsamer Wahrscheinlichkeitsfunktion bzw. -dichte 
 :::{#def-maxent}
 
 
-## Maximumentropie
+### Maximumentropie
 
 Die Verteilungsform, für die es die meisten Möglichkeiten (Pfade im Baumdiagramm) gibt,
 hat die höchste Informationsentropie.
@@ -470,6 +467,24 @@ log(0)
 ```
 
 
+
+### Kreuzentropie
+
+
+:::{#def-ke}
+Die Kreuzentropie (cross entropy) ist die Anzahl der benötigten Bits, um ein ein Ereignis aus der Verteilung $X$ mit einer anderen Verteilung $Y$ darzustellen, s. @eq-cr. $\square$
+:::
+
+$$H(X,Y) = - \sum_x X(x) \cdot log(Y(x))$${#eq-ce}
+
+Anschaulich gesprochen gibt die Kreuzentropie die Differenz zwischen zwei Verteilugen an.
+
+
+### Kullback-Leibler-Divergenz
+
+Die Kullback-Leibler-Divergenz, $D_{KL} (X\, || \, Y)$, ist verwandt mit der Kreuzentropie, da
+
+$$H(X,Y) = H(X) + D_{KL} (X\, || \, Y)$$
 
 ## Zufallstext erkennen
 

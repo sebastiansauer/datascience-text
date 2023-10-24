@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 11&nbsp; Einstieg in Neuronale Netze</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 12&nbsp; Einstieg in Neuronale Netze</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./200-projektmgt.html" rel="next">
-<link href="./080-klassifikation.html" rel="prev">
+<link href="./070-hatespeech2.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learnning</a></li><li class="breadcrumb-item"><a href="./100-nn-quickstart.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -125,95 +125,150 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Organisatorisches</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zu diesem Buch</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Textmining</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./067-miniprojekt1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tidymodels</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Deep Learnning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Anwendung</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
-  </div>
+      </ul>
 </li>
     </ul>
 </div>
@@ -224,20 +279,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#quick-start" id="toc-quick-start" class="nav-link active" data-scroll-target="#quick-start"><span class="header-section-number">11.1</span> Quick-Start</a>
+<a href="#quick-start" id="toc-quick-start" class="nav-link active" data-scroll-target="#quick-start"><span class="header-section-number">12.1</span> Quick-Start</a>
   <ul class="collapse">
-<li><a href="#quick-start-mit-r" id="toc-quick-start-mit-r" class="nav-link" data-scroll-target="#quick-start-mit-r"><span class="header-section-number">11.1.1</span> Quick Start mit R</a></li>
-  <li><a href="#quick-start-mit-python-und-colab" id="toc-quick-start-mit-python-und-colab" class="nav-link" data-scroll-target="#quick-start-mit-python-und-colab"><span class="header-section-number">11.1.2</span> Quick-Start mit Python und Colab</a></li>
+<li><a href="#quick-start-mit-r" id="toc-quick-start-mit-r" class="nav-link" data-scroll-target="#quick-start-mit-r"><span class="header-section-number">12.1.1</span> Quick Start mit R</a></li>
+  <li><a href="#quick-start-mit-python-und-colab" id="toc-quick-start-mit-python-und-colab" class="nav-link" data-scroll-target="#quick-start-mit-python-und-colab"><span class="header-section-number">12.1.2</span> Quick-Start mit Python und Colab</a></li>
   </ul>
 </li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">11.2</span> Vertiefung</a></li>
-  <li><a href="#fallstudien" id="toc-fallstudien" class="nav-link" data-scroll-target="#fallstudien"><span class="header-section-number">11.3</span> Fallstudien</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">12.2</span> Vertiefung</a></li>
+  <li><a href="#fallstudien" id="toc-fallstudien" class="nav-link" data-scroll-target="#fallstudien"><span class="header-section-number">12.3</span> Fallstudien</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span>
+<span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span>
 </h1>
 </div>
 
@@ -251,28 +306,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><section id="quick-start" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="quick-start">
-<span class="header-section-number">11.1</span> Quick-Start</h2>
-<section id="quick-start-mit-r" class="level3" data-number="11.1.1"><h3 data-number="11.1.1" class="anchored" data-anchor-id="quick-start-mit-r">
-<span class="header-section-number">11.1.1</span> Quick Start mit R</h3>
+</header><section id="quick-start" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="quick-start">
+<span class="header-section-number">12.1</span> Quick-Start</h2>
+<section id="quick-start-mit-r" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="quick-start-mit-r">
+<span class="header-section-number">12.1.1</span> Quick Start mit R</h3>
 <p>Wir halten uns an das Tutorial von <a href="https://tensorflow.rstudio.com/tutorials/quickstart/beginner">TensforFlow for R, “Hello, World!”</a>.</p>
-<section id="setup" class="level4" data-number="11.1.1.1"><h4 data-number="11.1.1.1" class="anchored" data-anchor-id="setup">
-<span class="header-section-number">11.1.1.1</span> Setup</h4>
+<section id="setup" class="level4" data-number="12.1.1.1"><h4 data-number="12.1.1.1" class="anchored" data-anchor-id="setup">
+<span class="header-section-number">12.1.1.1</span> Setup</h4>
 <p>Wir starten die benötigten Pakete:</p>
-<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-1_7c84e414bbed3b0df2f5d04b8e742733">
+<div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-1_4c2cfe6ca0bee17401d18d7fdf96d905">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tensorflow.rstudio.com/">keras</a></span><span class="op">)</span>  <span class="co"># TensorFlow API</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tensorflow">tensorflow</a></span><span class="op">)</span>  <span class="co"># TensorFlow pur</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>  <span class="co"># Datenjudo</span></span>
-<span><span class="co">## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">## ✔ dplyr     1.1.3     ✔ readr     2.1.4</span></span>
-<span><span class="co">## ✔ forcats   1.0.0     ✔ stringr   1.5.0</span></span>
-<span><span class="co">## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1</span></span>
-<span><span class="co">## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0</span></span>
-<span><span class="co">## ✔ purrr     1.0.2     </span></span>
-<span><span class="co">## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">## ✖ dplyr::filter() masks stats::filter()</span></span>
-<span><span class="co">## ✖ dplyr::lag()    masks stats::lag()</span></span>
-<span><span class="co">## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc">tictoc</a></span><span class="op">)</span>  <span class="co"># Zeitmessung</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das Installieren von TensorFlow bzw. Keras kann Schwierigkeiten bereiten. Tipp: Stellen Sie in RStudio sicher, dass Sie die richtige Python-Version verwenden.</p>
@@ -287,8 +332,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-3_a0d11db01566046e252e5b59aae46675">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x_test</span>, <span class="va">y_test</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/zeallot/man/operator.html">%&lt;-%</a></span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_mnist.html">dataset_mnist</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="visualisieren" class="level4" data-number="11.1.1.2"><h4 data-number="11.1.1.2" class="anchored" data-anchor-id="visualisieren">
-<span class="header-section-number">11.1.1.2</span> Visualisieren</h4>
+</section><section id="visualisieren" class="level4" data-number="12.1.1.2"><h4 data-number="12.1.1.2" class="anchored" data-anchor-id="visualisieren">
+<span class="header-section-number">12.1.1.2</span> Visualisieren</h4>
 <p>Wählen wir ein Bild aus; das schauen wir uns näher an <a href="https://stackoverflow.com/questions/43420754/plot-mnist-digits-with-ggplot2">Quelle</a>.</p>
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-4_644ab5265ee58c48441c53c7e4a03a40">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">image_id</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
@@ -342,8 +387,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="100-nn-quickstart_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="neuronales-netz-1" class="level4" data-number="11.1.1.3"><h4 data-number="11.1.1.3" class="anchored" data-anchor-id="neuronales-netz-1">
-<span class="header-section-number">11.1.1.3</span> Neuronales Netz 1</h4>
+</section><section id="neuronales-netz-1" class="level4" data-number="12.1.1.3"><h4 data-number="12.1.1.3" class="anchored" data-anchor-id="neuronales-netz-1">
+<span class="header-section-number">12.1.1.3</span> Neuronales Netz 1</h4>
 <p>Für unser Netzwerk wollen wir Werte zwischen 0 und 1, daher teilen wir durch den Max-Wert, d.i. 255:</p>
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-7_bd61a482f37bd74365ef0aa157ba4c59">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_train</span> <span class="op">&lt;-</span> <span class="va">X_train</span> <span class="op">/</span> <span class="fl">255</span></span>
@@ -440,8 +485,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">## [1] 7 2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Sieht gut aus!</p>
-</section><section id="best-bet-digit" class="level4" data-number="11.1.1.4"><h4 data-number="11.1.1.4" class="anchored" data-anchor-id="best-bet-digit">
-<span class="header-section-number">11.1.1.4</span> Best-Bet-Digit</h4>
+</section><section id="best-bet-digit" class="level4" data-number="12.1.1.4"><h4 data-number="12.1.1.4" class="anchored" data-anchor-id="best-bet-digit">
+<span class="header-section-number">12.1.1.4</span> Best-Bet-Digit</h4>
 <p>Möchte man ein Modell, das gleich die “Best-Bet-Digit” nennt, kann man das so machen:</p>
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-17_fb575abd3979131c22b40a45867f4e9e">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -472,14 +517,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- #### Modellgüte  -->
 <!-- Die Modellgüte wird von `evaluate` ausgegeben. -->
 <!-- Aber wir könne -->
-</section></section><section id="quick-start-mit-python-und-colab" class="level3" data-number="11.1.2"><h3 data-number="11.1.2" class="anchored" data-anchor-id="quick-start-mit-python-und-colab">
-<span class="header-section-number">11.1.2</span> Quick-Start mit Python und Colab</h3>
+</section></section><section id="quick-start-mit-python-und-colab" class="level3" data-number="12.1.2"><h3 data-number="12.1.2" class="anchored" data-anchor-id="quick-start-mit-python-und-colab">
+<span class="header-section-number">12.1.2</span> Quick-Start mit Python und Colab</h3>
 <p>Am einfachsten ist der Einstieg mit <a href="https://colab.research.google.com/">Google Colab</a>, wo Python voreingestellt ist. Beginnen Sie mit dem [MNIST-Tutorial](https://www.tensorflow.org/tutorials/quickstart/beginner.</p>
-</section></section><section id="vertiefung" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">11.2</span> Vertiefung</h2>
+</section></section><section id="vertiefung" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">12.2</span> Vertiefung</h2>
 <p>Die <a href="https://www.tensorflow.org/guide/keras">TensforFlow-Docs</a> bieten einen guten Einstieg in Keras und TensorFlow.</p>
-</section><section id="fallstudien" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="fallstudien">
-<span class="header-section-number">11.3</span> Fallstudien</h2>
+</section><section id="fallstudien" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="fallstudien">
+<span class="header-section-number">12.3</span> Fallstudien</h2>
 <ul>
 <li><a href="https://appsilon.com/r-keras-mnist/">MNIST einen Schritt weiter</a></li>
 <li><a href="https://www.tensorflow.org/tutorials/keras/classification">Fashion-MNIST</a></li>
@@ -834,13 +879,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./080-klassifikation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span>
+      <a href="./070-hatespeech2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./200-projektmgt.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

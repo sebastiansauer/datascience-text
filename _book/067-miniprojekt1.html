@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - References</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 9&nbsp; Miniprojekt</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -49,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./300-fallstudien.html" rel="prev">
+<link href="./080-klassifikation.html" rel="next">
+<link href="./060-hassrede.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -95,7 +77,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./067-miniprojekt1.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -123,110 +105,171 @@ div.csl-indent {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Organisatorisches</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zu diesem Buch</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Textmining</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./067-miniprojekt1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tidymodels</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Deep Learnning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Anwendung</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">References</span></a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#aufgabe" id="toc-aufgabe" class="nav-link active" data-scroll-target="#aufgabe"><span class="header-section-number">9.1</span> Aufgabe</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></h1>
 </div>
 
 
@@ -241,92 +284,25 @@ div.csl-indent {
 
 </header>
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-chollet_deep_2022" class="csl-entry" role="listitem">
-Chollet, François, Tomasz Kalinowski, and J. J. Allaire. 2022. <em>Deep
-Learning with <span>R</span></em>. Second edition. <span>Shelter Island,
-NY</span>: <span>Manning</span>.
-</div>
-<div id="ref-hunt_pragmatic_2000" class="csl-entry" role="listitem">
-Hunt, Andrew, and David Thomas. 2000. <em>The Pragmatic Programmer from
-Journeyman to Master</em>. <span>Reading, Mass.</span>:
-<span>Addison-Wesley</span>.
-</div>
-<div id="ref-smltar" class="csl-entry" role="listitem">
-Hvitfeldt, Emil, and Julia Silge. 2021. <em>Supervised <span>Machine
-Learning</span> for <span>Text Analysis</span> in <span>R</span></em>.
-1st ed. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
-</div>
-<div id="ref-islr" class="csl-entry" role="listitem">
-James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani.
-2021. <em>An Introduction to Statistical Learning: With Applications in
-<span>R</span></em>. Second edition. Springer Texts in Statistics.
-<span>New York</span>: <span>Springer</span>. <a href="https://link.springer.com/book/10.1007/978-1-0716-1418-1">https://link.springer.com/book/10.1007/978-1-0716-1418-1</a>.
-</div>
-<div id="ref-konig_epinetz_2022" class="csl-entry" role="listitem">
-König, Tim, Wolf J. Schünemann, Alexander Brand, Julian Freyberg, and
-Michael Gertz. 2022. <span>“The <span>EPINetz</span> Twitter Politicians
-Dataset 2021. <span>A</span> New Resource for the Study of the German
-Twittersphere and Its Application for the 2021 Federal
-Elections.”</span> <em>Politische Vierteljahresschrift</em> 63 (3):
-529–47. <a href="https://doi.org/10.1007/s11615-022-00405-7">https://doi.org/10.1007/s11615-022-00405-7</a>.
-</div>
-<div id="ref-kurz_statistical_2021" class="csl-entry" role="listitem">
-Kurz, A. Solomon. 2021. <em>Statistical Rethinking with Brms, Ggplot2,
-and the Tidyverse: <span>Second</span> Edition</em>. <a href="https://bookdown.org/content/4857/">https://bookdown.org/content/4857/</a>.
-</div>
-<div id="ref-lex_upset_2014" class="csl-entry" role="listitem">
-Lex, Alexander, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot, and
-Hanspeter Pfister. 2014. <span>“<span>UpSet</span>:
-<span>Visualization</span> of Intersecting Sets.”</span> <em>IEEE
-Transactions on Visualization and Computer Graphics</em> 20 (12):
-1983–92. <a href="https://doi.org/10.1109/TVCG.2014.2346248">https://doi.org/10.1109/TVCG.2014.2346248</a>.
-</div>
-<div id="ref-mcelreath_statistical_2020" class="csl-entry" role="listitem">
-McElreath, Richard. 2020. <em>Statistical Rethinking: A
-<span>Bayesian</span> Course with Examples in <span>R</span> and
-<span>Stan</span></em>. 2nd ed. <span>CRC</span> Texts in Statistical
-Science. <span>Boca Raton</span>: <span>Taylor and Francis, CRC
-Press</span>.
-</div>
-<div id="ref-pennington_glove_2014" class="csl-entry" role="listitem">
-Pennington, Jeffrey, Richard Socher, and Christopher Manning. 2014.
-<span>“<span>GloVe</span>: <span>Global</span> Vectors for Word
-Representation.”</span> In <em>Proceedings of the 2014 Conference on
-Empirical Methods in Natural Language Processing
-(<span>EMNLP</span>)</em>, 1532–43. <span>Doha, Qatar</span>:
-<span>Association for Computational Linguistics</span>. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.
-</div>
-<div id="ref-Remus2010" class="csl-entry" role="listitem">
-Remus, Robert, Uwe Quasthoff, and Gerhard Heyer. 2010.
-<span>“<span>SentiWS</span> - a Publicly Available German-Language
-Resource for Sentiment Analysis.”</span> <em>Proceedings of the 7th
-International Language Ressources and Evaluation (LREC’10)</em>,
-1168–71.
-</div>
-<div id="ref-rhys" class="csl-entry" role="listitem">
-Rhys, Hefin. 2020. <em>Machine <span>Learning</span> with
-<span>R</span>, the Tidyverse, and Mlr</em>. <span>Shelter Island,
-NY</span>: <span>Manning publications</span>.
-</div>
-<div id="ref-shannon_1948" class="csl-entry" role="listitem">
-Shannon, C. E. 1948. <span>“A Mathematical Theory of
-Communication.”</span> <em>Bell System Technical Journal</em> 27 (3):
-379–423. <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">https://doi.org/10.1002/j.1538-7305.1948.tb01338.x</a>.
-</div>
-<div id="ref-stone_information_2019" class="csl-entry" role="listitem">
-Stone, James V. 2019. <span>“Information <span>Theory</span>: <span>A
-Tutorial Introduction</span>.”</span> June 13, 2019. <a href="http://arxiv.org/abs/1802.05968">http://arxiv.org/abs/1802.05968</a>.
-</div>
-<div id="ref-r4ds" class="csl-entry" role="listitem">
-Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for <span>Data
-Science</span>: <span>Visualize</span>, <span>Model</span>,
-<span>Transform</span>, <span>Tidy</span>, and <span>Import
-Data</span></em>. <span>O’Reilly Media</span>. <a href="https://r4ds.had.co.nz/index.html">https://r4ds.had.co.nz/index.html</a>.
-</div>
-</div>
+<section id="aufgabe" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="aufgabe"><span class="header-section-number">9.1</span> Aufgabe</h2>
+<p>Führen Sie eine deskriptive Textanalyse durch. Verwenden Sie einen Text (ca. 10-30k Wörter) Ihrer Wahl, von dem Sie einen engen Fokus auf bestimmte Themen sowie eine gewisse Emotionalität erwarten. Wenden Sie dann die Methoden an, die im Teil <em>Textmining</em> dieses Buch vorgestellt sind. Zusätzlich es es empfehlenswert, auf typische Methoden der explorativen Datenanalyse zurückzugreifen inklusive der Datenvisualisierung.</p>
+<p>Typische Arbeitsschritte dabei sind:</p>
+<ul>
+<li>Importieren und Aufbereiten der Daten</li>
+<li>Zählen häufiger Worte und n-Gramme</li>
+<li>Entfernen von Stopwörtern</li>
+<li>Berechnen von Sentimentstärken</li>
+<li>Assoziationsanalyse von Wörtern und n-Grammen</li>
+<li>Berechnung von Wortdistanzen</li>
+<li>Worteinbettungen</li>
+<li>Dimensionsreduktion von Worteinbettungen</li>
+<li>Clusteranalysen von Wörtern anhand ihrer Einbettungen</li>
+<li>Themenanalyse anhand einer Latenten-Dirichlet-Analyse</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -679,11 +655,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./300-fallstudien.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span>
+      <a href="./060-hassrede.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./080-klassifikation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

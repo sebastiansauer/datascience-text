@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 6&nbsp; Word Embedding</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 7&nbsp; Word Embedding</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./060-hassrede.html" rel="next">
-<link href="./040-populismus.html" rel="prev">
+<link href="./065-Information.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -120,7 +120,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./050-word-embedding.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./050-word-embedding.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -144,95 +144,150 @@ div.csl-indent {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Organisatorisches</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zu diesem Buch</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Textmining</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./067-miniprojekt1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tidymodels</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Deep Learnning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Anwendung</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
-  </div>
+      </ul>
 </li>
     </ul>
 </div>
@@ -243,44 +298,44 @@ div.csl-indent {
    
   <ul>
 <li>
-<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">6.1</span> Vorab</a>
+<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">7.1</span> Vorab</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">6.1.1</span> Lernziele</a></li>
-  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">6.1.2</span> Vorbereitung</a></li>
-  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">6.1.3</span> Benötigte R-Pakete</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">7.1.1</span> Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">7.1.2</span> Vorbereitung</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">7.1.3</span> Benötigte R-Pakete</a></li>
   </ul>
 </li>
   <li>
-<a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="header-section-number">6.2</span> Daten</a>
+<a href="#daten" id="toc-daten" class="nav-link" data-scroll-target="#daten"><span class="header-section-number">7.2</span> Daten</a>
   <ul class="collapse">
-<li><a href="#complaints-datensatz" id="toc-complaints-datensatz" class="nav-link" data-scroll-target="#complaints-datensatz"><span class="header-section-number">6.2.1</span> Complaints-Datensatz</a></li>
-  <li><a href="#complaints-verk%C3%BCrzt-und-geschachtelt" id="toc-complaints-verkürzt-und-geschachtelt" class="nav-link" data-scroll-target="#complaints-verk%C3%BCrzt-und-geschachtelt"><span class="header-section-number">6.2.2</span> Complaints verkürzt und geschachtelt</a></li>
+<li><a href="#complaints-datensatz" id="toc-complaints-datensatz" class="nav-link" data-scroll-target="#complaints-datensatz"><span class="header-section-number">7.2.1</span> Complaints-Datensatz</a></li>
+  <li><a href="#complaints-verk%C3%BCrzt-und-geschachtelt" id="toc-complaints-verkürzt-und-geschachtelt" class="nav-link" data-scroll-target="#complaints-verk%C3%BCrzt-und-geschachtelt"><span class="header-section-number">7.2.2</span> Complaints verkürzt und geschachtelt</a></li>
   </ul>
 </li>
   <li>
-<a href="#wordembeddings-selber-erstellen" id="toc-wordembeddings-selber-erstellen" class="nav-link" data-scroll-target="#wordembeddings-selber-erstellen"><span class="header-section-number">6.3</span> Wordembeddings selber erstellen</a>
+<a href="#wordembeddings-selber-erstellen" id="toc-wordembeddings-selber-erstellen" class="nav-link" data-scroll-target="#wordembeddings-selber-erstellen"><span class="header-section-number">7.3</span> Wordembeddings selber erstellen</a>
   <ul class="collapse">
-<li><a href="#pmi-berechnen" id="toc-pmi-berechnen" class="nav-link" data-scroll-target="#pmi-berechnen"><span class="header-section-number">6.3.1</span> PMI berechnen</a></li>
-  <li><a href="#sliding" id="toc-sliding" class="nav-link" data-scroll-target="#sliding"><span class="header-section-number">6.3.2</span> Sliding</a></li>
-  <li><a href="#funktion-slide_windows" id="toc-funktion-slide_windows" class="nav-link" data-scroll-target="#funktion-slide_windows"><span class="header-section-number">6.3.3</span> Funktion <code>slide_windows</code></a></li>
-  <li><a href="#%C3%A4hnlichkeit-berechnen" id="toc-ähnlichkeit-berechnen" class="nav-link" data-scroll-target="#%C3%A4hnlichkeit-berechnen"><span class="header-section-number">6.3.4</span> Ähnlichkeit berechnen</a></li>
-  <li><a href="#svd" id="toc-svd" class="nav-link" data-scroll-target="#svd"><span class="header-section-number">6.3.5</span> SVD</a></li>
-  <li><a href="#wort%C3%A4hnlichkeit" id="toc-wortähnlichkeit" class="nav-link" data-scroll-target="#wort%C3%A4hnlichkeit"><span class="header-section-number">6.3.6</span> Wortähnlichkeit</a></li>
-  <li><a href="#cosinus-%C3%A4hnlichkeit" id="toc-cosinus-ähnlichkeit" class="nav-link" data-scroll-target="#cosinus-%C3%A4hnlichkeit"><span class="header-section-number">6.3.7</span> Cosinus-Ähnlichkeit</a></li>
+<li><a href="#pmi-berechnen" id="toc-pmi-berechnen" class="nav-link" data-scroll-target="#pmi-berechnen"><span class="header-section-number">7.3.1</span> PMI berechnen</a></li>
+  <li><a href="#sliding" id="toc-sliding" class="nav-link" data-scroll-target="#sliding"><span class="header-section-number">7.3.2</span> Sliding</a></li>
+  <li><a href="#funktion-slide_windows" id="toc-funktion-slide_windows" class="nav-link" data-scroll-target="#funktion-slide_windows"><span class="header-section-number">7.3.3</span> Funktion <code>slide_windows</code></a></li>
+  <li><a href="#%C3%A4hnlichkeit-berechnen" id="toc-ähnlichkeit-berechnen" class="nav-link" data-scroll-target="#%C3%A4hnlichkeit-berechnen"><span class="header-section-number">7.3.4</span> Ähnlichkeit berechnen</a></li>
+  <li><a href="#svd" id="toc-svd" class="nav-link" data-scroll-target="#svd"><span class="header-section-number">7.3.5</span> SVD</a></li>
+  <li><a href="#wort%C3%A4hnlichkeit" id="toc-wortähnlichkeit" class="nav-link" data-scroll-target="#wort%C3%A4hnlichkeit"><span class="header-section-number">7.3.6</span> Wortähnlichkeit</a></li>
+  <li><a href="#cosinus-%C3%A4hnlichkeit" id="toc-cosinus-ähnlichkeit" class="nav-link" data-scroll-target="#cosinus-%C3%A4hnlichkeit"><span class="header-section-number">7.3.7</span> Cosinus-Ähnlichkeit</a></li>
   </ul>
 </li>
   <li>
-<a href="#word-embeddings-vorgekocht" id="toc-word-embeddings-vorgekocht" class="nav-link" data-scroll-target="#word-embeddings-vorgekocht"><span class="header-section-number">6.4</span> Word-Embeddings vorgekocht</a>
+<a href="#word-embeddings-vorgekocht" id="toc-word-embeddings-vorgekocht" class="nav-link" data-scroll-target="#word-embeddings-vorgekocht"><span class="header-section-number">7.4</span> Word-Embeddings vorgekocht</a>
   <ul class="collapse">
-<li><a href="#glove6b" id="toc-glove6b" class="nav-link" data-scroll-target="#glove6b"><span class="header-section-number">6.4.1</span> Glove6B</a></li>
-  <li><a href="#wordembeddings-f%C3%BCr-die-deutsche-sprache" id="toc-wordembeddings-für-die-deutsche-sprache" class="nav-link" data-scroll-target="#wordembeddings-f%C3%BCr-die-deutsche-sprache"><span class="header-section-number">6.4.2</span> Wordembeddings für die deutsche Sprache</a></li>
+<li><a href="#glove6b" id="toc-glove6b" class="nav-link" data-scroll-target="#glove6b"><span class="header-section-number">7.4.1</span> Glove6B</a></li>
+  <li><a href="#wordembeddings-f%C3%BCr-die-deutsche-sprache" id="toc-wordembeddings-für-die-deutsche-sprache" class="nav-link" data-scroll-target="#wordembeddings-f%C3%BCr-die-deutsche-sprache"><span class="header-section-number">7.4.2</span> Wordembeddings für die deutsche Sprache</a></li>
   </ul>
 </li>
-  <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="header-section-number">6.5</span> Fazit</a></li>
+  <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="header-section-number">7.5</span> Fazit</a></li>
   <li>
-<a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur"><span class="header-section-number">6.6</span> Literatur</a>
+<a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur"><span class="header-section-number">7.6</span> Literatur</a>
   <ul class="collapse">
-<li><a href="#wikipedia" id="toc-wikipedia" class="nav-link" data-scroll-target="#wikipedia"><span class="header-section-number">6.6.1</span> Wikipedia</a></li>
+<li><a href="#wikipedia" id="toc-wikipedia" class="nav-link" data-scroll-target="#wikipedia"><span class="header-section-number">7.6.1</span> Wikipedia</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -288,7 +343,7 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span>
+<span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span>
 </h1>
 </div>
 
@@ -303,20 +358,20 @@ div.csl-indent {
   
 
 </header><p><img src="img/text-mining-1476780_640.png" class="img-fluid" style="width:10.0%" alt="Text als Datenbasis prädiktiver Modelle"> Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
-<section id="vorab" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="vorab">
-<span class="header-section-number">6.1</span> Vorab</h2>
-<section id="lernziele" class="level3" data-number="6.1.1"><h3 data-number="6.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">6.1.1</span> Lernziele</h3>
+<section id="vorab" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="vorab">
+<span class="header-section-number">7.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">7.1.1</span> Lernziele</h3>
 <!-- - Die grundlegenden Konzepte der Informationstheorie erklären können -->
 <ul>
 <li>Die Erstellung von Word-Embeddings anhand grundlegender R-Funktionen erläutern können.</li>
-</ul></section><section id="vorbereitung" class="level3" data-number="6.1.2"><h3 data-number="6.1.2" class="anchored" data-anchor-id="vorbereitung">
-<span class="header-section-number">6.1.2</span> Vorbereitung</h3>
+</ul></section><section id="vorbereitung" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="vorbereitung">
+<span class="header-section-number">7.1.2</span> Vorbereitung</h3>
 <!-- - Lesen Sie [diesen Text](https://www.science4all.org/article/shannons-information-theory/) als Vorbereitung -->
 <ul>
-<li>Arbeiten Sie <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/embeddings.html">Kap. 5</a> durch.</li>
-</ul></section><section id="benötigte-r-pakete" class="level3" data-number="6.1.3"><h3 data-number="6.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
-<span class="header-section-number">6.1.3</span> Benötigte R-Pakete</h3>
+<li>Arbeiten Sie <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/embeddings.html">Kap. 5</a> durch.</li>
+</ul></section><section id="benötigte-r-pakete" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">7.1.3</span> Benötigte R-Pakete</h3>
 <div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-1_157e3b30c7f523a0bd620dd4ac0c1285">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span>  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span>
@@ -330,10 +385,10 @@ div.csl-indent {
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/widyr">widyr</a></span><span class="op">)</span>  <span class="co"># Ähnlichkeit berechnen mit widyr_svd</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span>  <span class="co"># Mehrere Kerne gleichzeitig</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="daten" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="daten">
-<span class="header-section-number">6.2</span> Daten</h2>
-<section id="complaints-datensatz" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="complaints-datensatz">
-<span class="header-section-number">6.2.1</span> Complaints-Datensatz</h3>
+</section></section><section id="daten" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="daten">
+<span class="header-section-number">7.2</span> Daten</h2>
+<section id="complaints-datensatz" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="complaints-datensatz">
+<span class="header-section-number">7.2.1</span> Complaints-Datensatz</h3>
 <p>Der Datensatz <code>complaints</code> stammt aus <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/">dieser Quelle</a>.</p>
 <p>Den Datensatz <code>complaints</code> kann man <a href="https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz">hier</a> herunterladen. Im Buch ist die Webseite nicht (direkt?) angegeben. Die Datei ist mit <code>gz</code> gepackt; <code>read_csv</code> sollte das automatisch entpacken. Achtung: Die Datei ist recht groß.</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/read-complaints-data_09bcfb92c97b03243f50b57cfc394d0b">
@@ -342,8 +397,8 @@ div.csl-indent {
 </div>
 <p>Geschickter als jedes Mal die Datei herunterzuladen, ist es, sie einmal herunterzuladen, und dann lokal zu speichern, etwa im Unterordner <code>data</code> des RStudio-Projektordners.</p>
 <p>Nach dem Importieren wird der Datensatz in eine Tidy-Form gebracht (mit <code>unnest_tokens</code>) und dann verschachtelt, mit <code>nest</code>.</p>
-</section><section id="complaints-verkürzt-und-geschachtelt" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="complaints-verkürzt-und-geschachtelt">
-<span class="header-section-number">6.2.2</span> Complaints verkürzt und geschachtelt</h3>
+</section><section id="complaints-verkürzt-und-geschachtelt" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="complaints-verkürzt-und-geschachtelt">
+<span class="header-section-number">7.2.2</span> Complaints verkürzt und geschachtelt</h3>
 <p>Um ein Herumprobieren zu erleichtern, ist hier der Datensatz <code>complaints</code> in zwei verkürzten Formen bereitgestellt:</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-2_46ee239d9c998c23bdd33847b6dd0ce4">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nested_words2_path</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"</span></span>
@@ -391,11 +446,11 @@ div.csl-indent {
 <span><span class="co">## [11] "not"        "mine"       "not"        "owed"       "and"       </span></span>
 <span><span class="co">## [16] "is"         "inaccurate"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="wordembeddings-selber-erstellen" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="wordembeddings-selber-erstellen">
-<span class="header-section-number">6.3</span> Wordembeddings selber erstellen</h2>
-<section id="pmi-berechnen" class="level3" data-number="6.3.1"><h3 data-number="6.3.1" class="anchored" data-anchor-id="pmi-berechnen">
-<span class="header-section-number">6.3.1</span> PMI berechnen</h3>
-<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="065-Information.html#eq-pmi">Gleichung&nbsp;<span>8.1</span></a>.</p>
+</section></section><section id="wordembeddings-selber-erstellen" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="wordembeddings-selber-erstellen">
+<span class="header-section-number">7.3</span> Wordembeddings selber erstellen</h2>
+<section id="pmi-berechnen" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="pmi-berechnen">
+<span class="header-section-number">7.3.1</span> PMI berechnen</h3>
+<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="065-Information.html#eq-pmi">Gleichung&nbsp;<span>6.1</span></a>.</p>
 <p>Mit R kann man die PMI z.B. so berechnen, s. <code><a href="https://juliasilge.github.io/widyr/reference/pairwise_pmi.html">? pairwise_pmi</a></code> aus dem Paket <a href="https://github.com/juliasilge/widyr">widyr</a>.</p>
 <p>Zum Paket <code>widyr</code> von Robinson und Silge:</p>
 <blockquote class="blockquote">
@@ -441,10 +496,10 @@ div.csl-indent {
 <span><span class="co">##   e 0 0 0 1 0</span></span>
 <span><span class="co">##   f 0 0 0 0 1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr">Abbildung&nbsp;<span>6.1</span></a>.</p>
+<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr">Abbildung&nbsp;<span>7.1</span></a>.</p>
 <div id="fig-widyr" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="img/widyr.jpeg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;6.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson</figcaption></figure>
+<figcaption class="figure-caption">Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson</figcaption></figure>
 </div>
 <p>(Vgl. auch die <a href="https://bookdown.org/Maxine/tidy-text-mining/counting-and-correlating-pairs-of-words-with-widyr.html">Erklärung hier</a>.)</p>
 <p>Bauen wir das mal von Hand nach.</p>
@@ -480,8 +535,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Wie man sieht, entspricht unserer Berechnung von Hand der Berechnung mit <code>pairwise_pmi</code>.</p>
-</section><section id="sliding" class="level3" data-number="6.3.2"><h3 data-number="6.3.2" class="anchored" data-anchor-id="sliding">
-<span class="header-section-number">6.3.2</span> Sliding</h3>
+</section><section id="sliding" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="sliding">
+<span class="header-section-number">7.3.2</span> Sliding</h3>
 <p>Sliding ist ein interessantes Konzept, aber man braucht vielleicht etwas Zeit, um sein Hirn um das Konzept zu wickeln…</p>
 <p>Hier eine Illustration:</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-11_dc13525ec4d6ba993261d9bda59b7eab">
@@ -636,8 +691,8 @@ div.csl-indent {
 <span><span class="co">## [[17]]</span></span>
 <span><span class="co">## [1] "and"        "is"         "inaccurate"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="funktion-slide_windows" class="level3" data-number="6.3.3"><h3 data-number="6.3.3" class="anchored" data-anchor-id="funktion-slide_windows">
-<span class="header-section-number">6.3.3</span> Funktion <code>slide_windows</code>
+</section><section id="funktion-slide_windows" class="level3" data-number="7.3.3"><h3 data-number="7.3.3" class="anchored" data-anchor-id="funktion-slide_windows">
+<span class="header-section-number">7.3.3</span> Funktion <code>slide_windows</code>
 </h3>
 <p>Die Funktion <code>slide_windows</code> im <a href="https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself">Kapitel 5.2</a> ist recht kompliziert. In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. Das machen wir jetzt mal.</p>
 <p>Hier ist die Syntax der Funktion <code>slide_windows</code>:</p>
@@ -764,10 +819,10 @@ div.csl-indent {
 <span><span class="co">##   ..$ error : NULL</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>out1</code> ist eine Liste mit 17 Elementen; jedes Element mit jeweils zwei Elementen: Den Ergebnissen und ob es einen Fehler gab bei <code>safe_mutate</code>. Die 10 Elemente entsprechen den 10 Skipgrams. Wir können aber <code>out1</code> auch “drehen”, transponieren genauer gesagt. so dass wir eine Liste mit <em>zwei</em> Elementen bekommen: das erste Element hat die (zehn) Ergebnisse (nämlich die Skipgrams) und das zweite Elemente, ob es Fehler gab.</p>
-<p>Das Prinzip des Transponierens ist in <a href="#fig-Matrix-transpose">Abbildung&nbsp;<span>6.2</span></a> dargestellt.</p>
+<p>Das Prinzip des Transponierens ist in <a href="#fig-Matrix-transpose">Abbildung&nbsp;<span>7.2</span></a> dargestellt.</p>
 <div id="fig-Matrix-transpose" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="img/Matrix_transpose.gif" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;6.2: Transponieren einer Matrix (“Tabelle”)</figcaption></figure>
+<figcaption class="figure-caption">Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)</figcaption></figure>
 </div>
 <div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-18_9fe9ad08ccb9207a5d1cde03778be897">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span></span>
@@ -792,8 +847,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Geschafft!</p>
-</section><section id="ähnlichkeit-berechnen" class="level3" data-number="6.3.4"><h3 data-number="6.3.4" class="anchored" data-anchor-id="ähnlichkeit-berechnen">
-<span class="header-section-number">6.3.4</span> Ähnlichkeit berechnen</h3>
+</section><section id="ähnlichkeit-berechnen" class="level3" data-number="7.3.4"><h3 data-number="7.3.4" class="anchored" data-anchor-id="ähnlichkeit-berechnen">
+<span class="header-section-number">7.3.4</span> Ähnlichkeit berechnen</h3>
 <p>Nachdem wir jetzt <code>slide_windows</code> kennen, schauen wir uns die nächsten Schritte an:</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/tidy-pmi1_9430cfd274063d15a357a1749457bd6a">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi1</span> <span class="op">&lt;-</span> <span class="va">nested_words3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># &lt;--- Kleiner Datensatz!</span></span>
@@ -876,8 +931,8 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section><section id="svd" class="level3" data-number="6.3.5"><h3 data-number="6.3.5" class="anchored" data-anchor-id="svd">
-<span class="header-section-number">6.3.5</span> SVD</h3>
+</section><section id="svd" class="level3" data-number="7.3.5"><h3 data-number="7.3.5" class="anchored" data-anchor-id="svd">
+<span class="header-section-number">7.3.5</span> SVD</h3>
 <p>Die <em>Singulärwertzerlegung</em> (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse. Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt: Die Verben “gehen”, “rennen”, “laufen”, “schwimmen”, “fahren”, “rutschen” könnten zu einer gemeinsamen Dimension, etwa “fortbewegen” reduziert werden. Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, das die konzeptionelle Nähe des Verbs zur “dahinterliegenden” Dimension (fortbewegen) quantifiziert; die Zahl nennt man auch die “Ladung” des Items (Worts) auf die Dimension. Sagen wir, wir identifizieren 10 Dimensionen. Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionen. Im genannten Beispiel wäre es ein 10-stelliger Vektor. So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, beschreibt hier unser 10-stelliger Vektor die “Position” eines Worts in unserem <em>Einbettungsvektor</em>.</p>
 <p>Die Syntax dazu ist dieses Mal einfach:</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/widely-svd_dec835564c5e3369408be1147add578d">
@@ -900,12 +955,12 @@ div.csl-indent {
 </div>
 </div>
 <p>Mit <code>nv = 100</code> haben wir die Anzahl (<code>n</code>) der Dimensionen (Variablen, <code>v</code>) auf 100 bestimmt.</p>
-</section><section id="wortähnlichkeit" class="level3" data-number="6.3.6"><h3 data-number="6.3.6" class="anchored" data-anchor-id="wortähnlichkeit">
-<span class="header-section-number">6.3.6</span> Wortähnlichkeit</h3>
-<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance">Abbildung&nbsp;<span>6.3</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
+</section><section id="wortähnlichkeit" class="level3" data-number="7.3.6"><h3 data-number="7.3.6" class="anchored" data-anchor-id="wortähnlichkeit">
+<span class="header-section-number">7.3.6</span> Wortähnlichkeit</h3>
+<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance">Abbildung&nbsp;<span>7.3</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
 <div id="fig-euklid-distance" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="img/euklid-distance.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;6.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh</figcaption></figure>
+<figcaption class="figure-caption">Abbildung&nbsp;7.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh</figcaption></figure>
 </div>
 <p>Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, <a href="https://mathworld.wolfram.com/Distance.html">aber der Algebra ist das egal</a>. Pythagoras’ Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.</p>
 <p>Die Autoren basteln sich selber eine Funktion in <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap. 5.3</a>, aber der Einfachheit halber nehme ich (erstmal) die entsprechende Funktion aus <code>widyr</code>:</p>
@@ -941,12 +996,12 @@ div.csl-indent {
 </div>
 </div>
 <p>Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen. Aber “incorrectly”, “correct”, “balance” sind wohl plausible Nachbarn von “inaccurate”.</p>
-</section><section id="cosinus-ähnlichkeit" class="level3" data-number="6.3.7"><h3 data-number="6.3.7" class="anchored" data-anchor-id="cosinus-ähnlichkeit">
-<span class="header-section-number">6.3.7</span> Cosinus-Ähnlichkeit</h3>
-<p>Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosinus-Ähnlichkeit</a> (Cosine similarity) berechnen, vgl. auch <a href="#fig-dotproduct">Abbildung&nbsp;<span>6.4</span></a>:</p>
+</section><section id="cosinus-ähnlichkeit" class="level3" data-number="7.3.7"><h3 data-number="7.3.7" class="anchored" data-anchor-id="cosinus-ähnlichkeit">
+<span class="header-section-number">7.3.7</span> Cosinus-Ähnlichkeit</h3>
+<p>Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosinus-Ähnlichkeit</a> (Cosine similarity) berechnen, vgl. auch <a href="#fig-dotproduct">Abbildung&nbsp;<span>7.4</span></a>:</p>
 <div id="fig-dotproduct" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="img/dotproduct.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;6.4: Die Cosinus-Ähnlichkeit zweier Vektoren</figcaption></figure>
+<figcaption class="figure-caption">Abbildung&nbsp;7.4: Die Cosinus-Ähnlichkeit zweier Vektoren</figcaption></figure>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/Dot_product#/media/File:Dot_Product.svg">Quelle: Mazin07, Lizenz: PD</a></p>
 <p><span class="math display">\[{\displaystyle {\text{Cosinus-Ähnlichkeit}}=S_{C}(A,B):=\cos(\theta )={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|\|\mathbf {B} \|}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},}\]</span></p>
@@ -972,24 +1027,24 @@ div.csl-indent {
 <p>Wobei mit <code>widely</code> zuerst noch von der Langform in die Breitform umformatiert wird, da die Breitform von der Formel verlangt wird bzw. das Rechnen einfacher macht.</p>
 <p>Der eine Vektor ist das Embedding des Tokens, der andere Vektor ist das <em>mittlere</em> Embedding über alle Tokens des Corpus. Wenn die Anzahl der Elemente konstant bleibt, kann man sich das Teilen durch <span class="math inline">\(n\)</span> schenken, wenn man einen Mittelwert berechnen; so hält es auch die Syntax von <code>nearest_neighbors</code>.</p>
 <p>Ein nützlicher Post zur Cosinus-Ähnlichkeit findet sich <a href="https://towardsdatascience.com/cosine-similarity-how-does-it-measure-the-similarity-maths-behind-and-usage-in-python-50ad30aad7db">hier</a>. <a href="https://datascience-enthusiast.com/figures/cosine_sim.png">Dieses Bild</a> zeigt das Konzept der Cosinus-Ähnlichkeit anschaulich.</p>
-<p>Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in einem rechtwinkligen, vgl. <a href="#fig-dreieck">Abbildung&nbsp;<span>6.5</span></a>.</p>
+<p>Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in einem rechtwinkligen, vgl. <a href="#fig-dreieck">Abbildung&nbsp;<span>7.5</span></a>.</p>
 <div id="fig-dreieck" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="img/dreieck.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;6.5: Ein rechtwinkliges Dreieck als Grundlage der trigonometrischen Funktionen</figcaption></figure>
+<figcaption class="figure-caption">Abbildung&nbsp;7.5: Ein rechtwinkliges Dreieck als Grundlage der trigonometrischen Funktionen</figcaption></figure>
 </div>
 <p>Also: <span class="math inline">\({\displaystyle \cos \alpha ={\frac {b}{c}}}\)</span></p>
 <p><a href="https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:RechtwinkligesDreieck.svg">Quelle: PaterSigmund, Wikipedia,dre CC-BY-SA 2.5</a></p>
 <p>Hilfreich ist auch <a href="https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:Sinus_und_Kosinus_am_Einheitskreis_1.svg">die Visualisierung von Sinus und Cosinus am Einheitskreis</a>; gerne <a href="https://upload.wikimedia.org/wikipedia/commons/f/f3/Sinus_und_Cosinus_am_Einheitskreis.gif">animiert</a> betrachten.</p>
-</section></section><section id="word-embeddings-vorgekocht" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="word-embeddings-vorgekocht">
-<span class="header-section-number">6.4</span> Word-Embeddings vorgekocht</h2>
-<section id="glove6b" class="level3" data-number="6.4.1"><h3 data-number="6.4.1" class="anchored" data-anchor-id="glove6b">
-<span class="header-section-number">6.4.1</span> Glove6B</h3>
+</section></section><section id="word-embeddings-vorgekocht" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="word-embeddings-vorgekocht">
+<span class="header-section-number">7.4</span> Word-Embeddings vorgekocht</h2>
+<section id="glove6b" class="level3" data-number="7.4.1"><h3 data-number="7.4.1" class="anchored" data-anchor-id="glove6b">
+<span class="header-section-number">7.4.1</span> Glove6B</h3>
 <p>In <a href="https://smltar.com/embeddings.html#glove">Kap. 5.4</a> schreiben die Autoren:</p>
 <blockquote class="blockquote">
 <p>If your data set is too small, you typically cannot train reliable word embeddings.</p>
 </blockquote>
 <p>Ein paar Millionen Wörter sollte der Corpus schon enthalten, so die Autoren. Da solche “Worteinbettungen” (word embedings) aufwändig zu erstellen sind, kann man fertige, “vorgekochte” Produkte nutzen.</p>
-<p>Glove6B wurde anhand von Wikipedia und anderen Datenquellen erstellt <span class="citation" data-cites="pennington_glove_2014">(<a href="references.html#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span>.</p>
+<p>Glove6B wurde anhand von Wikipedia und anderen Datenquellen erstellt <span class="citation" data-cites="pennington_glove_2014">(<a href="#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1000,14 +1055,18 @@ Hinweis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Die zugehörigen Daten sind recht groß; für <a href="https://nlp.stanford.edu/projects/glove/"><code>glove6b</code></a> <span class="citation" data-cites="pennington_glove_2014">(<a href="references.html#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span> ist fast ein Gigabyte fällig. Sie sollten sich die Daten in einem ruhigen Moment (mit stabiler Internetverbindung) herunterladen und in einem Verzeichnis meiner Wahl abgespeichert (<code>datasets</code>). Da bei mir Download abbrach, als ich <code>embedding_glove6b(dimensions = 100)</code> aufrief, habe ich die Daten manuell heruntergeladen, s.u.</p>
+<p>Die zugehörigen Daten sind recht groß; für <a href="https://nlp.stanford.edu/projects/glove/"><code>glove6b</code></a> <span class="citation" data-cites="pennington_glove_2014">(<a href="#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span> ist fast ein Gigabyte fällig. Sie sollten sich die Daten in einem ruhigen Moment (mit stabiler Internetverbindung) herunterladen und in einem Verzeichnis meiner Wahl abgespeichert (<code>datasets</code>). Da bei mir Download abbrach, als ich <code>embedding_glove6b(dimensions = 100)</code> aufrief, habe ich die Daten manuell heruntergeladen, s.u.</p>
 </div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/load-glove_d932151a2e1dd58a59d831c14d6bf68a">
+<div class="cell" data-hash="050-word-embedding_cache/html/load-glove_d9141a80e6db72060b2f7edab8680959">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/textdata/man/embedding_glove.html">embedding_glove6b</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"~/datasets"</span>, dimensions <span class="op">=</span> <span class="fl">50</span>, manual_download <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">glove6b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/textdata/man/embedding_glove.html">embedding_glove6b</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"~/datasets"</span>, dimensions <span class="op">=</span> <span class="fl">50</span>, manual_download <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-24_d31ec4d3668fbaffb784d1739d268aaa">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/datasets/glove6b/glove_6b_50.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-25_d0e3103ede0bf73812e8029f58bf4eb5">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1020,14 +1079,14 @@ Hinweis
 </div>
 </div>
 <p>Die ersten paar Tokens sind:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-24_d42b212cb6676da6b8efdc1b847326d9">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span><span class="op">$</span><span class="va">token</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-26_cc24298fc8304d7a7aa63bef66759e6b">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span><span class="op">$</span><span class="va">token</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">##  [1] "the"  ","    "."    "of"   "to"   "and"  "in"   "a"    "\""   "'s"  </span></span>
 <span><span class="co">## [11] "for"  "-"    "that" "on"   "is"   "was"  "said" "with" "he"   "as"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In eine Tidyform bringen:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-25_80833c9bc124a1b80101969278b54ccf">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_glove</span> <span class="op">&lt;-</span> </span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-27_47bbebd1f9f4a8480786f2638e42d3b1">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_glove</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">glove6b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"d"</span><span class="op">)</span>,</span>
 <span>               names_to <span class="op">=</span> <span class="st">"dimension"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1044,31 +1103,31 @@ Hinweis
 </div>
 </div>
 <p>Ganz schön groß:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-26_1e6212c13b79fb19c1e7bda3086b40c6">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">glove6b</span><span class="op">)</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-28_884d16a80cb8e9aa4532dc5c30cd042a">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">glove6b</span><span class="op">)</span></span>
 <span><span class="co">## [1] 400000     51</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-27_02835b6678140cbdb8f77f77940fd942">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-29_cb693e1a98cb1dc3ca4d5f9797c244ee">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span></span>
 <span><span class="co">## 503834736 bytes</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In Megabyte<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-28_73b95b2773c98a537a8cdccd5cc8b363">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">^</span><span class="fl">20</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-30_898bec44bda94d3015c8c5a13ef5bf06">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">^</span><span class="fl">20</span></span>
 <span><span class="co">## 480.5 bytes</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Einfacher und genauer geht es so:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-29_6c816ca2093c916b76943218b3170da2">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-31_1572a418af15799d52b16454c4907016">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span></span>
 <span><span class="co">## 503.83 MB</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-30_14917b724d6fe835635e83e1484bd92e">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/mem_used.html">mem_used</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## 858 MB</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-32_386d603bd5b2f5ce0619027e5379a60e">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/mem_used.html">mem_used</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## 841 MB</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Um Speicher zu sparen, könnte man <code>glove6b</code> wieder direkt löschen, wenn man nur mit der Tidyform weiterarbeitet.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-31_5290bc4d43cdd96cc83a3120bc150276">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">glove6b</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-33_bfefbbe496ecbdf334fbd1d1b760c81f">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">glove6b</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt können wir wieder nach Nachbarn fragen, im euklidischen Sinne, wie oben. Probieren wir aus, welche Wörter nah zu “inaccurate” stehen.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1085,8 +1144,8 @@ Hinweis
 </div>
 </div>
 <p>Mit <code>pairwise_dist</code> dauert die Berechnung sehr lange und braucht wohl sehr viel Speicher. Mitunter kam folgender Fehler auf: “R error: vector memory exhausted (limit reached?)”.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-32_39f18d42260a8a7b7e4d00034ed6c2f5">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_neighbors_glove6b</span> <span class="op">&lt;-</span> </span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-34_d87605856ce325e5457802b53243ceec">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_neighbors_glove6b</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://juliasilge.github.io/widyr/reference/pairwise_dist.html">pairwise_dist</a></span><span class="op">(</span><span class="va">item1</span>, <span class="va">dimension</span>, <span class="va">value</span>, maximum_size <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
@@ -1100,7 +1159,7 @@ Hinweis
 </div>
 <p>Deswegen probieren wir doch die Funktion <code>nearest_neighbors</code>, so wie es im Buch vorgeschlagen wird, s. <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap 5.3</a>.</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/fun-nearest-neighbors2_6d5c1842ea8e366a69fb86a84e4db81a">
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nearest_neighbors</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">token</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nearest_neighbors</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">token</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://juliasilge.github.io/widyr/reference/widely.html">widely</a></span><span class="op">(</span></span>
 <span>      <span class="op">~</span> <span class="op">{</span></span>
@@ -1116,7 +1175,7 @@ Hinweis
 <span><span class="op">}</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="050-word-embedding_cache/html/tidy-glove-nearest-neighbors_c8ede9dbb648cf12259408aefc0e8d59">
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># slice_head(prob = .1) %&gt;% </span></span>
 <span>  <span class="fu">nearest_neighbors</span><span class="op">(</span><span class="st">"error"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1131,7 +1190,7 @@ Hinweis
 </div>
 <p>Entschachteln wir unsere Daten zu <code>complaints</code>:</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/unnest-tidy-complaints3_982b2551f485d580b555b315c23fd2bc">
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_complaints3</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_complaints3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">nested_words3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">words</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1142,7 +1201,7 @@ Hinweis
 </div>
 <p><a href="https://github.com/gadenbuie/tidyexplain">Quelle</a></p>
 <div class="cell" data-hash="050-word-embedding_cache/html/join-complaints-glove_5f410ec4d6e018bf82b111cbf522cbc8">
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">complaints_glove</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">complaints_glove</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"word"</span>, </span>
 <span>  <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1161,7 +1220,7 @@ Hinweis
 </div>
 <p>Wie viele unique (distinkte) Wörter gibt es in unserem Corpus?</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/tidy_complaints3_distinct_words_n_5bd614aaf88cfc0ff123137f186300cd">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_complaints3_distinct_words_n</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_complaints3_distinct_words_n</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1171,7 +1230,7 @@ Hinweis
 </div>
 <p>In <code>tidy_complaints</code> gibt es übrigens 222 verschiedene Wörter.</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/word_matrix_f4fe304f4160a097c036c0c859fd83fc">
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"word"</span>,</span>
 <span>             <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">item1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1182,13 +1241,13 @@ Hinweis
 <span><span class="co">#word_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>word_matrix</code> zählt für jede der 10 Beschwerden, welche Wörter (und wie häufig) vorkommen.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-33_27e6253e079498897e79c5639452d051">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">word_matrix</span><span class="op">)</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-35_6077769a62a1cdefed1ed8807f578382">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">word_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1]  10 222</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>10 Beschwerden (Dokumente) und 222 unique Wörter.</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/glove_matrix_f3f97c05d063452b160abda390abe68e">
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"item1"</span>,</span>
 <span>             <span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1198,32 +1257,32 @@ Hinweis
 <span><span class="co">#glove_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>glove_matrix</code> gibt für jedes unique Wort den Einbettungsvektor an.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-34_10df94f777a4ff7f0fba0170c0889861">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">glove_matrix</span><span class="op">)</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-36_552c77a99cdbbb9516127d38973652e9">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">glove_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1] 222  50</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das sind 222 unique Wörter und 50 Dimensionen des Einbettungsvektors.</p>
 <p>Jetzt können wir noch pro Dokument (10 in diesem Beispiel) die mittlere “Position” jedes Dokuments im Einbettungsvektor ausrechnen. Bildlich gesprochen: Was ist der mittlere Raumpunkt (Zentroid) des Bienenschwarms, wobei eine Biene ein Dokument darstellt und die Raumachsen die Dimensionen des Einbettungsvektors.</p>
 <p>Dazu gewichten wir jedes Wort eines Dokuments mit den Ladungen des Einbettungsvektor und summieren diese Terme. Es resultiert eine Matrix mit einem Einbettungsvektor pro Dokument. Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/doc_matrix_58d16b4502732f3be5f94d813addab54">
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doc_matrix</span> <span class="op">&lt;-</span> <span class="va">word_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">glove_matrix</span></span>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doc_matrix</span> <span class="op">&lt;-</span> <span class="va">word_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">glove_matrix</span></span>
 <span><span class="co">#doc_matrix %&gt;% head()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-35_3d0956f5bd73e592b795ad843191820c">
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">doc_matrix</span><span class="op">)</span></span>
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-37_499dd61471dfafc8827779d467b40ae6">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">doc_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1] 10 50</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Anzahl der Dokumente ist 10 und die Anzahl der Dimensionen (des Einbettungsvektors) ist 50.</p>
-</section><section id="wordembeddings-für-die-deutsche-sprache" class="level3" data-number="6.4.2"><h3 data-number="6.4.2" class="anchored" data-anchor-id="wordembeddings-für-die-deutsche-sprache">
-<span class="header-section-number">6.4.2</span> Wordembeddings für die deutsche Sprache</h3>
-<p>In diesem <a href="https://devmount.github.io/GermanWordEmbeddings/">Github-Projekt</a> finden sich die Materialien für ein deutsches Wordembedding <span class="citation" data-cites="mueller2015">(<a href="references.html#ref-mueller2015" role="doc-biblioref"><strong>mueller2015?</strong></a>)</span>.</p>
-</section></section><section id="fazit" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="fazit">
-<span class="header-section-number">6.5</span> Fazit</h2>
+</section><section id="wordembeddings-für-die-deutsche-sprache" class="level3" data-number="7.4.2"><h3 data-number="7.4.2" class="anchored" data-anchor-id="wordembeddings-für-die-deutsche-sprache">
+<span class="header-section-number">7.4.2</span> Wordembeddings für die deutsche Sprache</h3>
+<p>In diesem <a href="https://devmount.github.io/GermanWordEmbeddings/">Github-Projekt</a> finden sich die Materialien für ein deutsches Wordembedding <span class="citation" data-cites="mueller2015">(<a href="#ref-mueller2015" role="doc-biblioref"><strong>mueller2015?</strong></a>)</span>.</p>
+</section></section><section id="fazit" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="fazit">
+<span class="header-section-number">7.5</span> Fazit</h2>
 <p>Worteinbettungen sind eine aufwändige Angelegenheit. Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat. Ist ja schon cooles Zeugs, die Word Embeddings. Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen Ansätzen wir Worthäufigkeiten oder tf-idf. Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten, und zu sehen, wie weit man kommt. Vielleicht ja weit genug.</p>
-</section><section id="literatur" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="literatur">
-<span class="header-section-number">6.6</span> Literatur</h2>
-<section id="wikipedia" class="level3" data-number="6.6.1"><h3 data-number="6.6.1" class="anchored" data-anchor-id="wikipedia">
-<span class="header-section-number">6.6.1</span> Wikipedia</h3>
+</section><section id="literatur" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="literatur">
+<span class="header-section-number">7.6</span> Literatur</h2>
+<section id="wikipedia" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="wikipedia">
+<span class="header-section-number">7.6.1</span> Wikipedia</h3>
 <p>Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information">Wikipedia: Pointwise Mutual Information</a></li>
@@ -1232,7 +1291,7 @@ Hinweis
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-smltar" class="csl-entry" role="listitem">
 Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
@@ -1595,13 +1654,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./040-populismus.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span>
+      <a href="./065-Information.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./060-hassrede.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

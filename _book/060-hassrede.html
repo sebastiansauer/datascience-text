@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 7&nbsp; Hassrede</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 8&nbsp; Hassrede</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./065-Information.html" rel="next">
+<link href="./067-miniprojekt1.html" rel="next">
 <link href="./050-word-embedding.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./060-hassrede.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./060-hassrede.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -125,95 +125,150 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Organisatorisches</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zu diesem Buch</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Textmining</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./067-miniprojekt1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tidymodels</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Deep Learnning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Anwendung</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
-  </div>
+      </ul>
 </li>
     </ul>
 </div>
@@ -224,21 +279,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">7.1</span> Vorab</a>
+<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">8.1</span> Vorab</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">7.1.1</span> Lernziele</a></li>
-  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">7.1.2</span> Vorbereitung</a></li>
-  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">7.1.3</span> Benötigte R-Pakete</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">8.1.1</span> Lernziele</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">8.1.2</span> Vorbereitung</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">8.1.3</span> Benötigte R-Pakete</a></li>
   </ul>
 </li>
-  <li><a href="#worum-gehts" id="toc-worum-gehts" class="nav-link" data-scroll-target="#worum-gehts"><span class="header-section-number">7.2</span> Worum geht’s?</a></li>
+  <li><a href="#worum-gehts" id="toc-worum-gehts" class="nav-link" data-scroll-target="#worum-gehts"><span class="header-section-number">8.2</span> Worum geht’s?</a></li>
   <li>
-<a href="#einstieg" id="toc-einstieg" class="nav-link" data-scroll-target="#einstieg"><span class="header-section-number">7.3</span> Einstieg</a>
+<a href="#einstieg" id="toc-einstieg" class="nav-link" data-scroll-target="#einstieg"><span class="header-section-number">8.3</span> Einstieg</a>
   <ul class="collapse">
-<li><a href="#einstiegsdefinition" id="toc-einstiegsdefinition" class="nav-link" data-scroll-target="#einstiegsdefinition"><span class="header-section-number">7.3.1</span> Einstiegsdefinition</a></li>
-  <li><a href="#einstiegsliteratur" id="toc-einstiegsliteratur" class="nav-link" data-scroll-target="#einstiegsliteratur"><span class="header-section-number">7.3.2</span> Einstiegsliteratur</a></li>
-  <li><a href="#trainingsdaten" id="toc-trainingsdaten" class="nav-link" data-scroll-target="#trainingsdaten"><span class="header-section-number">7.3.3</span> Trainingsdaten</a></li>
-  <li><a href="#los-gehts" id="toc-los-gehts" class="nav-link" data-scroll-target="#los-gehts"><span class="header-section-number">7.3.4</span> Los geht’s!</a></li>
+<li><a href="#einstiegsdefinition" id="toc-einstiegsdefinition" class="nav-link" data-scroll-target="#einstiegsdefinition"><span class="header-section-number">8.3.1</span> Einstiegsdefinition</a></li>
+  <li><a href="#einstiegsliteratur" id="toc-einstiegsliteratur" class="nav-link" data-scroll-target="#einstiegsliteratur"><span class="header-section-number">8.3.2</span> Einstiegsliteratur</a></li>
+  <li><a href="#trainingsdaten" id="toc-trainingsdaten" class="nav-link" data-scroll-target="#trainingsdaten"><span class="header-section-number">8.3.3</span> Trainingsdaten</a></li>
+  <li><a href="#los-gehts" id="toc-los-gehts" class="nav-link" data-scroll-target="#los-gehts"><span class="header-section-number">8.3.4</span> Los geht’s!</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -246,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Hassrede</span>
+<span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span>
 </h1>
 </div>
 
@@ -260,30 +315,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><section id="vorab" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="vorab">
-<span class="header-section-number">7.1</span> Vorab</h2>
-<section id="lernziele" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">7.1.1</span> Lernziele</h3>
+</header><section id="vorab" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="vorab">
+<span class="header-section-number">8.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="8.1.1"><h3 data-number="8.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">8.1.1</span> Lernziele</h3>
 <ul>
 <li>Finden Sie eine operationale Definition für Hassrede (engl. <em>hate speech</em>) bzw. Hatespeech<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>!</li>
-</ul></section><section id="vorbereitung" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="vorbereitung">
-<span class="header-section-number">7.1.2</span> Vorbereitung</h3>
+</ul></section><section id="vorbereitung" class="level3" data-number="8.1.2"><h3 data-number="8.1.2" class="anchored" data-anchor-id="vorbereitung">
+<span class="header-section-number">8.1.2</span> Vorbereitung</h3>
 <ul>
 <li>Lesen Sie die unten aufgeführte Literatur</li>
-</ul></section><section id="benötigte-r-pakete" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
-<span class="header-section-number">7.1.3</span> Benötigte R-Pakete</h3>
+</ul></section><section id="benötigte-r-pakete" class="level3" data-number="8.1.3"><h3 data-number="8.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">8.1.3</span> Benötigte R-Pakete</h3>
 <div class="cell" data-hash="060-hassrede_cache/html/unnamed-chunk-1_5734262cf2b4772e768489f28f1e29b3">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="worum-gehts" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="worum-gehts">
-<span class="header-section-number">7.2</span> Worum geht’s?</h2>
+</section></section><section id="worum-gehts" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="worum-gehts">
+<span class="header-section-number">8.2</span> Worum geht’s?</h2>
 <p>Wir möchten eine treffende und praktikable Definition, um zu erkennen, wann eis deutschis Politiki Hass entgegenschlägt.</p>
 <p><em>Treffend</em> meint, dass Hassrede als Hassrede erkannt wird von unserer Definition, und Nicht-Hassrede als Nicht-Hassrede erkannt wird. Mit anderen Worten: Wir verlangen, dass die Sensitivität und Spezifität unserer Definition hoch ist.</p>
 <p><em>Praktikabel</em> meint, dass wir diese Definition in der Praxis gut umsetzen können. Wir denken dabei an die Schwierigkeiten, einer (tumben) Maschine unsere Regeln beizubringen. Insbesondere muss die Definition <em>objektiv</em> sein in dem Sinne, dass mehrere Gutachtis zur gleichen Einschätzung kommen würden.</p>
-</section><section id="einstieg" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="einstieg">
-<span class="header-section-number">7.3</span> Einstieg</h2>
-<section id="einstiegsdefinition" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="einstiegsdefinition">
-<span class="header-section-number">7.3.1</span> Einstiegsdefinition</h3>
+</section><section id="einstieg" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="einstieg">
+<span class="header-section-number">8.3</span> Einstieg</h2>
+<section id="einstiegsdefinition" class="level3" data-number="8.3.1"><h3 data-number="8.3.1" class="anchored" data-anchor-id="einstiegsdefinition">
+<span class="header-section-number">8.3.1</span> Einstiegsdefinition</h3>
 <p>Hier ist eine Definition als <em>Startpunkt</em> für Ihre Überlegungen.</p>
 <p>Hassrede liegt vor, wenn eine oder mehrere der folgenden Inhalte in einem Text verwendet werden:</p>
 <ol type="1">
@@ -293,15 +348,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Herabsetzung (“Volksverräter”)</li>
 </ol>
 <p>Dabei sollten wir uns mit Blick auf das Ziel, Hass gegen einzelne Personen zu erkennen, nicht auf <em>gruppenbezogene</em> Menschenfeindlichkeit begrenzen, sondern auch Hass auf Individuen einbeziehen. Vielleicht ist daher der Begriff <em>Cybermobbing</em> passender als Hatespeech.</p>
-</section><section id="einstiegsliteratur" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="einstiegsliteratur">
-<span class="header-section-number">7.3.2</span> Einstiegsliteratur</h3>
+</section><section id="einstiegsliteratur" class="level3" data-number="8.3.2"><h3 data-number="8.3.2" class="anchored" data-anchor-id="einstiegsliteratur">
+<span class="header-section-number">8.3.2</span> Einstiegsliteratur</h3>
 <p><a href="https://plato.stanford.edu/entries/hate-speech/">Der Artikel zu Hatespeech der Stanford-Enzyklopädie</a> birgt (am Anfang) gute Hinweise; im weiteren Verlauf geht der Text mehr in die Tiefe.</p>
 <p>In dieser <a href="https://www.zotero.org/groups/4852579/hate-speech">Zotero-Gruppe</a> finden Sie empfehlenswerte (und öffentlich zugängliche) Artikel zum Thema Hatespeech und Hate-Speech-Erkennung.</p>
-</section><section id="trainingsdaten" class="level3" data-number="7.3.3"><h3 data-number="7.3.3" class="anchored" data-anchor-id="trainingsdaten">
-<span class="header-section-number">7.3.3</span> Trainingsdaten</h3>
-<p>Die <a href="https://heidata.uni-heidelberg.de/dataset.xhtml?persistentId=doi:10.11588/data/0B5VML">Universität Heidelberg veröffentlicht Daten</a>, die Tweets (oder ähnliche Kurztexte) nach Hatespeech hin untersucht <span class="citation" data-cites="wiegand_germeval-2018_2019">(<a href="references.html#ref-wiegand_germeval-2018_2019" role="doc-biblioref"><strong>wiegand_germeval-2018_2019?</strong></a>)</span>. Nutzen Sie dieser Ressource.</p>
-</section><section id="los-gehts" class="level3" data-number="7.3.4"><h3 data-number="7.3.4" class="anchored" data-anchor-id="los-gehts">
-<span class="header-section-number">7.3.4</span> Los geht’s!</h3>
+</section><section id="trainingsdaten" class="level3" data-number="8.3.3"><h3 data-number="8.3.3" class="anchored" data-anchor-id="trainingsdaten">
+<span class="header-section-number">8.3.3</span> Trainingsdaten</h3>
+<p>Die <a href="https://heidata.uni-heidelberg.de/dataset.xhtml?persistentId=doi:10.11588/data/0B5VML">Universität Heidelberg veröffentlicht Daten</a>, die Tweets (oder ähnliche Kurztexte) nach Hatespeech hin untersucht <span class="citation" data-cites="wiegand_germeval-2018_2019">(<a href="#ref-wiegand_germeval-2018_2019" role="doc-biblioref"><strong>wiegand_germeval-2018_2019?</strong></a>)</span>. Nutzen Sie dieser Ressource.</p>
+</section><section id="los-gehts" class="level3" data-number="8.3.4"><h3 data-number="8.3.4" class="anchored" data-anchor-id="los-gehts">
+<span class="header-section-number">8.3.4</span> Los geht’s!</h3>
 <p>Lesen Sie diese und weitere Literatur, um zu einer Arbeitsdefinition von Hassrede zu kommen.</p>
 
 
@@ -657,12 +712,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./050-word-embedding.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Word Embedding</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./065-Information.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./067-miniprojekt1.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
