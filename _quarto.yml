@@ -32,7 +32,8 @@ book:
       chapters: 
         - 200-projektmgt.qmd
         - 300-fallstudien.qmd
-      appendices:
+    - part: Abschluss
+      chapters:
         - references.qmd
 
 bibliography: 

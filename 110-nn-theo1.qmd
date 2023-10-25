@@ -13,7 +13,15 @@ Nach Abschluss dieses Kapitels ...
 
 Dieses Kapitel führt in die Grundlagen (einfacher) neuronaler Netze ein.
 Die Darstellung orientiert sich an @islr.
-Viele der gezeigten Abbildungen stammen aus @islr.^[und können [von dieser Quelle](https://www.statlearning.com/resources-second-edition) heruntergelanden werden.]
+Viele der gezeigten Abbildungen stammen aus @islr.^[und können [von dieser Quelle](https://www.statlearning.com/resources-sefcond-edition) heruntergeladen werden.]
+
+
+### Benötigte R-Pakete
+```{r}
+#| message: false
+library(tidyverse)
+```
+
 
 
 ## Netzwerke mit einer einzelnen Zwischenschicht
@@ -24,13 +32,32 @@ Ein neuronales Netzwerk besteht auf
 - einer nicht-linearen Funktion $f(X)$
 - sagt einen Output-Vektor $Y$ vorher.
 
-@fig-isrl10-1 zeigt ein einfaches sog. *Feed-Forward-Neuronales-Netzwerk*, um eine quantitative Output-Variable $Y$ vorherzusagen anhand von 4 Prädiktoren.
+@fig-islr10-1 zeigt ein einfaches sog. *Feed-Forward-Neuronales-Netzwerk*, um eine quantitative Output-Variable $Y$ vorherzusagen anhand von 4 Prädiktoren.
 Das Netzwerk besteht aus drei "Schichten", der Eingabeschicht (Input Layer), der Zwischenschicht (Hidden Layer) und der Ausgabeschicht (Output Layer).
 Jeder Kreis symbolisiert ein "Neuron". In der Zwischenschicht in @fig-islr10-1 gibt es $K=5$ Neuronen in der Zwischenschicht.
 
-![Ein neuronales Netzwerk mit einer Zwischenschicht](img/islr-10_1.png){#fig-islr10-1}
 
-Das Netzwerk (als Ganzes) hat folgende Struktur, s. @eq-nn1.
+:::{.callout-note}
+### Künstliche Neurone
+Die Idee der "Neurone" war namensgebend für Neuronale Netze.
+Ein biologisches Neuron gibt die Erregung ("feuert") nur dann, wenn es über eine Schwelle erregt (aktiviert) wird. Analog sind "künstliche Neurone" in einem Neuronalen Netzwerk konzipiert.
+Sicherlich tun wir der gewaltigen Komplexität biologischer Neurone Unrecht, wenn wir die gedanklichen bescheidenen Einheiten künstlicher Neuronalen Netze auch als Neurone bezeichnen. 
+Die (ursprüngliche ausschließlich vernendete) Logistische Funktion (mit sigmoiden Verlauf) setzt den "An-Aus-Mechanismen" biologischer Neurone um: Diese feuern nur oberhalb einer gewissen Aktivierung (und dann mit konstanter Stärke unabhängig von der Aktivierung).$\square$
+:::
+
+![Ein neuronales Netzwerk mit einer Zwischenschicht](img/islr-10_1.png){#fig-islr10-1 fig-width="50%"}
+
+
+:::{.callout-note}
+Einfach gesprochen besteht ein neuronales Netzwerk aus einem System linearen Gleichungen, die aber jedes Mal noch durch eine einfache nicht-lineare Funktion gejagt werden. $\square$
+:::
+
+Eine häufige Wahl für $g$ ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. @fig-relu.
+
+
+![ReLU und sigmoide Funktion](img/islr10-2.png){#fig-relu fig-width="50%"}
+
+Dieses Netzwerk (als Ganzes) hat folgende Struktur, s. @eq-nn1.
 
 
 $$\begin{align}
@@ -39,19 +66,343 @@ f(X) &= \beta_0 + \sum_{k=1}^K \beta_k h_k(X) \\
 \end{align}$${#eq-nn1}
 
 
+Jedes Neuron der Zwischenschicht erfährt eine Aktivierung (##eq-nn1-akt):
+
+
+$$A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)$${#eq-nn1-akt}
+
+Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass "zum Schluss" noch die nicht-lineare Sahnehaube.
+
 Wichtig ist, dass $g$ eine nicht-lineare Funktion ist, denn sonst würde das ganze Netzwerk "nur" ein lineares Gleichungssystem sein.
 Die nicht-lineare Funktion erlaubt aber ein viel flexibleres Verhalten,
 als es einer linearen Funktion möglich wäre.
 
-Eine häufige Wahl für $g$ ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. @fig-relu.
 
 
-![ReLU und sigmoide Funktion](img/islr10-2.png){#fig-relu}
-
-
+"Fitten" eines neuronalen Netzwerk bedeutet, genau wie bei allen anderen Methoden des Maschinenlernens, die Parameter zu schätzen (berechnen).
 Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion,
 die minimiert wird.
 Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. @eq-sq-err.
 
 $$\sum_{i=1}^n(y_i - f(x_i))$${#eq-sq-err}
+
+
+## Multilayer-Netzwerke
+
+Netzwerke mit mehreren Zwischenschichten bezeichnet man als *Multi-Layer-Netzwerke*.
+Theoretisch könnte ein Netzwerk mit nur einer Zwischenschicht, aber einer großen Zahl an Neuronen, fast alle denkbaren (oder zumindest sehr viele) Funktionen simulieren.
+Aber in der Praxis ist es einfacher, mehrere Schichten mit mittlerer Neuronen-Anzahl zu implementieren.
+
+@fig-islr-10-4 zeigt ein Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen.
+Im Gegensatz zu @fig-islr10-1 ...
+
+- besitzt es zwei Zwischenschichten, $L_1$ (256 Neurone) und $L_2$ (128 Neurone).
+- hat es 10 Ausgabe-Neurone in der Output-Layer, die den 10 Ziffern (0-9) entsprechen sollen.
+
+![Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen](img/islr-10-4.png){#fig-islr-10-4 fig-width="50%"}
+
+Die *Aktivierung* $A$ der $k^{(1)}$ Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. @eq-nn1 und @eq-nn1-akt), s. @eq-nn2-l1: 
+
+$$\begin{align}
+A_k^{(1)} &= = h_k^{(1)}(X)\\
+          &= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
+\end{align}$${#eq-nn2-l1}
+
+für alle $k_1, k_2, \ldots, K_1$ Neurone der ersten Zwischenschicht.
+Für die zweite Zwischenschicht, $L_2$ gilt das analog:
+Die Aktivierung der Neurone der vorherigen Schicht werden als Input verwendet und auf dieser Basis wird die Aktivierung des jeweiligen Neurons der aktuellen Schicht berechnet, s. @eq-nn2-l2: 
+
+
+$$\begin{align}
+A_l^{(2)} &= h_l^{(2)}(X)\\
+          &= g(w_{l0}^{(2)} + \sum_{j=2}^p w_{lj}^{(1)} X_j)
+\end{align}$${#eq-nn2-l2}
+
+für alle $l = 1, 2, \ldots, K2$ Neurone der zweiten Zwischenschicht.
+
+
+
+Da sammeln sich schnell eine große Zahl an Parametern:
+
+$\newcommand{\matr}[1]{#1}$
+
+$\matr{W_1}$ in @fig-islr-10-4 repräsentiert die Matrix mit allen ("Regressions"-)Gewichten (und "Intercepts") on der Input-Layer zur ersten Zwischenschicht.
+Diese Matrix umfasst $785\times256=200\,960$ Koeffizienten (785=784 "Regressions-"Gewichte plus 1 Intercept-Term, auch "Bias" genannt).
+
+Entsprechend weist jedes Neuron der zweiten Zwischenschicht ein Gewicht zu jedem Neuron der ersten Zwischenschicht auf.
+Daher hat $\matr{W_2}$ die Dimensionen $257 \times 128 = 32\,896$.
+
+Jetzt gelangen wir zur Output-Layer; dort gibt es 10 Ausgabe-Neuronen.
+Hier sind zwei Schritte nötig.
+Schritt 1 besteht darin für jedes der 10 Neurone ein lineares Modell zu berechnen, basierend auf den Gewichten der vorherigen Zwischenschicht:
+
+$$\begin{aligned}
+Z_m &= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
+&= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} A_l^{(2)}
+\end{aligned}$${#eq-nn2-l3}
+
+
+mit $m = 0,1, \ldots, 9$. Diese $129 \times 10 = 1290$ Koeffizienten sind in der Matrix $\matr{B}$ gespeichert.
+
+Schritt 2 fehlt noch. Wir möchten ja, dass die Ausgabe für jede Ziffer in einer Wahrscheinlichkeit besteht, das kann man mit der *Softmax-Aktivierung* erreichen (@eq-softmax):
+
+$$f_m(X) = Pr(Y=m|X) = \frac{e^{Z_m}}{\sum_{l=0}^9 e^{Z_l}},$${#eq-softmax}
+
+
+mit $m=0,1, \ldots, 9$. 
+
+Die zu minimierende Funktion ("Loss Function") ist im Falle qualitativer Variablen keine metrische Quadratfunktion, sondern man miniert die Kreuzentropie, vgl. @eq-ce.
+
+Das Netzwerk hat insgesamt über 200k Parameter!
+Und das bei gerade mal 60k Bildern. 
+Wenn da das Modell keine Overfitting-Party macht, weiß ich auch nicht.
+
+Gegenmaßnahmen zum Overfitting sind also dringend nötig, besonders bei neuronalen Netzwerken.
+
+
+## Mathematik neuronaler Netzwerke
+
+Neuronale Netzwerke basierend auf zwei Konzepte: Lineare Algebra und Ableiten (Infinitesimalrechnung).
+
+
+### Lineare Algebra
+
+Im YouTube-Kanal von [3b1b](https://www.youtube.com/@3blue1brown) gibt es eine exzellente [Einführung in die lineare Algebra](https://www.youtube.com/watch?v=fNk_zzaMoSs&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab).
+
+#### Punktprodukt
+
+Die zentrale Operation ist das *Dot Product* (Skalar- oder Punktprodukt), s. @fig-matrixmult.
+
+Im einfachen Fall (der euklidischen Ebene) gilt:
+
+$\vec a \cdot \vec b = \begin{pmatrix} a_1 \\ a_2 \end{pmatrix} \cdot \begin{pmatrix} b_1 \\ b_2 \end{pmatrix} = a_1 b_1 + a_2 b_2.$
+
+
+
+:::{#exm-dot1}
+### Einfaches Punktprodukt
+Gegeben seien zwei Vektoren $\vec x=(1,2,3)$ und $\vec y=(1,2,3)$. Das Punktprodukt von $x$ und $y$ ist die Summe der Produkte der jeweilige Paare, s. @fig-dot.
+
+$\vec x \cdot \vec y = 1\cdot1 + 2\cdot 2 + 3 \cdot 3 = 1 +3+ 9 = 13. \qquad \square$
+:::
+
+
+![Schema des Punktprodukts](img/dot2.png){#fig-dot fig-width="50%"}
+
+
+Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vektoren in die gleiche Richtung zeigen, vgl. @fig-dot2, [Quelle: Martin Thoma, Wikipedia, CC-BY 3.0](https://commons.wikimedia.org/wiki/User:MartinThoma).
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+![Die Vektoren zeigen in die gleiche Richtung: Maximales Punktprodukt (gleich dem Produkt der Vektorlängen)](img/Dot-product-3.1.svg.png)
+:::
+
+::: {.column width="30%"}
+![Minimales Punktprodukt (Null), da die Vektoren orthogonal zueinander stehen](img/Dot-product-3.2.svg.png)
+:::
+
+
+::: {.column width="30%"}
+![Mittleres Punktprodukt, proportional zur Größe des Winkels $\phi$ und dem Produkt der Vektorlängen](img/Dot-product-3.3.svg.png)
+:::
+
+::::
+
+
+
+
+Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei [Math is Fun](https://www.mathsisfun.com/algebra/vectors-dot-product.html). 
+Für Einsteiger interessant ist auch die Erklärung von [Kalid Azad](https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/).
+
+
+In R kann man das Punktproduct mit dem `%*%`-Operator berechnen
+
+```{r}
+x <- c(1,2,3)
+y <- c(1,2,3)
+
+dot_xy <- x %*% y
+dot_xy
+```
+
+Im Paket `geometry` gibt es alternativ eine entsprechende Funktion, `dot`:
+
+```{r}
+geometry::dot(x, y)
+```
+
+
+
+
+
+
+
+:::{#def-dotproduct}
+### Punktprodukt
+Das Produkt zweier Vektoren $\mathbf{a}$ und $\mathbf{b}$ ist so definiert, @eq-dot.
+$${\displaystyle \mathbf {a} \cdot \mathbf {b} =\sum _{i=1}^{n}a_{i}b_{i}=a_{1}b_{1}+a_{2}b_{2}+\cdots +a_{n}b_{n}} \qquad \square$${#eq-dot}
+:::
+
+
+### Matrixmultiplikation
+
+Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auffassen, s. @fig-matrixmult.
+
+
+![Berechnung des Punktprodukts](img/matrix-mult.png){#fig-matrixmult fig-width=50%}
+
+
+### Multiple Regression als Matrixmultiplikation
+
+Die multiple Regression kann man als Matrixmultiplikation auffassen.
+
+
+```{r}
+d <-
+  tibble(
+    x = c(1, 2, 3),
+    y = c(1.1, 2.2, 2.9),
+    b0 = c(1,1,1)
+  )
+
+lm1 <- lm(y ~ x, data = d)
+
+```
+
+Speichern wir uns die Modellkoeffizienten, $\beta_0, \beta_1$ in einem Objekt $\matr{\beta}}$ ab:
+
+```{r}
+lm1_coefs <- lm1$coefficients
+lm1_coefs
+```
+
+
+
+
+Die vorhergesagten Werte des Modells, $\matr{\hat{Y}}$
+
+```{r}
+predict(lm1)
+```
+
+Jetzt bauen wir das Modell mit Matrixmultiplikation nach.
+
+Dabei müssen wir für den Intercept eine Spalte mit nur 1 ergänzen und erhalten die Matrix für die X-Werte (pro Beobachtung), $\matr{X}$:
+
+```{r}
+x_matrix <- d |> 
+  select(b0, x) |> 
+  as.matrix()
+
+x_matrix
+```
+
+Dann multiplizieren wir die Matrix mit den X-Werten mit der Matrix (Vektor) mit den Modellkoeffizienten.
+So erhalten wir die vorhergesagten Y-Werte, $\matr{\hat{Y}}:
+
+```{r}
+y_pred <- x_matrix %*% lm1_coefs
+y_pred
+```
+
+
+In Mathe-Sprech sieht das so aus:
+
+$y = \beta_0 \cdot 1 + \beta_1 \cdot x_1$.
+
+In Matrixschreibweise sieht das dann so aus:
+
+$\matr{\hat{Y}} = \matr{X} \cdot \matr{\matr{\beta}}$
+
+
+Ausgeschrieben als Gleichungssystem:
+
+:::: {.columns}
+
+::: {.column width="20%"}
+
+```{r}
+#| echo: false
+#| warning: false
+gt::gt(tibble(y_hat = y_pred))
+```
+
+:::
+
+
+::: {.column width="20%"}
+
+$=$
+
+:::
+
+::: {.column width="20%"}
+```{r}
+#| echo: false
+x_matrix |> 
+  as_tibble() |> 
+  gt::gt()
+```
+:::
+
+
+::: {.column width="20%"}
+
+$\cdot$
+
+:::
+
+
+
+::: {.column width="20%"}
+
+```{r}
+#| echo: false
+tibble(beta = lm1_coefs) |> 
+  gt::gt()
+```
+
+
+:::
+
+
+::::
+
+
+
+## 3b1b
+
+Im YouTube-Kanal von 3b1b gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.
+
+
+### Video 1
+
+{{< video  https://youtu.be/aircAruvnKk?si=c_UkzyHTroCoQspV >}}
+
+
+### Video 2
+
+{{< video  https://youtu.be/IHZwWFHWa-w?si=xTr9SngMDPGrHHTd >}}
+
+
+### Video 3
+
+{{< video  hhttps://youtu.be/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT >}}
+
+
+### Video 4
+
+Anspruchsvoller; mathematische Grundlagen von Backpropagation (parzielle Ableitung)
+
+{{< video  https://youtu.be/tIeHLnjs5U8?si=J7vxQbmHAfHj8aMs >}}
+
+
+
+
+## Vertiefung
+
+Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei [Kalid Azad, betterexplained.com](https://betterexplained.com/articles/matrix-multiplication/).
+
 

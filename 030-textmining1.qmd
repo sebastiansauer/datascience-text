@@ -1,5 +1,5 @@
 
-# Textmining1
+# Textmining 1
 
 
 
@@ -29,15 +29,16 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 ```{r}
 #| message: false
 library(tidyverse)
-library(tokenizers)
+library(tokenizers)  # Tokenisieren
+library(tidymodels)  # Rezepte für Textverarbeitung
 library(tidyverse)
-library(tidytext)
-library(hcandersenr)
+library(tidytext)  # Textanalyse-Tools
+library(hcandersenr)  # Textdaten: Märchen von H.C. Andersen
 library(SnowballC)  # Stemming
 library(lsa)  # Stopwörter
 library(easystats)  # Komfort für deskriptive Statistiken, wie `describe_distribution`
 library(textclean)  # Emojis ersetzen
-library(wordcloud)
+library(wordcloud)  # unübersichtlich, aber manche mögen es
 ```
 
 
@@ -45,8 +46,10 @@ library(wordcloud)
 ## Einfache Methoden des Textminings
 
 
-Arbeiten Sie die folgenden grundlegenden Methoden des Textminigs durch.
-
+:::{#def-nlp}
+### Natural Language Processing
+Die Analyse von Texten (natürlicher Sprache) mit Hilfe von Methoden des Maschinellen Lernens bezeichnet man (auch) als *Natural Language Processing* (NLP). $\square$
+:::
 
 
 
@@ -88,7 +91,7 @@ Es bestehst (in der deutschen Version) aus `r length(quanteda::stopwords("german
 
 ### Wörter zählen {#sec-woerterzaehlen}
 
-Ist der Text tokenisiert, kann man einfach mit "Bordmitteln" die Wörter zählen.
+Ist der Text tokenisiert, kann man einfach mit "Bordmitteln" die Wörter zählen (Bordmittel aus dem Tidyverse, in diesem Fall).
 
 
 ```{r}
@@ -127,7 +130,7 @@ denn Faktorstufen kann man sortieren,
 zumindest ist das die einfachste Lösung in `ggplot2` (wenn auch nicht super komfortabel).
 
 
-Eine (beliebite?) Methode, um Worthäufigkeiten in Corpora darzustellen, 
+Eine (beliebte?) Methode, um Worthäufigkeiten in Corpora darzustellen, 
 sind *Wortwolken*, s. @fig-wordcloud1.
 Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale
 perzeptorische Qualitäten aufweisen.
@@ -140,6 +143,123 @@ wordcloud(words = hc_andersen_count$word,
           max.words = 50,
           rot.per = 0.35,
           colors = brewer.pal(8, "Dark2"))
+```
+
+
+### tf-idf
+
+#### Grundlagen
+
+Was sind "häufige" Wörter? Wörter wie "und" oder "der" sind sehr häufig, aber sie nicht spezifisch für bestimmte Texte. Sie sind sozusagen "Allerweltswörter".
+Man könnte argumentieren, was wir suchen, sind nicht einfach häufige Wörter, sondern Wörter, die *relevant* sind.
+Unter "relevant" könnte man verstehen "häufig aber spezifisch".
+
+
+Da kommt `tf-idf` ins Spiel (*term frequency–inverse document frequency*). 
+`tf-idf` ist eine Möglichkeit, Wörter die *häufig* und gleichzeitig *spezifisch* für einen Text sind, aufzufinden.
+
+Betrachten wir als Beispiel @tbl-shakespeare ([Quelle](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)).
+Das Wort "Romeo" ist hoch spezifisch in dem Sinne, dass sein `idf` hoch ist (relativ zu den anderen Wörtern).
+Im Gegensatz dazu ist das Wort "good" nicht spezifisch für ein bestimmtes Stück von Shakespeare - der IDF-Wert ist sehr klein.
+
+```{r}
+#| echo: false
+#| tbl-cap: Einige Wörter aus Shakespeares Werken
+#| label: tbl-shakespeare
+shakespeare <-
+tibble::tribble(
+       ~Word, ~tf,  ~idf,
+     "Romeo",  1L,  1.57,
+     "salad",  2L,  1.27,
+  "Falstaff",  4L, 0.967,
+    "forest", 12L, 0.489,
+    "battle", 21L, 0.246,
+       "wit", 34L, 0.037,
+      "fool", 36L, 0.012,
+      "good", 37L,     0,
+     "sweet", 37L,     0
+  ) |> 
+  mutate(tf_idf = tf*idf)
+
+shakespeare
+
+```
+
+
+:::{#def-tf}
+### Text Frequency (Worthäufigkeit)
+Die Worthäufigkeit (Vorkommenshäufigkeit) eines Wortes (oder Terms, Tokens) $h_w$ in einem Dokument $d$ (oder Corpus) ist definiert als die Häufigkeit des Wortes geteilt durch die Anzahl aller Wörter des Dokuments, $h_d$:
+
+$tf(w,d) = \frac{h_w}{h_d} \square$
+:::
+
+Manchmal wird auch eine logarithmierte Version verwendet.
+
+
+:::{#def-idf}
+### Inverse Document Frequency (Inverse Dokumenthäufigkeit)
+Die IDF eines Wortes hängt erstens von der Gesamtzahl der *Dokumente* (nicht Wörter) im Corpus, $N$, ab.
+Zweitens hängt IDF davon ab, wie viele Dokumente das Wort enthalten, $N_w$. 
+
+$idf(w,c) = log \frac{N}{N_w} \square$
+:::
+
+
+:::{#def-tfidf}
+### TF-IDF
+TF-IDF ist ein Maß zur Beurteilung der *Relevanz* von Wörtern eines Corpus.
+
+$\text{tf-idf} = tf \cdot idf \qquad \square$
+:::
+
+
+
+#### Beispiel zur tf-idf
+
+```{r}
+#library(hcandersenr)
+data(hcandersen_de)
+
+hca_count <- 
+hcandersen_de |> 
+  unnest_tokens(word, text) |> 
+  count(book, word, sort = TRUE)  |> # Zähle Wörter pro Buch
+  ungroup()  # um gleich nur nach Bücher zu gruppieren
+
+head(hca_count)
+```
+
+Die Gesamtzahl der Wörter pro Buch:
+
+```{r}
+words_total <-
+  hca_count |> 
+  group_by(book) |> 
+  summarise(total = sum(n))
+
+words_total |> 
+  head()  # die ersten paar von 150 Büchern
+```
+
+Dann fügen wir die Spalte mit der Gesamt-Wortzahl des jeweiligen Buches zur Tabelle `hca_count` hinzu:
+
+```{r}
+hca_count <-
+  hca_count |> 
+  left_join(words_total)
+
+head(hca_count)
+```
+
+
+```{r}
+hca_count <-
+  hca_count |> 
+  bind_tf_idf(term = word, document = book, n = n)
+
+hca_count |> 
+  arrange(-tf_idf) |> 
+  head()
 ```
 
 
@@ -425,6 +545,128 @@ Allerding nur für die englische Sprache.
 
 
 
+### One-hot-Enkodierung (Dummy-Variablen)
+
+Viele Methoden des Maschinellen Lernens können keine nominalen Variablen verarbeiten. Daher müssen nominale Variablen vorab häufig erst in numerische Variablen umgewandelt werden.
+In der Textanalyse
+
+Nehmen wir als einfaches Beispiel den berühmten Iris-Datensatz:
+
+```{r}
+data(iris)
+iris$id <- 1:nrow(iris)  # ID-Variable hinzufügen
+
+iris_mini <-
+  iris |> 
+  filter(id %in% c(1, 51, 101))  # von jeder Species ein Exemplar
+```
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| tbl-cap: Tabelle im Lang-Format
+iris_rec <-
+  recipe( ~ ., data = iris) |> 
+  step_dummy(Species, one_hot = TRUE)
+
+iris_rec_prepped <-
+  iris_rec |> prep()
+
+iris_baked <- 
+  iris_rec_prepped |> 
+  bake(new_data = NULL)
+
+iris |> 
+  select(id, Species) |> 
+  filter(id %in% c(1, 51, 101))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| tbl-cap: "Tabelle mit Spalte 'Species' im One-Hot-Format"
+iris_baked |> 
+  select(id, starts_with("Species"))  |> 
+  filter(id %in% c(1, 51, 101)) 
+```
+
+:::
+
+::::
+
+
+
+#### Tidymodels
+
+Tidymodels bieten eine recht komfortable Methode zur One-Hot-Transformation:
+
+```{r}
+iris_rec <-
+  recipe( ~ ., data = iris) |> 
+  step_dummy(Species, one_hot = TRUE)
+```
+
+```{r}
+iris_rec_prepped <-
+  iris_rec |> prep()
+
+iris_baked <-
+  iris_rec_prepped |> bake(new_data = NULL)
+```
+
+
+```{r}
+iris_baked |> 
+  select(starts_with("Species")) |> 
+  head()
+```
+ 
+`tidymodels` ist primär für das professionelle Modellieren angelegt;
+"mal eben" eine One-Hot-Enkodierung durchzuführen, braucht ein paar Zeilen Code.
+
+Ohne den Parameter `one_hot = TRUE` würden anstelle von $k$ Stufen nur $k-1$ Stufen zurückgegeben werden.
+
+Mal sehen, ob es auch schneller geht, also mit weniger Zeilen Code.
+
+
+#### Base R: model.matrix
+
+
+```{r}
+iris_one_hot_matrix <- model.matrix(~ 0 + Species, data = iris_mini)
+iris_one_hot_matrix
+```
+
+Das `+ 0` sorgt dafür, dass bei $k$ Stufen von Species nicht, wie bei linearen Modellen nötig, $k-1$ Stufen zurückgegeben werden, sondern $k$ Stufen.
+
+
+`model.matrix` gibt eine Matrix zurück;
+diese wandlen wir noch in einen Dataframe um:
+
+```{r}
+iris_one_hot_matrix |> 
+  as_tibble() |> 
+  mutate(id = 1:n()) |> 
+  select(id, everything())
+```
+
+
+#### Paket `fastDummies`
+
+Das Paket `fastDummies` bietet ebenfalls eine recht einfache Konvertierung zu One-Hot-Enkodierung:
+
+
+
+```{r}
+library(fastDummies)
+
+dummy_cols(iris_mini, select_columns = "Species") |> 
+  select(starts_with("Species"))
+```
 
 
 

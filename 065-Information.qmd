@@ -72,13 +72,13 @@ Die Shannon-Information ist die einzige Größe, die einige wünschenswerte Anfo
 
 :::{#def-info}
 
-## Shannon-Information
+### Shannon-Information
 
 
 Die Information, $I$, ist so definiert:
 
 
-$$I(x) = - \log_2 \left( Pr(x) \right)\qquad \square$$
+$$I(x) = log_2 \left( \frac{1}{Pr(x)} \right) = log_2(1) - log_2(Pr(x)) = - \log_2 \left( Pr(x) \right)\qquad \square$$
 
 :::
 
@@ -95,7 +95,7 @@ Ein Münwzurf^[wie immer, als fair angenommen, wenn sonst nichts anderes angegeb
 
 :::{#def-1bit}
 ### Bit
-Von 1 Bit Information spricht man, wenn ein Zufallsvorgang zwei Ausgänge hat und wir indifferent gegenüber den Ausgängen sind (also beide Ausgänge für gleich wahrscheinlich halten).$\square$
+Von 1 Bit Information spricht man, wenn ein Zufallsvorgang zwei Ausgänge hat und wir indifferent gegenüber den Ausgängen sind (also beide Ausgänge für gleich wahrscheinlich halten).Bits sind nicht-negative reelle Zahlen. $\square$
 :::
 
 
@@ -282,7 +282,7 @@ Die Entropie eines Münzwurf-Versuchs (Bernoulli-Experiment) ist dann maximal (1
 
 
 
-### Gemeinsame Information
+### Gemeinsame Information (Mutual Information)
 
 Die *gemeinsame Information* (*mutual information*, MI) zweier Zufallsvariablen $X$ und $Y$, $I(X,Y)$, quantifiziert die Informationsmenge, die man über $Y$ erhält, wenn man $X$ beobachtet. Mit anderen Worten: Die MI ist ein *Maß des Zusammenhangs zweier (nominaler) Variablen*. Im Gegensatz zur Korrelation ist die MI nicht auf lineare Abhängigkeiten beschränkt.
 
@@ -319,7 +319,7 @@ d <- tibble::tribble(
 d
 ```
 
-
+Die MI ist also additiv:
 
 $I(X,Y) = \Sigma_Y \Sigma_y Pr(x,y) \underbrace{\log \left( \frac{Pr(X,Y)}{Pr(X) Pr(Y)} \right)}_\text{punktweise MI}$ 
 
@@ -618,11 +618,14 @@ Shannons [-@shannon_1948] berühmter Artikel setzt höhere Ansprüche.
 
 
 
-Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.
+Es gibt eine Reihe nützlicher (und teilweise recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.
 
 - [Wikipedia: Pointwise Mutual Information](https://en.wikipedia.org/wiki/Pointwise_mutual_information)
 - [Wikipedia: Mutual information](https://en.wikipedia.org/wiki/Mutual_information)
 - [Wikipedia: Information theory](https://en.wikipedia.org/wiki/Information_theory)
+- [Wikipedia: Informationsgehalt](https://de.wikipedia.org/wiki/Informationsgehalt)
+
+
 
 
 

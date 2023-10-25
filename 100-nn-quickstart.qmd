@@ -12,6 +12,21 @@ Nach Abschluss dieses Kapitels können Sie ...
 
 ## Quick-Start
 
+### MNIST: Hello, Deep Learning
+
+Der MNIST-Datensatz ist eine Sammlung handgeschriebener Ziffern (bzw. deren digitale Repräsentation in Matrixform), s. @fig-mnist [Quelle: Suvanjanprasai, [Wikipedia](https://en.wikipedia.org/wiki/MNIST_database#/media/File:MnistExamplesModified.png), CC-BY-SA 4.0]
+
+![Beispielbilder aus dem MNIST-Datensatz](img/MnistExamplesModified.png){#fig-mnist}
+
+Das maschinelle Erkennen von handgeschriebenen Ziffern ist nicht so einfach;
+für Menschen ist es eine mühelose Angelegenheit, dank der erstaunlichen Fähigkeiten unseres visuellen Cortex (und dem Evolutionsvorteil des visuellen Erkennens, der unseren visuellen Corext "trainiert" hat).
+
+Das Erkennen der Ziffern mit Hilfe von Deep Learninng ist eine Einstiegsaufgabe,
+sozusagen das "Hello, World" des Deep Learnings.
+
+Der MNIST-Datensatz umfasst 70k Bilder und haben eine Auflösung von 28*28=784 Pixeln in 8 Bit Graustufen (also $2^8 = 256$ Werte).
+
+
 ### Quick Start mit R
 
 Wir halten uns an das Tutorial von [TensforFlow for R, "Hello, World!"](https://tensorflow.rstudio.com/tutorials/quickstart/beginner).

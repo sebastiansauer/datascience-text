@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 13&nbsp; Theoretische Grundlagen neuronaler Netze</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./200-projektmgt.html" rel="next">
+<link href="./100-nn-quickstart.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Organisatorisches</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zu diesem Buch</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Textmining</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./067-miniprojekt1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tidymodels</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Deep Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Anwendung</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Abschluss</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+<li>
+<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">13.1</span> Lernsteuerung</a>
+  <ul class="collapse">
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">13.1.1</span> Lernziele</a></li>
+  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">13.1.2</span> Überblick</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">13.1.3</span> Benötigte R-Pakete</a></li>
+  </ul>
+</li>
+  <li><a href="#netzwerke-mit-einer-einzelnen-zwischenschicht" id="toc-netzwerke-mit-einer-einzelnen-zwischenschicht" class="nav-link" data-scroll-target="#netzwerke-mit-einer-einzelnen-zwischenschicht"><span class="header-section-number">13.2</span> Netzwerke mit einer einzelnen Zwischenschicht</a></li>
+  <li><a href="#multilayer-netzwerke" id="toc-multilayer-netzwerke" class="nav-link" data-scroll-target="#multilayer-netzwerke"><span class="header-section-number">13.3</span> Multilayer-Netzwerke</a></li>
+  <li>
+<a href="#mathematik-neuronaler-netzwerke" id="toc-mathematik-neuronaler-netzwerke" class="nav-link" data-scroll-target="#mathematik-neuronaler-netzwerke"><span class="header-section-number">13.4</span> Mathematik neuronaler Netzwerke</a>
+  <ul class="collapse">
+<li><a href="#lineare-algebra" id="toc-lineare-algebra" class="nav-link" data-scroll-target="#lineare-algebra"><span class="header-section-number">13.4.1</span> Lineare Algebra</a></li>
+  <li><a href="#matrixmultiplikation" id="toc-matrixmultiplikation" class="nav-link" data-scroll-target="#matrixmultiplikation"><span class="header-section-number">13.4.2</span> Matrixmultiplikation</a></li>
+  <li><a href="#multiple-regression-als-matrixmultiplikation" id="toc-multiple-regression-als-matrixmultiplikation" class="nav-link" data-scroll-target="#multiple-regression-als-matrixmultiplikation"><span class="header-section-number">13.4.3</span> Multiple Regression als Matrixmultiplikation</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#b1b" id="toc-b1b" class="nav-link" data-scroll-target="#b1b"><span class="header-section-number">13.5</span> 3b1b</a>
+  <ul class="collapse">
+<li><a href="#video-1" id="toc-video-1" class="nav-link" data-scroll-target="#video-1"><span class="header-section-number">13.5.1</span> Video 1</a></li>
+  <li><a href="#video-2" id="toc-video-2" class="nav-link" data-scroll-target="#video-2"><span class="header-section-number">13.5.2</span> Video 2</a></li>
+  <li><a href="#video-3" id="toc-video-3" class="nav-link" data-scroll-target="#video-3"><span class="header-section-number">13.5.3</span> Video 3</a></li>
+  <li><a href="#video-4" id="toc-video-4" class="nav-link" data-scroll-target="#video-4"><span class="header-section-number">13.5.4</span> Video 4</a></li>
+  </ul>
+</li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">13.6</span> Vertiefung</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="lernsteuerung" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="lernsteuerung">
+<span class="header-section-number">13.1</span> Lernsteuerung</h2>
+<section id="lernziele" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">13.1.1</span> Lernziele</h3>
+<p>Nach Abschluss dieses Kapitels …</p>
+<ul>
+<li>können Sie die theoretischen Grundlagen eines einfachen neuronalen Netzwerks erklären.</li>
+</ul></section><section id="überblick" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="überblick">
+<span class="header-section-number">13.1.2</span> Überblick</h3>
+<p>Dieses Kapitel führt in die Grundlagen (einfacher) neuronaler Netze ein. Die Darstellung orientiert sich an <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="references.html#ref-islr" role="doc-biblioref">2021</a>)</span>. Viele der gezeigten Abbildungen stammen aus <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="references.html#ref-islr" role="doc-biblioref">2021</a>)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section><section id="benötigte-r-pakete" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">13.1.3</span> Benötigte R-Pakete</h3>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-1_f2b3b39170913ae67900a3b79e85ea73">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="netzwerke-mit-einer-einzelnen-zwischenschicht" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="netzwerke-mit-einer-einzelnen-zwischenschicht">
+<span class="header-section-number">13.2</span> Netzwerke mit einer einzelnen Zwischenschicht</h2>
+<p>Ein neuronales Netzwerk besteht auf</p>
+<ul>
+<li>einem Input-Vektor mit <span class="math inline">\(p\)</span> Variablen <span class="math inline">\(X=(X_1, X_2, \ldots, X_p)\)</span>
+</li>
+<li>einer nicht-linearen Funktion <span class="math inline">\(f(X)\)</span>
+</li>
+<li>sagt einen Output-Vektor <span class="math inline">\(Y\)</span> vorher.</li>
+</ul>
+<p><a href="#fig-islr10-1">Abbildung&nbsp;<span>13.1</span></a> zeigt ein einfaches sog. <em>Feed-Forward-Neuronales-Netzwerk</em>, um eine quantitative Output-Variable <span class="math inline">\(Y\)</span> vorherzusagen anhand von 4 Prädiktoren. Das Netzwerk besteht aus drei “Schichten”, der Eingabeschicht (Input Layer), der Zwischenschicht (Hidden Layer) und der Ausgabeschicht (Output Layer). Jeder Kreis symbolisiert ein “Neuron”. In der Zwischenschicht in <a href="#fig-islr10-1">Abbildung&nbsp;<span>13.1</span></a> gibt es <span class="math inline">\(K=5\)</span> Neuronen in der Zwischenschicht.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Künstliche Neurone
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Idee der “Neurone” war namensgebend für Neuronale Netze. Ein biologisches Neuron gibt die Erregung (“feuert”) nur dann, wenn es über eine Schwelle erregt (aktiviert) wird. Analog sind “künstliche Neurone” in einem Neuronalen Netzwerk konzipiert. Sicherlich tun wir der gewaltigen Komplexität biologischer Neurone Unrecht, wenn wir die gedanklichen bescheidenen Einheiten künstlicher Neuronalen Netze auch als Neurone bezeichnen. Die (ursprüngliche ausschließlich vernendete) Logistische Funktion (mit sigmoiden Verlauf) setzt den “An-Aus-Mechanismen” biologischer Neurone um: Diese feuern nur oberhalb einer gewissen Aktivierung (und dann mit konstanter Stärke unabhängig von der Aktivierung).<span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+<div id="fig-islr10-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/islr-10_1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;13.1: Ein neuronales Netzwerk mit einer Zwischenschicht</figcaption></figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Einfach gesprochen besteht ein neuronales Netzwerk aus einem System linearen Gleichungen, die aber jedes Mal noch durch eine einfache nicht-lineare Funktion gejagt werden. <span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+<p>Eine häufige Wahl für <span class="math inline">\(g\)</span> ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. <a href="#fig-relu">Abbildung&nbsp;<span>13.2</span></a>.</p>
+<div id="fig-relu" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/islr10-2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;13.2: ReLU und sigmoide Funktion</figcaption></figure>
+</div>
+<p>Dieses Netzwerk (als Ganzes) hat folgende Struktur, s. <a href="#eq-nn1">Gleichung&nbsp;<span>13.1</span></a>.</p>
+<p><span id="eq-nn1"><span class="math display">\[\begin{align}
+f(X) &amp;= \beta_0 + \sum_{k=1}^K \beta_k h_k(X) \\
+     &amp;= \beta_0 + \sum_{k=1}^K \beta_k g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)
+\end{align} \tag{13.1}\]</span></span></p>
+<p>Jedes Neuron der Zwischenschicht erfährt eine Aktivierung (##eq-nn1-akt):</p>
+<p><span id="eq-nn1-akt"><span class="math display">\[A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j) \tag{13.2}\]</span></span></p>
+<p>Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass “zum Schluss” noch die nicht-lineare Sahnehaube.</p>
+<p>Wichtig ist, dass <span class="math inline">\(g\)</span> eine nicht-lineare Funktion ist, denn sonst würde das ganze Netzwerk “nur” ein lineares Gleichungssystem sein. Die nicht-lineare Funktion erlaubt aber ein viel flexibleres Verhalten, als es einer linearen Funktion möglich wäre.</p>
+<p>“Fitten” eines neuronalen Netzwerk bedeutet, genau wie bei allen anderen Methoden des Maschinenlernens, die Parameter zu schätzen (berechnen). Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion, die minimiert wird. Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. <a href="#eq-sq-err">Gleichung&nbsp;<span>13.3</span></a>.</p>
+<p><span id="eq-sq-err"><span class="math display">\[\sum_{i=1}^n(y_i - f(x_i)) \tag{13.3}\]</span></span></p>
+</section><section id="multilayer-netzwerke" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="multilayer-netzwerke">
+<span class="header-section-number">13.3</span> Multilayer-Netzwerke</h2>
+<p>Netzwerke mit mehreren Zwischenschichten bezeichnet man als <em>Multi-Layer-Netzwerke</em>. Theoretisch könnte ein Netzwerk mit nur einer Zwischenschicht, aber einer großen Zahl an Neuronen, fast alle denkbaren (oder zumindest sehr viele) Funktionen simulieren. Aber in der Praxis ist es einfacher, mehrere Schichten mit mittlerer Neuronen-Anzahl zu implementieren.</p>
+<p><a href="#fig-islr-10-4">Abbildung&nbsp;<span>13.3</span></a> zeigt ein Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen. Im Gegensatz zu <a href="#fig-islr10-1">Abbildung&nbsp;<span>13.1</span></a> …</p>
+<ul>
+<li>besitzt es zwei Zwischenschichten, <span class="math inline">\(L_1\)</span> (256 Neurone) und <span class="math inline">\(L_2\)</span> (128 Neurone).</li>
+<li>hat es 10 Ausgabe-Neurone in der Output-Layer, die den 10 Ziffern (0-9) entsprechen sollen.</li>
+</ul>
+<div id="fig-islr-10-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/islr-10-4.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;13.3: Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen</figcaption></figure>
+</div>
+<p>Die <em>Aktivierung</em> <span class="math inline">\(A\)</span> der <span class="math inline">\(k^{(1)}\)</span> Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. <a href="#eq-nn1">Gleichung&nbsp;<span>13.1</span></a> und <a href="#eq-nn1-akt">Gleichung&nbsp;<span>13.2</span></a>), s. <a href="#eq-nn2-l1">Gleichung&nbsp;<span>13.4</span></a>:</p>
+<p><span id="eq-nn2-l1"><span class="math display">\[\begin{align}
+A_k^{(1)} &amp;= = h_k^{(1)}(X)\\
+          &amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
+\end{align} \tag{13.4}\]</span></span></p>
+<p>für alle <span class="math inline">\(k_1, k_2, \ldots, K_1\)</span> Neurone der ersten Zwischenschicht. Für die zweite Zwischenschicht, <span class="math inline">\(L_2\)</span> gilt das analog: Die Aktivierung der Neurone der vorherigen Schicht werden als Input verwendet und auf dieser Basis wird die Aktivierung des jeweiligen Neurons der aktuellen Schicht berechnet, s. <a href="#eq-nn2-l2">Gleichung&nbsp;<span>13.5</span></a>:</p>
+<p><span id="eq-nn2-l2"><span class="math display">\[\begin{align}
+A_l^{(2)} &amp;= h_l^{(2)}(X)\\
+          &amp;= g(w_{l0}^{(2)} + \sum_{j=2}^p w_{lj}^{(1)} X_j)
+\end{align} \tag{13.5}\]</span></span></p>
+<p>für alle <span class="math inline">\(l = 1, 2, \ldots, K2\)</span> Neurone der zweiten Zwischenschicht.</p>
+<p>Da sammeln sich schnell eine große Zahl an Parametern:</p>
+<p><span class="math inline">\(\newcommand{\matr}[1]{#1}\)</span></p>
+<p><span class="math inline">\(\matr{W_1}\)</span> in <a href="#fig-islr-10-4">Abbildung&nbsp;<span>13.3</span></a> repräsentiert die Matrix mit allen (“Regressions”-)Gewichten (und “Intercepts”) on der Input-Layer zur ersten Zwischenschicht. Diese Matrix umfasst <span class="math inline">\(785\times256=200\,960\)</span> Koeffizienten (785=784 “Regressions-”Gewichte plus 1 Intercept-Term, auch “Bias” genannt).</p>
+<p>Entsprechend weist jedes Neuron der zweiten Zwischenschicht ein Gewicht zu jedem Neuron der ersten Zwischenschicht auf. Daher hat <span class="math inline">\(\matr{W_2}\)</span> die Dimensionen <span class="math inline">\(257 \times 128 = 32\,896\)</span>.</p>
+<p>Jetzt gelangen wir zur Output-Layer; dort gibt es 10 Ausgabe-Neuronen. Hier sind zwei Schritte nötig. Schritt 1 besteht darin für jedes der 10 Neurone ein lineares Modell zu berechnen, basierend auf den Gewichten der vorherigen Zwischenschicht:</p>
+<p><span id="eq-nn2-l3"><span class="math display">\[\begin{aligned}
+Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
+&amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} A_l^{(2)}
+\end{aligned} \tag{13.6}\]</span></span></p>
+<p>mit <span class="math inline">\(m = 0,1, \ldots, 9\)</span>. Diese <span class="math inline">\(129 \times 10 = 1290\)</span> Koeffizienten sind in der Matrix <span class="math inline">\(\matr{B}\)</span> gespeichert.</p>
+<p>Schritt 2 fehlt noch. Wir möchten ja, dass die Ausgabe für jede Ziffer in einer Wahrscheinlichkeit besteht, das kann man mit der <em>Softmax-Aktivierung</em> erreichen (<a href="#eq-softmax">Gleichung&nbsp;<span>13.7</span></a>):</p>
+<p><span id="eq-softmax"><span class="math display">\[f_m(X) = Pr(Y=m|X) = \frac{e^{Z_m}}{\sum_{l=0}^9 e^{Z_l}}, \tag{13.7}\]</span></span></p>
+<p>mit <span class="math inline">\(m=0,1, \ldots, 9\)</span>.</p>
+<p>Die zu minimierende Funktion (“Loss Function”) ist im Falle qualitativer Variablen keine metrische Quadratfunktion, sondern man miniert die Kreuzentropie, vgl. <a href="065-Information.html#eq-ce">Gleichung&nbsp;<span>6.2</span></a>.</p>
+<p>Das Netzwerk hat insgesamt über 200k Parameter! Und das bei gerade mal 60k Bildern. Wenn da das Modell keine Overfitting-Party macht, weiß ich auch nicht.</p>
+<p>Gegenmaßnahmen zum Overfitting sind also dringend nötig, besonders bei neuronalen Netzwerken.</p>
+</section><section id="mathematik-neuronaler-netzwerke" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="mathematik-neuronaler-netzwerke">
+<span class="header-section-number">13.4</span> Mathematik neuronaler Netzwerke</h2>
+<p>Neuronale Netzwerke basierend auf zwei Konzepte: Lineare Algebra und Ableiten (Infinitesimalrechnung).</p>
+<section id="lineare-algebra" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="lineare-algebra">
+<span class="header-section-number">13.4.1</span> Lineare Algebra</h3>
+<p>Im YouTube-Kanal von <a href="https://www.youtube.com/@3blue1brown">3b1b</a> gibt es eine exzellente <a href="https://www.youtube.com/watch?v=fNk_zzaMoSs&amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">Einführung in die lineare Algebra</a>.</p>
+<section id="punktprodukt" class="level4" data-number="13.4.1.1"><h4 data-number="13.4.1.1" class="anchored" data-anchor-id="punktprodukt">
+<span class="header-section-number">13.4.1.1</span> Punktprodukt</h4>
+<p>Die zentrale Operation ist das <em>Dot Product</em> (Skalar- oder Punktprodukt), s. <a href="#fig-matrixmult">Abbildung&nbsp;<span>13.5</span></a>.</p>
+<p>Im einfachen Fall (der euklidischen Ebene) gilt:</p>
+<p><span class="math inline">\(\vec a \cdot \vec b = \begin{pmatrix} a_1 \\ a_2 \end{pmatrix} \cdot \begin{pmatrix} b_1 \\ b_2 \end{pmatrix} = a_1 b_1 + a_2 b_2.\)</span></p>
+<div id="exm-dot1" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.1 (Einfaches Punktprodukt) </strong></span>Gegeben seien zwei Vektoren <span class="math inline">\(\vec x=(1,2,3)\)</span> und <span class="math inline">\(\vec y=(1,2,3)\)</span>. Das Punktprodukt von <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span> ist die Summe der Produkte der jeweilige Paare, s. <a href="#fig-dot">Abbildung&nbsp;<span>13.4</span></a>.</p>
+<p><span class="math inline">\(\vec x \cdot \vec y = 1\cdot1 + 2\cdot 2 + 3 \cdot 3 = 1 +3+ 9 = 13. \qquad \square\)</span></p>
+</div>
+<div id="fig-dot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/dot2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;13.4: Schema des Punktprodukts</figcaption></figure>
+</div>
+<p>Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vektoren in die gleiche Richtung zeigen, vgl. <span class="quarto-unresolved-ref">?fig-dot2</span>, <a href="https://commons.wikimedia.org/wiki/User:MartinThoma">Quelle: Martin Thoma, Wikipedia, CC-BY 3.0</a>.</p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="img/Dot-product-3.1.svg.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Die Vektoren zeigen in die gleiche Richtung: Maximales Punktprodukt (gleich dem Produkt der Vektorlängen)</figcaption></figure>
+</div>
+</div><div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="img/Dot-product-3.2.svg.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Minimales Punktprodukt (Null), da die Vektoren orthogonal zueinander stehen</figcaption></figure>
+</div>
+</div><div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="img/Dot-product-3.3.svg.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Mittleres Punktprodukt, proportional zur Größe des Winkels <span class="math inline">\(\phi\)</span> und dem Produkt der Vektorlängen</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html">Math is Fun</a>. Für Einsteiger interessant ist auch die Erklärung von <a href="https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/">Kalid Azad</a>.</p>
+<p>In R kann man das Punktproduct mit dem <code>%*%</code>-Operator berechnen</p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-2_200e1c623c909f8bc143d03b36ced815">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dot_xy</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">y</span></span>
+<span><span class="va">dot_xy</span></span>
+<span><span class="co">##      [,1]</span></span>
+<span><span class="co">## [1,]   14</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Im Paket <code>geometry</code> gibt es alternativ eine entsprechende Funktion, <code>dot</code>:</p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-3_6e52737d15f4387566cd30e55421bf77">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">geometry</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/geometry/man/dot.html">dot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">## [1] 14</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="def-dotproduct" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 13.1 (Punktprodukt) </strong></span>Das Produkt zweier Vektoren <span class="math inline">\(\mathbf{a}\)</span> und <span class="math inline">\(\mathbf{b}\)</span> ist so definiert, <a href="#eq-dot">Gleichung&nbsp;<span>13.8</span></a>. <span id="eq-dot"><span class="math display">\[{\displaystyle \mathbf {a} \cdot \mathbf {b} =\sum _{i=1}^{n}a_{i}b_{i}=a_{1}b_{1}+a_{2}b_{2}+\cdots +a_{n}b_{n}} \qquad \square \tag{13.8}\]</span></span></p>
+</div>
+</section></section><section id="matrixmultiplikation" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="matrixmultiplikation">
+<span class="header-section-number">13.4.2</span> Matrixmultiplikation</h3>
+<p>Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auffassen, s. <a href="#fig-matrixmult">Abbildung&nbsp;<span>13.5</span></a>.</p>
+<div id="fig-matrixmult" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="img/matrix-mult.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Abbildung&nbsp;13.5: Berechnung des Punktprodukts</figcaption></figure>
+</div>
+</section><section id="multiple-regression-als-matrixmultiplikation" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="multiple-regression-als-matrixmultiplikation">
+<span class="header-section-number">13.4.3</span> Multiple Regression als Matrixmultiplikation</h3>
+<p>Die multiple Regression kann man als Matrixmultiplikation auffassen.</p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-4_ee979a27a0119b538864029ca8521745">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">2.2</span>, <span class="fl">2.9</span><span class="op">)</span>,</span>
+<span>    b0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Speichern wir uns die Modellkoeffizienten, <span class="math inline">\(\beta_0, \beta_1\)</span> in einem Objekt <span class="math inline">\(\matr{\beta}}\)</span> ab:</p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-5_bb35027f1af72b52e03e668d65d67525">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm1_coefs</span> <span class="op">&lt;-</span> <span class="va">lm1</span><span class="op">$</span><span class="va">coefficients</span></span>
+<span><span class="va">lm1_coefs</span></span>
+<span><span class="co">## (Intercept)           x </span></span>
+<span><span class="co">##   0.2666667   0.9000000</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die vorhergesagten Werte des Modells, <span class="math inline">\(\matr{\hat{Y}}\)</span></p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-6_1db9ed9ffaf88528e275abd1aa3757ff">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span></span>
+<span><span class="co">##        1        2        3 </span></span>
+<span><span class="co">## 1.166667 2.066667 2.966667</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt bauen wir das Modell mit Matrixmultiplikation nach.</p>
+<p>Dabei müssen wir für den Intercept eine Spalte mit nur 1 ergänzen und erhalten die Matrix für die X-Werte (pro Beobachtung), <span class="math inline">\(\matr{X}\)</span>:</p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-7_290e60ac890d7b65129da058c746aee7">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_matrix</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">b0</span>, <span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">x_matrix</span></span>
+<span><span class="co">##      b0 x</span></span>
+<span><span class="co">## [1,]  1 1</span></span>
+<span><span class="co">## [2,]  1 2</span></span>
+<span><span class="co">## [3,]  1 3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dann multiplizieren wir die Matrix mit den X-Werten mit der Matrix (Vektor) mit den Modellkoeffizienten. So erhalten wir die vorhergesagten Y-Werte, $:</p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-8_6fb95ec6467f0ae082664673f5e852da">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_pred</span> <span class="op">&lt;-</span> <span class="va">x_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">lm1_coefs</span></span>
+<span><span class="va">y_pred</span></span>
+<span><span class="co">##          [,1]</span></span>
+<span><span class="co">## [1,] 1.166667</span></span>
+<span><span class="co">## [2,] 2.066667</span></span>
+<span><span class="co">## [3,] 2.966667</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In Mathe-Sprech sieht das so aus:</p>
+<p><span class="math inline">\(y = \beta_0 \cdot 1 + \beta_1 \cdot x_1\)</span>.</p>
+<p>In Matrixschreibweise sieht das dann so aus:</p>
+<p><span class="math inline">\(\matr{\hat{Y}} = \matr{X} \cdot \matr{\matr{\beta}}\)</span></p>
+<p>Ausgeschrieben als Gleichungssystem:</p>
+<div class="columns">
+<div class="column" style="width:20%;">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-9_c766e6716c7bcdded598bfc6d81b6194">
+<div class="cell-output-display">
+
+<div id="kuwarkpris" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kuwarkpris table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kuwarkpris thead, #kuwarkpris tbody, #kuwarkpris tfoot, #kuwarkpris tr, #kuwarkpris td, #kuwarkpris th {
+  border-style: none;
+}
+
+#kuwarkpris p {
+  margin: 0;
+  padding: 0;
+}
+
+#kuwarkpris .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kuwarkpris .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kuwarkpris .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kuwarkpris .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kuwarkpris .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kuwarkpris .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kuwarkpris .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kuwarkpris .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kuwarkpris .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kuwarkpris .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kuwarkpris .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kuwarkpris .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kuwarkpris .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kuwarkpris .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kuwarkpris .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kuwarkpris .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kuwarkpris .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kuwarkpris .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kuwarkpris .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kuwarkpris .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kuwarkpris .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kuwarkpris .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kuwarkpris .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kuwarkpris .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kuwarkpris .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kuwarkpris .gt_left {
+  text-align: left;
+}
+
+#kuwarkpris .gt_center {
+  text-align: center;
+}
+
+#kuwarkpris .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kuwarkpris .gt_font_normal {
+  font-weight: normal;
+}
+
+#kuwarkpris .gt_font_bold {
+  font-weight: bold;
+}
+
+#kuwarkpris .gt_font_italic {
+  font-style: italic;
+}
+
+#kuwarkpris .gt_super {
+  font-size: 65%;
+}
+
+#kuwarkpris .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kuwarkpris .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kuwarkpris .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kuwarkpris .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kuwarkpris .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kuwarkpris .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kuwarkpris .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="y_hat">y_hat</th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr><td headers="y_hat" class="gt_row gt_center">1.166667</td></tr>
+<tr><td headers="y_hat" class="gt_row gt_center">2.066667</td></tr>
+<tr><td headers="y_hat" class="gt_row gt_center">2.966667</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:20%;">
+<p><span class="math inline">\(=\)</span></p>
+</div><div class="column" style="width:20%;">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-10_5995a14127c5e49de6a22d6f3ab188d2">
+<div class="cell-output-display">
+
+<div id="zluroclddf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zluroclddf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zluroclddf thead, #zluroclddf tbody, #zluroclddf tfoot, #zluroclddf tr, #zluroclddf td, #zluroclddf th {
+  border-style: none;
+}
+
+#zluroclddf p {
+  margin: 0;
+  padding: 0;
+}
+
+#zluroclddf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zluroclddf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zluroclddf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zluroclddf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zluroclddf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zluroclddf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zluroclddf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zluroclddf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zluroclddf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zluroclddf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zluroclddf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zluroclddf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zluroclddf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zluroclddf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zluroclddf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zluroclddf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zluroclddf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zluroclddf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zluroclddf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zluroclddf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zluroclddf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zluroclddf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zluroclddf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zluroclddf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zluroclddf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zluroclddf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zluroclddf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zluroclddf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zluroclddf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zluroclddf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zluroclddf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zluroclddf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zluroclddf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zluroclddf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zluroclddf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zluroclddf .gt_left {
+  text-align: left;
+}
+
+#zluroclddf .gt_center {
+  text-align: center;
+}
+
+#zluroclddf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zluroclddf .gt_font_normal {
+  font-weight: normal;
+}
+
+#zluroclddf .gt_font_bold {
+  font-weight: bold;
+}
+
+#zluroclddf .gt_font_italic {
+  font-style: italic;
+}
+
+#zluroclddf .gt_super {
+  font-size: 65%;
+}
+
+#zluroclddf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zluroclddf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zluroclddf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zluroclddf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zluroclddf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zluroclddf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zluroclddf .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="b0">b0</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="x">x</th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="b0" class="gt_row gt_right">1</td>
+<td headers="x" class="gt_row gt_right">1</td>
+</tr>
+<tr>
+<td headers="b0" class="gt_row gt_right">1</td>
+<td headers="x" class="gt_row gt_right">2</td>
+</tr>
+<tr>
+<td headers="b0" class="gt_row gt_right">1</td>
+<td headers="x" class="gt_row gt_right">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:20%;">
+<p><span class="math inline">\(\cdot\)</span></p>
+</div><div class="column" style="width:20%;">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-11_f1af835f9e84c56deceded76bb863f7f">
+<div class="cell-output-display">
+
+<div id="zhgrwdqiiv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zhgrwdqiiv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zhgrwdqiiv thead, #zhgrwdqiiv tbody, #zhgrwdqiiv tfoot, #zhgrwdqiiv tr, #zhgrwdqiiv td, #zhgrwdqiiv th {
+  border-style: none;
+}
+
+#zhgrwdqiiv p {
+  margin: 0;
+  padding: 0;
+}
+
+#zhgrwdqiiv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zhgrwdqiiv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zhgrwdqiiv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zhgrwdqiiv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zhgrwdqiiv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zhgrwdqiiv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zhgrwdqiiv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zhgrwdqiiv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zhgrwdqiiv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zhgrwdqiiv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zhgrwdqiiv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zhgrwdqiiv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zhgrwdqiiv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zhgrwdqiiv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zhgrwdqiiv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zhgrwdqiiv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zhgrwdqiiv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zhgrwdqiiv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zhgrwdqiiv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zhgrwdqiiv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zhgrwdqiiv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zhgrwdqiiv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zhgrwdqiiv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zhgrwdqiiv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zhgrwdqiiv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zhgrwdqiiv .gt_left {
+  text-align: left;
+}
+
+#zhgrwdqiiv .gt_center {
+  text-align: center;
+}
+
+#zhgrwdqiiv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zhgrwdqiiv .gt_font_normal {
+  font-weight: normal;
+}
+
+#zhgrwdqiiv .gt_font_bold {
+  font-weight: bold;
+}
+
+#zhgrwdqiiv .gt_font_italic {
+  font-style: italic;
+}
+
+#zhgrwdqiiv .gt_super {
+  font-size: 65%;
+}
+
+#zhgrwdqiiv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zhgrwdqiiv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zhgrwdqiiv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zhgrwdqiiv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zhgrwdqiiv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zhgrwdqiiv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zhgrwdqiiv .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="beta">beta</th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr><td headers="beta" class="gt_row gt_right">0.2666667</td></tr>
+<tr><td headers="beta" class="gt_row gt_right">0.9000000</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="b1b" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="b1b">
+<span class="header-section-number">13.5</span> 3b1b</h2>
+<p>Im YouTube-Kanal von 3b1b gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.</p>
+<section id="video-1" class="level3" data-number="13.5.1"><h3 data-number="13.5.1" class="anchored" data-anchor-id="video-1">
+<span class="header-section-number">13.5.1</span> Video 1</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/aircAruvnKk?si=c_UkzyHTroCoQspV" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section><section id="video-2" class="level3" data-number="13.5.2"><h3 data-number="13.5.2" class="anchored" data-anchor-id="video-2">
+<span class="header-section-number">13.5.2</span> Video 2</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/IHZwWFHWa-w?si=xTr9SngMDPGrHHTd" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section><section id="video-3" class="level3" data-number="13.5.3"><h3 data-number="13.5.3" class="anchored" data-anchor-id="video-3">
+<span class="header-section-number">13.5.3</span> Video 3</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section><section id="video-4" class="level3" data-number="13.5.4"><h3 data-number="13.5.4" class="anchored" data-anchor-id="video-4">
+<span class="header-section-number">13.5.4</span> Video 4</h3>
+<p>Anspruchsvoller; mathematische Grundlagen von Backpropagation (parzielle Ableitung)</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/tIeHLnjs5U8?si=J7vxQbmHAfHj8aMs" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section></section><section id="vertiefung" class="level2" data-number="13.6"><h2 data-number="13.6" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">13.6</span> Vertiefung</h2>
+<p>Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei <a href="https://betterexplained.com/articles/matrix-multiplication/">Kalid Azad, betterexplained.com</a>.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-islr" class="csl-entry" role="listitem">
+James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2021. <em>An Introduction to Statistical Learning: With Applications in <span>R</span></em>. Second edition. Springer Texts in Statistics. <span>New York</span>: <span>Springer</span>. <a href="https://link.springer.com/book/10.1007/978-1-0716-1418-1">https://link.springer.com/book/10.1007/978-1-0716-1418-1</a>.
+</div>
+</div>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>und können <a href="https://www.statlearning.com/resources-sefcond-edition">von dieser Quelle</a> heruntergeladen werden.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./100-nn-quickstart.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./200-projektmgt.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

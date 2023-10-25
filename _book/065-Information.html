@@ -191,7 +191,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -252,7 +252,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Deep Learnning</span></a>
+ <span class="menu-text">Deep Learning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -262,6 +262,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
   </div>
 </li>
       </ul>
@@ -278,13 +284,30 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Abschluss</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -310,7 +333,7 @@ div.csl-indent {
   <ul class="collapse">
 <li><a href="#shannon-information" id="toc-shannon-information" class="nav-link" data-scroll-target="#shannon-information"><span class="header-section-number">6.2.1</span> Shannon-Information</a></li>
   <li><a href="#entropie" id="toc-entropie" class="nav-link" data-scroll-target="#entropie"><span class="header-section-number">6.2.2</span> Entropie</a></li>
-  <li><a href="#gemeinsame-information" id="toc-gemeinsame-information" class="nav-link" data-scroll-target="#gemeinsame-information"><span class="header-section-number">6.2.3</span> Gemeinsame Information</a></li>
+  <li><a href="#gemeinsame-information-mutual-information" id="toc-gemeinsame-information-mutual-information" class="nav-link" data-scroll-target="#gemeinsame-information-mutual-information"><span class="header-section-number">6.2.3</span> Gemeinsame Information (Mutual Information)</a></li>
   <li><a href="#maximumentropie" id="toc-maximumentropie" class="nav-link" data-scroll-target="#maximumentropie"><span class="header-section-number">6.2.4</span> Maximumentropie</a></li>
   <li><a href="#kreuzentropie" id="toc-kreuzentropie" class="nav-link" data-scroll-target="#kreuzentropie"><span class="header-section-number">6.2.5</span> Kreuzentropie</a></li>
   <li><a href="#kullback-leibler-divergenz" id="toc-kullback-leibler-divergenz" class="nav-link" data-scroll-target="#kullback-leibler-divergenz"><span class="header-section-number">6.2.6</span> Kullback-Leibler-Divergenz</a></li>
@@ -371,7 +394,7 @@ div.csl-indent {
 <p>Für die Statistik ist die Informationstheorie von hoher Bedeutung. Im Folgenden schauen wir uns einige Grundlagen an.</p>
 <section id="shannon-information" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="shannon-information">
 <span class="header-section-number">6.2.1</span> Shannon-Information</h3>
-<p>Mit der <em>Shannon-Information</em> (Information, Selbstinformation) quantifizieren wir, wie viel “Überraschung” sich in einem Ereignis verbirgt <span class="citation" data-cites="shannon_1948">(<a href="#ref-shannon_1948" role="doc-biblioref">Shannon 1948</a>)</span>.</p>
+<p>Mit der <em>Shannon-Information</em> (Information, Selbstinformation) quantifizieren wir, wie viel “Überraschung” sich in einem Ereignis verbirgt <span class="citation" data-cites="shannon_1948">(<a href="references.html#ref-shannon_1948" role="doc-biblioref">Shannon 1948</a>)</span>.</p>
 <p>Ein Ereignis mit …</p>
 <ul>
 <li>
@@ -467,8 +490,8 @@ div.csl-indent {
 <figure class="figure"><p><img src="img/Binary_entropy_plot.svg.png" class="img-fluid figure-img" style="width:30.0%"></p>
 <figcaption class="figure-caption">Abbildung&nbsp;6.1: Der Zusammenhang von Wahrscheinlichkeit und Entropie bei einem Bernoulli-Versuch, Quelle: Wikipedia, CC-BY-SA, Brona, Rubber Duck</figcaption></figure>
 </div>
-</section><section id="gemeinsame-information" class="level3" data-number="6.2.3"><h3 data-number="6.2.3" class="anchored" data-anchor-id="gemeinsame-information">
-<span class="header-section-number">6.2.3</span> Gemeinsame Information</h3>
+</section><section id="gemeinsame-information-mutual-information" class="level3" data-number="6.2.3"><h3 data-number="6.2.3" class="anchored" data-anchor-id="gemeinsame-information-mutual-information">
+<span class="header-section-number">6.2.3</span> Gemeinsame Information (Mutual Information)</h3>
 <p>Die <em>gemeinsame Information</em> (<em>mutual information</em>, MI) zweier Zufallsvariablen <span class="math inline">\(X\)</span> und <span class="math inline">\(Y\)</span>, <span class="math inline">\(I(X,Y)\)</span>, quantifiziert die Informationsmenge, die man über <span class="math inline">\(Y\)</span> erhält, wenn man <span class="math inline">\(X\)</span> beobachtet. Mit anderen Worten: Die MI ist ein <em>Maß des Zusammenhangs zweier (nominaler) Variablen</em>. Im Gegensatz zur Korrelation ist die MI nicht auf lineare Abhängigkeiten beschränkt.</p>
 <p>Die MI quantifiziert den Unterschied zwischen der gemeinsamen Verteilung <span class="math inline">\(Pr(X,Y)\)</span> und dem Produkt einer einzelnen<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Wahrscheinlichkeitsverteilungen, d.h. <span class="math inline">\(Pr(X)\)</span> und <span class="math inline">\(Pr(Y)\)</span>.</p>
 <p>Wenn die beiden Variablen (stochastisch) unabhängig<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> sind, ist ihre gemeinsame Information Null:</p>
@@ -490,6 +513,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
+<p>Die MI ist also additiv:</p>
 <p><span class="math inline">\(I(X,Y) = \Sigma_Y \Sigma_y Pr(x,y) \underbrace{\log \left( \frac{Pr(X,Y)}{Pr(X) Pr(Y)} \right)}_\text{punktweise MI}\)</span></p>
 <p>Die Summanden der gemeinsamen Information bezeichnet man auch als <em>punktweise gemeinsame Information</em> (pointwise mutual information, PMI), entsprechend, s. <a href="#eq-pmi">Gleichung&nbsp;<span>6.1</span></a>. MI ist also der Erwartungswert der PMI.</p>
 <p><span id="eq-pmi"><span class="math display">\[{\displaystyle \operatorname {PMI} (x,y)\equiv \log_{2}{\frac {p(x,y)}{p(x)p(y)}}=\log _{2}{\frac {p(x|y)}{p(x)}}=\log _{2}{\frac {p(y|x)}{p(y)}}}
@@ -515,7 +539,7 @@ div.csl-indent {
 </div>
 <section id="ilustration" class="level4" data-number="6.2.4.1"><h4 data-number="6.2.4.1" class="anchored" data-anchor-id="ilustration">
 <span class="header-section-number">6.2.4.1</span> Ilustration</h4>
-<p>Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind <span class="citation" data-cites="mcelreath_statistical_2020">(<a href="#ref-mcelreath_statistical_2020" role="doc-biblioref">McElreath 2020</a>)</span>. Weil Sie nichts besseres zu tun haben, werfen Sie die Kiesel in die Eimer und zwar so, dass die Wahrscheinlichkeit für einen Kiesel in einen bestimmten Eimer zu landen für alle Eimer gleich ist. Sie werfen also Ihre 10 Kiesel und betrachten das Ergebnis; die Kiesel sind jetzt in einem bestimmten (zufälligen) Arrangement auf die Eimer verteilt. Jede Aufteilung (der 10 Kiesel in den 5 Eimern) ist gleich wahrscheinlich<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> – die Wahrscheinlichkeit, dass alle 10 Kiesel in Eimer 1 landen ist also gleich hoch wie die Wahrscheinlichkeit, dass jeder Eimer einen Kiesel abkriegt. Jetzt kommt’s: Manche Arrangements können auf mehrere Arten erzielt werden als andere. So gibt es nur <em>eine</em> Aufteilung für alle 10 Kiesel in einem Eimer (Teildiagramm a, in <a href="#fig-kiesel">Abbildung&nbsp;<span>6.3</span></a>). Aber es gibt 90 Möglichkeiten, die Kiesel so aufzuteilen, dass 2 in Eimer 2 landen, 8 in Eimer 4 und 2 in Eimer 4, s. Teildiagramm b in <a href="#fig-kiesel">Abbildung&nbsp;<span>6.3</span></a>. Teildiagramme c bis e zeigen, dass die Anzahl der Aufteilungen schnell astronomisch hoch wird, wenn sich die Kiesel “gleichmäßiger” auf die Eimer verteilen. Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen. Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden.</p>
+<p>Sagen wir, Sie stehen vor 5 Eimern und haben 10 Kieselsteine bei sich, die mit den Nummern 1 bis 10 beschriftet sind <span class="citation" data-cites="mcelreath_statistical_2020">(<a href="references.html#ref-mcelreath_statistical_2020" role="doc-biblioref">McElreath 2020</a>)</span>. Weil Sie nichts besseres zu tun haben, werfen Sie die Kiesel in die Eimer und zwar so, dass die Wahrscheinlichkeit für einen Kiesel in einen bestimmten Eimer zu landen für alle Eimer gleich ist. Sie werfen also Ihre 10 Kiesel und betrachten das Ergebnis; die Kiesel sind jetzt in einem bestimmten (zufälligen) Arrangement auf die Eimer verteilt. Jede Aufteilung (der 10 Kiesel in den 5 Eimern) ist gleich wahrscheinlich<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> – die Wahrscheinlichkeit, dass alle 10 Kiesel in Eimer 1 landen ist also gleich hoch wie die Wahrscheinlichkeit, dass jeder Eimer einen Kiesel abkriegt. Jetzt kommt’s: Manche Arrangements können auf mehrere Arten erzielt werden als andere. So gibt es nur <em>eine</em> Aufteilung für alle 10 Kiesel in einem Eimer (Teildiagramm a, in <a href="#fig-kiesel">Abbildung&nbsp;<span>6.3</span></a>). Aber es gibt 90 Möglichkeiten, die Kiesel so aufzuteilen, dass 2 in Eimer 2 landen, 8 in Eimer 4 und 2 in Eimer 4, s. Teildiagramm b in <a href="#fig-kiesel">Abbildung&nbsp;<span>6.3</span></a>. Teildiagramme c bis e zeigen, dass die Anzahl der Aufteilungen schnell astronomisch hoch wird, wenn sich die Kiesel “gleichmäßiger” auf die Eimer verteilen. Die gleichmäßigste Aufteilung (Diagramm e) hat die größte Zahl an möglichen Anordnungen. Eine Aufteilung der Kiesel auch als Pfad durch ein Baumdiagramm beschrieben werden.</p>
 <p>Hier sind ein paar verschiedene Arrangements, deren Anzahl von Aufteilungen wir hier anschauen:</p>
 <div class="cell" data-hash="065-Information_cache/html/unnamed-chunk-9_eca50544f2d91fc051cd43dc311f9dc1">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span></span>
@@ -695,7 +719,7 @@ div.csl-indent {
 <p>Left as an exercises for the reader<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> 🥳.</p>
 </section></section><section id="literatur" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="literatur">
 <span class="header-section-number">6.4</span> Literatur</h2>
-<p><span class="citation" data-cites="stone_information_2019">Stone (<a href="#ref-stone_information_2019" role="doc-biblioref">2019</a>)</span> bietet einen nützlichen Einstieg in das Thema der Informationsentropie. Shannons <span class="citation" data-cites="shannon_1948">(<a href="#ref-shannon_1948" role="doc-biblioref">1948</a>)</span> berühmter Artikel setzt höhere Ansprüche.</p>
+<p><span class="citation" data-cites="stone_information_2019">Stone (<a href="references.html#ref-stone_information_2019" role="doc-biblioref">2019</a>)</span> bietet einen nützlichen Einstieg in das Thema der Informationsentropie. Shannons <span class="citation" data-cites="shannon_1948">(<a href="references.html#ref-shannon_1948" role="doc-biblioref">1948</a>)</span> berühmter Artikel setzt höhere Ansprüche.</p>
 <p>Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information">Wikipedia: Pointwise Mutual Information</a></li>
@@ -704,7 +728,7 @@ div.csl-indent {
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-kurz_statistical_2021" class="csl-entry" role="listitem">
 Kurz, A. Solomon. 2021. <em>Statistical Rethinking with Brms, Ggplot2, and the Tidyverse: <span>Second</span> Edition</em>. <a href="https://bookdown.org/content/4857/">https://bookdown.org/content/4857/</a>.
 </div>
@@ -727,7 +751,7 @@ Stone, James V. 2019. <span>„Information <span>Theory</span>: <span>A Tutorial
 <li id="fn5"><p>Für stochastische Unabhängigkeit kann das Zeichen <span class="math inline">\(\bot\)</span> verwendet werden<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>so ähnlich wie mit den Lottozahlen<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Ist das nicht eine elegante Syntax?! Solomon Kurz, der Autor der Syntax, hielt sich nicht an die aktuelle Version von <code>dplyr</code>; <code>mutate_all</code> ist eigentlich überholt zugunsten von <code>mutate</code> mit <code>across</code>, aber die Prägnanz der Syntax hier ist schon beeindruckend, wie ich finde.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Syntax aus <span class="citation" data-cites="kurz_statistical_2021">Kurz (<a href="#ref-kurz_statistical_2021" role="doc-biblioref">2021</a>)</span><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Syntax aus <span class="citation" data-cites="kurz_statistical_2021">Kurz (<a href="references.html#ref-kurz_statistical_2021" role="doc-biblioref">2021</a>)</span><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>Regel von L’Hopital<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p><a href="https://academia.stackexchange.com/questions/20084/is-using-the-phrase-is-left-as-an-exercise-for-the-reader-considered-good">Vgl. hier</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

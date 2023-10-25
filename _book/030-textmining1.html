@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 4&nbsp; Textmining1</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 4&nbsp; Textmining 1</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,7 +120,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./030-textmining1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./030-textmining1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining 1</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -191,7 +191,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -252,7 +252,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Deep Learnning</span></a>
+ <span class="menu-text">Deep Learning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -262,6 +262,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
   </div>
 </li>
       </ul>
@@ -278,13 +284,30 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Abschluss</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
       </ul>
@@ -311,15 +334,17 @@ div.csl-indent {
 <li><a href="#tokenisierung" id="toc-tokenisierung" class="nav-link" data-scroll-target="#tokenisierung"><span class="header-section-number">4.2.1</span> Tokenisierung</a></li>
   <li><a href="#stopw%C3%B6rter-entfernen" id="toc-stopwörter-entfernen" class="nav-link" data-scroll-target="#stopw%C3%B6rter-entfernen"><span class="header-section-number">4.2.2</span> Stopwörter entfernen</a></li>
   <li><a href="#sec-woerterzaehlen" id="toc-sec-woerterzaehlen" class="nav-link" data-scroll-target="#sec-woerterzaehlen"><span class="header-section-number">4.2.3</span> Wörter zählen</a></li>
-  <li><a href="#stemming-wortstamm-finden" id="toc-stemming-wortstamm-finden" class="nav-link" data-scroll-target="#stemming-wortstamm-finden"><span class="header-section-number">4.2.4</span> Stemming (Wortstamm finden)</a></li>
-  <li><a href="#fallstudie-afd-parteiprogramm" id="toc-fallstudie-afd-parteiprogramm" class="nav-link" data-scroll-target="#fallstudie-afd-parteiprogramm"><span class="header-section-number">4.2.5</span> Fallstudie AfD-Parteiprogramm</a></li>
-  <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="header-section-number">4.2.6</span> Stringverarbeitung</a></li>
-  <li><a href="#emoji-analyse" id="toc-emoji-analyse" class="nav-link" data-scroll-target="#emoji-analyse"><span class="header-section-number">4.2.7</span> Emoji-Analyse</a></li>
-  <li><a href="#text-aufr%C3%A4umen" id="toc-text-aufräumen" class="nav-link" data-scroll-target="#text-aufr%C3%A4umen"><span class="header-section-number">4.2.8</span> Text aufräumen</a></li>
-  <li><a href="#diverse-wortlisten" id="toc-diverse-wortlisten" class="nav-link" data-scroll-target="#diverse-wortlisten"><span class="header-section-number">4.2.9</span> Diverse Wortlisten</a></li>
-  <li><a href="#sec-sentimentanalyse" id="toc-sec-sentimentanalyse" class="nav-link" data-scroll-target="#sec-sentimentanalyse"><span class="header-section-number">4.2.10</span> Sentimentanalyse</a></li>
-  <li><a href="#weitere-sentiment-lexika" id="toc-weitere-sentiment-lexika" class="nav-link" data-scroll-target="#weitere-sentiment-lexika"><span class="header-section-number">4.2.11</span> Weitere Sentiment-Lexika</a></li>
-  <li><a href="#google-trends" id="toc-google-trends" class="nav-link" data-scroll-target="#google-trends"><span class="header-section-number">4.2.12</span> Google Trends</a></li>
+  <li><a href="#tf-idf" id="toc-tf-idf" class="nav-link" data-scroll-target="#tf-idf"><span class="header-section-number">4.2.4</span> tf-idf</a></li>
+  <li><a href="#stemming-wortstamm-finden" id="toc-stemming-wortstamm-finden" class="nav-link" data-scroll-target="#stemming-wortstamm-finden"><span class="header-section-number">4.2.5</span> Stemming (Wortstamm finden)</a></li>
+  <li><a href="#fallstudie-afd-parteiprogramm" id="toc-fallstudie-afd-parteiprogramm" class="nav-link" data-scroll-target="#fallstudie-afd-parteiprogramm"><span class="header-section-number">4.2.6</span> Fallstudie AfD-Parteiprogramm</a></li>
+  <li><a href="#stringverarbeitung" id="toc-stringverarbeitung" class="nav-link" data-scroll-target="#stringverarbeitung"><span class="header-section-number">4.2.7</span> Stringverarbeitung</a></li>
+  <li><a href="#emoji-analyse" id="toc-emoji-analyse" class="nav-link" data-scroll-target="#emoji-analyse"><span class="header-section-number">4.2.8</span> Emoji-Analyse</a></li>
+  <li><a href="#text-aufr%C3%A4umen" id="toc-text-aufräumen" class="nav-link" data-scroll-target="#text-aufr%C3%A4umen"><span class="header-section-number">4.2.9</span> Text aufräumen</a></li>
+  <li><a href="#diverse-wortlisten" id="toc-diverse-wortlisten" class="nav-link" data-scroll-target="#diverse-wortlisten"><span class="header-section-number">4.2.10</span> Diverse Wortlisten</a></li>
+  <li><a href="#one-hot-enkodierung-dummy-variablen" id="toc-one-hot-enkodierung-dummy-variablen" class="nav-link" data-scroll-target="#one-hot-enkodierung-dummy-variablen"><span class="header-section-number">4.2.11</span> One-hot-Enkodierung (Dummy-Variablen)</a></li>
+  <li><a href="#sec-sentimentanalyse" id="toc-sec-sentimentanalyse" class="nav-link" data-scroll-target="#sec-sentimentanalyse"><span class="header-section-number">4.2.12</span> Sentimentanalyse</a></li>
+  <li><a href="#weitere-sentiment-lexika" id="toc-weitere-sentiment-lexika" class="nav-link" data-scroll-target="#weitere-sentiment-lexika"><span class="header-section-number">4.2.13</span> Weitere Sentiment-Lexika</a></li>
+  <li><a href="#google-trends" id="toc-google-trends" class="nav-link" data-scroll-target="#google-trends"><span class="header-section-number">4.2.14</span> Google Trends</a></li>
   </ul>
 </li>
   <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="header-section-number">4.3</span> Aufgaben</a></li>
@@ -335,7 +360,7 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining1</span>
+<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining 1</span>
 </h1>
 </div>
 
@@ -359,27 +384,30 @@ div.csl-indent {
 </ul></section><section id="vorbereitung" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="vorbereitung">
 <span class="header-section-number">4.1.2</span> Vorbereitung</h3>
 <ul>
-<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span> Kap. 2.</li>
+<li>Lesen Sie in <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span> Kap. 2.</li>
 </ul></section><section id="benötigte-r-pakete" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
 <span class="header-section-number">4.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-1_66765c85b41b11e961aad1156c554841">
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-1_37db888a2788ca2d9935ebc889322a61">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tokenizers/">tokenizers</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tokenizers/">tokenizers</a></span><span class="op">)</span>  <span class="co"># Tokenisieren</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span>  <span class="co"># Rezepte für Textverarbeitung</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/hcandersenr">hcandersenr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span>  <span class="co"># Textanalyse-Tools</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/hcandersenr">hcandersenr</a></span><span class="op">)</span>  <span class="co"># Textdaten: Märchen von H.C. Andersen</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nalimilan/R.TeMiS">SnowballC</a></span><span class="op">)</span>  <span class="co"># Stemming</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lsa</span><span class="op">)</span>  <span class="co"># Stopwörter</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span>  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/trinker/textclean">textclean</a></span><span class="op">)</span>  <span class="co"># Emojis ersetzen</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://blog.fellstat.com/?cat=11">wordcloud</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://blog.fellstat.com/?cat=11">wordcloud</a></span><span class="op">)</span>  <span class="co"># unübersichtlich, aber manche mögen es</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="einfache-methoden-des-textminings" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="einfache-methoden-des-textminings">
 <span class="header-section-number">4.2</span> Einfache Methoden des Textminings</h2>
-<p>Arbeiten Sie die folgenden grundlegenden Methoden des Textminigs durch.</p>
+<div id="def-nlp" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.1 (Natural Language Processing) </strong></span>Die Analyse von Texten (natürlicher Sprache) mit Hilfe von Methoden des Maschinellen Lernens bezeichnet man (auch) als <em>Natural Language Processing</em> (NLP). <span class="math inline">\(\square\)</span></p>
+</div>
 <section id="tokenisierung" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="tokenisierung">
 <span class="header-section-number">4.2.1</span> Tokenisierung</h3>
-<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></p>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/tokenization.html#tokenization">Kap. 2</a></p>
 <p>Wie viele Zeilen hat das Märchen “The Fir tree” (in der englischen Fassung?)</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-2_5191bf3ecd573f03dff0bed65fd1b970">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hcandersen_en</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -389,7 +417,7 @@ div.csl-indent {
 </div>
 </section><section id="stopwörter-entfernen" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="stopwörter-entfernen">
 <span class="header-section-number">4.2.2</span> Stopwörter entfernen</h3>
-<p>Erarbeiten Sie dieses Kapitel: s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></p>
+<p>Erarbeiten Sie dieses Kapitel: s. <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stopwords.html#stopwords">Kap. 3</a></p>
 <p>Eine alternative Quelle von Stopwörtern - in verschiedenen Sprachen - biwetet das Paket <code>quanteda</code>:</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-3_5ab35cb3a22e8cb3ee39449f416b2a5d">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stop2</span> <span class="op">&lt;-</span></span>
@@ -408,7 +436,7 @@ div.csl-indent {
 <p>Es bestehst (in der deutschen Version) aus 231 Wörtern.</p>
 </section><section id="sec-woerterzaehlen" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="sec-woerterzaehlen">
 <span class="header-section-number">4.2.3</span> Wörter zählen</h3>
-<p>Ist der Text tokenisiert, kann man einfach mit “Bordmitteln” die Wörter zählen.</p>
+<p>Ist der Text tokenisiert, kann man einfach mit “Bordmitteln” die Wörter zählen (Bordmittel aus dem Tidyverse, in diesem Fall).</p>
 <div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-4_ffe513609bda502301a18c782b8ae143">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc_andersen_count</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">hcandersen_de</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -430,7 +458,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Zur Visualisierung eignen sich Balkendiagramme, s. <span class="quarto-unresolved-ref">?fig-hcandersen-count</span>.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/fig-hc-andersen-count_27f2041f9e08ad0aeb2d7b1d33a21d74">
+<div class="cell" data-hash="030-textmining1_cache/html/fig-hc-andersen-count_60ecccf14cd97f26663f184e3df93115">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc_andersen_count</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span>order_by <span class="op">=</span> <span class="va">n</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>word <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -446,8 +474,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Dabei macht es Sinn, aus <code>word</code> einen Faktor zu machen, denn Faktorstufen kann man sortieren, zumindest ist das die einfachste Lösung in <code>ggplot2</code> (wenn auch nicht super komfortabel).</p>
-<p>Eine (beliebite?) Methode, um Worthäufigkeiten in Corpora darzustellen, sind <em>Wortwolken</em>, s. <a href="#fig-wordcloud1">Abbildung&nbsp;<span>4.2</span></a>. Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale perzeptorische Qualitäten aufweisen.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/fig-wordcloud1_91379675028cde3bc2f48a21364aa262">
+<p>Eine (beliebte?) Methode, um Worthäufigkeiten in Corpora darzustellen, sind <em>Wortwolken</em>, s. <a href="#fig-wordcloud1">Abbildung&nbsp;<span>4.2</span></a>. Es sei hinzugefügt, dass solche Wortwolken nicht gerade optimale perzeptorische Qualitäten aufweisen.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/fig-wordcloud1_7f0c1bab5c86c19ac85294e1fed41fdb">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/wordcloud/man/wordcloud.html">wordcloud</a></span><span class="op">(</span>words <span class="op">=</span> <span class="va">hc_andersen_count</span><span class="op">$</span><span class="va">word</span>,</span>
 <span>          freq <span class="op">=</span> <span class="va">hc_andersen_count</span><span class="op">$</span><span class="va">n</span>,</span>
 <span>          max.words <span class="op">=</span> <span class="fl">50</span>,</span>
@@ -460,13 +488,119 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section><section id="stemming-wortstamm-finden" class="level3" data-number="4.2.4"><h3 data-number="4.2.4" class="anchored" data-anchor-id="stemming-wortstamm-finden">
-<span class="header-section-number">4.2.4</span> Stemming (Wortstamm finden)</h3>
-<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></p>
-<p>Vertiefende Hinweise zum <em>UpSet plot</em> finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
+</section><section id="tf-idf" class="level3" data-number="4.2.4"><h3 data-number="4.2.4" class="anchored" data-anchor-id="tf-idf">
+<span class="header-section-number">4.2.4</span> tf-idf</h3>
+<section id="grundlagen" class="level4" data-number="4.2.4.1"><h4 data-number="4.2.4.1" class="anchored" data-anchor-id="grundlagen">
+<span class="header-section-number">4.2.4.1</span> Grundlagen</h4>
+<p>Was sind “häufige” Wörter? Wörter wie “und” oder “der” sind sehr häufig, aber sie nicht spezifisch für bestimmte Texte. Sie sind sozusagen “Allerweltswörter”. Man könnte argumentieren, was wir suchen, sind nicht einfach häufige Wörter, sondern Wörter, die <em>relevant</em> sind. Unter “relevant” könnte man verstehen “häufig aber spezifisch”.</p>
+<p>Da kommt <code>tf-idf</code> ins Spiel (<em>term frequency–inverse document frequency</em>). <code>tf-idf</code> ist eine Möglichkeit, Wörter die <em>häufig</em> und gleichzeitig <em>spezifisch</em> für einen Text sind, aufzufinden.</p>
+<p>Betrachten wir als Beispiel <a href="#tbl-shakespeare">Tabelle&nbsp;<span>4.1</span></a> (<a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">Quelle</a>). Das Wort “Romeo” ist hoch spezifisch in dem Sinne, dass sein <code>idf</code> hoch ist (relativ zu den anderen Wörtern). Im Gegensatz dazu ist das Wort “good” nicht spezifisch für ein bestimmtes Stück von Shakespeare - der IDF-Wert ist sehr klein.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/tbl-shakespeare_15ebd1fdf74404bfe5daef603c00243e">
+<div class="cell-output-display">
+<div id="tbl-shakespeare" class="anchored">
+
+<div data-pagedtable="false"> <div class="table-caption">Tabelle&nbsp;4.1:  <p>Einige Wörter aus Shakespeares Werken</p> </div>
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["tf"],"name":[2],"type":["int"],"align":["right"]},{"label":["idf"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["tf_idf"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Romeo","2":"1","3":"1.570","4":"1.570"},{"1":"salad","2":"2","3":"1.270","4":"2.540"},{"1":"Falstaff","2":"4","3":"0.967","4":"3.868"},{"1":"forest","2":"12","3":"0.489","4":"5.868"},{"1":"battle","2":"21","3":"0.246","4":"5.166"},{"1":"wit","2":"34","3":"0.037","4":"1.258"},{"1":"fool","2":"36","3":"0.012","4":"0.432"},{"1":"good","2":"37","3":"0.000","4":"0.000"},{"1":"sweet","2":"37","3":"0.000","4":"0.000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+<div id="def-tf" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.2 (Text Frequency (Worthäufigkeit)) </strong></span>Die Worthäufigkeit (Vorkommenshäufigkeit) eines Wortes (oder Terms, Tokens) <span class="math inline">\(h_w\)</span> in einem Dokument <span class="math inline">\(d\)</span> (oder Corpus) ist definiert als die Häufigkeit des Wortes geteilt durch die Anzahl aller Wörter des Dokuments, <span class="math inline">\(h_d\)</span>:</p>
+<p><span class="math inline">\(tf(w,d) = \frac{h_w}{h_d} \square\)</span></p>
+</div>
+<p>Manchmal wird auch eine logarithmierte Version verwendet.</p>
+<div id="def-idf" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.3 (Inverse Document Frequency (Inverse Dokumenthäufigkeit)) </strong></span>Die IDF eines Wortes hängt erstens von der Gesamtzahl der <em>Dokumente</em> (nicht Wörter) im Corpus, <span class="math inline">\(N\)</span>, ab. Zweitens hängt IDF davon ab, wie viele Dokumente das Wort enthalten, <span class="math inline">\(N_w\)</span>.</p>
+<p><span class="math inline">\(idf(w,c) = log \frac{N}{N_w} \square\)</span></p>
+</div>
+<div id="def-tfidf" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.4 (TF-IDF) </strong></span>TF-IDF ist ein Maß zur Beurteilung der <em>Relevanz</em> von Wörtern eines Corpus.</p>
+<p><span class="math inline">\(\text{tf-idf} = tf \cdot idf \qquad \square\)</span></p>
+</div>
+</section><section id="beispiel-zur-tf-idf" class="level4" data-number="4.2.4.2"><h4 data-number="4.2.4.2" class="anchored" data-anchor-id="beispiel-zur-tf-idf">
+<span class="header-section-number">4.2.4.2</span> Beispiel zur tf-idf</h4>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-8_e4b19cd6022e87615896fbc79161c4b6">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#library(hcandersenr)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">hcandersen_de</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hca_count</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">hcandersen_de</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span><span class="op">(</span><span class="va">word</span>, <span class="va">text</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">book</span>, <span class="va">word</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="op">|&gt;</span> <span class="co"># Zähle Wörter pro Buch</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># um gleich nur nach Bücher zu gruppieren</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">hca_count</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["book"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Die Eisjungfrau","2":"und","3":"644"},{"1":"Die Schneekönigin","2":"und","3":"586"},{"1":"Moorkönigs Tochter","2":"und","3":"581"},{"1":"Eine Geschichte aus den Sanddünen","2":"und","3":"566"},{"1":"Die Eisjungfrau","2":"die","3":"541"},{"1":"Moorkönigs Tochter","2":"die","3":"502"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Die Gesamtzahl der Wörter pro Buch:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-9_85e8ec6f7a5130d1088e91f998ee1228">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">words_total</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">hca_count</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">book</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">words_total</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># die ersten paar von 150 Büchern</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["book"],"name":[1],"type":["chr"],"align":["left"]},{"label":["total"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"\"Tanze, tanze, Püppchen mein!\"","2":"352"},{"1":"Alles am rechten Platz","2":"2947"},{"1":"Am äußersten Meer","2":"723"},{"1":"Anne Lisbeth","2":"4036"},{"1":"Aufgeschoben ist nicht aufgehoben","2":"1016"},{"1":"Das ABC Buch","2":"1135"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Dann fügen wir die Spalte mit der Gesamt-Wortzahl des jeweiligen Buches zur Tabelle <code>hca_count</code> hinzu:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-10_6c9ec19719c00c5001f385f5a50a8ba3">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hca_count</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">hca_count</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">words_total</span><span class="op">)</span></span>
+<span><span class="co">## Joining with `by = join_by(book)`</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">hca_count</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["book"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["total"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Die Eisjungfrau","2":"und","3":"644","4":"17240"},{"1":"Die Schneekönigin","2":"und","3":"586","4":"11163"},{"1":"Moorkönigs Tochter","2":"und","3":"581","4":"13059"},{"1":"Eine Geschichte aus den Sanddünen","2":"und","3":"566","4":"12635"},{"1":"Die Eisjungfrau","2":"die","3":"541","4":"17240"},{"1":"Moorkönigs Tochter","2":"die","3":"502","4":"13059"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-11_07641d08b0ad8895660dbf5c1aba47bb">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hca_count</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">hca_count</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/bind_tf_idf.html">bind_tf_idf</a></span><span class="op">(</span>term <span class="op">=</span> <span class="va">word</span>, document <span class="op">=</span> <span class="va">book</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hca_count</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">tf_idf</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["book"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["total"],"name":[4],"type":["int"],"align":["right"]},{"label":["tf"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["idf"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["tf_idf"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Der Halskragen","2":"halskragen","3":"20","4":"801","5":"0.02496879","6":"5.010635","7":"0.12510950"},{"1":"Frag die Grünwarenfrau!","2":"mohrrübe","3":"5","4":"220","5":"0.02272727","6":"5.010635","7":"0.11387807"},{"1":"Vänö und Glänö","2":"glänö","3":"14","4":"630","5":"0.02222222","6":"5.010635","7":"0.11134745"},{"1":"Das Liebespaar (Kreisel und Ball)","2":"kreisel","3":"16","4":"782","5":"0.02046036","6":"5.010635","7":"0.10251939"},{"1":"Der kleine Klaus und der große Klaus","2":"klaus","3":"101","4":"4290","5":"0.02354312","6":"4.317488","7":"0.10164716"},{"1":"Zwei Jungfern","2":"jungfer","3":"15","4":"574","5":"0.02613240","6":"3.218876","7":"0.08411696"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section></section><section id="stemming-wortstamm-finden" class="level3" data-number="4.2.5"><h3 data-number="4.2.5" class="anchored" data-anchor-id="stemming-wortstamm-finden">
+<span class="header-section-number">4.2.5</span> Stemming (Wortstamm finden)</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/stemming.html#stemming">Kap. 4</a></p>
+<p>Vertiefende Hinweise zum <em>UpSet plot</em> finden Sie <a href="https://ieeexplore.ieee.org/document/6876017">hier</a>, <span class="citation" data-cites="lex_upset_2014">Lex u.&nbsp;a. (<a href="references.html#ref-lex_upset_2014" role="doc-biblioref">2014</a>)</span>.</p>
 <p>Für welche Sprachen gibt es Stemming im Paket <code>SnowballC</code>?</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-7_879a2f2860ce72906fa606c7354b66ff">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nalimilan/R.TeMiS">SnowballC</a></span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-12_b171fe0d078528d543c7fdcbd0b5ece5">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nalimilan/R.TeMiS">SnowballC</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SnowballC/man/getStemLanguages.html">getStemLanguages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">##  [1] "arabic"     "basque"     "catalan"    "danish"     "dutch"     </span></span>
 <span><span class="co">##  [6] "english"    "finnish"    "french"     "german"     "greek"     </span></span>
@@ -476,37 +610,37 @@ div.csl-indent {
 <span><span class="co">## [26] "turkish"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Einfacher Test: Suchen wir den Wordstamm für das Wort “wissensdurstigen”, wie in “die wissensdurstigen Studentis löcherten dis armi Professi”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-8_850971c4266ec6353fcd72d184dfb532">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SnowballC/man/wordStem.html">wordStem</a></span><span class="op">(</span><span class="st">"wissensdurstigen"</span>, language <span class="op">=</span> <span class="st">"german"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-13_262d5d52f3a98c397a025b5f92b3eb14">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SnowballC/man/wordStem.html">wordStem</a></span><span class="op">(</span><span class="st">"wissensdurstigen"</span>, language <span class="op">=</span> <span class="st">"german"</span><span class="op">)</span></span>
 <span><span class="co">## [1] "wissensdurst"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Werfen Sie mal einen Blick in das Handbuch von <a href="https://cran.r-project.org/web/packages/SnowballC/SnowballC.pdf">SnowballC</a>.</p>
-</section><section id="fallstudie-afd-parteiprogramm" class="level3" data-number="4.2.5"><h3 data-number="4.2.5" class="anchored" data-anchor-id="fallstudie-afd-parteiprogramm">
-<span class="header-section-number">4.2.5</span> Fallstudie AfD-Parteiprogramm</h3>
+</section><section id="fallstudie-afd-parteiprogramm" class="level3" data-number="4.2.6"><h3 data-number="4.2.6" class="anchored" data-anchor-id="fallstudie-afd-parteiprogramm">
+<span class="header-section-number">4.2.6</span> Fallstudie AfD-Parteiprogramm</h3>
 <p>Daten einlesen:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-9_db293641fe85aa248e8e6f23da40ca92">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_link</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/sebastiansauer/pradadata/master/data-raw/afd_2022.csv"</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-14_1654968691d6b213d19539a3c4aa273d">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_link</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/sebastiansauer/pradadata/master/data-raw/afd_2022.csv"</span></span>
 <span><span class="va">afd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">d_link</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wie viele Seiten hat das Dokument?</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-10_a06db4bfc12d48856a4c8ed05e88fece">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">afd</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-15_ea30ca67b038702b85d2a82cd3d8006f">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">afd</span><span class="op">)</span></span>
 <span><span class="co">## [1] 190</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und wie viele Wörter?</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-11_d6875ddf1f92c5f689ede87df4619bc6">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">afd</span><span class="op">$</span><span class="va">text</span>, pattern <span class="op">=</span> <span class="st">"\\w"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-16_faebe9dd6887a288c30730bf4fbf865d">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">afd</span><span class="op">$</span><span class="va">text</span>, pattern <span class="op">=</span> <span class="st">"\\w"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">## [1] 179375</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Aus breit mach lang, oder: wir tokenisieren (nach Wörtern):</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-12_28d982a51f56e5033824275113fd80fc">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-17_6e183f5653bb857ff3ea5a3fd43c979c">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span><span class="op">(</span>output <span class="op">=</span> <span class="va">token</span>, input <span class="op">=</span> <span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">token</span>, <span class="st">"[a-z]"</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_long</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Stopwörter entfernen:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-13_a06089a367c4573d3c06b62d2c5ec2a5">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">stopwords_de</span>, package <span class="op">=</span> <span class="st">"lsa"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-18_328ecf5593b39c4e3ab3f4ab56c7f31f">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">stopwords_de</span>, package <span class="op">=</span> <span class="st">"lsa"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">stopwords_de</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>word <span class="op">=</span> <span class="va">stopwords_de</span><span class="op">)</span></span>
 <span></span>
@@ -519,8 +653,8 @@ div.csl-indent {
 <span><span class="co">## Joining with `by = join_by(token)`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wörter zählen:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-14_74e3a336b38a583386d80eb22e2c79d9">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_no_stop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-19_7aa5016cece72f4a62df8ba8eee8c6e1">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_no_stop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">token</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_count</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">afd_count</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -534,8 +668,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Wörter trunkieren:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-15_d14cb4e3e9df192746201708912b319b">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_no_stop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-20_2ea3b03d0faeeb868f7d243f138d719b">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_no_stop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>token_stem <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/SnowballC/man/wordStem.html">wordStem</a></span><span class="op">(</span><span class="va">token</span>, language <span class="op">=</span> <span class="st">"de"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">token_stem</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_count_stemmed</span></span>
 <span></span>
@@ -549,78 +683,78 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section><section id="stringverarbeitung" class="level3" data-number="4.2.6"><h3 data-number="4.2.6" class="anchored" data-anchor-id="stringverarbeitung">
-<span class="header-section-number">4.2.6</span> Stringverarbeitung</h3>
-<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="#ref-r4ds" role="doc-biblioref">2016</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">Kap. 14</a></p>
-<section id="regex" class="level4" data-number="4.2.6.1"><h4 data-number="4.2.6.1" class="anchored" data-anchor-id="regex">
-<span class="header-section-number">4.2.6.1</span> Regulärausdrücke</h4>
+</section><section id="stringverarbeitung" class="level3" data-number="4.2.7"><h3 data-number="4.2.7" class="anchored" data-anchor-id="stringverarbeitung">
+<span class="header-section-number">4.2.7</span> Stringverarbeitung</h3>
+<p>Erarbeiten Sie dieses Kapitel: <span class="citation" data-cites="r4ds">Wickham und Grolemund (<a href="references.html#ref-r4ds" role="doc-biblioref">2016</a>)</span>, <a href="https://r4ds.had.co.nz/strings.html">Kap. 14</a></p>
+<section id="regex" class="level4" data-number="4.2.7.1"><h4 data-number="4.2.7.1" class="anchored" data-anchor-id="regex">
+<span class="header-section-number">4.2.7.1</span> Regulärausdrücke</h4>
 <p>Das <code>"[a-z]"</code> in der Syntax oben steht für “alle Buchstaben von a-z”. D iese flexible Art von “String-Verarbeitung mit Jokern” nennt man <em>Regulärausdrücke</em> (regular expressions; regex). Es gibt eine ganze Reihe von diesen Regulärausdrücken, die die Verarbeitung von Texten erleichert. Mit dem Paket <code>stringr</code> geht das - mit etwas Übung - gut von der Hand. Nehmen wir als Beispiel den Text eines Tweets:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-16_807243af845ebc14edfd282f30c2252e">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">string</span> <span class="op">&lt;-</span> <span class="st">"Correlation of unemployment and #AfD votes at #btw17: ***r = 0.18***\n\nhttps://t.co/YHyqTguVWx"</span>  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-21_e6c95d63740a816dfd93f09f20dbdae2">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">string</span> <span class="op">&lt;-</span> <span class="st">"Correlation of unemployment and #AfD votes at #btw17: ***r = 0.18***\n\nhttps://t.co/YHyqTguVWx"</span>  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Möchte man Ziffern identifizieren, so hilft der Reulärausdruck <code>[:digit:]</code>:</p>
 <p>“Gibt es mindestens eine Ziffer in dem String?”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-17_ded740aa4abd02c305e835a8b2bf03a5">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-22_254b29bd0612e6a72ab98243e36f00b3">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
 <span><span class="co">## [1] TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>“Finde die Position der ersten Ziffer! Welche Ziffer ist es?”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-18_3aa8feaa1c7f2c4a7e920c8341ca0508">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_locate.html">str_locate</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-23_5c95ea2b7e6ce2cdaf67d834b898c605">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_locate.html">str_locate</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
 <span><span class="co">##      start end</span></span>
 <span><span class="co">## [1,]    51  51</span></span>
 <span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
 <span><span class="co">## [1] "1"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>“Finde alle Ziffern!”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-19_b901149871acfd335d0d864106908f53">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-24_3de6b92bfc32199989ffdf2e1e7d93bf">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]"</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">## [1] "1" "7" "0" "1" "8"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>“Finde alle Stellen an denen genau 2 Ziffern hintereinander folgen!”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-20_5c631ecd39dabb1bab479d2125f3bf0d">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]{2}"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-25_aec547a993895b19281549418617e4b7">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:digit:]{2}"</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">## [1] "17" "18"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der Quantitätsoperator <code>{n}</code> findet alle Stellen, in der der der gesuchte Ausdruck genau <span class="math inline">\(n\)</span> mal auftaucht.</p>
 <p>“Zeig die Hashtags!”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-21_b62e3fc8f9e985660da2367a50c9af07">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"#[:alnum:]+"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-26_286a07aa2399c8551223bc47ea3298be">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"#[:alnum:]+"</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">## [1] "#AfD"   "#btw17"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der Operator <code>[:alnum:]</code> steht für “alphanumerischer Charakter” - also eine Ziffer oder ein Buchstabe; synonym hätte man auch <code>\\w</code> schreiben können (w wie word). Warum werden zwei Backslashes gebraucht? Mit <code>\\w</code> wird signalisiert, dass nicht der Buchstabe <em>w</em>, sondern etwas Besonderes, eben der Regex-Operator <code>\w</code> gesucht wird.</p>
 <p>“Zeig die URLs!”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-22_0fead28da2394b20b71e43651b9fab6c">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"https?://[:graph:]+"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-27_9b3e3761cfe0014d41feaefc2f0359c7">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"https?://[:graph:]+"</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">## [1] "https://t.co/YHyqTguVWx"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das Fragezeichen <code>?</code> ist eine Quantitätsoperator, der einen Treffer liefert, wenn das vorherige Zeichen (hier <em>s</em>) null oder einmal gefunden wird. <code>[:graph:]</code> ist die Summe von <code>[:alpha:]</code> (Buchstaben, groß und klein), <code>[:digit:]</code> (Ziffern) und <code>[:punct:]</code> (Satzzeichen u.ä.).</p>
 <p>“Zähle die Wörter im String!”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-23_884acbc2400aef11508d026912150de7">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">string</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-28_d8fee671191428c99eb5aac9913bde91">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">string</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## [1] 13</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>“Liefere nur Buchstaben<em>folgen</em> zurück, lösche alles übrige”</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-24_fa1f222c477647d6411099a0966f6dd0">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:alpha:]+"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-29_e602a22ab407813226a4212635861cdb">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[:alpha:]+"</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">##  [1] "Correlation"  "of"           "unemployment" "and"          "AfD"         </span></span>
 <span><span class="co">##  [6] "votes"        "at"           "btw"          "r"            "https"       </span></span>
 <span><span class="co">## [11] "t"            "co"           "YHyqTguVWx"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der Quantitätsoperator <code>+</code> liefert alle Stellen zurück, in denen der gesuchte Ausdruck <em>einmal oder häufiger</em> vorkommt. Die Ergebnisse werden als Vektor von Wörtern zurückgegeben. Ein anderer Quantitätsoperator ist <code>*</code>, der für 0 oder mehr Treffer steht. Möchte man einen Vektor, der aus Stringen-Elementen besteht zu einem Strring zusammenfüngen, hilft <code>paste(string)</code> oder <code>str_c(string, collapse = " ")</code>.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-25_8f21f1581e5144a4b845ec899526d792">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[^[:alpha:]+]"</span>, <span class="st">""</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-30_5cf7e5ddec82a44facd6d838a5f87627">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">string</span>, <span class="st">"[^[:alpha:]+]"</span>, <span class="st">""</span><span class="op">)</span></span>
 <span><span class="co">## [1] "CorrelationofunemploymentandAfDvotesatbtwrhttpstcoYHyqTguVWx"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mit dem Negationsoperator <code>[^x]</code> wird der Regulärausrck <code>x</code> negiert; die Syntax oben heißt also “ersetze in <code>string</code> alles außer Buchstaben durch Nichts”. Mit “Nichts” sind hier Strings der Länge Null gemeint; ersetzt man einen belieibgen String durch einen String der Länge Null, so hat man den String gelöscht.</p>
 <p>Das Cheatsheet zur Strings bzw zu <code>stringr</code> von RStudio gibt einen guten Überblick über Regex; im Internet finden sich viele Beispiele.</p>
-</section><section id="regex-im-texteditor" class="level4" data-number="4.2.6.2"><h4 data-number="4.2.6.2" class="anchored" data-anchor-id="regex-im-texteditor">
-<span class="header-section-number">4.2.6.2</span> Regex im Texteditor</h4>
+</section><section id="regex-im-texteditor" class="level4" data-number="4.2.7.2"><h4 data-number="4.2.7.2" class="anchored" data-anchor-id="regex-im-texteditor">
+<span class="header-section-number">4.2.7.2</span> Regex im Texteditor</h4>
 <p>Einige Texteditoren unterstützen Regex, so auch RStudio.</p>
 <p>Das ist eine praktische Sache. Ein Beispiel: Sie haben eine Liste mit Namen der Art:</p>
 <ul>
@@ -634,33 +768,33 @@ div.csl-indent {
 <figure class="figure"><p><img src="img/regex1.png" id="fig-vorher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"><img src="img/regex2.png" id="fig-nacher-regex" class="img-fluid figure-img" alt="Vorher; mit Regex-Syntax"></p>
 <figcaption class="figure-caption">Abbildung&nbsp;4.3: <strong>?(caption)</strong></figcaption></figure>
 </div>
-</section></section><section id="emoji-analyse" class="level3" data-number="4.2.7"><h3 data-number="4.2.7" class="anchored" data-anchor-id="emoji-analyse">
-<span class="header-section-number">4.2.7</span> Emoji-Analyse</h3>
+</section></section><section id="emoji-analyse" class="level3" data-number="4.2.8"><h3 data-number="4.2.8" class="anchored" data-anchor-id="emoji-analyse">
+<span class="header-section-number">4.2.8</span> Emoji-Analyse</h3>
 <p>Eine einfache Art, Emojis in einer Textmining-Analyse zu verarbeiten, bietet das Paket <code>textclean</code>:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-26_bedd3d51c513a79a95ff111d9574816b">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"docs/emoji_sample.txt"</span>, package <span class="op">=</span> <span class="st">"textclean"</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-31_52f08c91ddca4a19b55bd7976b8c0e7f">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"docs/emoji_sample.txt"</span>, package <span class="op">=</span> <span class="st">"textclean"</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">fls</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co">## [1] "Proin 😍 ut maecenas 😏 condimentum 😔 purus eget. Erat, 😂vitae nunc elit. Condimentum 😢 semper iaculis bibendum sed tellus. Ut suscipit interdum😑 in. Faucib😞 us nunc quis a vitae posuere. 😛 Eget amet sit condimentum non. Nascetur vitae ☹ et. Auctor ornare ☺ vestibulum primis justo congue 😀urna ac magna. Quam 😥 pharetra 😟 eros 😒facilisis ac lectus nibh est 😙vehicula 😐 ornare! Vitae, malesuada 😎 erat sociosqu urna, 😏 nec sed ad aliquet 😮 ."</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-27_06d75aa80e4aae2ca07bbd4f0d33fe4e">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/replace_emoji.html">replace_emoji</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">## [1] "Proin smiling face with heart-eyes ut maecenas smirking face condimentum pensive face purus eget. Erat, face with tears of joy vitae nunc elit. Condimentum crying face semper iaculis bibendum sed tellus. Ut suscipit interdum expressionless face in. Faucib disappointed face us nunc quis a vitae posuere. face with tongue Eget amet sit condimentum non. Nascetur vitae frowning face et. Auctor ornare smiling face vestibulum primis justo congue grinning face urna ac magna. Quam sad but relieved face pharetra worried face eros unamused face facilisis ac lectus nibh est kissing face with smiling eyes vehicula neutral face ornare! Vitae, malesuada smiling face with sunglasses erat sociosqu urna, smirking face nec sed ad aliquet face with open mouth ."</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-32_8c4cc810292837325c1651a12c35b95f">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/replace_emoji.html">replace_emoji</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">## [1] "Proin d??? ut maecenas d??? condimentum d??? purus eget. Erat, d???vitae nunc elit. Condimentum d??c semper iaculis bibendum sed tellus. Ut suscipit interdumd??? in. Faucibd??? us nunc quis a vitae posuere. d??? Eget amet sit condimentum non. Nascetur vitae ^a?^1 et. Auctor ornare ^a?o vestibulum primis justo congue d???urna ac magna. Quam d??yen pharetra d??? eros d???facilisis ac lectus nibh est d???vehicula d??? ornare! Vitae, malesuada d??? erat sociosqu urna, d??? nec sed ad aliquet d??(R) ."</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/replace_emoji.html">replace_emoji_identifier</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">## [1] "Proin lexiconwiutsdotskrupggpgmhm ut maecenas lexiconwizbukzesopzflfinotj condimentum lexiconwlnxqescoesytfatoevi purus eget. Erat, lexiconwcaiviebiytolowkanmb vitae nunc elit. Condimentum lexiconwpujksvgujncexktvyrn semper iaculis bibendum sed tellus. Ut suscipit interdum lexiconwknnasgueiicggptyzbx in. Faucib lexiconwoxfeslcareuqfkbyjgy us nunc quis a vitae posuere. lexiconwobmhqdrrzgygdexhnkk Eget amet sit condimentum non. Nascetur vitae lexiconbfalxvockmnmtmycmwyq et. Auctor ornare lexiconbgmujofaalvxqrklfqgd vestibulum primis justo congue lexiconvygwtlyrpywfarytvfis urna ac magna. Quam lexiconwurhpvewhizayynmfxqo pharetra lexiconwpmuduwgbxxrxeltrueb eros lexiconwkrvakxddtqckcjxeksl facilisis ac lectus nibh est lexiconwmsjgfnelqfeyhgudmfj vehicula lexiconwjfhkpcsgcjtotwlapxa ornare! Vitae, malesuada lexiconwivnupleicqgksianinp erat sociosqu urna, lexiconwizbukzesopzflfinotj nec sed ad aliquet lexiconxbwhfeflxbuupjezgdwl ."</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## [1] "Proin d??? ut maecenas d??? condimentum d??? purus eget. Erat, d???vitae nunc elit. Condimentum d??c semper iaculis bibendum sed tellus. Ut suscipit interdumd??? in. Faucibd??? us nunc quis a vitae posuere. d??? Eget amet sit condimentum non. Nascetur vitae ^a?^1 et. Auctor ornare ^a?o vestibulum primis justo congue d???urna ac magna. Quam d??yen pharetra d??? eros d???facilisis ac lectus nibh est d???vehicula d??? ornare! Vitae, malesuada d??? erat sociosqu urna, d??? nec sed ad aliquet d??(R) ."</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="text-aufräumen" class="level3" data-number="4.2.8"><h3 data-number="4.2.8" class="anchored" data-anchor-id="text-aufräumen">
-<span class="header-section-number">4.2.8</span> Text aufräumen</h3>
+</section><section id="text-aufräumen" class="level3" data-number="4.2.9"><h3 data-number="4.2.9" class="anchored" data-anchor-id="text-aufräumen">
+<span class="header-section-number">4.2.9</span> Text aufräumen</h3>
 <p>Eine Reihe generischer Tests bietet das Paket <code>textclean</code> von <a href="https://github.com/trinker/textclean">Tyler Rinker</a>:</p>
 <p>Hier ist ein “unaufgeräumeter” Text:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-28_f51b11d7a9f7ce18b4956fed470ecf23">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"i like"</span>, <span class="st">"&lt;p&gt;i want. &lt;/p&gt;. thet them ther ."</span>, <span class="st">"I am ! that|"</span>, <span class="st">""</span>, <span class="cn">NA</span>, </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-33_aeacedb1b98fd1d9d31b36cab69e0331">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"i like"</span>, <span class="st">"&lt;p&gt;i want. &lt;/p&gt;. thet them ther ."</span>, <span class="st">"I am ! that|"</span>, <span class="st">""</span>, <span class="cn">NA</span>, </span>
 <span>    <span class="st">"&amp;quot;they&amp;quot; they,were there"</span>, <span class="st">"."</span>, <span class="st">"   "</span>, <span class="st">"?"</span>, <span class="st">"3;"</span>, <span class="st">"I like goud eggs!"</span>, </span>
 <span>    <span class="st">"bi\xdfchen Z\xfcrcher"</span>, <span class="st">"i 4like..."</span>, <span class="st">"\\tgreat"</span>,  <span class="st">"She said \"yes\""</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Lassen wir uns dazu ein paar Diagnostiken ausgeben.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-29_7d251693edb4d468c49855b9b676d9c5">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"latin1"</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-34_e9541f41d37c2cf6e4c2e9c02124ff70">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Encoding.html">Encoding</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"latin1"</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/check_text.html">check_text</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
@@ -865,13 +999,133 @@ div.csl-indent {
 <span><span class="co">## </span></span>
 <span><span class="co">## *Suggestion: Consider running `textshape::split_sentence`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="diverse-wortlisten" class="level3" data-number="4.2.9"><h3 data-number="4.2.9" class="anchored" data-anchor-id="diverse-wortlisten">
-<span class="header-section-number">4.2.9</span> Diverse Wortlisten</h3>
+</section><section id="diverse-wortlisten" class="level3" data-number="4.2.10"><h3 data-number="4.2.10" class="anchored" data-anchor-id="diverse-wortlisten">
+<span class="header-section-number">4.2.10</span> Diverse Wortlisten</h3>
 <p><a href="https://github.com/trinker/lexicon">Tyler Rinker</a> stellt mit dem Paket <code>lexicon</code> eine Zusammenstellung von Wortlisten zu diversen Zwecken zur Verfügung. Allerding nur für die englische Sprache.</p>
-</section><section id="sec-sentimentanalyse" class="level3" data-number="4.2.10"><h3 data-number="4.2.10" class="anchored" data-anchor-id="sec-sentimentanalyse">
-<span class="header-section-number">4.2.10</span> Sentimentanalyse</h3>
-<section id="einführung" class="level4" data-number="4.2.10.1"><h4 data-number="4.2.10.1" class="anchored" data-anchor-id="einführung">
-<span class="header-section-number">4.2.10.1</span> Einführung</h4>
+</section><section id="one-hot-enkodierung-dummy-variablen" class="level3" data-number="4.2.11"><h3 data-number="4.2.11" class="anchored" data-anchor-id="one-hot-enkodierung-dummy-variablen">
+<span class="header-section-number">4.2.11</span> One-hot-Enkodierung (Dummy-Variablen)</h3>
+<p>Viele Methoden des Maschinellen Lernens können keine nominalen Variablen verarbeiten. Daher müssen nominale Variablen vorab häufig erst in numerische Variablen umgewandelt werden. In der Textanalyse</p>
+<p>Nehmen wir als einfaches Beispiel den berühmten Iris-Datensatz:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-35_732b1524d7df4bad9111cb3c4809f87e">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span><span class="va">iris</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>  <span class="co"># ID-Variable hinzufügen</span></span>
+<span></span>
+<span><span class="va">iris_mini</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">iris</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">51</span>, <span class="fl">101</span><span class="op">)</span><span class="op">)</span>  <span class="co"># von jeder Species ein Exemplar</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-36_0dc1e7a5485e140bd093b23421679575">
+<div class="cell-output-display">
+
+<div data-pagedtable="false"> <div class="table-caption"><p>Tabelle im Lang-Format</p></div>
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["Species"],"name":[2],"type":["fct"],"align":["left"]}],"data":[{"1":"1","2":"setosa"},{"1":"51","2":"versicolor"},{"1":"101","2":"virginica"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-37_fb2e58c1f91d8a1cb77e88759173c4a9">
+<div class="cell-output-display">
+
+<div data-pagedtable="false"> <div class="table-caption"><p>Tabelle mit Spalte ‘Species’ im One-Hot-Format</p></div>
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["Species_setosa"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Species_versicolor"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Species_virginica"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1","3":"0","4":"0"},{"1":"51","2":"0","3":"1","4":"0"},{"1":"101","2":"0","3":"0","4":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="tidymodels" class="level4" data-number="4.2.11.1"><h4 data-number="4.2.11.1" class="anchored" data-anchor-id="tidymodels">
+<span class="header-section-number">4.2.11.1</span> Tidymodels</h4>
+<p>Tidymodels bieten eine recht komfortable Methode zur One-Hot-Transformation:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-38_b52282b38cbac64149b2986573bc941a">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">iris_rec</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">recipe</span><span class="op">(</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">step_dummy</span><span class="op">(</span><span class="va">Species</span>, one_hot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-39_70d6b470454eaa1ef11800e34b01aa68">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">iris_rec_prepped</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">iris_rec</span> <span class="op">|&gt;</span> <span class="fu">prep</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">iris_baked</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">iris_rec_prepped</span> <span class="op">|&gt;</span> <span class="fu">bake</span><span class="op">(</span>new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-40_a3ff00a910f290576ddf4a0cc6d3ae86">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">iris_baked</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Species_setosa"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Species_versicolor"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Species_virginica"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"0","3":"0"},{"1":"1","2":"0","3":"0"},{"1":"1","2":"0","3":"0"},{"1":"1","2":"0","3":"0"},{"1":"1","2":"0","3":"0"},{"1":"1","2":"0","3":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><code>tidymodels</code> ist primär für das professionelle Modellieren angelegt; “mal eben” eine One-Hot-Enkodierung durchzuführen, braucht ein paar Zeilen Code.</p>
+<p>Ohne den Parameter <code>one_hot = TRUE</code> würden anstelle von <span class="math inline">\(k\)</span> Stufen nur <span class="math inline">\(k-1\)</span> Stufen zurückgegeben werden.</p>
+<p>Mal sehen, ob es auch schneller geht, also mit weniger Zeilen Code.</p>
+</section><section id="base-r-model.matrix" class="level4" data-number="4.2.11.2"><h4 data-number="4.2.11.2" class="anchored" data-anchor-id="base-r-model.matrix">
+<span class="header-section-number">4.2.11.2</span> Base R: model.matrix</h4>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-41_8d3bf47a7b403df1dc659a513bd0f2e5">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">iris_one_hot_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">iris_mini</span><span class="op">)</span></span>
+<span><span class="va">iris_one_hot_matrix</span></span>
+<span><span class="co">##   Speciessetosa Speciesversicolor Speciesvirginica</span></span>
+<span><span class="co">## 1             1                 0                0</span></span>
+<span><span class="co">## 2             0                 1                0</span></span>
+<span><span class="co">## 3             0                 0                1</span></span>
+<span><span class="co">## attr(,"assign")</span></span>
+<span><span class="co">## [1] 1 1 1</span></span>
+<span><span class="co">## attr(,"contrasts")</span></span>
+<span><span class="co">## attr(,"contrasts")$Species</span></span>
+<span><span class="co">## [1] "contr.treatment"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das <code>+ 0</code> sorgt dafür, dass bei <span class="math inline">\(k\)</span> Stufen von Species nicht, wie bei linearen Modellen nötig, <span class="math inline">\(k-1\)</span> Stufen zurückgegeben werden, sondern <span class="math inline">\(k\)</span> Stufen.</p>
+<p><code>model.matrix</code> gibt eine Matrix zurück; diese wandlen wir noch in einen Dataframe um:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-42_0654d713770afae9765477657d94902b">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">iris_one_hot_matrix</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["Speciessetosa"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Speciesversicolor"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Speciesvirginica"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1","3":"0","4":"0"},{"1":"2","2":"0","3":"1","4":"0"},{"1":"3","2":"0","3":"0","4":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section><section id="paket-fastdummies" class="level4" data-number="4.2.11.3"><h4 data-number="4.2.11.3" class="anchored" data-anchor-id="paket-fastdummies">
+<span class="header-section-number">4.2.11.3</span> Paket <code>fastDummies</code>
+</h4>
+<p>Das Paket <code>fastDummies</code> bietet ebenfalls eine recht einfache Konvertierung zu One-Hot-Enkodierung:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-43_caf0507c53dea323ab705ece171907be">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jacobkap/fastDummies">fastDummies</a></span><span class="op">)</span></span>
+<span><span class="co">## Thank you for using fastDummies!</span></span>
+<span><span class="co">## To acknowledge our work, please cite the package:</span></span>
+<span><span class="co">## Kaplan, J. &amp; Schlegel, B. (2023). fastDummies: Fast Creation of Dummy (Binary) Columns and Rows from Categorical Variables. Version 1.7.1. URL: https://github.com/jacobkap/fastDummies, https://jacobkap.github.io/fastDummies/.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://jacobkap.github.io/fastDummies/reference/dummy_cols.html">dummy_cols</a></span><span class="op">(</span><span class="va">iris_mini</span>, select_columns <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["Species_setosa"],"name":[2],"type":["int"],"align":["right"]},{"label":["Species_versicolor"],"name":[3],"type":["int"],"align":["right"]},{"label":["Species_virginica"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"setosa","2":"1","3":"0","4":"0"},{"1":"versicolor","2":"0","3":"1","4":"0"},{"1":"virginica","2":"0","3":"0","4":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section></section><section id="sec-sentimentanalyse" class="level3" data-number="4.2.12"><h3 data-number="4.2.12" class="anchored" data-anchor-id="sec-sentimentanalyse">
+<span class="header-section-number">4.2.12</span> Sentimentanalyse</h3>
+<section id="einführung" class="level4" data-number="4.2.12.1"><h4 data-number="4.2.12.1" class="anchored" data-anchor-id="einführung">
+<span class="header-section-number">4.2.12.1</span> Einführung</h4>
 <p>Eine weitere interessante Analyse ist, die “Stimmung” oder “Emotionen” (Sentiments) eines Textes auszulesen. Die Anführungszeichen deuten an, dass hier ein Maß an Verständnis suggeriert wird, welches nicht (unbedingt) von der Analyse eingehalten wird. Jedenfalls ist das Prinzip der Sentiment-Analyse im einfachsten Fall so:</p>
 <ol type="1">
 <li>Schau dir jeden Token aus dem Text an.<br>
@@ -884,25 +1138,25 @@ div.csl-indent {
 </li>
 <li>Liefere zum Schluss die Summenwerte pro Sentiment zurück.</li>
 </ol>
-<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das <em>deutsche</em> Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-30_971a4a17a2d5165a991c25f4a5bdc2f0">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://osf.io/x89wq/?action=download"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Es gibt Sentiment-Lexika, die lediglich einen Punkt für “positive Konnotation” bzw. “negative Konnotation” geben; andere Lexiko weisen differenzierte Gefühlskonnotationen auf. Wir nutzen hier das <em>deutsche</em> Sentimentlexikon <code>sentiws</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>. Sie können das Lexikon als CSV hier herunterladen:</p>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-44_df502681bbfa86aaa15f5f9082b1f14a">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://osf.io/x89wq/?action=download"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Den Volltext zum Paper finden Sie z.B. <a href="http://www.lrec-conf.org/proceedings/lrec2010/pdf/490_Paper.pdf">hier</a>.</p>
 <p>Alternativ können Sie die Daten aus dem Paket <code>pradadata</code> laden. Allerdings müssen Sie dieses Paket von Github installieren:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-31_5c32257741d76045cc582ed6c8b1a157">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span>, dep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-45_3692d7a77389e1730e575bc490ea1a77">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span>, dep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"sebastiansauer/pradadata"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="030-textmining1_cache/html/parse-sentiment-dics_2f944246db19cf38ecaaf8715a47e148">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sentiws</span>, package <span class="op">=</span> <span class="st">"pradadata"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sentiws</span>, package <span class="op">=</span> <span class="st">"pradadata"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><a href="#tbl-afdcount">Tabelle&nbsp;<span>4.1</span></a> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/tbl-afdcount_26fc02040d3d50d76f5ef18f6ea63ed6">
+<p><a href="#tbl-afdcount">Tabelle&nbsp;<span>4.2</span></a> zeigt einen Ausschnitt aus dem Sentiment-Lexikon <em>SentiWS</em>.</p>
+<div class="cell" data-hash="030-textmining1_cache/html/tbl-afdcount_b56a6cf268bcfc4e1c5c7a27dc707a25">
 <div class="cell-output-display">
 <div id="tbl-afdcount" class="anchored">
 
-<div data-pagedtable="false"> <div class="table-caption">Tabelle&nbsp;4.1:  <p>Auszug aus SentiWS</p> </div>
+<div data-pagedtable="false"> <div class="table-caption">Tabelle&nbsp;4.2:  <p>Auszug aus SentiWS</p> </div>
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["neg_pos"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]},{"label":["value"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["inflections"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"neg","2":"Abbau","3":"-0.0580","4":"Abbaus,Abbaues,Abbauen,Abbaue"},{"1":"neg","2":"Abbruch","3":"-0.0048","4":"Abbruches,Abbrüche,Abbruchs,Abbrüchen"},{"1":"neg","2":"Abdankung","3":"-0.0048","4":"Abdankungen"},{"1":"neg","2":"Abdämpfung","3":"-0.0048","4":"Abdämpfungen"},{"1":"neg","2":"Abfall","3":"-0.0048","4":"Abfalles,Abfälle,Abfalls,Abfällen"},{"1":"neg","2":"Abfuhr","3":"-0.3367","4":"Abfuhren"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
@@ -910,12 +1164,12 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section><section id="ungewichtete-sentiment-analyse" class="level4" data-number="4.2.10.2"><h4 data-number="4.2.10.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse">
-<span class="header-section-number">4.2.10.2</span> Ungewichtete Sentiment-Analyse</h4>
-<p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span>4.2</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
+</section><section id="ungewichtete-sentiment-analyse" class="level4" data-number="4.2.12.2"><h4 data-number="4.2.12.2" class="anchored" data-anchor-id="ungewichtete-sentiment-analyse">
+<span class="header-section-number">4.2.12.2</span> Ungewichtete Sentiment-Analyse</h4>
+<p>Nun können wir jedes Token des Textes mit dem Sentiment-Lexikon abgleichen; dabei zählen wir die Treffer für positive bzw. negative Terme. Zuvor müssen wir aber noch die Daten (<code>afd_long</code>) mit dem Sentimentlexikon zusammenführen (joinen). Das geht nach bewährter Manier mit <code>inner_join</code>; “inner” sorgt dabei dafür, dass nur Zeilen behalten werden, die in beiden Dataframes vorkommen. Tabelle <a href="#tbl-afdsenti">Tabelle&nbsp;<span>4.3</span></a> zeigt Summe, Anzahl und Anteil der Emotionswerte.</p>
 <p>Wir nutzen die Tabelle <code>afd_long</code>, die wir oben definiert haben.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-32_b08798a0419e6b477151188f7aaee942">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-46_9448372ad051a05a38fd0159801c279f">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">sentiws</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"token"</span> <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">inflections</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">afd_senti</span>  <span class="co"># die Spalte brauchen wir nicht</span></span>
 <span><span class="co">## Warning in inner_join(., sentiws, by = c(token = "word")): Detected an unexpected many-to-many relationship between `x` and `y`.</span></span>
@@ -931,11 +1185,11 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>polarity_prop <span class="op">=</span> <span class="op">(</span><span class="va">polarity_count</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">polarity_count</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span></span>
 <span>  <span class="va">afd_senti_tab</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="030-textmining1_cache/html/tbl-afdsenti_4897d9a299a54aca47de12d879292a43">
+<div class="cell" data-hash="030-textmining1_cache/html/tbl-afdsenti_4e27218a4f6059cf855581632768ebc0">
 <div class="cell-output-display">
 <div id="tbl-afdsenti" class="anchored">
 
-<div data-pagedtable="false"> <div class="table-caption">Tabelle&nbsp;4.2:  <p>Zusammenfassung von SentiWS</p> </div>
+<div data-pagedtable="false"> <div class="table-caption">Tabelle&nbsp;4.3:  <p>Zusammenfassung von SentiWS</p> </div>
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["neg_pos"],"name":[1],"type":["chr"],"align":["left"]},{"label":["polarity_sum"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["polarity_count"],"name":[3],"type":["int"],"align":["right"]},{"label":["polarity_prop"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"neg","2":"-48.5307","3":"210","4":"0.27"},{"1":"pos","2":"30.6595","3":"578","4":"0.73"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
@@ -945,8 +1199,8 @@ div.csl-indent {
 </div>
 <p>Die Analyse zeigt, dass die emotionale Bauart des Textes durchaus interessant ist: Es gibt viel mehr positiv getönte Wörter als negativ getönte. Allerdings sind die negativen Wörter offenbar deutlich stärker emotional aufgeladen, denn die Summe an Emotionswert der negativen Wörter ist (überraschenderweise?) deutlich größer als die der positiven.</p>
 <p>Betrachten wir also die intensivsten negativ und positive konnotierten Wörter näher.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-33_3ff2a31646341d604099cbe279011f24">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-47_b08721956fec5fe14337285453f452e1">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">token</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>value_abs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span><span class="op">(</span><span class="fl">20</span>, <span class="va">value_abs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -958,13 +1212,13 @@ div.csl-indent {
 </div>
 <p>Diese “Hitliste” wird zumeist (19/20) von negativ polarisierten Begriffen aufgefüllt, wobei “besonders” ein Intensivierwort ist, welches das Bezugswort verstärt (“besonders gefährlich”). Das Argument <code>keep_all = TRUE</code> sorgt dafür, dass alle Spalten zurückgegeben werden, nicht nur die durchsuchte Spalte <code>token</code>. Mit <code>pull</code> haben wir aus dem Dataframe, der von den dplyr-Verben übergeben wird, die Spalte <code>pull</code> “herausgezogen”; hier nur um Platz zu sparen bzw. der Übersichtlichkeit halber.</p>
 <p>Nun könnte man noch den erzielten “Netto-Sentimentswert” des Corpus ins Verhältnis setzen Sentimentswert des Lexikons: Wenn es insgesamt im Sentiment-Lexikon sehr negativ zuginge, wäre ein negativer Sentimentwer in einem beliebigen Corpus nicht überraschend. <code>describe_distribution</code> aus <a href="https://easystats.github.io/easystats/">easystats</a> gibt uns einen Überblick der üblichen deskriptiven Statistiken.</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-34_17b8fed4fd872d4412e1174b34f1aa84">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-48_0496d8f01c281824df1732a7fe8c73f0">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">value</span>, <span class="va">neg_pos</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">#group_by(neg_pos) %&gt;% </span></span>
 <span>  <span class="fu">describe_distribution</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-35_a0e6662072146b99ad9d52dd46935c8a">
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-49_c148e1af495c23a4286bf4e56d6da00a">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
@@ -1004,8 +1258,8 @@ div.csl-indent {
 </div>
 </div>
 <p>Insgesamt ist das Lexikon ziemlich ausgewogen; negative Werte sind leicht in der Überzahl im Lexikon. Unser Corpus hat eine ähnliche mittlere emotionale Konnotation wie das Lexikon:</p>
-<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-36_c50d588899ebf63038908874edcf73f6">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="030-textmining1_cache/html/unnamed-chunk-50_1b42a3a3eb49c3ca038a2a108ada828c">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">afd_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>senti_sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
@@ -1016,11 +1270,11 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section></section><section id="weitere-sentiment-lexika" class="level3" data-number="4.2.11"><h3 data-number="4.2.11" class="anchored" data-anchor-id="weitere-sentiment-lexika">
-<span class="header-section-number">4.2.11</span> Weitere Sentiment-Lexika</h3>
+</section></section><section id="weitere-sentiment-lexika" class="level3" data-number="4.2.13"><h3 data-number="4.2.13" class="anchored" data-anchor-id="weitere-sentiment-lexika">
+<span class="header-section-number">4.2.13</span> Weitere Sentiment-Lexika</h3>
 <p><a href="https://github.com/trinker/sentimentr">Tyler Rinker</a> stellt das Paket <code>sentimentr</code> zur Verfügung. <a href="https://www.matthewjockers.net/2015/02/02/syuzhet/">Matthew Jockers</a> stellt das Paket <code>Syushet</code> zur Verfügung.</p>
-</section><section id="google-trends" class="level3" data-number="4.2.12"><h3 data-number="4.2.12" class="anchored" data-anchor-id="google-trends">
-<span class="header-section-number">4.2.12</span> Google Trends</h3>
+</section><section id="google-trends" class="level3" data-number="4.2.14"><h3 data-number="4.2.14" class="anchored" data-anchor-id="google-trends">
+<span class="header-section-number">4.2.14</span> Google Trends</h3>
 <p>Eine weitere Möglichkeit, “Worthäufigkeiten” zu identifizieren ist <a href="https://trends.google.com/trends/?geo=US">Google Trends</a>. Dieser Post zeigt Ihnen eine Einsatzmöglichkeit.</p>
 </section></section><section id="aufgaben" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="aufgaben">
 <span class="header-section-number">4.3</span> Aufgaben</h2>
@@ -1050,7 +1304,7 @@ div.csl-indent {
 <p>Wir nutzen noch nicht eigene Daten, die wir von Twitter ausgelesen haben, das heben wir uns für später auf.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="listitem">
 Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
