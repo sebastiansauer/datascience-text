@@ -66,7 +66,7 @@ download.file(url = "https://raw.githubusercontent.com/sebastiansauer/Lehre/main
 
 
 
-![Auch Roboter lesen (?). Generiert von Microsoft Bing AI, 2023-10-27](img/robot-reading.jpeg){width = 33% fig-align="center"}
+![Auch Roboter lesen (?). Generiert von Microsoft Bing AI, 2023-10-27](img/robot-reading.jpeg){width=33% fig-align="center"}
 
 
 
