@@ -1003,10 +1003,13 @@ Vielleicht ja weit genug.
 
 
 
-## Literatur
+## Fallstudie 
+
+[Hacker-News-Einbettungs-Fallstudie](https://juliasilge.com/blog/tidy-word-vectors/) (was für ein Word!) -- Eine praktische Darstellung der Erstellung von Word-Vektoren rein auf Basis der linearen Algebra.
 
 
-### Wikipedia
+### Vertiefung
+
 
 Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.
 

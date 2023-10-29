@@ -356,9 +356,9 @@ div.csl-indent {
 </li>
   <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="header-section-number">7.5</span> Fazit</a></li>
   <li>
-<a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur"><span class="header-section-number">7.6</span> Literatur</a>
+<a href="#fallstudie" id="toc-fallstudie" class="nav-link" data-scroll-target="#fallstudie"><span class="header-section-number">7.6</span> Fallstudie</a>
   <ul class="collapse">
-<li><a href="#wikipedia" id="toc-wikipedia" class="nav-link" data-scroll-target="#wikipedia"><span class="header-section-number">7.6.1</span> Wikipedia</a></li>
+<li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">7.6.1</span> Vertiefung</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -1272,7 +1272,7 @@ Hinweis
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">word_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1]  10 222</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>10 Beschwerden (Dokumente) und 222 unique Wörter.</p>
+<p>Beschwerden (Dokumente) und 222 unique Wörter.</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/glove_matrix_f3f97c05d063452b160abda390abe68e">
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"item1"</span>,</span>
@@ -1302,14 +1302,15 @@ Hinweis
 <p>Die Anzahl der Dokumente ist 10 und die Anzahl der Dimensionen (des Einbettungsvektors) ist 50.</p>
 </section><section id="wordembeddings-für-die-deutsche-sprache" class="level3" data-number="7.4.2"><h3 data-number="7.4.2" class="anchored" data-anchor-id="wordembeddings-für-die-deutsche-sprache">
 <span class="header-section-number">7.4.2</span> Wordembeddings für die deutsche Sprache</h3>
-<p>In diesem <a href="https://devmount.github.io/GermanWordEmbeddings/">Github-Projekt</a> finden sich die Materialien für ein deutsches Wordembedding <span class="citation" data-cites="mueller2015">(<a href="references.html#ref-mueller2015" role="doc-biblioref"><strong>mueller2015?</strong></a>)</span>.</p>
+<p>In diesem <a href="https://devmount.github.io/GermanWordEmbeddings/">Github-Projekt</a> finden sich die Materialien für ein deutsches Wordembedding <span class="citation" data-cites="mueller2015">(<a href="references.html#ref-mueller2015" role="doc-biblioref">Müller 2015</a>)</span>.</p>
 </section></section><section id="fazit" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="fazit">
 <span class="header-section-number">7.5</span> Fazit</h2>
 <p>Worteinbettungen sind eine aufwändige Angelegenheit. Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat. Ist ja schon cooles Zeugs, die Word Embeddings. Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen Ansätzen wir Worthäufigkeiten oder tf-idf. Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten, und zu sehen, wie weit man kommt. Vielleicht ja weit genug.</p>
-</section><section id="literatur" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="literatur">
-<span class="header-section-number">7.6</span> Literatur</h2>
-<section id="wikipedia" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="wikipedia">
-<span class="header-section-number">7.6.1</span> Wikipedia</h3>
+</section><section id="fallstudie" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="fallstudie">
+<span class="header-section-number">7.6</span> Fallstudie</h2>
+<p><a href="https://juliasilge.com/blog/tidy-word-vectors/">Hacker-News-Einbettungs-Fallstudie</a> (was für ein Word!) – Eine praktische Darstellung der Erstellung von Word-Vektoren rein auf Basis der linearen Algebra.</p>
+<section id="vertiefung" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">7.6.1</span> Vertiefung</h3>
 <p>Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information">Wikipedia: Pointwise Mutual Information</a></li>
@@ -1321,6 +1322,9 @@ Hinweis
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="listitem">
 Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
+</div>
+<div id="ref-mueller2015" class="csl-entry" role="listitem">
+Müller, Andreas. 2015. <span>„Analyse von Wort-Vektoren Deutscher Textkorpora“</span>. Bathesis, <span>Technische Universität Berlin</span>. <a href="https://devmount.github.io/GermanWordEmbeddings">https://devmount.github.io/GermanWordEmbeddings</a>.
 </div>
 <div id="ref-pennington_glove_2014" class="csl-entry" role="listitem">
 Pennington, Jeffrey, Richard Socher, und Christopher Manning. 2014. <span>„<span>GloVe</span>: <span>Global</span> Vectors for Word Representation“</span>. In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (<span>EMNLP</span>)</em>, 1532–43. <span>Doha, Qatar</span>: <span>Association for Computational Linguistics</span>. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.

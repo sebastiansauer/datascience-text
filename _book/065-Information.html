@@ -412,7 +412,7 @@ div.csl-indent {
 </ol>
 <div id="def-info" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 6.1 (Shannon-Information) </strong></span>Die Information, <span class="math inline">\(I\)</span>, ist so definiert:</p>
-<p><span class="math display">\[I(x) = - \log_2 \left( Pr(x) \right)\qquad \square\]</span></p>
+<p><span class="math display">\[I(x) = log_2 \left( \frac{1}{Pr(x)} \right) = log_2(1) - log_2(Pr(x)) = - \log_2 \left( Pr(x) \right)\qquad \square\]</span></p>
 </div>
 <p>Andere Logarithmusbasen (als 2) sind möglich. Bei einem binären Logarithmus (Basis 2, logarithmus dualis) nennt man die Einheit <em>Bit</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>Ein Münwzurf<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> hat <em>1 Bit</em> Information:</p>
@@ -421,7 +421,7 @@ div.csl-indent {
 <span><span class="co">## [1] 1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="def-1bit" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 6.2 (Bit) </strong></span>Von 1 Bit Information spricht man, wenn ein Zufallsvorgang zwei Ausgänge hat und wir indifferent gegenüber den Ausgängen sind (also beide Ausgänge für gleich wahrscheinlich halten).<span class="math inline">\(\square\)</span></p>
+<p><span class="theorem-title"><strong>Definition 6.2 (Bit) </strong></span>Von 1 Bit Information spricht man, wenn ein Zufallsvorgang zwei Ausgänge hat und wir indifferent gegenüber den Ausgängen sind (also beide Ausgänge für gleich wahrscheinlich halten).Bits sind nicht-negative reelle Zahlen. <span class="math inline">\(\square\)</span></p>
 </div>
 <p>Damit gilt: <span class="math inline">\(I = \log_2\left( \frac{1}{Pr(x)} \right)\)</span></p>
 <p>Die Information ist eng verwandt mit den Odds bzw. Log-Odds (Logits):</p>
@@ -720,11 +720,12 @@ div.csl-indent {
 </section></section><section id="literatur" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="literatur">
 <span class="header-section-number">6.4</span> Literatur</h2>
 <p><span class="citation" data-cites="stone_information_2019">Stone (<a href="references.html#ref-stone_information_2019" role="doc-biblioref">2019</a>)</span> bietet einen nützlichen Einstieg in das Thema der Informationsentropie. Shannons <span class="citation" data-cites="shannon_1948">(<a href="references.html#ref-shannon_1948" role="doc-biblioref">1948</a>)</span> berühmter Artikel setzt höhere Ansprüche.</p>
-<p>Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
+<p>Es gibt eine Reihe nützlicher (und teilweise recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information">Wikipedia: Pointwise Mutual Information</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Mutual_information">Wikipedia: Mutual information</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Information_theory">Wikipedia: Information theory</a></li>
+<li><a href="https://de.wikipedia.org/wiki/Informationsgehalt">Wikipedia: Informationsgehalt</a></li>
 </ul>
 
 

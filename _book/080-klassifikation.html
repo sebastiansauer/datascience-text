@@ -361,8 +361,9 @@ div.csl-indent {
   <li>
 <a href="#worteinbettungen-erstellen" id="toc-worteinbettungen-erstellen" class="nav-link" data-scroll-target="#worteinbettungen-erstellen"><span class="header-section-number">10.7</span> Worteinbettungen erstellen</a>
   <ul class="collapse">
-<li><a href="#sec-fasttext" id="toc-sec-fasttext" class="nav-link" data-scroll-target="#sec-fasttext"><span class="header-section-number">10.7.1</span> FastText-Modell</a></li>
-  <li><a href="#aufbereiten" id="toc-aufbereiten" class="nav-link" data-scroll-target="#aufbereiten"><span class="header-section-number">10.7.2</span> Aufbereiten</a></li>
+<li><a href="#sec-fasttext" id="toc-sec-fasttext" class="nav-link" data-scroll-target="#sec-fasttext"><span class="header-section-number">10.7.1</span> Was ist das FastText-Modell?</a></li>
+  <li><a href="#ein-fast-text-modell-trainieren" id="toc-ein-fast-text-modell-trainieren" class="nav-link" data-scroll-target="#ein-fast-text-modell-trainieren"><span class="header-section-number">10.7.2</span> Ein Fast-Text-Modell trainieren</a></li>
+  <li><a href="#aufbereiten" id="toc-aufbereiten" class="nav-link" data-scroll-target="#aufbereiten"><span class="header-section-number">10.7.3</span> Aufbereiten</a></li>
   </ul>
 </li>
   <li>
@@ -374,6 +375,7 @@ div.csl-indent {
   <li><a href="#sec-klassifik-fit3" id="toc-sec-klassifik-fit3" class="nav-link" data-scroll-target="#sec-klassifik-fit3"><span class="header-section-number">10.8.4</span> Fitting 3</a></li>
   </ul>
 </li>
+  <li><a href="#fallstudien" id="toc-fallstudien" class="nav-link" data-scroll-target="#fallstudien"><span class="header-section-number">10.9</span> Fallstudien</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -401,34 +403,30 @@ div.csl-indent {
 <li>Sie können grundlegende Verfahren zur Klassifikation von Hatespeech einsetzen und erklären</li>
 </ul></section><section id="benötigte-r-pakete" class="level3" data-number="10.1.2"><h3 data-number="10.1.2" class="anchored" data-anchor-id="benötigte-r-pakete">
 <span class="header-section-number">10.1.2</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-1_6d478e4af4dcc1e521a01b5cd51027d1">
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-1_c37d4b591d4c019567660229e6502e98">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/textrecipes">textrecipes</a></span><span class="op">)</span>  <span class="co"># Textanalysen in Tidymodels-Rezepten</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lsa</span><span class="op">)</span>  <span class="co"># stopwords</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/discrim">discrim</a></span><span class="op">)</span>  <span class="co"># naive bayes classification</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/majkamichal/naivebayes">naivebayes</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc">tictoc</a></span><span class="op">)</span>  <span class="co"># Zeitmessung</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pommedeterresautee/fastrtext">fastrtext</a></span><span class="op">)</span>  <span class="co"># Worteinbettungen</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">remoji</span><span class="op">)</span>  <span class="co"># Emojis</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tokenizers/">tokenizers</a></span><span class="op">)</span>  <span class="co"># Vektoren tokenisieren</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tokenizers/">tokenizers</a></span><span class="op">)</span>  <span class="co"># Vektoren tokenisieren</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc">tictoc</a></span><span class="op">)</span>  <span class="co"># Zeitmessung</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="daten" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="daten">
 <span class="header-section-number">10.2</span> Daten</h2>
 <p>Für Maschinenlernen brauchen wir Trainingsdaten, Daten also, bei denen wir pro Beobachtung der Wert der Zielvariablen kennen. Man spricht auch von “gelabelten” Daten.</p>
-<p>Wir nutzen die Daten von <span class="citation" data-cites="wiegand_germeval">(<a href="references.html#ref-wiegand_germeval" role="doc-biblioref"><strong>wiegand_germeval?</strong></a>)</span> bzw. <span class="citation" data-cites="wiegand-data">(<a href="references.html#ref-wiegand-data" role="doc-biblioref"><strong>wiegand-data?</strong></a>)</span>. Die Daten sind unter CC-By-4.0 Int. lizensiert.</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/import-heidelberg-data_5ecd558b716a3ec215947a9b4c5806a6">
+<p>Wir nutzen die Daten von <span class="citation" data-cites="germeval">Wiegand (<a href="references.html#ref-germeval" role="doc-biblioref">2019a</a>)</span> bzw. <span class="citation" data-cites="wiegand-data">Wiegand (<a href="references.html#ref-wiegand-data" role="doc-biblioref">2019b</a>)</span>. Die Daten sind unter CC-By-4.0 Int. lizensiert.</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/import-heidelberg-data_c85f26dba7e098dc46d51174dca00022">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">data_read</span><span class="op">(</span><span class="st">"data/germeval2018.training.txt"</span>,</span>
-<span>         header <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">## Warning in data.table::fread(input = path, encoding = encoding, ...): Found and</span></span>
-<span><span class="co">## resolved improper quoting out-of-sample. First healed line 111: &lt;&lt;"Edel sei der</span></span>
-<span><span class="co">## Mensch, hilfreich und gut" - Nicht eine dieser Charaktereigenschaften kann</span></span>
-<span><span class="co">## Merkel für sich beanspruchen. OTHER OTHER&gt;&gt;. If the fields are not quoted (e.g.</span></span>
-<span><span class="co">## field separator does not appear within any field), try quote="" to avoid this</span></span>
-<span><span class="co">## warning.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>         header <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>         quote <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Daten finden sich auch im Paket <a href="https://github.com/sebastiansauer/pradadata">pradadata</a>.</p>
 <p>Da die Daten keine Spaltenköpfe haben, informieren wir die Funktion dazu mit <code>header = FALSE</code>.</p>
@@ -450,11 +448,11 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Hier wurde klassifiziert, ob beleidigende Sprache (offensive language) vorlag oder nicht <span class="citation" data-cites="isch-etal-2021-overview">(<a href="references.html#ref-isch-etal-2021-overview" role="doc-biblioref"><strong>isch-etal-2021-overview?</strong></a>)</span>:</p>
+<p>Mit <code>c1</code> wurde klassifiziert, ob beleidigende Sprache (offensive language) vorlag oder nicht <span class="citation" data-cites="risch-etal-2021-overview">(<a href="references.html#ref-risch-etal-2021-overview" role="doc-biblioref">Risch u.&nbsp;a. 2021, 2</a>)</span>, also <code>OFFENSE</code> bzw. <code>OTHER</code>:</p>
 <blockquote class="blockquote">
 <p>Task 1 was to decide whether a tweet includes some form of offensive language or not. The tweets had to be classiﬁed into the two classes OFFENSE and OTHER. The OFFENSE category covered abusive language, insults, as well as merely profane statements.</p>
 </blockquote>
-<p>Und in <code>c2</code> finden sich folgende Ausprägungen:</p>
+<p>Und in <code>c2</code> finden sich die vier Ausprägungen <code>ABUSE</code>, <code>INSULT</code>, <code>PROFANITY</code> und <code>OTHER</code>:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-4_438af12ffb58708ee70e9928d4f500b6">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">c2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -467,20 +465,26 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>In <code>c2</code> ging es um eine feinere Klassifikation beleidigender Sprache <span class="citation" data-cites="isch-etal-2021-overview">(<a href="references.html#ref-isch-etal-2021-overview" role="doc-biblioref"><strong>isch-etal-2021-overview?</strong></a>)</span>:</p>
+<p>In <code>c2</code> ging es um eine <em>feinere Klassifikation</em> beleidigender Sprache <span class="citation" data-cites="risch-etal-2021-overview">(<a href="references.html#ref-risch-etal-2021-overview" role="doc-biblioref">Risch u.&nbsp;a. 2021, 2</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>The second task involved four categories, a nonoffensive OTHER class and three sub-categories of what is OFFENSE in Task 1. In the case of PROFANITY, profane words are used, however, the tweet does not want to insult anyone. This typically concerns the usage of swearwords (Scheiße, Fuck etc.) and cursing (Zur Hölle! Verdammt! etc.). This can be often found in youth language. Swearwords and cursing may, but need not, co-occur with insults or abusive speech. Profane language may in fact be used in tweets with positive sentiment to express emphasis. Whenever profane words are not directed towards a speciﬁc person or group of persons and there are no separate cues of INSULT or ABUSE, then tweets are labeled as simple cases of PROFANITY.</p>
 </blockquote>
-<p>Sind Texte, die als <code>OFFENSE</code> klassifiziert sind, auch (fast) immer als <code>ABUSE</code>, <code>INSULT</code> oder <code>PROFANITY</code> klassifiziert?</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-5_df5c62b0f9bc1a7961022c04f2768070">
+<p>Sind Texte, die als <code>OFFENSE</code> klassifiziert sind, auch (fast) immer nie als <code>OTHER</code>, sondern stattdessen als <code>ABUSE</code>, <code>INSULT</code> oder <code>PROFANITY</code> klassifiziert?</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-5_71c8f273a6b38378e63c8873eeba0b51">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">c1</span> <span class="op">==</span> <span class="st">"OFFENSE"</span>, <span class="va">c2</span> <span class="op">!=</span> <span class="st">"OTHER"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">d_raw</span><span class="op">)</span></span>
+<span><span class="co">## [1] 0.3369934</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In ca. 2/3 der Fälle wurden in beiden Klassifikation <code>OTHER</code> klassifiziert:</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-6_d3ede3cee11020db7f76523e3dfefd9f">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">c1</span> <span class="op">==</span> <span class="st">"OTHER"</span>, <span class="va">c2</span> <span class="op">==</span> <span class="st">"OTHER"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">d_raw</span><span class="op">)</span></span>
 <span><span class="co">## [1] 0.6630066</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In ca. 2/3 der Fälle wurden in beiden Klassifikation <code>OTHER</code> klassifiziert.</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-6_c5896e233f9e0140837e7ccb2712f6db">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-7_9a2ef2e44b2d1e822de8b83df3243ffa">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">c1</span> <span class="op">!=</span> <span class="st">"OTHER"</span>, <span class="va">c2</span> <span class="op">!=</span> <span class="st">"OTHER"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">d_raw</span><span class="op">)</span></span>
 <span><span class="co">## [1] 0.3369934</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -488,14 +492,14 @@ div.csl-indent {
 <p>Entsprechend in ca. 1/3 der Fälle wurde jeweils nicht mit <code>OTHER</code> klassifiziert.</p>
 <p>Wir begnügen uns hier mit der ersten, gröberen Klassifikation.</p>
 <p>Fügen wir abschließend noch eine ID-Variable hinzu:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-7_6eafa015cce93aef3221dfcff4e77fcc">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-8_5ae7a41c3e0440f0018cf07521c2d048">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Die ID-Variable definieren als Text (nicht als Integer), da die Twitter-IDs zwar natürliche Zahlen sind, aber zu groß, um von R als Integer verarbeitet zu werden. Faktisch sind sie für uns auch nur nominal skalierte Variablen, so dass wir keinen Informationsverlust haben.</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-8_785c696d601f54b16dfe95dbee601461">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(d1, "objects/d1.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Die <em>ID-Variable</em> definieren als <em>Text</em> (nicht als Integer), da die Twitter-IDs zwar natürliche Zahlen sind, aber zu groß, um von R als Integer verarbeitet zu werden. Faktisch sind sie für uns auch nur nominal skalierte Variablen, so dass wir keinen Informationsverlust haben.</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-9_74c1d68bf8dedb6e25a7618577bff3af">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(d1, "objects/d1.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="feature-engineering" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="feature-engineering">
 <span class="header-section-number">10.3</span> Feature Engineering</h2>
@@ -503,7 +507,7 @@ div.csl-indent {
 <section id="textlänge" class="level3" data-number="10.3.1"><h3 data-number="10.3.1" class="anchored" data-anchor-id="textlänge">
 <span class="header-section-number">10.3.1</span> Textlänge</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/d2_db9c27a0ad5c74473ac6c7a007ff3494">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>text_length <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -521,7 +525,7 @@ div.csl-indent {
 <span class="header-section-number">10.3.2</span> Sentimentanalyse</h3>
 <p>Wir nutzen dazu <code>SentiWS</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/read-sentiws_b9fe13794bc25dd9c3422c6d21358b8c">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://osf.io/x89wq/?action=download"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://osf.io/x89wq/?action=download"</span><span class="op">)</span></span>
 <span><span class="co">## Rows: 3468 Columns: 4</span></span>
 <span><span class="co">## ── Column specification ────────────────────────────────────────────────────────</span></span>
 <span><span class="co">## Delimiter: ","</span></span>
@@ -532,7 +536,7 @@ div.csl-indent {
 <span><span class="co">## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/d2-long_bddf8a4b599ec915c7724cd0f20d1644">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_long</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_long</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span><span class="op">(</span>input <span class="op">=</span> <span class="va">text</span>, output <span class="op">=</span> <span class="va">token</span><span class="op">)</span></span>
 <span></span>
@@ -548,7 +552,7 @@ div.csl-indent {
 </div>
 <p>Jetzt filtern wir unsere Textdaten so, dass nur Wörter mit Sentimentwert übrig bleiben:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/d2-senti-long_56e7c60f0cef60159d3d348ca7e52e1a">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_long_senti</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_long_senti</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">d2_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">sentiws</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">inflections</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"token"</span> <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## Warning in inner_join(., sentiws %&gt;% select(-inflections), by = c(token = "word")): Detected an unexpected many-to-many relationship between `x` and `y`.</span></span>
@@ -569,7 +573,7 @@ div.csl-indent {
 </div>
 <p>Schließlich berechnen wir die Sentimentwert pro Polarität und pro Tweet:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/d2-sentis_86688616afb35798212a38cab5e36d66">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_sentis</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_sentis</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d2_long_senti</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">neg_pos</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>senti_avg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
@@ -588,7 +592,7 @@ div.csl-indent {
 </div>
 <p>Diese Tabelle bringen wir wieder eine breitere Form, um sie dann wieder mit den Hauptdaten zu vereinigen.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/d2-sentis-wide_7edfef0d01d48f9a1eeb61a668d19454">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_sentis_wide</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d2_sentis_wide</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d2_sentis</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"neg_pos"</span>, values_from <span class="op">=</span> <span class="st">"senti_avg"</span><span class="op">)</span></span>
 <span></span>
@@ -603,7 +607,7 @@ div.csl-indent {
 </div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/d3_bd0edc632d6fce6dd1ac1ad41406e659">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d3</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">d2_sentis_wide</span><span class="op">)</span></span>
 <span><span class="co">## Joining with `by = join_by(id)`</span></span>
@@ -635,7 +639,7 @@ Hinweis
 <span class="header-section-number">10.3.3</span> Schimpfwörter</h3>
 <p>Zählen wir die Schimpfwörter pro Text. Dazu nutzen wir die Daten von <a href="https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/blob/master/LICENSE">LDNOOBW</a>, lizensiert nach CC-BY-4.0-Int.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/schimpf1_fad97c6eec7019694e963c2c91a9d9d8">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">schimpf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/de"</span>, col_names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">schimpf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/de"</span>, col_names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">## Rows: 66 Columns: 1</span></span>
 <span><span class="co">## ── Column specification ────────────────────────────────────────────────────────</span></span>
 <span><span class="co">## Delimiter: ","</span></span>
@@ -646,14 +650,14 @@ Hinweis
 </div>
 <p>Länger aber noch ist die Liste aus dem <a href="https://www.insult.wiki/schimpfwort-liste">InsultWiki</a>, lizensiert CC0.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/schimpf2_88faef321e5a6498d957ebc0a41abf4a">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">schimpf2</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">schimpf2</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">data_read</span><span class="op">(</span><span class="st">"data/insult-de.txt"</span>, header <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_all</a></span><span class="op">(</span><span class="va">str_to_lower</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Daten finden sich auch im Paket <a href="https://github.com/sebastiansauer/pradadata">pradadata</a>.</p>
 <p>Binden wir die Listen zusammen:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/schimpf_3250f864833c93132f203242ae983855">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">schimpf</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">schimpf</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">schimpf1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="va">schimpf2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -665,14 +669,14 @@ Hinweis
 <p>Um die Lesis vor (unnötiger?) Kopfverschmutzung zu bewahren, sind diese Schimpfwörter hier nicht abgedruckt.</p>
 <p>Jetzt zählen wir, ob unsere Tweets/Texte solcherlei Wörter enthalten.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/d_schimpf_692ded66bfa2218e8d3883a6661d7814">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_schimpf</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_schimpf</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">d2_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">token</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>schimpf <span class="op">=</span> <span class="va">token</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">schimpf</span><span class="op">$</span><span class="va">word</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wie viele Schimpfwörter haben wir gefunden?</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-9_fe13d05b92bca68ec2ecbe2b855bc816">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_schimpf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-10_39628a78198c9782b5b96f1ea163eca8">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_schimpf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">schimpf</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
@@ -683,9 +687,9 @@ Hinweis
 </div>
 </div>
 </div>
-<p>Etwa ein Prozent der Wörter sind Schimpfwörter in unserem Corpus.</p>
+<p>Etwa ein Prozent der Wörter (ca. 1k) sind Schimpfwörter in unserem Corpus.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/d-schimpf2_6cf7d90214657242627e117c002442c5">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_schimpf2</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_schimpf2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d_schimpf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>schimpf_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">schimpf</span><span class="op">)</span><span class="op">)</span></span>
@@ -701,7 +705,7 @@ Hinweis
 </div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/d_main_61becc850aa91ceed5f4666366af940e">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_main</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_main</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">d_schimpf2</span><span class="op">)</span></span>
 <span><span class="co">## Joining with `by = join_by(id)`</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -716,13 +720,13 @@ Wichtig
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Namen wie <code>final</code>, <code>main</code> oder <code>result</code> sind gefährlich, da es unter Garantie ein “final-final geben wird, oder der”Haupt-Datensat” plötzlich nicht mehr so wichtig erscheint und so weiter.</p>
+<p>Namen wie <code>final</code>, <code>main</code> oder <code>result</code> sind gefährlich, da es unter Garantie ein “final-final geben wird, oder der”Haupt-Datensatz” plötzlich nicht mehr so wichtig erscheint und so weiter.</p>
 </div>
 </div>
 </section><section id="emojis" class="level3" data-number="10.3.4"><h3 data-number="10.3.4" class="anchored" data-anchor-id="emojis">
 <span class="header-section-number">10.3.4</span> Emojis</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/get-emoji-list_8050d957349570d1706df4e7c66cf534">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">emj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/remoji/man/emoji.html">emoji</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/remoji/man/find_emoji.html">list_emoji</a></span><span class="op">(</span><span class="op">)</span>, pad <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">emj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/remoji/man/emoji.html">emoji</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/remoji/man/find_emoji.html">list_emoji</a></span><span class="op">(</span><span class="op">)</span>, pad <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">emj</span><span class="op">)</span></span>
 <span><span class="co">## [1] "😄" "😃" "😀" "😊" "☺️"  "😉"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -730,7 +734,7 @@ Wichtig
 <p>Diese Liste umfasst knapp 900 Emojis, das sind allerdings noch nicht alle, die es gibt. <a href="https://unicode.org/emoji/charts/full-emoji-list.html">Diese Liste</a> umfasst mit gut 1800 Emojis gut das Doppelte.</p>
 <p>Selbstkuratierte Liste an “wilden” Emoji; diese Liste ist inspiriert von <a href="https://emojicombos.com/disgust">emojicombos.com</a>.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/wild-emojis_4e5415c3e3bae818b2dcfffd2af0780a">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wild_emojis</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wild_emojis</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/remoji/man/emoji.html">emoji</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/remoji/man/find_emoji.html">find_emoji</a></span><span class="op">(</span><span class="st">"gun"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/remoji/man/emoji.html">emoji</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/remoji/man/find_emoji.html">find_emoji</a></span><span class="op">(</span><span class="st">"bomb"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -746,11 +750,11 @@ Wichtig
 <span>       <span class="st">"😤"</span>,    <span class="st">"🤦‍♀️"</span>,    <span class="st">"🤦‍"</span></span>
 <span>  <span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-10_0b8500d5eefcb417382acfef8931c06e">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wild_emojis_df</span> <span class="op">&lt;-</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-11_c699129085453a1e94f2a980a68f5e3e">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wild_emojis_df</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>emoji <span class="op">=</span> <span class="va">wild_emojis</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">wild_emojis_df</span>, file <span class="op">=</span> <span class="st">"data/wild_emojis.RData"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#save(wild_emojis_df, file = "data/wild_emojis.RData")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Auf dieser Basis können wir einen Prädiktor erstellen, der zählt, ob ein Tweet einen oder mehrere der “wilden” Emojis enthält.</p>
 </section></section><section id="workflow-1-rezept-1-naive-bayes" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="workflow-1-rezept-1-naive-bayes">
@@ -759,13 +763,13 @@ Wichtig
 <span class="header-section-number">10.4.1</span> Dummy-Rezept</h3>
 <p>Hier ist ein einfaches Beispiel, um die Textvorbereitung mit <a href="https://github.com/tidymodels/textrecipes">textrecipes</a> zu verdeutlichen.</p>
 <p>Wir erstellen uns einen Dummy-Text:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-11_ada9835ef61726b9f87022143a092850">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dummy</span> <span class="op">&lt;-</span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-12_e175bad5f1b6e60ba6db923b9a12465e">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dummy</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ich gehe heim und der die das nicht in ein and the"</span><span class="op">)</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dann tokenisieren wir den Text:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/rec-dummy1_29a9c6aeb81e623a9525b6bac919dfc6">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec_dummy</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec_dummy</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">text</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">dummy</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span>
 <span>  </span>
@@ -781,15 +785,14 @@ Wichtig
 <span><span class="co">## • Tokenization for: text</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Tokens kann man sich so zeigen lassen:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-12_2ca8059b87248b5f3240787ec1b5fbc1">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/show_tokens.html">show_tokens</a></span><span class="op">(</span><span class="va">rec_dummy</span>, <span class="va">text</span><span class="op">)</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-13_024e0df072b7264b608c10e85f326583">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/show_tokens.html">show_tokens</a></span><span class="op">(</span><span class="va">rec_dummy</span>, <span class="va">text</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
-<span><span class="co">##  [1] "ich"   "gehe"  "heim"  "und"   "der"   "die"   "das"   "nicht" "in"   </span></span>
-<span><span class="co">## [10] "ein"   "and"   "the"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## [1] "gehe" "heim" "and"  "the"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt entfernen wir die Stopwörter deutscher Sprache; dafür nutzen wir die Stopwort-Quelle <code>snowball</code>:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/rec-dummy2_2b5595cee839d8ace1b9def66c8e2403">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec_dummy</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec_dummy</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">text</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">dummy</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">text</span>, language <span class="op">=</span> <span class="st">"de"</span>, stopword_source <span class="op">=</span> <span class="st">"snowball"</span><span class="op">)</span></span>
@@ -807,8 +810,8 @@ Wichtig
 <span><span class="co">## • Stop word removal for: text</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Prüfen wir die Tokens; sind die Stopwörter wirklich entfernt?</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-13_024e0df072b7264b608c10e85f326583">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/show_tokens.html">show_tokens</a></span><span class="op">(</span><span class="va">rec_dummy</span>, <span class="va">text</span><span class="op">)</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-14_88fa06017bf42fab33a9c3b6c9638cbb">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/show_tokens.html">show_tokens</a></span><span class="op">(</span><span class="va">rec_dummy</span>, <span class="va">text</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">## [1] "gehe" "heim" "and"  "the"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -816,7 +819,7 @@ Wichtig
 </section><section id="datenaufteilung" class="level3" data-number="10.4.2"><h3 data-number="10.4.2" class="anchored" data-anchor-id="datenaufteilung">
 <span class="header-section-number">10.4.2</span> Datenaufteilung</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/d-split2_1aa1ea70c66996045009beb0b6802601">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">d_main</span>, strata <span class="op">=</span> <span class="va">c1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">d_main</span>, strata <span class="op">=</span> <span class="va">c1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">d_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">d_split</span><span class="op">)</span></span>
 <span><span class="va">d_test</span> <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">d_split</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -824,15 +827,15 @@ Wichtig
 </section><section id="rezept-1" class="level3" data-number="10.4.3"><h3 data-number="10.4.3" class="anchored" data-anchor-id="rezept-1">
 <span class="header-section-number">10.4.3</span> Rezept 1</h3>
 <p>Rezept definieren:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/rec1_25e1794c466044bcb74b46c9f42984b2">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec1</span> <span class="op">&lt;-</span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/rec1_8414e16f43c623abe9fd3b2427ffbe16">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec1</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">c1</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">d_train</span>, <span class="va">text</span>, <span class="va">c1</span>, <span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/roles.html">update_role</a></span><span class="op">(</span><span class="va">id</span>, new_role <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">text</span>, language <span class="op">=</span> <span class="st">"de"</span>, stopword_source <span class="op">=</span> <span class="st">"snowball"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span>, max_tokens <span class="op">=</span> <span class="fl">1e2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span>, max_tokens <span class="op">=</span> <span class="fl">1e2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># wir behalten nur die häufigsten Tokens</span></span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tfidf.html">step_tfidf</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  </span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/step_normalize.html">step_normalize</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/has_role.html">all_numeric_predictors</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">rec1</span></span>
@@ -855,11 +858,11 @@ Wichtig
 </div>
 <p>Preppen:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/rec1-prepped_c91ab13ed942d2d77afd23d9cdab80d3">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec1_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="va">rec1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec1_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="va">rec1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und backen:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/rec1-baked_a2965b7425f70edb8b41b68d92d9a880">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_rec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">rec1_prepped</span>, new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_rec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">rec1_prepped</span>, new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d_rec1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -875,7 +878,7 @@ Wichtig
 <span class="header-section-number">10.4.4</span> Modellspezifikation 1</h3>
 <p>Wir definiere einen Naive-Bayes-Algorithmus:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/nb-spec_6b3656164cef42028c24a6b20dc3d602">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nb_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/naive_Bayes.html">naive_Bayes</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nb_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/naive_Bayes.html">naive_Bayes</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"naivebayes"</span><span class="op">)</span></span>
 <span></span>
@@ -886,13 +889,13 @@ Wichtig
 </div>
 <p>Und setzen auf die klassische zehnfache Kreuzvalidierung.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/folds1_988fcd99f3170d6256b0549800a03224">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span><span class="va">folds1</span> <span class="op">&lt;-</span> <span class="fu">vfold_cv</span><span class="op">(</span><span class="va">d_train</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="workflow-1" class="level3" data-number="10.4.5"><h3 data-number="10.4.5" class="anchored" data-anchor-id="workflow-1">
 <span class="header-section-number">10.4.5</span> Workflow 1</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf1_566dee9642ee128443f7b6b0720fd9d9">
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf1</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf1</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">rec1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">nb_spec</span><span class="op">)</span></span>
@@ -920,7 +923,7 @@ Wichtig
 </section><section id="fitting-1" class="level3" data-number="10.4.6"><h3 data-number="10.4.6" class="anchored" data-anchor-id="fitting-1">
 <span class="header-section-number">10.4.6</span> Fitting 1</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/fit1_be885b2f60089a42626c71ca8c287dbb">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit1</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit1</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">fit_resamples</span><span class="op">(</span></span>
 <span>    <span class="va">wf1</span>,</span>
 <span>    <span class="va">folds1</span>,</span>
@@ -930,18 +933,18 @@ Wichtig
 <p>Die Vorhersagen speichern wir ab, um die Performanz in den Faltungen des Hold-out-Samples zu berechnen.</p>
 <p>Möchte man sich die Zeit sparen, die Syntax wieder durchlaufen zu lassen, kann man das Objekt speichern. Aber Vorsicht: Dabei kann es passieren, dass man mit veralteten Objekten arbeitet.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/write-fit1_ae472ee290fa52b853c63e2c880be608">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(fit1, "objects/chap_classific_fit1.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(fit1, "objects/chap_classific_fit1.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="performanz-1" class="level3" data-number="10.4.7"><h3 data-number="10.4.7" class="anchored" data-anchor-id="performanz-1">
 <span class="header-section-number">10.4.7</span> Performanz 1</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf1-perf_31895cf62d084211a5c636aa30a69aff">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf1_performance</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf1_performance</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">wf1_performance</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf1-preds_c32bed4c7f05987fe83f8d4fb8a51672">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf_preds</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf_preds</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">collect_predictions</span><span class="op">(</span><span class="va">fit1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">wf_preds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -953,17 +956,17 @@ Wichtig
 </div>
 </div>
 <p>conf_mat_resampled(fit1, tidy = FALSE) %&gt;% autoplot(type = “heatmap”)</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-14_86d791ac2f6c063af8e283457ee5fbf7">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">conf_mat_resampled</span><span class="op">(</span><span class="va">fit1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-15_e26342e17a37c8bc8dc4c60d80b3a864">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">conf_mat_resampled</span><span class="op">(</span><span class="va">fit1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"heatmap"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="080-klassifikation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="080-klassifikation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section></section><section id="nullmodell" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="nullmodell">
 <span class="header-section-number">10.5</span> Nullmodell</h2>
 <div class="cell" data-hash="080-klassifikation_cache/html/nullmodel_9c1d1acbd5c8b1740fadd42f9f24a131">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_classification</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_classification</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">parsnip</span><span class="fu">::</span><span class="fu"><a href="https://parsnip.tidymodels.org/reference/null_model.html">null_model</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"parsnip"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span>
@@ -976,12 +979,12 @@ Wichtig
 <span>  <span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hier ist die Performanz des Nullmodells.</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-17_b869e24a2faa773062317f3007645df3">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_rs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-18_f2763f06103bba98f24d6b5ec801c522">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">null_rs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">collect_metrics</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-18_dce02a31af43d62da932139a5c707a60">
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">show_best</span><span class="op">(</span><span class="va">null_rs</span><span class="op">)</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-19_d28df837276586e95229d9ab163b8543">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">show_best</span><span class="op">(</span><span class="va">null_rs</span><span class="op">)</span></span>
 <span><span class="co">## Warning: No value of `metric` was given; metric 'roc_auc' will be used.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
@@ -995,7 +998,7 @@ Wichtig
 </section><section id="workflow-2-rezept-1-lasso" class="level2" data-number="10.6"><h2 data-number="10.6" class="anchored" data-anchor-id="workflow-2-rezept-1-lasso">
 <span class="header-section-number">10.6</span> Workflow 2: Rezept 1 + Lasso</h2>
 <div class="cell" data-hash="080-klassifikation_cache/html/lasso-spec_c7228c139be62b1a4970a6d0917075b9">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lasso_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/logistic_reg.html">logistic_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html">tune</a></span><span class="op">(</span><span class="op">)</span>, mixture <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"glmnet"</span><span class="op">)</span></span>
 <span></span>
@@ -1010,10 +1013,10 @@ Wichtig
 </div>
 <p>Wir definieren die Ausprägungen von <code>penalty</code>, die wir ausprobieren wollen:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/lambda-grid_2ba58d9c270effaba8e65e9b59d6974e">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lambda_grid</span> <span class="op">&lt;-</span> <span class="fu">grid_regular</span><span class="op">(</span><span class="fu">penalty</span><span class="op">(</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>  <span class="co"># hier nur 3 Werte, um Rechenzeit zu sparen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lambda_grid</span> <span class="op">&lt;-</span> <span class="fu">grid_regular</span><span class="op">(</span><span class="fu">penalty</span><span class="op">(</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>  <span class="co"># hier nur 3 Werte, um Rechenzeit zu sparen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf2_e751bc1152e9ed287e5b88ce3a929343">
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf2</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">rec1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">lasso_spec</span><span class="op">)</span></span>
@@ -1044,7 +1047,7 @@ Wichtig
 </div>
 <p>Tunen und Fitten:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/fit2_5c2cdcce1a21d19166af335aa2ef1eb0">
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fit2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">tune_grid</span><span class="op">(</span></span>
@@ -1057,23 +1060,23 @@ Wichtig
 <span><span class="va">fit2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Vorsicht beim Abspeichern.</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-19_491cf9afc9c8ceb39c45a07676e3cde9">
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(fit2, "objects/chap_classific_fit2.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-20_9ccb8475d3f640dbbe8597769b4e94d0">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(fit2, "objects/chap_classific_fit2.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hier ist die Performanz:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-20_7e1b17bf5bce0ecdf53d70ac29695401">
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-21_77653a62e849f930f19aeec05c620e64">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.metric</span> <span class="op">==</span> <span class="st">"roc_auc"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">mean</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-21_bb26432e7c99e483c126bca067b3d5c5">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-22_3cfbc996b5d23c6c9da0dde7c3c6ab4c">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">fit2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="080-klassifikation_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<p><img src="080-klassifikation_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-22_f107e6c522afec2ae151fa2e700cd587">
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-23_0183fb1327ddd95042ddd5d29da37708">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">show_best</span><span class="op">(</span><span class="st">"roc_auc"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
@@ -1085,13 +1088,13 @@ Wichtig
 </div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/chosen-auc-fit2_d5f5ec6e34c6618b6fdab5780cb7b313">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chosen_auc</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chosen_auc</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">fit2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">select_by_one_std_err</span><span class="op">(</span>metric <span class="op">=</span> <span class="st">"roc_auc"</span>, <span class="op">-</span><span class="va">penalty</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finalisieren:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf2-final_792738629535b08d7311002bbde4fd88">
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf2_final</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf2_final</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">finalize_workflow</span><span class="op">(</span><span class="va">wf2</span>, <span class="va">chosen_auc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">wf2_final</span></span>
@@ -1119,22 +1122,15 @@ Wichtig
 <span><span class="co">## Computational engine: glmnet</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/fit2-final-train_96fd07c319cf6b9195a47ae3021aaaf6">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2_final_train</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2_final_train</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">wf2_final</span>, <span class="va">d_train</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-23_5e2386a61bb926de4afaf99c5a321555">
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2_final_train</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-24_0f451bccfa2ca6eafec8510a5d8b2603">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2_final_train</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">extract_fit_parsnip</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## Loading required package: Matrix</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Attaching package: 'Matrix'</span></span>
-<span><span class="co">## The following objects are masked from 'package:tidyr':</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">##     expand, pack, unpack</span></span>
-<span><span class="co">## Loaded glmnet 4.1-8</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -1145,7 +1141,7 @@ Wichtig
 </div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/fit2-final-test_1c5ed7b730ff1f83fb3d402474d75378">
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2_final_test</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2_final_test</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">last_fit</span><span class="op">(</span><span class="va">wf2_final</span>, <span class="va">d_split</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit2_final_test</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1163,29 +1159,31 @@ Wichtig
 </section><section id="vohersagedaten" class="level3" data-number="10.6.2"><h3 data-number="10.6.2" class="anchored" data-anchor-id="vohersagedaten">
 <span class="header-section-number">10.6.2</span> Vohersagedaten</h3>
 <p>Pfad zu den Daten:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-24_bcfba45bb5bbe296d3a4c60888768e02">
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_data_path</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets/"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-25_c89642f9342ec05b7daed6b209053fc4">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_data_path</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/github-repos/hate-speech-data/data-raw/tweets/"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-25_ce060a3578acee2e386bf9e338c4569c">
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_data_files_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">tweet_data_path</span>,</span>
+<p>:::</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-26_0ebf9095bf945bfa1e4f3dee1a97a489">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_data_files_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">tweet_data_path</span>,</span>
 <span>                                     pattern  <span class="op">=</span> <span class="st">"tweets-to-.*\\.rds$"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweet_data_files_names</span><span class="op">)</span></span>
-<span><span class="co">## [1] "tweets-to-_FriedrichMerz_2021.rds" "tweets-to-_FriedrichMerz_2022.rds"</span></span>
-<span><span class="co">## [3] "tweets-to-ABaerbock_2021.rds"      "tweets-to-ABaerbock_2022.rds"     </span></span>
-<span><span class="co">## [5] "tweets-to-Alice_Weidel_2021.rds"   "tweets-to-Alice_Weidel_2022.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## [1] "tweets-to-Janine_Wissler_2021.rds" "tweets-to-Janine_Wissler_2022.rds"</span></span>
+<span><span class="co">## [3] "tweets-to-MAStrackZi_2021.rds"     "tweets-to-MAStrackZi_2022.rds"    </span></span>
+<span><span class="co">## [5] "tweets-to-schirdewan_2021.rds"     "tweets-to-schirdewan_2022.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wie viele Dateien sind es?</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-26_678026a5cb84ad6762246040498dc638">
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tweet_data_files_names</span><span class="op">)</span></span>
-<span><span class="co">## [1] 26</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-27_06106965c965393e71f880fcb417814c">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tweet_data_files_names</span><span class="op">)</span></span>
+<span><span class="co">## [1] 6</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wir geben den Elementen des Vektors gängige Namen, das hilft uns gleich bei <code>map</code>:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-27_7edf714af9c3af965dbff69fb59a39c0">
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tweet_data_files_names</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">tweet_data_files_names</span>, <span class="st">"\\.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-28_0582aa61ac84df69cf3073168d90b06a">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tweet_data_files_names</span><span class="op">)</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">tweet_data_files_names</span>, <span class="st">"\\.rds$"</span><span class="op">)</span>  <span class="co"># Datei-Suffix entfernen </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>OK, weiter: So können wir <em>eine</em> der Datendateien einlesen:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/read-tweets_29ffa1028484c038f05a7c95ef7bc45f">
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">tweet_data_path</span>, <span class="va">tweet_data_files_names</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> </span>
@@ -1198,7 +1196,7 @@ Wichtig
 <p>Und so lesen wir alle ein:</p>
 <p>Zunächst erstellen wir uns eine Helper-Funktion:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/fun-read-and-select_84d3943e0a2e9dc56066f146af49f303">
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_and_select</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">file_name</span>, <span class="va">path_to_tweet_data</span> <span class="op">=</span> <span class="va">tweet_data_path</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">read_and_select</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">file_name</span>, <span class="va">path_to_tweet_data</span> <span class="op">=</span> <span class="va">tweet_data_path</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">path_to_tweet_data</span>, <span class="va">file_name</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1212,13 +1210,13 @@ Wichtig
 </div>
 <p>Testen:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/read-and-seelct-test_591787f3a97d62f5b43729b6a2be2a9f">
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu">read_and_select</span><span class="op">(</span><span class="va">tweet_data_files_names</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu">read_and_select</span><span class="op">(</span><span class="va">tweet_data_files_names</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Funktion <code>read_and_select</code> mappen wir auf alle Datendateien:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/map-read-and-select_908850c247d9b756b230184a5e8bfeca">
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">ds</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">tweet_data_files_names</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map_dfr</a></span><span class="op">(</span><span class="va">read_and_select</span>, .id <span class="op">=</span> <span class="st">"dataset"</span><span class="op">)</span></span>
@@ -1227,45 +1225,68 @@ Wichtig
 <p><code>214.531 sec elapsed</code></p>
 <p>Da wir den Elementen von <code>tweet_data_files_names</code> Namen gegeben haben, finden wir diese Namen praktischerweise wieder in <code>ds</code>.</p>
 <p>Vielleicht ist es zum Entwickeln besser, mit einem kleineren Datensatz einstweilen zu arbeiten:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/ds-short_51584807831a7a15e6f54713b8feb8cc">
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_short</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds_short.rds"</span><span class="op">)</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/ds-short_f3ac49ceecfb603ee882a0a149f87cce">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_short</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"/Users/sebastiansaueruser/github-repos/hate-speech-data/objects/ds_short.rds"</span><span class="op">)</span>  <span class="co"># 300kb</span></span>
 <span></span>
 <span><span class="va">ds</span> <span class="op">&lt;-</span> <span class="va">ds_short</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="vokabular-erstellen" class="level3" data-number="10.6.3"><h3 data-number="10.6.3" class="anchored" data-anchor-id="vokabular-erstellen">
 <span class="header-section-number">10.6.3</span> Vokabular erstellen</h3>
-<div class="cell" data-hash="080-klassifikation_cache/html/ds-long_cd40dc2f164f06e52118803de528275f">
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_long</span> <span class="op">&lt;-</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/ds-long_1d2426d2e0ef0ccbc2cb7c8ebf04bf40">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_long</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">ds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tweets.html">unnest_tweets</a></span><span class="op">(</span>input <span class="op">=</span> <span class="va">text</span>, output <span class="op">=</span> <span class="va">word</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span><span class="op">(</span>input <span class="op">=</span> <span class="va">text</span>, output <span class="op">=</span> <span class="va">word</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puh, das hat gedauert!</p>
 <p>Speichern wir uns diese Daten daher auf die Festplatte:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-30_fbc317065d25a0af6dfd679d0f85e0e9">
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(ds_long, file = paste0(tweet_data_path, "ds_long.rds"))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-31_23d9558bbe61f385f3e5dd9be37deef7">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(ds_long, file = paste0(tweet_data_path, "ds_long.rds"))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Entfernen wir daraus die Duplikate, um uns ein Vokabular zu erstellen:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/ds-voc_b33bac4cf3b2edbea9e2ad0ad18a1ef1">
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_voc</span> <span class="op">&lt;-</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/ds-voc_fa4e0cbb7e3ff43b3b4a98157f098f67">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_voc</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">ds_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ds_voc</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Insgesamt umfasst <code>nrow(ds_voc)</code> Wörter.</p>
 <p>Und das resultierende Objekt speichern wir wieder ab:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-31_e2d79aeca952351b76dcf1d241aebb61">
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(ds_voc, file = paste0("objects/", "ds_voc.rds"))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-32_ac7a57227a333cbee94b25fb0a3bd2ee">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(ds_voc, file = paste0("objects/", "ds_voc.rds"))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="worteinbettungen-erstellen" class="level2" data-number="10.7"><h2 data-number="10.7" class="anchored" data-anchor-id="worteinbettungen-erstellen">
 <span class="header-section-number">10.7</span> Worteinbettungen erstellen</h2>
+<blockquote class="blockquote">
+<p>👨‍🏫 Hey ChatGPT, beschreibe Das FastText-Modell für Worteinbettungen.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>🤖 Ja, Moment…</p>
+</blockquote>
 <section id="sec-fasttext" class="level3" data-number="10.7.1"><h3 data-number="10.7.1" class="anchored" data-anchor-id="sec-fasttext">
-<span class="header-section-number">10.7.1</span> FastText-Modell</h3>
+<span class="header-section-number">10.7.1</span> Was ist das FastText-Modell?</h3>
+<p>Das <a href="https://fasttext.cc/">FastText-Modell</a> für Worteinbettungen (auch als Word Embeddings bezeichnet) ist ein NLP-Modell, das von Facebook AI Research entwickelt wurde. Es ist eine Erweiterung des klassischen Word2Vec-Modells und zielt darauf ab, Worte in Vektoren umzuwandeln, um semantische Informationen über Wörter zu erfassen. Der Hauptunterschied zwischen FastText und Word2Vec besteht darin, wie sie Worte darstellen.</p>
+<p>Hier sind einige wichtige Merkmale und Unterschiede des FastText-Modells:</p>
+<p>Subword-Informationen: Während Word2Vec auf ganzen Wörtern basiert, behandelt FastText Wörter als eine Sammlung von Subwörtern (n-Grammen). Diese Subwörter sind buchstäbliche Teile eines Wortes, die für die Analyse verwendet werden. Zum Beispiel, für das Wort “apple” könnte FastText die Subwörter “ap,” “app,” “ppl,” “ple” usw. berücksichtigen. Dies ermöglicht es dem Modell, semantische Informationen auf Buchstabenebene zu erfassen und seltene Wörter oder Wörter, die nicht im Trainingskorpus enthalten sind, besser zu behandeln.</p>
+<p>Pre-trained Modelle: Es stehen vorab trainierte FastText-Modelle in vielen Sprachen zur Verfügung. Diese vortrainierten Modelle können in verschiedenen NLP-Anwendungen verwendet werden, ohne von Grund auf neu trainiert werden zu müssen.</p>
+<p>Der Trainingsprozess für ein FastText-Modell umfasst das Lernen von Wortdarstellungen anhand großer Textkorpora. Die resultierenden Wortvektoren können verwendet werden, um semantische Beziehungen zwischen Wörtern zu erkunden, Ähnlichkeiten zu berechnen oder als Eingabe für maschinelle Lernmodelle in verschiedenen natürlichsprachlichen Verarbeitungsaufgaben zu dienen. Insgesamt hat FastText aufgrund seiner Fähigkeit zur Berücksichtigung von Subwörtern und seiner Effizienz bei der Verarbeitung großer Vokabulare in der NLP-Gemeinschaft an Popularität gewonnen.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section><section id="ein-fast-text-modell-trainieren" class="level3" data-number="10.7.2"><h3 data-number="10.7.2" class="anchored" data-anchor-id="ein-fast-text-modell-trainieren">
+<span class="header-section-number">10.7.2</span> Ein Fast-Text-Modell trainieren</h3>
 <p>Definiere die Konstanten für das fastText-Modell:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/fastText-constants_e39f510b6bba9fa0fab4255863d8599f">
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">texts</span> <span class="op">&lt;-</span> <span class="va">ds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">texts</span> <span class="op">&lt;-</span> <span class="va">ds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span>
 <span><span class="va">texts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">texts</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Wir können uns ein FastText-Modell für Worteinbettungen basierend auf unseren Daten berechnen lassen:</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/fasttext-modell_fa874cd47eb4b68b680d8f845e79d20e">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#writeLines(text = texts, con = out_file_txt)</span></span>
+<span><span class="co">#execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))  # execute berechnet ein FastText-Mdlell</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Im Standard werden 100 Dimensionen berechnet.</p>
+<p>Hier ist schon ein vorab gespeichertes Modell, basierend auf den Twitter-Daten:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/fastText-filenames_68f6f89e41466e616f7898f90327b624">
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out_file_txt</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.vec"</span></span>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out_file_txt</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.vec"</span></span>
 <span><span class="va">out_file_model</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.bin"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">out_file_txt</span><span class="op">)</span></span>
@@ -1273,86 +1294,120 @@ Wichtig
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">out_file_model</span><span class="op">)</span></span>
 <span><span class="co">## [1] TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/fasttext-modell_1727bf10c32aec5c285c4ec9d538e17c">
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#writeLines(text = texts, con = out_file_txt)</span></span>
-<span><span class="co">#execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <pre><code>Read 22M words
 Number of words:  130328
 Number of labels: 0
 Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA:   0h 0m 0s</code></pre>
 <p>Jetzt laden wir das Modell von der Festplatte:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/twitter-fasttext-model_2a98ecc8d376a4349b9018eba834ae3d">
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">twitter_fasttext_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pommedeterresautee.github.io/fastrtext/reference/load_model.html">load_model</a></span><span class="op">(</span><span class="va">out_file_model</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">twitter_fasttext_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pommedeterresautee.github.io/fastrtext/reference/load_model.html">load_model</a></span><span class="op">(</span><span class="va">out_file_model</span><span class="op">)</span></span>
 <span><span class="va">dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pommedeterresautee.github.io/fastrtext/reference/get_dictionary.html">get_dictionary</a></span><span class="op">(</span><span class="va">twitter_fasttext_model</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Das Wörterbuch umfasst 130328 (verschiedene) Wörter.</p>
 <p>Schauen wir uns einige Begriffe aus dem Vokabular an:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-33_f5102d9ce52dbea134c9893828462f6a">
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dict</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-34_62b19d10b14dd33e99a26215c498eed7">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dict</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">##  [1] "&lt;/s&gt;"            "die"             "und"             "der"            </span></span>
 <span><span class="co">##  [5] "sie"             "das"             "nicht"           "in"             </span></span>
 <span><span class="co">##  [9] "ist"             "@_friedrichmerz"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hier sind die ersten paar Elemente des Vektors für <code>menschen</code>:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/vector-menschen_0c45dce2b3c8f61de478032032a66d2b">
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pommedeterresautee.github.io/fastrtext/reference/get_word_vectors.html">get_word_vectors</a></span><span class="op">(</span><span class="va">twitter_fasttext_model</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"menschen"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">`[`</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/vector-menschen_e93149f341f3af324be4daf9eff30e57">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pommedeterresautee.github.io/fastrtext/reference/get_word_vectors.html">get_word_vectors</a></span><span class="op">(</span><span class="va">twitter_fasttext_model</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"menschen"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">vec1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code> [1]  0.14156282  0.44875699  0.23911817 -0.02580349  0.29811972  0.03870077
  [7]  0.06518744  0.22527063  0.28198120  0.39931887</code></pre>
 <p>Erstellen wir uns einen Tibble, der als erste Spalte das Vokabular und in den übrigen 100 Spalten die Dimensionen enthält:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-34_5c2bdd8a4e3f6750c9bcf99e37c0f22f">
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_embedding_twitter</span> <span class="op">&lt;-</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-35_1dc5cfb1f43c5b76fa55523b85e6eb9e">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_embedding_twitter</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>    word <span class="op">=</span> <span class="va">dict</span></span>
 <span>  <span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/words-vec-twitter_c9e8a68ad775fdff23e5880c1eb890cd">
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">words_vecs_twitter</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">words_vecs_twitter</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://pommedeterresautee.github.io/fastrtext/reference/get_word_vectors.html">get_word_vectors</a></span><span class="op">(</span><span class="va">twitter_fasttext_model</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/df-word-embedding-twitter_321fc84064e7d9054c0b7e9303933bf4">
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_embedding_twitter</span> <span class="op">&lt;-</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/df-word-embedding-twitter_99db5b901aa5431a8ea9e046d33ad50a">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_embedding_twitter</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">word_embedding_twitter</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html">bind_cols</a></span><span class="op">(</span><span class="va">words_vecs_twitter</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">word_embedding_twitter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"word"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%03d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Namen verschönern</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">word_embedding_twitter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"word"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%03d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Namen verschönern mit fortlaufender Nummer von 0 bis 100</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und als Worteinbettungs-Datei abspeichern:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-35_be3e5ab89e3a5009ba980ad32930a2cf">
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(word_embedding_twitter, file = paste0(tweet_data_path, "word_embedding_twitter.rds"))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-36_3d1cf9d3f0d315b7b3fb9a6659ea9113">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(word_embedding_twitter, file = paste0(tweet_data_path, "word_embedding_twitter.rds"))</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="aufbereiten" class="level3" data-number="10.7.2"><h3 data-number="10.7.2" class="anchored" data-anchor-id="aufbereiten">
-<span class="header-section-number">10.7.2</span> Aufbereiten</h3>
-<p>Am besten nur die Spalten behalten, die wir zum Modellieren nutzen:</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-37_eb8285bcd775a6325d84c9f1ba780e18">
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["v001"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["v002"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["v003"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["v004"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"<\/s>","2":"0.17330834","3":"0.07820062","4":"-0.05277666","5":"0.0862241"},{"1":"die","2":"0.48641139","3":"0.03693734","4":"-0.01204743","5":"0.1565817"},{"1":"und","2":"0.39090732","3":"-0.02645574","4":"0.11355034","5":"0.1545031"},{"1":"der","2":"0.37105647","3":"-0.33681911","4":"0.05018367","5":"0.2029566"},{"1":"sie","2":"0.45957077","3":"0.04141690","4":"0.23099238","5":"0.1809430"},{"1":"das","2":"0.07037771","3":"-0.07423849","4":"0.04087655","5":"0.1506333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section><section id="aufbereiten" class="level3" data-number="10.7.3"><h3 data-number="10.7.3" class="anchored" data-anchor-id="aufbereiten">
+<span class="header-section-number">10.7.3</span> Aufbereiten</h3>
+<p>Am besten nur die Spalten (unseres Twitter-Datensatzes) behalten, die wir zum Modellieren nutzen:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/ds-short2_c7ab04eca5eb49704cdaf612e8b662f5">
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_short2</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_short2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">ds_short</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">id</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Dann backen wir die Daten mit dem vorhandenen Rezept:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/ds-baked_79ca5d0d17c8dcd027a0277020c3363c">
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_baked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">rec1_prepped</span>, new_data <span class="op">=</span> <span class="va">ds_short2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Wir definieren ein modifiziertesRezept <code>rec1</code>:</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-38_b998285bc3b365964367452faf2d63d8">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec1a</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">c1</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">d_train</span>, <span class="va">text</span>, <span class="va">c1</span>, <span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/roles.html">update_role</a></span><span class="op">(</span><span class="va">id</span>, new_role <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html">step_tokenize</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_stopwords.html">step_stopwords</a></span><span class="op">(</span><span class="va">text</span>, language <span class="op">=</span> <span class="st">"de"</span>, stopword_source <span class="op">=</span> <span class="st">"snowball"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_stem.html">step_stem</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenfilter.html">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span>, max_tokens <span class="op">=</span> <span class="fl">1e2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># wir behalten nur die häufigsten Tokens</span></span>
+<span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_word_embeddings.html">step_word_embeddings</a></span><span class="op">(</span><span class="va">text</span>, embeddings <span class="op">=</span> <span class="va">word_embedding_twitter</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Ist das nicht komfortabel? Das Textrezept übernimmt die Arbeit für uns, mit den richtigen Features zu arbeiten, die tf-idfs für die richtigen Tokens zu berechnen.</p>
-<p>Wer dem Frieden nicht traut, dem sei geraten, nachzuprüfen :-)</p>
+<p>Dann preppen und backen:</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-39_e828d1fe6eb17863875a7c4fb5735196">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec1a_prepped</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="va">rec1a</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="080-klassifikation_cache/html/ds-baked_1a7c3ba54faa334a8dd5dfd5f0b7563e">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_baked_rec1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">rec1a_prepped</span>, new_data <span class="op">=</span> <span class="va">ds_short2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-40_9ce44f620e4dbeff33ef4f95c7b1f692">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_baked_rec1a</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">`[`</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["fct"],"align":["left"]},{"label":["wordembed_text_v001"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v002"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v003"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v004"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v005"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v006"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v007"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v008"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v009"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"NA","2":"0.23893653","3":"0.014598664","4":"-0.2222376","5":"0.48163152","6":"0.20162874","7":"-0.12450162","8":"0.23333058","9":"-0.226192281","10":"-0.027382970"},{"1":"NA","2":"0.32377085","3":"0.695485767","4":"0.4336860","5":"0.28993332","6":"-0.17770833","7":"-0.74807747","8":"1.49294108","9":"1.064348385","10":"0.820613639"},{"1":"NA","2":"0.21142043","3":"0.783711389","4":"-1.3797138","5":"0.28518000","6":"0.33366236","7":"-0.24040961","8":"0.19629040","9":"0.084888689","10":"-0.186157003"},{"1":"NA","2":"0.71277493","3":"-0.304109801","4":"-0.4309491","5":"0.05916093","6":"0.04967718","7":"0.10116307","8":"0.34288836","9":"0.004611025","10":"0.875826895"},{"1":"NA","2":"0.00000000","3":"0.000000000","4":"0.0000000","5":"0.00000000","6":"0.00000000","7":"0.00000000","8":"0.00000000","9":"0.000000000","10":"0.000000000"},{"1":"NA","2":"0.00000000","3":"0.000000000","4":"0.0000000","5":"0.00000000","6":"0.00000000","7":"0.00000000","8":"0.00000000","9":"0.000000000","10":"0.000000000"},{"1":"NA","2":"0.61656542","3":"-0.006150134","4":"-0.7271604","5":"-0.10712643","6":"0.96813375","7":"-0.03373864","8":"0.08099335","9":"0.201609042","10":"1.104397699"},{"1":"NA","2":"0.04866463","3":"-0.441774538","4":"-0.3122953","5":"0.05295798","6":"0.78680488","7":"0.09914146","8":"0.01339768","9":"-0.094183717","10":"0.029520422"},{"1":"NA","2":"0.00000000","3":"0.000000000","4":"0.0000000","5":"0.00000000","6":"0.00000000","7":"0.00000000","8":"0.00000000","9":"0.000000000","10":"0.000000000"},{"1":"NA","2":"0.21170381","3":"-0.291642219","4":"-0.3079664","5":"-0.17432338","6":"0.52147198","7":"-0.06467295","8":"0.21021771","9":"-0.425262958","10":"0.006601942"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Ist das nicht komfortabel? Das Textrezept übernimmt die Arbeit für uns, mit den richtigen Features zu arbeiten, und die Wort-Einbettungen für die richtigen Wörter bereitzustellen.</p>
+<p>Wer dem Frieden nicht traut, dem sei geraten, nachzuprüfen 🤓.</p>
 </section></section><section id="workflow-3-rezept-2-lasso" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="workflow-3-rezept-2-lasso">
 <span class="header-section-number">10.8</span> Workflow 3: Rezept 2 + Lasso</h2>
 <section id="daten-aufteilen" class="level3" data-number="10.8.1"><h3 data-number="10.8.1" class="anchored" data-anchor-id="daten-aufteilen">
 <span class="header-section-number">10.8.1</span> Daten aufteilen</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/split-data3_f0092a9f20716aac4aa2fcb2b00aced9">
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">d2</span>, strata <span class="op">=</span> <span class="va">c1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">d2</span>, strata <span class="op">=</span> <span class="va">c1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">d_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">d_split</span><span class="op">)</span></span>
 <span><span class="va">d_test</span> <span class="op">&lt;-</span> <span class="fu">testing</span><span class="op">(</span><span class="va">d_split</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="hilfsfunktionen" class="level3" data-number="10.8.2"><h3 data-number="10.8.2" class="anchored" data-anchor-id="hilfsfunktionen">
 <span class="header-section-number">10.8.2</span> Hilfsfunktionen</h3>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-37_d5e50531d0eb6c0c5f7952b36d17c96b">
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/helper-funs-recipes.R"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-41_a0850cd4efe894e642ae924dfbf4efc1">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/helper-funs-recipes.R"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Testen wir die Funktionen:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-38_47fa99a4a80c067bad2d1d77f2d37d60">
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hallo"</span>, <span class="st">"baby"</span>, <span class="st">"fatal"</span><span class="op">)</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-42_853ac1ee2528321e45592696d80f3da7">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dummy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hallo"</span>, <span class="st">"baby"</span>, <span class="st">"fatal"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">count_profane</span><span class="op">(</span><span class="va">dummy</span><span class="op">)</span> </span>
 <span><span class="co">## [1] 1</span></span>
@@ -1371,7 +1426,7 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 </section><section id="rezept-mit-worteinbettungen" class="level3" data-number="10.8.3"><h3 data-number="10.8.3" class="anchored" data-anchor-id="rezept-mit-worteinbettungen">
 <span class="header-section-number">10.8.3</span> Rezept mit Worteinbettungen</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/rec2_079cc1d0fa27ee2604293fe3ca283972">
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">c1</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">d_train</span>, <span class="va">text</span>, <span class="va">c1</span>, <span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/roles.html">update_role</a></span><span class="op">(</span><span class="va">id</span>, new_role <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_text_normalization.html">step_text_normalization</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1405,24 +1460,27 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <span><span class="co">## • Word embeddings aggregated from: text</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt preppen:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/rec2-prepped_df65d3fd0fe3f261b95c17b333252ac0">
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="va">rec2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/rec2-prepped_3e84b849ec0a0d3eabd3ec17c41ab020">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="va">rec2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Vielleicht macht es Sinn, sich das Objekt zur späteren Verwendung abzuspeichern.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <code>Feather</code> verarbeitet nur Dataframes, daher nutzen wir hier RDS.</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-39_8f509c652e51773237e89041da58a38b">
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(rec2_prepped, file = "~/datasets/Twitter/klassifik-rec2-prepped.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Vielleicht macht es Sinn, sich das Objekt zur späteren Verwendung abzuspeichern.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <code>Feather</code> verarbeitet nur Dataframes, daher nutzen wir hier RDS.</p>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-43_993d47934f13ed3bb87dc6fd5d635553">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(rec2_prepped, file = "~/datasets/Twitter/klassifik-rec2-prepped.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-44_4fdf3594491afffb9ce4e0a3d85a3840">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/github-repos/hate-speech-data/objects/rec2_prepped.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das Element <code>rec2_prepped</code> ist recht groß:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-40_a5f85544551a402ca798b6d67a51531b">
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">rec2_prepped</span><span class="op">)</span>, units  <span class="op">=</span> <span class="st">"Mb"</span><span class="op">)</span></span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-45_991adb40141ef137d14c0c54c1e41610">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">rec2_prepped</span><span class="op">)</span>, units  <span class="op">=</span> <span class="st">"Mb"</span><span class="op">)</span></span>
 <span><span class="co">## [1] "113.8 Mb"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt können wir das präparierte (“gepreppte”) Rezept “backen”:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/rec2-prepped-baked_5acd513c5cbc4468cde3d6426275d587">
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2_baked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">rec2_prepped</span>, new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2_baked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">rec2_prepped</span>, new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-41_a1b20efc53a8f8d26f29f0d058db6ec8">
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2_baked</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-46_76012e474af86e0fcc3837ba061561f8">
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2_baked</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Rows: 3,756</span></span>
@@ -1443,10 +1501,11 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <span><span class="co">## $ textfeature_text_copy_n_mentions    &lt;int&gt; 1, 1, 0, 1, 0, 1, 1, 5, 1, 0, 1, 1…</span></span>
 <span><span class="co">## $ textfeature_text_copy_n_uq_mentions &lt;int&gt; 1, 1, 0, 1, 0, 1, 1, 5, 1, 0, 1, 1…</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Das Rezept beinhaltet also einige Textfeatures plus die FastText-Worteinbettungen.</p>
 </section><section id="sec-klassifik-fit3" class="level3" data-number="10.8.4"><h3 data-number="10.8.4" class="anchored" data-anchor-id="sec-klassifik-fit3">
 <span class="header-section-number">10.8.4</span> Fitting 3</h3>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf3_f7535f8176b69bfb6c9c9055f191ae9b">
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf3</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_recipe</span><span class="op">(</span><span class="va">rec2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">add_model</span><span class="op">(</span><span class="va">lasso_spec</span><span class="op">)</span></span>
@@ -1477,7 +1536,7 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 </div>
 <p>Tunen und Fitten:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf3-fit_ad0f96fc98fa905ea46c29cb4a622559">
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">fit3</span> <span class="op">&lt;-</span></span>
@@ -1490,21 +1549,21 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <span><span class="op">(</span><span class="va">toc</span><span class="op">)</span></span>
 <span><span class="va">fit3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-42_1252e6f5cc1efe10d6d575409f89b79f">
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(fit3, "objects/chap_classific_fit3.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-47_8d14f3040a9a287e8e9469cfbd5c7fe4">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#write_rds(fit3, "objects/chap_classific_fit3.rds")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hier ist die Performanz:</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-44_19c4f9d6c88e90bd99b1966a18ddf459">
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-49_f3329e8b6c9a4c06429f769e153e508c">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-45_84c9dd43b9838feffc82961d0d7f18dd">
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">fit3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-50_e0c429f8f5da73fa845ad93bc8efd942">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">fit3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="080-klassifikation_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
+<p><img src="080-klassifikation_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-46_edea9dae07807f747b47f9b235647f4c">
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-51_a66fce26d52e2d9b44df5068346b038b">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">show_best</span><span class="op">(</span><span class="st">"roc_auc"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
@@ -1516,13 +1575,13 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 </div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/chosenauc-fit3_f54278d2943f058ede1a255ba8f20814">
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chosen_auc_fit3</span> <span class="op">&lt;-</span> </span>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chosen_auc_fit3</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">fit3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">select_by_one_std_err</span><span class="op">(</span>metric <span class="op">=</span> <span class="st">"roc_auc"</span>, <span class="op">-</span><span class="va">penalty</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finalisieren:</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/wf3-final_a6136cb4552c6681a2c0022f981b498a">
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf3_final</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">wf3_final</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">finalize_workflow</span><span class="op">(</span><span class="va">wf3</span>, <span class="va">chosen_auc_fit3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">wf3_final</span></span>
@@ -1550,11 +1609,11 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <span><span class="co">## Computational engine: glmnet</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/fit3-final-train_878a9a44f3c70819b8a4eddfd66ecc7b">
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#fit3_final_train &lt;-  # die Berechnung kann dauern ...</span></span>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#fit3_final_train &lt;-  # die Berechnung kann dauern ...</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">wf3_final</span>, <span class="va">d_train</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/fit3-final-train2_13f4d3f29af32fa4f93631998d22fce4">
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3_final_train</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3_final_train</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">extract_fit_parsnip</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1569,12 +1628,12 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 </div>
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/fit3-final-test_f3005dcddf41f5dfe926d5793c3dca1a">
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3_final_test</span> <span class="op">&lt;-</span></span>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3_final_test</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">last_fit</span><span class="op">(</span><span class="va">wf3_final</span>, <span class="va">d_split</span><span class="op">)</span>  <span class="co"># dauert etwas</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und endlich: Wie gut ist die Performanz?</p>
-<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-49_385b0c540a59bd348de7dbb60cb94b81">
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit3_final_test</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-54_e75266ff1398aec25b7ab8695c9965b1">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit3_final_test</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -1588,16 +1647,31 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <p>Ein anderes Problem, für das hier keine elegante Lösung präsentiert wird, sind die langen Berechnungszeiten, die, wenn man Pech hat, auch noch mehrfach wiederholt werden müssen.</p>
 <p>Die Gefahr mit dem Abspeichern via <code>write_rds</code> ist klar: Man riskiert, später ein veraltetes Objekt zu laden.</p>
 <p>Zu diesen Punkten später mehr.</p>
+</section></section><section id="fallstudien" class="level2" data-number="10.9"><h2 data-number="10.9" class="anchored" data-anchor-id="fallstudien">
+<span class="header-section-number">10.9</span> Fallstudien</h2>
+<p>Julia Silge stellt eine schöne <a href="https://juliasilge.com/blog/spam-email/">Fallstudie</a> zur Klassifikation von Spam-Mails bereit. In der Fallstudie geht es nicht um Feature Engineering, sondern um Modellierung.</p>
+<p><a href="https://juliasilge.com/blog/gpt-detectors/">ChatGPT generierten Text automatisch erkennen –</a> wie gut geht das? Die Maschine erkennt sich selbst, im besten (oder schlechtesten?) Fall. Die Fallstudie zeigt, naja, so mittel, zumindest in den Daten in der Fallstudie.</p>
+<p><a href="https://platform.openai.com/docs/guides/embeddings">OpenAIs Word-Einbettungen</a> werden in <a href="https://juliasilge.com/blog/horror-embeddings/">dieser Fallstudie</a> verwendet. Sehr schön!</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-Remus2010" class="csl-entry" role="listitem">
 Remus, Robert, Uwe Quasthoff, und Gerhard Heyer. 2010. <span>„<span>SentiWS</span> - a Publicly Available German-Language Resource for Sentiment Analysis“</span>. <em>Proceedings of the 7th International Language Ressources and Evaluation (LREC’10)</em>, 1168–71.
 </div>
+<div id="ref-risch-etal-2021-overview" class="csl-entry" role="listitem">
+Risch, Julian, Anke Stoll, Lena Wilms, und Michael Wiegand. 2021. <span>„Overview of the <span>GermEval</span> 2021 Shared Task on the Identification of Toxic, Engaging, and Fact-Claiming Comments“</span>. In <em>Proceedings of the <span>GermEval</span> 2021 Shared Task on the Identification of Toxic, Engaging, and Fact-Claiming Comments</em>, 1–12. <span>Duesseldorf, Germany</span>: <span>Association for Computational Linguistics</span>. <a href="https://aclanthology.org/2021.germeval-1.1">https://aclanthology.org/2021.germeval-1.1</a>.
 </div>
-</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<div id="ref-germeval" class="csl-entry" role="listitem">
+Wiegand, Michael. 2019a. <span>„<span>GermEval-2018</span> Corpus (<span>DE</span>)“</span>. <span>heiDATA</span>. <a href="https://doi.org/10.11588/data/0B5VML">https://doi.org/10.11588/data/0B5VML</a>.
+</div>
+<div id="ref-wiegand-data" class="csl-entry" role="listitem">
+———. 2019b. <span>„<span>GermEval-2018-Data-master</span>“</span>. In <em><span>GermEval-2018</span> Corpus (<span>DE</span>)</em>. <span>heiDATA</span>. <a href="https://doi.org/10.11588/data/0B5VML/XIUWJ7">https://doi.org/10.11588/data/0B5VML/XIUWJ7</a>.
+</div>
+</div>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1"><p>Aber Vorsicht beim Abspeichern, man könnte versehentlich mit einer veralteten Version weiterarbeiten.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Der Text dieses Abschnitts wurde von ChatGPT 3.5 erstellt, 2023-10-29.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Aber Vorsicht beim Abspeichern, man könnte versehentlich mit einer veralteten Version weiterarbeiten.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

@@ -1,0 +1,4 @@
+
+
+![ReLU und sigmoide Funktion](img/islr10-2.png){#fig-relu fig-width="50%"}
+

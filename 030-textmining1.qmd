@@ -895,6 +895,14 @@ Wir nutzen noch nicht eigene Daten, die wir von Twitter ausgelesen haben, das he
 
 
 
+## Vertiefung
+
+[Julia Silge](https://juliasilge.com/) bietet eine nette [Fallstudie](https://juliasilge.com/blog/taylor-swift/) zu den Themen in Taylor Swifts Liefern.
+
+Apropos Themenanalyse: Alternativ zum klassischen, probabilistischen Themen-Modellierung kann man pretrainierte Wort-Einbettungen verwenden. [Dieses Paper](https://aclanthology.org/2020.emnlp-main.135/) gibt eine Einführung.
+
+[Hauptkomponenten-Analyse (Principal Component Analysis, PCA)](https://juliasilge.com/blog/stack-overflow-pca/) ist eine zentrale Methode der Datenanalyse. Diese Fallstudie stellt eine einfache Anwendung - ohne tiefere theoretische Erläuterung - vor.
+
 
 
 

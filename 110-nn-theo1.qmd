@@ -190,7 +190,7 @@ $\vec x \cdot \vec y = 1\cdot1 + 2\cdot 2 + 3 \cdot 3 = 1 +3+ 9 = 13. \qquad \sq
 ![Schema des Punktprodukts](img/dot2.png){#fig-dot fig-width="50%"}
 
 
-Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vektoren in die gleiche Richtung zeigen, vgl. @fig-dot2, [Quelle: Martin Thoma, Wikipedia, CC-BY 3.0](https://commons.wikimedia.org/wiki/User:MartinThoma).
+Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vektoren in die gleiche Richtung zeigen:
 
 
 :::: {.columns}
@@ -210,6 +210,7 @@ Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vekt
 
 ::::
 
+[Bildquelle: Martin Thoma, Wikipedia, CC-BY 3.0](https://commons.wikimedia.org/wiki/User:MartinThoma)
 
 
 
@@ -254,11 +255,18 @@ Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auff
 ![Berechnung des Punktprodukts](img/matrix-mult.png){#fig-matrixmult fig-width=50%}
 
 
-### Multiple Regression als Matrixmultiplikation
+### Regression als Matrixmultiplikation
 
-Die multiple Regression kann man als Matrixmultiplikation auffassen.
+Die (einfache oder multiple) Regression kann man als Matrixmultiplikation auffassen.
+Schauen wir uns dazu ein einfaches Beispiel an.
+
+Der Datensatz `d` besteht auf einer Outcome-Variable, `y` sowie einem Prädiktor, `x`; drei Beobachtungen umfasst die Tabelle, s. @tbl-d.
+Eine Regression mit einem Prädiktor hat zwei Koeffizienten, $\beta_0, \beta_1$.
 
 
+:::: {.columns}
+
+::: {.column width="50%"}
 ```{r}
 d <-
   tibble(
@@ -270,8 +278,31 @@ d <-
 lm1 <- lm(y ~ x, data = d)
 
 ```
+:::
 
-Speichern wir uns die Modellkoeffizienten, $\beta_0, \beta_1$ in einem Objekt $\matr{\beta}}$ ab:
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| label: tbl-d
+#| tbl-cap: Datensatz `d`
+d <-
+  tibble(
+    x = c(1, 2, 3),
+    y = c(1.1, 2.2, 2.9),
+    b0 = c(1,1,1)
+  )
+
+gt::gt(d)
+
+```
+:::
+
+::::
+
+
+
+
+Speichern wir uns die Modellkoeffizienten, $\beta_0, \beta_1$ in einem Objekt $\mathbf{\beta}$ ab:
 
 ```{r}
 lm1_coefs <- lm1$coefficients
@@ -294,7 +325,7 @@ Dabei müssen wir für den Intercept eine Spalte mit nur 1 ergänzen und erhalte
 ```{r}
 x_matrix <- d |> 
   select(b0, x) |> 
-  as.matrix()
+  as.matrix() 
 
 x_matrix
 ```
@@ -304,7 +335,7 @@ So erhalten wir die vorhergesagten Y-Werte, $\matr{\hat{Y}}:
 
 ```{r}
 y_pred <- x_matrix %*% lm1_coefs
-y_pred
+y_pred 
 ```
 
 
@@ -326,7 +357,7 @@ Ausgeschrieben als Gleichungssystem:
 ```{r}
 #| echo: false
 #| warning: false
-gt::gt(tibble(y_hat = y_pred))
+gt::gt(tibble(y_hat = round(y_pred, 2)))
 ```
 
 :::
@@ -360,7 +391,7 @@ $\cdot$
 
 ```{r}
 #| echo: false
-tibble(beta = lm1_coefs) |> 
+tibble(beta = round(lm1_coefs,2)) |> 
   gt::gt()
 ```
 

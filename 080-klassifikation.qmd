@@ -29,7 +29,7 @@ library(tidyverse)
 library(easystats)
 library(tidymodels)
 library(tidytext)
-library(textrecipes)
+library(textrecipes)  # Textanalysen in Tidymodels-Rezepten
 library(lsa)  # stopwords
 library(discrim)  # naive bayes classification
 library(naivebayes)
@@ -37,6 +37,7 @@ library(tictoc)  # Zeitmessung
 library(fastrtext)  # Worteinbettungen
 library(remoji)  # Emojis
 library(tokenizers)  # Vektoren tokenisieren
+library(tictoc)  # Zeitmessung
 ```
 
 
@@ -47,14 +48,15 @@ Für Maschinenlernen brauchen wir Trainingsdaten,
 Daten also, bei denen wir pro Beobachtung der Wert der Zielvariablen kennen.
 Man spricht auch von "gelabelten" Daten.
 
-Wir nutzen die Daten von @wiegand_germeval bzw. @wiegand-data.
+Wir nutzen die Daten von @germeval bzw. @wiegand-data.
 Die Daten sind unter CC-By-4.0 Int. lizensiert.
 
 ```{r import-heidelberg-data}
 #| message: false
 d_raw <- 
   data_read("data/germeval2018.training.txt",
-         header = FALSE)
+         header = FALSE,
+         quote = "")
 ```
 
 
@@ -78,14 +80,15 @@ d_raw %>%
   count(c1)
 ```
 
-Hier wurde klassifiziert,
-ob beleidigende Sprache (offensive language) vorlag oder nicht [@isch-etal-2021-overview, S. 2]:
+Mit `c1` wurde klassifiziert,
+ob beleidigende Sprache (offensive language) vorlag oder nicht [@risch-etal-2021-overview, S. 2], also `OFFENSE` bzw. `OTHER`:
+
 
 
 >   Task 1 was to decide whether a tweet includes some form of offensive language or not. The tweets had to be classiﬁed into the two classes OFFENSE and OTHER. The OFFENSE category covered abusive language, insults, as well as merely profane statements.
 
 
-Und in `c2` finden sich folgende Ausprägungen:
+Und in `c2` finden sich die vier Ausprägungen `ABUSE`, `INSULT`, `PROFANITY` und `OTHER`:
 
 ```{r}
 d_raw %>% 
@@ -93,7 +96,7 @@ d_raw %>%
 ```
 
 
-In `c2` ging es um eine feinere Klassifikation beleidigender Sprache [@isch-etal-2021-overview, S. 2]:
+In `c2` ging es um eine *feinere Klassifikation* beleidigender Sprache [@risch-etal-2021-overview, S. 2]:
 
 >   The second task involved four categories, a nonoffensive OTHER class and three sub-categories of what is OFFENSE in Task 1. In the case of PROFANITY, profane words are used, however, the tweet does not want to insult anyone. This typically concerns the usage of swearwords (Scheiße, Fuck etc.) and cursing (Zur Hölle! Verdammt! etc.). This can be often found in youth language. Swearwords and cursing may, but need not, co-occur with insults or abusive speech. Profane language may in fact be used in tweets with positive sentiment to express emphasis. Whenever profane words are not directed towards a speciﬁc person or group of persons and there are no separate cues of INSULT or ABUSE, then tweets are labeled as simple cases of PROFANITY.
 
@@ -101,7 +104,18 @@ In `c2` ging es um eine feinere Klassifikation beleidigender Sprache [@isch-etal
 
 
 Sind Texte, die als `OFFENSE` klassifiziert sind,
-auch (fast) immer als `ABUSE`, `INSULT` oder `PROFANITY` klassifiziert?
+auch (fast) immer nie als `OTHER`, sondern stattdessen als `ABUSE`, `INSULT` oder `PROFANITY` klassifiziert?
+
+
+
+```{r}
+d_raw %>% 
+  filter(c1 == "OFFENSE", c2 != "OTHER") %>% 
+  nrow() / nrow(d_raw)
+```
+
+
+In ca. 2/3 der Fälle wurden in beiden Klassifikation `OTHER` klassifiziert:
 
 
 ```{r}
@@ -109,8 +123,6 @@ d_raw %>%
   filter(c1 == "OTHER", c2 == "OTHER") %>% 
   nrow() / nrow(d_raw)
 ```
-
-In ca. 2/3 der Fälle wurden in beiden Klassifikation `OTHER` klassifiziert.
 
 ```{r}
 d_raw %>% 
@@ -134,7 +146,7 @@ d1 <-
 ```
 
 
-Die ID-Variable definieren als Text (nicht als Integer),
+Die *ID-Variable* definieren als *Text* (nicht als Integer),
 da die Twitter-IDs zwar natürliche Zahlen sind,
 aber zu groß, um von R als Integer verarbeitet zu werden.
 Faktisch sind sie für uns auch nur nominal skalierte Variablen,
@@ -303,7 +315,7 @@ d_schimpf %>%
 ```
 
 
-Etwa ein Prozent der Wörter sind Schimpfwörter in unserem Corpus.
+Etwa ein Prozent der Wörter (ca. 1k) sind Schimpfwörter in unserem Corpus.
 
 
 ```{r d-schimpf2}
@@ -325,7 +337,7 @@ d_main <-
 
 :::callout-important
 Namen wie `final`, `main` oder `result` sind gefährlich,
-da es unter Garantie ein "final-final geben wird, oder der "Haupt-Datensat" plötzlich nicht mehr so wichtig erscheint und so weiter.
+da es unter Garantie ein "final-final geben wird, oder der "Haupt-Datensatz" plötzlich nicht mehr so wichtig erscheint und so weiter.
 :::
 
 
@@ -371,7 +383,7 @@ wild_emojis <-
 wild_emojis_df <-
   tibble(emoji = wild_emojis)
 
-save(wild_emojis_df, file = "data/wild_emojis.RData")
+#save(wild_emojis_df, file = "data/wild_emojis.RData")
 ```
 
 
@@ -467,8 +479,8 @@ rec1 <-
   step_tokenize(text) %>% 
   step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
   step_stem(text) %>% 
-  step_tokenfilter(text, max_tokens = 1e2) %>% 
-  step_tfidf(text) %>% 
+  step_tokenfilter(text, max_tokens = 1e2) %>%  # wir behalten nur die häufigsten Tokens
+  step_tfidf(text) %>%  
   step_normalize(all_numeric_predictors())
 
 rec1
@@ -789,10 +801,11 @@ collect_metrics(fit2_final_test)
 Pfad zu den Daten:
 
 ```{r}
-tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets/"
+tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech-data/data-raw/tweets/"
 ```
 
 
+:::
 
 ```{r}
 tweet_data_files_names <- list.files(path = tweet_data_path,
@@ -813,7 +826,8 @@ das hilft uns gleich bei `map`:
 
 
 ```{r}
-names(tweet_data_files_names) <- str_remove(tweet_data_files_names, "\\.rds")
+names(tweet_data_files_names) <- 
+  str_remove(tweet_data_files_names, "\\.rds$")  # Datei-Suffix entfernen 
 ```
 
 
@@ -897,7 +911,7 @@ finden wir diese Namen praktischerweise wieder in `ds`.
 ```{r read-ds}
 #| echo: false
 #| eval: false
-ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds.rds")
+ds <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds.rds")  # 305 Mb
 ```
 
 
@@ -907,7 +921,7 @@ Vielleicht ist es zum Entwickeln besser,
 mit einem kleineren Datensatz einstweilen zu arbeiten:
 
 ```{r ds-short}
-ds_short <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/hate-classific/ds_short.rds")
+ds_short <- read_rds(file = "/Users/sebastiansaueruser/github-repos/hate-speech-data/objects/ds_short.rds")  # 300kb
 
 ds <- ds_short
 ```
@@ -931,7 +945,7 @@ ds <- ds_short
 ds_long <-
   ds %>% 
   select(text) %>% 
-  unnest_tweets(input = text, output = word)
+  unnest_tokens(input = text, output = word)
 ```
 
 Puh, das hat gedauert!
@@ -951,7 +965,11 @@ um uns ein Vokabular zu erstellen:
 ds_voc <-
   ds_long %>% 
   distinct(word)
+
+head(ds_voc)
 ```
+
+Insgesamt umfasst `nrow(ds_voc)` Wörter.
 
 Und das resultierende Objekt speichern wir wieder ab:
 
@@ -974,8 +992,29 @@ ds_voc <- read_rds("objects/ds_voc.rds")
 
 ## Worteinbettungen erstellen
 
+>    👨‍🏫 Hey ChatGPT, beschreibe Das FastText-Modell für Worteinbettungen.
 
-### FastText-Modell {#sec-fasttext}
+>    🤖 Ja, Moment...
+
+
+
+### Was ist das FastText-Modell? {#sec-fasttext}
+
+Das [FastText-Modell](https://fasttext.cc/) für Worteinbettungen (auch als Word Embeddings bezeichnet) ist ein NLP-Modell, das von Facebook AI Research entwickelt wurde. Es ist eine Erweiterung des klassischen Word2Vec-Modells und zielt darauf ab, Worte in Vektoren umzuwandeln, um semantische Informationen über Wörter zu erfassen. Der Hauptunterschied zwischen FastText und Word2Vec besteht darin, wie sie Worte darstellen.
+
+Hier sind einige wichtige Merkmale und Unterschiede des FastText-Modells:
+
+Subword-Informationen: Während Word2Vec auf ganzen Wörtern basiert, behandelt FastText Wörter als eine Sammlung von Subwörtern (n-Grammen). Diese Subwörter sind buchstäbliche Teile eines Wortes, die für die Analyse verwendet werden. Zum Beispiel, für das Wort "apple" könnte FastText die Subwörter "ap," "app," "ppl," "ple" usw. berücksichtigen. Dies ermöglicht es dem Modell, semantische Informationen auf Buchstabenebene zu erfassen und seltene Wörter oder Wörter, die nicht im Trainingskorpus enthalten sind, besser zu behandeln.
+
+
+
+Pre-trained Modelle: Es stehen vorab trainierte FastText-Modelle in vielen Sprachen zur Verfügung. Diese vortrainierten Modelle können in verschiedenen NLP-Anwendungen verwendet werden, ohne von Grund auf neu trainiert werden zu müssen.
+
+Der Trainingsprozess für ein FastText-Modell umfasst das Lernen von Wortdarstellungen anhand großer Textkorpora. Die resultierenden Wortvektoren können verwendet werden, um semantische Beziehungen zwischen Wörtern zu erkunden, Ähnlichkeiten zu berechnen oder als Eingabe für maschinelle Lernmodelle in verschiedenen natürlichsprachlichen Verarbeitungsaufgaben zu dienen. Insgesamt hat FastText aufgrund seiner Fähigkeit zur Berücksichtigung von Subwörtern und seiner Effizienz bei der Verarbeitung großer Vokabulare in der NLP-Gemeinschaft an Popularität gewonnen.^[Der Text dieses Abschnitts wurde von ChatGPT 3.5 erstellt, 2023-10-29.]
+
+
+### Ein Fast-Text-Modell trainieren
+
 
 Definiere die Konstanten für das fastText-Modell:
 
@@ -986,6 +1025,19 @@ texts <- tolower(texts)
 ```
 
 
+Wir können uns ein FastText-Modell für Worteinbettungen basierend auf unseren Daten berechnen lassen:
+
+
+```{r fasttext-modell}
+#| eval: false
+#writeLines(text = texts, con = out_file_txt)
+#execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))  # execute berechnet ein FastText-Mdlell
+```
+
+Im Standard werden 100 Dimensionen berechnet.
+
+Hier ist schon ein vorab gespeichertes Modell, basierend auf den Twitter-Daten:
+
 ```{r fastText-filenames}
 out_file_txt <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.vec"
 out_file_model <- "/Users/sebastiansaueruser/datasets/Twitter/twitter-polit-model.bin"
@@ -994,12 +1046,6 @@ file.exists(out_file_txt)
 file.exists(out_file_model)
 ```
 
-
-```{r fasttext-modell}
-#| eval: false
-#writeLines(text = texts, con = out_file_txt)
-#execute(commands = c("skipgram", "-input", tmp_file_txt, "-output", out_file_model, "-verbose", 1))
-```
 
 
 ```
@@ -1016,6 +1062,8 @@ twitter_fasttext_model <- load_model(out_file_model)
 dict <- get_dictionary(twitter_fasttext_model)
 ```
 
+Das Wörterbuch umfasst `r length(dict)` (verschiedene) Wörter.
+
 
 Schauen wir uns einige Begriffe aus dem Vokabular an:
 
@@ -1028,8 +1076,10 @@ Hier sind die ersten paar Elemente des Vektors für `menschen`:
 
 ```{r vector-menschen}
 #| eval: false
-get_word_vectors(twitter_fasttext_model, c("menschen")) %>% `[`(1:10)
+vec1 <- get_word_vectors(twitter_fasttext_model, c("menschen"))
+vec1[1:10]
 ```
+
 
 
 ```
@@ -1063,7 +1113,7 @@ word_embedding_twitter <-
   word_embedding_twitter %>% 
   bind_cols(words_vecs_twitter)
 
-names(word_embedding_twitter) <- c("word", paste0("v", sprintf("%03d", 1:100)))  # Namen verschönern
+names(word_embedding_twitter) <- c("word", paste0("v", sprintf("%03d", 1:100)))  # Namen verschönern mit fortlaufender Nummer von 0 bis 100
 ```
 
 
@@ -1077,14 +1127,16 @@ Und als Worteinbettungs-Datei abspeichern:
 
 ```{r}
 #| echo: false
-word_embedding_twitter <- read_rds(file = "/Users/sebastiansaueruser/datasets/Twitter/word_embedding_twitter.rds")
+word_embedding_twitter <- read_rds(file = "/Users/sebastiansaueruser/github-repos/hate-speech-data/objects/word_embedding_twitter.rds")
+
+head(word_embedding_twitter)[1:5]
 ```
 
 
 
 ### Aufbereiten
 
-Am besten nur die Spalten behalten,
+Am besten nur die Spalten (unseres Twitter-Datensatzes) behalten,
 die wir zum Modellieren nutzen:
 
 ```{r ds-short2}
@@ -1094,22 +1146,48 @@ ds_short2 <-
 ```
 
 
-Dann backen wir die Daten mit dem vorhandenen Rezept:
+Wir definieren ein modifiziertesRezept `rec1`:
+
+
+
+```{r}
+rec1a <- 
+  recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
+  update_role(id, new_role = "id") %>% 
+  step_tokenize(text) %>% 
+  step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
+  step_stem(text) %>% 
+  step_tokenfilter(text, max_tokens = 1e2) %>%  # wir behalten nur die häufigsten Tokens
+  step_word_embeddings(text, embeddings = word_embedding_twitter)
+```
+
+
+Dann preppen und backen:
+
+```{r}
+rec1a_prepped <-
+  prep(rec1a)
+```
 
 
 
 ```{r ds-baked}
-ds_baked <- bake(rec1_prepped, new_data = ds_short2)
+ds_baked_rec1a <- bake(rec1a_prepped, new_data = ds_short2)
+```
+
+
+```{r}
+ds_baked_rec1a %>% `[`(1:10, 1:10)
 ```
 
 
 Ist das nicht komfortabel?
 Das Textrezept übernimmt die Arbeit für uns,
 mit den richtigen Features zu arbeiten,
-die tf-idfs für die richtigen Tokens zu berechnen.
+und die Wort-Einbettungen für die richtigen Wörter bereitzustellen.
 
 Wer dem Frieden nicht traut,
-dem sei geraten, nachzuprüfen :-)
+dem sei geraten, nachzuprüfen 🤓.
 
 
 
@@ -1183,8 +1261,11 @@ Jetzt preppen:
 
 
 ```{r rec2-prepped}
+#| eval: false
 rec2_prepped <- prep(rec2)
 ```
+
+
 
 
 Vielleicht macht es Sinn, sich das Objekt zur späteren
@@ -1197,6 +1278,11 @@ daher nutzen wir hier RDS.
 #| eval: false
 #write_rds(rec2_prepped, file = "~/datasets/Twitter/klassifik-rec2-prepped.rds")
 ```
+
+```{r}
+rec2_prepped <- read_rds("/Users/sebastiansaueruser/github-repos/hate-speech-data/objects/rec2_prepped.rds")
+```
+
 
 
 
@@ -1222,6 +1308,7 @@ rec2_baked %>%
 ```
 
 
+Das Rezept beinhaltet also einige Textfeatures plus die FastText-Worteinbettungen.
 
 ### Fitting 3 {#sec-klassifik-fit3}
 
@@ -1329,7 +1416,7 @@ wf3_final
 ```{r}
 #| echo: false
 #write_rds(fit3_final_train, file = "objects/fit3_final_train.rds")
-fit3_final_train <- read_rds("objects/fit3_final_train.rds")
+fit3_final_train <- read_rds("objects/fit3_final_train.rds")  # ca. 220MB
 ```
 
 
@@ -1354,7 +1441,7 @@ fit3_final_test <-
 ```{r}
 #| echo: false
 #| eval: false
-write_rds(fit3_final_test, file = "objects/fit3_final_test.rds")
+#write_rds(fit3_final_test, file = "objects/fit3_final_test.rds")
 ```
 
 
@@ -1386,6 +1473,22 @@ Die Gefahr mit dem Abspeichern via `write_rds` ist klar:
 Man riskiert, später ein veraltetes Objekt zu laden.
 
 Zu diesen Punkten später mehr.
+
+
+
+## Fallstudien
+
+
+
+Julia Silge stellt eine schöne [Fallstudie](https://juliasilge.com/blog/spam-email/) zur Klassifikation von Spam-Mails bereit. In der Fallstudie geht es nicht um Feature Engineering, sondern um Modellierung.
+
+[ChatGPT generierten Text automatisch erkennen -- ](https://juliasilge.com/blog/gpt-detectors/) wie gut geht das? 
+Die Maschine erkennt sich selbst, im besten (oder schlechtesten?) Fall. Die Fallstudie zeigt, naja, so mittel, zumindest in den Daten in der Fallstudie.
+
+
+[OpenAIs Word-Einbettungen](https://platform.openai.com/docs/guides/embeddings) werden in [dieser Fallstudie](https://juliasilge.com/blog/horror-embeddings/) verwendet. Sehr schön!
+
+
 
 
 
