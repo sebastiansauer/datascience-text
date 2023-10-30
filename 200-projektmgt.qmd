@@ -244,12 +244,19 @@ Das beste Feature ist das, das Sie nicht implementieren.
 
 Daraus leitet sich ab, 
 dass die zentralen Methoden, um der Fehler Herr zu werden im Komplexitätsmanagement liegen.
-Den Variablen (Objekten) gute, "sprechende" aber prägnante Namen zu geben, ist
+Den Variablen (Objekten) "gute", "sprechende", aber prägnante Namen zu geben, ist
 in diesem Lichte auch als Komplexitätsmanagement (Reduktion) zu verstehen.
 
 Ein typischer Fehler, der mir immer mal wieder passiert, ist: Ich ändere den Namen eines Objekts,
 aber vergesse, an *allen* Stellen im Code den Namen anzupassen.
 Glücklicherweise gibt es hier eine einfache Abhilfe: Replace-All.
+
+Der zwar einfache Weg, mehrere ähnliche Objekte durchzunummerieren (`workflow2a`, `recipe1`, ...).
+ist zwar einfach, aber insgesamt nicht zu empfehlen: 
+Es ist nicht leicht, immer genau zu wissen, was der Inhalt hinter der Nummer `2a` etc. ist. 
+Ändert man außerdem die Reihenfolge (oder schiebt ein Objekt dazwischen ein), macht die Nummerierung keinen Sinn mehr (oder man muss mühselig die Nummern ändern, was fehleranfällig und nervig ist).
+
+
 
 
 ### Portionieren

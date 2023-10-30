@@ -1086,9 +1086,9 @@ Hinweis
 </div>
 </div>
 <p>Wie immer, Hilfe für eine Funktion bekommt man mit <code>?fun_name</code> oder interaktiv z.B. in RStudio.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/load-glove_0bce7ce8e620644ff7e3e8ac6a325baa">
+<div class="cell" data-hash="050-word-embedding_cache/html/load-glove_edd9f969cdbbb1a7f6c12c768f5bbae3">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/textdata/man/embedding_glove.html">embedding_glove6b</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"~/datasets"</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/textdata/man/embedding_glove.html">embedding_glove6b</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"~/datasets"</span>,  <span class="co"># aus dem Paket `textdata`</span></span>
 <span>                    dimensions <span class="op">=</span> <span class="fl">50</span>,  <span class="co"># mit nur 50 Dimensionen</span></span>
 <span>                    manual_download <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># ist der Datensatz schon manuell heruntergeladen?</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1272,7 +1272,7 @@ Hinweis
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">word_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1]  10 222</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Beschwerden (Dokumente) und 222 unique Wörter.</p>
+<p>10 Beschwerden (Dokumente) und 222 unique Wörter.</p>
 <div class="cell" data-hash="050-word-embedding_cache/html/glove_matrix_f3f97c05d063452b160abda390abe68e">
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"item1"</span>,</span>

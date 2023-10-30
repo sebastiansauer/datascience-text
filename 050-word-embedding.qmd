@@ -714,7 +714,7 @@ Wie immer, Hilfe für eine Funktion bekommt man mit `?fun_name` oder interaktiv 
 #| cache: true
 #| eval: true
 glove6b <- 
-  embedding_glove6b(dir = "~/datasets", 
+  embedding_glove6b(dir = "~/datasets",  # aus dem Paket `textdata`
                     dimensions = 50,  # mit nur 50 Dimensionen
                     manual_download = TRUE)  # ist der Datensatz schon manuell heruntergeladen?
 ```
