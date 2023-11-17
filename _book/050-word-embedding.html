@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.478">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 7&nbsp; Word Embedding</title>
 <style>
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -55,6 +55,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -97,7 +98,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -117,19 +124,19 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./050-word-embedding.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./050-word-embedding.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
         <div class="sidebar-tools-main">
@@ -247,6 +254,12 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./095-miniprojekt2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -261,13 +274,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,13 +297,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -314,7 +327,7 @@ div.csl-indent {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
@@ -364,7 +377,7 @@ div.csl-indent {
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./050-word-embedding.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
 <span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span>
 </h1>
@@ -379,6 +392,7 @@ div.csl-indent {
     
   </div>
   
+
 
 </header><p><img src="img/text-mining-1476780_640.png" class="img-fluid" style="width:10.0%" alt="Text als Datenbasis prädiktiver Modelle"> Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
 <section id="vorab" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="vorab">
@@ -437,7 +451,6 @@ div.csl-indent {
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nested_words3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["complaint_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["words"],"name":[2],"type":["list"],"align":["right"]}],"data":[{"1":"3384392","2":"<tibble[,1]>"},{"1":"3417821","2":"<tibble[,1]>"},{"1":"3433198","2":"<tibble[,1]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -454,7 +467,6 @@ div.csl-indent {
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">beschwerde1_text</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"systems"},{"1":"inc"},{"1":"is"},{"1":"trying"},{"1":"to"},{"1":"collect"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -473,7 +485,7 @@ div.csl-indent {
 <span class="header-section-number">7.3</span> Wordembeddings selber erstellen</h2>
 <section id="pmi-berechnen" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="pmi-berechnen">
 <span class="header-section-number">7.3.1</span> PMI berechnen</h3>
-<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="065-Information.html#eq-pmi">Gleichung&nbsp;<span>6.1</span></a>.</p>
+<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="065-Information.html#eq-pmi" class="quarto-xref">Gleichung&nbsp;<span>6.1</span></a>.</p>
 <p>Mit R kann man die PMI z.B. so berechnen, s. <code><a href="https://juliasilge.github.io/widyr/reference/pairwise_pmi.html">? pairwise_pmi</a></code> aus dem Paket <a href="https://github.com/juliasilge/widyr">widyr</a>.</p>
 <p>Zum Paket <code>widyr</code> von Robinson und Silge:</p>
 <blockquote class="blockquote">
@@ -491,7 +503,6 @@ div.csl-indent {
 <span></span>
 <span><span class="va">dat</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["feature"],"name":[1],"type":["int"],"align":["right"]},{"label":["item"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"a"},{"1":"1","2":"b"},{"1":"2","2":"a"},{"1":"2","2":"c"},{"1":"3","2":"a"},{"1":"3","2":"c"},{"1":"4","2":"b"},{"1":"4","2":"e"},{"1":"5","2":"b"},{"1":"5","2":"f"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -519,10 +530,14 @@ div.csl-indent {
 <span><span class="co">##   e 0 0 0 1 0</span></span>
 <span><span class="co">##   f 0 0 0 0 1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr">Abbildung&nbsp;<span>7.1</span></a>.</p>
+<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr" class="quarto-xref">Abbildung&nbsp;<span>7.1</span></a>.</p>
 <div id="fig-widyr" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/widyr.jpeg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson</figcaption></figure>
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-widyr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/widyr.jpeg" class="img-fluid figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-widyr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
+</figcaption></figure>
 </div>
 <p>(Vgl. auch die <a href="https://bookdown.org/Maxine/tidy-text-mining/counting-and-correlating-pairs-of-words-with-widyr.html">Erklärung hier</a>.)</p>
 <p>Bauen wir das mal von Hand nach.</p>
@@ -549,7 +564,6 @@ div.csl-indent {
 <div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-10_275c7f2ad1cc21d98009df8c50cec1d3">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://juliasilge.github.io/widyr/reference/pairwise_pmi.html">pairwise_pmi</a></span><span class="op">(</span><span class="va">dat</span>, item <span class="op">=</span> <span class="va">item</span>, feature <span class="op">=</span> <span class="va">feature</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["pmi"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"b","2":"a","3":"-0.5877867"},{"1":"c","2":"a","3":"0.5108256"},{"1":"a","2":"b","3":"-0.5877867"},{"1":"e","2":"b","3":"0.5108256"},{"1":"f","2":"b","3":"0.5108256"},{"1":"a","2":"c","3":"0.5108256"},{"1":"b","2":"e","3":"0.5108256"},{"1":"b","2":"f","3":"0.5108256"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -577,7 +591,6 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">txt_df</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"das"},{"1":"ist"},{"1":"ein"},{"1":"test"},{"1":"von"},{"1":"dem"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -754,7 +767,6 @@ div.csl-indent {
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">futter1</span> <span class="op">&lt;-</span> <span class="va">nested_words3</span><span class="op">[[</span><span class="st">"words"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">futter1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"systems"},{"1":"inc"},{"1":"is"},{"1":"trying"},{"1":"to"},{"1":"collect"},{"1":"a"},{"1":"debt"},{"1":"that"},{"1":"is"},{"1":"not"},{"1":"mine"},{"1":"not"},{"1":"owed"},{"1":"and"},{"1":"is"},{"1":"inaccurate"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -842,10 +854,14 @@ div.csl-indent {
 <span><span class="co">##   ..$ error : NULL</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>out1</code> ist eine Liste mit 17 Elementen; jedes Element mit jeweils zwei Elementen: Den Ergebnissen und ob es einen Fehler gab bei <code>safe_mutate</code>. Die 10 Elemente entsprechen den 10 Skipgrams. Wir können aber <code>out1</code> auch “drehen”, transponieren genauer gesagt. so dass wir eine Liste mit <em>zwei</em> Elementen bekommen: das erste Element hat die (zehn) Ergebnisse (nämlich die Skipgrams) und das zweite Elemente, ob es Fehler gab.</p>
-<p>Das Prinzip des Transponierens ist in <a href="#fig-Matrix-transpose">Abbildung&nbsp;<span>7.2</span></a> dargestellt.</p>
+<p>Das Prinzip des Transponierens ist in <a href="#fig-Matrix-transpose" class="quarto-xref">Abbildung&nbsp;<span>7.2</span></a> dargestellt.</p>
 <div id="fig-Matrix-transpose" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/Matrix_transpose.gif" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)</figcaption></figure>
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Matrix-transpose-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/Matrix_transpose.gif" class="img-fluid figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-Matrix-transpose-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
+</figcaption></figure>
 </div>
 <div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-18_9fe9ad08ccb9207a5d1cde03778be897">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span></span>
@@ -861,7 +877,6 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["window_id"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"systems","2":"1"},{"1":"inc","2":"1"},{"1":"is","2":"1"},{"1":"trying","2":"1"},{"1":"inc","2":"2"},{"1":"is","2":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -887,7 +902,6 @@ div.csl-indent {
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi1</span><span class="op">[[</span><span class="st">"words"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["window_id"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"systems","2":"1"},{"1":"inc","2":"1"},{"1":"is","2":"1"},{"1":"trying","2":"1"},{"1":"inc","2":"2"},{"1":"is","2":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -900,7 +914,6 @@ div.csl-indent {
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["complaint_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["words"],"name":[2],"type":["list"],"align":["right"]}],"data":[{"1":"3384392","2":"<tibble[,2]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -916,7 +929,6 @@ div.csl-indent {
 <span><span class="va">tidy_pmi2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["complaint_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]},{"label":["window_id"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"3384392","2":"systems","3":"1"},{"1":"3384392","2":"inc","3":"1"},{"1":"3384392","2":"is","3":"1"},{"1":"3384392","2":"trying","3":"1"},{"1":"3384392","2":"inc","3":"2"},{"1":"3384392","2":"is","3":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -932,7 +944,6 @@ div.csl-indent {
 <span><span class="va">tidy_pmi3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["window_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"3384392_1","2":"systems"},{"1":"3384392_1","2":"inc"},{"1":"3384392_1","2":"is"},{"1":"3384392_1","2":"trying"},{"1":"3384392_2","2":"inc"},{"1":"3384392_2","2":"is"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -950,7 +961,6 @@ div.csl-indent {
 <span><span class="va">tidy_pmi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["pmi"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"inc","2":"systems","3":"5.728498"},{"1":"is","2":"systems","3":"2.838126"},{"1":"trying","2":"systems","3":"5.035351"},{"1":"systems","2":"inc","3":"5.728498"},{"1":"is","2":"inc","3":"2.838126"},{"1":"trying","2":"inc","3":"5.035351"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -973,7 +983,6 @@ div.csl-indent {
 <span><span class="va">tidy_word_vectors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="op">(</span><span class="va">head</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["dimension"],"name":[2],"type":["int"],"align":["right"]},{"label":["value"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"inc","2":"1","3":"-0.03789628"},{"1":"is","2":"1","3":"-0.11320691"},{"1":"trying","2":"1","3":"-0.05127645"},{"1":"systems","2":"1","3":"-0.03333321"},{"1":"to","2":"1","3":"-0.12034339"},{"1":"collect","2":"1","3":"-0.05542110"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -984,10 +993,14 @@ div.csl-indent {
 <p>Mit <code>nv = 100</code> haben wir die Anzahl (<code>n</code>) der Dimensionen (Variablen, <code>v</code>) auf 100 bestimmt.</p>
 </section><section id="wortähnlichkeit" class="level3" data-number="7.3.6"><h3 data-number="7.3.6" class="anchored" data-anchor-id="wortähnlichkeit">
 <span class="header-section-number">7.3.6</span> Wortähnlichkeit</h3>
-<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance">Abbildung&nbsp;<span>7.3</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
-<div id="fig-euklid-distance" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/euklid-distance.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;7.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh</figcaption></figure>
+<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance" class="quarto-xref">Abbildung&nbsp;<span>7.3</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
+<div id="fig-euklid-distance" class="quarto-figure quarto-figure-center anchored" width="50%">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-euklid-distance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/euklid-distance.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-euklid-distance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;7.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhkmh
+</figcaption></figure>
 </div>
 <p>Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, <a href="https://mathworld.wolfram.com/Distance.html">aber der Algebra ist das egal</a>. Pythagoras’ Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.</p>
 <p>Die Autoren basteln sich selber eine Funktion in <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap. 5.3</a>, aber der Einfachheit halber nehme ich (erstmal) die entsprechende Funktion aus <code>widyr</code>:</p>
@@ -999,7 +1012,6 @@ div.csl-indent {
 <span><span class="va">word_neighbors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["distance"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"is","2":"inc","3":"1.0220144"},{"1":"trying","2":"inc","3":"0.9332851"},{"1":"systems","2":"inc","3":"0.4161199"},{"1":"to","2":"inc","3":"1.0913872"},{"1":"collect","2":"inc","3":"0.5221754"},{"1":"a","2":"inc","3":"1.0309581"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1014,7 +1026,6 @@ div.csl-indent {
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["distance"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"inaccurate","2":"mine","3":"0.5248863"},{"1":"inaccurate","2":"score","3":"0.5310116"},{"1":"inaccurate","2":"oh","3":"0.5400913"},{"1":"inaccurate","2":"ny","3":"0.5400913"},{"1":"inaccurate","2":"dob","3":"0.5801282"},{"1":"inaccurate","2":"cell","3":"0.6093667"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1025,10 +1036,14 @@ div.csl-indent {
 <p>Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen. Aber “incorrectly”, “correct”, “balance” sind wohl plausible Nachbarn von “inaccurate”.</p>
 </section><section id="cosinus-ähnlichkeit" class="level3" data-number="7.3.7"><h3 data-number="7.3.7" class="anchored" data-anchor-id="cosinus-ähnlichkeit">
 <span class="header-section-number">7.3.7</span> Cosinus-Ähnlichkeit</h3>
-<p>Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosinus-Ähnlichkeit</a> (Cosine similarity) berechnen, vgl. auch <a href="#fig-dotproduct">Abbildung&nbsp;<span>7.4</span></a>:</p>
+<p>Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosinus-Ähnlichkeit</a> (Cosine similarity) berechnen, vgl. auch <a href="#fig-dotproduct" class="quarto-xref">Abbildung&nbsp;<span>7.4</span></a>:</p>
 <div id="fig-dotproduct" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/dotproduct.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;7.4: Die Cosinus-Ähnlichkeit zweier Vektoren</figcaption></figure>
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dotproduct-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/dotproduct.png" class="img-fluid figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-dotproduct-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;7.4: Die Cosinus-Ähnlichkeit zweier Vektoren
+</figcaption></figure>
 </div>
 <p><a href="https://en.wikipedia.org/wiki/Dot_product#/media/File:Dot_Product.svg">Quelle: Mazin07, Lizenz: PD</a></p>
 <p><span class="math display">\[{\displaystyle {\text{Cosinus-Ähnlichkeit}}=S_{C}(A,B):=\cos(\theta )={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|\|\mathbf {B} \|}={\frac {\sum \limits _{i=1}^{n}{A_{i}B_{i}}}{{\sqrt {\sum \limits _{i=1}^{n}{A_{i}^{2}}}}{\sqrt {\sum \limits _{i=1}^{n}{B_{i}^{2}}}}}},}\]</span></p>
@@ -1054,10 +1069,14 @@ div.csl-indent {
 <p>Wobei mit <code>widely</code> zuerst noch von der Langform in die Breitform umformatiert wird, da die Breitform von der Formel verlangt wird bzw. das Rechnen einfacher macht.</p>
 <p>Der eine Vektor ist das Embedding des Tokens, der andere Vektor ist das <em>mittlere</em> Embedding über alle Tokens des Corpus. Wenn die Anzahl der Elemente konstant bleibt, kann man sich das Teilen durch <span class="math inline">\(n\)</span> schenken, wenn man einen Mittelwert berechnen; so hält es auch die Syntax von <code>nearest_neighbors</code>.</p>
 <p>Ein nützlicher Post zur Cosinus-Ähnlichkeit findet sich <a href="https://towardsdatascience.com/cosine-similarity-how-does-it-measure-the-similarity-maths-behind-and-usage-in-python-50ad30aad7db">hier</a>. <a href="https://datascience-enthusiast.com/figures/cosine_sim.png">Dieses Bild</a> zeigt das Konzept der Cosinus-Ähnlichkeit anschaulich.</p>
-<p>Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in einem rechtwinkligen, vgl. <a href="#fig-dreieck">Abbildung&nbsp;<span>7.5</span></a>.</p>
+<p>Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in einem rechtwinkligen, vgl. <a href="#fig-dreieck" class="quarto-xref">Abbildung&nbsp;<span>7.5</span></a>.</p>
 <div id="fig-dreieck" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/dreieck.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;7.5: Ein rechtwinkliges Dreieck als Grundlage der trigonometrischen Funktionen</figcaption></figure>
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dreieck-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/dreieck.png" class="img-fluid figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-dreieck-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;7.5: Ein rechtwinkliges Dreieck als Grundlage der trigonometrischen Funktionen
+</figcaption></figure>
 </div>
 <p>Also: <span class="math inline">\({\displaystyle \cos \alpha ={\frac {b}{c}}}\)</span></p>
 <p><a href="https://de.wikipedia.org/wiki/Sinus_und_Kosinus#/media/Datei:RechtwinkligesDreieck.svg">Quelle: PaterSigmund, Wikipedia,dre CC-BY-SA 2.5</a></p>
@@ -1097,7 +1116,6 @@ Hinweis
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["token"],"name":[1],"type":["chr"],"align":["left"]},{"label":["d1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["d2"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["d3"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["d4"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"the","2":"0.418000","3":"0.249680","4":"-0.41242","5":"0.121700"},{"1":",","2":"0.013441","3":"0.236820","4":"-0.16899","5":"0.409510"},{"1":".","2":"0.151640","3":"0.301770","4":"-0.16763","5":"0.176840"},{"1":"of","2":"0.708530","3":"0.570880","4":"-0.47160","5":"0.180480"},{"1":"to","2":"0.680470","3":"-0.039263","4":"0.30186","5":"-0.177920"},{"1":"and","2":"0.268180","3":"0.143460","4":"-0.27877","5":"0.016257"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1121,7 +1139,6 @@ Hinweis
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["dimension"],"name":[2],"type":["chr"],"align":["left"]},{"label":["value"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"the","2":"d1","3":"0.418000"},{"1":"the","2":"d2","3":"0.249680"},{"1":"the","2":"d3","3":"-0.412420"},{"1":"the","2":"d4","3":"0.121700"},{"1":"the","2":"d5","3":"0.345270"},{"1":"the","2":"d6","3":"-0.044457"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1207,7 +1224,6 @@ Hinweis
 <span>  <span class="fu">nearest_neighbors</span><span class="op">(</span><span class="st">"error"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["value"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"error","2":"1.0000000"},{"1":"errors","2":"0.8462532"},{"1":"correct","2":"0.7349197"},{"1":"mistake","2":"0.7174614"},{"1":"accurate","2":"0.7063602"},{"1":"precise","2":"0.7035035"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1224,7 +1240,7 @@ Hinweis
 <p>Dann erstellen wir uns eine Tabelle, in der nur die Schnittmenge der Wörter aus den Beschwerden und Glove vorkommen. Dazu nutzen winr einen <a href="https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif">inneren Join</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="img/inner-join.gif" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Inner Join, Quelle: Garrick Adenbuie</figcaption></figure>
+<figcaption>Inner Join, Quelle: Garrick Adenbuie</figcaption></figure>
 </div>
 <p><a href="https://github.com/gadenbuie/tidyexplain">Quelle</a></p>
 <div class="cell" data-hash="050-word-embedding_cache/html/join-complaints-glove_5f410ec4d6e018bf82b111cbf522cbc8">
@@ -1237,7 +1253,6 @@ Hinweis
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">complaints_glove</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["complaint_id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"3384392","2":"systems"},{"1":"3384392","2":"inc"},{"1":"3384392","2":"is"},{"1":"3384392","2":"trying"},{"1":"3384392","2":"to"},{"1":"3384392","2":"collect"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1319,7 +1334,7 @@ Hinweis
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="listitem">
 Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
@@ -1330,14 +1345,14 @@ Müller, Andreas. 2015. <span>„Analyse von Wort-Vektoren Deutscher Textkorpora
 Pennington, Jeffrey, Richard Socher, und Christopher Manning. 2014. <span>„<span>GloVe</span>: <span>Global</span> Vectors for Word Representation“</span>. In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (<span>EMNLP</span>)</em>, 1532–43. <span>Doha, Qatar</span>: <span>Association for Computational Linguistics</span>. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.
 </div>
 </div>
-</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section></section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen…<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Quelle: https://de.wikipedia.org/wiki/Sinus_und_Kosinus<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p><span class="math inline">\(1024 \cdot 1024\)</span> Byte, und <span class="math inline">\(1024 =2^{10}\)</span>, daher <span class="math inline">\(2^{10} \cdot 2^{10} = 2^{20}\)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>zugegeben, ein subjektiver Ausdruck<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Kaufen…<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1378,6 +1393,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1446,13 +1488,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1531,10 +1575,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1544,8 +1587,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1558,6 +1610,128 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1601,6 +1775,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1626,6 +1801,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1685,12 +1886,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./065-Information.html" class="pagination-link">
+      <a href="./065-Information.html" class="pagination-link  aria-label=">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./060-hassrede.html" class="pagination-link">
+      <a href="./060-hassrede.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Hassrede</span>">
         <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

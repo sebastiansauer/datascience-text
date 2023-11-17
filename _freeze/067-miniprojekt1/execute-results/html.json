@@ -1,0 +1,19 @@
+{
+  "hash": "413fabeeab162aa2235af581ff7068c5",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Miniprojekt\n\n\n## Aufgabe\n\nFühren Sie eine deskriptive Textanalyse durch!\n\n\n## Datensatz\n\nVerwenden Sie einen Text (ca. 10-30k Wörter) Ihrer Wahl, von dem Sie einen engen Fokus auf bestimmte Themen sowie eine gewisse Emotionalität erwarten.\n\n\nDieser Datensatz ist empfehlenswert:\n\n\n::: {.cell hash='067-miniprojekt1_cache/html/unnamed-chunk-1_8c1632e55cd5236c13c9e5464a75b893'}\n\n```{.r .cell-code}\ndata(\"germeval_train\", package = \"pradadata\")\ndata(\"germeval_test\", package = \"pradadata\")\n```\n:::\n\n\n\n## Methoden\n\nWenden Sie dann die Methoden an, die im Teil *Textmining* (Natural Language Processing) dieses Buch vorgestellt sind.\nZusätzlich es es empfehlenswert, auf typische Methoden der explorativen Datenanalyse zurückzugreifen inklusive der Datenvisualisierung.\n\nTypische Arbeitsschritte dabei sind:\n\n- Importieren und Aufbereiten der Daten\n- Zählen häufiger Worte und n-Gramme\n- Entfernen von Stopwörtern\n- Berechnen von Sentimentstärken\n- Assoziationsanalyse von Wörtern und n-Grammen\n- Berechnung von Wortdistanzen\n- Worteinbettungen\n- Dimensionsreduktion von Worteinbettungen\n- Clusteranalysen von Wörtern anhand ihrer Einbettungen\n- Themenanalyse anhand einer Latenten-Dirichlet-Analyse\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "<link href=\"site_libs/pagedtable-1.1/css/pagedtable.css\" rel=\"stylesheet\" />\n<script src=\"site_libs/pagedtable-1.1/js/pagedtable.js\"></script>\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

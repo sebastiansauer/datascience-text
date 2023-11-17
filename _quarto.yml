@@ -24,6 +24,7 @@ book:
       chapters:
         - 080-klassifikation.qmd
         - 070-hatespeech2.qmd
+        - 095-miniprojekt2.qmd
     - part: Deep Learning
       chapters:
         - 100-nn-quickstart.qmd

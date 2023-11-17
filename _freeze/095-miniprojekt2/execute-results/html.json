@@ -1,0 +1,19 @@
+{
+  "hash": "18e4a3fd098377adb5c9986607ebb449",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Miniprojekt\n\n\n\n\n## Aufgabe\n\nFühren Sie eine prädiktive Modellierung auf Basis von Textdaten bzw. von Natural Language Processing (Textmining) durch!\n\n\n## Datensatz\n\nVerwenden Sie einen Text (ca. 10-30k Wörter) Ihrer Wahl, von dem Sie einen engen Fokus auf bestimmte Themen sowie eine gewisse Emotionalität erwarten.\n\n\nDieser Datensatz ist empfehlenswert:\n\n\n::: {.cell hash='095-miniprojekt2_cache/html/unnamed-chunk-1_2c3a96366275d1fa69f08280fa08abc9'}\n\n```{.r .cell-code}\ndata(\"germeval_train\", package = \"pradadata\")\ndata(\"germeval_test\", package = \"pradadata\")\n```\n:::\n\n\n\n## Methoden\n\nWenden Sie dann die Methoden an, die im Teil *Tidymodels* (Natural Language Processing) dieses Buch vorgestellt sind.\nZusätzlich es es empfehlenswert, auf typische Methoden der explorativen Datenanalyse zurückzugreifen inklusive der Datenvisualisierung.\n\nNutzen Sie dabei die üblichen Methoden des Maschinenlernens wie Kreuzvalidierung und flexible (aber \"flache\") Modelle (noch keine neuronalen Netze).\n\n\nTypische Arbeitsschritte dabei sind:\n\n- Importieren und Aufbereiten der Daten\n- Einbettung von Wordvektoren\n- Sentimentanalysen als Prädiktoren nutzen\n- Emotionen, die über Emojis vermittelt werden, nutzen\n- Linguistische Textfeatures nutzen (z.B. Anzahl von Wörtern pro Dokument)\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "<link href=\"site_libs/pagedtable-1.1/css/pagedtable.css\" rel=\"stylesheet\" />\n<script src=\"site_libs/pagedtable-1.1/js/pagedtable.js\"></script>\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

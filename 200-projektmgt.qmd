@@ -202,8 +202,11 @@ Einige Methoden zum Rechenzeit sparen sind:
 
 Natürlich ist die (mit Abstand) beste Methode: guten Code schreiben. Denn "guter Code" verringert die Wahrscheinlichkeit von Bugs, und damit die Gefahr, dass die ganze schöne Rechenzeit für die Katz war.
 
-"Guter Code" ist vielleicht primär von zwei Dingen abhängig: erstens einen guten Plan zu haben *bevor* man das Programmieren anfängt und zweitens gute Methoden des Projektmanagements.
+"Guter Code" ist vielleicht primär von zwei Dingen abhängig: *erstens* einen guten Plan zu haben *bevor* man das Programmieren anfängt und *zweitens* gute Methoden des Projektmanagements.
 @hunt_pragmatic_2000 präsentieren eine weithin anerkannte Umsetzung, was "guter" Code bedeuten könnte.
+
+
+![Quelle: imgflip.com](img/uno-draw.25.jpg){width=50%}
 
 
 ## Publizieren 

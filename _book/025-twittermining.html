@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.478">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 3&nbsp; Twitter Mining</title>
 <style>
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -55,6 +55,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -97,7 +98,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -117,19 +124,19 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./025-twittermining.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./025-twittermining.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
         <div class="sidebar-tools-main">
@@ -247,6 +254,12 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./095-miniprojekt2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -261,13 +274,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,13 +297,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -314,7 +327,7 @@ div.csl-indent {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
@@ -378,7 +391,7 @@ div.csl-indent {
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./025-twittermining.html">Textmining</a></li><li class="breadcrumb-item"><a href="./025-twittermining.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
 <span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span>
 </h1>
@@ -394,9 +407,10 @@ div.csl-indent {
   </div>
   
 
+
 </header><div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="img/text-mining-1476780_640.png" class="img-fluid figure-img" style="width:10.0%"></p>
-<figcaption class="figure-caption">Text als Datenbasis prädiktiver Modelle</figcaption></figure>
+<figcaption>Text als Datenbasis prädiktiver Modelle</figcaption></figure>
 </div>
 <p>Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">mcmurryjulie</a> auf <a href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1476780">Pixabay</a></p>
 <section id="vorab" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="vorab">
@@ -418,7 +432,7 @@ div.csl-indent {
 <div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-1_3acc0511e641244d5769b89ee262a5ed">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rtweet/">rtweet</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/chainsawriot/rio">rio</a></span><span class="op">)</span>  </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gesistsa/rio">rio</a></span><span class="op">)</span>  </span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tweetbotornot.mikewk.com">tweetbotornot</a></span><span class="op">)</span>  <span class="co"># optional</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-lib.github.io/keyring/index.html">keyring</a></span><span class="op">)</span>  <span class="co"># optional</span></span>
@@ -427,7 +441,7 @@ div.csl-indent {
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="https://docs.ropensci.org/rtweet/logo.png" class="img-fluid figure-img" style="width:10.0%"></p>
-<figcaption class="figure-caption">R-Paket {rtweet}</figcaption></figure>
+<figcaption>R-Paket {rtweet}</figcaption></figure>
 </div>
 <p>Einen Überblick über die Funktionen des Pakets (function reference) findet sich <a href="https://docs.ropensci.org/rtweet/reference/index.html">hier</a>.</p>
 </section></section><section id="anmelden-bei-twitter" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="anmelden-bei-twitter">
@@ -441,7 +455,6 @@ div.csl-indent {
 <span><span class="va">politicians</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="va">d_path</span><span class="op">)</span></span>
 <span><span class="va">politicians</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["party"],"name":[2],"type":["chr"],"align":["left"]},{"label":["screenname"],"name":[3],"type":["chr"],"align":["left"]},{"label":["comment"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Karl Lauterbach","2":"SPD","3":"Karl_Lauterbach","4":"NA","_rn_":"1"},{"1":"Olaf Scholz","2":"SPD","3":"OlafScholz","4":"NA","_rn_":"2"},{"1":"Annalena Baerback","2":"Gruene","3":"ABaerbock","4":"NA","_rn_":"3"},{"1":"Bundesministerium für Wirtschaft und Klimaschutz","2":"Gruene","3":"BMWK","4":"Robert Habeck ist der Minister im BMWK","_rn_":"4"},{"1":"Friedrich Merz","2":"CDU","3":"_FriedrichMerz","4":"CDU-Chef","_rn_":"5"},{"1":"Markus Söder","2":"CSU","3":"Markus_Soeder","4":"CSU-Chef","_rn_":"6"},{"1":"Cem Özdemir","2":"Gruene","3":"cem_oezdemir","4":"BMEL","_rn_":"7"},{"1":"Janine Wissler","2":"Linke","3":"Janine_Wissler","4":"Linke-Chefin","_rn_":"8"},{"1":"Martin Schirdewan","2":"Linke","3":"schirdewan","4":"Linke-Chef","_rn_":"9"},{"1":"Christian Lindner","2":"FDP","3":"c_lindner","4":"FDP-Chef","_rn_":"10"},{"1":"Marie-Agnes Strack-Zimmermann","2":"FDP","3":"MAStrackZi","4":"Vorsitzende Verteidigungsausschuss","_rn_":"11"},{"1":"Tino Chrupalla","2":"AFD","3":"Tino_Chrupalla","4":"AFD-Bundessprecher","_rn_":"12"},{"1":"Alice Weidel","2":"AFD","3":"Alice_Weidel","4":"AFD-Bundessprecherin","_rn_":"13"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -572,7 +585,6 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">politicians_twitter</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["ID"],"name":[1],"type":["int"],"align":["right"]},{"label":["official_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["party"],"name":[3],"type":["chr"],"align":["left"]},{"label":["region"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institution"],"name":[5],"type":["chr"],"align":["left"]},{"label":["office"],"name":[6],"type":["chr"],"align":["left"]},{"label":["user_id"],"name":[7],"type":["chr"],"align":["left"]},{"label":["twitter_name"],"name":[8],"type":["chr"],"align":["left"]},{"label":["twitter_handle"],"name":[9],"type":["chr"],"align":["left"]},{"label":["from"],"name":[10],"type":["date"],"align":["right"]},{"label":["until"],"name":[11],"type":["date"],"align":["right"]},{"label":["year_of_birth"],"name":[12],"type":["int"],"align":["right"]},{"label":["abgeordnetenwatch_id"],"name":[13],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[14],"type":["chr"],"align":["left"]},{"label":["wikidata_id"],"name":[15],"type":["chr"],"align":["left"]}],"data":[{"1":"535","2":"Manja Schüle","3":"SPD","4":"Brandenburg","5":"State Parliament","6":"Parliamentarian","7":"827090742162100224","8":"Manja Schüle","9":"ManjaSchuele","10":"2019-09-25","11":"<NA>","12":"1976","13":"146790","14":"female","15":"Q40974942"},{"1":"962","2":"Petra Pau","3":"DIE LINKE","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"1683845126","8":"Team PetraPau","9":"TeamPetraPau","10":"2017-10-24","11":"<NA>","12":"1963","13":"79091","14":"female","15":"Q77195"},{"1":"864","2":"Dagmar Schmidt","3":"SPD","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"1377117206","8":"Team #dieschmidt","9":"TeamDieSchmidt","10":"2017-10-24","11":"<NA>","12":"1973","13":"79036","14":"female","15":"Q15433815"},{"1":"2517","2":"Bernd Buchholz","3":"FDP","4":"Schleswig-Holstein","5":"State Parliament","6":"Parliamentarian","7":"1073605033","8":"Bernd Buchholz","9":"BerndBuchholz","10":"2017-06-06","11":"<NA>","12":"1961","13":"121092","14":"male","15":"Q823715"},{"1":"1378","2":"Ingrid Remmers","3":"DIE LINKE","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"551802475","8":"Ingrid Remmers MdB","9":"ingrid_remmers","10":"2017-10-24","11":"<NA>","12":"1965","13":"120775","14":"female","15":"Q1652660"},{"1":"1116","2":"Reinhard Brandl","3":"CSU","4":"Federal","5":"Federal Parliament","6":"Parliamentarian","7":"262730721","8":"Reinhard Brandl","9":"reinhardbrandl","10":"2017-10-24","11":"<NA>","12":"1977","13":"79427","14":"male","15":"Q111160"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -687,7 +699,6 @@ div.csl-indent {
 <div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-23_3fe4f7acc264d370a5aa7757e70eaf53">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/users_data.html">users_data</a></span><span class="op">(</span><span class="va">my_tweet</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["id_str"],"name":[2],"type":["chr"],"align":["left"]},{"label":["name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["screen_name"],"name":[4],"type":["chr"],"align":["left"]},{"label":["location"],"name":[5],"type":["chr"],"align":["left"]},{"label":["description"],"name":[6],"type":["chr"],"align":["left"]},{"label":["url"],"name":[7],"type":["chr"],"align":["left"]},{"label":["protected"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["followers_count"],"name":[9],"type":["int"],"align":["right"]},{"label":["friends_count"],"name":[10],"type":["int"],"align":["right"]},{"label":["listed_count"],"name":[11],"type":["int"],"align":["right"]},{"label":["created_at"],"name":[12],"type":["chr"],"align":["left"]},{"label":["favourites_count"],"name":[13],"type":["int"],"align":["right"]},{"label":["verified"],"name":[14],"type":["lgl"],"align":["right"]},{"label":["statuses_count"],"name":[15],"type":["int"],"align":["right"]},{"label":["profile_image_url_https"],"name":[16],"type":["chr"],"align":["left"]},{"label":["profile_banner_url"],"name":[17],"type":["chr"],"align":["left"]},{"label":["default_profile"],"name":[18],"type":["lgl"],"align":["right"]},{"label":["default_profile_image"],"name":[19],"type":["lgl"],"align":["right"]},{"label":["withheld_in_countries"],"name":[20],"type":["list"],"align":["right"]},{"label":["derived"],"name":[21],"type":["chr"],"align":["left"]},{"label":["withheld_scope"],"name":[22],"type":["lgl"],"align":["right"]},{"label":["entities"],"name":[23],"type":["list"],"align":["right"]}],"data":[{"1":"1690868335","2":"1690868335","3":"Sebastian Sauer 🇺🇦","4":"sauer_sebastian","5":"Nürnberg, Deutschland","6":"Data Science","7":"https://t.co/zwh3dCw3Dc","8":"FALSE","9":"485","10":"346","11":"34","12":"Thu Aug 22 11:49:09 +0000 2013","13":"7517","14":"FALSE","15":"1241","16":"https://pbs.twimg.com/profile_images/853024804676521984/VQ5YBKVu_normal.jpg","17":"https://pbs.twimg.com/profile_banners/1690868335/1453724621","18":"TRUE","19":"FALSE","20":"<list [0]>","21":"NA","22":"NA","23":"<named list [2]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -730,7 +741,7 @@ Nein,er geht weiter und irgendwann ist der dann wirklich aus."</code></pre>
 <span class="header-section-number">3.4</span> Tweets verarbeiten</h2>
 <section id="grundlegende-verarbeitung" class="level3" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="grundlegende-verarbeitung">
 <span class="header-section-number">3.4.1</span> Grundlegende Verarbeitung</h3>
-<p>Sind die Tweets eingelesen, kann man z.B. eine Sentimentanalyse, s. <a href="030-textmining1.html#sec-sentimentanalyse"><span>Kapitel&nbsp;4.2.12</span></a>, durchführen, oder schlicht vergleichen, welche Personen welche Wörter häufig verwenden, s. <a href="030-textmining1.html#sec-woerterzaehlen"><span>Kapitel&nbsp;4.2.3</span></a>.</p>
+<p>Sind die Tweets eingelesen, kann man z.B. eine Sentimentanalyse, s. <a href="030-textmining1.html#sec-sentimentanalyse" class="quarto-xref"><span>Kapitel&nbsp;4.2.12</span></a>, durchführen, oder schlicht vergleichen, welche Personen welche Wörter häufig verwenden, s. <a href="030-textmining1.html#sec-woerterzaehlen" class="quarto-xref"><span>Kapitel&nbsp;4.2.3</span></a>.</p>
 </section><section id="bot-or-not" class="level3" data-number="3.4.2"><h3 data-number="3.4.2" class="anchored" data-anchor-id="bot-or-not">
 <span class="header-section-number">3.4.2</span> Bot or not?</h3>
 <p>Eine interessante Methode, Tweets zu verarbeiten, bietet das R-Paket <code>tweetbotornot</code> von <a href="https://github.com/mkearney/tweetbotornot">M. Kearney</a>.</p>
@@ -810,7 +821,7 @@ Wichtig
 <div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-30_82e5113b7278a67292f2f346b5ec3f7d">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rtweet/">rtweet</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/chainsawriot/rio">rio</a></span><span class="op">)</span>  <span class="co"># R Data import/export</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/gesistsa/rio">rio</a></span><span class="op">)</span>  <span class="co"># R Data import/export</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dann melden wir uns an:</p>
 <div class="cell" data-hash="025-twittermining_cache/html/unnamed-chunk-31_072bdf2367c4976b4252bf742d8f0590">
@@ -848,7 +859,6 @@ Wichtig
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">oldest_tweets</span> <span class="op">&lt;-</span> <span class="fu">filter_recent_tweets</span><span class="op">(</span><span class="va">tweets_older</span>, max_or_min_id_str <span class="op">=</span> <span class="va">is_min_id_str</span><span class="op">)</span></span>
 <span><span class="va">oldest_tweets</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id_str"],"name":[1],"type":["chr"],"align":["left"]},{"label":["screenname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["created_at"],"name":[3],"type":["dttm"],"align":["right"]},{"label":["is_min_id_str"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_max_id_str"],"name":[5],"type":["lgl"],"align":["right"]}],"data":[{"1":"1590754620649115648","2":"Karl_Lauterbach","3":"2022-11-10 18:13:51","4":"TRUE","5":"FALSE"},{"1":"1589837879693352960","2":"OlafScholz","3":"2022-11-08 05:31:02","4":"TRUE","5":"FALSE"},{"1":"1590485330742083585","2":"ABaerbock","3":"2022-11-10 00:23:47","4":"TRUE","5":"FALSE"},{"1":"1589983737621942272","2":"BMWK","3":"2022-11-08 15:10:38","4":"TRUE","5":"FALSE"},{"1":"1590646264433373184","2":"_FriedrichMerz","3":"2022-11-10 11:03:16","4":"TRUE","5":"FALSE"},{"1":"1588595577360875520","2":"Markus_Soeder","3":"2022-11-04 19:14:34","4":"TRUE","5":"FALSE"},{"1":"1590097264613425152","2":"cem_oezdemir","3":"2022-11-08 22:41:45","4":"TRUE","5":"FALSE"},{"1":"1588082031656898560","2":"Janine_Wissler","3":"2022-11-03 09:13:56","4":"TRUE","5":"FALSE"},{"1":"1588082031656898560","2":"schirdewan","3":"2022-11-03 09:13:56","4":"TRUE","5":"FALSE"},{"1":"1590628128791007233","2":"c_lindner","3":"2022-11-10 09:51:13","4":"TRUE","5":"FALSE"},{"1":"1589277825152208898","2":"MAStrackZi","3":"2022-11-06 16:25:35","4":"TRUE","5":"FALSE"},{"1":"1587964349993422848","2":"Tino_Chrupalla","3":"2022-11-03 01:26:18","4":"TRUE","5":"FALSE"},{"1":"1589696708447186945","2":"Alice_Weidel","3":"2022-11-07 20:10:05","4":"TRUE","5":"FALSE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -861,7 +871,6 @@ Wichtig
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">most_recent_tweets</span> <span class="op">&lt;-</span> <span class="fu">filter_recent_tweets</span><span class="op">(</span><span class="va">oldest_tweets</span><span class="op">)</span></span>
 <span><span class="va">most_recent_tweets</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id_str"],"name":[1],"type":["chr"],"align":["left"]},{"label":["screenname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["created_at"],"name":[3],"type":["dttm"],"align":["right"]},{"label":["is_min_id_str"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_max_id_str"],"name":[5],"type":["lgl"],"align":["right"]}],"data":[{"1":"1590754620649115648","2":"Karl_Lauterbach","3":"2022-11-10 18:13:51","4":"TRUE","5":"TRUE"},{"1":"1589837879693352960","2":"OlafScholz","3":"2022-11-08 05:31:02","4":"TRUE","5":"TRUE"},{"1":"1590485330742083585","2":"ABaerbock","3":"2022-11-10 00:23:47","4":"TRUE","5":"TRUE"},{"1":"1589983737621942272","2":"BMWK","3":"2022-11-08 15:10:38","4":"TRUE","5":"TRUE"},{"1":"1590646264433373184","2":"_FriedrichMerz","3":"2022-11-10 11:03:16","4":"TRUE","5":"TRUE"},{"1":"1588595577360875520","2":"Markus_Soeder","3":"2022-11-04 19:14:34","4":"TRUE","5":"TRUE"},{"1":"1590097264613425152","2":"cem_oezdemir","3":"2022-11-08 22:41:45","4":"TRUE","5":"TRUE"},{"1":"1588082031656898560","2":"Janine_Wissler","3":"2022-11-03 09:13:56","4":"TRUE","5":"TRUE"},{"1":"1588082031656898560","2":"schirdewan","3":"2022-11-03 09:13:56","4":"TRUE","5":"TRUE"},{"1":"1590628128791007233","2":"c_lindner","3":"2022-11-10 09:51:13","4":"TRUE","5":"TRUE"},{"1":"1589277825152208898","2":"MAStrackZi","3":"2022-11-06 16:25:35","4":"TRUE","5":"TRUE"},{"1":"1587964349993422848","2":"Tino_Chrupalla","3":"2022-11-03 01:26:18","4":"TRUE","5":"TRUE"},{"1":"1589696708447186945","2":"Alice_Weidel","3":"2022-11-07 20:10:05","4":"TRUE","5":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1028,7 +1037,7 @@ Hinweis
 <span>                           n <span class="op">=</span> <span class="fl">1e05</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dann kann man die Objekte abespeichern, etwas als RDS-Datei oder als Feather-Datei.</p>
-<p>Den Datensatz <code>politicians</code> hatten wir oben angelegt, s. <a href="#sec-politicians-accounts"><span>Kapitel&nbsp;3.2.1</span></a>. Er beinhaltet die Kontonamen (<code>screennames</code>) einiger deutscher Politikis.</p>
+<p>Den Datensatz <code>politicians</code> hatten wir oben angelegt, s. <a href="#sec-politicians-accounts" class="quarto-xref"><span>Kapitel&nbsp;3.2.1</span></a>. Er beinhaltet die Kontonamen (<code>screennames</code>) einiger deutscher Politikis.</p>
 <p>Wichtig ist, mit den Lizenzregeln in Einklang zu bleiben.</p>
 <p>Zentral ist dabei sicherlich die Frage, ob und wie man Tweets weitergeben darf. Dazu:</p>
 <blockquote class="blockquote">
@@ -1049,7 +1058,7 @@ Hinweis
 </ol>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-smltar" class="csl-entry" role="listitem">
 Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
@@ -1057,14 +1066,14 @@ Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</s
 König, Tim, Wolf J. Schünemann, Alexander Brand, Julian Freyberg, und Michael Gertz. 2022. <span>„The <span>EPINetz</span> Twitter Politicians Dataset 2021. <span>A</span> New Resource for the Study of the German Twittersphere and Its Application for the 2021 Federal Elections“</span>. <em>Politische Vierteljahresschrift</em> 63 (3): 529–47. <a href="https://doi.org/10.1007/s11615-022-00405-7">https://doi.org/10.1007/s11615-022-00405-7</a>.
 </div>
 </div>
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Sie können <a href="https://www.howtogeek.com/343877/what-is-an-api/">hier</a> nachlesen, was eine API ist.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Stand November 2022<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>was beruhigend ist: Man darf nicht ohne Erlaubnis in Ihrer Passwort-Sammlung herumfuhrwerken.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Mit dem R-Paket <code>twitteR</code>, das mittlerweile zugunsten von <code>rtweet</code> aufgegeben wurde, war das möglich. Allerdings zeigt ein <a href="https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline">Blick in die Dokumentation der Twitter-API</a>, das Datumsangaben offenbar gar nicht unterstützt werden.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>zur Zeit, als diese Zeilen geschrieben wurden<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1105,6 +1114,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1173,13 +1209,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1258,10 +1296,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1271,8 +1308,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1285,6 +1331,128 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1328,6 +1496,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1353,6 +1522,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1412,12 +1607,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./020-pruefung.html" class="pagination-link">
+      <a href="./020-pruefung.html" class="pagination-link  aria-label=">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./030-textmining1.html" class="pagination-link">
+      <a href="./030-textmining1.html" class="pagination-link" aria-label="<span class='chapter-number'>4</span>&nbsp; <span class='chapter-title'>Textmining 1</span>">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining 1</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

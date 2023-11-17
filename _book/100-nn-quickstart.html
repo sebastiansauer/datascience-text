@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.478">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 12&nbsp; Einstieg in Neuronale Netze</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 13&nbsp; Einstieg in Neuronale Netze</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./110-nn-theo1.html" rel="next">
-<link href="./070-hatespeech2.html" rel="prev">
+<link href="./095-miniprojekt2.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +78,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -98,19 +104,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./100-nn-quickstart.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./100-nn-quickstart.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
         <div class="sidebar-tools-main">
@@ -228,6 +234,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./095-miniprojekt2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -242,13 +254,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
   </div>
 </li>
       </ul>
@@ -265,13 +277,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -295,34 +307,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
 <li>
-<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">12.1</span> Lernsteuerung</a>
+<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">13.1</span> Lernsteuerung</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">12.1.1</span> Lernziele</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">13.1.1</span> Lernziele</a></li>
   </ul>
 </li>
   <li>
-<a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start"><span class="header-section-number">12.2</span> Quick-Start</a>
+<a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start"><span class="header-section-number">13.2</span> Quick-Start</a>
   <ul class="collapse">
-<li><a href="#mnist-hello-deep-learning" id="toc-mnist-hello-deep-learning" class="nav-link" data-scroll-target="#mnist-hello-deep-learning"><span class="header-section-number">12.2.1</span> MNIST: Hello, Deep Learning</a></li>
-  <li><a href="#quick-start-mit-r" id="toc-quick-start-mit-r" class="nav-link" data-scroll-target="#quick-start-mit-r"><span class="header-section-number">12.2.2</span> Quick Start mit R</a></li>
-  <li><a href="#quick-start-mit-python-und-colab" id="toc-quick-start-mit-python-und-colab" class="nav-link" data-scroll-target="#quick-start-mit-python-und-colab"><span class="header-section-number">12.2.3</span> Quick-Start mit Python und Colab</a></li>
+<li><a href="#mnist-hello-deep-learning" id="toc-mnist-hello-deep-learning" class="nav-link" data-scroll-target="#mnist-hello-deep-learning"><span class="header-section-number">13.2.1</span> MNIST: Hello, Deep Learning</a></li>
+  <li><a href="#quick-start-mit-r" id="toc-quick-start-mit-r" class="nav-link" data-scroll-target="#quick-start-mit-r"><span class="header-section-number">13.2.2</span> Quick Start mit R</a></li>
+  <li><a href="#quick-start-mit-python-und-colab" id="toc-quick-start-mit-python-und-colab" class="nav-link" data-scroll-target="#quick-start-mit-python-und-colab"><span class="header-section-number">13.2.3</span> Quick-Start mit Python und Colab</a></li>
   </ul>
 </li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">12.3</span> Vertiefung</a></li>
-  <li><a href="#fallstudien" id="toc-fallstudien" class="nav-link" data-scroll-target="#fallstudien"><span class="header-section-number">12.4</span> Fallstudien</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">13.3</span> Vertiefung</a></li>
+  <li><a href="#fallstudien" id="toc-fallstudien" class="nav-link" data-scroll-target="#fallstudien"><span class="header-section-number">13.4</span> Fallstudien</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./100-nn-quickstart.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span>
+<span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span>
 </h1>
 </div>
 
@@ -336,30 +348,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><section id="lernsteuerung" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="lernsteuerung">
-<span class="header-section-number">12.1</span> Lernsteuerung</h2>
-<section id="lernziele" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">12.1.1</span> Lernziele</h3>
+
+</header><section id="lernsteuerung" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="lernsteuerung">
+<span class="header-section-number">13.1</span> Lernsteuerung</h2>
+<section id="lernziele" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">13.1.1</span> Lernziele</h3>
 <p>Nach Abschluss dieses Kapitels können Sie …</p>
 <ul>
 <li>ein einfaches neuronales Netzwerk in R und Python erstellen</li>
-</ul></section></section><section id="quick-start" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="quick-start">
-<span class="header-section-number">12.2</span> Quick-Start</h2>
-<section id="mnist-hello-deep-learning" class="level3" data-number="12.2.1"><h3 data-number="12.2.1" class="anchored" data-anchor-id="mnist-hello-deep-learning">
-<span class="header-section-number">12.2.1</span> MNIST: Hello, Deep Learning</h3>
-<p>Der MNIST-Datensatz ist eine Sammlung handgeschriebener Ziffern (bzw. deren digitale Repräsentation in Matrixform), s. <a href="#fig-mnist">Abbildung&nbsp;<span>12.1</span></a></p>
+</ul></section></section><section id="quick-start" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="quick-start">
+<span class="header-section-number">13.2</span> Quick-Start</h2>
+<section id="mnist-hello-deep-learning" class="level3" data-number="13.2.1"><h3 data-number="13.2.1" class="anchored" data-anchor-id="mnist-hello-deep-learning">
+<span class="header-section-number">13.2.1</span> MNIST: Hello, Deep Learning</h3>
+<p>Der MNIST-Datensatz ist eine Sammlung handgeschriebener Ziffern (bzw. deren digitale Repräsentation in Matrixform), s. <a href="#fig-mnist" class="quarto-xref">Abbildung&nbsp;<span>13.1</span></a></p>
 <div id="fig-mnist" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/MnistExamplesModified.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;12.1: Beispielbilder aus dem MNIST-Datensatz</figcaption></figure>
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-mnist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/MnistExamplesModified.png" class="img-fluid figure-img">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-mnist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;13.1: Beispielbilder aus dem MNIST-Datensatz
+</figcaption></figure>
 </div>
 <p>Das maschinelle Erkennen von handgeschriebenen Ziffern ist nicht so einfach; für Menschen ist es eine mühelose Angelegenheit, dank der erstaunlichen Fähigkeiten unseres visuellen Cortex (und dem Evolutionsvorteil des visuellen Erkennens, der unseren visuellen Corext “trainiert” hat).</p>
 <p>Das Erkennen der Ziffern mit Hilfe von Deep Learninng ist eine Einstiegsaufgabe, sozusagen das “Hello, World” des Deep Learnings.</p>
 <p>Der MNIST-Datensatz umfasst 70k Bilder und haben eine Auflösung von 28*28=784 Pixeln in 8 Bit Graustufen (also <span class="math inline">\(2^8 = 256\)</span> Werte).</p>
-</section><section id="quick-start-mit-r" class="level3" data-number="12.2.2"><h3 data-number="12.2.2" class="anchored" data-anchor-id="quick-start-mit-r">
-<span class="header-section-number">12.2.2</span> Quick Start mit R</h3>
+</section><section id="quick-start-mit-r" class="level3" data-number="13.2.2"><h3 data-number="13.2.2" class="anchored" data-anchor-id="quick-start-mit-r">
+<span class="header-section-number">13.2.2</span> Quick Start mit R</h3>
 <p>Wir halten uns an das Tutorial von <a href="https://tensorflow.rstudio.com/tutorials/quickstart/beginner">TensforFlow for R, “Hello, World!”</a>.</p>
-<section id="setup" class="level4" data-number="12.2.2.1"><h4 data-number="12.2.2.1" class="anchored" data-anchor-id="setup">
-<span class="header-section-number">12.2.2.1</span> Setup</h4>
+<section id="setup" class="level4" data-number="13.2.2.1"><h4 data-number="13.2.2.1" class="anchored" data-anchor-id="setup">
+<span class="header-section-number">13.2.2.1</span> Setup</h4>
 <p>Wir starten die benötigten Pakete:</p>
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-1_4c2cfe6ca0bee17401d18d7fdf96d905">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tensorflow.rstudio.com/">keras</a></span><span class="op">)</span>  <span class="co"># TensorFlow API</span></span>
@@ -379,8 +396,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-3_a0d11db01566046e252e5b59aae46675">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x_test</span>, <span class="va">y_test</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/zeallot/man/operator.html">%&lt;-%</a></span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_mnist.html">dataset_mnist</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="visualisieren" class="level4" data-number="12.2.2.2"><h4 data-number="12.2.2.2" class="anchored" data-anchor-id="visualisieren">
-<span class="header-section-number">12.2.2.2</span> Visualisieren</h4>
+</section><section id="visualisieren" class="level4" data-number="13.2.2.2"><h4 data-number="13.2.2.2" class="anchored" data-anchor-id="visualisieren">
+<span class="header-section-number">13.2.2.2</span> Visualisieren</h4>
 <p>Wählen wir ein Bild aus; das schauen wir uns näher an <a href="https://stackoverflow.com/questions/43420754/plot-mnist-digits-with-ggplot2">Quelle</a>.</p>
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-4_644ab5265ee58c48441c53c7e4a03a40">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">image_id</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
@@ -392,7 +409,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">my_image</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["V1"],"name":[1],"type":["int"],"align":["right"]},{"label":["V2"],"name":[2],"type":["int"],"align":["right"]},{"label":["V3"],"name":[3],"type":["int"],"align":["right"]},{"label":["V4"],"name":[4],"type":["int"],"align":["right"]},{"label":["V5"],"name":[5],"type":["int"],"align":["right"]},{"label":["V6"],"name":[6],"type":["int"],"align":["right"]},{"label":["V7"],"name":[7],"type":["int"],"align":["right"]},{"label":["V8"],"name":[8],"type":["int"],"align":["right"]},{"label":["V9"],"name":[9],"type":["int"],"align":["right"]},{"label":["V10"],"name":[10],"type":["int"],"align":["right"]},{"label":["V11"],"name":[11],"type":["int"],"align":["right"]},{"label":["V12"],"name":[12],"type":["int"],"align":["right"]},{"label":["V13"],"name":[13],"type":["int"],"align":["right"]},{"label":["V14"],"name":[14],"type":["int"],"align":["right"]},{"label":["V15"],"name":[15],"type":["int"],"align":["right"]},{"label":["V16"],"name":[16],"type":["int"],"align":["right"]},{"label":["V17"],"name":[17],"type":["int"],"align":["right"]},{"label":["V18"],"name":[18],"type":["int"],"align":["right"]},{"label":["V19"],"name":[19],"type":["int"],"align":["right"]},{"label":["V20"],"name":[20],"type":["int"],"align":["right"]},{"label":["V21"],"name":[21],"type":["int"],"align":["right"]},{"label":["V22"],"name":[22],"type":["int"],"align":["right"]},{"label":["V23"],"name":[23],"type":["int"],"align":["right"]},{"label":["V24"],"name":[24],"type":["int"],"align":["right"]},{"label":["V25"],"name":[25],"type":["int"],"align":["right"]},{"label":["V26"],"name":[26],"type":["int"],"align":["right"]},{"label":["V27"],"name":[27],"type":["int"],"align":["right"]},{"label":["V28"],"name":[28],"type":["int"],"align":["right"]}],"data":[{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"51","17":"159","18":"253","19":"159","20":"50","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"48","16":"238","17":"252","18":"252","19":"252","20":"237","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"54","15":"227","16":"253","17":"252","18":"239","19":"233","20":"252","21":"57","22":"6","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"10","13":"60","14":"224","15":"252","16":"253","17":"252","18":"202","19":"84","20":"252","21":"253","22":"122","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"163","13":"252","14":"252","15":"252","16":"253","17":"252","18":"252","19":"96","20":"189","21":"253","22":"167","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"51","12":"238","13":"253","14":"253","15":"190","16":"114","17":"253","18":"228","19":"47","20":"79","21":"255","22":"168","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"48","11":"238","12":"252","13":"252","14":"179","15":"12","16":"75","17":"121","18":"21","19":"0","20":"0","21":"253","22":"243","23":"50","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"38","10":"165","11":"253","12":"233","13":"208","14":"84","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"165","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"7","9":"178","10":"252","11":"240","12":"71","13":"19","14":"28","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"195","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"57","9":"252","10":"252","11":"63","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"195","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"198","9":"253","10":"190","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"255","22":"253","23":"196","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"76","8":"246","9":"252","10":"112","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"253","22":"252","23":"148","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"230","10":"25","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"7","20":"135","21":"253","22":"186","23":"12","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"223","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"7","19":"131","20":"252","21":"225","22":"71","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"145","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"48","18":"165","19":"252","20":"173","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"86","8":"253","9":"225","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"114","17":"238","18":"253","19":"162","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"249","10":"146","11":"48","12":"29","13":"85","14":"178","15":"225","16":"253","17":"223","18":"167","19":"56","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"85","8":"252","9":"252","10":"252","11":"229","12":"215","13":"252","14":"252","15":"252","16":"196","17":"130","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"28","8":"199","9":"252","10":"252","11":"253","12":"252","13":"252","14":"233","15":"145","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"25","9":"128","10":"252","11":"253","12":"252","13":"141","14":"37","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"},{"1":"0","2":"0","3":"0","4":"0","5":"0","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0","21":"0","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -413,7 +429,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">my_image_prepared</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["y"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["val"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"27","2":"1","3":"0"},{"1":"27","2":"2","3":"0"},{"1":"27","2":"3","3":"0"},{"1":"27","2":"4","3":"0"},{"1":"27","2":"5","3":"0"},{"1":"27","2":"6","3":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -434,8 +449,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="100-nn-quickstart_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="neuronales-netz-1" class="level4" data-number="12.2.2.3"><h4 data-number="12.2.2.3" class="anchored" data-anchor-id="neuronales-netz-1">
-<span class="header-section-number">12.2.2.3</span> Neuronales Netz 1</h4>
+</section><section id="neuronales-netz-1" class="level4" data-number="13.2.2.3"><h4 data-number="13.2.2.3" class="anchored" data-anchor-id="neuronales-netz-1">
+<span class="header-section-number">13.2.2.3</span> Neuronales Netz 1</h4>
 <p>Für unser Netzwerk wollen wir Werte zwischen 0 und 1, daher teilen wir durch den Max-Wert, d.i. 255:</p>
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-7_bd61a482f37bd74365ef0aa157ba4c59">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_train</span> <span class="op">&lt;-</span> <span class="va">X_train</span> <span class="op">/</span> <span class="fl">255</span></span>
@@ -532,8 +547,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">## [1] 7 2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Sieht gut aus!</p>
-</section><section id="best-bet-digit" class="level4" data-number="12.2.2.4"><h4 data-number="12.2.2.4" class="anchored" data-anchor-id="best-bet-digit">
-<span class="header-section-number">12.2.2.4</span> Best-Bet-Digit</h4>
+</section><section id="best-bet-digit" class="level4" data-number="13.2.2.4"><h4 data-number="13.2.2.4" class="anchored" data-anchor-id="best-bet-digit">
+<span class="header-section-number">13.2.2.4</span> Best-Bet-Digit</h4>
 <p>Möchte man ein Modell, das gleich die “Best-Bet-Digit” nennt, kann man das so machen:</p>
 <div class="cell" data-hash="100-nn-quickstart_cache/html/unnamed-chunk-17_fb575abd3979131c22b40a45867f4e9e">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -564,14 +579,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- #### Modellgüte  -->
 <!-- Die Modellgüte wird von `evaluate` ausgegeben. -->
 <!-- Aber wir könne -->
-</section></section><section id="quick-start-mit-python-und-colab" class="level3" data-number="12.2.3"><h3 data-number="12.2.3" class="anchored" data-anchor-id="quick-start-mit-python-und-colab">
-<span class="header-section-number">12.2.3</span> Quick-Start mit Python und Colab</h3>
+</section></section><section id="quick-start-mit-python-und-colab" class="level3" data-number="13.2.3"><h3 data-number="13.2.3" class="anchored" data-anchor-id="quick-start-mit-python-und-colab">
+<span class="header-section-number">13.2.3</span> Quick-Start mit Python und Colab</h3>
 <p>Am einfachsten ist der Einstieg mit <a href="https://colab.research.google.com/">Google Colab</a>, wo Python voreingestellt ist. Beginnen Sie mit dem [MNIST-Tutorial](https://www.tensorflow.org/tutorials/quickstart/beginner.</p>
-</section></section><section id="vertiefung" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">12.3</span> Vertiefung</h2>
+</section></section><section id="vertiefung" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">13.3</span> Vertiefung</h2>
 <p>Die <a href="https://www.tensorflow.org/guide/keras">TensforFlow-Docs</a> bieten einen guten Einstieg in Keras und TensorFlow.</p>
-</section><section id="fallstudien" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="fallstudien">
-<span class="header-section-number">12.4</span> Fallstudien</h2>
+</section><section id="fallstudien" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="fallstudien">
+<span class="header-section-number">13.4</span> Fallstudien</h2>
 <ul>
 <li><a href="https://appsilon.com/r-keras-mnist/">MNIST einen Schritt weiter</a></li>
 <li><a href="https://www.tensorflow.org/tutorials/keras/classification">Fashion-MNIST</a></li>
@@ -619,6 +634,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -687,13 +729,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -772,10 +816,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -785,8 +828,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -799,6 +851,128 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -842,6 +1016,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -867,6 +1042,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -926,13 +1127,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./070-hatespeech2.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span>
+      <a href="./095-miniprojekt2.html" class="pagination-link  aria-label=">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./110-nn-theo1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./110-nn-theo1.html" class="pagination-link" aria-label="<span class='chapter-number'>14</span>&nbsp; <span class='chapter-title'>Theoretische Grundlagen neuronaler Netze</span>">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

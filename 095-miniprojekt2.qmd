@@ -1,0 +1,40 @@
+# Miniprojekt
+
+
+
+
+## Aufgabe
+
+Führen Sie eine prädiktive Modellierung auf Basis von Textdaten bzw. von Natural Language Processing (Textmining) durch!
+
+
+## Datensatz
+
+Verwenden Sie einen Text (ca. 10-30k Wörter) Ihrer Wahl, von dem Sie einen engen Fokus auf bestimmte Themen sowie eine gewisse Emotionalität erwarten.
+
+
+Dieser Datensatz ist empfehlenswert:
+
+```{r}
+data("germeval_train", package = "pradadata")
+data("germeval_test", package = "pradadata")
+```
+
+
+## Methoden
+
+Wenden Sie dann die Methoden an, die im Teil *Tidymodels* (Natural Language Processing) dieses Buch vorgestellt sind.
+Zusätzlich es es empfehlenswert, auf typische Methoden der explorativen Datenanalyse zurückzugreifen inklusive der Datenvisualisierung.
+
+Nutzen Sie dabei die üblichen Methoden des Maschinenlernens wie Kreuzvalidierung und flexible (aber "flache") Modelle (noch keine neuronalen Netze).
+
+
+Typische Arbeitsschritte dabei sind:
+
+- Importieren und Aufbereiten der Daten
+- Einbettung von Wordvektoren
+- Sentimentanalysen als Prädiktoren nutzen
+- Emotionen, die über Emojis vermittelt werden, nutzen
+- Linguistische Textfeatures nutzen (z.B. Anzahl von Wörtern pro Dokument)
+
+

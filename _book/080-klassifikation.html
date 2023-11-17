@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.478">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 10&nbsp; Klassifikation von Hatespeech</title>
 <style>
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -55,6 +55,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -97,7 +98,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -117,19 +124,19 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./080-klassifikation.html">Tidymodels</a></li><li class="breadcrumb-item"><a href="./080-klassifikation.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./080-klassifikation.html">Tidymodels</a></li><li class="breadcrumb-item"><a href="./080-klassifikation.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
         <div class="sidebar-tools-main">
@@ -247,6 +254,12 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./095-miniprojekt2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -261,13 +274,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,13 +297,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -314,7 +327,7 @@ div.csl-indent {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
@@ -390,7 +403,7 @@ div.csl-indent {
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./080-klassifikation.html">Tidymodels</a></li><li class="breadcrumb-item"><a href="./080-klassifikation.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
 <span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span>
 </h1>
@@ -405,6 +418,7 @@ div.csl-indent {
     
   </div>
   
+
 
 </header><section id="vorab" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="vorab">
 <span class="header-section-number">10.1</span> Vorab</h2>
@@ -453,7 +467,6 @@ div.csl-indent {
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">c1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["c1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"OFFENSE","2":"1688"},{"1":"OTHER","2":"3321"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -470,7 +483,6 @@ div.csl-indent {
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">c2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["c2"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"ABUSE","2":"1022"},{"1":"INSULT","2":"595"},{"1":"OTHER","2":"3321"},{"1":"PROFANITY","2":"71"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -526,7 +538,6 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["text"],"name":[1],"type":["chr"],"align":["left"]},{"label":["c1"],"name":[2],"type":["chr"],"align":["left"]},{"label":["c2"],"name":[3],"type":["chr"],"align":["left"]},{"label":["id"],"name":[4],"type":["chr"],"align":["left"]},{"label":["text_length"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"@corinnamilborn Liebe Corinna, wir würden dich gerne als Moderatorin für uns gewinnen! Wärst du begeisterbar?","2":"OTHER","3":"OTHER","4":"1","5":"109","_rn_":"1"},{"1":"@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.","2":"OTHER","3":"OTHER","4":"2","5":"142","_rn_":"2"},{"1":"@ahrens_theo fröhlicher gruß aus der schönsten stadt der welt theo ⚓️","2":"OTHER","3":"OTHER","4":"3","5":"69","_rn_":"3"},{"1":"@dushanwegner Amis hätten alles und jeden gewählt...nur Hillary wollten sie nicht und eine Fortsetzung von Obama-Politik erst recht nicht..!","2":"OTHER","3":"OTHER","4":"4","5":"140","_rn_":"4"},{"1":"@spdde kein verläßlicher Verhandlungspartner. Nachkarteln nach den Sondierzngsgesprächen - schickt diese Stümper #SPD in die Versenkung.","2":"OFFENSE","3":"INSULT","4":"5","5":"136","_rn_":"5"},{"1":"@Dirki_M Ja, aber wo widersprechen die Zahlen denn denen, die im von uns verlinkten Artikel stehen? In unserem Tweet geht es rein um subs. Geschützte. 2017 ist der gesamte Familiennachzug im Vergleich zu 2016 - die Zahlen, die Hr. Brandner bemüht - übrigens leicht rückläufig gewesen.","2":"OTHER","3":"OTHER","4":"6","5":"284","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -555,7 +566,6 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d2_long</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["c1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["c2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["id"],"name":[3],"type":["chr"],"align":["left"]},{"label":["text_length"],"name":[4],"type":["int"],"align":["right"]},{"label":["token"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"corinnamilborn","_rn_":"1"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"liebe","_rn_":"2"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"corinna","_rn_":"3"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"wir","_rn_":"4"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"würden","_rn_":"5"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"dich","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -576,7 +586,6 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d2_long</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["c1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["c2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["id"],"name":[3],"type":["chr"],"align":["left"]},{"label":["text_length"],"name":[4],"type":["int"],"align":["right"]},{"label":["token"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"corinnamilborn","_rn_":"1"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"liebe","_rn_":"2"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"corinna","_rn_":"3"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"wir","_rn_":"4"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"würden","_rn_":"5"},{"1":"OTHER","2":"OTHER","3":"1","4":"109","5":"dich","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -595,7 +604,6 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d2_sentis</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["neg_pos"],"name":[2],"type":["chr"],"align":["left"]},{"label":["senti_avg"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"pos","3":"0.0040"},{"1":"1012","2":"neg","3":"-0.2087"},{"1":"1013","2":"neg","3":"-0.0420"},{"1":"1015","2":"neg","3":"-0.0048"},{"1":"1021","2":"pos","3":"0.0845"},{"1":"1024","2":"neg","3":"-0.4787"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -611,7 +619,6 @@ div.csl-indent {
 <span></span>
 <span><span class="va">d2_sentis_wide</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["pos"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["neg"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"0.0040","3":"NA"},{"1":"1012","2":"NA","3":"-0.2087"},{"1":"1013","2":"NA","3":"-0.0420"},{"1":"1015","2":"NA","3":"-0.0048"},{"1":"1021","2":"0.0845","3":"NA"},{"1":"1024","2":"0.0040","3":"-0.4787"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -627,7 +634,6 @@ div.csl-indent {
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["text"],"name":[1],"type":["chr"],"align":["left"]},{"label":["c1"],"name":[2],"type":["chr"],"align":["left"]},{"label":["c2"],"name":[3],"type":["chr"],"align":["left"]},{"label":["id"],"name":[4],"type":["chr"],"align":["left"]},{"label":["text_length"],"name":[5],"type":["int"],"align":["right"]},{"label":["pos"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["neg"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"@corinnamilborn Liebe Corinna, wir würden dich gerne als Moderatorin für uns gewinnen! Wärst du begeisterbar?","2":"OTHER","3":"OTHER","4":"1","5":"109","6":"0.004","7":"NA","_rn_":"1"},{"1":"@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.","2":"OTHER","3":"OTHER","4":"2","5":"142","6":"NA","7":"-0.3466","_rn_":"2"},{"1":"@ahrens_theo fröhlicher gruß aus der schönsten stadt der welt theo ⚓️","2":"OTHER","3":"OTHER","4":"3","5":"69","6":"NA","7":"NA","_rn_":"3"},{"1":"@dushanwegner Amis hätten alles und jeden gewählt...nur Hillary wollten sie nicht und eine Fortsetzung von Obama-Politik erst recht nicht..!","2":"OTHER","3":"OTHER","4":"4","5":"140","6":"NA","7":"NA","_rn_":"4"},{"1":"@spdde kein verläßlicher Verhandlungspartner. Nachkarteln nach den Sondierzngsgesprächen - schickt diese Stümper #SPD in die Versenkung.","2":"OFFENSE","3":"INSULT","4":"5","5":"136","6":"NA","7":"NA","_rn_":"5"},{"1":"@Dirki_M Ja, aber wo widersprechen die Zahlen denn denen, die im von uns verlinkten Artikel stehen? In unserem Tweet geht es rein um subs. Geschützte. 2017 ist der gesamte Familiennachzug im Vergleich zu 2016 - die Zahlen, die Hr. Brandner bemüht - übrigens leicht rückläufig gewesen.","2":"OTHER","3":"OTHER","4":"6","5":"284","6":"0.004","7":"-0.2042","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -692,7 +698,6 @@ Hinweis
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_schimpf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">schimpf</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["schimpf"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"FALSE","2":"99105"},{"1":"TRUE","2":"1112"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -709,7 +714,6 @@ Hinweis
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d_schimpf2</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["schimpf_n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"0"},{"1":"10","2":"0"},{"1":"100","2":"0"},{"1":"1000","2":"0"},{"1":"1001","2":"0"},{"1":"1002","2":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -881,7 +885,6 @@ Wichtig
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d_rec1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["fct"],"align":["left"]},{"label":["c1"],"name":[2],"type":["fct"],"align":["left"]},{"label":["tfidf_text__macmik"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_2"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_ab"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_afd"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_amp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_anna_iina"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_antisemitismu"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_athinamala"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_besser"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_bild"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_cdu"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_charlie_silv"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_csu"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_d"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_dafür"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_dank"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_dass"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_deutsch"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_deutschen"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_deutschland"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_dumm"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_eigentlich"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_einfach"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_ellibisathid"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_endlich"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_ennof_"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_erst"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_eu"],"name":[30],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_europa"],"name":[31],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_fdp"],"name":[32],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_feldenfrizz"],"name":[33],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_focusonlin"],"name":[34],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_frau"],"name":[35],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_ganz"],"name":[36],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_geht"],"name":[37],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_gerad"],"name":[38],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_gibt"],"name":[39],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_grünen"],"name":[40],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_gt"],"name":[41],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_gut"],"name":[42],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_heut"],"name":[43],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_immer"],"name":[44],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_info2099"],"name":[45],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_islam"],"name":[46],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_israel"],"name":[47],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_ja"],"name":[48],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_jahr"],"name":[49],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_juden"],"name":[50],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_kommen"],"name":[51],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_kommt"],"name":[52],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_krippmari"],"name":[53],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_land"],"name":[54],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_lassen"],"name":[55],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_lbr"],"name":[56],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_leben"],"name":[57],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_lifetrend"],"name":[58],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_link"],"name":[59],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_macht"],"name":[60],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_machtjanix23"],"name":[61],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_mal"],"name":[62],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_md_franz"],"name":[63],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_medien"],"name":[64],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_mehr"],"name":[65],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_menschen"],"name":[66],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_merkel"],"name":[67],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_miriamozen"],"name":[68],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_moslem"],"name":[69],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_müssen"],"name":[70],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_nancypeggymandi"],"name":[71],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_nasanas"],"name":[72],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_noherrman"],"name":[73],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_norbinator2403"],"name":[74],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_petpanther0"],"name":[75],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_politik"],"name":[76],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_problem"],"name":[77],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_recht"],"name":[78],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_richtig"],"name":[79],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_schmiddiemaik"],"name":[80],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_schon"],"name":[81],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_schulz"],"name":[82],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_seit"],"name":[83],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_spd"],"name":[84],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_tagesschau"],"name":[85],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_thomasgbau"],"name":[86],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_troll_putin"],"name":[87],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_trump"],"name":[88],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_tun"],"name":[89],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_türken"],"name":[90],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_u"],"name":[91],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_unser"],"name":[92],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_viel"],"name":[93],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_volk"],"name":[94],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_wäre"],"name":[95],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_warum"],"name":[96],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_welt"],"name":[97],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_wer"],"name":[98],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_willjrosenblatt"],"name":[99],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_wohl"],"name":[100],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_wurd"],"name":[101],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_zeit"],"name":[102],"type":["dbl"],"align":["right"]}],"data":[{"1":"5","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0.000000","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0.000000","21":"0.000000","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0","37":"0.000000","38":"0","39":"0","40":"0","41":"0","42":"0","43":"0.000000","44":"0.000000","45":"0","46":"0","47":"0","48":"0.000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0.0000000","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"0.000000","65":"0","66":"0","67":"0","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"0.000000","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0.000000","84":"3.681896","85":"0.000000","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0.00000"},{"1":"7","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0.000000","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0.000000","21":"0.000000","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0","37":"1.172112","38":"0","39":"0","40":"0","41":"0","42":"0","43":"1.108688","44":"0.000000","45":"0","46":"0","47":"0","48":"0.000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0.0000000","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"0.000000","65":"0","66":"0","67":"0","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"0.000000","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0.000000","84":"0.000000","85":"0.000000","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"1.45075"},{"1":"9","2":"OFFENSE","3":"0","4":"0","5":"0","6":"1.680573","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0.000000","21":"0.000000","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0","37":"0.000000","38":"0","39":"0","40":"0","41":"0","42":"0","43":"0.000000","44":"0.000000","45":"0","46":"0","47":"0","48":"0.000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0.0000000","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"0.000000","65":"0","66":"0","67":"0","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"0.000000","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0.000000","84":"0.000000","85":"2.176125","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0.00000"},{"1":"10","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0.000000","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"1.737534","21":"0.000000","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0","37":"0.000000","38":"0","39":"0","40":"0","41":"0","42":"0","43":"0.000000","44":"0.000000","45":"0","46":"0","47":"0","48":"0.000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0.0000000","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"2.229283","65":"0","66":"0","67":"0","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"0.000000","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0.000000","84":"0.000000","85":"0.000000","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0.00000"},{"1":"12","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0.000000","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0.000000","21":"0.000000","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0","37":"0.000000","38":"0","39":"0","40":"0","41":"0","42":"0","43":"0.000000","44":"1.106401","45":"0","46":"0","47":"0","48":"1.076041","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0.6157743","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"0.000000","65":"0","66":"0","67":"0","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"0.000000","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"0.000000","84":"0.000000","85":"0.000000","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0.00000"},{"1":"17","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0.000000","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"0","20":"0.000000","21":"1.145178","22":"0","23":"0","24":"0","25":"0","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0","35":"0","36":"0","37":"0.000000","38":"0","39":"0","40":"0","41":"0","42":"0","43":"0.000000","44":"0.000000","45":"0","46":"0","47":"0","48":"0.000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0","55":"0","56":"0.0000000","57":"0","58":"0","59":"0","60":"0","61":"0","62":"0","63":"0","64":"0.000000","65":"0","66":"0","67":"0","68":"0","69":"0","70":"0","71":"0","72":"0","73":"0","74":"0","75":"0","76":"1.177788","77":"0","78":"0","79":"0","80":"0","81":"0","82":"0","83":"1.266467","84":"0.000000","85":"0.000000","86":"0","87":"0","88":"0","89":"0","90":"0","91":"0","92":"0","93":"0","94":"0","95":"0","96":"0","97":"0","98":"0","99":"0","100":"0","101":"0","102":"0.00000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1000,7 +1003,6 @@ Wichtig
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">show_best</span><span class="op">(</span><span class="va">null_rs</span><span class="op">)</span></span>
 <span><span class="co">## Warning: No value of `metric` was given; metric 'roc_auc' will be used.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["penalty"],"name":[1],"type":["dbl"],"align":["right"]},{"label":[".metric"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[3],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"0.0017433288","2":"roc_auc","3":"binary","4":"0.8116297","5":"10","6":"0.008710636","7":"Preprocessor1_Model22"},{"1":"0.0007880463","2":"roc_auc","3":"binary","4":"0.8111630","5":"10","6":"0.008941393","7":"Preprocessor1_Model21"},{"1":"0.0003562248","2":"roc_auc","3":"binary","4":"0.8103737","5":"10","6":"0.009238082","7":"Preprocessor1_Model20"},{"1":"0.0001610262","2":"roc_auc","3":"binary","4":"0.8099159","5":"10","6":"0.009444783","7":"Preprocessor1_Model19"},{"1":"0.0000000001","2":"roc_auc","3":"binary","4":"0.8095907","5":"10","6":"0.009602864","7":"Preprocessor1_Model01"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1089,7 +1091,6 @@ Wichtig
 <span><span class="co">## [1] 3756   58</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d_rec2a</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["fct"],"align":["left"]},{"label":["c1"],"name":[2],"type":["fct"],"align":["left"]},{"label":["profane_n"],"name":[3],"type":["int"],"align":["right"]},{"label":["emo_words_n"],"name":[4],"type":["int"],"align":["right"]},{"label":["emojis_n"],"name":[5],"type":["int"],"align":["right"]},{"label":["wild_emojis_n"],"name":[6],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_words"],"name":[7],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_uq_words"],"name":[8],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_charS"],"name":[9],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_uq_charS"],"name":[10],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_digits"],"name":[11],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_hashtags"],"name":[12],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_uq_hashtags"],"name":[13],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_mentions"],"name":[14],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_uq_mentions"],"name":[15],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_commas"],"name":[16],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_periods"],"name":[17],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_exclaims"],"name":[18],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_extraspaces"],"name":[19],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_caps"],"name":[20],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_lowers"],"name":[21],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_urls"],"name":[22],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_uq_urls"],"name":[23],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_nonasciis"],"name":[24],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_n_puncts"],"name":[25],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_politeness"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["textfeature_text_copy_first_person"],"name":[27],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_first_personp"],"name":[28],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_second_person"],"name":[29],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_second_personp"],"name":[30],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_third_person"],"name":[31],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_to_be"],"name":[32],"type":["int"],"align":["right"]},{"label":["textfeature_text_copy_prepositions"],"name":[33],"type":["int"],"align":["right"]},{"label":["tfidf_text_afd"],"name":[34],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_amp"],"name":[35],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_d"],"name":[36],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_dass"],"name":[37],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_deutsche"],"name":[38],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_deutschen"],"name":[39],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_deutschland"],"name":[40],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_geht"],"name":[41],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_gibt"],"name":[42],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_heute"],"name":[43],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_immer"],"name":[44],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_ja"],"name":[45],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_krippmarie"],"name":[46],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_land"],"name":[47],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_lbr"],"name":[48],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_mal"],"name":[49],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_mehr"],"name":[50],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_merkel"],"name":[51],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_müssen"],"name":[52],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_schon"],"name":[53],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_spd"],"name":[54],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_u"],"name":[55],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_unsere"],"name":[56],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_welt"],"name":[57],"type":["dbl"],"align":["right"]},{"label":["tfidf_text_wer"],"name":[58],"type":["dbl"],"align":["right"]}],"data":[{"1":"5","2":"OFFENSE","3":"1","4":"0","5":"0","6":"0","7":"16","8":"16","9":"121","10":"31","11":"0","12":"1","13":"1","14":"1","15":"1","16":"0","17":"2","18":"0","19":"0","20":"8","21":"108","22":"0","23":"0","24":"0","25":"3","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0.000000","35":"0","36":"0","37":"0","38":"0.000000","39":"0","40":"0","41":"0.000000","42":"0","43":"0.000000","44":"0.000000","45":"0.0000","46":"0.000000","47":"0","48":"0.0000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"3.671899","55":"0","56":"0","57":"0","58":"0"},{"1":"7","2":"OFFENSE","3":"1","4":"0","5":"0","6":"0","7":"32","8":"28","9":"145","10":"29","11":"4","12":"0","13":"0","14":"1","15":"1","16":"0","17":"2","18":"0","19":"0","20":"4","21":"134","22":"0","23":"0","24":"0","25":"1","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0.000000","35":"0","36":"0","37":"0","38":"0.000000","39":"0","40":"0","41":"1.821262","42":"0","43":"1.673477","44":"0.000000","45":"0.0000","46":"0.000000","47":"0","48":"0.0000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0.000000","55":"0","56":"0","57":"0","58":"0"},{"1":"9","2":"OFFENSE","3":"0","4":"1","5":"0","6":"0","7":"12","8":"12","9":"66","10":"29","11":"0","12":"1","13":"1","14":"1","15":"1","16":"0","17":"1","18":"0","19":"0","20":"9","21":"53","22":"0","23":"0","24":"0","25":"3","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"3.361147","35":"0","36":"0","37":"0","38":"0.000000","39":"0","40":"0","41":"0.000000","42":"0","43":"0.000000","44":"0.000000","45":"0.0000","46":"0.000000","47":"0","48":"0.0000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0.000000","55":"0","56":"0","57":"0","58":"0"},{"1":"10","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0","7":"15","8":"15","9":"119","10":"30","11":"0","12":"0","13":"0","14":"0","15":"0","16":"2","17":"0","18":"0","19":"0","20":"6","21":"108","22":"0","23":"0","24":"0","25":"3","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0.000000","35":"0","36":"0","37":"0","38":"3.604721","39":"0","40":"0","41":"0.000000","42":"0","43":"0.000000","44":"0.000000","45":"0.0000","46":"0.000000","47":"0","48":"0.0000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0.000000","55":"0","56":"0","57":"0","58":"0"},{"1":"12","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0","7":"26","8":"25","9":"134","10":"39","11":"2","12":"0","13":"0","14":"1","15":"1","16":"0","17":"3","18":"0","19":"0","20":"12","21":"111","22":"0","23":"0","24":"0","25":"6","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0.000000","35":"0","36":"0","37":"0","38":"0.000000","39":"0","40":"0","41":"0.000000","42":"0","43":"0.000000","44":"1.122775","45":"1.0823","46":"0.000000","47":"0","48":"0.6210228","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0.000000","55":"0","56":"0","57":"0","58":"0"},{"1":"27","2":"OFFENSE","3":"0","4":"0","5":"0","6":"0","7":"15","8":"15","9":"101","10":"31","11":"0","12":"0","13":"0","14":"1","15":"1","16":"0","17":"4","18":"0","19":"0","20":"6","21":"88","22":"0","23":"0","24":"0","25":"3","26":"0","27":"0","28":"0","29":"0","30":"0","31":"0","32":"0","33":"0","34":"0.000000","35":"0","36":"0","37":"0","38":"0.000000","39":"0","40":"0","41":"0.000000","42":"0","43":"0.000000","44":"0.000000","45":"0.0000","46":"3.671899","47":"0","48":"0.0000000","49":"0","50":"0","51":"0","52":"0","53":"0","54":"0.000000","55":"0","56":"0","57":"0","58":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1259,7 +1260,6 @@ Wichtig
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit2b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">show_best</span><span class="op">(</span><span class="st">"roc_auc"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["penalty"],"name":[1],"type":["dbl"],"align":["right"]},{"label":[".metric"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[3],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"1e-10","2":"roc_auc","3":"binary","4":"0.6433326","5":"5","6":"0.008664343","7":"Preprocessor1_Model1"},{"1":"1e-05","2":"roc_auc","3":"binary","4":"0.6433326","5":"5","6":"0.008664343","7":"Preprocessor1_Model2"},{"1":"1e+00","2":"roc_auc","3":"binary","4":"0.5000000","5":"5","6":"0.000000000","7":"Preprocessor1_Model3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1318,7 +1318,6 @@ Wichtig
 <span><span class="co">##     expand, pack, unpack</span></span>
 <span><span class="co">## Loaded glmnet 4.1-8</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["penalty"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"tfidf_text_schmiddiemaik","2":"-18.171307","3":"1e-05"},{"1":"tfidf_text_feldenfrizz","2":"15.435569","3":"1e-05"},{"1":"tfidf_text_ennof_","2":"8.997241","3":"1e-05"},{"1":"tfidf_text__macmik","2":"4.596780","3":"1e-05"},{"1":"tfidf_text_nasanas","2":"4.496611","3":"1e-05"},{"1":"tfidf_text_machtjanix23","2":"4.047170","3":"1e-05"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1332,7 +1331,6 @@ Wichtig
 <span></span>
 <span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit2b_final_test</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":[".metric"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"accuracy","2":"binary","3":"0.6863528","4":"Preprocessor1_Model1"},{"1":"roc_auc","2":"binary","3":"0.6642428","4":"Preprocessor1_Model1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1530,7 +1528,6 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 </div>
 <div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-41_db5113565676069ea9bafb9c5778eb26">
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["v001"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["v002"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["v003"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["v004"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"<\/s>","2":"0.17330834","3":"0.07820062","4":"-0.05277666","5":"0.0862241"},{"1":"die","2":"0.48641139","3":"0.03693734","4":"-0.01204743","5":"0.1565817"},{"1":"und","2":"0.39090732","3":"-0.02645574","4":"0.11355034","5":"0.1545031"},{"1":"der","2":"0.37105647","3":"-0.33681911","4":"0.05018367","5":"0.2029566"},{"1":"sie","2":"0.45957077","3":"0.04141690","4":"0.23099238","5":"0.1809430"},{"1":"das","2":"0.07037771","3":"-0.07423849","4":"0.04087655","5":"0.1506333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1568,7 +1565,6 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-44_38c9b5599bc92f0dce6f8a4cd2e4c09f">
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds_baked_rec1a</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">`[`</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["fct"],"align":["left"]},{"label":["wordembed_text_v001"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v002"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v003"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v004"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v005"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v006"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v007"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v008"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["wordembed_text_v009"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"NA","2":"0.23893653","3":"0.014598664","4":"-0.2222376","5":"0.48163152","6":"0.20162874","7":"-0.12450162","8":"0.23333058","9":"-0.226192281","10":"-0.027382970"},{"1":"NA","2":"0.32377085","3":"0.695485767","4":"0.4336860","5":"0.28993332","6":"-0.17770833","7":"-0.74807747","8":"1.49294108","9":"1.064348385","10":"0.820613639"},{"1":"NA","2":"0.21142043","3":"0.783711389","4":"-1.3797138","5":"0.28518000","6":"0.33366236","7":"-0.24040961","8":"0.19629040","9":"0.084888689","10":"-0.186157003"},{"1":"NA","2":"0.71277493","3":"-0.304109801","4":"-0.4309491","5":"0.05916093","6":"0.04967718","7":"0.10116307","8":"0.34288836","9":"0.004611025","10":"0.875826895"},{"1":"NA","2":"0.00000000","3":"0.000000000","4":"0.0000000","5":"0.00000000","6":"0.00000000","7":"0.00000000","8":"0.00000000","9":"0.000000000","10":"0.000000000"},{"1":"NA","2":"0.00000000","3":"0.000000000","4":"0.0000000","5":"0.00000000","6":"0.00000000","7":"0.00000000","8":"0.00000000","9":"0.000000000","10":"0.000000000"},{"1":"NA","2":"0.61656542","3":"-0.006150134","4":"-0.7271604","5":"-0.10712643","6":"0.96813375","7":"-0.03373864","8":"0.08099335","9":"0.201609042","10":"1.104397699"},{"1":"NA","2":"0.04866463","3":"-0.441774538","4":"-0.3122953","5":"0.05295798","6":"0.78680488","7":"0.09914146","8":"0.01339768","9":"-0.094183717","10":"0.029520422"},{"1":"NA","2":"0.00000000","3":"0.000000000","4":"0.0000000","5":"0.00000000","6":"0.00000000","7":"0.00000000","8":"0.00000000","9":"0.000000000","10":"0.000000000"},{"1":"NA","2":"0.21170381","3":"-0.291642219","4":"-0.3079664","5":"-0.17432338","6":"0.52147198","7":"-0.06467295","8":"0.21021771","9":"-0.425262958","10":"0.006601942"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1736,7 +1732,6 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">show_best</span><span class="op">(</span><span class="st">"roc_auc"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["penalty"],"name":[1],"type":["dbl"],"align":["right"]},{"label":[".metric"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[3],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["int"],"align":["right"]},{"label":["std_err"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"0.0017433288","2":"roc_auc","3":"binary","4":"0.8116297","5":"10","6":"0.008710636","7":"Preprocessor1_Model22"},{"1":"0.0007880463","2":"roc_auc","3":"binary","4":"0.8111630","5":"10","6":"0.008941393","7":"Preprocessor1_Model21"},{"1":"0.0003562248","2":"roc_auc","3":"binary","4":"0.8103737","5":"10","6":"0.009238082","7":"Preprocessor1_Model20"},{"1":"0.0001610262","2":"roc_auc","3":"binary","4":"0.8099159","5":"10","6":"0.009444783","7":"Preprocessor1_Model19"},{"1":"0.0000000001","2":"roc_auc","3":"binary","4":"0.8095907","5":"10","6":"0.009602864","7":"Preprocessor1_Model01"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1789,7 +1784,6 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["penalty"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"1.3359975","3":"0.008531679"},{"1":"profane_n","2":"-0.5669547","3":"0.008531679"},{"1":"wordembed_text_v055","2":"0.2084922","3":"0.008531679"},{"1":"textfeature_text_copy_n_exclaims","2":"-0.1848394","3":"0.008531679"},{"1":"wordembed_text_v089","2":"-0.1844506","3":"0.008531679"},{"1":"wordembed_text_v054","2":"0.1759950","3":"0.008531679"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1805,7 +1799,6 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <div class="cell" data-hash="080-klassifikation_cache/html/unnamed-chunk-57_7e9b99f86ff709eb3f877d2a09794626">
 <div class="sourceCode" id="cb122"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">collect_metrics</span><span class="op">(</span><span class="va">fit3_final_test</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
 {"columns":[{"label":[".metric"],"name":[1],"type":["chr"],"align":["left"]},{"label":[".estimator"],"name":[2],"type":["chr"],"align":["left"]},{"label":[".estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":[".config"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"accuracy","2":"binary","3":"0.7454110","4":"Preprocessor1_Model1"},{"1":"roc_auc","2":"binary","3":"0.8055475","4":"Preprocessor1_Model1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1824,7 +1817,7 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <p><a href="https://platform.openai.com/docs/guides/embeddings">OpenAIs Word-Einbettungen</a> werden in <a href="https://juliasilge.com/blog/horror-embeddings/">dieser Fallstudie</a> verwendet. Sehr schön!</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-Remus2010" class="csl-entry" role="listitem">
 Remus, Robert, Uwe Quasthoff, und Gerhard Heyer. 2010. <span>„<span>SentiWS</span> - a Publicly Available German-Language Resource for Sentiment Analysis“</span>. <em>Proceedings of the 7th International Language Ressources and Evaluation (LREC’10)</em>, 1168–71.
 </div>
@@ -1838,11 +1831,11 @@ Wiegand, Michael. 2019a. <span>„<span>GermEval-2018</span> Corpus (<span>DE</s
 ———. 2019b. <span>„<span>GermEval-2018-Data-master</span>“</span>. In <em><span>GermEval-2018</span> Corpus (<span>DE</span>)</em>. <span>heiDATA</span>. <a href="https://doi.org/10.11588/data/0B5VML/XIUWJ7">https://doi.org/10.11588/data/0B5VML/XIUWJ7</a>.
 </div>
 </div>
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Der Text dieses Abschnitts wurde von ChatGPT 3.5 erstellt, 2023-10-29.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Aber Vorsicht beim Abspeichern, man könnte versehentlich mit einer veralteten Version weiterarbeiten.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1883,6 +1876,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1951,13 +1971,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2036,10 +2058,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2049,8 +2070,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2063,6 +2093,128 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2106,6 +2258,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2131,6 +2284,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2190,12 +2369,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./067-miniprojekt1.html" class="pagination-link">
+      <a href="./067-miniprojekt1.html" class="pagination-link  aria-label=">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./070-hatespeech2.html" class="pagination-link">
+      <a href="./070-hatespeech2.html" class="pagination-link" aria-label="<span class='chapter-number'>11</span>&nbsp; <span class='chapter-title'>Fallstudie Hatespeech</span>">
         <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
