@@ -217,12 +217,14 @@ Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vekt
 [Bildquelle: Martin Thoma, Wikipedia, CC-BY 3.0](https://commons.wikimedia.org/wiki/User:MartinThoma)
 
 
-
+::: callout-note
 Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei [Math is Fun](https://www.mathsisfun.com/algebra/vectors-dot-product.html). 
 Für Einsteiger interessant ist auch die Erklärung von [Kalid Azad](https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/).
+Eine 3D-Darstellung von Vektoren findet sich [hier](https://www.desmos.com/3d/f7561f1632). $\square$
+:::
 
 
-In R kann man das Punktproduct mit dem `%*%`-Operator berechnen
+In R kann man das Punktprodukt mit dem `%*%`-Operator berechnen
 
 ```{r}
 x <- c(1,2,3)
@@ -257,6 +259,11 @@ Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auff
 
 
 ![Berechnung des Punktprodukts](img/matrix-mult.png){#fig-matrixmult fig-width=50%}
+
+
+::: callout-tip
+Probieren Sie [diesen Matrizenrechner](https://www.desmos.com/matrix) aus zur Berechnung des Punktprodukts bzw. der Matrizenmultiplikation. $\square$
+:::
 
 
 ### Regression als Matrixmultiplikation
@@ -438,9 +445,16 @@ Anspruchsvoller; mathematische Grundlagen von Backpropagation (parzielle Ableitu
 
 ## Vertiefung
 
+Francois Chollet hat eine nützliche, zugängliche und (zum Einstieg) umfassende Anleitung zum Thema neuronale Netze mit R bzw. mit Python geschrieben [@chollet_deep_2022-1; @chollet_deep_2021]. 
+
+Es finden sich viele weitere Lehrbücher für Einsteiger und Fortgeschrittene, z.B. @kulkarni_natural_2021, @gallatin_machine_2023. 
+Bekannt ist auch @geron_praxiseinstieg_2023.
+Der Großteil der entsprechenden Werke nutzt Python, nicht R.
+
 Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei [Kalid Azad, betterexplained.com](https://betterexplained.com/articles/matrix-multiplication/).
 Auf [Wikipedia](https://de.wikipedia.org/wiki/Matrizenmultiplikation) finden sich einige einsteigerfreundliche Illustrationen.
 
+Die Videos von [vcubingx](https://www.youtube.com/@vcubingx) zum [Thema Neuronale Netze ](https://www.youtube.com/watch?v=-at7SLoVK_I) sind empfehlenswert.
 
 
 

@@ -18,13 +18,16 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 - Twitterdaten via API von Twitter auslesen
 
 
+### Begleitliteratur
+
+Lesen Sie in @smltar Kap. 1 als Vorbereitung.
 
 ### Vorbereitung
 
-- Lesen Sie in @smltar Kap. 1.
-- Legen Sie sich ein Konto bei [Github](https://github.com/) an.
-- Legen Sie sich ein Konto bei [Twitter](twitter.com) an.
-- Lesen Sie [diesen Artikel zur Anmeldung bei der Twitter API](https://docs.ropensci.org/rtweet/articles/auth.html)^[Sie können [hier](https://www.howtogeek.com/343877/what-is-an-api/) nachlesen, was eine API ist.]
+
+Legen Sie sich ein Konto bei [Github](https://github.com/) an. Sie werden es mehrfach in diesem Kurs benötigen (und in der Praxis der Datenanalyse).
+Legen Sie sich ein Konto bei [Twitter](twitter.com) an.
+Lesen Sie [diesen Artikel zur Anmeldung bei der Twitter API](https://docs.ropensci.org/rtweet/articles/auth.html)^[Sie können [hier](https://www.howtogeek.com/343877/what-is-an-api/) nachlesen, was eine API ist.]
 
 
 
@@ -1099,6 +1102,11 @@ Mehr Details finden sich den [Entwicklerrichtlinien von Twitter](https://develop
 
 
 Twitter stellt eine Reihe von [Lehrmaterialien](https://developer.twitter.com/en/use-cases/do-research/academic-research/resources) für die wissenschaftliche Nutzung von Tweets bereit.
+
+
+
+<!-- ## Vertiefung -->
+
 
 
 

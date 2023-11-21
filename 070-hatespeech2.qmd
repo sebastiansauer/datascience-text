@@ -494,3 +494,7 @@ res_summary2_long %>%
 
 
 
+## Vertiefung
+
+
+@siegel_sentiment-analyse_2020 bieten einen Einstieg in die Sentimentanalyse deutschsprachiger Texte, auch mit einem Blick auf das Erkennen von Aggression.

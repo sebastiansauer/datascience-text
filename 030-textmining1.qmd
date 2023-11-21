@@ -18,9 +18,12 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 
 
-### Vorbereitung
+### Begleitliteratur
 
-- Lesen Sie in @smltar Kap. 2.
+Lesen Sie in @smltar Kap. 2 zur Vorbereitung.
+
+
+
 
 
 
@@ -903,6 +906,6 @@ Apropos Themenanalyse: Alternativ zum klassischen, probabilistischen Themen-Mode
 
 [Hauptkomponenten-Analyse (Principal Component Analysis, PCA)](https://juliasilge.com/blog/stack-overflow-pca/) ist eine zentrale Methode der Datenanalyse. Diese Fallstudie stellt eine einfache Anwendung - ohne tiefere theoretische Erläuterung - vor.
 
-
+@silge_text_2017 geben eine Einführung in die Textanalyse mit Hilfe von Tidy-Prinzipien.
 
 

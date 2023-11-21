@@ -18,10 +18,10 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 
 
 
-### Vorbereitung
+### Begleitliteratur 
 
-<!-- - Lesen Sie [diesen Text](https://www.science4all.org/article/shannons-information-theory/) als Vorbereitung -->
-- Arbeiten Sie @smltar, [Kap. 5](https://smltar.com/embeddings.html) durch.
+
+Arbeiten Sie @smltar, [Kap. 5](https://smltar.com/embeddings.html) vor dem Unterricht durch als Vorbereitung.
 
 
 
@@ -134,7 +134,8 @@ beschwerde1_text$word
 ## Wordembeddings selber erstellen
 
 
-
+<!-- TODO -->
+<!-- nette Illustrationen: https://entwickler.de/python/grundsatze-moderner-textklassifizierung-fur-machine-learning-word-embeddings -->
 
 
 
@@ -983,7 +984,7 @@ Die Anzahl der Dokumente ist `r dim(doc_matrix)[1]` und die Anzahl der Dimension
 ### Wordembeddings für die deutsche Sprache
 
 
-In diesem [Github-Projekt](https://devmount.github.io/GermanWordEmbeddings/) finden sich die Materialien für ein deutsches Wordembedding [@mueller2015].
+In dem [Github-Projekt "Wikipedia2Vec"](https://wikipedia2vec.github.io/wikipedia2vec/) finden sich die Materialien für ein deutsches Wordembedding [@yamada2019neural].  
 
 
 
@@ -997,6 +998,7 @@ Ansätzen wir Worthäufigkeiten oder tf-idf.
 Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten,
 und zu sehen, wie weit man kommt.
 Vielleicht ja weit genug.
+Natürlich haben Modelle auf Basis von Worthäufigkeiten auch ihre Schwächen: Vor allem ist ihre prädiktive Nützlichkeit nicht immer gegeben und die Datensätze werden schnell sehr groß (viele Spalten).
 
 
 
@@ -1008,14 +1010,13 @@ Vielleicht ja weit genug.
 [Hacker-News-Einbettungs-Fallstudie](https://juliasilge.com/blog/tidy-word-vectors/) (was für ein Word!) -- Eine praktische Darstellung der Erstellung von Word-Vektoren rein auf Basis der linearen Algebra.
 
 
-### Vertiefung
+## Vertiefung
+
+Worteinbettungen sind ein zentrales Thema im NLP; für moderne Sprachmodelle sind sie von zentraler Bedeutung. Entsprechend findet sich viel Literatur, z.B. [@liu_representation_2023; @george_python_2022; @noauthor_word_2023; @mikolov_efficient_2013; @camacho-collados_embeddings_2020; @almeida_word_2019; @pilehvar_embeddings_2021].
 
 
-Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.
 
-- [Wikipedia: Pointwise Mutual Information](https://en.wikipedia.org/wiki/Pointwise_mutual_information)
-- [Wikipedia: Mutual information](https://en.wikipedia.org/wiki/Mutual_information)
-- [Wikipedia: Information theory](https://en.wikipedia.org/wiki/Information_theory)
+Ein Online-Python-Tutorial findet sich z.B. bei [TensorFlow](https://www.tensorflow.org/text/guide/word_embeddings).
 
 
 

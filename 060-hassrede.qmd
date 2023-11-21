@@ -96,4 +96,14 @@ um zu einer Arbeitsdefinition von Hassrede zu kommen.
 
 
 
+## Vertiefung
+
+Bei @castano-pulgarin_internet_2021-1 findet sich ein Review zum Thema Hassrede in Sozialen Netzwerken. Auch bei @alkomah_literature_2022-1 findet sich ein Review zu einem ähnlichen Thema.
+
+[Diese Zotero-Gruppe] bietet einen Überblick an relevanten Artikeln für einen Einstieg in die Materie.
+
+
+@siegel_sentiment-analyse_2020 bieten einen Überblick zur Sentiment-Analyse in speziell deutschsprachiger Meinungsäußerung. Dabei gehen die Autoren auch spezill auf politische Trends ein (pp. 75-80) und auf die Detektion von Aggression (po. 93-102). Dabei kommt die Programmiersprache Python zur Anwendung.
+
+
 
