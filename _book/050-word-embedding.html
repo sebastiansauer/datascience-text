@@ -273,14 +273,26 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./105-python-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
   </div>
 </li>
       </ul>
@@ -297,13 +309,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -337,7 +349,7 @@ div.csl-indent {
 <a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">7.1</span> Vorab</a>
   <ul class="collapse">
 <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">7.1.1</span> Lernziele</a></li>
-  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link" data-scroll-target="#vorbereitung"><span class="header-section-number">7.1.2</span> Vorbereitung</a></li>
+  <li><a href="#begleitliteratur" id="toc-begleitliteratur" class="nav-link" data-scroll-target="#begleitliteratur"><span class="header-section-number">7.1.2</span> Begleitliteratur</a></li>
   <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">7.1.3</span> Benötigte R-Pakete</a></li>
   </ul>
 </li>
@@ -368,12 +380,8 @@ div.csl-indent {
   </ul>
 </li>
   <li><a href="#fazit" id="toc-fazit" class="nav-link" data-scroll-target="#fazit"><span class="header-section-number">7.5</span> Fazit</a></li>
-  <li>
-<a href="#fallstudie" id="toc-fallstudie" class="nav-link" data-scroll-target="#fallstudie"><span class="header-section-number">7.6</span> Fallstudie</a>
-  <ul class="collapse">
-<li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">7.6.1</span> Vertiefung</a></li>
-  </ul>
-</li>
+  <li><a href="#fallstudie" id="toc-fallstudie" class="nav-link" data-scroll-target="#fallstudie"><span class="header-section-number">7.6</span> Fallstudie</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">7.7</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -402,14 +410,12 @@ div.csl-indent {
 <!-- - Die grundlegenden Konzepte der Informationstheorie erklären können -->
 <ul>
 <li>Die Erstellung von Word-Embeddings anhand grundlegender R-Funktionen erläutern können.</li>
-</ul></section><section id="vorbereitung" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="vorbereitung">
-<span class="header-section-number">7.1.2</span> Vorbereitung</h3>
-<!-- - Lesen Sie [diesen Text](https://www.science4all.org/article/shannons-information-theory/) als Vorbereitung -->
-<ul>
-<li>Arbeiten Sie <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="references.html#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/embeddings.html">Kap. 5</a> durch.</li>
-</ul></section><section id="benötigte-r-pakete" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+</ul></section><section id="begleitliteratur" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="begleitliteratur">
+<span class="header-section-number">7.1.2</span> Begleitliteratur</h3>
+<p>Arbeiten Sie <span class="citation" data-cites="smltar">Hvitfeldt und Silge (<a href="#ref-smltar" role="doc-biblioref">2021</a>)</span>, <a href="https://smltar.com/embeddings.html">Kap. 5</a> vor dem Unterricht durch als Vorbereitung.</p>
+</section><section id="benötigte-r-pakete" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
 <span class="header-section-number">7.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-1_32fd55d35372f9d0cc87e0beb0818274">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-1_0ab0a52e64f4186cf6df82e7ac754775">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span>  <span class="co"># Komfort für deskriptive Statistiken, wie `describe_distribution`</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span></span>
@@ -428,7 +434,7 @@ div.csl-indent {
 <span class="header-section-number">7.2.1</span> Complaints-Datensatz</h3>
 <p>Der Datensatz <code>complaints</code> stammt aus <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/">dieser Quelle</a>.</p>
 <p>Den Datensatz <code>complaints</code> kann man <a href="https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz">hier</a> herunterladen. Im Buch ist die Webseite nicht (direkt?) angegeben. Die Datei ist mit <code>gz</code> gepackt; <code>read_csv</code> sollte das automatisch entpacken. Achtung: Die Datei ist recht groß.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/read-complaints-data_09bcfb92c97b03243f50b57cfc394d0b">
+<div class="cell" data-hash="050-word-embedding_cache/html/read-complaints-data_a59ac7326c2d25213916ee3cc3bbd2e0">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_path</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/EmilHvitfeldt/smltar/raw/master/data/complaints.csv.gz"</span></span>
 <span><span class="va">complaints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">d_path</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -437,17 +443,17 @@ div.csl-indent {
 </section><section id="complaints-verkürzt-und-geschachtelt" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="complaints-verkürzt-und-geschachtelt">
 <span class="header-section-number">7.2.2</span> Complaints verkürzt und geschachtelt</h3>
 <p>Um ein Herumprobieren zu erleichtern, ist hier der Datensatz <code>complaints</code> in zwei verkürzten Formen bereitgestellt:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-2_46ee239d9c998c23bdd33847b6dd0ce4">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-2_7e413a6168a7a56b8cb6ddd5f2c1c5f6">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nested_words2_path</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words2.rds"</span></span>
 <span><span class="va">nested_words3_path</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/sebastiansauer/datascience-text/raw/main/data/nested_words3.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>nested_words2</code> enthält die ersten 10% des Datensatz <code>nested_words</code>und ist gut 4 MB groß (mit <code>gz</code> gezippt); er besteht aus ca. 11 Tausend Beschwerden. <code>nested_words3</code> enthält nur die ersten 10 Beschwerden, was ihn gut zum Handhaben macht.</p>
 <p>Beide sind verschachtelt und aus <code>tidy_complaints</code> (s. <a href="https://smltar.com/embeddings.html#motivatingsparse">Kap. 5.1</a>) hervorgegangen.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/read-rds-nested-data_e20a2e031b46ddce829b2bab8afc4e73">
+<div class="cell" data-hash="050-word-embedding_cache/html/read-rds-nested-data_b64b44a82bd7d5c50be2f2945123c60e">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nested_words3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="va">nested_words3_path</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das sieht dann so aus:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-3_4f8ac30caaa32372ef787c2826822206">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-3_ebf9a0184eb5ccc7869c19a66fc45744">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nested_words3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -459,11 +465,11 @@ div.csl-indent {
 </div>
 </div>
 <p>Werfen wir einen Blick in den TExt der ersten Beschwerde des Datensatzes mit der ID <code>nested_words3_path$complaint_id[1]</code>.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-4_8d7f4cf6dc4d91c3bec5f8a98657a516">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-4_b81267965b7dd781efe5f6d305c2056f">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">beschwerde1_text</span> <span class="op">&lt;-</span> <span class="va">nested_words3</span><span class="op">$</span><span class="va">words</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das ist ein Tibble mit einer Spalte und 17 Wörtern; da wir schon auf Unigramme aufgeteilt haben, ist jedes Wort ein Element des Vektors <code>word</code>:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-5_f29b8d8a2e7f7431d3c2eb2d1166c7de">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-5_b6a29093bb55aed422c0c5fbac9646aa">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">beschwerde1_text</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -474,7 +480,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-6_63d47ef19c2deccd2174d491303825fa">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-6_2c74f7e02e620de6188defa9d40f86e7">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">beschwerde1_text</span><span class="op">$</span><span class="va">word</span></span>
 <span><span class="co">##  [1] "systems"    "inc"        "is"         "trying"     "to"        </span></span>
 <span><span class="co">##  [6] "collect"    "a"          "debt"       "that"       "is"        </span></span>
@@ -483,9 +489,11 @@ div.csl-indent {
 </div>
 </section></section><section id="wordembeddings-selber-erstellen" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="wordembeddings-selber-erstellen">
 <span class="header-section-number">7.3</span> Wordembeddings selber erstellen</h2>
+<!-- TODO -->
+<!-- nette Illustrationen: https://entwickler.de/python/grundsatze-moderner-textklassifizierung-fur-machine-learning-word-embeddings -->
 <section id="pmi-berechnen" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="pmi-berechnen">
 <span class="header-section-number">7.3.1</span> PMI berechnen</h3>
-<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="065-Information.html#eq-pmi" class="quarto-xref">Gleichung&nbsp;<span>6.1</span></a>.</p>
+<p>Rufen Sie sich die Definition der PMI ins Gedächtnis, s. <a href="#eq-pmi" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-pmi</span></a>.</p>
 <p>Mit R kann man die PMI z.B. so berechnen, s. <code><a href="https://juliasilge.github.io/widyr/reference/pairwise_pmi.html">? pairwise_pmi</a></code> aus dem Paket <a href="https://github.com/juliasilge/widyr">widyr</a>.</p>
 <p>Zum Paket <code>widyr</code> von Robinson und Silge:</p>
 <blockquote class="blockquote">
@@ -493,7 +501,7 @@ div.csl-indent {
 </blockquote>
 <p><a href="https://juliasilge.github.io/widyr/">Quelle</a></p>
 <p>Erzeugen wir uns Dummy-Daten:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-7_035f0078b1f7a442ea9941ae019eb27c">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-7_7fc4ce5027dff04820fb41377d770767">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>feature <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
 <span>              item <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>,</span>
 <span>                       <span class="st">"a"</span>, <span class="st">"c"</span>,</span>
@@ -520,7 +528,7 @@ div.csl-indent {
 <p><em>feature</em></p>
 <p>Column describing the feature that links one item to others</p>
 <p>Manche Berechnungen (Operationen) lassen sich vielleicht leichter nicht in der Tidy-Form (Langform), sondern in der “breiten” oder Matrixform ausführen. Wandeln wir mal <code>dat</code> von der Langform in die Breitform um:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-8_33521e0d156649dc1f865dc4a87c7bc6">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-8_5bcde7bbf8be00d20b0881fcbd8ee0fa">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">item</span>, <span class="va">dat</span><span class="op">$</span><span class="va">feature</span><span class="op">)</span></span>
 <span><span class="co">##    </span></span>
 <span><span class="co">##     1 2 3 4 5</span></span>
@@ -530,7 +538,7 @@ div.csl-indent {
 <span><span class="co">##   e 0 0 0 1 0</span></span>
 <span><span class="co">##   f 0 0 0 0 1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr" class="quarto-xref">Abbildung&nbsp;<span>7.1</span></a>.</p>
+<p>Silge und Robinson verdeutlichen das Prinzip von <code>widyr</code> so, s. <a href="#fig-widyr" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-widyr</span></a>.</p>
 <div id="fig-widyr" class="quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-widyr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/widyr.jpeg" class="img-fluid figure-img">
@@ -542,7 +550,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <p>(Vgl. auch die <a href="https://bookdown.org/Maxine/tidy-text-mining/counting-and-correlating-pairs-of-words-with-widyr.html">Erklärung hier</a>.)</p>
 <p>Bauen wir das mal von Hand nach.</p>
 <p>Randwahrscheinlichkeiten von <code>a</code> und <code>c</code> sowie deren Produkt, <code>p_a_p_c</code>:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/p_a_und_p_c_9eb579c13ce103dc6ac7ef85f326e8c2">
+<div class="cell" data-hash="050-word-embedding_cache/html/p_a_und_p_c_66f24bb2041e530eefdd037fa67b9f16">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_a</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">/</span><span class="fl">5</span></span>
 <span><span class="va">p_c</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">/</span><span class="fl">5</span></span>
 <span></span>
@@ -551,17 +559,17 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <span><span class="co">## [1] 0.24</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Gemeinsame Wahrscheinlichkeit von <code>a</code> und <code>c</code>:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/p_ac_7266fe7bae269f19f02389cac656f652">
+<div class="cell" data-hash="050-word-embedding_cache/html/p_ac_7df88f5285fbc01e3aa9c2670ba06c1e">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_ac</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">/</span><span class="fl">5</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>PMI von Hand berechnet:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-9_3641bd65d15cbfbedf6a3377fd366285">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-9_e6d94978df16605c832e9e159f337d83">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">p_ac</span><span class="op">/</span><span class="va">p_a_p_c</span><span class="op">)</span></span>
 <span><span class="co">## [1] 0.5108256</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Man beachte, dass hier als Basis <span class="math inline">\(e\)</span>, der natürliche Logarithmus, verwendet wurde (nicht 2).</p>
 <p>Jetzt berechnen wir die PMI mit <code>pairwise_pmi</code>.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-10_275c7f2ad1cc21d98009df8c50cec1d3">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-10_a0f1c3605882757f7f5b2f443463b76a">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://juliasilge.github.io/widyr/reference/pairwise_pmi.html">pairwise_pmi</a></span><span class="op">(</span><span class="va">dat</span>, item <span class="op">=</span> <span class="va">item</span>, feature <span class="op">=</span> <span class="va">feature</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
@@ -576,7 +584,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <span class="header-section-number">7.3.2</span> Sliding</h3>
 <p>Sliding ist ein interessantes Konzept, aber man braucht vielleicht etwas Zeit, um sein Hirn um das Konzept zu wickeln…</p>
 <p>Hier eine Illustration:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-11_dc13525ec4d6ba993261d9bda59b7eab">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-11_875ec98ae1993840457cbae6b5672f80">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">txt_vec</span> <span class="op">&lt;-</span> <span class="st">"Das ist ein Test, von dem nicht viel zu erwarten ist"</span></span>
 <span></span>
 <span><span class="fu">slider</span><span class="fu">::</span><span class="fu"><a href="https://slider.r-lib.org/reference/slide.html">slide</a></span><span class="op">(</span><span class="va">txt_vec</span>, <span class="op">~</span> <span class="va">.x</span>, .before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -584,7 +592,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <span><span class="co">## [1] "Das ist ein Test, von dem nicht viel zu erwarten ist"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Oh, da passiert nichts?! Kaputt? Nein, wir müssen jedes Wort als <em>ein Element</em> des Vektors auffassen.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-12_96192fef8279e1214ec76dbcb4ecb3d8">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-12_05fee5da369bd67ef578cdd468a238c7">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">txt_df</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>txt <span class="op">=</span> <span class="va">txt_vec</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span><span class="op">(</span>input <span class="op">=</span> <span class="va">txt</span>, output <span class="op">=</span> <span class="va">word</span><span class="op">)</span></span>
@@ -598,7 +606,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 </div>
 </div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-13_22316cb1fc575553694737c9c7109881">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-13_f58fcf814eb3ef5b8951e33903b281d7">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">slider</span><span class="fu">::</span><span class="fu"><a href="https://slider.r-lib.org/reference/slide.html">slide</a></span><span class="op">(</span><span class="va">txt_df</span><span class="op">$</span><span class="va">word</span>, <span class="op">~</span> <span class="va">.x</span>, .before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">## [1] "das"</span></span>
@@ -635,7 +643,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 </div>
 <p>Ah!</p>
 <p>Das Aufteilen in einzelne Wörter pro Element des Vektors könnte man auch so erreichen:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/slide2_644b76a7721296f1c15d7914263be1f3">
+<div class="cell" data-hash="050-word-embedding_cache/html/slide2_0379451ed97fa6185c2743556cba099e">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">txt_vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">txt_vec</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/as_vector.html">simplify</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
@@ -674,7 +682,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <span><span class="co">## [1] "zu"       "erwarten" "ist"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In unserem Beispiel mit den Beschwerden:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/slide3_8d359533439d20adf867d847aa726ea0">
+<div class="cell" data-hash="050-word-embedding_cache/html/slide3_93f158057d60dd2b224b00cf3616ded4">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://slider.r-lib.org/reference/slide.html">slide</a></span><span class="op">(</span><span class="va">beschwerde1_text</span><span class="op">$</span><span class="va">word</span>,  <span class="op">~</span><span class="va">.x</span>, .before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">## [[1]]</span></span>
 <span><span class="co">## [1] "systems"</span></span>
@@ -732,7 +740,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 </h3>
 <p>Die Funktion <code>slide_windows</code> im <a href="https://smltar.com/embeddings.html#understand-word-embeddings-by-finding-them-yourself">Kapitel 5.2</a> ist recht kompliziert. In solchen Fällen ist es hilfreich, sich jeden Schritt einzeln ausführen zu lassen. Das machen wir jetzt mal.</p>
 <p>Hier ist die Syntax der Funktion <code>slide_windows</code>:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/fun-slide-win_526741bd2e22f855be774bf7b07a7625">
+<div class="cell" data-hash="050-word-embedding_cache/html/fun-slide-win_c0ab7a4744b0894bf8d593b3e2d4e689">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slide_windows</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">tbl</span>, <span class="va">window_size</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">skipgrams</span> <span class="op">&lt;-</span> <span class="fu">slider</span><span class="fu">::</span><span class="fu"><a href="https://slider.r-lib.org/reference/slide.html">slide</a></span><span class="op">(</span></span>
 <span>    <span class="va">tbl</span>, </span>
@@ -757,13 +765,13 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 </div>
 <p>Erschwerend kommt eine große Datenmenge und eine lange Berechnungszeit dazu, was das Debuggen (Nachvollziehen und Durchdenken) der Schritte zusätzlich erschwert. In solchen Fällen hilft die goldene Regel: Mach es dir so einfach wie möglich (aber nicht einfacher). Wir nutzen also den stark verkleinerten Datensatz <code>nested_words3</code>, den wir oben importiert haben.</p>
 <p>Zuerst erlauben wir mal, dasss unsere R-Session mehrere Kerne benutzen darf.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-14_f6f46df524da1a767a656cee567da576">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-14_f3bed33e0f71fa0513c31b286a6ee558">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html">plan</a></span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>  <span class="co">## for parallel processing</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Funktion <code>slide_windows</code> ist recht kompliziert. Es hilft oft, sich mit <code>debug(fun)</code> eine Funktion Schritt für Schritt anzuschauen.</p>
 <p>Gehen wir Schritt für Schritt durch die Syntax von <code>slide_windows</code>.</p>
 <p>Werfen wir einen Blick in <code>words</code>, erstes Element (ein Tibble mit einer Spalte). Denn <code>die einzelnen Elemente von</code>words<code>werden an die Funktion</code>slide_windows` als “Futter” übergeben.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-15_adc5b49a77f65ae405645269acb4363b">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-15_a2417d01674a2791129d97f08470a34e">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">futter1</span> <span class="op">&lt;-</span> <span class="va">nested_words3</span><span class="op">[[</span><span class="st">"words"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">futter1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -777,7 +785,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <p>Das ist der Text der ersten Beschwerde.</p>
 <p>Okay, also dann geht’s los durch die einzelnen Schritte der Funktion <code>slide_windows</code>.</p>
 <p>Zunächst holen wir uns die “Fenster” oder “Skipgrams”:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/skipgrams1_c32767556b2427be440754b8f8218ed1">
+<div class="cell" data-hash="050-word-embedding_cache/html/skipgrams1_9a58d04e50ec9670dedbcfb420ab3d55">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skipgrams1</span> <span class="op">&lt;-</span> <span class="fu">slider</span><span class="fu">::</span><span class="fu"><a href="https://slider.r-lib.org/reference/slide.html">slide</a></span><span class="op">(</span></span>
 <span>   <span class="va">futter1</span>, </span>
 <span>    <span class="op">~</span><span class="va">.x</span>, </span>
@@ -788,7 +796,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 </div>
 <p>Bei <code>slide(tbl, ~.x)</code> geben wir die Funktion an, die auf <code>tbl</code> angewendet werden soll. Daher auch die Tilde, die uns von <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> her bekannt ist. In unserem Fall wollen wir nur die Elemente auslesen; Elemente auslesen erreicht man, in dem man sie mit Namen anspricht, in diesem Fall mit dem Platzhalter <code>.x</code>.</p>
 <p>Jedes Element von <code>skipgrams1</code> ist ein 4*1-Tibble und ist ein Skripgram.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-16_a283b05b40a946df9bc49e937f4386e5">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-16_8824c79cfdbfebb2d5432dc4ff428a38">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skipgrams1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## List of 17</span></span>
 <span><span class="co">##  $ : tibble [4 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
@@ -824,14 +832,14 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <span><span class="co">##  $ : NULL</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das zweite Skipgram von <code>skipgrams1</code> enthält, naja, das zweite Skipgram.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-17_f7068967bf4c169bafbac070154c3c88">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-17_1c786c0b43e382f97887f51a44ae011d">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">skipgrams1</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## tibble [4 × 1] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">##  $ word: chr [1:4] "inc" "is" "trying" "to"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und so weiter.</p>
 <p>Okay, weiter im Programm. Jetzt mappen wir das Erstellen der Skipgrams</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/skipgrams2_cde8325514e58023b2649eb1d7662d82">
+<div class="cell" data-hash="050-word-embedding_cache/html/skipgrams2_85deb39de11a4e8fbd05f509d2c8efcd">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">safe_mutate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">mutate</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">skipgrams1</span>,</span>
@@ -854,7 +862,7 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 <span><span class="co">##   ..$ error : NULL</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>out1</code> ist eine Liste mit 17 Elementen; jedes Element mit jeweils zwei Elementen: Den Ergebnissen und ob es einen Fehler gab bei <code>safe_mutate</code>. Die 10 Elemente entsprechen den 10 Skipgrams. Wir können aber <code>out1</code> auch “drehen”, transponieren genauer gesagt. so dass wir eine Liste mit <em>zwei</em> Elementen bekommen: das erste Element hat die (zehn) Ergebnisse (nämlich die Skipgrams) und das zweite Elemente, ob es Fehler gab.</p>
-<p>Das Prinzip des Transponierens ist in <a href="#fig-Matrix-transpose" class="quarto-xref">Abbildung&nbsp;<span>7.2</span></a> dargestellt.</p>
+<p>Das Prinzip des Transponierens ist in <a href="#fig-Matrix-transpose" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-Matrix-transpose</span></a> dargestellt.</p>
 <div id="fig-Matrix-transpose" class="quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-Matrix-transpose-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/Matrix_transpose.gif" class="img-fluid figure-img">
@@ -863,14 +871,14 @@ Abbildung&nbsp;7.1: Die Funktionsweise von widyr, Quelle: Silge und Robinson
 Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 </figcaption></figure>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-18_9fe9ad08ccb9207a5d1cde03778be897">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-18_7db516c3139ca97464bf36e0930215b4">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span></span>
 <span><span class="va">out1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/transpose.html">transpose</a></span><span class="op">(</span><span class="op">)</span> </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puh, das ist schon anstrengendes Datenyoga…</p>
 <p>Aber jetzt ist es einfach. Wir ziehen das erste der beiden Elemente, die Ergebnisse heraus (<code>pluck</code>), entfernen leere Elemente (<code>compact</code>) und machen einen Tibble daraus (<code>bind_rows</code>):</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/skipgrams3_167ccb5d2f086c6e7f943d95e539fb73">
+<div class="cell" data-hash="050-word-embedding_cache/html/skipgrams3_e18ad3a3a9378fb608ae7da530e15b8b">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="st">"result"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">compact</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -888,7 +896,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 </section><section id="ähnlichkeit-berechnen" class="level3" data-number="7.3.4"><h3 data-number="7.3.4" class="anchored" data-anchor-id="ähnlichkeit-berechnen">
 <span class="header-section-number">7.3.4</span> Ähnlichkeit berechnen</h3>
 <p>Nachdem wir jetzt <code>slide_windows</code> kennen, schauen wir uns die nächsten Schritte an:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/tidy-pmi1_4f08616398a9c1e6cf47386f32f23144">
+<div class="cell" data-hash="050-word-embedding_cache/html/tidy-pmi1_366e085a07f4ced89213c51d4ecd790a">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi1</span> <span class="op">&lt;-</span> <span class="va">nested_words3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># &lt;--- Kleiner Datensatz!</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>words <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html">future_map</a></span><span class="op">(</span>  <span class="co"># Schleife (mit mehreren Kernen) über ...</span></span>
 <span>    <span class="va">words</span>,   <span class="co">#  alle Wörter</span></span>
@@ -898,7 +906,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 </div>
 <p>Wir werden <code>slide_windows</code> auf die Liste <code>words</code> an, die die Beschwerden enthält. Für jede Beschwerde erstellen wir die Skipgrams; diese Schleife wird realisiert über <code>map</code> bzw. <code>future_map</code>, die uns erlaubt, mehrere Kerne des Rechners gleichzeitig zu nutzen, damit es schneller geht.</p>
 <p>Hier sehen wir z.B. die Skipgram-IDs der ersten Beschwerde.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-19_5b4d7b99c841da709dacd50a35cc8f0f">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-19_a2ea99525c016d294a5a6eca8e7c9a36">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi1</span><span class="op">[[</span><span class="st">"words"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -910,7 +918,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 </div>
 </div>
 <p>Genestet siehst es so aus:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-20_33ad04aebb5a9ad83349c7dee571d2df">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-20_a442a77d2f64fecb72a2ccb340fdbdcc">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -922,7 +930,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 </div>
 </div>
 <p>Die Listenspalte entschachteln wir mal:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-21_48d003c2e3e55fff320059c884daa4df">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-21_442654d2c204f83422bb3525343fb1b5">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi2</span> <span class="op">&lt;-</span> <span class="va">tidy_pmi1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">words</span><span class="op">)</span>  <span class="co"># entschachtele</span></span>
 <span></span>
@@ -937,7 +945,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 </div>
 </div>
 <p>Zum Berechnen der Ähnlichkeit brauchen wir eineindeutige IDs, nach dem Prinzip “1. Skipgram der 1. Beschwerde” etc:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/tidy-pmi3_b46af44adcc444e3b052fe3bfff9a96d">
+<div class="cell" data-hash="050-word-embedding_cache/html/tidy-pmi3_c094f46bfe2059133f95884d65af8e85">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi3</span> <span class="op">&lt;-</span> <span class="va">tidy_pmi2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">window_id</span>, <span class="va">complaint_id</span>, <span class="va">window_id</span><span class="op">)</span>  <span class="co"># führe Spalten zusammen</span></span>
 <span></span>
@@ -952,7 +960,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 </div>
 </div>
 <p>Schließlich berechnen wir die Ähnlichkeit mit <code>pairwise_pmi</code>, das hatten wir uns oben schon mal näher angeschaut:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/tidy-pmi4_db17830c9c68f1d437fa7b65d9371c23">
+<div class="cell" data-hash="050-word-embedding_cache/html/tidy-pmi4_2d5406115227464c1e9a41fcc9aef6f4">
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_pmi4</span> <span class="op">&lt;-</span> <span class="va">tidy_pmi3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://juliasilge.github.io/widyr/reference/pairwise_pmi.html">pairwise_pmi</a></span><span class="op">(</span><span class="va">word</span>, <span class="va">window_id</span><span class="op">)</span>  <span class="co"># berechne Ähnlichkeit</span></span>
 <span></span>
@@ -972,7 +980,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 <span class="header-section-number">7.3.5</span> SVD</h3>
 <p>Die <em>Singulärwertzerlegung</em> (singular value decomposition, SVD) ist ein Verfahren zur Verringerung der Spaltenzahl (Dimension), vergleichbar zur Faktorenanalyse. Zur Anschaulichkeit - und ohne substanziellen Hintergrund - sei folgendes Beispiel genannt: Die Verben “gehen”, “rennen”, “laufen”, “schwimmen”, “fahren”, “rutschen” könnten zu einer gemeinsamen Dimension, etwa “fortbewegen” reduziert werden. Jedes einzelne der eingehenden Verben erhält eine Zahl von 0 bis 1, das die konzeptionelle Nähe des Verbs zur “dahinterliegenden” Dimension (fortbewegen) quantifiziert; die Zahl nennt man auch die “Ladung” des Items (Worts) auf die Dimension. Sagen wir, wir identifizieren 10 Dimensionen. Man erhält dann für jedes unique Wort im Corpus einen Vektor mit den Ladungen auf die Dimensionen. Im genannten Beispiel wäre es ein 10-stelliger Vektor. So wie ein 3-stelliger Vektor die Position einer Biene im Raum beschreibt<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, beschreibt hier unser 10-stelliger Vektor die “Position” eines Worts in unserem <em>Einbettungsvektor</em>.</p>
 <p>Die Syntax dazu ist dieses Mal einfach:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/widely-svd_dec835564c5e3369408be1147add578d">
+<div class="cell" data-hash="050-word-embedding_cache/html/widely-svd_471d984af6e1856c781ad468b219d4fe">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_word_vectors</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">tidy_pmi</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://juliasilge.github.io/widyr/reference/widely_svd.html">widely_svd</a></span><span class="op">(</span></span>
@@ -985,7 +993,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["dimension"],"name":[2],"type":["int"],"align":["right"]},{"label":["value"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"inc","2":"1","3":"-0.03789628"},{"1":"is","2":"1","3":"-0.11320691"},{"1":"trying","2":"1","3":"-0.05127645"},{"1":"systems","2":"1","3":"-0.03333321"},{"1":"to","2":"1","3":"-0.12034339"},{"1":"collect","2":"1","3":"-0.05542110"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["dimension"],"name":[2],"type":["int"],"align":["right"]},{"label":["value"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"inc","2":"1","3":"0.03789628"},{"1":"is","2":"1","3":"0.11320691"},{"1":"trying","2":"1","3":"0.05127645"},{"1":"systems","2":"1","3":"0.03333321"},{"1":"to","2":"1","3":"0.12034339"},{"1":"collect","2":"1","3":"0.05542110"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -993,7 +1001,7 @@ Abbildung&nbsp;7.2: Transponieren einer Matrix (“Tabelle”)
 <p>Mit <code>nv = 100</code> haben wir die Anzahl (<code>n</code>) der Dimensionen (Variablen, <code>v</code>) auf 100 bestimmt.</p>
 </section><section id="wortähnlichkeit" class="level3" data-number="7.3.6"><h3 data-number="7.3.6" class="anchored" data-anchor-id="wortähnlichkeit">
 <span class="header-section-number">7.3.6</span> Wortähnlichkeit</h3>
-<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance" class="quarto-xref">Abbildung&nbsp;<span>7.3</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
+<p>Jetzt, da wir mit der SVD jedes Wort in einem Koordinatensystem verortet haben, können wir die Abstände der Wörter im Koordinatensystem bestimmen. Das geht mit Hilfe des alten Pythagoras, s. <a href="#fig-euklid-distance" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-euklid-distance</span></a>. Der Abstand, den man mit Hilfe des Satz des Pythagoras berechnet, nennt man auch <em>euklidische Distanz</em>.</p>
 <div id="fig-euklid-distance" class="quarto-figure quarto-figure-center anchored" width="50%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-euklid-distance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/euklid-distance.png" class="img-fluid figure-img" style="width:50.0%">
@@ -1004,7 +1012,7 @@ Abbildung&nbsp;7.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhk
 </div>
 <p>Okay, wir sind in einem Raum mit vielen Dimensionen, was mein Hirn nicht mitmacht, <a href="https://mathworld.wolfram.com/Distance.html">aber der Algebra ist das egal</a>. Pythagoras’ Satz lässt sich genauso anwenden, wenn es mehr als Dimensionen sind.</p>
 <p>Die Autoren basteln sich selber eine Funktion in <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap. 5.3</a>, aber der Einfachheit halber nehme ich (erstmal) die entsprechende Funktion aus <code>widyr</code>:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/pairwise-dist_bce751fb141b1afb62995bbc68170777">
+<div class="cell" data-hash="050-word-embedding_cache/html/pairwise-dist_4118ca68baa871dfc0af7459269e405e">
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_neighbors</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">tidy_word_vectors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://juliasilge.github.io/widyr/reference/pairwise_dist.html">pairwise_dist</a></span><span class="op">(</span><span class="va">item1</span>, <span class="va">dimension</span>, <span class="va">value</span><span class="op">)</span></span>
@@ -1014,13 +1022,13 @@ Abbildung&nbsp;7.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhk
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["distance"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"is","2":"inc","3":"1.0220144"},{"1":"trying","2":"inc","3":"0.9332851"},{"1":"systems","2":"inc","3":"0.4161199"},{"1":"to","2":"inc","3":"1.0913872"},{"1":"collect","2":"inc","3":"0.5221754"},{"1":"a","2":"inc","3":"1.0309581"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["distance"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"is","2":"inc","3":"1.0220147"},{"1":"trying","2":"inc","3":"0.9332845"},{"1":"systems","2":"inc","3":"0.4161259"},{"1":"to","2":"inc","3":"1.0913876"},{"1":"collect","2":"inc","3":"0.5221787"},{"1":"a","2":"inc","3":"1.0309535"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 <p>Schauen wir uns ein Beispiel an. Was sind die Nachbarn von “inaccurate”?</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-22_4178e9a4983aa2eef7678dd3bc39d900">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-22_80346be309e1baf7556f8311772d02fd">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_neighbors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">item1</span> <span class="op">==</span> <span class="st">"inaccurate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1028,7 +1036,7 @@ Abbildung&nbsp;7.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhk
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["distance"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"inaccurate","2":"mine","3":"0.5248863"},{"1":"inaccurate","2":"score","3":"0.5310116"},{"1":"inaccurate","2":"oh","3":"0.5400913"},{"1":"inaccurate","2":"ny","3":"0.5400913"},{"1":"inaccurate","2":"dob","3":"0.5801282"},{"1":"inaccurate","2":"cell","3":"0.6093667"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["item1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["item2"],"name":[2],"type":["chr"],"align":["left"]},{"label":["distance"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"inaccurate","2":"mine","3":"0.5248875"},{"1":"inaccurate","2":"score","3":"0.5310127"},{"1":"inaccurate","2":"oh","3":"0.5400913"},{"1":"inaccurate","2":"ny","3":"0.5400913"},{"1":"inaccurate","2":"dob","3":"0.5801282"},{"1":"inaccurate","2":"cell","3":"0.6093669"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1036,7 +1044,7 @@ Abbildung&nbsp;7.3: Euklidische Distanz in 2D, Quelle: Wikipedia, CC BY4.0, Kmhk
 <p>Hier ist die Datenmenge zu klein, um vernünftige Schlüsse zu ziehen. Aber “incorrectly”, “correct”, “balance” sind wohl plausible Nachbarn von “inaccurate”.</p>
 </section><section id="cosinus-ähnlichkeit" class="level3" data-number="7.3.7"><h3 data-number="7.3.7" class="anchored" data-anchor-id="cosinus-ähnlichkeit">
 <span class="header-section-number">7.3.7</span> Cosinus-Ähnlichkeit</h3>
-<p>Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosinus-Ähnlichkeit</a> (Cosine similarity) berechnen, vgl. auch <a href="#fig-dotproduct" class="quarto-xref">Abbildung&nbsp;<span>7.4</span></a>:</p>
+<p>Die Nähe zweier Vektoren lässt sich, neben der euklidischen Distanz, auch z.B. über die <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosinus-Ähnlichkeit</a> (Cosine similarity) berechnen, vgl. auch <a href="#fig-dotproduct" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-dotproduct</span></a>:</p>
 <div id="fig-dotproduct" class="quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dotproduct-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/dotproduct.png" class="img-fluid figure-img">
@@ -1050,7 +1058,7 @@ Abbildung&nbsp;7.4: Die Cosinus-Ähnlichkeit zweier Vektoren
 <p>wobei <span class="math inline">\(A\)</span> und <span class="math inline">\(B\)</span> zwei Vektoren sind und <span class="math inline">\(\|\mathbf {A} \|\)</span> das Skalarprodukt von A (und B genauso). Das <a href="https://en.wikipedia.org/wiki/Dot_product">Skalarprodukt</a> von <span class="math inline">\(\color {red} {a = {\displaystyle [a_{1},a_{2},\cdots ,a_{n}]}}\)</span> und <span class="math inline">\(\color {blue} {b = {\displaystyle [b_{1},b_{2},\cdots ,b_{n}]}}\)</span> ist so definiert:</p>
 <p><span class="math display">\[{\displaystyle \mathbf {\color {red}a} \cdot \mathbf {\color {blue}b} =\sum _{i=1}^{n}{\color {red}a}_{i}{\color {blue}b}_{i}={\color {red}a}_{1}{\color {blue}b}_{1}+{\color {red}a}_{2}{\color {blue}b}_{2}+\cdots +{\color {red}a}_{n}{\color {blue}b}_{n}}\]</span></p>
 <p>Entsprechend ist die Funktion <code>nearest_neighbors</code> zu verstehen aus <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap. 5.3</a>:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-23_c12957377aa7c7c930df62f22d7aed16">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-23_d86532b56b27a00d8929c8350a9ff2ee">
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nearest_neighbors</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">token</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://juliasilge.github.io/widyr/reference/widely.html">widely</a></span><span class="op">(</span></span>
@@ -1069,7 +1077,7 @@ Abbildung&nbsp;7.4: Die Cosinus-Ähnlichkeit zweier Vektoren
 <p>Wobei mit <code>widely</code> zuerst noch von der Langform in die Breitform umformatiert wird, da die Breitform von der Formel verlangt wird bzw. das Rechnen einfacher macht.</p>
 <p>Der eine Vektor ist das Embedding des Tokens, der andere Vektor ist das <em>mittlere</em> Embedding über alle Tokens des Corpus. Wenn die Anzahl der Elemente konstant bleibt, kann man sich das Teilen durch <span class="math inline">\(n\)</span> schenken, wenn man einen Mittelwert berechnen; so hält es auch die Syntax von <code>nearest_neighbors</code>.</p>
 <p>Ein nützlicher Post zur Cosinus-Ähnlichkeit findet sich <a href="https://towardsdatascience.com/cosine-similarity-how-does-it-measure-the-similarity-maths-behind-and-usage-in-python-50ad30aad7db">hier</a>. <a href="https://datascience-enthusiast.com/figures/cosine_sim.png">Dieses Bild</a> zeigt das Konzept der Cosinus-Ähnlichkeit anschaulich.</p>
-<p>Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in einem rechtwinkligen, vgl. <a href="#fig-dreieck" class="quarto-xref">Abbildung&nbsp;<span>7.5</span></a>.</p>
+<p>Zur Erinnerung: Der Cosinus eines Winkels ist definiert als Verhältnis der Länge der Ankathete (das ist jene Kathete, die einen Schenkel des Winkels bildet) zur Länge der Hypotenuse<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in einem rechtwinkligen, vgl. <a href="#fig-dreieck" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-dreieck</span></a>.</p>
 <div id="fig-dreieck" class="quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-dreieck-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/dreieck.png" class="img-fluid figure-img">
@@ -1090,7 +1098,7 @@ Abbildung&nbsp;7.5: Ein rechtwinkliges Dreieck als Grundlage der trigonometrisch
 <p>If your data set is too small, you typically cannot train reliable word embeddings.</p>
 </blockquote>
 <p>Ein paar Millionen Wörter sollte der Corpus schon enthalten, so die Autoren. Da solche “Worteinbettungen” (word embedings) aufwändig zu erstellen sind, kann man fertige, “vorgekochte” Produkte nutzen.</p>
-<p>Glove6B wurde anhand von Wikipedia und anderen Datenquellen erstellt <span class="citation" data-cites="pennington_glove_2014">(<a href="references.html#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span>.</p>
+<p>Glove6B wurde anhand von Wikipedia und anderen Datenquellen erstellt <span class="citation" data-cites="pennington_glove_2014">(<a href="#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1101,17 +1109,17 @@ Hinweis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Die zugehörigen Daten sind recht groß; für <a href="https://nlp.stanford.edu/projects/glove/"><code>glove6b</code></a> <span class="citation" data-cites="pennington_glove_2014">(<a href="references.html#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span> ist fast ein Gigabyte fällig. Sie sollten sich die Daten in einem ruhigen Moment (mit stabiler Internetverbindung) herunterladen und in einem Verzeichnis meiner Wahl abgespeichert (<code>datasets</code>). Da bei mir Download abbrach, als ich <code>embedding_glove6b(dimensions = 100)</code> aufrief, habe ich die Daten manuell heruntergeladen, s.u.</p>
+<p>Die zugehörigen Daten sind recht groß; für <a href="https://nlp.stanford.edu/projects/glove/"><code>glove6b</code></a> <span class="citation" data-cites="pennington_glove_2014">(<a href="#ref-pennington_glove_2014" role="doc-biblioref">Pennington, Socher, und Manning 2014</a>)</span> ist fast ein Gigabyte fällig. Sie sollten sich die Daten in einem ruhigen Moment (mit stabiler Internetverbindung) herunterladen und in einem Verzeichnis meiner Wahl abgespeichert (<code>datasets</code>). Da bei mir Download abbrach, als ich <code>embedding_glove6b(dimensions = 100)</code> aufrief, habe ich die Daten manuell heruntergeladen, s.u.</p>
 </div>
 </div>
 <p>Wie immer, Hilfe für eine Funktion bekommt man mit <code>?fun_name</code> oder interaktiv z.B. in RStudio.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/load-glove_edd9f969cdbbb1a7f6c12c768f5bbae3">
+<div class="cell" data-hash="050-word-embedding_cache/html/load-glove_25547664596a3428a08225336fed918e">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/textdata/man/embedding_glove.html">embedding_glove6b</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"~/datasets"</span>,  <span class="co"># aus dem Paket `textdata`</span></span>
 <span>                    dimensions <span class="op">=</span> <span class="fl">50</span>,  <span class="co"># mit nur 50 Dimensionen</span></span>
 <span>                    manual_download <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># ist der Datensatz schon manuell heruntergeladen?</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-25_d0e3103ede0bf73812e8029f58bf4eb5">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-25_3abe0c0d76f6707e600d4198f18eb895">
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1124,13 +1132,13 @@ Hinweis
 </div>
 </div>
 <p>Die ersten paar Tokens sind:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-26_cc24298fc8304d7a7aa63bef66759e6b">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-26_28530680bcc5628d1a12120723128674">
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove6b</span><span class="op">$</span><span class="va">token</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">##  [1] "the"  ","    "."    "of"   "to"   "and"  "in"   "a"    "\""   "'s"  </span></span>
 <span><span class="co">## [11] "for"  "-"    "that" "on"   "is"   "was"  "said" "with" "he"   "as"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In eine Tidyform bringen:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-27_47bbebd1f9f4a8480786f2638e42d3b1">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-27_8275f0535dbb712b37c5099560291bc6">
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_glove</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">glove6b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"d"</span><span class="op">)</span>,</span>
@@ -1147,30 +1155,30 @@ Hinweis
 </div>
 </div>
 <p>Ganz schön groß:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-28_884d16a80cb8e9aa4532dc5c30cd042a">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-28_6ff1b7a0a904b8b394c5c0080917aaa5">
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">glove6b</span><span class="op">)</span></span>
 <span><span class="co">## [1] 400000     51</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-29_cb693e1a98cb1dc3ca4d5f9797c244ee">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-29_fc98dce55158813840e3b3b927e95dc7">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span></span>
 <span><span class="co">## 503834736 bytes</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In Megabyte<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-30_898bec44bda94d3015c8c5a13ef5bf06">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-30_0d746724a1ef5826c9de5d6cb700a12a">
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">^</span><span class="fl">20</span></span>
 <span><span class="co">## 480.5 bytes</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Einfacher und genauer geht es so:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-31_1572a418af15799d52b16454c4907016">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-31_0a80d721d6b20d2db98f8cc39736c006">
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">tidy_glove</span><span class="op">)</span></span>
 <span><span class="co">## 503.83 MB</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-32_386d603bd5b2f5ce0619027e5379a60e">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-32_abbda65bef7a208336648e41697c93ef">
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/mem_used.html">mem_used</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## 841 MB</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## 858 MB</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Um Speicher zu sparen, könnte man <code>glove6b</code> wieder direkt löschen, wenn man nur mit der Tidyform weiterarbeitet.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-33_bfefbbe496ecbdf334fbd1d1b760c81f">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-33_05483203e5b9a25944666a1414447e0f">
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">glove6b</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt können wir wieder nach Nachbarn fragen, im euklidischen Sinne, wie oben. Probieren wir aus, welche Wörter nah zu “inaccurate” stehen.</p>
@@ -1188,7 +1196,7 @@ Hinweis
 </div>
 </div>
 <p>Mit <code>pairwise_dist</code> dauert die Berechnung sehr lange und braucht wohl sehr viel Speicher. Mitunter kam folgender Fehler auf: “R error: vector memory exhausted (limit reached?)”.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-34_d87605856ce325e5457802b53243ceec">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-34_524f773014ed953c81dd36d80efe1362">
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_neighbors_glove6b</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1202,7 +1210,7 @@ Hinweis
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Deswegen probieren wir doch die Funktion <code>nearest_neighbors</code>, so wie es im Buch vorgeschlagen wird, s. <a href="https://smltar.com/embeddings.html#exploring-cfpb-word-embeddings">Kap 5.3</a>.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/fun-nearest-neighbors2_6d5c1842ea8e366a69fb86a84e4db81a">
+<div class="cell" data-hash="050-word-embedding_cache/html/fun-nearest-neighbors2_5fd3dc01fa8d285f56193e37aa4c29ba">
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nearest_neighbors</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">token</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://juliasilge.github.io/widyr/reference/widely.html">widely</a></span><span class="op">(</span></span>
@@ -1218,7 +1226,7 @@ Hinweis
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">item2</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/tidy-glove-nearest-neighbors_c8ede9dbb648cf12259408aefc0e8d59">
+<div class="cell" data-hash="050-word-embedding_cache/html/tidy-glove-nearest-neighbors_fa2c0fa6962e7230cbc2a2e87dacc901">
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># slice_head(prob = .1) %&gt;% </span></span>
 <span>  <span class="fu">nearest_neighbors</span><span class="op">(</span><span class="st">"error"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1232,7 +1240,7 @@ Hinweis
 </div>
 </div>
 <p>Entschachteln wir unsere Daten zu <code>complaints</code>:</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnest-tidy-complaints3_982b2551f485d580b555b315c23fd2bc">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnest-tidy-complaints3_60ee389ba2152157b24e164be3693cd8">
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_complaints3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">nested_words3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">words</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1243,7 +1251,7 @@ Hinweis
 <figcaption>Inner Join, Quelle: Garrick Adenbuie</figcaption></figure>
 </div>
 <p><a href="https://github.com/gadenbuie/tidyexplain">Quelle</a></p>
-<div class="cell" data-hash="050-word-embedding_cache/html/join-complaints-glove_5f410ec4d6e018bf82b111cbf522cbc8">
+<div class="cell" data-hash="050-word-embedding_cache/html/join-complaints-glove_f4f9f39118501f69e6348786089f0a6d">
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">complaints_glove</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"word"</span>, </span>
@@ -1261,7 +1269,7 @@ Hinweis
 </div>
 </div>
 <p>Wie viele unique (distinkte) Wörter gibt es in unserem Corpus?</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/tidy_complaints3_distinct_words_n_5bd614aaf88cfc0ff123137f186300cd">
+<div class="cell" data-hash="050-word-embedding_cache/html/tidy_complaints3_distinct_words_n_4c2ba336f309dd585efb40f944220f5f">
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_complaints3_distinct_words_n</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1271,7 +1279,7 @@ Hinweis
 <span><span class="co">## [1] 222</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In <code>tidy_complaints</code> gibt es übrigens 222 verschiedene Wörter.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/word_matrix_f4fe304f4160a097c036c0c859fd83fc">
+<div class="cell" data-hash="050-word-embedding_cache/html/word_matrix_5814af2f71076aac8bec03f940273cd5">
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"word"</span>,</span>
 <span>             <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1283,12 +1291,12 @@ Hinweis
 <span><span class="co">#word_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>word_matrix</code> zählt für jede der 10 Beschwerden, welche Wörter (und wie häufig) vorkommen.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-35_6077769a62a1cdefed1ed8807f578382">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-35_6c409cd8f03afcb0de7658383dffb577">
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">word_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1]  10 222</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>10 Beschwerden (Dokumente) und 222 unique Wörter.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/glove_matrix_f3f97c05d063452b160abda390abe68e">
+<div class="cell" data-hash="050-word-embedding_cache/html/glove_matrix_aa71f52cb314ed9633768250ba520e0d">
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">glove_matrix</span> <span class="op">&lt;-</span> <span class="va">tidy_glove</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="st">"item1"</span>,</span>
 <span>             <span class="va">tidy_complaints3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1299,53 +1307,70 @@ Hinweis
 <span><span class="co">#glove_matrix</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>glove_matrix</code> gibt für jedes unique Wort den Einbettungsvektor an.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-36_552c77a99cdbbb9516127d38973652e9">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-36_6234824dda04e19d14e32629e01e8963">
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">glove_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1] 222  50</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Das sind 222 unique Wörter und 50 Dimensionen des Einbettungsvektors.</p>
 <p>Jetzt können wir noch pro Dokument (10 in diesem Beispiel) die mittlere “Position” jedes Dokuments im Einbettungsvektor ausrechnen. Bildlich gesprochen: Was ist der mittlere Raumpunkt (Zentroid) des Bienenschwarms, wobei eine Biene ein Dokument darstellt und die Raumachsen die Dimensionen des Einbettungsvektors.</p>
 <p>Dazu gewichten wir jedes Wort eines Dokuments mit den Ladungen des Einbettungsvektor und summieren diese Terme. Es resultiert eine Matrix mit einem Einbettungsvektor pro Dokument. Diese Matrix können wir jetzt als Prädiktorenmatrix hernehmen.</p>
-<div class="cell" data-hash="050-word-embedding_cache/html/doc_matrix_58d16b4502732f3be5f94d813addab54">
+<div class="cell" data-hash="050-word-embedding_cache/html/doc_matrix_8ac7db28475be6072fcb91a76e695cfb">
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">doc_matrix</span> <span class="op">&lt;-</span> <span class="va">word_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">glove_matrix</span></span>
 <span><span class="co">#doc_matrix %&gt;% head()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-37_499dd61471dfafc8827779d467b40ae6">
+<div class="cell" data-hash="050-word-embedding_cache/html/unnamed-chunk-37_cdb06327327393c29b81fd32298bd1fe">
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">doc_matrix</span><span class="op">)</span></span>
 <span><span class="co">## [1] 10 50</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Anzahl der Dokumente ist 10 und die Anzahl der Dimensionen (des Einbettungsvektors) ist 50.</p>
 </section><section id="wordembeddings-für-die-deutsche-sprache" class="level3" data-number="7.4.2"><h3 data-number="7.4.2" class="anchored" data-anchor-id="wordembeddings-für-die-deutsche-sprache">
 <span class="header-section-number">7.4.2</span> Wordembeddings für die deutsche Sprache</h3>
-<p>In diesem <a href="https://devmount.github.io/GermanWordEmbeddings/">Github-Projekt</a> finden sich die Materialien für ein deutsches Wordembedding <span class="citation" data-cites="mueller2015">(<a href="references.html#ref-mueller2015" role="doc-biblioref">Müller 2015</a>)</span>.</p>
+<p>In dem <a href="https://wikipedia2vec.github.io/wikipedia2vec/">Github-Projekt “Wikipedia2Vec”</a> finden sich die Materialien für ein deutsches Wordembedding <span class="citation" data-cites="yamada2019neural">(<a href="#ref-yamada2019neural" role="doc-biblioref">Yamada und Shindo 2019</a>)</span>.</p>
 </section></section><section id="fazit" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="fazit">
 <span class="header-section-number">7.5</span> Fazit</h2>
-<p>Worteinbettungen sind eine aufwändige Angelegenheit. Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat. Ist ja schon cooles Zeugs, die Word Embeddings. Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen Ansätzen wir Worthäufigkeiten oder tf-idf. Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten, und zu sehen, wie weit man kommt. Vielleicht ja weit genug.</p>
+<p>Worteinbettungen sind eine aufwändige Angelegenheit. Positiv gesprochen kann ein Analysti die Muskeln spielen lassen und zeigen, was sie oder er so alles drauf hat. Ist ja schon cooles Zeugs, die Word Embeddings. Es besteht die Chance, dass man mit dieser Methode bessere Vorhersagen erreicht, als mit anderen, einfachen Ansätzen wir Worthäufigkeiten oder tf-idf. Auf der anderen Seite ist es oft sinnvoll, mit einfachen Ansätzen zu starten, und zu sehen, wie weit man kommt. Vielleicht ja weit genug. Natürlich haben Modelle auf Basis von Worthäufigkeiten auch ihre Schwächen: Vor allem ist ihre prädiktive Nützlichkeit nicht immer gegeben und die Datensätze werden schnell sehr groß (viele Spalten).</p>
 </section><section id="fallstudie" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="fallstudie">
 <span class="header-section-number">7.6</span> Fallstudie</h2>
 <p><a href="https://juliasilge.com/blog/tidy-word-vectors/">Hacker-News-Einbettungs-Fallstudie</a> (was für ein Word!) – Eine praktische Darstellung der Erstellung von Word-Vektoren rein auf Basis der linearen Algebra.</p>
-<section id="vertiefung" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">7.6.1</span> Vertiefung</h3>
-<p>Es gibt eine Reihe nützlicher (und recht informationsdichter) Wikipedia-Einträge zum Thema Informationstheorie.</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Pointwise_mutual_information">Wikipedia: Pointwise Mutual Information</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Mutual_information">Wikipedia: Mutual information</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Information_theory">Wikipedia: Information theory</a></li>
-</ul>
+</section><section id="vertiefung" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">7.7</span> Vertiefung</h2>
+<p>Worteinbettungen sind ein zentrales Thema im NLP; für moderne Sprachmodelle sind sie von zentraler Bedeutung. Entsprechend findet sich viel Literatur, z.B. <span class="citation" data-cites="liu_representation_2023 george_python_2022 noauthor_word_2023 mikolov_efficient_2013 camacho-collados_embeddings_2020 almeida_word_2019 pilehvar_embeddings_2021">(<a href="#ref-liu_representation_2023" role="doc-biblioref">Liu, Lin, und Sun 2023</a>; <a href="#ref-george_python_2022" role="doc-biblioref">George 2022</a>; <a href="#ref-noauthor_word_2023" role="doc-biblioref"><span>„Word Embeddings in <span>NLP</span>: <span>A Complete Guide</span>“</span> 2023</a>; <a href="#ref-mikolov_efficient_2013" role="doc-biblioref">Mikolov u.&nbsp;a. 2013</a>; <a href="#ref-camacho-collados_embeddings_2020" role="doc-biblioref">Camacho-Collados und Pilehvar 2020</a>; <a href="#ref-almeida_word_2019" role="doc-biblioref">Almeida und Xexéo 2019</a>; <a href="#ref-pilehvar_embeddings_2021" role="doc-biblioref">Pilehvar und Camacho-Collados 2021</a>)</span>.</p>
+<p>Ein Online-Python-Tutorial findet sich z.B. bei <a href="https://www.tensorflow.org/text/guide/word_embeddings">TensorFlow</a>.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-almeida_word_2019" class="csl-entry" role="listitem">
+Almeida, Felipe, und Geraldo Xexéo. 2019. <span>„Word <span>Embeddings</span>: <span>A Survey</span>“</span>. <em>ArXiv</em>, Januar. <a href="https://www.semanticscholar.org/paper/Word-Embeddings%3A-A-Survey-Almeida-Xex%C3%A9o/e28e81a8cb6655aebb72357538f7b7a360366a29">https://www.semanticscholar.org/paper/Word-Embeddings%3A-A-Survey-Almeida-Xex%C3%A9o/e28e81a8cb6655aebb72357538f7b7a360366a29</a>.
+</div>
+<div id="ref-camacho-collados_embeddings_2020" class="csl-entry" role="listitem">
+Camacho-Collados, Jose, und Mohammad Taher Pilehvar. 2020. <span>„Embeddings in <span>Natural Language Processing</span>“</span>. In <em>Proceedings of the 28th <span>International Conference</span> on <span>Computational Linguistics</span>: <span>Tutorial Abstracts</span></em>, 10–15. <span>Barcelona, Spain (Online)</span>: <span>International Committee for Computational Linguistics</span>. <a href="https://doi.org/10.18653/v1/2020.coling-tutorials.2">https://doi.org/10.18653/v1/2020.coling-tutorials.2</a>.
+</div>
+<div id="ref-george_python_2022" class="csl-entry" role="listitem">
+George, Alexandra. 2022. <em>Python Text Mining: Perform Text Processing, Word Embedding, Text Classification and Machine Translation</em>. <span>Delhi</span>: <span>BPB Publications</span>.
+</div>
 <div id="ref-smltar" class="csl-entry" role="listitem">
 Hvitfeldt, Emil, und Julia Silge. 2021. <em>Supervised <span>Machine Learning</span> for <span>Text Analysis</span> in <span>R</span></em>. 1. Aufl. <span>Boca Raton</span>: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9781003093459">https://doi.org/10.1201/9781003093459</a>.
 </div>
-<div id="ref-mueller2015" class="csl-entry" role="listitem">
-Müller, Andreas. 2015. <span>„Analyse von Wort-Vektoren Deutscher Textkorpora“</span>. Bathesis, <span>Technische Universität Berlin</span>. <a href="https://devmount.github.io/GermanWordEmbeddings">https://devmount.github.io/GermanWordEmbeddings</a>.
+<div id="ref-liu_representation_2023" class="csl-entry" role="listitem">
+Liu, Zhiyuan, Yankai Lin, und Maosong Sun, Hrsg. 2023. <em>Representation <span>Learning</span> for <span>Natural Language Processing</span></em>. <span>Singapore</span>: <span>Springer Nature Singapore</span>. <a href="https://doi.org/10.1007/978-981-99-1600-9">https://doi.org/10.1007/978-981-99-1600-9</a>.
+</div>
+<div id="ref-mikolov_efficient_2013" class="csl-entry" role="listitem">
+Mikolov, Tomas, Kai Chen, Greg Corrado, und Jeffrey Dean. 2013. <span>„Efficient <span>Estimation</span> of <span>Word Representations</span> in <span>Vector Space</span>“</span>. 6. September 2013. <a href="https://doi.org/10.48550/arXiv.1301.3781">https://doi.org/10.48550/arXiv.1301.3781</a>.
 </div>
 <div id="ref-pennington_glove_2014" class="csl-entry" role="listitem">
 Pennington, Jeffrey, Richard Socher, und Christopher Manning. 2014. <span>„<span>GloVe</span>: <span>Global</span> Vectors for Word Representation“</span>. In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (<span>EMNLP</span>)</em>, 1532–43. <span>Doha, Qatar</span>: <span>Association for Computational Linguistics</span>. <a href="https://doi.org/10.3115/v1/D14-1162">https://doi.org/10.3115/v1/D14-1162</a>.
 </div>
+<div id="ref-pilehvar_embeddings_2021" class="csl-entry" role="listitem">
+Pilehvar, Mohammad Taher, und Jose Camacho-Collados. 2021. <em>Embeddings in <span>Natural Language Processing</span>: <span>Theory</span> and <span>Advances</span> in <span>Vector Representations</span> of <span>Meaning</span></em>. Synthesis <span>Lectures</span> on <span>Human Language Technologies</span>. <span>Cham</span>: <span>Springer International Publishing</span>. <a href="https://doi.org/10.1007/978-3-031-02177-0">https://doi.org/10.1007/978-3-031-02177-0</a>.
 </div>
-</section></section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<div id="ref-noauthor_word_2023" class="csl-entry" role="listitem">
+<span>„Word Embeddings in <span>NLP</span>: <span>A Complete Guide</span>“</span>. 2023. <span>Turing</span>. 2023. <a href="https://www.turing.com/kb/guide-on-word-embeddings-in-nlp">https://www.turing.com/kb/guide-on-word-embeddings-in-nlp</a>.
+</div>
+<div id="ref-yamada2019neural" class="csl-entry" role="listitem">
+Yamada, Ikuya, und Hiroyuki Shindo. 2019. <span>„Neural Attentive Bag-of-Entities Model for Text Classification“</span>. In <em>Proceedings of the 23th <span>SIGNLL</span> Conference on Computational Natural Language Learning</em>, 563–73. <span>Association for Computational Linguistics</span>.
+</div>
+</div>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Man könnte ergänzen: plus eine 4. Dimension für Zeit, plus noch ein paar Weitere für die Beschleunigung in verschiedene Richtungen…<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Quelle: https://de.wikipedia.org/wiki/Sinus_und_Kosinus<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

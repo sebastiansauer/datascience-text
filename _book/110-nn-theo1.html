@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.478">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 14&nbsp; Theoretische Grundlagen neuronaler Netze</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 15&nbsp; Theoretische Grundlagen neuronaler Netze</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./200-projektmgt.html" rel="next">
+<link href="./120-transformer.html" rel="next">
 <link href="./100-nn-quickstart.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -129,7 +129,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -275,14 +275,26 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./105-python-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
   </div>
 </li>
       </ul>
@@ -299,13 +311,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -336,39 +348,39 @@ div.csl-indent {
    
   <ul>
 <li>
-<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">14.1</span> Lernsteuerung</a>
+<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">15.1</span> Lernsteuerung</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">14.1.1</span> Lernziele</a></li>
-  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">14.1.2</span> Überblick</a></li>
-  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">14.1.3</span> Benötigte R-Pakete</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">15.1.1</span> Lernziele</a></li>
+  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">15.1.2</span> Überblick</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">15.1.3</span> Benötigte R-Pakete</a></li>
   </ul>
 </li>
-  <li><a href="#netzwerke-mit-einer-einzelnen-zwischenschicht" id="toc-netzwerke-mit-einer-einzelnen-zwischenschicht" class="nav-link" data-scroll-target="#netzwerke-mit-einer-einzelnen-zwischenschicht"><span class="header-section-number">14.2</span> Netzwerke mit einer einzelnen Zwischenschicht</a></li>
-  <li><a href="#multilayer-netzwerke" id="toc-multilayer-netzwerke" class="nav-link" data-scroll-target="#multilayer-netzwerke"><span class="header-section-number">14.3</span> Multilayer-Netzwerke</a></li>
+  <li><a href="#netzwerke-mit-einer-einzelnen-zwischenschicht" id="toc-netzwerke-mit-einer-einzelnen-zwischenschicht" class="nav-link" data-scroll-target="#netzwerke-mit-einer-einzelnen-zwischenschicht"><span class="header-section-number">15.2</span> Netzwerke mit einer einzelnen Zwischenschicht</a></li>
+  <li><a href="#multilayer-netzwerke" id="toc-multilayer-netzwerke" class="nav-link" data-scroll-target="#multilayer-netzwerke"><span class="header-section-number">15.3</span> Multilayer-Netzwerke</a></li>
   <li>
-<a href="#mathematik-neuronaler-netzwerke" id="toc-mathematik-neuronaler-netzwerke" class="nav-link" data-scroll-target="#mathematik-neuronaler-netzwerke"><span class="header-section-number">14.4</span> Mathematik neuronaler Netzwerke</a>
+<a href="#mathematik-neuronaler-netzwerke" id="toc-mathematik-neuronaler-netzwerke" class="nav-link" data-scroll-target="#mathematik-neuronaler-netzwerke"><span class="header-section-number">15.4</span> Mathematik neuronaler Netzwerke</a>
   <ul class="collapse">
-<li><a href="#punktprodukt" id="toc-punktprodukt" class="nav-link" data-scroll-target="#punktprodukt"><span class="header-section-number">14.4.1</span> Punktprodukt</a></li>
-  <li><a href="#matrixmultiplikation" id="toc-matrixmultiplikation" class="nav-link" data-scroll-target="#matrixmultiplikation"><span class="header-section-number">14.4.2</span> Matrixmultiplikation</a></li>
-  <li><a href="#regression-als-matrixmultiplikation" id="toc-regression-als-matrixmultiplikation" class="nav-link" data-scroll-target="#regression-als-matrixmultiplikation"><span class="header-section-number">14.4.3</span> Regression als Matrixmultiplikation</a></li>
+<li><a href="#punktprodukt" id="toc-punktprodukt" class="nav-link" data-scroll-target="#punktprodukt"><span class="header-section-number">15.4.1</span> Punktprodukt</a></li>
+  <li><a href="#matrixmultiplikation" id="toc-matrixmultiplikation" class="nav-link" data-scroll-target="#matrixmultiplikation"><span class="header-section-number">15.4.2</span> Matrixmultiplikation</a></li>
+  <li><a href="#regression-als-matrixmultiplikation" id="toc-regression-als-matrixmultiplikation" class="nav-link" data-scroll-target="#regression-als-matrixmultiplikation"><span class="header-section-number">15.4.3</span> Regression als Matrixmultiplikation</a></li>
   </ul>
 </li>
   <li>
-<a href="#b1b" id="toc-b1b" class="nav-link" data-scroll-target="#b1b"><span class="header-section-number">14.5</span> 3b1b</a>
+<a href="#b1b" id="toc-b1b" class="nav-link" data-scroll-target="#b1b"><span class="header-section-number">15.5</span> 3b1b</a>
   <ul class="collapse">
-<li><a href="#video-1" id="toc-video-1" class="nav-link" data-scroll-target="#video-1"><span class="header-section-number">14.5.1</span> Video 1</a></li>
-  <li><a href="#video-2" id="toc-video-2" class="nav-link" data-scroll-target="#video-2"><span class="header-section-number">14.5.2</span> Video 2</a></li>
-  <li><a href="#video-3" id="toc-video-3" class="nav-link" data-scroll-target="#video-3"><span class="header-section-number">14.5.3</span> Video 3</a></li>
-  <li><a href="#video-4" id="toc-video-4" class="nav-link" data-scroll-target="#video-4"><span class="header-section-number">14.5.4</span> Video 4</a></li>
+<li><a href="#video-1" id="toc-video-1" class="nav-link" data-scroll-target="#video-1"><span class="header-section-number">15.5.1</span> Video 1</a></li>
+  <li><a href="#video-2" id="toc-video-2" class="nav-link" data-scroll-target="#video-2"><span class="header-section-number">15.5.2</span> Video 2</a></li>
+  <li><a href="#video-3" id="toc-video-3" class="nav-link" data-scroll-target="#video-3"><span class="header-section-number">15.5.3</span> Video 3</a></li>
+  <li><a href="#video-4" id="toc-video-4" class="nav-link" data-scroll-target="#video-4"><span class="header-section-number">15.5.4</span> Video 4</a></li>
   </ul>
 </li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">14.6</span> Vertiefung</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">15.6</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span>
+<span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span>
 </h1>
 </div>
 
@@ -383,23 +395,23 @@ div.csl-indent {
   
 
 
-</header><section id="lernsteuerung" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="lernsteuerung">
-<span class="header-section-number">14.1</span> Lernsteuerung</h2>
-<section id="lernziele" class="level3" data-number="14.1.1"><h3 data-number="14.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">14.1.1</span> Lernziele</h3>
+</header><section id="lernsteuerung" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="lernsteuerung">
+<span class="header-section-number">15.1</span> Lernsteuerung</h2>
+<section id="lernziele" class="level3" data-number="15.1.1"><h3 data-number="15.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">15.1.1</span> Lernziele</h3>
 <p>Nach Abschluss dieses Kapitels …</p>
 <ul>
 <li>können Sie die theoretischen Grundlagen eines einfachen neuronalen Netzwerks erklären.</li>
-</ul></section><section id="überblick" class="level3" data-number="14.1.2"><h3 data-number="14.1.2" class="anchored" data-anchor-id="überblick">
-<span class="header-section-number">14.1.2</span> Überblick</h3>
-<p>Dieses Kapitel führt in die Grundlagen (einfacher) neuronaler Netze ein. Die Darstellung orientiert sich an <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="references.html#ref-islr" role="doc-biblioref">2021</a>)</span>. Viele der gezeigten Abbildungen stammen aus <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="references.html#ref-islr" role="doc-biblioref">2021</a>)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-</section><section id="benötigte-r-pakete" class="level3" data-number="14.1.3"><h3 data-number="14.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
-<span class="header-section-number">14.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-1_e287e26d442706f73e0709193c845c4a">
+</ul></section><section id="überblick" class="level3" data-number="15.1.2"><h3 data-number="15.1.2" class="anchored" data-anchor-id="überblick">
+<span class="header-section-number">15.1.2</span> Überblick</h3>
+<p>Dieses Kapitel führt in die Grundlagen (einfacher) neuronaler Netze ein. Die Darstellung orientiert sich an <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="#ref-islr" role="doc-biblioref">2021</a>)</span>. Viele der gezeigten Abbildungen stammen aus <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="#ref-islr" role="doc-biblioref">2021</a>)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section><section id="benötigte-r-pakete" class="level3" data-number="15.1.3"><h3 data-number="15.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">15.1.3</span> Benötigte R-Pakete</h3>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-1_1b6f83cc9ca1ac95a3adc4f7cc3a310a">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># keines :-)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="netzwerke-mit-einer-einzelnen-zwischenschicht" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="netzwerke-mit-einer-einzelnen-zwischenschicht">
-<span class="header-section-number">14.2</span> Netzwerke mit einer einzelnen Zwischenschicht</h2>
+</section></section><section id="netzwerke-mit-einer-einzelnen-zwischenschicht" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="netzwerke-mit-einer-einzelnen-zwischenschicht">
+<span class="header-section-number">15.2</span> Netzwerke mit einer einzelnen Zwischenschicht</h2>
 <p>Ein neuronales Netzwerk besteht auf</p>
 <ul>
 <li>einem Input-Vektor mit <span class="math inline">\(p\)</span> Variablen <span class="math inline">\(X=(X_1, X_2, \ldots, X_p)\)</span>
@@ -408,7 +420,7 @@ div.csl-indent {
 </li>
 <li>sagt einen Output-Vektor <span class="math inline">\(Y\)</span> vorher.</li>
 </ul>
-<p><a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span>14.1</span></a> zeigt ein einfaches sog. <em>Feed-Forward-Neuronales-Netzwerk</em>, um eine quantitative Output-Variable <span class="math inline">\(Y\)</span> vorherzusagen anhand von 4 Prädiktoren. Das Netzwerk besteht aus drei “Schichten”, der Eingabeschicht (Input Layer), der Zwischenschicht (Hidden Layer) und der Ausgabeschicht (Output Layer). Jeder Kreis symbolisiert ein “Neuron”. In der Zwischenschicht in <a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span>14.1</span></a> gibt es <span class="math inline">\(K=5\)</span> Neuronen in der Zwischenschicht.</p>
+<p><a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-islr10-1</span></a> zeigt ein einfaches sog. <em>Feed-Forward-Neuronales-Netzwerk</em>, um eine quantitative Output-Variable <span class="math inline">\(Y\)</span> vorherzusagen anhand von 4 Prädiktoren. Das Netzwerk besteht aus drei “Schichten”, der Eingabeschicht (Input Layer), der Zwischenschicht (Hidden Layer) und der Ausgabeschicht (Output Layer). Jeder Kreis symbolisiert ein “Neuron”. In der Zwischenschicht in <a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-islr10-1</span></a> gibt es <span class="math inline">\(K=5\)</span> Neuronen in der Zwischenschicht.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -427,7 +439,7 @@ Künstliche Neurone
 <img src="img/islr-10_1.png" class="img-fluid figure-img" data-fig-width="50%">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-islr10-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;14.1: Ein neuronales Netzwerk mit einer Zwischenschicht
+Abbildung&nbsp;15.1: Ein neuronales Netzwerk mit einer Zwischenschicht
 </figcaption></figure>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -443,30 +455,30 @@ Hinweis
 <p>Einfach gesprochen besteht ein neuronales Netzwerk aus einem System linearen Gleichungen, die aber jedes Mal noch durch eine einfache nicht-lineare Funktion gejagt werden. <span class="math inline">\(\square\)</span></p>
 </div>
 </div>
-<p>Eine häufige Wahl für <span class="math inline">\(g\)</span> ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. <a href="#fig-relu" class="quarto-xref">Abbildung&nbsp;<span>14.2</span></a>.</p>
+<p>Eine häufige Wahl für <span class="math inline">\(g\)</span> ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. <a href="#fig-relu" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-relu</span></a>.</p>
 <div id="fig-relu" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-relu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/islr10-2.png" class="img-fluid figure-img" data-fig-width="50%">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-relu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;14.2: ReLU und sigmoide Funktion
+Abbildung&nbsp;15.2: ReLU und sigmoide Funktion
 </figcaption></figure>
 </div>
-<p>Dieses Netzwerk (als Ganzes) hat folgende Struktur, s. <a href="#eq-nn1" class="quarto-xref">Gleichung&nbsp;<span>14.1</span></a>.</p>
+<p>Dieses Netzwerk (als Ganzes) hat folgende Struktur, s. <a href="#eq-nn1" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn1</span></a>.</p>
 <p><span id="eq-nn1"><span class="math display">\[\begin{align}
 f(X) &amp;= \beta_0 + \sum_{k=1}^K \beta_k h_k(X) \\
      &amp;= \beta_0 + \sum_{k=1}^K \beta_k g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)
-\end{align} \tag{14.1}\]</span></span></p>
+\end{align} \tag{15.1}\]</span></span></p>
 <p>Jedes Neuron der Zwischenschicht erfährt eine Aktivierung (##eq-nn1-akt):</p>
-<p><span id="eq-nn1-akt"><span class="math display">\[A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j) \tag{14.2}\]</span></span></p>
+<p><span id="eq-nn1-akt"><span class="math display">\[A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j) \tag{15.2}\]</span></span></p>
 <p>Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass “zum Schluss” noch die nicht-lineare Sahnehaube.</p>
 <p>Wichtig ist, dass <span class="math inline">\(g\)</span> eine nicht-lineare Funktion ist, denn sonst würde das ganze Netzwerk “nur” ein lineares Gleichungssystem sein. Die nicht-lineare Funktion erlaubt aber ein viel flexibleres Verhalten, als es einer linearen Funktion möglich wäre.</p>
-<p>“Fitten” eines neuronalen Netzwerk bedeutet, genau wie bei allen anderen Methoden des Maschinenlernens, die Parameter zu schätzen (berechnen). Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion, die minimiert wird. Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. <a href="#eq-sq-err" class="quarto-xref">Gleichung&nbsp;<span>14.3</span></a>.</p>
-<p><span id="eq-sq-err"><span class="math display">\[\sum_{i=1}^n(y_i - f(x_i)) \tag{14.3}\]</span></span></p>
-</section><section id="multilayer-netzwerke" class="level2" data-number="14.3"><h2 data-number="14.3" class="anchored" data-anchor-id="multilayer-netzwerke">
-<span class="header-section-number">14.3</span> Multilayer-Netzwerke</h2>
+<p>“Fitten” eines neuronalen Netzwerk bedeutet, genau wie bei allen anderen Methoden des Maschinenlernens, die Parameter zu schätzen (berechnen). Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion, die minimiert wird. Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. <a href="#eq-sq-err" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-sq-err</span></a>.</p>
+<p><span id="eq-sq-err"><span class="math display">\[\sum_{i=1}^n(y_i - f(x_i)) \tag{15.3}\]</span></span></p>
+</section><section id="multilayer-netzwerke" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="multilayer-netzwerke">
+<span class="header-section-number">15.3</span> Multilayer-Netzwerke</h2>
 <p>Netzwerke mit mehreren Zwischenschichten bezeichnet man als <em>Multi-Layer-Netzwerke</em>. Theoretisch könnte ein Netzwerk mit nur einer Zwischenschicht, aber einer großen Zahl an Neuronen, fast alle denkbaren (oder zumindest sehr viele) Funktionen simulieren. Aber in der Praxis ist es einfacher, mehrere Schichten mit mittlerer Neuronen-Anzahl zu implementieren.</p>
-<p><a href="#fig-islr-10-4" class="quarto-xref">Abbildung&nbsp;<span>14.3</span></a> zeigt ein Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen. Im Gegensatz zu <a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span>14.1</span></a> …</p>
+<p><a href="#fig-islr-10-4" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-islr-10-4</span></a> zeigt ein Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen. Im Gegensatz zu <a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-islr10-1</span></a> …</p>
 <ul>
 <li>besitzt es zwei Zwischenschichten, <span class="math inline">\(L_1\)</span> (256 Neurone) und <span class="math inline">\(L_2\)</span> (128 Neurone).</li>
 <li>hat es 10 Ausgabe-Neurone in der Output-Layer, die den 10 Ziffern (0-9) entsprechen sollen.</li>
@@ -476,47 +488,47 @@ f(X) &amp;= \beta_0 + \sum_{k=1}^K \beta_k h_k(X) \\
 <img src="img/islr-10-4.png" class="img-fluid figure-img" data-fig-width="50%">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-islr-10-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;14.3: Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen
+Abbildung&nbsp;15.3: Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen
 </figcaption></figure>
 </div>
-<p>Die <em>Aktivierung</em> <span class="math inline">\(A\)</span> der <span class="math inline">\(k^{(1)}\)</span> Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. <a href="#eq-nn1" class="quarto-xref">Gleichung&nbsp;<span>14.1</span></a> und <a href="#eq-nn1-akt" class="quarto-xref">Gleichung&nbsp;<span>14.2</span></a>), s. <a href="#eq-nn2-l1" class="quarto-xref">Gleichung&nbsp;<span>14.4</span></a>:</p>
+<p>Die <em>Aktivierung</em> <span class="math inline">\(A\)</span> der <span class="math inline">\(k^{(1)}\)</span> Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. <a href="#eq-nn1" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn1</span></a> und <a href="#eq-nn1-akt" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn1-akt</span></a>), s. <a href="#eq-nn2-l1" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn2-l1</span></a>:</p>
 <p><span id="eq-nn2-l1"><span class="math display">\[\begin{align}
 A_k^{(1)} &amp;= = h_k^{(1)}(X)\\
           &amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
-\end{align} \tag{14.4}\]</span></span></p>
-<p>für alle <span class="math inline">\(k_1, k_2, \ldots, K_1\)</span> Neurone der ersten Zwischenschicht. Für die zweite Zwischenschicht, <span class="math inline">\(L_2\)</span> gilt das analog: Die Aktivierung der Neurone der vorherigen Schicht werden als Input verwendet und auf dieser Basis wird die Aktivierung des jeweiligen Neurons der aktuellen Schicht berechnet, s. <a href="#eq-nn2-l2" class="quarto-xref">Gleichung&nbsp;<span>14.5</span></a>:</p>
+\end{align} \tag{15.4}\]</span></span></p>
+<p>für alle <span class="math inline">\(k_1, k_2, \ldots, K_1\)</span> Neurone der ersten Zwischenschicht. Für die zweite Zwischenschicht, <span class="math inline">\(L_2\)</span> gilt das analog: Die Aktivierung der Neurone der vorherigen Schicht werden als Input verwendet und auf dieser Basis wird die Aktivierung des jeweiligen Neurons der aktuellen Schicht berechnet, s. <a href="#eq-nn2-l2" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn2-l2</span></a>:</p>
 <p><span id="eq-nn2-l2"><span class="math display">\[\begin{align}
 A_l^{(2)} &amp;= h_l^{(2)}(X)\\
           &amp;= g(w_{l0}^{(2)} + \sum_{j=2}^p w_{lj}^{(1)} X_j)
-\end{align} \tag{14.5}\]</span></span></p>
+\end{align} \tag{15.5}\]</span></span></p>
 <p>für alle <span class="math inline">\(l = 1, 2, \ldots, K2\)</span> Neurone der zweiten Zwischenschicht.</p>
 <p>Da sammeln sich schnell eine große Zahl an Parametern:</p>
 <p><span class="math inline">\(\newcommand{\matr}[1]{#1}\)</span></p>
-<p><span class="math inline">\(\matr{W_1}\)</span> in <a href="#fig-islr-10-4" class="quarto-xref">Abbildung&nbsp;<span>14.3</span></a> repräsentiert die Matrix mit allen (“Regressions”-)Gewichten (und “Intercepts”) on der Input-Layer zur ersten Zwischenschicht. Diese Matrix umfasst <span class="math inline">\(785\times256=200\,960\)</span> Koeffizienten (785=784 “Regressions-”Gewichte plus 1 Intercept-Term, auch “Bias” genannt).</p>
+<p><span class="math inline">\(\matr{W_1}\)</span> in <a href="#fig-islr-10-4" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-islr-10-4</span></a> repräsentiert die Matrix mit allen (“Regressions”-)Gewichten (und “Intercepts”) on der Input-Layer zur ersten Zwischenschicht. Diese Matrix umfasst <span class="math inline">\(785\times256=200\,960\)</span> Koeffizienten (785=784 “Regressions-”Gewichte plus 1 Intercept-Term, auch “Bias” genannt).</p>
 <p>Entsprechend weist jedes Neuron der zweiten Zwischenschicht ein Gewicht zu jedem Neuron der ersten Zwischenschicht auf. Daher hat <span class="math inline">\(\matr{W_2}\)</span> die Dimensionen <span class="math inline">\(257 \times 128 = 32\,896\)</span>.</p>
 <p>Jetzt gelangen wir zur Output-Layer; dort gibt es 10 Ausgabe-Neuronen. Hier sind zwei Schritte nötig. Schritt 1 besteht darin für jedes der 10 Neurone ein lineares Modell zu berechnen, basierend auf den Gewichten der vorherigen Zwischenschicht:</p>
 <p><span id="eq-nn2-l3"><span class="math display">\[\begin{aligned}
 Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} A_l^{(2)}
-\end{aligned} \tag{14.6}\]</span></span></p>
+\end{aligned} \tag{15.6}\]</span></span></p>
 <p>mit <span class="math inline">\(m = 0,1, \ldots, 9\)</span>. Diese <span class="math inline">\(129 \times 10 = 1290\)</span> Koeffizienten sind in der Matrix <span class="math inline">\(\matr{B}\)</span> gespeichert.</p>
-<p>Schritt 2 fehlt noch. Wir möchten ja, dass die Ausgabe für jede Ziffer in einer Wahrscheinlichkeit besteht, das kann man mit der <em>Softmax-Aktivierung</em> erreichen (<a href="#eq-softmax" class="quarto-xref">Gleichung&nbsp;<span>14.7</span></a>):</p>
-<p><span id="eq-softmax"><span class="math display">\[f_m(X) = Pr(Y=m|X) = \frac{e^{Z_m}}{\sum_{l=0}^9 e^{Z_l}}, \tag{14.7}\]</span></span></p>
+<p>Schritt 2 fehlt noch. Wir möchten ja, dass die Ausgabe für jede Ziffer in einer Wahrscheinlichkeit besteht, das kann man mit der <em>Softmax-Aktivierung</em> erreichen (<a href="#eq-softmax" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-softmax</span></a>):</p>
+<p><span id="eq-softmax"><span class="math display">\[f_m(X) = Pr(Y=m|X) = \frac{e^{Z_m}}{\sum_{l=0}^9 e^{Z_l}}, \tag{15.7}\]</span></span></p>
 <p>mit <span class="math inline">\(m=0,1, \ldots, 9\)</span>.</p>
-<p>Die zu minimierende Funktion (“Loss Function”) ist im Falle qualitativer Variablen keine metrische Quadratfunktion, sondern man miniert die Kreuzentropie, vgl. <a href="065-Information.html#eq-ce" class="quarto-xref">Gleichung&nbsp;<span>6.2</span></a>.</p>
+<p>Die zu minimierende Funktion (“Loss Function”) ist im Falle qualitativer Variablen keine metrische Quadratfunktion, sondern man miniert die Kreuzentropie, vgl. <a href="#eq-ce" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-ce</span></a>.</p>
 <p>Das Netzwerk hat insgesamt über 200k Parameter! Und das bei gerade mal 60k Bildern. Wenn da das Modell keine Overfitting-Party macht, weiß ich auch nicht.</p>
 <p>Gegenmaßnahmen zum Overfitting sind also dringend nötig, besonders bei neuronalen Netzwerken.</p>
-</section><section id="mathematik-neuronaler-netzwerke" class="level2" data-number="14.4"><h2 data-number="14.4" class="anchored" data-anchor-id="mathematik-neuronaler-netzwerke">
-<span class="header-section-number">14.4</span> Mathematik neuronaler Netzwerke</h2>
+</section><section id="mathematik-neuronaler-netzwerke" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="mathematik-neuronaler-netzwerke">
+<span class="header-section-number">15.4</span> Mathematik neuronaler Netzwerke</h2>
 <p>Neuronale Netzwerke basierend auf zwei Konzepte: <em>Lineare Algebr</em>a und <em>Ableiten</em> (Infinitesimalrechnung).</p>
-<section id="punktprodukt" class="level3" data-number="14.4.1"><h3 data-number="14.4.1" class="anchored" data-anchor-id="punktprodukt">
-<span class="header-section-number">14.4.1</span> Punktprodukt</h3>
+<section id="punktprodukt" class="level3" data-number="15.4.1"><h3 data-number="15.4.1" class="anchored" data-anchor-id="punktprodukt">
+<span class="header-section-number">15.4.1</span> Punktprodukt</h3>
 <p>Im YouTube-Kanal von <a href="https://www.youtube.com/@3blue1brown">3b1b</a> gibt es eine exzellente <a href="https://www.youtube.com/watch?v=fNk_zzaMoSs&amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">Einführung in die lineare Algebra</a>.</p>
-<p>Die zentrale Operation ist das <em>Dot Product</em> (Skalar- oder Punktprodukt), s. <a href="#fig-matrixmult" class="quarto-xref">Abbildung&nbsp;<span>14.5</span></a>.</p>
+<p>Die zentrale Operation ist das <em>Dot Product</em> (Skalar- oder Punktprodukt), s. <a href="#fig-matrixmult" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-matrixmult</span></a>.</p>
 <p>Im einfachen Fall (der euklidischen Ebene) gilt:</p>
 <p><span class="math inline">\(\vec a \cdot \vec b = \begin{pmatrix} a_1 \\ a_2 \end{pmatrix} \cdot \begin{pmatrix} b_1 \\ b_2 \end{pmatrix} = a_1 b_1 + a_2 b_2.\)</span></p>
 <div id="exm-dot1" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 14.1 (Einfaches Punktprodukt) </strong></span>Gegeben seien zwei Vektoren <span class="math inline">\(\vec x=(1,2,3)\)</span> und <span class="math inline">\(\vec y=(1,2,3)\)</span>. Das Punktprodukt von <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span> ist die Summe der Produkte der jeweilige Paare, s. <a href="#fig-dot" class="quarto-xref">Abbildung&nbsp;<span>14.4 (a)</span></a>.</p>
+<p><span class="theorem-title"><strong>Beispiel 15.1 (Einfaches Punktprodukt) </strong></span>Gegeben seien zwei Vektoren <span class="math inline">\(\vec x=(1,2,3)\)</span> und <span class="math inline">\(\vec y=(1,2,3)\)</span>. Das Punktprodukt von <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span> ist die Summe der Produkte der jeweilige Paare, s. <a href="#fig-dot" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-dot</span></a>.</p>
 <p><span class="math inline">\(\vec x \cdot \vec y = 1\cdot1 + 2\cdot 2 + 3 \cdot 3 = 1 +3+ 9 = 13. \qquad \square\)</span></p>
 </div>
 <div id="fig-punkt" class="quarto-layout-panel">
@@ -545,7 +557,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 </div>
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-punkt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;14.4
+Abbildung&nbsp;15.4
 </figcaption></figure>
 </div>
 <p>Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vektoren in die gleiche Richtung zeigen:</p>
@@ -568,9 +580,21 @@ Abbildung&nbsp;14.4
 </div>
 </div>
 <p><a href="https://commons.wikimedia.org/wiki/User:MartinThoma">Bildquelle: Martin Thoma, Wikipedia, CC-BY 3.0</a></p>
-<p>Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html">Math is Fun</a>. Für Einsteiger interessant ist auch die Erklärung von <a href="https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/">Kalid Azad</a>.</p>
-<p>In R kann man das Punktproduct mit dem <code>%*%</code>-Operator berechnen</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-2_200e1c623c909f8bc143d03b36ced815">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html">Math is Fun</a>. Für Einsteiger interessant ist auch die Erklärung von <a href="https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/">Kalid Azad</a>. Eine 3D-Darstellung von Vektoren findet sich <a href="https://www.desmos.com/3d/f7561f1632">hier</a>. <span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+<p>In R kann man das Punktprodukt mit dem <code>%*%</code>-Operator berechnen</p>
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-2_66d67f8d8c181b6a6e5300bdcd7a08e9">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span></span>
@@ -580,31 +604,44 @@ Abbildung&nbsp;14.4
 <span><span class="co">## [1,]   14</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Im Paket <code>geometry</code> gibt es alternativ eine entsprechende Funktion, <code>dot</code>:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-3_6e52737d15f4387566cd30e55421bf77">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-3_ec14b5acce23195f0598d6c94cdba07f">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">geometry</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/geometry/man/dot.html">dot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">## [1] 14</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="def-dotproduct" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 14.1 (Punktprodukt) </strong></span>Das Produkt zweier Vektoren <span class="math inline">\(\mathbf{a}\)</span> und <span class="math inline">\(\mathbf{b}\)</span> ist so definiert, <a href="#eq-dot" class="quarto-xref">Gleichung&nbsp;<span>14.8</span></a>. <span id="eq-dot"><span class="math display">\[{\displaystyle \mathbf {a} \cdot \mathbf {b} =\sum _{i=1}^{n}a_{i}b_{i}=a_{1}b_{1}+a_{2}b_{2}+\cdots +a_{n}b_{n}} \qquad \square \tag{14.8}\]</span></span></p>
+<p><span class="theorem-title"><strong>Definition 15.1 (Punktprodukt) </strong></span>Das Produkt zweier Vektoren <span class="math inline">\(\mathbf{a}\)</span> und <span class="math inline">\(\mathbf{b}\)</span> ist so definiert, <a href="#eq-dot" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-dot</span></a>. <span id="eq-dot"><span class="math display">\[{\displaystyle \mathbf {a} \cdot \mathbf {b} =\sum _{i=1}^{n}a_{i}b_{i}=a_{1}b_{1}+a_{2}b_{2}+\cdots +a_{n}b_{n}} \qquad \square \tag{15.8}\]</span></span></p>
 </div>
-</section><section id="matrixmultiplikation" class="level3" data-number="14.4.2"><h3 data-number="14.4.2" class="anchored" data-anchor-id="matrixmultiplikation">
-<span class="header-section-number">14.4.2</span> Matrixmultiplikation</h3>
-<p>Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auffassen, s. <a href="#fig-matrixmult" class="quarto-xref">Abbildung&nbsp;<span>14.5</span></a>.</p>
+</section><section id="matrixmultiplikation" class="level3" data-number="15.4.2"><h3 data-number="15.4.2" class="anchored" data-anchor-id="matrixmultiplikation">
+<span class="header-section-number">15.4.2</span> Matrixmultiplikation</h3>
+<p>Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auffassen, s. <a href="#fig-matrixmult" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-matrixmult</span></a>.</p>
 <div id="fig-matrixmult" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-matrixmult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/matrix-mult.png" class="img-fluid figure-img" data-fig-width="50%">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-matrixmult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;14.5: Berechnung des Punktprodukts
+Abbildung&nbsp;15.5: Berechnung des Punktprodukts
 </figcaption></figure>
 </div>
-</section><section id="regression-als-matrixmultiplikation" class="level3" data-number="14.4.3"><h3 data-number="14.4.3" class="anchored" data-anchor-id="regression-als-matrixmultiplikation">
-<span class="header-section-number">14.4.3</span> Regression als Matrixmultiplikation</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Probieren Sie <a href="https://www.desmos.com/matrix">diesen Matrizenrechner</a> aus zur Berechnung des Punktprodukts bzw. der Matrizenmultiplikation. <span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+</section><section id="regression-als-matrixmultiplikation" class="level3" data-number="15.4.3"><h3 data-number="15.4.3" class="anchored" data-anchor-id="regression-als-matrixmultiplikation">
+<span class="header-section-number">15.4.3</span> Regression als Matrixmultiplikation</h3>
 <p>Die (einfache oder multiple) Regression kann man als Matrixmultiplikation auffassen. Schauen wir uns dazu ein einfaches Beispiel an.</p>
-<p>Der Datensatz <code>d</code> besteht auf einer Outcome-Variable, <code>y</code> sowie einem Prädiktor, <code>x</code>; drei Beobachtungen umfasst die Tabelle, s. <a href="#tbl-d" class="quarto-xref">Tabelle&nbsp;<span>14.1</span></a>. Eine Regression mit einem Prädiktor hat zwei Koeffizienten, <span class="math inline">\(\beta_0, \beta_1\)</span>.</p>
+<p>Der Datensatz <code>d</code> besteht auf einer Outcome-Variable, <code>y</code> sowie einem Prädiktor, <code>x</code>; drei Beobachtungen umfasst die Tabelle, s. <a href="#tbl-d" class="quarto-xref">Tabelle&nbsp;<span class="quarto-unresolved-ref">tbl-d</span></a>. Eine Regression mit einem Prädiktor hat zwei Koeffizienten, <span class="math inline">\(\beta_0, \beta_1\)</span>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-4_ee979a27a0119b538864029ca8521745">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-4_d2af6daedaa14362e9ec270549468492">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">tibble</span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
@@ -615,29 +652,29 @@ Abbildung&nbsp;14.5: Berechnung des Punktprodukts
 <span><span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/tbl-d_d81a4a4a78bc934fdc186d23e80ede48">
-<div id="tbl-d" class="cell anchored" data-hash="110-nn-theo1_cache/html/tbl-d_d81a4a4a78bc934fdc186d23e80ede48">
+<div class="cell" data-hash="110-nn-theo1_cache/html/tbl-d_ba4a61d097baa56706dfe3a79654b301">
+<div id="tbl-d" class="cell anchored" data-hash="110-nn-theo1_cache/html/tbl-d_ba4a61d097baa56706dfe3a79654b301">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabelle&nbsp;14.1: Datensatz <code>d</code>
+Tabelle&nbsp;15.1: Datensatz <code>d</code>
 </figcaption><div aria-describedby="tbl-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="yssvirgplw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yssvirgplw table {
+<div id="chjvmplxnn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#chjvmplxnn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yssvirgplw thead, #yssvirgplw tbody, #yssvirgplw tfoot, #yssvirgplw tr, #yssvirgplw td, #yssvirgplw th {
+#chjvmplxnn thead, #chjvmplxnn tbody, #chjvmplxnn tfoot, #chjvmplxnn tr, #chjvmplxnn td, #chjvmplxnn th {
   border-style: none;
 }
 
-#yssvirgplw p {
+#chjvmplxnn p {
   margin: 0;
   padding: 0;
 }
 
-#yssvirgplw .gt_table {
+#chjvmplxnn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -663,12 +700,12 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-left-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_caption {
+#chjvmplxnn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yssvirgplw .gt_title {
+#chjvmplxnn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -680,7 +717,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-width: 0;
 }
 
-#yssvirgplw .gt_subtitle {
+#chjvmplxnn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -692,7 +729,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-width: 0;
 }
 
-#yssvirgplw .gt_heading {
+#chjvmplxnn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -704,13 +741,13 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_bottom_border {
+#chjvmplxnn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_col_headings {
+#chjvmplxnn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -725,7 +762,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_col_heading {
+#chjvmplxnn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -745,7 +782,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#yssvirgplw .gt_column_spanner_outer {
+#chjvmplxnn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -757,15 +794,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 4px;
 }
 
-#yssvirgplw .gt_column_spanner_outer:first-child {
+#chjvmplxnn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yssvirgplw .gt_column_spanner_outer:last-child {
+#chjvmplxnn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yssvirgplw .gt_column_spanner {
+#chjvmplxnn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -777,11 +814,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   width: 100%;
 }
 
-#yssvirgplw .gt_spanner_row {
+#chjvmplxnn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yssvirgplw .gt_group_heading {
+#chjvmplxnn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -807,7 +844,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   text-align: left;
 }
 
-#yssvirgplw .gt_empty_group_heading {
+#chjvmplxnn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -822,15 +859,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: middle;
 }
 
-#yssvirgplw .gt_from_md > :first-child {
+#chjvmplxnn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yssvirgplw .gt_from_md > :last-child {
+#chjvmplxnn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yssvirgplw .gt_row {
+#chjvmplxnn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -849,7 +886,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#yssvirgplw .gt_stub {
+#chjvmplxnn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -862,7 +899,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_stub_row_group {
+#chjvmplxnn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -876,15 +913,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: top;
 }
 
-#yssvirgplw .gt_row_group_first td {
+#chjvmplxnn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yssvirgplw .gt_row_group_first th {
+#chjvmplxnn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yssvirgplw .gt_summary_row {
+#chjvmplxnn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -894,16 +931,16 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_first_summary_row {
+#chjvmplxnn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_first_summary_row.thick {
+#chjvmplxnn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yssvirgplw .gt_last_summary_row {
+#chjvmplxnn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -913,7 +950,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_grand_summary_row {
+#chjvmplxnn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -923,7 +960,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_first_grand_summary_row {
+#chjvmplxnn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -933,7 +970,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_last_grand_summary_row_top {
+#chjvmplxnn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -943,11 +980,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_striped {
+#chjvmplxnn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yssvirgplw .gt_table_body {
+#chjvmplxnn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -956,7 +993,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_footnotes {
+#chjvmplxnn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -970,7 +1007,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_footnote {
+#chjvmplxnn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -979,7 +1016,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_sourcenotes {
+#chjvmplxnn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -993,7 +1030,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_sourcenote {
+#chjvmplxnn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1001,63 +1038,63 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_left {
+#chjvmplxnn .gt_left {
   text-align: left;
 }
 
-#yssvirgplw .gt_center {
+#chjvmplxnn .gt_center {
   text-align: center;
 }
 
-#yssvirgplw .gt_right {
+#chjvmplxnn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yssvirgplw .gt_font_normal {
+#chjvmplxnn .gt_font_normal {
   font-weight: normal;
 }
 
-#yssvirgplw .gt_font_bold {
+#chjvmplxnn .gt_font_bold {
   font-weight: bold;
 }
 
-#yssvirgplw .gt_font_italic {
+#chjvmplxnn .gt_font_italic {
   font-style: italic;
 }
 
-#yssvirgplw .gt_super {
+#chjvmplxnn .gt_super {
   font-size: 65%;
 }
 
-#yssvirgplw .gt_footnote_marks {
+#chjvmplxnn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yssvirgplw .gt_asterisk {
+#chjvmplxnn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yssvirgplw .gt_indent_1 {
+#chjvmplxnn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yssvirgplw .gt_indent_2 {
+#chjvmplxnn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yssvirgplw .gt_indent_3 {
+#chjvmplxnn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yssvirgplw .gt_indent_4 {
+#chjvmplxnn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yssvirgplw .gt_indent_5 {
+#chjvmplxnn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1094,21 +1131,21 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
 </div>
 </div>
 <p>Speichern wir uns die Modellkoeffizienten, <span class="math inline">\(\beta_0, \beta_1\)</span> in einem Objekt <span class="math inline">\(\mathbf{\beta}\)</span> ab:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-6_8a5fa830c5775ad2b92b6a0255c70022">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-6_df4ef57f299fbcaa7de2da41eb126976">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm1_coefs</span> <span class="op">&lt;-</span> <span class="va">lm1</span><span class="op">$</span><span class="va">coefficients</span></span>
 <span><span class="va">lm1_coefs</span></span>
 <span><span class="co">## (Intercept)           x </span></span>
 <span><span class="co">##   0.2666667   0.9000000</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die vorhergesagten Werte des Modells, <span class="math inline">\(\matr{\hat{Y}}\)</span></p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-7_d0ffbfb8b187ee88a53c075c134b0df1">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-7_0491640f82dafecf3e4bf717445c8c4a">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span></span>
 <span><span class="co">##        1        2        3 </span></span>
 <span><span class="co">## 1.166667 2.066667 2.966667</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt bauen wir das Modell mit Matrixmultiplikation nach.</p>
 <p>Dabei müssen wir für den Intercept eine Spalte mit nur 1 ergänzen und erhalten die Matrix für die X-Werte (pro Beobachtung), <span class="math inline">\(\matr{X}\)</span>:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-8_76d193c840acb4b5819e680d8a1ddc94">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-8_06946a1d7ecab189f65dd11f281c3455">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_matrix</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">b0</span>, <span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="op">)</span> </span>
@@ -1120,7 +1157,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
 <span><span class="co">## [3,]  1 3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dann multiplizieren wir die Matrix mit den X-Werten mit der Matrix (Vektor) mit den Modellkoeffizienten. So erhalten wir die vorhergesagten Y-Werte, $:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-9_e51d2291b88c46d5f961157c6b42da59">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-9_c526ce9ef7dd5583b72a016c17e569ce">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_pred</span> <span class="op">&lt;-</span> <span class="va">x_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">lm1_coefs</span></span>
 <span><span class="va">y_pred</span> </span>
 <span><span class="co">##          [,1]</span></span>
@@ -1135,25 +1172,25 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
 <p>Ausgeschrieben als Gleichungssystem:</p>
 <div class="columns">
 <div class="column" style="width:20%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-10_ebe789a965b59f2e18cd85f7de041609">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-10_58927a0599bc6f6a0d98f613a1f2f734">
 <div class="cell-output-display">
-<div id="dowbfijwwy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dowbfijwwy table {
+<div id="rofgnlfbmc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rofgnlfbmc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dowbfijwwy thead, #dowbfijwwy tbody, #dowbfijwwy tfoot, #dowbfijwwy tr, #dowbfijwwy td, #dowbfijwwy th {
+#rofgnlfbmc thead, #rofgnlfbmc tbody, #rofgnlfbmc tfoot, #rofgnlfbmc tr, #rofgnlfbmc td, #rofgnlfbmc th {
   border-style: none;
 }
 
-#dowbfijwwy p {
+#rofgnlfbmc p {
   margin: 0;
   padding: 0;
 }
 
-#dowbfijwwy .gt_table {
+#rofgnlfbmc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1179,12 +1216,12 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-left-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_caption {
+#rofgnlfbmc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dowbfijwwy .gt_title {
+#rofgnlfbmc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1196,7 +1233,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-width: 0;
 }
 
-#dowbfijwwy .gt_subtitle {
+#rofgnlfbmc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1208,7 +1245,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-width: 0;
 }
 
-#dowbfijwwy .gt_heading {
+#rofgnlfbmc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1220,13 +1257,13 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_bottom_border {
+#rofgnlfbmc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_col_headings {
+#rofgnlfbmc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1241,7 +1278,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_col_heading {
+#rofgnlfbmc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1261,7 +1298,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#dowbfijwwy .gt_column_spanner_outer {
+#rofgnlfbmc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1273,15 +1310,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 4px;
 }
 
-#dowbfijwwy .gt_column_spanner_outer:first-child {
+#rofgnlfbmc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dowbfijwwy .gt_column_spanner_outer:last-child {
+#rofgnlfbmc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dowbfijwwy .gt_column_spanner {
+#rofgnlfbmc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1293,11 +1330,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   width: 100%;
 }
 
-#dowbfijwwy .gt_spanner_row {
+#rofgnlfbmc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dowbfijwwy .gt_group_heading {
+#rofgnlfbmc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1323,7 +1360,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   text-align: left;
 }
 
-#dowbfijwwy .gt_empty_group_heading {
+#rofgnlfbmc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1338,15 +1375,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: middle;
 }
 
-#dowbfijwwy .gt_from_md > :first-child {
+#rofgnlfbmc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dowbfijwwy .gt_from_md > :last-child {
+#rofgnlfbmc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dowbfijwwy .gt_row {
+#rofgnlfbmc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1365,7 +1402,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#dowbfijwwy .gt_stub {
+#rofgnlfbmc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1378,7 +1415,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_stub_row_group {
+#rofgnlfbmc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1392,15 +1429,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: top;
 }
 
-#dowbfijwwy .gt_row_group_first td {
+#rofgnlfbmc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dowbfijwwy .gt_row_group_first th {
+#rofgnlfbmc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dowbfijwwy .gt_summary_row {
+#rofgnlfbmc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1410,16 +1447,16 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_first_summary_row {
+#rofgnlfbmc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_first_summary_row.thick {
+#rofgnlfbmc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dowbfijwwy .gt_last_summary_row {
+#rofgnlfbmc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1429,7 +1466,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_grand_summary_row {
+#rofgnlfbmc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1439,7 +1476,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_first_grand_summary_row {
+#rofgnlfbmc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1449,7 +1486,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_last_grand_summary_row_top {
+#rofgnlfbmc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1459,11 +1496,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_striped {
+#rofgnlfbmc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dowbfijwwy .gt_table_body {
+#rofgnlfbmc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1472,7 +1509,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_footnotes {
+#rofgnlfbmc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1486,7 +1523,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_footnote {
+#rofgnlfbmc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1495,7 +1532,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_sourcenotes {
+#rofgnlfbmc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1509,7 +1546,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_sourcenote {
+#rofgnlfbmc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1517,63 +1554,63 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_left {
+#rofgnlfbmc .gt_left {
   text-align: left;
 }
 
-#dowbfijwwy .gt_center {
+#rofgnlfbmc .gt_center {
   text-align: center;
 }
 
-#dowbfijwwy .gt_right {
+#rofgnlfbmc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dowbfijwwy .gt_font_normal {
+#rofgnlfbmc .gt_font_normal {
   font-weight: normal;
 }
 
-#dowbfijwwy .gt_font_bold {
+#rofgnlfbmc .gt_font_bold {
   font-weight: bold;
 }
 
-#dowbfijwwy .gt_font_italic {
+#rofgnlfbmc .gt_font_italic {
   font-style: italic;
 }
 
-#dowbfijwwy .gt_super {
+#rofgnlfbmc .gt_super {
   font-size: 65%;
 }
 
-#dowbfijwwy .gt_footnote_marks {
+#rofgnlfbmc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dowbfijwwy .gt_asterisk {
+#rofgnlfbmc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dowbfijwwy .gt_indent_1 {
+#rofgnlfbmc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dowbfijwwy .gt_indent_2 {
+#rofgnlfbmc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dowbfijwwy .gt_indent_3 {
+#rofgnlfbmc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dowbfijwwy .gt_indent_4 {
+#rofgnlfbmc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dowbfijwwy .gt_indent_5 {
+#rofgnlfbmc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1599,25 +1636,25 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
 </div><div class="column" style="width:20%;">
 <p><span class="math inline">\(=\)</span></p>
 </div><div class="column" style="width:20%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-11_3deeab1b45970b6a0219603c4a444e19">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-11_cfdae10f985cc22c821e80272d4f2f3c">
 <div class="cell-output-display">
-<div id="udmqhsrogi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#udmqhsrogi table {
+<div id="xsyaxtrnsq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xsyaxtrnsq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#udmqhsrogi thead, #udmqhsrogi tbody, #udmqhsrogi tfoot, #udmqhsrogi tr, #udmqhsrogi td, #udmqhsrogi th {
+#xsyaxtrnsq thead, #xsyaxtrnsq tbody, #xsyaxtrnsq tfoot, #xsyaxtrnsq tr, #xsyaxtrnsq td, #xsyaxtrnsq th {
   border-style: none;
 }
 
-#udmqhsrogi p {
+#xsyaxtrnsq p {
   margin: 0;
   padding: 0;
 }
 
-#udmqhsrogi .gt_table {
+#xsyaxtrnsq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1643,12 +1680,12 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-left-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_caption {
+#xsyaxtrnsq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#udmqhsrogi .gt_title {
+#xsyaxtrnsq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1660,7 +1697,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-width: 0;
 }
 
-#udmqhsrogi .gt_subtitle {
+#xsyaxtrnsq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1672,7 +1709,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-width: 0;
 }
 
-#udmqhsrogi .gt_heading {
+#xsyaxtrnsq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1684,13 +1721,13 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_bottom_border {
+#xsyaxtrnsq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_col_headings {
+#xsyaxtrnsq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1705,7 +1742,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_col_heading {
+#xsyaxtrnsq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1725,7 +1762,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#udmqhsrogi .gt_column_spanner_outer {
+#xsyaxtrnsq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1737,15 +1774,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 4px;
 }
 
-#udmqhsrogi .gt_column_spanner_outer:first-child {
+#xsyaxtrnsq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#udmqhsrogi .gt_column_spanner_outer:last-child {
+#xsyaxtrnsq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#udmqhsrogi .gt_column_spanner {
+#xsyaxtrnsq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1757,11 +1794,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   width: 100%;
 }
 
-#udmqhsrogi .gt_spanner_row {
+#xsyaxtrnsq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#udmqhsrogi .gt_group_heading {
+#xsyaxtrnsq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1787,7 +1824,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   text-align: left;
 }
 
-#udmqhsrogi .gt_empty_group_heading {
+#xsyaxtrnsq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1802,15 +1839,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: middle;
 }
 
-#udmqhsrogi .gt_from_md > :first-child {
+#xsyaxtrnsq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#udmqhsrogi .gt_from_md > :last-child {
+#xsyaxtrnsq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#udmqhsrogi .gt_row {
+#xsyaxtrnsq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1829,7 +1866,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#udmqhsrogi .gt_stub {
+#xsyaxtrnsq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1842,7 +1879,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_stub_row_group {
+#xsyaxtrnsq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1856,15 +1893,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: top;
 }
 
-#udmqhsrogi .gt_row_group_first td {
+#xsyaxtrnsq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#udmqhsrogi .gt_row_group_first th {
+#xsyaxtrnsq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#udmqhsrogi .gt_summary_row {
+#xsyaxtrnsq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1874,16 +1911,16 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_first_summary_row {
+#xsyaxtrnsq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_first_summary_row.thick {
+#xsyaxtrnsq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#udmqhsrogi .gt_last_summary_row {
+#xsyaxtrnsq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1893,7 +1930,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_grand_summary_row {
+#xsyaxtrnsq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1903,7 +1940,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_first_grand_summary_row {
+#xsyaxtrnsq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1913,7 +1950,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_last_grand_summary_row_top {
+#xsyaxtrnsq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1923,11 +1960,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_striped {
+#xsyaxtrnsq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#udmqhsrogi .gt_table_body {
+#xsyaxtrnsq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1936,7 +1973,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_footnotes {
+#xsyaxtrnsq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1950,7 +1987,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_footnote {
+#xsyaxtrnsq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1959,7 +1996,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_sourcenotes {
+#xsyaxtrnsq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1973,7 +2010,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_sourcenote {
+#xsyaxtrnsq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1981,63 +2018,63 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_left {
+#xsyaxtrnsq .gt_left {
   text-align: left;
 }
 
-#udmqhsrogi .gt_center {
+#xsyaxtrnsq .gt_center {
   text-align: center;
 }
 
-#udmqhsrogi .gt_right {
+#xsyaxtrnsq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#udmqhsrogi .gt_font_normal {
+#xsyaxtrnsq .gt_font_normal {
   font-weight: normal;
 }
 
-#udmqhsrogi .gt_font_bold {
+#xsyaxtrnsq .gt_font_bold {
   font-weight: bold;
 }
 
-#udmqhsrogi .gt_font_italic {
+#xsyaxtrnsq .gt_font_italic {
   font-style: italic;
 }
 
-#udmqhsrogi .gt_super {
+#xsyaxtrnsq .gt_super {
   font-size: 65%;
 }
 
-#udmqhsrogi .gt_footnote_marks {
+#xsyaxtrnsq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#udmqhsrogi .gt_asterisk {
+#xsyaxtrnsq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#udmqhsrogi .gt_indent_1 {
+#xsyaxtrnsq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#udmqhsrogi .gt_indent_2 {
+#xsyaxtrnsq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#udmqhsrogi .gt_indent_3 {
+#xsyaxtrnsq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#udmqhsrogi .gt_indent_4 {
+#xsyaxtrnsq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#udmqhsrogi .gt_indent_5 {
+#xsyaxtrnsq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2067,25 +2104,25 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
 </div><div class="column" style="width:20%;">
 <p><span class="math inline">\(\cdot\)</span></p>
 </div><div class="column" style="width:20%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-12_72ab406b0ec11de284206cbcd6cda711">
+<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-12_4c74ab6c9950af58f0f3d65bea827032">
 <div class="cell-output-display">
-<div id="hsulybjhyo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hsulybjhyo table {
+<div id="rcygpnrsrw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rcygpnrsrw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hsulybjhyo thead, #hsulybjhyo tbody, #hsulybjhyo tfoot, #hsulybjhyo tr, #hsulybjhyo td, #hsulybjhyo th {
+#rcygpnrsrw thead, #rcygpnrsrw tbody, #rcygpnrsrw tfoot, #rcygpnrsrw tr, #rcygpnrsrw td, #rcygpnrsrw th {
   border-style: none;
 }
 
-#hsulybjhyo p {
+#rcygpnrsrw p {
   margin: 0;
   padding: 0;
 }
 
-#hsulybjhyo .gt_table {
+#rcygpnrsrw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2111,12 +2148,12 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-left-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_caption {
+#rcygpnrsrw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hsulybjhyo .gt_title {
+#rcygpnrsrw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2128,7 +2165,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-width: 0;
 }
 
-#hsulybjhyo .gt_subtitle {
+#rcygpnrsrw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2140,7 +2177,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-width: 0;
 }
 
-#hsulybjhyo .gt_heading {
+#rcygpnrsrw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2152,13 +2189,13 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_bottom_border {
+#rcygpnrsrw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_col_headings {
+#rcygpnrsrw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2173,7 +2210,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_col_heading {
+#rcygpnrsrw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2193,7 +2230,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#hsulybjhyo .gt_column_spanner_outer {
+#rcygpnrsrw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2205,15 +2242,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 4px;
 }
 
-#hsulybjhyo .gt_column_spanner_outer:first-child {
+#rcygpnrsrw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hsulybjhyo .gt_column_spanner_outer:last-child {
+#rcygpnrsrw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hsulybjhyo .gt_column_spanner {
+#rcygpnrsrw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2225,11 +2262,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   width: 100%;
 }
 
-#hsulybjhyo .gt_spanner_row {
+#rcygpnrsrw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hsulybjhyo .gt_group_heading {
+#rcygpnrsrw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2255,7 +2292,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   text-align: left;
 }
 
-#hsulybjhyo .gt_empty_group_heading {
+#rcygpnrsrw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2270,15 +2307,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: middle;
 }
 
-#hsulybjhyo .gt_from_md > :first-child {
+#rcygpnrsrw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hsulybjhyo .gt_from_md > :last-child {
+#rcygpnrsrw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hsulybjhyo .gt_row {
+#rcygpnrsrw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2297,7 +2334,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   overflow-x: hidden;
 }
 
-#hsulybjhyo .gt_stub {
+#rcygpnrsrw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2310,7 +2347,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_stub_row_group {
+#rcygpnrsrw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2324,15 +2361,15 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   vertical-align: top;
 }
 
-#hsulybjhyo .gt_row_group_first td {
+#rcygpnrsrw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hsulybjhyo .gt_row_group_first th {
+#rcygpnrsrw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hsulybjhyo .gt_summary_row {
+#rcygpnrsrw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2342,16 +2379,16 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_first_summary_row {
+#rcygpnrsrw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_first_summary_row.thick {
+#rcygpnrsrw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hsulybjhyo .gt_last_summary_row {
+#rcygpnrsrw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2361,7 +2398,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_grand_summary_row {
+#rcygpnrsrw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2371,7 +2408,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_first_grand_summary_row {
+#rcygpnrsrw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2381,7 +2418,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-top-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_last_grand_summary_row_top {
+#rcygpnrsrw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2391,11 +2428,11 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_striped {
+#rcygpnrsrw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hsulybjhyo .gt_table_body {
+#rcygpnrsrw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2404,7 +2441,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_footnotes {
+#rcygpnrsrw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2418,7 +2455,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_footnote {
+#rcygpnrsrw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2427,7 +2464,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_sourcenotes {
+#rcygpnrsrw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2441,7 +2478,7 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_sourcenote {
+#rcygpnrsrw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2449,63 +2486,63 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_left {
+#rcygpnrsrw .gt_left {
   text-align: left;
 }
 
-#hsulybjhyo .gt_center {
+#rcygpnrsrw .gt_center {
   text-align: center;
 }
 
-#hsulybjhyo .gt_right {
+#rcygpnrsrw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hsulybjhyo .gt_font_normal {
+#rcygpnrsrw .gt_font_normal {
   font-weight: normal;
 }
 
-#hsulybjhyo .gt_font_bold {
+#rcygpnrsrw .gt_font_bold {
   font-weight: bold;
 }
 
-#hsulybjhyo .gt_font_italic {
+#rcygpnrsrw .gt_font_italic {
   font-style: italic;
 }
 
-#hsulybjhyo .gt_super {
+#rcygpnrsrw .gt_super {
   font-size: 65%;
 }
 
-#hsulybjhyo .gt_footnote_marks {
+#rcygpnrsrw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hsulybjhyo .gt_asterisk {
+#rcygpnrsrw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hsulybjhyo .gt_indent_1 {
+#rcygpnrsrw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hsulybjhyo .gt_indent_2 {
+#rcygpnrsrw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hsulybjhyo .gt_indent_3 {
+#rcygpnrsrw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hsulybjhyo .gt_indent_4 {
+#rcygpnrsrw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hsulybjhyo .gt_indent_5 {
+#rcygpnrsrw .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2527,30 +2564,48 @@ Tabelle&nbsp;14.1: Datensatz <code>d</code>
 </div>
 </div>
 </div>
-</section></section><section id="b1b" class="level2" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="b1b">
-<span class="header-section-number">14.5</span> 3b1b</h2>
-<p>Im YouTube-Kanal von 3b1b gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.</p>
-<section id="video-1" class="level3" data-number="14.5.1"><h3 data-number="14.5.1" class="anchored" data-anchor-id="video-1">
-<span class="header-section-number">14.5.1</span> Video 1</h3>
+</section></section><section id="b1b" class="level2" data-number="15.5"><h2 data-number="15.5" class="anchored" data-anchor-id="b1b">
+<span class="header-section-number">15.5</span> 3b1b</h2>
+<p>Im YouTube-Kanal von Grant Sanderson <a href="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw">3blue1brown</a> gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.</p>
+<section id="video-1" class="level3" data-number="15.5.1"><h3 data-number="15.5.1" class="anchored" data-anchor-id="video-1">
+<span class="header-section-number">15.5.1</span> Video 1</h3>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/aircAruvnKk?si=c_UkzyHTroCoQspV" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section><section id="video-2" class="level3" data-number="14.5.2"><h3 data-number="14.5.2" class="anchored" data-anchor-id="video-2">
-<span class="header-section-number">14.5.2</span> Video 2</h3>
+</section><section id="video-2" class="level3" data-number="15.5.2"><h3 data-number="15.5.2" class="anchored" data-anchor-id="video-2">
+<span class="header-section-number">15.5.2</span> Video 2</h3>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/IHZwWFHWa-w?si=xTr9SngMDPGrHHTd" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section><section id="video-3" class="level3" data-number="14.5.3"><h3 data-number="14.5.3" class="anchored" data-anchor-id="video-3">
-<span class="header-section-number">14.5.3</span> Video 3</h3>
+</section><section id="video-3" class="level3" data-number="15.5.3"><h3 data-number="15.5.3" class="anchored" data-anchor-id="video-3">
+<span class="header-section-number">15.5.3</span> Video 3</h3>
 <div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="hhttps://youtu.be/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT"></video></div>
-</section><section id="video-4" class="level3" data-number="14.5.4"><h3 data-number="14.5.4" class="anchored" data-anchor-id="video-4">
-<span class="header-section-number">14.5.4</span> Video 4</h3>
+</section><section id="video-4" class="level3" data-number="15.5.4"><h3 data-number="15.5.4" class="anchored" data-anchor-id="video-4">
+<span class="header-section-number">15.5.4</span> Video 4</h3>
 <p>Anspruchsvoller; mathematische Grundlagen von Backpropagation (parzielle Ableitung)</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/tIeHLnjs5U8?si=J7vxQbmHAfHj8aMs" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section></section><section id="vertiefung" class="level2" data-number="14.6"><h2 data-number="14.6" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">14.6</span> Vertiefung</h2>
+</section></section><section id="vertiefung" class="level2" data-number="15.6"><h2 data-number="15.6" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">15.6</span> Vertiefung</h2>
+<p>Francois Chollet hat eine nützliche, zugängliche und (zum Einstieg) umfassende Anleitung zum Thema neuronale Netze mit R bzw. mit Python geschrieben <span class="citation" data-cites="chollet_deep_2022-1 chollet_deep_2021">(<a href="#ref-chollet_deep_2022-1" role="doc-biblioref">Chollet, Kalinowski, und Allaire 2022</a>; <a href="#ref-chollet_deep_2021" role="doc-biblioref">Chollet 2021</a>)</span>.</p>
+<p>Es finden sich viele weitere Lehrbücher für Einsteiger und Fortgeschrittene, z.B. <span class="citation" data-cites="kulkarni_natural_2021">Kulkarni und Shivananda (<a href="#ref-kulkarni_natural_2021" role="doc-biblioref">2021</a>)</span>, <span class="citation" data-cites="gallatin_machine_2023">Gallatin und Albon (<a href="#ref-gallatin_machine_2023" role="doc-biblioref">2023</a>)</span>. Bekannt ist auch <span class="citation" data-cites="geron_praxiseinstieg_2023">Géron (<a href="#ref-geron_praxiseinstieg_2023" role="doc-biblioref">2023</a>)</span>. Der Großteil der entsprechenden Werke nutzt Python, nicht R.</p>
 <p>Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei <a href="https://betterexplained.com/articles/matrix-multiplication/">Kalid Azad, betterexplained.com</a>. Auf <a href="https://de.wikipedia.org/wiki/Matrizenmultiplikation">Wikipedia</a> finden sich einige einsteigerfreundliche Illustrationen.</p>
+<p>Die Videos von <a href="https://www.youtube.com/@vcubingx">vcubingx</a> zum <a href="https://www.youtube.com/watch?v=-at7SLoVK_I">Thema Neuronale Netze</a> sind empfehlenswert.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-chollet_deep_2021" class="csl-entry" role="listitem">
+Chollet, François. 2021. <em>Deep Learning with <span>Python</span></em>. Second edition. <span>Shelter Island, NY</span>: <span>Manning</span>.
+</div>
+<div id="ref-chollet_deep_2022-1" class="csl-entry" role="listitem">
+Chollet, François, Tomasz Kalinowski, und J. J. Allaire. 2022. <em>Deep Learning with <span>R</span></em>. Second edition. <span>Shelter Island, NY</span>: <span>Manning Publications Co.</span>
+</div>
+<div id="ref-gallatin_machine_2023" class="csl-entry" role="listitem">
+Gallatin, Kyle, und Chris Albon. 2023. <em>Machine Learning with <span>Python Cookbook</span>: Practical Solutions from Preprocessing to Deep Learning</em>. <span>Beijing Boston Farnham Sebastopol Tokyo</span>: <span>O’Reilly Media</span>.
+</div>
+<div id="ref-geron_praxiseinstieg_2023" class="csl-entry" role="listitem">
+Géron, Aurélien. 2023. <em>Praxiseinstieg Machine Learning mit Scikit-Learn, Keras und TensorFlow: Konzepte, Tools und Techniken für intelligente Systeme</em>. Übersetzt von Kristian Rother und Thomas Demmig. 3., aktualisierte und erweiterte Auflage. <span>Heidelberg</span>: <span>O’Reilly</span>.
+</div>
 <div id="ref-islr" class="csl-entry" role="listitem">
 James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2021. <em>An Introduction to Statistical Learning: With Applications in <span>R</span></em>. Second edition. Springer Texts in Statistics. <span>New York</span>: <span>Springer</span>. <a href="https://link.springer.com/book/10.1007/978-1-0716-1418-1">https://link.springer.com/book/10.1007/978-1-0716-1418-1</a>.
+</div>
+<div id="ref-kulkarni_natural_2021" class="csl-entry" role="listitem">
+Kulkarni, Akshay, und Adarsha Shivananda. 2021. <em>Natural Language Processing Recipes: Unlocking Text Data with Machine Learning and Deep Learning Using <span>Python</span></em>. Second edition. <span>New York</span>: <span>Apress</span>.
 </div>
 </div>
 </section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
@@ -3091,12 +3146,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./100-nn-quickstart.html" class="pagination-link  aria-label=" in="" neuronale="" netze="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./200-projektmgt.html" class="pagination-link" aria-label="<span class='chapter-number'>15</span>&nbsp; <span class='chapter-title'>Projektmanagement</span>">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./120-transformer.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Transformer</span>">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

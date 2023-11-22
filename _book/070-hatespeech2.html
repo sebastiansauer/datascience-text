@@ -51,7 +51,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -253,14 +273,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./105-python-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
   </div>
 </li>
       </ul>
@@ -277,13 +309,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -351,6 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#hass-proxis-pro-politiki-im-zeitverlauf" id="toc-hass-proxis-pro-politiki-im-zeitverlauf" class="nav-link" data-scroll-target="#hass-proxis-pro-politiki-im-zeitverlauf"><span class="header-section-number">11.6.2</span> Hass-Proxis pro Politiki im Zeitverlauf</a></li>
   </ul>
 </li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">11.7</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -381,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Sie können mit echten Daten umgehen im Sinne eines Projektmanagement von Data Science</li>
 </ul></section><section id="benötigte-r-pakete" class="level3" data-number="11.1.2"><h3 data-number="11.1.2" class="anchored" data-anchor-id="benötigte-r-pakete">
 <span class="header-section-number">11.1.2</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-1_855718cab53ea91450e645bd1750a2d3">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-1_693408b8c8bd9f38dacc6e08823e5104">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/easystats/">easystats</a></span><span class="op">)</span></span>
@@ -402,11 +435,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">11.2</span> Daten</h2>
 <section id="train--und-testdaten" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="train--und-testdaten">
 <span class="header-section-number">11.2.1</span> Train- und Testdaten</h3>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-3_aa6813e565f02e67f9cca0c4cc4c9896">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-3_cda6087f60aa75be357d92a51fab52d1">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"objects/d1.rds"</span><span class="op">)</span>  <span class="co"># Traindaten einlesen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In Train- und Test-Datensatz aufsplitten:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/d-split-d1_252c1f96c26fa49f9e6e8f397eb35e12">
+<div class="cell" data-hash="070-hatespeech2_cache/html/d-split-d1_a186fbde0ed64325f5778a44fbb9a4b0">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_split</span> <span class="op">&lt;-</span> <span class="fu">initial_split</span><span class="op">(</span><span class="va">d1</span>, strata <span class="op">=</span> <span class="va">c1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">d_train</span> <span class="op">&lt;-</span> <span class="fu">training</span><span class="op">(</span><span class="va">d_split</span><span class="op">)</span></span>
@@ -417,14 +450,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Wir importieren die Tweets führender deutscher Politikis.</p>
 <p>Für diese Daten haben wir keine Werte der Zielvariablen. Wir können nur vorhersagen, aber nicht unsere Modellgüte berechnen. Diese Daten bezeichnen wir als <em>Vorhersagedaten</em>.</p>
 <p>Pfad zu den Daten:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-4_02118b77711c32a1299f5813b2239f8f">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_data_path</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets-small"</span></span>
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-4_093fe6eac4d38babc30faa5db6f3a890">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_data_path</span> <span class="op">&lt;-</span> <span class="st">"/Users/sebastiansaueruser/github-repos/hate-speech-data/data-raw/tweets-small"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span><span class="op">(</span><span class="va">tweet_data_path</span><span class="op">)</span></span>
 <span><span class="co">## [1] TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Nutzungsrechte von Twitter erlauben nicht, diese Daten öffentlich zu teilen.</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-5_81145bb243160ca8fafae1251262362c">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-5_6f22c127da2998e50398bdf1768be9bc">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweet_data_files_names</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span></span>
 <span>    path <span class="op">=</span> <span class="va">tweet_data_path</span>,</span>
@@ -441,19 +474,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="st">"^tweets-to-"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tweet_data_files_names</span></span>
-<span><span class="co">##                                                                                                    BMWK_2021 </span></span>
-<span><span class="co">##           "/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets-small/tweets-to-BMWK_2021.rds" </span></span>
-<span><span class="co">##                                                                                          Janine_Wissler_2021 </span></span>
-<span><span class="co">## "/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets-small/tweets-to-Janine_Wissler_2021.rds" </span></span>
-<span><span class="co">##                                                                                          Janine_Wissler_2022 </span></span>
-<span><span class="co">## "/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets-small/tweets-to-Janine_Wissler_2022.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">##                                                                                                         BMWK_2021 </span></span>
+<span><span class="co">##           "/Users/sebastiansaueruser/github-repos/hate-speech-data/data-raw/tweets-small/tweets-to-BMWK_2021.rds" </span></span>
+<span><span class="co">##                                                                                               Janine_Wissler_2021 </span></span>
+<span><span class="co">## "/Users/sebastiansaueruser/github-repos/hate-speech-data/data-raw/tweets-small/tweets-to-Janine_Wissler_2021.rds" </span></span>
+<span><span class="co">##                                                                                               Janine_Wissler_2022 </span></span>
+<span><span class="co">## "/Users/sebastiansaueruser/github-repos/hate-speech-data/data-raw/tweets-small/tweets-to-Janine_Wissler_2022.rds"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>So lesen wir alle Dateien aus diesem Ordner ein. Zunächst erstellen wir uns eine Helper-Funktion:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/source-fun-read-and-select_d1ca239a945d8daa86f9406cfe8ca07f">
+<div class="cell" data-hash="070-hatespeech2_cache/html/source-fun-read-and-select_8d4e00b012f9ad88119d24fb3047be19">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/read-and-select.R"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Funktion <code>read_and_select</code> mappen wir auf alle Datendateien:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/map-read-and-select_66f64b08bb15aba99b5ce905f58bc228">
+<div class="cell" data-hash="070-hatespeech2_cache/html/map-read-and-select_67c7ed6075a527e18b2e56aeea8223a7">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">ds</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">tweet_data_files_names</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -462,10 +495,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">## Data file was read.</span></span>
 <span><span class="co">## Data file was read.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## 2.381 sec elapsed</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## 2.561 sec elapsed</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ein Blick zur Probe:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-6_303d1f8d5edd2674e89bf3f58b2cbd60">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-6_620c95b1606aab16c80515824847b92c">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Rows: 10,310</span></span>
@@ -487,18 +520,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 </section><section id="worteinbettungen" class="level3" data-number="11.2.3"><h3 data-number="11.2.3" class="anchored" data-anchor-id="worteinbettungen">
 <span class="header-section-number">11.2.3</span> Worteinbettungen</h3>
-<p>Wie in <a href="080-klassifikation.html#sec-fasttext" class="quarto-xref"><span>Kapitel&nbsp;10.8.1</span></a> dargestellt, importieren wir unser FastText-Modell.</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/read-fastext-twitter_011b9efe8fef62d7b2a5481a8ccfc704">
+<p>Wie in <a href="#sec-fasttext" class="quarto-xref"><span class="quarto-unresolved-ref">sec-fasttext</span></a> dargestellt, importieren wir unser FastText-Modell.</p>
+<div class="cell" data-hash="070-hatespeech2_cache/html/read-fastext-twitter_ef17fbac54543c3a677f78a24ffcd5a9">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">word_embedding_twitter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"/Users/sebastiansaueruser/datasets/Twitter/word_embedding_twitter.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wie viel Speicher benötigt das Worteinbettungsobjekt?</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-8_01cb88b8fc952e11164965d3d6a64013">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-8_216b67659b230da075d9afb61f9b302c">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">word_embedding_twitter</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"Mb"</span><span class="op">)</span></span>
 <span><span class="co">## [1] "108.3 Mb"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="hilfsdaten" class="level3" data-number="11.2.4"><h3 data-number="11.2.4" class="anchored" data-anchor-id="hilfsdaten">
 <span class="header-section-number">11.2.4</span> Hilfsdaten</h3>
-<div class="cell" data-hash="070-hatespeech2_cache/html/load-helper-data_f2a721a5af010856cb3f469346308f1b">
+<div class="cell" data-hash="070-hatespeech2_cache/html/load-helper-data_b3fb76a23a33af135075e6037f26badf">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"schimpwoerter"</span><span class="op">)</span></span>
 <span><span class="co">## Warning in data("schimpwoerter"): data set 'schimpwoerter' not found</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sentiws"</span><span class="op">)</span></span>
@@ -508,14 +541,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">11.3</span> Aufbereiten der Vorhersagedaten</h2>
 <section id="hilfsfunktionen" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="hilfsfunktionen">
 <span class="header-section-number">11.3.1</span> Hilfsfunktionen</h3>
-<div class="cell" data-hash="070-hatespeech2_cache/html/source-helper-funs-recipe_ee4e79c44a533f0904e04435d62cbdbd">
+<div class="cell" data-hash="070-hatespeech2_cache/html/source-helper-funs-recipe_59f4f29b6a5af544cd64c038cb01e037">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"funs/helper-funs-recipes.R"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="rezept" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="rezept">
 <span class="header-section-number">11.4</span> Rezept</h2>
 <p>Da wir schon ein Rezept “trainiert” haben, können wir die Test-Daten einfach mit dem Rezept “backen”.</p>
 <p>Streng genommen müssten wir nicht mal das tun, denn <code>tidymodels</code> würde das beim Vorhersagen für uns übernehmen. Aber es ist nützlich, die Daten in aufbereiteter Form zu sehen, bzw. sie direkt zugänglich zu haben.</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/rec2_f1739f8f2d1f6854728c1ce49b46bcf9">
+<div class="cell" data-hash="070-hatespeech2_cache/html/rec2_604ec3a75b29942912cab94219a24133">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rec2</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/recipe.html">recipe</a></span><span class="op">(</span><span class="va">c1</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">d_train</span>, <span class="va">text</span>, <span class="va">c1</span>, <span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/roles.html">update_role</a></span><span class="op">(</span><span class="va">id</span>, new_role <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -536,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preppen-und-backen" class="level3" data-number="11.4.1"><h3 data-number="11.4.1" class="anchored" data-anchor-id="preppen-und-backen">
 <span class="header-section-number">11.4.1</span> Preppen und Backen</h3>
 <p>Preppen:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/rec2-prepped-baked_2fdf5209b4d666185aaca825ba4bd2f6">
+<div class="cell" data-hash="070-hatespeech2_cache/html/rec2-prepped-baked_bf4b53dd7e88c131f08faaa212ae70ec">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">rec2_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html">prep</a></span><span class="op">(</span><span class="va">rec2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -544,12 +577,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>29.377 sec elapsed</code></pre>
 <p>Braucht ganz schön Zeit …</p>
 <p>Zur Sicherheit speichern wir auch dieses Objekt ab.</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/read-rec2-prepped_8719dd50698c2285f4cf0938968d9b71">
+<div class="cell" data-hash="070-hatespeech2_cache/html/read-rec2-prepped_b70d3faa6ae5f9d2b837b85233893b52">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># write_rds(rec2_prepped, "objects/rec2_prepped.rds")</span></span>
 <span><span class="va">rec2_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/datasets/Twitter/hate-classific/rec2_prepped.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Als nächstes kommt das Backen der Vorhersagedaten. Das ist die Stelle, an der zum ersten Mal die neuen Daten (die Vorhersagedaten) ins Spiel kommen.</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/bake-rec2_51662861d475e8c20a7bb372ceeac71b">
+<div class="cell" data-hash="070-hatespeech2_cache/html/bake-rec2_2fe707df239e3e0a1e90ec275f343013">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">d_predict_baken</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html">bake</a></span><span class="op">(</span><span class="va">rec2_prepped</span>, new_data <span class="op">=</span> <span class="va">ds</span><span class="op">)</span></span>
@@ -566,7 +599,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="metadaten" class="level3" data-number="11.4.3"><h3 data-number="11.4.3" class="anchored" data-anchor-id="metadaten">
 <span class="header-section-number">11.4.3</span> Metadaten</h3>
 <p>Metadaten wieder hinzufügen:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/re-add-metadata3_64f34bb89b35dfcd83be725b9d00a8c4">
+<div class="cell" data-hash="070-hatespeech2_cache/html/re-add-metadata3_3e13fe1c7beeb69c306a0de2580f2ec9">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_predict2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">d_predict_baken</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ds</span>, by <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -579,7 +612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Leider müssen wir <code>id</code> in Integer umwandeln, das wir dies im Rezept auch so gemacht hatten. Dabei geht die Spalte kaputt, bzw. die Daten werden NA, da die resultierende Integerzahl zu groß für R ist. Aber nicht so schlimm: Wir fügen sie später wieder hinzu.</p>
 <p>Spaltennamen mal anschauen:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-9_99861a76ed8c541fe00f43cbe0965e96">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-9_e726e44b675edd87988f2051147a9739">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">d_predict2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">33</span><span class="op">]</span></span>
 <span><span class="co">##  [1] "dataset"                             "id"                                 </span></span>
 <span><span class="co">##  [3] "author_id"                           "created_at"                         </span></span>
@@ -601,14 +634,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section></section><section id="vorhersagen" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="vorhersagen">
 <span class="header-section-number">11.5</span> Vorhersagen</h2>
-<p>Wir beziehen uns auf das Modell von <a href="080-klassifikation.html#sec-klassifik-fit3" class="quarto-xref"><span>Kapitel&nbsp;10.9.4</span></a>.</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/read-fit3-fit3-final_4c36ba8a7964ffcede1d4aad275b5414">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds"</span><span class="op">)</span></span>
+<p>Wir beziehen uns auf das Modell von <a href="#sec-klassifik-fit3" class="quarto-xref"><span class="quarto-unresolved-ref">sec-klassifik-fit3</span></a>.</p>
+<div class="cell" data-hash="070-hatespeech2_cache/html/read-fit3-fit3-final_c43b9f15b43415a744743bedb8c3524a">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap-klassifik/chap_classific_fit3.rds"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fit3_final_train</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"/Users/sebastiansaueruser/datasets/Twitter/hate-classific/fit3_final_train.rds"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und nutzen dann die <a href="https://parsnip.tidymodels.org/reference/predict.model_fit.html">predict</a>-Methode von <a href="https://tidymodels.tidymodels.org">tidymodels</a>:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/predict-fit3_543125cf78e44cd466d406cb93290ea7">
+<div class="cell" data-hash="070-hatespeech2_cache/html/predict-fit3_83f019e834f7ee7f8df6ce5832d1ea96">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">d_predicted_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fit3_final_train</span>, <span class="va">d_predict2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -616,7 +649,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Puh, hier ist mein Rechner abgestürzt, als ich es mit ca. 2 Millionen Tweets versucht habe!</p>
 <p>Besser, wir probieren erstmal mit einem winzigen Teil der Daten, ob unsere Funktion “im Prinzip” oder “grundsätzlich” funktioniert:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/predict-fit3-tiny_461c6eef3be99cb0c83929fa6231a21f">
+<div class="cell" data-hash="070-hatespeech2_cache/html/predict-fit3-tiny_9dfa67cfdfc0276d3bd328db3c205246">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_predicted_values_tiny</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fit3_final_train</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">d_predict2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## Error:</span></span>
 <span><span class="co">## ! Can't convert `data$id` &lt;integer&gt; to match type of `id` &lt;character&gt;.</span></span>
@@ -630,7 +663,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">11.6</span> Ergebnisse</h2>
 <section id="hass-proxis-pro-politiki-insgesamt" class="level3" data-number="11.6.1"><h3 data-number="11.6.1" class="anchored" data-anchor-id="hass-proxis-pro-politiki-insgesamt">
 <span class="header-section-number">11.6.1</span> Hass-Proxis pro Politiki insgesamt</h3>
-<div class="cell" data-hash="070-hatespeech2_cache/html/res-summary1_960f2a3c3e887fb5c9b1548322dad5c9">
+<div class="cell" data-hash="070-hatespeech2_cache/html/res-summary1_2613b95dbca5566c5b3ba3b622e69c23">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary1</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">d_predict2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -644,7 +677,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="va">res_summary1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">dataset</span>, names_to <span class="op">=</span> <span class="st">"hate_proxy"</span>, values_to <span class="op">=</span> <span class="st">"prop"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-10_a5c63109d18f4ccb38fffdef9df7c8ca">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-10_8cf6ea43f7f26e3d915b2869f2acb8ef">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary1_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">prop</span>, y <span class="op">=</span> <span class="va">hate_proxy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -655,7 +688,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="hass-proxis-pro-politiki-im-zeitverlauf" class="level3" data-number="11.6.2"><h3 data-number="11.6.2" class="anchored" data-anchor-id="hass-proxis-pro-politiki-im-zeitverlauf">
 <span class="header-section-number">11.6.2</span> Hass-Proxis pro Politiki im Zeitverlauf</h3>
-<div class="cell" data-hash="070-hatespeech2_cache/html/res-summary2_4c37ff9d1127a8c76651c32c44a53bd0">
+<div class="cell" data-hash="070-hatespeech2_cache/html/res-summary2_540ec22b3d58eeed64ee68a3dd64034d">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary2</span> <span class="op">&lt;-</span> </span>
 <span><span class="va">d_predict2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">created_at</span>, <span class="va">profane_n</span>, <span class="va">dataset</span>, <span class="va">emo_words_n</span>, <span class="va">wild_emojis_n</span>, <span class="va">textfeature_text_copy_n_exclaims</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -682,7 +715,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Langifizieren fürs Plotten:</p>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-11_b5d075100c7a2cccb8948ba4fe76fd05">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-11_b654eff5f716e7e5a1fdaacf738e883b">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary2_long</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">res_summary2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">emo_words_n_mean</span><span class="op">:</span><span class="va">hate_proxy</span><span class="op">)</span></span>
@@ -697,7 +730,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-12_bad8a736437b00fa78891f718581fe8b">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-12_46f2286e239f00b2dcfbf42c1c2efffd">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary2_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">month</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -708,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-13_55e0cbf2062c465288625a4a0b1111ad">
+<div class="cell" data-hash="070-hatespeech2_cache/html/unnamed-chunk-13_f73d8167f7412852f2df7c1bf4420926">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">res_summary2_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">month</span>, y <span class="op">=</span> <span class="va">value</span><span class="op">)</span> <span class="op">+</span></span>
@@ -721,9 +754,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="070-hatespeech2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section></section><section id="vertiefung" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">11.7</span> Vertiefung</h2>
+<p><span class="citation" data-cites="siegel_sentiment-analyse_2020">Siegel und Alexa (<a href="#ref-siegel_sentiment-analyse_2020" role="doc-biblioref">2020</a>)</span> bieten einen Einstieg in die Sentimentanalyse deutschsprachiger Texte, auch mit einem Blick auf das Erkennen von Aggression.</p>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-siegel_sentiment-analyse_2020" class="csl-entry" role="listitem">
+Siegel, Melanie, und Melpomeni Alexa. 2020. <em>Sentiment-Analyse deutschsprachiger Meinungsäußerungen: Grundlagen, Methoden und praktische Umsetzung</em>. <span>Wiesbaden</span>: <span>Springer Fachmedien Wiesbaden</span>. <a href="https://doi.org/10.1007/978-3-658-29699-5">https://doi.org/10.1007/978-3-658-29699-5</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

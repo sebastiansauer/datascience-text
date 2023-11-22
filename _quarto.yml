@@ -27,8 +27,10 @@ book:
         - 095-miniprojekt2.qmd
     - part: Deep Learning
       chapters:
+        - 105-python-r.qmd
         - 100-nn-quickstart.qmd
         - 110-nn-theo1.qmd
+        - 120-transformer.qmd
     - part: Anwendung
       chapters: 
         - 200-projektmgt.qmd

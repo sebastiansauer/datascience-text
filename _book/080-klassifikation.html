@@ -273,14 +273,26 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./105-python-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
   </div>
 </li>
       </ul>
@@ -297,13 +309,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -448,7 +460,7 @@ div.csl-indent {
 </section></section><section id="daten" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="daten">
 <span class="header-section-number">10.2</span> Daten</h2>
 <p>Für Maschinenlernen brauchen wir Trainingsdaten, Daten also, bei denen wir pro Beobachtung der Wert der Zielvariablen kennen. Man spricht auch von “gelabelten” Daten.</p>
-<p>Wir nutzen die Daten von <span class="citation" data-cites="germeval">Wiegand (<a href="references.html#ref-germeval" role="doc-biblioref">2019a</a>)</span> bzw. <span class="citation" data-cites="wiegand-data">Wiegand (<a href="references.html#ref-wiegand-data" role="doc-biblioref">2019b</a>)</span>. Die Daten sind unter CC-By-4.0 Int. lizensiert.</p>
+<p>Wir nutzen die Daten von <span class="citation" data-cites="germeval">Wiegand (<a href="#ref-germeval" role="doc-biblioref">2019a</a>)</span> bzw. <span class="citation" data-cites="wiegand-data">Wiegand (<a href="#ref-wiegand-data" role="doc-biblioref">2019b</a>)</span>. Die Daten sind unter CC-By-4.0 Int. lizensiert.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/import-heidelberg-data_c85f26dba7e098dc46d51174dca00022">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d_raw</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">data_read</span><span class="op">(</span><span class="st">"data/germeval2018.training.txt"</span>,</span>
@@ -474,7 +486,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Mit <code>c1</code> wurde klassifiziert, ob beleidigende Sprache (offensive language) vorlag oder nicht <span class="citation" data-cites="risch-etal-2021-overview">(<a href="references.html#ref-risch-etal-2021-overview" role="doc-biblioref">Risch u.&nbsp;a. 2021, 2</a>)</span>, also <code>OFFENSE</code> bzw. <code>OTHER</code>:</p>
+<p>Mit <code>c1</code> wurde klassifiziert, ob beleidigende Sprache (offensive language) vorlag oder nicht <span class="citation" data-cites="risch-etal-2021-overview">(<a href="#ref-risch-etal-2021-overview" role="doc-biblioref">Risch u.&nbsp;a. 2021, 2</a>)</span>, also <code>OFFENSE</code> bzw. <code>OTHER</code>:</p>
 <blockquote class="blockquote">
 <p>Task 1 was to decide whether a tweet includes some form of offensive language or not. The tweets had to be classiﬁed into the two classes OFFENSE and OTHER. The OFFENSE category covered abusive language, insults, as well as merely profane statements.</p>
 </blockquote>
@@ -490,7 +502,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>In <code>c2</code> ging es um eine <em>feinere Klassifikation</em> beleidigender Sprache <span class="citation" data-cites="risch-etal-2021-overview">(<a href="references.html#ref-risch-etal-2021-overview" role="doc-biblioref">Risch u.&nbsp;a. 2021, 2</a>)</span>:</p>
+<p>In <code>c2</code> ging es um eine <em>feinere Klassifikation</em> beleidigender Sprache <span class="citation" data-cites="risch-etal-2021-overview">(<a href="#ref-risch-etal-2021-overview" role="doc-biblioref">Risch u.&nbsp;a. 2021, 2</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>The second task involved four categories, a nonoffensive OTHER class and three sub-categories of what is OFFENSE in Task 1. In the case of PROFANITY, profane words are used, however, the tweet does not want to insult anyone. This typically concerns the usage of swearwords (Scheiße, Fuck etc.) and cursing (Zur Hölle! Verdammt! etc.). This can be often found in youth language. Swearwords and cursing may, but need not, co-occur with insults or abusive speech. Profane language may in fact be used in tweets with positive sentiment to express emphasis. Whenever profane words are not directed towards a speciﬁc person or group of persons and there are no separate cues of INSULT or ABUSE, then tweets are labeled as simple cases of PROFANITY.</p>
 </blockquote>
@@ -547,7 +559,7 @@ div.csl-indent {
 </div>
 </section><section id="sentimentanalyse" class="level3" data-number="10.3.2"><h3 data-number="10.3.2" class="anchored" data-anchor-id="sentimentanalyse">
 <span class="header-section-number">10.3.2</span> Sentimentanalyse</h3>
-<p>Wir nutzen dazu <code>SentiWS</code> <span class="citation" data-cites="Remus2010">(<a href="references.html#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>.</p>
+<p>Wir nutzen dazu <code>SentiWS</code> <span class="citation" data-cites="Remus2010">(<a href="#ref-Remus2010" role="doc-biblioref">Remus, Quasthoff, und Heyer 2010</a>)</span>.</p>
 <div class="cell" data-hash="080-klassifikation_cache/html/read-sentiws_b9fe13794bc25dd9c3422c6d21358b8c">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sentiws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://osf.io/x89wq/?action=download"</span><span class="op">)</span></span>
 <span><span class="co">## Rows: 3468 Columns: 4</span></span>
@@ -1817,7 +1829,7 @@ Progress: 100.0% words/sec/thread:   49218 lr:  0.000000 avg.loss:  1.720812 ETA
 <p><a href="https://platform.openai.com/docs/guides/embeddings">OpenAIs Word-Einbettungen</a> werden in <a href="https://juliasilge.com/blog/horror-embeddings/">dieser Fallstudie</a> verwendet. Sehr schön!</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Remus2010" class="csl-entry" role="listitem">
 Remus, Robert, Uwe Quasthoff, und Gerhard Heyer. 2010. <span>„<span>SentiWS</span> - a Publicly Available German-Language Resource for Sentiment Analysis“</span>. <em>Proceedings of the 7th International Language Ressources and Evaluation (LREC’10)</em>, 1168–71.
 </div>

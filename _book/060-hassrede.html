@@ -273,14 +273,26 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./105-python-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
   </div>
 </li>
       </ul>
@@ -297,13 +309,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -351,6 +363,7 @@ div.csl-indent {
   <li><a href="#los-gehts" id="toc-los-gehts" class="nav-link" data-scroll-target="#los-gehts"><span class="header-section-number">8.3.4</span> Los geht’s!</a></li>
   </ul>
 </li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">8.4</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -383,7 +396,7 @@ div.csl-indent {
 <li>Lesen Sie die unten aufgeführte Literatur</li>
 </ul></section><section id="benötigte-r-pakete" class="level3" data-number="8.1.3"><h3 data-number="8.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
 <span class="header-section-number">8.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="060-hassrede_cache/html/unnamed-chunk-1_5734262cf2b4772e768489f28f1e29b3">
+<div class="cell" data-hash="060-hassrede_cache/html/unnamed-chunk-1_210fac6cc5d1e47bf4e390c93399b4e0">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="worum-gehts" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="worum-gehts">
@@ -410,18 +423,32 @@ div.csl-indent {
 <p>In dieser <a href="https://www.zotero.org/groups/4852579/hate-speech">Zotero-Gruppe</a> finden Sie empfehlenswerte (und öffentlich zugängliche) Artikel zum Thema Hatespeech und Hate-Speech-Erkennung.</p>
 </section><section id="trainingsdaten" class="level3" data-number="8.3.3"><h3 data-number="8.3.3" class="anchored" data-anchor-id="trainingsdaten">
 <span class="header-section-number">8.3.3</span> Trainingsdaten</h3>
-<p>Die <a href="https://heidata.uni-heidelberg.de/dataset.xhtml?persistentId=doi:10.11588/data/0B5VML">Universität Heidelberg veröffentlicht Daten</a>, die Tweets (oder ähnliche Kurztexte) nach Hatespeech hin untersucht <span class="citation" data-cites="wiegand_germeval-2018_2019">(<a href="references.html#ref-wiegand_germeval-2018_2019" role="doc-biblioref">Wiegand 2019</a>)</span>. Nutzen Sie dieser Ressource.</p>
+<p>Die <a href="https://heidata.uni-heidelberg.de/dataset.xhtml?persistentId=doi:10.11588/data/0B5VML">Universität Heidelberg veröffentlicht Daten</a>, die Tweets (oder ähnliche Kurztexte) nach Hatespeech hin untersucht <span class="citation" data-cites="wiegand_germeval-2018_2019">(<a href="#ref-wiegand_germeval-2018_2019" role="doc-biblioref">Wiegand 2019</a>)</span>. Nutzen Sie dieser Ressource.</p>
 </section><section id="los-gehts" class="level3" data-number="8.3.4"><h3 data-number="8.3.4" class="anchored" data-anchor-id="los-gehts">
 <span class="header-section-number">8.3.4</span> Los geht’s!</h3>
 <p>Lesen Sie diese und weitere Literatur, um zu einer Arbeitsdefinition von Hassrede zu kommen.</p>
+</section></section><section id="vertiefung" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">8.4</span> Vertiefung</h2>
+<p>Bei <span class="citation" data-cites="castano-pulgarin_internet_2021-1">Castaño-Pulgarín u.&nbsp;a. (<a href="#ref-castano-pulgarin_internet_2021-1" role="doc-biblioref">2021</a>)</span> findet sich ein Review zum Thema Hassrede in Sozialen Netzwerken. Auch bei <span class="citation" data-cites="alkomah_literature_2022-1">Alkomah und Ma (<a href="#ref-alkomah_literature_2022-1" role="doc-biblioref">2022</a>)</span> findet sich ein Review zu einem ähnlichen Thema.</p>
+<p>[Diese Zotero-Gruppe] bietet einen Überblick an relevanten Artikeln für einen Einstieg in die Materie.</p>
+<p><span class="citation" data-cites="siegel_sentiment-analyse_2020">Siegel und Alexa (<a href="#ref-siegel_sentiment-analyse_2020" role="doc-biblioref">2020</a>)</span> bieten einen Überblick zur Sentiment-Analyse in speziell deutschsprachiger Meinungsäußerung. Dabei gehen die Autoren auch spezill auf politische Trends ein (pp.&nbsp;75-80) und auf die Detektion von Aggression (po. 93-102). Dabei kommt die Programmiersprache Python zur Anwendung.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-alkomah_literature_2022-1" class="csl-entry" role="listitem">
+Alkomah, Fatimah, und Xiaogang Ma. 2022. <span>„A <span>Literature Review</span> of <span>Textual Hate Speech Detection Methods</span> and <span>Datasets</span>“</span>. <em>Information</em> 13 (6, 6): 273. <a href="https://doi.org/10.3390/info13060273">https://doi.org/10.3390/info13060273</a>.
+</div>
+<div id="ref-castano-pulgarin_internet_2021-1" class="csl-entry" role="listitem">
+Castaño-Pulgarín, Sergio Andrés, Natalia Suárez-Betancur, Luz Magnolia Tilano Vega, und Harvey Mauricio Herrera López. 2021. <span>„Internet, Social Media and Online Hate Speech. <span>Systematic</span> Review“</span>. <em>Aggression and Violent Behavior</em> 58 (Mai): 101608. <a href="https://doi.org/10.1016/j.avb.2021.101608">https://doi.org/10.1016/j.avb.2021.101608</a>.
+</div>
+<div id="ref-siegel_sentiment-analyse_2020" class="csl-entry" role="listitem">
+Siegel, Melanie, und Melpomeni Alexa. 2020. <em>Sentiment-Analyse deutschsprachiger Meinungsäußerungen: Grundlagen, Methoden und praktische Umsetzung</em>. <span>Wiesbaden</span>: <span>Springer Fachmedien Wiesbaden</span>. <a href="https://doi.org/10.1007/978-3-658-29699-5">https://doi.org/10.1007/978-3-658-29699-5</a>.
+</div>
 <div id="ref-wiegand_germeval-2018_2019" class="csl-entry" role="listitem">
 Wiegand, Michael. 2019. <span>„<span>GermEval-2018</span> Corpus (<span>DE</span>)“</span>. <span>heiDATA</span>. <a href="https://doi.org/10.11588/data/0B5VML">https://doi.org/10.11588/data/0B5VML</a>.
 </div>
 </div>
-</section></section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Zur korrekten deutschen Schreibweise vgl. <a href="https://www.duden.de/rechtschreibung/Hatespeech">Duden</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

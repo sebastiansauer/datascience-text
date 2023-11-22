@@ -93,6 +93,7 @@ Zugangsdaten sollte man geschützt speichern, also z.B. *nicht* in einem geteilt
 
 
 ```{r source-credentials-twitter}
+#| eval: false
 source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
 ```
 
@@ -715,6 +716,7 @@ library(rio)  # R Data import/export
 Dann melden wir uns an:
 
 ```{r}
+#| eval: false
 source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
 auth <- rtweet_app(bearer_token = Bearer_Token)
 ```
@@ -729,6 +731,7 @@ um ein Beispiel für einen Spitzenpolitiker zu nennen, der vermutlich von Hate S
 
 
 ```{r}
+#| eval: false
 politicians_twitter_path <- "/Users/sebastiansaueruser/github-repos/datascience-text/data/twitter-german-politicians.csv"
 
 politicians_twitter <- rio::import(file = politicians_twitter_path)

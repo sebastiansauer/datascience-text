@@ -1,0 +1,167 @@
+# Python 💖 R
+
+
+RStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu verwenden. Und nicht nur das:
+
+- Man kann Objekte (Daten) zwischen den beiden Sprachen tauschen
+- Man kann aus R Python-Funktionen verwenden.
+
+<div style="width:260px;max-width:50%;"><div style="height:0;padding-bottom:42.31%;position:relative;"><iframe width="260" height="110" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameBorder="0" src="https://imgflip.com/embed/86x3iu"></iframe></div><p><a href="https://imgflip.com/gif/86x3iu">via Imgflip</a></p></div>
+
+
+## Python-Setup
+
+
+
+### Module installieren
+
+Mit `pyenv` kann man komfortabel zwischen mehreren installierten Python-Versionen wechseln.
+
+
+Um Python-Module zu installieren via `pyenv` bietet sich dieser (Kommondozeilen-)Befehl an:
+
+`pyenv exec pip install <name-des-moduls>`.
+
+:::{#exm-spacy-pip}
+Um das Modul `spacy` zu installieren, schreibt man `pyenv exec pip install spacy`. $\square$
+:::
+
+
+### Welche Python-Version läuft gerade?
+
+In R läuft gerade folgende Python-Version:
+
+```{r}
+library(reticulate)
+py_config()
+```
+
+
+in der *Shell* ist gerade folgende Python-Version aktiviert:
+
+```{r}
+system2(command = "pyenv",
+        args = "version")
+```
+
+::: calllout-caution
+Die "aktuelle" Python-Version ist nicht (unbedingt) die Python-Version, die in R aktiv ist. $\square$
+:::
+
+
+Aus der `reticulate`-Doku: 
+
+>    By default, reticulate uses an isolated python virtual environment named “r-reticulate”.
+
+
+
+
+Check: Ist Python gestartet und bereit?
+
+```{r}
+py_available()
+```
+
+
+### Python-Version via Kommandozeile aus RStudio
+
+Wir können die Kommandozeile auch aus Notebooks heraus ansprechen:
+
+```{zsh}
+#| echo: fenced
+pyenv version
+```
+
+Oder aber wir fragen Python direkt:
+
+```{zsh}
+#| echo: fenced
+python --version
+```
+
+
+Aber Achtung: Die gezeigt Version ist nicht unbedingt diejenige, die im Notebook oder im interaktiven R verwendet wird.
+
+
+### Welche Python-Versionen sind verfügbar?
+
+```{zsh}
+#| echo: fenced
+pyenv versions
+```
+
+:::callout-caution
+Es werden nur Python-Versionen angezeigt, die im Pfad (in der Shell) definiert sind. $\square$
+:::
+
+
+
+
+### Versionen wechseln
+
+Natürlich kann man auch via R virtuelle Environments nutzen, wie es in Python üblich ist:
+
+```{r}
+#| eval: false
+use_virtualenv("r-tensorflow")
+```
+
+
+
+### Liste installierter Module
+
+Die Liste installierter Module bezieht sich auf die aktuell aktivierte Version von Python:
+
+```{r}
+py_list_packages()
+```
+
+
+
+### Module installieren
+
+Mit dem Kommandozeilen-Befehl `pip` kann man Pythonmodule installieren.
+
+
+Oder via R:
+
+```{r}
+#| eval: false
+py_install("openai")
+```
+
+
+
+## Hello, 🐍 
+
+
+```{python}
+#| echo: fenced
+print("Hello! Here's 🐍")
+
+python_list = [1,2,3]
+python_list
+```
+
+
+### Objektaustausch zwischen R und Python
+
+In R ein Python-Objekt ansprechen, das geht mit `py$`:
+
+```{r}
+py$python_list
+
+r_vec <- c(1,2,3)
+r_vec
+```
+
+
+In Python ein R-Objekt ansprechen, das geht mit `r.`:
+
+
+```{python}
+r.r_vec
+```
+
+
+
