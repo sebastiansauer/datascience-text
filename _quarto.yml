@@ -31,6 +31,7 @@ book:
         - 100-nn-quickstart.qmd
         - 110-nn-theo1.qmd
         - 120-transformer.qmd
+        - 130-chatgpt.qmd
     - part: Anwendung
       chapters: 
         - 200-projektmgt.qmd

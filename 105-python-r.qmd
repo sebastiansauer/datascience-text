@@ -19,7 +19,74 @@ Es gibt viele Lehrbücher zu Python. Mein Rat ist, das zu wählen, das es in Ihr
 Hier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. @downey_think_2021; vergleichsweise aktuell ist @inden_python_2023; auch ganz nett ist @barry_python_2017.
 
 
+:::{.callout-note  collapse="true"}
+### Rap-Battle von R und Python 🎤 
 
+(Beat im Hintergrund...)
+
+Python:
+
+Yo, I'm Python, the snake that's striking,
+Clean syntax, got your code reciting.
+Versatile, dynamic, no need for stressing,
+From web apps to scripts, I'm truly impressing.
+
+Pandas roll deep, handling data so fine,
+NumPy's my crew, doing math in every line.
+Machine learning skills, yeah, I got the game,
+TensorFlow and PyTorch, ain't that my fame?
+
+Indentation's the key, my style's so clean,
+Readability supreme, in every code scene.
+Fluent in libraries, got Matplotlib on the beat,
+Visualizing data, making it all sweet.
+
+R:
+
+Hold up, Python, slow down the hype,
+I'm R, in statistics, I'm the type.
+Dataframes and vectors, I pioneered the game,
+ggplot2's my art, visuals never the same.
+
+Tidyverse, my squad, we stay organized,
+Read and manipulate, got data mesmerized.
+Shiny apps shining, interactive delight,
+In the world of data, I'm taking flight.
+
+Base R or dplyr, I got the choices,
+Statistical models, hear the data's voices.
+In the realm of data science, I hold my own,
+From regression to clustering, my skills are honed.
+
+Python:
+
+R, you're cool with stats, I give you that,
+But in the industry, I'm where it's at.
+Django and Flask, web frameworks so sleek,
+Building APIs, from strong to boutique.
+
+Jupyter Notebooks, my interactive stage,
+Collaborating with data at every page.
+Anaconda's my lair, where I thrive,
+In the world of programming, I'm the hive.
+
+R:
+
+Python, you're flashy, I won't deny,
+But in data analysis, I reach for the sky.
+RMarkdown's my rhyme, in reports so sweet,
+Knitting documents, making it elite.
+
+CRAN repository, where packages reside,
+Shiny dashboards, taking users on a ride.
+I might be niche, but my stats are profound,
+In the world of data, I wear the crown.
+
+(Beat fades out...)
+
+
+[Quelle: ChatGPT 3.5, 2023-11-23](https://chat.openai.com/c/a8ed38e6-29b6-4bc4-8bcc-ec95a8f77abb )
+:::
 
 
 ## Python aus RStudio
@@ -45,7 +112,32 @@ Sie haben zwei Möglichkeiten, Python in RStudio zu nutzen:
 ### Python installieren
 
 
+:::{.panel-tabset}
+
+### Download et al.
+
 Man kann Python kostenlos herunterladen bei https://www.python.org/downloads/. [Hier](https://de.wikihow.com/Python-installieren) ist eine Anleitung von Wikihow. Bei Unix-Betriebssystemen werden häufig Paketmanager verwendet.
+
+
+### pyenv
+
+Welche Versionen gibt's?
+
+```{zsh}
+#| eval: false
+pyenv install --list
+```
+
+
+```{zsh}
+#| eval: false
+pyenv install 3.12.0a3
+```
+
+:::
+
+
+
 
 
 ### Welche Python-Version läuft gerade?
@@ -104,12 +196,39 @@ RStudio zeigt Ihnen, welche Python-Versionen verfügbar sind unter Tools > Globa
 RStudio bietet in den Optionen per GUI die Möglichkeit, eine bestimmte Version von Python auszuwählen. 
 Zumeist sind mehrere Versionen auf einem Computer vorhanden.
 
-Natürlich kann man auch via R virtuelle Environments nutzen, wie es in Python üblich ist:
+Natürlich kann man auch via R virtuelle Environments (`venvs`) nutzen, wie es in Python üblich ist:
 
 ```{r}
 #| eval: false
 use_virtualenv("r-tensorflow")
 ```
+
+Oder man legt sich solche venvs an:
+
+:::{.panel-tabset}
+
+### R
+
+```{r}
+#| eval: false
+reticulate::virtualenv_create("scikit-llm")
+```
+
+### pyenv
+
+Mit `pyenv virtualenv` legt man eine neue venv mit Namen `my_venv` an:
+
+```{zsh}
+#| eval: false
+pyenv virtualenv 3.11.1 test_venv
+```
+
+
+:::
+
+
+
+
 
 
 #### Pyenv
@@ -202,6 +321,20 @@ os.system("pip list")
 
 :::
 
+
+Die Version eines bestimmten installierten Moduls bekommt man einfach mit `grep`:
+
+
+```{python}
+#| eval: false
+!pip list | grep openai
+```
+
+Das Ausrufezeichen `!` zeigt Shell-Code in einem Python-Chunk an.
+Der Balken `|` ist eine Pfeife wie `|>` in R.
+
+
+
 ### Module installieren
 
 
@@ -218,6 +351,13 @@ pip install module-name
 ```
 
 Dabei steht `module-name` für den Namen des zu installierenden Moduls, z.B. `openai`.
+
+Und auch wieder löschen
+
+```{zsh}
+#| eval: false
+pip uninstall module-name
+```
 
 
 
