@@ -51,7 +51,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -382,7 +402,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></section><section id="begleitliteratur" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="begleitliteratur">
 <span class="header-section-number">13.1.2</span> Begleitliteratur</h3>
 <p>Es gibt viele Lehrbücher zu Python. Mein Rat ist, das zu wählen, das es in Ihrer Lieblingsbibliothek gibt. 🤓 Solange es einigermaßen uptodate ist und Ihnen die didaktische Aufmachung zusagt.</p>
-<p>Hier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. <span class="citation" data-cites="downey_think_2021">(<a href="references.html#ref-downey_think_2021" role="doc-biblioref"><strong>downey_think_2021?</strong></a>)</span>; vergleichsweise aktuell ist <span class="citation" data-cites="inden_python_2023">(<a href="references.html#ref-inden_python_2023" role="doc-biblioref"><strong>inden_python_2023?</strong></a>)</span>; auch ganz nett ist <span class="citation" data-cites="barry_python_2017">(<a href="references.html#ref-barry_python_2017" role="doc-biblioref"><strong>barry_python_2017?</strong></a>)</span>.</p>
+<p>Hier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. <span class="citation" data-cites="downey_think_2021">Downey (<a href="references.html#ref-downey_think_2021" role="doc-biblioref">2021</a>)</span>; vergleichsweise aktuell ist <span class="citation" data-cites="inden_python_2023">Inden (<a href="references.html#ref-inden_python_2023" role="doc-biblioref">2023</a>)</span>; auch ganz nett ist <span class="citation" data-cites="barry_python_2017">Barry (<a href="references.html#ref-barry_python_2017" role="doc-biblioref">2017</a>)</span>.</p>
 </section></section><section id="python-aus-rstudio" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="python-aus-rstudio">
 <span class="header-section-number">13.2</span> Python aus RStudio</h2>
 <p>RStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu verwenden. Und nicht nur das:</p>
@@ -390,6 +410,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Man kann Objekte (Daten) zwischen den beiden Sprachen tauschen</li>
 <li>Man kann aus R Python-Funktionen verwenden.</li>
 </ul>
+<p>Sie haben zwei Möglichkeiten, Python in RStudio zu nutzen:</p>
+<ol type="1">
+<li>Öffnen Sie ein reines Python-Skript.</li>
+<li>Fügen Sie Python-Chunks in ein Notebook (d.h. Quarto-Doc) ein.</li>
+</ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="img/toogood.gif" class="img-fluid figure-img"></p>
 <figcaption>Quelle: Imgflip</figcaption></figure>
@@ -648,11 +673,11 @@ Vorsicht
 <span class="header-section-number">13.4</span> Einstieg in Python</h2>
 <section id="hallo" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="hallo">
 <span class="header-section-number">13.4.1</span> Hallo, 🐍</h3>
-<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-13_2e8860e14dcb7f1c90aba870e338dfbc">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-13_648966960acb0910a09cb55277051ea3">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="in">print("Hello! Here's 🐍")</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="in">python_list = [1,2,3]</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="in">python_list = [1,2,3]  # im Standard Integer</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="in">python_list</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>## Hello! Here's 🐍
@@ -661,11 +686,11 @@ Vorsicht
 </section><section id="objektaustausch-zwischen-r-und-python" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="objektaustausch-zwischen-r-und-python">
 <span class="header-section-number">13.4.2</span> Objektaustausch zwischen R und Python</h3>
 <p>In R ein Python-Objekt ansprechen, das geht mit <code>py$</code>:</p>
-<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-14_d3fac088c9c438c1b5d3727a2d9a8e36">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-14_15d9830e66763c7674df7d6488bd0ec0">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">py</span><span class="op">$</span><span class="va">python_list</span></span>
 <span><span class="co">## [1] 1 2 3</span></span>
 <span></span>
-<span><span class="va">r_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">r_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>,<span class="fl">2L</span>,<span class="fl">3L</span><span class="op">)</span>  <span class="co"># Integer aktiv gewählt, da R im Standard  Float wählt</span></span>
 <span><span class="va">r_vec</span></span>
 <span><span class="co">## [1] 1 2 3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -679,6 +704,17 @@ Vorsicht
 <p>Es gibt viele Onlinekurse, um Python zu lernen, z.B. <a href="https://www.coursera.org/learn/python-crash-course">Googles Crashkurs bei Coursera</a>; überhaupt bietet Coursera eine Menge Onlinekurse zu dem <a href="https://www.coursera.org/courses?query=python">Thema Python</a>. Andere Anbieter bieten das auch, etwa <a href="https://www.edx.org/learn/python">edx</a>. <a href="https://www.learnpython.org/" class="uri">https://www.learnpython.org/</a> bietet einen E-Learning-Kurs.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-barry_python_2017" class="csl-entry" role="listitem">
+Barry, Paul. 2017. <em>Python von Kopf bis Fuß</em>. Übersetzt von Jørgen W. Lang. Zweite Auflage. Von Kopf bis Fuß. <span>Beijing Boston Farnham Sebastopol Tokyo</span>: <span>O’Reilly</span>.
+</div>
+<div id="ref-downey_think_2021" class="csl-entry" role="listitem">
+Downey, Allen B. 2021. <em>Think Python: systematisch programmieren lernen mit Python</em>. Übersetzt von Peter Klicman. 1. Auflage. <span>Heidelberg</span>: <span>O’Reilly</span>.
+</div>
+<div id="ref-inden_python_2023" class="csl-entry" role="listitem">
+Inden, Michael. 2023. <em>Python lernen: kurz &amp; gut</em>. 1. Auflage. O’Reillys Taschenbibliothek. <span>Heidelberg</span>: <span>O’Reilly</span>.
+</div>
+</div>
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

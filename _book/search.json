@@ -147,7 +147,7 @@
     "href": "105-python-r.html#lernsteuerung",
     "title": "\n13  Python 💖 R\n",
     "section": "\n13.1 Lernsteuerung",
-    "text": "13.1 Lernsteuerung\n\n13.1.1 Lernziele\n\nSie wissen, wo und wie Sie sich die Grundlagen von Python aneignen können.\nSie können Python aus RStudio heraus verwenden.\nSie können grundlegende Funktionen zur Verwaltung Ihrer Python-Installation wie das Hinzufügen von Modulen.\n\n13.1.2 Begleitliteratur\nEs gibt viele Lehrbücher zu Python. Mein Rat ist, das zu wählen, das es in Ihrer Lieblingsbibliothek gibt. 🤓 Solange es einigermaßen uptodate ist und Ihnen die didaktische Aufmachung zusagt.\nHier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. (downey_think_2021?); vergleichsweise aktuell ist (inden_python_2023?); auch ganz nett ist (barry_python_2017?).",
+    "text": "13.1 Lernsteuerung\n\n13.1.1 Lernziele\n\nSie wissen, wo und wie Sie sich die Grundlagen von Python aneignen können.\nSie können Python aus RStudio heraus verwenden.\nSie können grundlegende Funktionen zur Verwaltung Ihrer Python-Installation wie das Hinzufügen von Modulen.\n\n13.1.2 Begleitliteratur\nEs gibt viele Lehrbücher zu Python. Mein Rat ist, das zu wählen, das es in Ihrer Lieblingsbibliothek gibt. 🤓 Solange es einigermaßen uptodate ist und Ihnen die didaktische Aufmachung zusagt.\nHier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. Downey (2021); vergleichsweise aktuell ist Inden (2023); auch ganz nett ist Barry (2017).",
     "crumbs": [
       "Deep Learning",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
@@ -158,7 +158,7 @@
     "href": "105-python-r.html#python-aus-rstudio",
     "title": "\n13  Python 💖 R\n",
     "section": "\n13.2 Python aus RStudio",
-    "text": "13.2 Python aus RStudio\nRStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu verwenden. Und nicht nur das:\n\nMan kann Objekte (Daten) zwischen den beiden Sprachen tauschen\nMan kann aus R Python-Funktionen verwenden.\n\n\n\nQuelle: Imgflip",
+    "text": "13.2 Python aus RStudio\nRStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu verwenden. Und nicht nur das:\n\nMan kann Objekte (Daten) zwischen den beiden Sprachen tauschen\nMan kann aus R Python-Funktionen verwenden.\n\nSie haben zwei Möglichkeiten, Python in RStudio zu nutzen:\n\nÖffnen Sie ein reines Python-Skript.\nFügen Sie Python-Chunks in ein Notebook (d.h. Quarto-Doc) ein.\n\n\n\nQuelle: Imgflip",
     "crumbs": [
       "Deep Learning",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
@@ -169,7 +169,7 @@
     "href": "105-python-r.html#einstieg-in-python",
     "title": "\n13  Python 💖 R\n",
     "section": "\n13.4 Einstieg in Python",
-    "text": "13.4 Einstieg in Python\n\n13.4.1 Hallo, 🐍\n\n```{python}\nprint(\"Hello! Here's 🐍\")\n\npython_list = [1,2,3]\npython_list\n```\n## Hello! Here's 🐍\n## [1, 2, 3]\n\n\n13.4.2 Objektaustausch zwischen R und Python\nIn R ein Python-Objekt ansprechen, das geht mit py$:\n\npy$python_list\n## [1] 1 2 3\n\nr_vec &lt;- c(1,2,3)\nr_vec\n## [1] 1 2 3\n\nIn Python ein R-Objekt ansprechen, das geht mit r.:\n\nr.r_vec\n## [1.0, 2.0, 3.0]",
+    "text": "13.4 Einstieg in Python\n\n13.4.1 Hallo, 🐍\n\n```{python}\nprint(\"Hello! Here's 🐍\")\n\npython_list = [1,2,3]  # im Standard Integer\npython_list\n```\n## Hello! Here's 🐍\n## [1, 2, 3]\n\n\n13.4.2 Objektaustausch zwischen R und Python\nIn R ein Python-Objekt ansprechen, das geht mit py$:\n\npy$python_list\n## [1] 1 2 3\n\nr_vec &lt;- c(1L,2L,3L)  # Integer aktiv gewählt, da R im Standard  Float wählt\nr_vec\n## [1] 1 2 3\n\nIn Python ein R-Objekt ansprechen, das geht mit r.:\n\nr.r_vec\n## [1.0, 2.0, 3.0]",
     "crumbs": [
       "Deep Learning",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
@@ -202,7 +202,7 @@
     "href": "105-python-r.html#vertiefung",
     "title": "\n13  Python 💖 R\n",
     "section": "\n13.5 Vertiefung",
-    "text": "13.5 Vertiefung\nEs gibt viele Onlinekurse, um Python zu lernen, z.B. Googles Crashkurs bei Coursera; überhaupt bietet Coursera eine Menge Onlinekurse zu dem Thema Python. Andere Anbieter bieten das auch, etwa edx. https://www.learnpython.org/ bietet einen E-Learning-Kurs.",
+    "text": "13.5 Vertiefung\nEs gibt viele Onlinekurse, um Python zu lernen, z.B. Googles Crashkurs bei Coursera; überhaupt bietet Coursera eine Menge Onlinekurse zu dem Thema Python. Andere Anbieter bieten das auch, etwa edx. https://www.learnpython.org/ bietet einen E-Learning-Kurs.\n\n\n\n\nBarry, Paul. 2017. Python von Kopf bis Fuß. Übersetzt von Jørgen W. Lang. Zweite Auflage. Von Kopf bis Fuß. Beijing Boston Farnham Sebastopol Tokyo: O’Reilly.\n\n\nDowney, Allen B. 2021. Think Python: systematisch programmieren lernen mit Python. Übersetzt von Peter Klicman. 1. Auflage. Heidelberg: O’Reilly.\n\n\nInden, Michael. 2023. Python lernen: kurz & gut. 1. Auflage. O’Reillys Taschenbibliothek. Heidelberg: O’Reilly.",
     "crumbs": [
       "Deep Learning",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"

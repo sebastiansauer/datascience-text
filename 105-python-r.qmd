@@ -29,8 +29,14 @@ RStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu 
 - Man kann Objekte (Daten) zwischen den beiden Sprachen tauschen
 - Man kann aus R Python-Funktionen verwenden.
 
-![Quelle: Imgflip](img/toogood.gif)
 
+Sie haben zwei Möglichkeiten, Python in RStudio zu nutzen:
+
+1. Öffnen Sie ein reines Python-Skript.
+2. Fügen Sie Python-Chunks in ein Notebook (d.h. Quarto-Doc) ein.
+
+
+![Quelle: Imgflip](img/toogood.gif)
 
 
 ## Python-Setup
@@ -241,7 +247,7 @@ py_install("openai")
 #| echo: fenced
 print("Hello! Here's 🐍")
 
-python_list = [1,2,3]
+python_list = [1,2,3]  # im Standard Integer
 python_list
 ```
 
@@ -253,7 +259,7 @@ In R ein Python-Objekt ansprechen, das geht mit `py$`:
 ```{r}
 py$python_list
 
-r_vec <- c(1,2,3)
+r_vec <- c(1L,2L,3L)  # Integer aktiv gewählt, da R im Standard  Float wählt
 r_vec
 ```
 
