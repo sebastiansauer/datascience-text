@@ -141,5 +141,71 @@
       "Abschluss",
       "References"
     ]
+  },
+  {
+    "objectID": "105-python-r.html#lernsteuerung",
+    "href": "105-python-r.html#lernsteuerung",
+    "title": "\n13  Python 💖 R\n",
+    "section": "\n13.1 Lernsteuerung",
+    "text": "13.1 Lernsteuerung\n\n13.1.1 Lernziele\n\nSie wissen, wo und wie Sie sich die Grundlagen von Python aneignen können.\nSie können Python aus RStudio heraus verwenden.\nSie können grundlegende Funktionen zur Verwaltung Ihrer Python-Installation wie das Hinzufügen von Modulen.\n\n13.1.2 Begleitliteratur\nEs gibt viele Lehrbücher zu Python. Mein Rat ist, das zu wählen, das es in Ihrer Lieblingsbibliothek gibt. 🤓 Solange es einigermaßen uptodate ist und Ihnen die didaktische Aufmachung zusagt.\nHier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. (downey_think_2021?); vergleichsweise aktuell ist (inden_python_2023?); auch ganz nett ist (barry_python_2017?).",
+    "crumbs": [
+      "Deep Learning",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
+    ]
+  },
+  {
+    "objectID": "105-python-r.html#python-aus-rstudio",
+    "href": "105-python-r.html#python-aus-rstudio",
+    "title": "\n13  Python 💖 R\n",
+    "section": "\n13.2 Python aus RStudio",
+    "text": "13.2 Python aus RStudio\nRStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu verwenden. Und nicht nur das:\n\nMan kann Objekte (Daten) zwischen den beiden Sprachen tauschen\nMan kann aus R Python-Funktionen verwenden.\n\n\n\n&lt;iframe width=\"260\" height=\"110\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" frameBorder=\"0\" src=\"https://imgflip.com/embed/86x3iu\"&gt;&lt;/iframe&gt;\n\n\nvia Imgflip",
+    "crumbs": [
+      "Deep Learning",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
+    ]
+  },
+  {
+    "objectID": "105-python-r.html#einstieg-in-python",
+    "href": "105-python-r.html#einstieg-in-python",
+    "title": "\n13  Python 💖 R\n",
+    "section": "\n13.3 Einstieg in Python",
+    "text": "13.3 Einstieg in Python\n\n13.3.1 Hallo, 🐍\n\n```{python}\nprint(\"Hello! Here's 🐍\")\n\npython_list = [1,2,3]\npython_list\n```\n## Hello! Here's 🐍\n## [1, 2, 3]\n\n\n13.3.2 Objektaustausch zwischen R und Python\nIn R ein Python-Objekt ansprechen, das geht mit py$:\n\npy$python_list\n## [1] 1 2 3\n\nr_vec &lt;- c(1,2,3)\nr_vec\n## [1] 1 2 3\n\nIn Python ein R-Objekt ansprechen, das geht mit r.:\n\nr.r_vec\n## [1.0, 2.0, 3.0]",
+    "crumbs": [
+      "Deep Learning",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
+    ]
+  },
+  {
+    "objectID": "105-python-r.html#python-setup",
+    "href": "105-python-r.html#python-setup",
+    "title": "\n13  Python 💖 R\n",
+    "section": "\n13.4 Python-Setup",
+    "text": "13.4 Python-Setup\n\n13.4.1 Module installieren\nMit pyenv kann man komfortabel zwischen mehreren installierten Python-Versionen wechseln.\nUm Python-Module zu installieren via pyenv bietet sich dieser (Kommondozeilen-)Befehl an:\npyenv exec pip install &lt;name-des-moduls&gt;.\n\nBeispiel 13.1 Um das Modul spacy zu installieren, schreibt man pyenv exec pip install spacy. \\(\\square\\)\n\n\n13.4.2 Welche Python-Version läuft gerade?\nIn R läuft gerade folgende Python-Version:\n\nlibrary(reticulate)\npy_config()\n## python:         /Users/sebastiansaueruser/.virtualenvs/r-tensorflow/bin/python\n## libpython:      /Users/sebastiansaueruser/.pyenv/versions/3.8.16/lib/libpython3.8.dylib\n## pythonhome:     /Users/sebastiansaueruser/.virtualenvs/r-tensorflow:/Users/sebastiansaueruser/.virtualenvs/r-tensorflow\n## version:        3.8.16 (default, Sep 15 2023, 17:53:02)  [Clang 14.0.3 (clang-1403.0.22.14.1)]\n## numpy:          /Users/sebastiansaueruser/.virtualenvs/r-tensorflow/lib/python3.8/site-packages/numpy\n## numpy_version:  1.24.3\n## \n## NOTE: Python version was forced by VIRTUAL_ENV\n\nin der Shell ist gerade folgende Python-Version aktiviert:\n\nsystem2(command = \"pyenv\",\n        args = \"version\")\n\n\nDie “aktuelle” Python-Version ist nicht (unbedingt) die Python-Version, die in R aktiv ist. \\(\\square\\)\n\nAus der reticulate-Doku:\n\nBy default, reticulate uses an isolated python virtual environment named “r-reticulate”.\n\nCheck: Ist Python gestartet und bereit?\n\npy_available()\n## [1] TRUE\n\n\n13.4.3 Python-Version via Kommandozeile aus RStudio\nWir können die Kommandozeile auch aus Notebooks heraus ansprechen:\n\n```{zsh}\npyenv version\n```\n## 3.11.1 (set by /Users/sebastiansaueruser/.python-version)\n\nOder aber wir fragen Python direkt:\n\n```{zsh}\npython --version\n```\n## Python 3.8.16\n\nAber Achtung: Die gezeigt Version ist nicht unbedingt diejenige, die im Notebook oder im interaktiven R verwendet wird.\n\n13.4.4 Welche Python-Versionen sind verfügbar?\n\n```{zsh}\npyenv versions\n```\n##   system\n##   3.8.1\n##   3.8.16\n##   3.9.16\n## * 3.11.1 (set by /Users/sebastiansaueruser/.python-version)\n\n\n\n\n\n\n\nVorsicht\n\n\n\nEs werden nur Python-Versionen angezeigt, die im Pfad (in der Shell) definiert sind. \\(\\square\\)\n\n\n\n13.4.5 Versionen wechseln\nNatürlich kann man auch via R virtuelle Environments nutzen, wie es in Python üblich ist:\n\nuse_virtualenv(\"r-tensorflow\")\n\n\n13.4.6 Liste installierter Module\nDie Liste installierter Module bezieht sich auf die aktuell aktivierte Version von Python.\n\n\nR\nShell\nPython\n\n\n\n\npy_list_packages()\n\n\n  \n\n\n\n\n\n\npip list\n## Package                      Version\n## ---------------------------- ------------\n## absl-py                      1.4.0\n## annotated-types              0.6.0\n## anyio                        3.7.1\n## array-record                 0.4.0\n## astunparse                   1.6.3\n## cachetools                   5.3.1\n## certifi                      2023.7.22\n## charset-normalizer           3.3.0\n## click                        8.1.7\n## distro                       1.8.0\n## dm-tree                      0.1.8\n## etils                        1.3.0\n## exceptiongroup               1.2.0\n## filelock                     3.13.1\n## flatbuffers                  23.5.26\n## fsspec                       2023.10.0\n## gast                         0.4.0\n## google-auth                  2.23.2\n## google-auth-oauthlib         1.0.0\n## google-pasta                 0.2.0\n## googleapis-common-protos     1.60.0\n## grpcio                       1.59.0\n## h11                          0.14.0\n## h5py                         3.9.0\n## httpcore                     1.0.2\n## httpx                        0.25.1\n## huggingface                  0.0.1\n## huggingface-hub              0.19.4\n## idna                         3.4\n## importlib-metadata           6.8.0\n## importlib-resources          6.1.0\n## keras                        2.13.1\n## libclang                     16.0.6\n## Markdown                     3.4.4\n## MarkupSafe                   2.1.3\n## numpy                        1.24.3\n## oauthlib                     3.2.2\n## openai                       1.3.5\n## opt-einsum                   3.3.0\n## packaging                    23.2\n## pandas                       2.0.3\n## Pillow                       10.0.1\n## pip                          23.2.1\n## promise                      2.3\n## protobuf                     3.20.3\n## psutil                       5.9.5\n## pyasn1                       0.5.0\n## pyasn1-modules               0.3.0\n## pydantic                     2.5.2\n## pydantic_core                2.14.5\n## pydot                        1.4.2\n## pyparsing                    3.1.1\n## python-dateutil              2.8.2\n## pytz                         2023.3.post1\n## PyYAML                       6.0.1\n## regex                        2023.10.3\n## requests                     2.31.0\n## requests-oauthlib            1.3.1\n## rsa                          4.9\n## safetensors                  0.4.0\n## scipy                        1.10.1\n## setuptools                   68.2.2\n## six                          1.16.0\n## sniffio                      1.3.0\n## tensorboard                  2.13.0\n## tensorboard-data-server      0.7.1\n## tensorflow                   2.13.1\n## tensorflow-datasets          4.9.2\n## tensorflow-estimator         2.13.0\n## tensorflow-hub               0.14.0\n## tensorflow-io-gcs-filesystem 0.34.0\n## tensorflow-metadata          1.14.0\n## termcolor                    2.3.0\n## tokenizers                   0.15.0\n## toml                         0.10.2\n## tqdm                         4.66.1\n## transformers                 4.35.2\n## typing_extensions            4.8.0\n## tzdata                       2023.3\n## urllib3                      2.0.6\n## Werkzeug                     3.0.0\n## wheel                        0.41.2\n## wrapt                        1.15.0\n## zipp                         3.17.0\n## \n## [notice] A new release of pip is available: 23.2.1 -&gt; 23.3.1\n## [notice] To update, run: pip install --upgrade pip\n\n\n\n\nimport os\nos.system(\"pip list\")\n## 0\n\n\n\n\n\n13.4.7 Module installieren\n\n\nShell\nR\n\n\n\nMit dem Kommandozeilen-Befehl pip kann man Pythonmodule installieren.\n\npip install module-name\n\nDabei steht module-name für den Namen des zu installierenden Moduls, z.B. openai.\n\n\nOder via R:\n\npy_install(\"openai\")",
+    "crumbs": [
+      "Deep Learning",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
+    ]
+  },
+  {
+    "objectID": "105-python-r.html#hello",
+    "href": "105-python-r.html#hello",
+    "title": "\n13  Python 💖 R\n",
+    "section": "\n13.5 Hello, 🐍",
+    "text": "13.5 Hello, 🐍\n\n```{python}\nprint(\"Hello! Here's 🐍\")\n\npython_list = [1,2,3]\npython_list\n```\n## Hello! Here's 🐍\n## [1, 2, 3]\n\n\n13.5.1 Objektaustausch zwischen R und Python\nIn R ein Python-Objekt ansprechen, das geht mit py$:\n\npy$python_list\n## [1] 1 2 3\n\nr_vec &lt;- c(1,2,3)\nr_vec\n## [1] 1 2 3\n\nIn Python ein R-Objekt ansprechen, das geht mit r.:\n\nr.r_vec\n## [1.0, 2.0, 3.0]",
+    "crumbs": [
+      "Deep Learning",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
+    ]
+  },
+  {
+    "objectID": "105-python-r.html#vertiefung",
+    "href": "105-python-r.html#vertiefung",
+    "title": "\n13  Python 💖 R\n",
+    "section": "\n13.5 Vertiefung",
+    "text": "13.5 Vertiefung\nEs gibt viele Onlinekurse, um Python zu lernen, z.B. Googles Crashkurs bei Coursera; überhaupt bietet Coursera eine Menge Onlinekurse zu dem Thema Python. Andere Anbieter bieten das auch, etwa edx. https://www.learnpython.org/ bietet einen E-Learning-Kurs.",
+    "crumbs": [
+      "Deep Learning",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Python 💖 R</span>"
+    ]
   }
 ]
