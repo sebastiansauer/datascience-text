@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.478">
+<meta name="generator" content="quarto-1.4.513">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 15&nbsp; Theoretische Grundlagen neuronaler Netze</title>
 <style>
@@ -80,7 +80,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./120-transformer.html" rel="next">
+<link href="./125-fallstudie-keras1.html" rel="next">
 <link href="./100-nn-quickstart.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -92,9 +92,7 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -293,8 +291,20 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./125-fallstudie-keras1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130-chatgpt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span></a>
   </div>
 </li>
       </ul>
@@ -311,13 +321,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -471,7 +481,7 @@ f(X) &amp;= \beta_0 + \sum_{k=1}^K \beta_k h_k(X) \\
 \end{align} \tag{15.1}\]</span></span></p>
 <p>Jedes Neuron der Zwischenschicht erfährt eine Aktivierung (##eq-nn1-akt):</p>
 <p><span id="eq-nn1-akt"><span class="math display">\[A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j) \tag{15.2}\]</span></span></p>
-<p>Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass “zum Schluss” noch die nicht-lineare Sahnehaube.</p>
+<p>Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass “zum Schluss” noch die nicht-lineare Sahnehaube drauf kommt.</p>
 <p>Wichtig ist, dass <span class="math inline">\(g\)</span> eine nicht-lineare Funktion ist, denn sonst würde das ganze Netzwerk “nur” ein lineares Gleichungssystem sein. Die nicht-lineare Funktion erlaubt aber ein viel flexibleres Verhalten, als es einer linearen Funktion möglich wäre.</p>
 <p>“Fitten” eines neuronalen Netzwerk bedeutet, genau wie bei allen anderen Methoden des Maschinenlernens, die Parameter zu schätzen (berechnen). Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion, die minimiert wird. Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. <a href="#eq-sq-err" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-sq-err</span></a>.</p>
 <p><span id="eq-sq-err"><span class="math display">\[\sum_{i=1}^n(y_i - f(x_i)) \tag{15.3}\]</span></span></p>
@@ -493,7 +503,7 @@ Abbildung&nbsp;15.3: Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen
 </div>
 <p>Die <em>Aktivierung</em> <span class="math inline">\(A\)</span> der <span class="math inline">\(k^{(1)}\)</span> Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. <a href="#eq-nn1" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn1</span></a> und <a href="#eq-nn1-akt" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn1-akt</span></a>), s. <a href="#eq-nn2-l1" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn2-l1</span></a>:</p>
 <p><span id="eq-nn2-l1"><span class="math display">\[\begin{align}
-A_k^{(1)} &amp;= = h_k^{(1)}(X)\\
+A_k^{(1)} &amp;= h_k^{(1)}(X)\\
           &amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
 \end{align} \tag{15.4}\]</span></span></p>
 <p>für alle <span class="math inline">\(k_1, k_2, \ldots, K_1\)</span> Neurone der ersten Zwischenschicht. Für die zweite Zwischenschicht, <span class="math inline">\(L_2\)</span> gilt das analog: Die Aktivierung der Neurone der vorherigen Schicht werden als Input verwendet und auf dieser Basis wird die Aktivierung des jeweiligen Neurons der aktuellen Schicht berechnet, s. <a href="#eq-nn2-l2" class="quarto-xref">Gleichung&nbsp;<span class="quarto-unresolved-ref">eq-nn2-l2</span></a>:</p>
@@ -502,7 +512,7 @@ A_l^{(2)} &amp;= h_l^{(2)}(X)\\
           &amp;= g(w_{l0}^{(2)} + \sum_{j=2}^p w_{lj}^{(1)} X_j)
 \end{align} \tag{15.5}\]</span></span></p>
 <p>für alle <span class="math inline">\(l = 1, 2, \ldots, K2\)</span> Neurone der zweiten Zwischenschicht.</p>
-<p>Da sammeln sich schnell eine große Zahl an Parametern:</p>
+<p>Da sammeln sich schnell eine große Zahl an Parametern.</p>
 <p><span class="math inline">\(\newcommand{\matr}[1]{#1}\)</span></p>
 <p><span class="math inline">\(\matr{W_1}\)</span> in <a href="#fig-islr-10-4" class="quarto-xref">Abbildung&nbsp;<span class="quarto-unresolved-ref">fig-islr-10-4</span></a> repräsentiert die Matrix mit allen (“Regressions”-)Gewichten (und “Intercepts”) on der Input-Layer zur ersten Zwischenschicht. Diese Matrix umfasst <span class="math inline">\(785\times256=200\,960\)</span> Koeffizienten (785=784 “Regressions-”Gewichte plus 1 Intercept-Term, auch “Bias” genannt).</p>
 <p>Entsprechend weist jedes Neuron der zweiten Zwischenschicht ein Gewicht zu jedem Neuron der ersten Zwischenschicht auf. Daher hat <span class="math inline">\(\matr{W_2}\)</span> die Dimensionen <span class="math inline">\(257 \times 128 = 32\,896\)</span>.</p>
@@ -537,7 +547,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 <div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-punkt" style="flex-basis: 50.0%;justify-content: center;">
 <div id="fig-dot" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-dot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="img/dot2.png" class="img-fluid figure-img" data-fig-width="50%" data-ref-parent="fig-punkt">
+<img src="img/dotproduct.jpg" class="img-fluid figure-img" data-fig-width="50%" data-ref-parent="fig-punkt">
 </div>
 <figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-dot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Schema des Punktprodukts
@@ -2575,7 +2585,7 @@ Tabelle&nbsp;15.1: Datensatz <code>d</code>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/IHZwWFHWa-w?si=xTr9SngMDPGrHHTd" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section><section id="video-3" class="level3" data-number="15.5.3"><h3 data-number="15.5.3" class="anchored" data-anchor-id="video-3">
 <span class="header-section-number">15.5.3</span> Video 3</h3>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="hhttps://youtu.be/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT"></video></div>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section><section id="video-4" class="level3" data-number="15.5.4"><h3 data-number="15.5.4" class="anchored" data-anchor-id="video-4">
 <span class="header-section-number">15.5.4</span> Video 4</h3>
 <p>Anspruchsvoller; mathematische Grundlagen von Backpropagation (parzielle Ableitung)</p>
@@ -2586,6 +2596,7 @@ Tabelle&nbsp;15.1: Datensatz <code>d</code>
 <p>Es finden sich viele weitere Lehrbücher für Einsteiger und Fortgeschrittene, z.B. <span class="citation" data-cites="kulkarni_natural_2021">Kulkarni und Shivananda (<a href="#ref-kulkarni_natural_2021" role="doc-biblioref">2021</a>)</span>, <span class="citation" data-cites="gallatin_machine_2023">Gallatin und Albon (<a href="#ref-gallatin_machine_2023" role="doc-biblioref">2023</a>)</span>. Bekannt ist auch <span class="citation" data-cites="geron_praxiseinstieg_2023">Géron (<a href="#ref-geron_praxiseinstieg_2023" role="doc-biblioref">2023</a>)</span>. Der Großteil der entsprechenden Werke nutzt Python, nicht R.</p>
 <p>Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei <a href="https://betterexplained.com/articles/matrix-multiplication/">Kalid Azad, betterexplained.com</a>. Auf <a href="https://de.wikipedia.org/wiki/Matrizenmultiplikation">Wikipedia</a> finden sich einige einsteigerfreundliche Illustrationen.</p>
 <p>Die Videos von <a href="https://www.youtube.com/@vcubingx">vcubingx</a> zum <a href="https://www.youtube.com/watch?v=-at7SLoVK_I">Thema Neuronale Netze</a> sind empfehlenswert.</p>
+<p>Sehr einsteigerfreundlich sind auch die Videos im YouTube-Kanal <a href="https://www.youtube.com/@statquest">StatQuest</a>. Der Autor Josh Starmer bieten einen großen Umfang an Themen aus dem Bereich Maschinenlernen.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -2908,8 +2919,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
         typesetMath(container);
         return container.innerHTML
@@ -3150,13 +3168,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./120-transformer.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Transformer</span>">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./125-fallstudie-keras1.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Fallstudie GermEval-Keras-Simple</span>">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
+
 
 
 </body></html>

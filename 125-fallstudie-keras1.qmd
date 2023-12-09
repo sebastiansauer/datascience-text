@@ -1,0 +1,168 @@
+# Fallstudie GermEval-Keras-Simple
+
+
+
+## Lernsteuerung
+
+
+### Lernziele
+
+Nach Abschluss dieses Kapitels ...
+
+- ein einfaches neuronales Netzwerk mit Keras erstellen zur Klassifikation von Hate-Speech.
+
+### Überblick
+
+In diesem Kapitel nutzen wir grundlegende Methoden neuronaler Netze, um Hate-Speech vorherzusagen. Dabei findet der Datensatz `GermEval` Verwendung. 
+Zunächst verwenden wir den schon aufbereiteten Datensatz, das macht es uns einfacher.
+Dieser aufbereitete Datensatz ist schon "numerisiert"^[numerifiziert?].
+Der Text der Tweets ist schon in numerische Prädiktoren umgewandelt.
+Dabei fanden einfache (deutschsprachige) Wordvektoren (wikipedia2vec) Verwendung.
+In diesem Kapitel arbeiten wir mit ausschließlich mit Python.
+
+
+### Benötigte R-Pakete
+```{r}
+#| message: false
+# keines :-)
+```
+
+
+### Python-Check
+
+```{r py-check}
+reticulate::py_available()
+reticulate::py_config()
+```
+
+
+### Benötigte Python-Module
+
+```{python}
+import keras
+import pandas as pd
+
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from sklearn.metrics import accuracy_score
+```
+
+
+### Benötigte Daten
+
+```{python import-train-data}
+d_train_baked = pd.read_csv("https://raw.githubusercontent.com/sebastiansauer/Datenwerk2/main/data/germeval/germeval_train_recipe_wordvec_senti.csv")
+
+d_train_num = d_train_baked.select_dtypes(include='number')
+
+d_train2 = d_train_baked.loc[:, "emo_count":"wordembed_text_V101"]
+
+X_train = d_train2.values
+
+d_train_baked["y"] = d_train_baked["c1"].map({"OTHER" : 0, "OFFENSE" : 1})
+
+y_train = d_train_baked.loc[:, "y"].values
+```
+
+
+```{python}
+print(y_train[:6])
+```
+
+```{python}
+d_train2.info()
+```
+
+```{python}
+print(d_train2.head())
+```
+
+```{python data-test-baked}
+d_test_baked = pd.read_csv("https://raw.githubusercontent.com/sebastiansauer/Datenwerk2/main/data/germeval/germeval_test_recipe_wordvec_senti.csv")
+
+d_test_num = d_test_baked.select_dtypes(include='number')
+
+d_test2 = d_test_baked.loc[:, "emo_count":"wordembed_text_V101"]
+
+X_test = d_test2.values
+
+
+d_test_baked["y"] = d_test_baked["c1"].map({"OTHER" : 0, "OFFENSE" : 1})
+
+y_test = d_test_baked.loc[:, "y"].values
+```
+
+
+```{python}
+print(y_test[:5])
+```
+
+## Pipeline 1
+
+
+### Modeldefinition
+
+```{python}
+model = Sequential()
+model.add(Dense(64, input_dim=X_train.shape[1], activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+```
+
+
+
+
+```{python compile}
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+```
+
+
+### Fit
+
+
+```{python fit}
+model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test))
+```
+
+
+## Pipeline 2
+
+
+Wir fügen eine zweite Hidden Layer hinzu.
+
+
+### Modeldefinition
+
+
+```{python mod2}
+model = Sequential()
+model.add(Dense(64, input_dim=X_train.shape[1], activation='relu'))
+model.add(Dense(units=32, activation='relu'))  # Second hidden layer
+model.add(Dense(1, activation='sigmoid'))
+```
+
+
+
+
+```{python compile2}
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+```
+
+
+### Fit
+
+
+```{python fit2}
+model.fit(X_train, y_train, epochs=10, batch_size=8, validation_data=(X_test, y_test))
+```
+
+
+
+### Modellgüte
+
+```{python evaluate2}
+y_pred = (model.predict(X_test) > 0.5).astype("int32")
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Test Accuracy: {accuracy}")
+```
+

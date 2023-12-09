@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.478">
+<meta name="generator" content="quarto-1.4.513">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 16&nbsp; Transformer</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 17&nbsp; Transformer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,8 +80,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./200-projektmgt.html" rel="next">
-<link href="./110-nn-theo1.html" rel="prev">
+<link href="./130-chatgpt.html" rel="next">
+<link href="./125-fallstudie-keras1.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -127,7 +127,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./120-transformer.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./120-transformer.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -291,8 +291,20 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./125-fallstudie-keras1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./120-transformer.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130-chatgpt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span></a>
   </div>
 </li>
       </ul>
@@ -309,13 +321,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -346,45 +358,45 @@ div.csl-indent {
    
   <ul>
 <li>
-<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">16.1</span> Vorab</a>
+<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">17.1</span> Vorab</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">16.1.1</span> Lernziele</a></li>
-  <li><a href="#begleitliteratur" id="toc-begleitliteratur" class="nav-link" data-scroll-target="#begleitliteratur"><span class="header-section-number">16.1.2</span> Begleitliteratur</a></li>
-  <li><a href="#ben%C3%B6tigte-software" id="toc-benötigte-software" class="nav-link" data-scroll-target="#ben%C3%B6tigte-software"><span class="header-section-number">16.1.3</span> Benötigte Software</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">17.1.1</span> Lernziele</a></li>
+  <li><a href="#begleitliteratur" id="toc-begleitliteratur" class="nav-link" data-scroll-target="#begleitliteratur"><span class="header-section-number">17.1.2</span> Begleitliteratur</a></li>
+  <li><a href="#ben%C3%B6tigte-software" id="toc-benötigte-software" class="nav-link" data-scroll-target="#ben%C3%B6tigte-software"><span class="header-section-number">17.1.3</span> Benötigte Software</a></li>
   </ul>
 </li>
-  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">16.2</span> Überblick</a></li>
-  <li><a href="#grundkonzepte" id="toc-grundkonzepte" class="nav-link" data-scroll-target="#grundkonzepte"><span class="header-section-number">16.3</span> Grundkonzepte</a></li>
+  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">17.2</span> Überblick</a></li>
+  <li><a href="#grundkonzepte" id="toc-grundkonzepte" class="nav-link" data-scroll-target="#grundkonzepte"><span class="header-section-number">17.3</span> Grundkonzepte</a></li>
   <li>
-<a href="#einf%C3%BChrung-in-hugging-face" id="toc-einführung-in-hugging-face" class="nav-link" data-scroll-target="#einf%C3%BChrung-in-hugging-face"><span class="header-section-number">16.4</span> Einführung in Hugging Face 🤗</a>
+<a href="#einf%C3%BChrung-in-hugging-face" id="toc-einführung-in-hugging-face" class="nav-link" data-scroll-target="#einf%C3%BChrung-in-hugging-face"><span class="header-section-number">17.4</span> Einführung in Hugging Face 🤗</a>
   <ul class="collapse">
-<li><a href="#hugging-face-mit-r" id="toc-hugging-face-mit-r" class="nav-link" data-scroll-target="#hugging-face-mit-r"><span class="header-section-number">16.4.1</span> Hugging Face mit R</a></li>
-  <li><a href="#einfache-pipeline" id="toc-einfache-pipeline" class="nav-link" data-scroll-target="#einfache-pipeline"><span class="header-section-number">16.4.2</span> Einfache Pipeline</a></li>
-  <li><a href="#python-1" id="toc-python-1" class="nav-link" data-scroll-target="#python-1"><span class="header-section-number">16.4.3</span> Python</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#germeval-out-of-the-box-mit-hugging-face" id="toc-germeval-out-of-the-box-mit-hugging-face" class="nav-link" data-scroll-target="#germeval-out-of-the-box-mit-hugging-face"><span class="header-section-number">16.5</span> Germeval Out-of-the-Box mit Hugging Face</a>
-  <ul class="collapse">
-<li><a href="#standard-pipeline" id="toc-standard-pipeline" class="nav-link" data-scroll-target="#standard-pipeline"><span class="header-section-number">16.5.1</span> Standard-Pipeline</a></li>
-  <li><a href="#man-spricht-deutsh" id="toc-man-spricht-deutsh" class="nav-link" data-scroll-target="#man-spricht-deutsh"><span class="header-section-number">16.5.2</span> Man spricht Deutsh</a></li>
+<li><a href="#hugging-face-mit-r" id="toc-hugging-face-mit-r" class="nav-link" data-scroll-target="#hugging-face-mit-r"><span class="header-section-number">17.4.1</span> Hugging Face mit R</a></li>
+  <li><a href="#einfache-pipeline" id="toc-einfache-pipeline" class="nav-link" data-scroll-target="#einfache-pipeline"><span class="header-section-number">17.4.2</span> Einfache Pipeline</a></li>
+  <li><a href="#python-1" id="toc-python-1" class="nav-link" data-scroll-target="#python-1"><span class="header-section-number">17.4.3</span> Python</a></li>
   </ul>
 </li>
   <li>
-<a href="#openai-api" id="toc-openai-api" class="nav-link" data-scroll-target="#openai-api"><span class="header-section-number">16.6</span> OpenAI-API</a>
+<a href="#germeval-out-of-the-box-mit-hugging-face" id="toc-germeval-out-of-the-box-mit-hugging-face" class="nav-link" data-scroll-target="#germeval-out-of-the-box-mit-hugging-face"><span class="header-section-number">17.5</span> Germeval Out-of-the-Box mit Hugging Face</a>
   <ul class="collapse">
-<li><a href="#authentifizierung" id="toc-authentifizierung" class="nav-link" data-scroll-target="#authentifizierung"><span class="header-section-number">16.6.1</span> Authentifizierung</a></li>
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">16.6.2</span> Setup</a></li>
-  <li><a href="#anfrage-an-die-api" id="toc-anfrage-an-die-api" class="nav-link" data-scroll-target="#anfrage-an-die-api"><span class="header-section-number">16.6.3</span> Anfrage an die API</a></li>
+<li><a href="#standard-pipeline" id="toc-standard-pipeline" class="nav-link" data-scroll-target="#standard-pipeline"><span class="header-section-number">17.5.1</span> Standard-Pipeline</a></li>
+  <li><a href="#man-spricht-deutsh" id="toc-man-spricht-deutsh" class="nav-link" data-scroll-target="#man-spricht-deutsh"><span class="header-section-number">17.5.2</span> Man spricht Deutsh</a></li>
   </ul>
 </li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">16.7</span> Vertiefung</a></li>
+  <li>
+<a href="#openai-api" id="toc-openai-api" class="nav-link" data-scroll-target="#openai-api"><span class="header-section-number">17.6</span> OpenAI-API</a>
+  <ul class="collapse">
+<li><a href="#authentifizierung" id="toc-authentifizierung" class="nav-link" data-scroll-target="#authentifizierung"><span class="header-section-number">17.6.1</span> Authentifizierung</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">17.6.2</span> Setup</a></li>
+  <li><a href="#anfrage-an-die-api" id="toc-anfrage-an-die-api" class="nav-link" data-scroll-target="#anfrage-an-die-api"><span class="header-section-number">17.6.3</span> Anfrage an die API</a></li>
+  </ul>
+</li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">17.7</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./120-transformer.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./120-transformer.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span>
+<span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span>
 </h1>
 </div>
 
@@ -399,18 +411,18 @@ div.csl-indent {
   
 
 
-</header><section id="vorab" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="vorab">
-<span class="header-section-number">16.1</span> Vorab</h2>
-<section id="lernziele" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">16.1.1</span> Lernziele</h3>
+</header><section id="vorab" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="vorab">
+<span class="header-section-number">17.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="17.1.1"><h3 data-number="17.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">17.1.1</span> Lernziele</h3>
 <ul>
 <li>Sie können die grundlegende Architektur eines Transformer-Modells beschreiben.</li>
 <li>Sie können Transformer-Modelle mit der API von Hugging-Face berechnen.</li>
-</ul></section><section id="begleitliteratur" class="level3" data-number="16.1.2"><h3 data-number="16.1.2" class="anchored" data-anchor-id="begleitliteratur">
-<span class="header-section-number">16.1.2</span> Begleitliteratur</h3>
+</ul></section><section id="begleitliteratur" class="level3" data-number="17.1.2"><h3 data-number="17.1.2" class="anchored" data-anchor-id="begleitliteratur">
+<span class="header-section-number">17.1.2</span> Begleitliteratur</h3>
 <p>Der <a href="https://jalammar.github.io/illustrated-transformer/">Blogpost von Jay Alammar</a> gibt einen illustrierten Überblick über Transformer.</p>
-</section><section id="benötigte-software" class="level3" data-number="16.1.3"><h3 data-number="16.1.3" class="anchored" data-anchor-id="benötigte-software">
-<span class="header-section-number">16.1.3</span> Benötigte Software</h3>
+</section><section id="benötigte-software" class="level3" data-number="17.1.3"><h3 data-number="17.1.3" class="anchored" data-anchor-id="benötigte-software">
+<span class="header-section-number">17.1.3</span> Benötigte Software</h3>
 <p>Wir benötigen Python, R sowei einige im Folgenden aufgeführte Python-Module.</p>
 <div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-1_eb5522239ca02bbf481e0cbe07555ce3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -441,22 +453,22 @@ div.csl-indent {
 <span><span class="co">## </span></span>
 <span><span class="co">## NOTE: Python version was forced by VIRTUAL_ENV</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="überblick" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="überblick">
-<span class="header-section-number">16.2</span> Überblick</h2>
+</section></section><section id="überblick" class="level2" data-number="17.2"><h2 data-number="17.2" class="anchored" data-anchor-id="überblick">
+<span class="header-section-number">17.2</span> Überblick</h2>
 <p>Transformer sind eine Architekturvariante neuronaler Netze. Sie stellen die Grundlage vieler aktueller großer Sprachmodelle<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>; da sie einige Vorzüge gegenüber Vorgängermodellen aufweisen, haben sie einen zentralen Platz für verschiedenen Aufgaben des NLP eingenommen.</p>
 <p>Im Jahr 2017 erschien ein Paper auf Arxive mit dem Titel “Attention is all you need”, <span class="citation" data-cites="vaswani_attention_2023">Vaswani u.&nbsp;a. (<a href="references.html#ref-vaswani_attention_2023" role="doc-biblioref">2023</a>)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Transformer basieren auf einer bestimmten Art von “Aufmerksamkeit”, genannt Selbst-Aufmerksamkeit (self-attention). Natürlich ist damit eine bestimmte Architektur im neuronalen Netzwerk gemeint, kein kognitivpsychologiches Konstruktr; allerdings lehnt sich die Methode an Konzepte der Kognitionspsychologie vage an.</p>
 <p>Self-Attention weist zwei große Verteile auf: Erstens erlaubt es parallele Verarbeitung, was viele Vorgängermodelle nicht erlaubten. Zweitens kann es den Kontext eines Tokens, also den Text um ein bestimmtes Wort herum, deutlich besser “im Blick” (oder in der Aufmerksamkeit) behalten als viele Vorgängermodelle.</p>
 <p>Gerade für Daten mit sequenziellem Charakter, wie Text oder Sprache, sind Transformer-Modelle gut geeignet<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
-</section><section id="grundkonzepte" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="grundkonzepte">
-<span class="header-section-number">16.3</span> Grundkonzepte</h2>
+</section><section id="grundkonzepte" class="level2" data-number="17.3"><h2 data-number="17.3" class="anchored" data-anchor-id="grundkonzepte">
+<span class="header-section-number">17.3</span> Grundkonzepte</h2>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/4Bdc55j80l8?si=t3ku0MxhWDD7z2TG" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section><section id="einführung-in-hugging-face" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="einführung-in-hugging-face">
-<span class="header-section-number">16.4</span> Einführung in Hugging Face 🤗</h2>
+</section><section id="einführung-in-hugging-face" class="level2" data-number="17.4"><h2 data-number="17.4" class="anchored" data-anchor-id="einführung-in-hugging-face">
+<span class="header-section-number">17.4</span> Einführung in Hugging Face 🤗</h2>
 <p>Dieser Abschnitt orientiert sich an <span class="citation" data-cites="tunstall_natural_2022">Tunstall u.&nbsp;a. (<a href="references.html#ref-tunstall_natural_2022" role="doc-biblioref">2022</a>)</span>. Die Syntax zu allen Kapiteln des <a href="https://transformersbook.com/">Buchs</a> findet sich praktischerweise <a href="https://github.com/nlp-with-transformers/notebooks">in diesem Github-Repo</a>.</p>
 <p>Bei 🤗 liegt der Schwerpunkt klar bei Python, nicht bei R. Allerdings erlaubt RStudio ein einfaches Wechseln zwischen R und Python: Funktionen und Daten aus Python können einfach mit dem <code>$</code>-Operator angesprochen werden. <a href="https://rpubs.com/eR_ic/transfoRmers">In diesem Post</a> wirds das demonstriert.</p>
 <p>Schauen wir uns das einführende Beispiel aus <span class="citation" data-cites="tunstall_natural_2022">Tunstall u.&nbsp;a. (<a href="references.html#ref-tunstall_natural_2022" role="doc-biblioref">2022</a>)</span>. an.</p>
-<section id="hugging-face-mit-r" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="hugging-face-mit-r">
-<span class="header-section-number">16.4.1</span> Hugging Face mit R</h3>
+<section id="hugging-face-mit-r" class="level3" data-number="17.4.1"><h3 data-number="17.4.1" class="anchored" data-anchor-id="hugging-face-mit-r">
+<span class="header-section-number">17.4.1</span> Hugging Face mit R</h3>
 <p>Hier ein ein Text-Schnipsel, dessen Sentiment wir detektieren wollen:</p>
 <div class="cell" data-fenced="true" data-hash="120-transformer_cache/html/unnamed-chunk-5_95d09ba21a704a2735f48dbc4ba9d85b">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="st">"Dear Amazon, last week I ordered an Optimus Prime action figure from your online store in Germany. Unfortunately, when I opened the package, I discovered to my horror that I had been sent an action figure of Megatron instead! As a lifelong enemy of the Decepticons, I hope you can understand my dilemma. To resolve the issue, I demand an exchange of Megatron for the Optimus Prime figure I ordered. Enclosed are copies of my records concerning this purchase. I expect to hear from you soon. Sincerely, Bumblebee."</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -487,11 +499,11 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section><section id="einfache-pipeline" class="level3" data-number="16.4.2"><h3 data-number="16.4.2" class="anchored" data-anchor-id="einfache-pipeline">
-<span class="header-section-number">16.4.2</span> Einfache Pipeline</h3>
+</section><section id="einfache-pipeline" class="level3" data-number="17.4.2"><h3 data-number="17.4.2" class="anchored" data-anchor-id="einfache-pipeline">
+<span class="header-section-number">17.4.2</span> Einfache Pipeline</h3>
 <p>{.panel-tabset}</p>
-</section><section id="python-1" class="level3" data-number="16.4.3"><h3 data-number="16.4.3" class="anchored" data-anchor-id="python-1">
-<span class="header-section-number">16.4.3</span> Python</h3>
+</section><section id="python-1" class="level3" data-number="17.4.3"><h3 data-number="17.4.3" class="anchored" data-anchor-id="python-1">
+<span class="header-section-number">17.4.3</span> Python</h3>
 <p>Wir bereiten das Modell vor; im Default wird <code>distilbert-base-uncased-finetuned-sst-2-english</code> verwendet.</p>
 <div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-9_19b0c983288162e83428ef1882926a20">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>)</span>
@@ -502,8 +514,8 @@ div.csl-indent {
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">## All the weights of TFDistilBertForSequenceClassification were initialized from the PyTorch model.</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">## If your task is similar to the task the model of the checkpoint was trained on, you can already use TFDistilBertForSequenceClassification for predictions without further training.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="germeval-out-of-the-box-mit-hugging-face" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="germeval-out-of-the-box-mit-hugging-face">
-<span class="header-section-number">16.5</span> Germeval Out-of-the-Box mit Hugging Face</h2>
+</section></section><section id="germeval-out-of-the-box-mit-hugging-face" class="level2" data-number="17.5"><h2 data-number="17.5" class="anchored" data-anchor-id="germeval-out-of-the-box-mit-hugging-face">
+<span class="header-section-number">17.5</span> Germeval Out-of-the-Box mit Hugging Face</h2>
 <p>Zuert importieren wir die Daten.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -527,8 +539,8 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<section id="standard-pipeline" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="standard-pipeline">
-<span class="header-section-number">16.5.1</span> Standard-Pipeline</h3>
+<section id="standard-pipeline" class="level3" data-number="17.5.1"><h3 data-number="17.5.1" class="anchored" data-anchor-id="standard-pipeline">
+<span class="header-section-number">17.5.1</span> Standard-Pipeline</h3>
 <div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-12_bc5e6039e7bd537e3ad450cdc9f587ab">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">## No model was supplied, defaulted to distilbert-base-uncased-finetuned-sst-2-english and revision af0f99b (https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english).</span></span>
@@ -542,8 +554,8 @@ div.csl-indent {
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">## [{'label': 'NEGATIVE', 'score': 0.9950070381164551}, {'label': 'NEGATIVE', 'score': 0.9954568147659302}]</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tja, vielleicht sollten wir ein Modell verwenden, das die deutsche Sprache versteht?</p>
-</section><section id="man-spricht-deutsh" class="level3" data-number="16.5.2"><h3 data-number="16.5.2" class="anchored" data-anchor-id="man-spricht-deutsh">
-<span class="header-section-number">16.5.2</span> Man spricht Deutsh</h3>
+</section><section id="man-spricht-deutsh" class="level3" data-number="17.5.2"><h3 data-number="17.5.2" class="anchored" data-anchor-id="man-spricht-deutsh">
+<span class="header-section-number">17.5.2</span> Man spricht Deutsh</h3>
 <p>Auf Hugging Face gibt es eine Menge von Modellen. Welches nehm ich nur? <a href="https://huggingface.co/distilbert-base-german-cased">DISTILBERT</a> oder <a href="https://huggingface.co/bert-base-uncased">BERT</a>-Varianten dürfte kein schlechter Start sein.</p>
 <div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-13_f4ee29bf9dfe02feb26565ddfb993984">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#classifier = pipeline("text-classification", model="distilbert-base-german-cased")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -568,8 +580,8 @@ div.csl-indent {
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_r</span> <span class="op">&lt;-</span> <span class="va">py</span><span class="op">$</span><span class="va">pd</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_r</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="openai-api" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="openai-api">
-<span class="header-section-number">16.6</span> OpenAI-API</h2>
+</section></section><section id="openai-api" class="level2" data-number="17.6"><h2 data-number="17.6" class="anchored" data-anchor-id="openai-api">
+<span class="header-section-number">17.6</span> OpenAI-API</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -583,8 +595,8 @@ Wichtig
 <p>Der API-Aufruf von ChatGPT kostet Geld 💸. <span class="math inline">\(\square\)</span></p>
 </div>
 </div>
-<section id="authentifizierung" class="level3" data-number="16.6.1"><h3 data-number="16.6.1" class="anchored" data-anchor-id="authentifizierung">
-<span class="header-section-number">16.6.1</span> Authentifizierung</h3>
+<section id="authentifizierung" class="level3" data-number="17.6.1"><h3 data-number="17.6.1" class="anchored" data-anchor-id="authentifizierung">
+<span class="header-section-number">17.6.1</span> Authentifizierung</h3>
 <p>Wir müssen uns bei der API anmelden:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -622,15 +634,15 @@ Vorsicht
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-lib.github.io/keyring/index.html">keyring</a></span><span class="op">)</span></span>
 <span><span class="va">openai_key_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span><span class="st">"OPENAI_API_KEY"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="setup" class="level3" data-number="16.6.2"><h3 data-number="16.6.2" class="anchored" data-anchor-id="setup">
-<span class="header-section-number">16.6.2</span> Setup</h3>
+</section><section id="setup" class="level3" data-number="17.6.2"><h3 data-number="17.6.2" class="anchored" data-anchor-id="setup">
+<span class="header-section-number">17.6.2</span> Setup</h3>
 <div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-17_45c3074000d6395990ce0489e1a19a2a">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sentiment_scores <span class="op">=</span> []</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sentiment_analysis <span class="op">=</span> []</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">'@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.'</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="anfrage-an-die-api" class="level3" data-number="16.6.3"><h3 data-number="16.6.3" class="anchored" data-anchor-id="anfrage-an-die-api">
-<span class="header-section-number">16.6.3</span> Anfrage an die API</h3>
+</section><section id="anfrage-an-die-api" class="level3" data-number="17.6.3"><h3 data-number="17.6.3" class="anchored" data-anchor-id="anfrage-an-die-api">
+<span class="header-section-number">17.6.3</span> Anfrage an die API</h3>
 <div class="cell" data-hash="120-transformer_cache/html/openai1_0fb15a85e6e5ca76de8c1f91ab460462">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="ss">f"Analysiere das Sentiment des folgenden Texts: </span><span class="ch">\n</span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -641,8 +653,8 @@ Vorsicht
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.5</span>,</span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="vertiefung" class="level2" data-number="16.7"><h2 data-number="16.7" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">16.7</span> Vertiefung</h2>
+</section></section><section id="vertiefung" class="level2" data-number="17.7"><h2 data-number="17.7" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">17.7</span> Vertiefung</h2>
 <p>Der Originalartikel von <span class="citation" data-cites="vaswani_attention_2023">Vaswani u.&nbsp;a. (<a href="references.html#ref-vaswani_attention_2023" role="doc-biblioref">2023</a>)</span> gibt einen guten Einblick in die Konzepte; der Anspruch ist auf mittlerem Niveau. Von den Hugging-Face-Machern gibt es ein Buch, das - ebenfalls auf mittlerem Niveau - einen Einblick in Transformer-Modelle im Hugging-Face-Ökosystem gewährt <span class="citation" data-cites="tunstall_natural_2022">(<a href="references.html#ref-tunstall_natural_2022" role="doc-biblioref">Tunstall u.&nbsp;a. 2022</a>)</span>. <span class="citation" data-cites="rothman_transformers_2022">Rothman (<a href="references.html#ref-rothman_transformers_2022" role="doc-biblioref">2022</a>)</span> scheint gute Freunde bei Google zu haben, wenn man sein Buch über Transformer liest, jedenfalls sind die Modelle jener Firma in dem Buch gut gefeatured. <span class="citation" data-cites="geron_hands-machine_2023">Géron (<a href="references.html#ref-geron_hands-machine_2023" role="doc-biblioref">2023a</a>)</span> Standardwerk zu Scikit-Learn bietet auch einen Einblick in Attention-Konzepte (Kap. 16). Übrigens ist das Buch (3. Auflage) jetzt auch in deutscher Sprache erhältlich <span class="citation" data-cites="geron_praxiseinstieg_2023-1">(<a href="references.html#ref-geron_praxiseinstieg_2023-1" role="doc-biblioref">Géron 2023b</a>)</span>.</p>
 
 
@@ -965,8 +977,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
         typesetMath(container);
         return container.innerHTML
@@ -1202,13 +1221,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./110-nn-theo1.html" class="pagination-link  aria-label=" grundlagen="" neuronaler="" netze="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span>
+      <a href="./125-fallstudie-keras1.html" class="pagination-link  aria-label=" germeval-keras-simple="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./200-projektmgt.html" class="pagination-link" aria-label="<span class='chapter-number'>17</span>&nbsp; <span class='chapter-title'>Projektmanagement</span>">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./130-chatgpt.html" class="pagination-link" aria-label="<span class='chapter-number'>18</span>&nbsp; <span class='chapter-title'>ChatGPT-API</span>">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

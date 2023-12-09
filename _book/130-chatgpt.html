@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.478">
+<meta name="generator" content="quarto-1.4.513">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 17&nbsp; ChatGPT-API</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 18&nbsp; ChatGPT-API</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./130-chatgpt.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./130-chatgpt.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -271,14 +271,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./125-fallstudie-keras1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./130-chatgpt.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span></a>
   </div>
 </li>
       </ul>
@@ -295,13 +301,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -332,38 +338,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">17.1</span> Vorab</a>
+<a href="#vorab" id="toc-vorab" class="nav-link active" data-scroll-target="#vorab"><span class="header-section-number">18.1</span> Vorab</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">17.1.1</span> Lernziele</a></li>
-  <li><a href="#ben%C3%B6tigte-software" id="toc-benötigte-software" class="nav-link" data-scroll-target="#ben%C3%B6tigte-software"><span class="header-section-number">17.1.2</span> Benötigte Software</a></li>
-  <li><a href="#spielzeug-daten" id="toc-spielzeug-daten" class="nav-link" data-scroll-target="#spielzeug-daten"><span class="header-section-number">17.1.3</span> Spielzeug-Daten</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">18.1.1</span> Lernziele</a></li>
+  <li><a href="#ben%C3%B6tigte-software" id="toc-benötigte-software" class="nav-link" data-scroll-target="#ben%C3%B6tigte-software"><span class="header-section-number">18.1.2</span> Benötigte Software</a></li>
+  <li><a href="#spielzeug-daten" id="toc-spielzeug-daten" class="nav-link" data-scroll-target="#spielzeug-daten"><span class="header-section-number">18.1.3</span> Spielzeug-Daten</a></li>
   </ul>
 </li>
   <li>
-<a href="#grundlagen" id="toc-grundlagen" class="nav-link" data-scroll-target="#grundlagen"><span class="header-section-number">17.2</span> Grundlagen</a>
+<a href="#grundlagen" id="toc-grundlagen" class="nav-link" data-scroll-target="#grundlagen"><span class="header-section-number">18.2</span> Grundlagen</a>
   <ul class="collapse">
-<li><a href="#chatgpt-ist-auch-ein-transformer" id="toc-chatgpt-ist-auch-ein-transformer" class="nav-link" data-scroll-target="#chatgpt-ist-auch-ein-transformer"><span class="header-section-number">17.2.1</span> ChatGPT ist auch ein Transformer</a></li>
-  <li><a href="#alles-ist-api" id="toc-alles-ist-api" class="nav-link" data-scroll-target="#alles-ist-api"><span class="header-section-number">17.2.2</span> Alles ist API</a></li>
-  <li><a href="#curl" id="toc-curl" class="nav-link" data-scroll-target="#curl"><span class="header-section-number">17.2.3</span> <code>curl</code></a></li>
-  <li><a href="#prompting" id="toc-prompting" class="nav-link" data-scroll-target="#prompting"><span class="header-section-number">17.2.4</span> Prompting</a></li>
-  <li><a href="#anmelden-an-der-api" id="toc-anmelden-an-der-api" class="nav-link" data-scroll-target="#anmelden-an-der-api"><span class="header-section-number">17.2.5</span> Anmelden an der API</a></li>
+<li><a href="#chatgpt-ist-auch-ein-transformer" id="toc-chatgpt-ist-auch-ein-transformer" class="nav-link" data-scroll-target="#chatgpt-ist-auch-ein-transformer"><span class="header-section-number">18.2.1</span> ChatGPT ist auch ein Transformer</a></li>
+  <li><a href="#alles-ist-api" id="toc-alles-ist-api" class="nav-link" data-scroll-target="#alles-ist-api"><span class="header-section-number">18.2.2</span> Alles ist API</a></li>
+  <li><a href="#curl" id="toc-curl" class="nav-link" data-scroll-target="#curl"><span class="header-section-number">18.2.3</span> <code>curl</code></a></li>
+  <li><a href="#prompting" id="toc-prompting" class="nav-link" data-scroll-target="#prompting"><span class="header-section-number">18.2.4</span> Prompting</a></li>
+  <li><a href="#anmelden-an-der-api" id="toc-anmelden-an-der-api" class="nav-link" data-scroll-target="#anmelden-an-der-api"><span class="header-section-number">18.2.5</span> Anmelden an der API</a></li>
   </ul>
 </li>
   <li>
-<a href="#wrapper-um-curl" id="toc-wrapper-um-curl" class="nav-link" data-scroll-target="#wrapper-um-curl"><span class="header-section-number">17.3</span> Wrapper um curl</a>
+<a href="#wrapper-um-curl" id="toc-wrapper-um-curl" class="nav-link" data-scroll-target="#wrapper-um-curl"><span class="header-section-number">18.3</span> Wrapper um curl</a>
   <ul class="collapse">
-<li><a href="#curl-wrapper-in-eine-funktion-gebracht" id="toc-curl-wrapper-in-eine-funktion-gebracht" class="nav-link" data-scroll-target="#curl-wrapper-in-eine-funktion-gebracht"><span class="header-section-number">17.3.1</span> Curl-Wrapper in eine Funktion gebracht</a></li>
-  <li><a href="#schleife" id="toc-schleife" class="nav-link" data-scroll-target="#schleife"><span class="header-section-number">17.3.2</span> Schleife</a></li>
+<li><a href="#curl-wrapper-in-eine-funktion-gebracht" id="toc-curl-wrapper-in-eine-funktion-gebracht" class="nav-link" data-scroll-target="#curl-wrapper-in-eine-funktion-gebracht"><span class="header-section-number">18.3.1</span> Curl-Wrapper in eine Funktion gebracht</a></li>
+  <li><a href="#schleife" id="toc-schleife" class="nav-link" data-scroll-target="#schleife"><span class="header-section-number">18.3.2</span> Schleife</a></li>
   </ul>
 </li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">17.4</span> Vertiefung</a></li>
-  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="header-section-number">17.5</span> Aufgaben</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">18.4</span> Vertiefung</a></li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben"><span class="header-section-number">18.5</span> Aufgaben</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./130-chatgpt.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./130-chatgpt.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">17</span>&nbsp; <span class="chapter-title">ChatGPT-API</span>
+<span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span>
 </h1>
 </div>
 
@@ -378,28 +384,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="vorab" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="vorab">
-<span class="header-section-number">17.1</span> Vorab</h2>
-<section id="lernziele" class="level3" data-number="17.1.1"><h3 data-number="17.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">17.1.1</span> Lernziele</h3>
+</header><section id="vorab" class="level2" data-number="18.1"><h2 data-number="18.1" class="anchored" data-anchor-id="vorab">
+<span class="header-section-number">18.1</span> Vorab</h2>
+<section id="lernziele" class="level3" data-number="18.1.1"><h3 data-number="18.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">18.1.1</span> Lernziele</h3>
 <ul>
 <li>Sie können gängige Anfragen an die OpenAI-ChatGPT-API senden.</li>
-</ul></section><section id="benötigte-software" class="level3" data-number="17.1.2"><h3 data-number="17.1.2" class="anchored" data-anchor-id="benötigte-software">
-<span class="header-section-number">17.1.2</span> Benötigte Software</h3>
+</ul></section><section id="benötigte-software" class="level3" data-number="18.1.2"><h3 data-number="18.1.2" class="anchored" data-anchor-id="benötigte-software">
+<span class="header-section-number">18.1.2</span> Benötigte Software</h3>
 <div class="cell" data-hash="130-chatgpt_cache/html/unnamed-chunk-1_3979c45c124d20b5bb9af602f9916c34">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org">stringr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://httr.r-lib.org/">httr</a></span><span class="op">)</span>  <span class="co"># Wrapper um curl</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="spielzeug-daten" class="level3" data-number="17.1.3"><h3 data-number="17.1.3" class="anchored" data-anchor-id="spielzeug-daten">
-<span class="header-section-number">17.1.3</span> Spielzeug-Daten</h3>
+</section><section id="spielzeug-daten" class="level3" data-number="18.1.3"><h3 data-number="18.1.3" class="anchored" data-anchor-id="spielzeug-daten">
+<span class="header-section-number">18.1.3</span> Spielzeug-Daten</h3>
 <div class="cell" data-hash="130-chatgpt_cache/html/unnamed-chunk-2_0ed46c965123ed0d5639030ae021f952">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tweets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span><span class="st">'@corinnamilborn Liebe Corinna, wir würden dich gerne als Moderatorin für uns gewinnen! Wärst du begeisterbar?'</span>, <span class="st">'@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.'</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="grundlagen" class="level2" data-number="17.2"><h2 data-number="17.2" class="anchored" data-anchor-id="grundlagen">
-<span class="header-section-number">17.2</span> Grundlagen</h2>
-<section id="chatgpt-ist-auch-ein-transformer" class="level3" data-number="17.2.1"><h3 data-number="17.2.1" class="anchored" data-anchor-id="chatgpt-ist-auch-ein-transformer">
-<span class="header-section-number">17.2.1</span> ChatGPT ist auch ein Transformer</h3>
+</section></section><section id="grundlagen" class="level2" data-number="18.2"><h2 data-number="18.2" class="anchored" data-anchor-id="grundlagen">
+<span class="header-section-number">18.2</span> Grundlagen</h2>
+<section id="chatgpt-ist-auch-ein-transformer" class="level3" data-number="18.2.1"><h3 data-number="18.2.1" class="anchored" data-anchor-id="chatgpt-ist-auch-ein-transformer">
+<span class="header-section-number">18.2.1</span> ChatGPT ist auch ein Transformer</h3>
 <blockquote class="blockquote">
 <p>👨‍🏫 Bist du ein Transformer?</p>
 </blockquote>
@@ -407,14 +413,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🤖 Ja, ich bin ein Modell, das auf der GPT-3.5-Architektur von OpenAI basiert, und diese Architektur wird als “Transformer” bezeichnet. Der Begriff “Transformer” bezieht sich auf die spezifische Architektur des neuronalen Netzwerks, die von Vaswani et al.&nbsp;in ihrem Paper “Attention is All You Need” vorgestellt wurde. Die Transformer-Architektur hat sich als äußerst leistungsfähig für natürliche Sprachverarbeitungsaufgaben erwiesen und bildet die Grundlage für Modelle wie GPT (Generative Pre-trained Transformer), einschließlich GPT-3.5, auf dem meine Fähigkeiten basieren.</p>
 </blockquote>
 <p>[Quelle: ChatGPT-3.5, 2023-11-23]</p>
-</section><section id="alles-ist-api" class="level3" data-number="17.2.2"><h3 data-number="17.2.2" class="anchored" data-anchor-id="alles-ist-api">
-<span class="header-section-number">17.2.2</span> Alles ist API</h3>
+</section><section id="alles-ist-api" class="level3" data-number="18.2.2"><h3 data-number="18.2.2" class="anchored" data-anchor-id="alles-ist-api">
+<span class="header-section-number">18.2.2</span> Alles ist API</h3>
 <p>Die Python- (oder R-)Pakete zum Zugriff zur ChatGPT-API sind letztlich nur Wrapper um den “direkten” Zugriff auf die API.</p>
 <div id="def-api" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 17.1 (API (Application Programming Interface)) </strong></span>Eine API stellt genormte Befehle zur Verfügung, um von einem Dienst (über eine Webseite) Daten abzufragen oder einzustellen. <span class="math inline">\(\square\)</span></p>
+<p><span class="theorem-title"><strong>Definition 18.1 (API (Application Programming Interface)) </strong></span>Eine API stellt genormte Befehle zur Verfügung, um von einem Dienst (über eine Webseite) Daten abzufragen oder einzustellen. <span class="math inline">\(\square\)</span></p>
 </div>
-</section><section id="curl" class="level3" data-number="17.2.3"><h3 data-number="17.2.3" class="anchored" data-anchor-id="curl">
-<span class="header-section-number">17.2.3</span> <code>curl</code>
+</section><section id="curl" class="level3" data-number="18.2.3"><h3 data-number="18.2.3" class="anchored" data-anchor-id="curl">
+<span class="header-section-number">18.2.3</span> <code>curl</code>
 </h3>
 <p><code>curl</code> ist eine gängige Methode (auf der Kommondozeile), um Daten von einer Webseite abzufragen (oder einzustellen).</p>
 <p>Laut <a href="https://platform.openai.com/examples">Dokumentation der API</a> lautet der CURL-Befehl wie folgt (Pseudocode):</p>
@@ -459,8 +465,8 @@ Hinweis
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  max_tokens<span class="op">=</span><span class="dv">256</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="prompting" class="level3" data-number="17.2.4"><h3 data-number="17.2.4" class="anchored" data-anchor-id="prompting">
-<span class="header-section-number">17.2.4</span> Prompting</h3>
+</section><section id="prompting" class="level3" data-number="18.2.4"><h3 data-number="18.2.4" class="anchored" data-anchor-id="prompting">
+<span class="header-section-number">18.2.4</span> Prompting</h3>
 <p>Als Prompt kann man z.B. übergeben (bezeichnet als “System”):</p>
 <blockquote class="blockquote">
 <p>🧑‍🦰 You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative. USER</p>
@@ -485,8 +491,8 @@ Hinweis
 <span><span class="co">## [1] "Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie das Sentiment dieses Tweets als positiv, neutral oder negativ. Antworten Sie nur mit einem Wort. Hier ist der Tweet: @corinnamilborn Liebe Corinna, wir würden dich gerne als Moderatorin für uns gewinnen! Wärst du begeisterbar?"                                 </span></span>
 <span><span class="co">## [2] "Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie das Sentiment dieses Tweets als positiv, neutral oder negativ. Antworten Sie nur mit einem Wort. Hier ist der Tweet: @Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir."</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="anmelden-an-der-api" class="level3" data-number="17.2.5"><h3 data-number="17.2.5" class="anchored" data-anchor-id="anmelden-an-der-api">
-<span class="header-section-number">17.2.5</span> Anmelden an der API</h3>
+</section><section id="anmelden-an-der-api" class="level3" data-number="18.2.5"><h3 data-number="18.2.5" class="anchored" data-anchor-id="anmelden-an-der-api">
+<span class="header-section-number">18.2.5</span> Anmelden an der API</h3>
 <p>Die API erlaubt nur Zugriffe angemeldeter Nutzer.</p>
 <div class="cell" data-hash="130-chatgpt_cache/html/unnamed-chunk-7_2dbff4203fcf8df1904cadcda6b1b8fa">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">OPENAI_API_KEY</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"OPENAI_API_KEY"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -505,8 +511,8 @@ Wichtig
 <p>Lassen Sie sensible Daten, wie API-Keys, niemals auf öffentlichen Ordnern oder Repos (etwa auf Github) herumliegen. Stellen Sie sich vor, Sie haben bei dem Dienst ihre Kreditkarte hinterlege und ein übelwollender Dritter nutzt kostenpflichtige Dienste mit sehr hohem Budget. 🤯 <span class="math inline">\(\square\)</span></p>
 </div>
 </div>
-</section></section><section id="wrapper-um-curl" class="level2" data-number="17.3"><h2 data-number="17.3" class="anchored" data-anchor-id="wrapper-um-curl">
-<span class="header-section-number">17.3</span> Wrapper um curl</h2>
+</section></section><section id="wrapper-um-curl" class="level2" data-number="18.3"><h2 data-number="18.3" class="anchored" data-anchor-id="wrapper-um-curl">
+<span class="header-section-number">18.3</span> Wrapper um curl</h2>
 <p>Dieser Abschnitt basiert auf einem <a href="https://www.r-bloggers.com/2023/03/call-chatgpt-or-really-any-other-api-from-r/">Blogpost bei R-Bloggers von Rasmus Bååth</a>.</p>
 <div class="cell" data-hash="130-chatgpt_cache/html/unnamed-chunk-8_4bdc4c2669a5f6647c8b715451987700">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://httr.r-lib.org/reference/POST.html">POST</a></span><span class="op">(</span></span>
@@ -568,8 +574,8 @@ $usage$total_tokens
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span><span class="op">$</span><span class="va">choices</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">content</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>Das Sentiment dieses Tweets ist positiv. </code></pre>
-<section id="curl-wrapper-in-eine-funktion-gebracht" class="level3" data-number="17.3.1"><h3 data-number="17.3.1" class="anchored" data-anchor-id="curl-wrapper-in-eine-funktion-gebracht">
-<span class="header-section-number">17.3.1</span> Curl-Wrapper in eine Funktion gebracht</h3>
+<section id="curl-wrapper-in-eine-funktion-gebracht" class="level3" data-number="18.3.1"><h3 data-number="18.3.1" class="anchored" data-anchor-id="curl-wrapper-in-eine-funktion-gebracht">
+<span class="header-section-number">18.3.1</span> Curl-Wrapper in eine Funktion gebracht</h3>
 <div class="cell" data-hash="130-chatgpt_cache/html/unnamed-chunk-11_b13241699ea47771e73b3f78bcc4d04f">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ask_chatgpt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">prompt</span><span class="op">)</span> <span class="op">{</span></span>
 <span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://httr.r-lib.org/reference/POST.html">POST</a></span><span class="op">(</span></span>
@@ -592,8 +598,8 @@ $usage$total_tokens
 <span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_trim.html">str_trim</a></span><span class="op">(</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span><span class="op">$</span><span class="va">choices</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">content</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="schleife" class="level3" data-number="17.3.2"><h3 data-number="17.3.2" class="anchored" data-anchor-id="schleife">
-<span class="header-section-number">17.3.2</span> Schleife</h3>
+</section><section id="schleife" class="level3" data-number="18.3.2"><h3 data-number="18.3.2" class="anchored" data-anchor-id="schleife">
+<span class="header-section-number">18.3.2</span> Schleife</h3>
 <div class="cell" data-hash="130-chatgpt_cache/html/unnamed-chunk-12_8a4e968140f0442de8267d9bf7d4570f">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prompts</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">ask_chatgpt</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -605,11 +611,11 @@ $usage$total_tokens
 Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie das Sentiment dieses Tweets als positiv, neutral oder negativ. Antworten Sie nur mit einem Wort. Hier ist der Tweet: @Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir. 
 
  "neutral"</code></pre>
-</section></section><section id="vertiefung" class="level2" data-number="17.4"><h2 data-number="17.4" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">17.4</span> Vertiefung</h2>
+</section></section><section id="vertiefung" class="level2" data-number="18.4"><h2 data-number="18.4" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">18.4</span> Vertiefung</h2>
 <p>Mit etwas Zusatzaufwand kann man den Kontext bzw. den Verlauf der Konversation mit dem Bot berücksichtigen, wie <a href="https://blog.devgenius.io/how-to-maintain-conversation-flow-in-with-chatgpts-api-in-r-part-17-of-r-for-applied-d010cca1326a">dieser Post zeigt</a>.</p>
-</section><section id="aufgaben" class="level2" data-number="17.5"><h2 data-number="17.5" class="anchored" data-anchor-id="aufgaben">
-<span class="header-section-number">17.5</span> Aufgaben</h2>
+</section><section id="aufgaben" class="level2" data-number="18.5"><h2 data-number="18.5" class="anchored" data-anchor-id="aufgaben">
+<span class="header-section-number">18.5</span> Aufgaben</h2>
 <p>Schauen Sie sich die Aufgaben mit dem <a href="https://datenwerk.netlify.app/#category=transformer">Tag ‘Transformer’ auf dem Datenwerk</a> an.</p>
 
 
@@ -910,8 +916,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
         typesetMath(container);
         return container.innerHTML
@@ -1148,12 +1161,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./120-transformer.html" class="pagination-link  aria-label=">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./200-projektmgt.html" class="pagination-link" aria-label="<span class='chapter-number'>18</span>&nbsp; <span class='chapter-title'>Projektmanagement</span>">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./200-projektmgt.html" class="pagination-link" aria-label="<span class='chapter-number'>19</span>&nbsp; <span class='chapter-title'>Projektmanagement</span>">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

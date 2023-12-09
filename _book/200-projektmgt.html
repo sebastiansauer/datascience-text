@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.478">
+<meta name="generator" content="quarto-1.4.513">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 17&nbsp; Projektmanagement</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 19&nbsp; Projektmanagement</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,7 +81,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./300-fallstudien.html" rel="next">
-<link href="./120-transformer.html" rel="prev">
+<link href="./130-chatgpt.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -127,7 +127,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./200-projektmgt.html">Anwendung</a></li><li class="breadcrumb-item"><a href="./200-projektmgt.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./200-projektmgt.html">Anwendung</a></li><li class="breadcrumb-item"><a href="./200-projektmgt.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -291,8 +291,20 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./125-fallstudie-keras1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130-chatgpt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span></a>
   </div>
 </li>
       </ul>
@@ -309,13 +321,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -346,30 +358,30 @@ div.csl-indent {
    
   <ul>
 <li>
-<a href="#pipeline-management" id="toc-pipeline-management" class="nav-link active" data-scroll-target="#pipeline-management"><span class="header-section-number">17.1</span> Pipeline-Management</a>
+<a href="#pipeline-management" id="toc-pipeline-management" class="nav-link active" data-scroll-target="#pipeline-management"><span class="header-section-number">19.1</span> Pipeline-Management</a>
   <ul class="collapse">
-<li><a href="#am-anfang" id="toc-am-anfang" class="nav-link" data-scroll-target="#am-anfang"><span class="header-section-number">17.1.1</span> Am Anfang</a></li>
-  <li><a href="#sie-tr%C3%A4umen-von-einem-werkzeug" id="toc-sie-träumen-von-einem-werkzeug" class="nav-link" data-scroll-target="#sie-tr%C3%A4umen-von-einem-werkzeug"><span class="header-section-number">17.1.2</span> Sie träumen von einem Werkzeug</a></li>
-  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets"><span class="header-section-number">17.1.3</span> Targets</a></li>
-  <li><a href="#eine-pipeline-als-spielwiese" id="toc-eine-pipeline-als-spielwiese" class="nav-link" data-scroll-target="#eine-pipeline-als-spielwiese"><span class="header-section-number">17.1.4</span> Eine Pipeline als Spielwiese</a></li>
+<li><a href="#am-anfang" id="toc-am-anfang" class="nav-link" data-scroll-target="#am-anfang"><span class="header-section-number">19.1.1</span> Am Anfang</a></li>
+  <li><a href="#sie-tr%C3%A4umen-von-einem-werkzeug" id="toc-sie-träumen-von-einem-werkzeug" class="nav-link" data-scroll-target="#sie-tr%C3%A4umen-von-einem-werkzeug"><span class="header-section-number">19.1.2</span> Sie träumen von einem Werkzeug</a></li>
+  <li><a href="#targets" id="toc-targets" class="nav-link" data-scroll-target="#targets"><span class="header-section-number">19.1.3</span> Targets</a></li>
+  <li><a href="#eine-pipeline-als-spielwiese" id="toc-eine-pipeline-als-spielwiese" class="nav-link" data-scroll-target="#eine-pipeline-als-spielwiese"><span class="header-section-number">19.1.4</span> Eine Pipeline als Spielwiese</a></li>
   </ul>
 </li>
-  <li><a href="#zeit-sparen" id="toc-zeit-sparen" class="nav-link" data-scroll-target="#zeit-sparen"><span class="header-section-number">17.2</span> Zeit sparen</a></li>
-  <li><a href="#publizieren" id="toc-publizieren" class="nav-link" data-scroll-target="#publizieren"><span class="header-section-number">17.3</span> Publizieren</a></li>
+  <li><a href="#zeit-sparen" id="toc-zeit-sparen" class="nav-link" data-scroll-target="#zeit-sparen"><span class="header-section-number">19.2</span> Zeit sparen</a></li>
+  <li><a href="#publizieren" id="toc-publizieren" class="nav-link" data-scroll-target="#publizieren"><span class="header-section-number">19.3</span> Publizieren</a></li>
   <li>
-<a href="#komplexit%C3%A4tsmanagement" id="toc-komplexitätsmanagement" class="nav-link" data-scroll-target="#komplexit%C3%A4tsmanagement"><span class="header-section-number">17.4</span> Komplexitätsmanagement</a>
+<a href="#komplexit%C3%A4tsmanagement" id="toc-komplexitätsmanagement" class="nav-link" data-scroll-target="#komplexit%C3%A4tsmanagement"><span class="header-section-number">19.4</span> Komplexitätsmanagement</a>
   <ul class="collapse">
-<li><a href="#geben-sie-gute-namen" id="toc-geben-sie-gute-namen" class="nav-link" data-scroll-target="#geben-sie-gute-namen"><span class="header-section-number">17.4.1</span> Geben Sie gute Namen</a></li>
-  <li><a href="#portionieren" id="toc-portionieren" class="nav-link" data-scroll-target="#portionieren"><span class="header-section-number">17.4.2</span> Portionieren</a></li>
-  <li><a href="#debugging-mit-einem-logger" id="toc-debugging-mit-einem-logger" class="nav-link" data-scroll-target="#debugging-mit-einem-logger"><span class="header-section-number">17.4.3</span> Debugging mit einem Logger</a></li>
+<li><a href="#geben-sie-gute-namen" id="toc-geben-sie-gute-namen" class="nav-link" data-scroll-target="#geben-sie-gute-namen"><span class="header-section-number">19.4.1</span> Geben Sie gute Namen</a></li>
+  <li><a href="#portionieren" id="toc-portionieren" class="nav-link" data-scroll-target="#portionieren"><span class="header-section-number">19.4.2</span> Portionieren</a></li>
+  <li><a href="#debugging-mit-einem-logger" id="toc-debugging-mit-einem-logger" class="nav-link" data-scroll-target="#debugging-mit-einem-logger"><span class="header-section-number">19.4.3</span> Debugging mit einem Logger</a></li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./200-projektmgt.html">Anwendung</a></li><li class="breadcrumb-item"><a href="./200-projektmgt.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./200-projektmgt.html">Anwendung</a></li><li class="breadcrumb-item"><a href="./200-projektmgt.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Projektmanagement</span>
+<span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span>
 </h1>
 </div>
 
@@ -384,18 +396,18 @@ div.csl-indent {
   
 
 
-</header><section id="pipeline-management" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="pipeline-management">
-<span class="header-section-number">17.1</span> Pipeline-Management</h2>
-<section id="am-anfang" class="level3" data-number="17.1.1"><h3 data-number="17.1.1" class="anchored" data-anchor-id="am-anfang">
-<span class="header-section-number">17.1.1</span> Am Anfang</h3>
+</header><section id="pipeline-management" class="level2" data-number="19.1"><h2 data-number="19.1" class="anchored" data-anchor-id="pipeline-management">
+<span class="header-section-number">19.1</span> Pipeline-Management</h2>
+<section id="am-anfang" class="level3" data-number="19.1.1"><h3 data-number="19.1.1" class="anchored" data-anchor-id="am-anfang">
+<span class="header-section-number">19.1.1</span> Am Anfang</h3>
 <p>Sie haben Großes vor! Naja, zumindest planen Sie ein neues Data-Science-Projekt.</p>
-<p>Und, schlau wie Sie sind, stürzen Sie nicht sofort an die Tastatur, um sich einige Modelle berechnen zu lassen. Nein! Sie denken erst einmal nach. Zum Beispiel, wie die einzelnen Analyseschritte aussehen, worin sie bestehen, und in welcher Abfolge sie zu berechnen sind, s. <a href="#fig-projekt1" class="quarto-xref">Abbildung&nbsp;<span>17.1</span></a>.</p>
+<p>Und, schlau wie Sie sind, stürzen Sie nicht sofort an die Tastatur, um sich einige Modelle berechnen zu lassen. Nein! Sie denken erst einmal nach. Zum Beispiel, wie die einzelnen Analyseschritte aussehen, worin sie bestehen, und in welcher Abfolge sie zu berechnen sind, s. <a href="#fig-projekt1" class="quarto-xref">Abbildung&nbsp;<span>19.1</span></a>.</p>
 <div id="fig-projekt1" class="quarto-figure quarto-figure-center anchored" width="80%">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-projekt1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="img/project1.JPG" class="img-fluid figure-img" style="width:80.0%">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-projekt1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;17.1: So könnte Ihr Projektplan am Anfang aussehen, man spricht auch von einer Pipeline
+Abbildung&nbsp;19.1: So könnte Ihr Projektplan am Anfang aussehen, man spricht auch von einer Pipeline
 </figcaption></figure>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -411,8 +423,8 @@ Hinweis
 <p>Den Graph der einzelnen Analyseschritte in ihrer Abhängigkeit bezeichnet man als *Pipeline.</p>
 </div>
 </div>
-</section><section id="sie-träumen-von-einem-werkzeug" class="level3" data-number="17.1.2"><h3 data-number="17.1.2" class="anchored" data-anchor-id="sie-träumen-von-einem-werkzeug">
-<span class="header-section-number">17.1.2</span> Sie träumen von einem Werkzeug</h3>
+</section><section id="sie-träumen-von-einem-werkzeug" class="level3" data-number="19.1.2"><h3 data-number="19.1.2" class="anchored" data-anchor-id="sie-träumen-von-einem-werkzeug">
+<span class="header-section-number">19.1.2</span> Sie träumen von einem Werkzeug</h3>
 <p>Nach einiger Zeit überlegen Sie sich, dass Sie ein System bräuchten, das Ihre Skizze umsetzt in tatsächliche Berechnungen. Und zwar suchen Sie ein Projektmanagement-System das folgendes Desiderata erfüllt:</p>
 <ol type="1">
 <li>Es führt die einzelnen Schritte Ihres Projekt, die “Pipeline” in der richtigen Reihenfolge</li>
@@ -421,8 +433,8 @@ Hinweis
 </ol>
 <p>Ja, von so einem Werkzeug träumen Sie.</p>
 <p>Und tatsächlich, Ihr Traum geht in Erfüllung. Dieses System existiert. Genau genommen gibt es viele Systeme, die sich anschicken, Ihre Wünsche zu erfüllen. Wir schauen uns eines näher an, das speziell für R gemacht ist. Das <a href="https://books.ropensci.org/targets/">R-Paket <code>targets</code></a>.</p>
-</section><section id="targets" class="level3" data-number="17.1.3"><h3 data-number="17.1.3" class="anchored" data-anchor-id="targets">
-<span class="header-section-number">17.1.3</span> Targets</h3>
+</section><section id="targets" class="level3" data-number="19.1.3"><h3 data-number="19.1.3" class="anchored" data-anchor-id="targets">
+<span class="header-section-number">19.1.3</span> Targets</h3>
 <p>Es lohnt sich, an dieser Stelle den <a href="https://books.ropensci.org/targets/walkthrough.html">“Walkthrough” aus dem Benutzerhandbuch</a> von Targets durchzuarbeiten.</p>
 <p>Für ein Projekt ähnlich zu den, die wir in diesem Buch bearbeiten, ist folgende <code>_targets.R</code>-Datei ein guter Start.</p>
 <div class="cell" data-hash="200-projektmgt_cache/html/unnamed-chunk-1_2f47a6e8d52c7139420df22b09736fc7">
@@ -505,11 +517,11 @@ Hinweis
 <figcaption>Abhängigkeitsgraph der Pipeline</figcaption></figure>
 </div>
 <p>Einzelne Objekte kann man sich komfortabel anschauen mit <code>tar_load(objekt)</code>, z.B. <code>tar_load(fit1)</code> usw.</p>
-</section><section id="eine-pipeline-als-spielwiese" class="level3" data-number="17.1.4"><h3 data-number="17.1.4" class="anchored" data-anchor-id="eine-pipeline-als-spielwiese">
-<span class="header-section-number">17.1.4</span> Eine Pipeline als Spielwiese</h3>
+</section><section id="eine-pipeline-als-spielwiese" class="level3" data-number="19.1.4"><h3 data-number="19.1.4" class="anchored" data-anchor-id="eine-pipeline-als-spielwiese">
+<span class="header-section-number">19.1.4</span> Eine Pipeline als Spielwiese</h3>
 <p><a href="https://github.com/sebastiansauer/targets-playground">Dieses Github-Repo</a> stellt Ihnen eine “Spielwiese” zur Verfügung, wo Sie sich mit Pipleines à la Targets vertraut machen können.</p>
-</section></section><section id="zeit-sparen" class="level2" data-number="17.2"><h2 data-number="17.2" class="anchored" data-anchor-id="zeit-sparen">
-<span class="header-section-number">17.2</span> Zeit sparen</h2>
+</section></section><section id="zeit-sparen" class="level2" data-number="19.2"><h2 data-number="19.2" class="anchored" data-anchor-id="zeit-sparen">
+<span class="header-section-number">19.2</span> Zeit sparen</h2>
 <p>Einer Maschine etwas beizubringen kann dauern … Ein einfaches Rechenbeispiel dazu:</p>
 <ul>
 <li>Sie haben eine Kreuzvalidierung mit 10 Faltungen</li>
@@ -537,24 +549,24 @@ Hinweis
 <figure class="figure"><p><img src="img/uno-draw.25.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
 <figcaption>Quelle: imgflip.com</figcaption></figure>
 </div>
-</section><section id="publizieren" class="level2" data-number="17.3"><h2 data-number="17.3" class="anchored" data-anchor-id="publizieren">
-<span class="header-section-number">17.3</span> Publizieren</h2>
+</section><section id="publizieren" class="level2" data-number="19.3"><h2 data-number="19.3" class="anchored" data-anchor-id="publizieren">
+<span class="header-section-number">19.3</span> Publizieren</h2>
 <p>Sie haben eine super Analyse geschrieben, eine schicke Pipeline, und jetzt soll die Welt davon erfahren? Es gibt einige komfortable Möglichkeiten, Ihre Arbeit zu publizieren, z.B. als Blog mit <a href="https://quarto.org/">Quarto</a>.</p>
 <p><a href="https://youtu.be/d3Xnvi2_HB4">Dieses Video</a> zeigt Ihnen wie man einen Quarto-Blog in RStudio erstellt und ihn bei <a href="https://www.netlify.com/">Netlify</a> publiziert.</p>
 <div class="quarto-video"><iframe data-external="1" src="https://www.youtube.com/embed/d3Xnvi2_HB4" width="400" height="300" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>Das Hosten bzw. Deployen bei Netlify ist kostenlos (in der Basis-Variante).</p>
 <p>Sie können alternativ <a href="https://pages.github.com/">Github Pages</a> als Hosting-Dienst verwenden. <a href="https://youtu.be/-GA_Afz_jI4">Dieses Video</a> gibt dazu eine Anleitung.</p>
-</section><section id="komplexitätsmanagement" class="level2" data-number="17.4"><h2 data-number="17.4" class="anchored" data-anchor-id="komplexitätsmanagement">
-<span class="header-section-number">17.4</span> Komplexitätsmanagement</h2>
+</section><section id="komplexitätsmanagement" class="level2" data-number="19.4"><h2 data-number="19.4" class="anchored" data-anchor-id="komplexitätsmanagement">
+<span class="header-section-number">19.4</span> Komplexitätsmanagement</h2>
 <p>Programmieren ist faszinierend. Vor allem, wenn das Programm funktioniert. Genau genommen ist es eigentlich nur dann faszinierend, ansonsten wird es anstrengend? aufregend? süchtig? faszinierend? nervig? Wie auch immer: Bugs treten auf und mit steigender Komplexität Ihrer Software steigen die Bugs nicht linear, sondern eher quadratisch oder gar exponentiell an.</p>
 <p>Es gibt viele Ansätze, sich gegen die Komplexität zu “wehren”. Der beste ist vielleicht: Die Software so einfach wie möglich zu halten - und nur so komplex wie nötig. Sozusagen: Das beste Feature ist das, das Sie nicht implementieren.</p>
-<section id="geben-sie-gute-namen" class="level3" data-number="17.4.1"><h3 data-number="17.4.1" class="anchored" data-anchor-id="geben-sie-gute-namen">
-<span class="header-section-number">17.4.1</span> Geben Sie gute Namen</h3>
+<section id="geben-sie-gute-namen" class="level3" data-number="19.4.1"><h3 data-number="19.4.1" class="anchored" data-anchor-id="geben-sie-gute-namen">
+<span class="header-section-number">19.4.1</span> Geben Sie gute Namen</h3>
 <p>Daraus leitet sich ab, dass die zentralen Methoden, um der Fehler Herr zu werden im Komplexitätsmanagement liegen. Den Variablen (Objekten) “gute”, “sprechende”, aber prägnante Namen zu geben, ist in diesem Lichte auch als Komplexitätsmanagement (Reduktion) zu verstehen.</p>
 <p>Ein typischer Fehler, der mir immer mal wieder passiert, ist: Ich ändere den Namen eines Objekts, aber vergesse, an <em>allen</em> Stellen im Code den Namen anzupassen. Glücklicherweise gibt es hier eine einfache Abhilfe: Replace-All.</p>
 <p>Der zwar einfache Weg, mehrere ähnliche Objekte durchzunummerieren (<code>workflow2a</code>, <code>recipe1</code>, …). ist zwar einfach, aber insgesamt nicht zu empfehlen: Es ist nicht leicht, immer genau zu wissen, was der Inhalt hinter der Nummer <code>2a</code> etc. ist. Ändert man außerdem die Reihenfolge (oder schiebt ein Objekt dazwischen ein), macht die Nummerierung keinen Sinn mehr (oder man muss mühselig die Nummern ändern, was fehleranfällig und nervig ist).</p>
-</section><section id="portionieren" class="level3" data-number="17.4.2"><h3 data-number="17.4.2" class="anchored" data-anchor-id="portionieren">
-<span class="header-section-number">17.4.2</span> Portionieren</h3>
+</section><section id="portionieren" class="level3" data-number="19.4.2"><h3 data-number="19.4.2" class="anchored" data-anchor-id="portionieren">
+<span class="header-section-number">19.4.2</span> Portionieren</h3>
 <p>Eine andere, zentrale Maßnahme ist es, den Code in handlichen “Häppchen” zu verpacken. Statt einer Skriptdatei mit zich Tausend Zeilen, wünschen Sie sich doch sicher ein Skript der Art:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mache_1</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">mache_2</span><span class="op">(</span><span class="op">)</span></span>
@@ -562,8 +574,8 @@ Hinweis
 <span><span class="fu">gratuliere_fertig</span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Schaut man dann in <code>mache_1()</code> rein, sieht man wiederum übersichtlichen Code.</p>
 <p>Funktionales Programmieren ist eine Umsetzung davon: Jedes Häppchen, jeder Schritt ist eine Funktion. Eine Funktion hat Input und Output; der Output ist dann der Input für die Funktion des nächsten Schrittes. <a href="https://docs.ropensci.org/targets/">targets</a> ist eine Umsetzung dieser Idee.</p>
-</section><section id="debugging-mit-einem-logger" class="level3" data-number="17.4.3"><h3 data-number="17.4.3" class="anchored" data-anchor-id="debugging-mit-einem-logger">
-<span class="header-section-number">17.4.3</span> Debugging mit einem Logger</h3>
+</section><section id="debugging-mit-einem-logger" class="level3" data-number="19.4.3"><h3 data-number="19.4.3" class="anchored" data-anchor-id="debugging-mit-einem-logger">
+<span class="header-section-number">19.4.3</span> Debugging mit einem Logger</h3>
 <p>Wenn das Kind in dem Brunnen gefallen ist, hilft nur <del>Heulen und Wehklagen</del> Das Problem finden und lösen. Mit einem Logger kann man sich das Entwanzen, das Finden der Fehler, erleichtern. Ein Logger schreibt Zwischenschritte in eine Log-Datei.</p>
 <p>Hier ist ein Beispiel mit dem <a href="https://github.com/zatonovo/futile.logger"><code>futile</code> Logger:</a>. Mein Problem war, dass ich eine dynamische Aufgabe für eine Statistik-Klausur programmiert hatte, aber leider gab es einen Bug, den ich nicht gefunden habe<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>Die Lösung brachte ein Logger, mit dem ich den Wert zentraler Variablen im Verlauf des Durchlaufens des Codes - bis eben der Laufzeitfehler aufkam<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
@@ -920,8 +932,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
         typesetMath(container);
         return container.innerHTML
@@ -1157,13 +1176,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./120-transformer.html" class="pagination-link  aria-label=">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Transformer</span></span>
+      <a href="./130-chatgpt.html" class="pagination-link  aria-label=">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./300-fallstudien.html" class="pagination-link" aria-label="<span class='chapter-number'>18</span>&nbsp; <span class='chapter-title'>Fallstudien</span>">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Fallstudien</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./300-fallstudien.html" class="pagination-link" aria-label="<span class='chapter-number'>20</span>&nbsp; <span class='chapter-title'>Fallstudien</span>">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Fallstudien</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
