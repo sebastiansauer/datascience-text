@@ -366,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </li>
   <li>
-<a href="#pipeline-mit-word-embedding" id="toc-pipeline-mit-word-embedding" class="nav-link" data-scroll-target="#pipeline-mit-word-embedding"><span class="header-section-number">16.4</span> Pipeline mit Word Embedding</a>
+<a href="#pipeline-mit-englischen-word-embedding" id="toc-pipeline-mit-englischen-word-embedding" class="nav-link" data-scroll-target="#pipeline-mit-englischen-word-embedding"><span class="header-section-number">16.4</span> Pipeline mit (englischen) Word Embedding</a>
   <ul class="collapse">
 <li><a href="#daten-1" id="toc-daten-1" class="nav-link" data-scroll-target="#daten-1"><span class="header-section-number">16.4.1</span> Daten</a></li>
   <li><a href="#module" id="toc-module" class="nav-link" data-scroll-target="#module"><span class="header-section-number">16.4.2</span> Module</a></li>
@@ -378,6 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fazit-2" id="toc-fazit-2" class="nav-link" data-scroll-target="#fazit-2"><span class="header-section-number">16.4.8</span> Fazit</a></li>
   </ul>
 </li>
+  <li><a href="#pipeline-mit-deutschen-word-embeddings" id="toc-pipeline-mit-deutschen-word-embeddings" class="nav-link" data-scroll-target="#pipeline-mit-deutschen-word-embeddings"><span class="header-section-number">16.5</span> Pipeline mit deutschen Word-Embeddings</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -861,8 +862,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="fazit-1" class="level3" data-number="16.3.4"><h3 data-number="16.3.4" class="anchored" data-anchor-id="fazit-1">
 <span class="header-section-number">16.3.4</span> Fazit</h3>
 <p>Die Modellgüte der 2. Pipeline ist etwas geringer als in der ersten. Die zweite Hidden-Layer muss also nicht zur Modellgüte positiv beitragen. Ähnliches gilt für die Batch-Size; wobei eigentlich kleine Batch-Sizes für diesen eher kleinen Datensatz sinnvoll sein sollten …</p>
-</section></section><section id="pipeline-mit-word-embedding" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="pipeline-mit-word-embedding">
-<span class="header-section-number">16.4</span> Pipeline mit Word Embedding</h2>
+</section></section><section id="pipeline-mit-englischen-word-embedding" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="pipeline-mit-englischen-word-embedding">
+<span class="header-section-number">16.4</span> Pipeline mit (englischen) Word Embedding</h2>
 <p>Diese Pipeline orientiert sich <a href="https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/keras/text_classification_with_hub.ipynb">an diesem Beispiel von Tensorflow</a>.</p>
 <section id="daten-1" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="daten-1">
 <span class="header-section-number">16.4.1</span> Daten</h3>
@@ -989,9 +990,13 @@ Test Accuracy: 0.6276896942242356</code></pre>
 </section><section id="fazit-2" class="level3" data-number="16.4.8"><h3 data-number="16.4.8" class="anchored" data-anchor-id="fazit-2">
 <span class="header-section-number">16.4.8</span> Fazit</h3>
 <p>Naja, dafür dass es <em>englische</em> Wortvektoren waren, gar nicht so schlecht 🤣</p>
+</section></section><section id="pipeline-mit-deutschen-word-embeddings" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="pipeline-mit-deutschen-word-embeddings">
+<span class="header-section-number">16.5</span> Pipeline mit deutschen Word-Embeddings</h2>
+<p><a href="https://colab.research.google.com/drive/1Bg-9pujUlkCVhFoeVln0H33tBnzGJpU6?usp=sharing">Hier geht’s zum CoLab-Notebook</a></p>
+<p>Eine Gesamtgenauigkeit von .69. Nicht so berauschend.</p>
 
 
-</section></section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>numerifiziert?<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

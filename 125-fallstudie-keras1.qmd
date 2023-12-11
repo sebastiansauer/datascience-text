@@ -191,7 +191,7 @@ Die zweite Hidden-Layer muss also nicht zur Modellgüte positiv beitragen.
 
 
 
-## Pipeline mit Word Embedding
+## Pipeline mit (englischen) Word Embedding
 
 Diese Pipeline orientiert sich [an diesem Beispiel von Tensorflow](https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/keras/text_classification_with_hub.ipynb).
 
@@ -345,5 +345,16 @@ Test Accuracy: 0.6276896942242356
 ### Fazit
 
 Naja, dafür dass es *englische* Wortvektoren waren, gar nicht so schlecht 🤣
+
+
+
+## Pipeline mit deutschen Word-Embeddings
+
+
+[Hier geht's zum CoLab-Notebook](https://colab.research.google.com/drive/1Bg-9pujUlkCVhFoeVln0H33tBnzGJpU6?usp=sharing)
+
+
+Eine Gesamtgenauigkeit von .69. Nicht so berauschend.
+
 
 
