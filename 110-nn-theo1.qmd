@@ -19,7 +19,7 @@ Viele der gezeigten Abbildungen stammen aus @islr.^[und können [von dieser Quel
 ### Benötigte R-Pakete
 ```{r}
 #| message: false
-# keines :-)
+library(dplyr)
 ```
 
 
@@ -280,7 +280,7 @@ Eine Regression mit einem Prädiktor hat zwei Koeffizienten, $\beta_0, \beta_1$.
 ::: {.column width="50%"}
 ```{r}
 d <-
-  tibble(
+  data.frame(
     x = c(1, 2, 3),
     y = c(1.1, 2.2, 2.9),
     b0 = c(1,1,1)
@@ -297,7 +297,7 @@ lm1 <- lm(y ~ x, data = d)
 #| label: tbl-d
 #| tbl-cap: Datensatz `d`
 d <-
-  tibble(
+  data.frame(
     x = c(1, 2, 3),
     y = c(1.1, 2.2, 2.9),
     b0 = c(1,1,1)
