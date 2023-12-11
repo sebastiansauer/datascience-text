@@ -370,15 +370,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
 <li><a href="#daten-1" id="toc-daten-1" class="nav-link" data-scroll-target="#daten-1"><span class="header-section-number">16.4.1</span> Daten</a></li>
   <li><a href="#module" id="toc-module" class="nav-link" data-scroll-target="#module"><span class="header-section-number">16.4.2</span> Module</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#gpu" id="toc-gpu" class="nav-link" data-scroll-target="#gpu"><span class="header-section-number">16.5</span> GPU</a>
-  <ul class="collapse">
-<li><a href="#wort-einbettungen" id="toc-wort-einbettungen" class="nav-link" data-scroll-target="#wort-einbettungen"><span class="header-section-number">16.5.1</span> Wort-Einbettungen</a></li>
-  <li><a href="#modell" id="toc-modell" class="nav-link" data-scroll-target="#modell"><span class="header-section-number">16.5.2</span> Modell</a></li>
-  <li><a href="#trainieren" id="toc-trainieren" class="nav-link" data-scroll-target="#trainieren"><span class="header-section-number">16.5.3</span> Trainieren</a></li>
-  <li><a href="#fazit-2" id="toc-fazit-2" class="nav-link" data-scroll-target="#fazit-2"><span class="header-section-number">16.5.4</span> Fazit</a></li>
+  <li><a href="#gpu" id="toc-gpu" class="nav-link" data-scroll-target="#gpu"><span class="header-section-number">16.4.3</span> GPU</a></li>
+  <li><a href="#wort-einbettungen" id="toc-wort-einbettungen" class="nav-link" data-scroll-target="#wort-einbettungen"><span class="header-section-number">16.4.4</span> Wort-Einbettungen</a></li>
+  <li><a href="#modell" id="toc-modell" class="nav-link" data-scroll-target="#modell"><span class="header-section-number">16.4.5</span> Modell</a></li>
+  <li><a href="#trainieren" id="toc-trainieren" class="nav-link" data-scroll-target="#trainieren"><span class="header-section-number">16.4.6</span> Trainieren</a></li>
+  <li><a href="#modellg%C3%BCte-1" id="toc-modellgüte-1" class="nav-link" data-scroll-target="#modellg%C3%BCte-1"><span class="header-section-number">16.4.7</span> Modellgüte</a></li>
+  <li><a href="#fazit-2" id="toc-fazit-2" class="nav-link" data-scroll-target="#fazit-2"><span class="header-section-number">16.4.8</span> Fazit</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -895,8 +892,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow_hub <span class="im">as</span> hub</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="gpu" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="gpu">
-<span class="header-section-number">16.5</span> GPU</h2>
+</section><section id="gpu" class="level3" data-number="16.4.3"><h3 data-number="16.4.3" class="anchored" data-anchor-id="gpu">
+<span class="header-section-number">16.4.3</span> GPU</h3>
 <p>Testen, ob eine GPU verfügbar ist:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tf.config.list_physical_devices(<span class="st">'GPU'</span>) </span>
@@ -913,15 +910,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">## GPU is NOT AVAILABLE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tja, leider nein.</p>
-<section id="wort-einbettungen" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="wort-einbettungen">
-<span class="header-section-number">16.5.1</span> Wort-Einbettungen</h3>
+</section><section id="wort-einbettungen" class="level3" data-number="16.4.4"><h3 data-number="16.4.4" class="anchored" data-anchor-id="wort-einbettungen">
+<span class="header-section-number">16.4.4</span> Wort-Einbettungen</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>embedding <span class="op">=</span> <span class="st">"https://tfhub.dev/google/nnlm-en-dim50/2"</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>hub_layer <span class="op">=</span> hub.KerasLayer(embedding, input_shape<span class="op">=</span>[], </span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                           dtype<span class="op">=</span>tf.string, trainable<span class="op">=</span><span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="modell" class="level3" data-number="16.5.2"><h3 data-number="16.5.2" class="anchored" data-anchor-id="modell">
-<span class="header-section-number">16.5.2</span> Modell</h3>
+</section><section id="modell" class="level3" data-number="16.4.5"><h3 data-number="16.4.5" class="anchored" data-anchor-id="modell">
+<span class="header-section-number">16.4.5</span> Modell</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> tf.keras.Sequential()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model.add(hub_layer)</span>
@@ -950,8 +947,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>              loss<span class="op">=</span>tf.keras.losses.BinaryCrossentropy(from_logits<span class="op">=</span><span class="va">True</span>),</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>              metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="trainieren" class="level3" data-number="16.5.3"><h3 data-number="16.5.3" class="anchored" data-anchor-id="trainieren">
-<span class="header-section-number">16.5.3</span> Trainieren</h3>
+</section><section id="trainieren" class="level3" data-number="16.4.6"><h3 data-number="16.4.6" class="anchored" data-anchor-id="trainieren">
+<span class="header-section-number">16.4.6</span> Trainieren</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train, </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>epochs<span class="op">=</span><span class="dv">10</span>, </span>
@@ -979,26 +976,18 @@ Epoch 9/10
 627/627 [==============================] - 459s 732ms/step - loss: 0.0067 - accuracy: 0.9986 - val_loss: 2.2470 - val_accuracy: 0.6291
 Epoch 10/10
 627/627 [==============================] - 455s 727ms/step - loss: 0.0046 - accuracy: 0.9992 - val_loss: 2.3786 - val_accuracy: 0.6277
-&lt;keras.src.callbacks.History object at 0x148309730&gt;
-```
-
-
-### Modellgüte
-
-
-
-::: {.cell}
-
-```{.python .cell-code}
-y_pred = (model.predict(X_test) &gt; 0.5).astype("int32")
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Test Accuracy: {accuracy}")
-```
-:::
-</code></pre>
-<p>111/111 [==============================] - 17s 151ms/step Test Accuracy: 0.6276896942242356 ````</p>
-</section><section id="fazit-2" class="level3" data-number="16.5.4"><h3 data-number="16.5.4" class="anchored" data-anchor-id="fazit-2">
-<span class="header-section-number">16.5.4</span> Fazit</h3>
+&lt;keras.src.callbacks.History object at 0x148309730&gt;</code></pre>
+</section><section id="modellgüte-1" class="level3" data-number="16.4.7"><h3 data-number="16.4.7" class="anchored" data-anchor-id="modellgüte-1">
+<span class="header-section-number">16.4.7</span> Modellgüte</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> (model.predict(X_test) <span class="op">&gt;</span> <span class="fl">0.5</span>).astype(<span class="st">"int32"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>111/111 [==============================] - 17s 151ms/step
+Test Accuracy: 0.6276896942242356</code></pre>
+</section><section id="fazit-2" class="level3" data-number="16.4.8"><h3 data-number="16.4.8" class="anchored" data-anchor-id="fazit-2">
+<span class="header-section-number">16.4.8</span> Fazit</h3>
 <p>Naja, dafür dass es <em>englische</em> Wortvektoren waren, gar nicht so schlecht 🤣</p>
 
 

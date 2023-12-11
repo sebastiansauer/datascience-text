@@ -234,7 +234,7 @@ import tensorflow_hub as hub
 ```
 
 
-## GPU
+### GPU
 
 
 Testen, ob eine GPU verfügbar ist:
@@ -298,7 +298,7 @@ validation_data=(X_test, y_test),
 verbose = 1)
 ```
 
-````
+```
 Epoch 1/10
 627/627 [==============================] - 490s 781ms/step - loss: 0.6232 - accuracy: 0.6638 - val_loss: 0.6093 - val_accuracy: 0.6628
 Epoch 2/10
@@ -334,10 +334,12 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Test Accuracy: {accuracy}")
 ```
 
-````
+```
 111/111 [==============================] - 17s 151ms/step
 Test Accuracy: 0.6276896942242356
-````
+```
+
+
 
 
 ### Fazit
