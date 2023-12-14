@@ -91,7 +91,7 @@ Diese Daten bezeichnen wir als *Vorhersagedaten*.
 Pfad zu den Daten:
 
 ```{r}
-tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech/data-raw/tweets-small"
+tweet_data_path <- "/Users/sebastiansaueruser/github-repos/hate-speech-data/data-raw/tweets-small"
 
 file.exists(tweet_data_path)
 ```
@@ -370,7 +370,7 @@ names(d_predict2)[1:33]
 Wir beziehen uns auf das Modell von @sec-klassifik-fit3.
 
 ```{r read-fit3-fit3-final}
-fit3 <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds")
+fit3 <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap-klassifik/chap_classific_fit3.rds")
 
 fit3_final_train <- read_rds("/Users/sebastiansaueruser/datasets/Twitter/hate-classific/fit3_final_train.rds")
 ```
@@ -494,3 +494,7 @@ res_summary2_long %>%
 
 
 
+## Vertiefung
+
+
+@siegel_sentiment-analyse_2020 bieten einen Einstieg in die Sentimentanalyse deutschsprachiger Texte, auch mit einem Blick auf das Erkennen von Aggression.

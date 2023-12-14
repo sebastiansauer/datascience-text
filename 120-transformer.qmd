@@ -1,0 +1,325 @@
+# Transformer
+
+
+
+## Vorab
+
+
+### Lernziele
+
+
+
+- Sie können die grundlegende Architektur eines Transformer-Modells beschreiben.
+- Sie können Transformer-Modelle mit der API von Hugging-Face berechnen.
+
+
+
+### Begleitliteratur 
+
+
+Der [Blogpost von Jay Alammar](https://jalammar.github.io/illustrated-transformer/) gibt einen illustrierten Überblick über Transformer.
+
+
+
+
+
+
+### Benötigte Software
+
+Wir benötigen Python, R sowei einige im Folgenden aufgeführte Python-Module.
+
+```{python}
+import pandas as pd
+import os
+```
+
+
+Für den Schüleraustausch von R nach Python nutzen wir das R-Paket `reticulate`:
+
+```{r}
+library(reticulate)
+```
+
+
+Außerdem starte ich die "richtige" Python-Version, wo die benötigten Pakete (in der richtigen Version) installiert sind:
+
+```{r use-virtualenv}
+#use_virtualenv("r-tensorflow")
+```
+
+Check:
+
+```{r}
+py_available()
+```
+
+Welche Python-Version nutzt `reticulate` gerade?
+
+```{r}
+py_config()
+```
+
+
+
+## Überblick
+
+Transformer sind eine Architekturvariante neuronaler Netze. Sie stellen die Grundlage vieler aktueller großer Sprachmodelle^[Man spricht von *Large Language Models*, LLM]; da sie einige Vorzüge gegenüber Vorgängermodellen aufweisen, haben sie einen zentralen Platz für verschiedenen Aufgaben des NLP eingenommen.
+
+Im Jahr 2017 erschien ein Paper auf Arxive mit dem Titel "Attention is all you need", @vaswani_attention_2023^[Da die Autoren immer wieder Updates bei Arxive eingestellt haben, ist hier die aktuellste Version, V7 aus 2023, zitiert.].
+Transformer basieren auf einer bestimmten Art von "Aufmerksamkeit", genannt Selbst-Aufmerksamkeit (self-attention).
+Natürlich ist damit eine bestimmte Architektur im neuronalen Netzwerk gemeint, kein kognitivpsychologiches Konstruktr; allerdings lehnt sich die Methode an Konzepte der Kognitionspsychologie vage an.
+
+Self-Attention weist zwei große Verteile auf: Erstens erlaubt es parallele Verarbeitung, was viele Vorgängermodelle nicht erlaubten. Zweitens kann es den Kontext eines Tokens, also den Text um ein bestimmtes Wort herum, deutlich besser "im Blick" (oder in der Aufmerksamkeit) behalten als viele Vorgängermodelle.
+
+Gerade für Daten mit sequenziellem Charakter, wie Text oder Sprache, sind Transformer-Modelle gut geeignet^[relativ zu anderen, bisherigen Modellen].
+
+
+## Grundkonzepte
+
+{{< video https://youtu.be/4Bdc55j80l8?si=t3ku0MxhWDD7z2TG >}}
+
+
+
+## Einführung in Hugging Face 🤗
+
+Dieser Abschnitt orientiert sich an @tunstall_natural_2022.
+Die Syntax zu allen Kapiteln des [Buchs](https://transformersbook.com/) findet sich praktischerweise [in diesem Github-Repo](https://github.com/nlp-with-transformers/notebooks).
+
+
+
+Bei 🤗 liegt der Schwerpunkt klar bei Python, nicht bei R.
+Allerdings erlaubt RStudio ein einfaches Wechseln zwischen R und Python:
+Funktionen und Daten aus Python können einfach mit dem `$`-Operator angesprochen werden.
+[In diesem Post](https://rpubs.com/eR_ic/transfoRmers) wirds das demonstriert.
+
+
+Schauen wir uns das einführende Beispiel aus @tunstall_natural_2022. an.
+
+
+### Hugging Face mit R
+
+Hier ein ein Text-Schnipsel,
+dessen Sentiment wir detektieren wollen:
+
+```{r}
+#| fenced: true
+text <- ("Dear Amazon, last week I ordered an Optimus Prime action figure from your online store in Germany. Unfortunately, when I opened the package, I discovered to my horror that I had been sent an action figure of Megatron instead! As a lifelong enemy of the Decepticons, I hope you can understand my dilemma. To resolve the issue, I demand an exchange of Megatron for the Optimus Prime figure I ordered. Enclosed are copies of my records concerning this purchase. I expect to hear from you soon. Sincerely, Bumblebee.")
+```
+
+Und hier in der Python-Version:
+
+```{python}
+#| fenced: true
+text_py = r.text
+```
+
+
+Dann importieren wir die nötigen Module:
+
+
+:::{.panel-tabset}
+
+### Python
+
+```{python}
+#import tensorflow
+from transformers import pipeline
+```
+
+
+Natürlich müssen Python-Module installiert sein, bevor man sie nutzen kann, genau so wie R-Pakete.
+
+
+### R
+
+Man kann die die Python-Module auch über R starten:
+
+
+
+```{r}
+transformers <- reticulate::import("transformers")
+```
+:::
+
+
+
+### Einfache Pipeline
+
+
+{.panel-tabset}
+
+### Python
+
+Wir bereiten das Modell vor; im Default wird 
+`distilbert-base-uncased-finetuned-sst-2-english` verwendet.
+
+```{python}
+classifier = pipeline("text-classification")
+```
+
+
+
+
+## Germeval Out-of-the-Box mit Hugging Face
+
+Zuert importieren wir die Daten.
+
+:::{.panel-tabset}
+
+
+### R
+
+```{r}
+data(germeval_train, package = "pradadata")
+text <- germeval_train$text[1:2]
+text[1:2]
+```
+
+
+### Python
+
+```{python}
+germeval_train_py = r.text
+```
+
+:::
+
+
+### Standard-Pipeline
+
+```{python}
+classifier = pipeline("text-classification")
+outputs2 = classifier(germeval_train_py)
+outputs2
+```
+
+
+Tja, vielleicht sollten wir ein Modell verwenden, das die deutsche Sprache versteht?
+
+
+### Man spricht Deutsh
+
+Auf Hugging Face gibt es eine Menge von Modellen. Welches nehm ich nur? [DISTILBERT](https://huggingface.co/distilbert-base-german-cased) oder [BERT](https://huggingface.co/bert-base-uncased)-Varianten dürfte kein schlechter Start sein.
+
+
+
+```{python}
+#| eval: false
+#classifier = pipeline("text-classification", model="distilbert-base-german-cased")
+```
+
+
+```{python german-sentiment-bert}
+classifier = pipeline(
+  "text-classification", model="oliverguhr/german-sentiment-bert")
+```
+
+
+
+```{python class-preds}
+outputs3 = classifier(germeval_train_py)
+df = pd.DataFrame(outputs3)    
+df.head()
+```
+
+```{r head-df}
+#| eval: false
+df_r <- py$pd
+head(df_r)
+```
+
+
+
+## OpenAI-API
+
+::: callout-important
+
+Der API-Aufruf von ChatGPT kostet Geld 💸. $\square$
+:::
+
+
+### Authentifizierung
+
+
+Wir müssen uns bei der API anmelden:
+
+
+:::{.panel-tabset}
+
+
+### R
+
+```{r}
+openai_key_r <- Sys.getenv("OPENAI_API_KEY")
+```
+
+
+### Python
+
+```{python}
+openai_key_py = os.environ.get("OPENAI_API_KEY")
+```
+
+
+:::
+
+:::callout-caution
+Speichern Sie keine sensiblen Daten in geteilten Ordner/Repos. Achten Sie auf Log-Dateien wir `.Rhistory`, in der u.U. Ihre sensiblen Daten enthalten sein können. $\square$
+:::
+
+Eine sichere Variante als das unverschlüsselte Speichenr von Passwörtern ist es, sensible Daten mit einem Passwort zu schützen. 
+Dazu kann man z.B. in R das Paket `keyring` nutzen.
+
+```{r}
+#| eval: false
+library(keyring)
+openai_key_r <- key_get("OPENAI_API_KEY")
+```
+
+
+
+### Setup
+
+```{python}
+sentiment_scores = []
+sentiment_analysis = []
+text = '@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.'
+```
+
+
+### Anfrage an die API
+
+
+```{python openai1}
+#| eval: false
+prompt = f"Analysiere das Sentiment des folgenden Texts: \n{text}"
+
+response = openai.Completion.create(
+        prompt=prompt,
+        engine="davinci",
+        max_tokens=100,
+        temperature=0.5,
+    )
+```
+
+
+
+
+
+
+
+
+
+
+
+## Vertiefung
+
+Der Originalartikel von @vaswani_attention_2023 gibt einen guten Einblick in die Konzepte; der Anspruch ist auf mittlerem Niveau.
+Von den Hugging-Face-Machern gibt es ein Buch, das - ebenfalls auf mittlerem Niveau - einen Einblick in Transformer-Modelle im Hugging-Face-Ökosystem gewährt [@tunstall_natural_2022].
+@rothman_transformers_2022 scheint gute Freunde bei Google zu haben, wenn man sein Buch über Transformer liest, jedenfalls sind die Modelle jener Firma in dem Buch gut gefeatured. 
+@geron_hands-machine_2023 Standardwerk zu Scikit-Learn bietet auch einen Einblick in Attention-Konzepte (Kap. 16).
+Übrigens ist das Buch (3. Auflage) jetzt auch in deutscher Sprache erhältlich [@geron_praxiseinstieg_2023-1].
+
+
+
+

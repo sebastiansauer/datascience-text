@@ -1,0 +1,304 @@
+# ChatGPT-API
+
+
+## Vorab
+
+### Lernziele
+
+
+- Sie können gängige Anfragen an die OpenAI-ChatGPT-API senden.
+
+
+
+### Benötigte Software
+
+```{r}
+library(stringr)
+library(httr)  # Wrapper um curl
+```
+
+
+
+### Spielzeug-Daten
+
+
+```{r}
+tweets <- c(
+'@corinnamilborn Liebe Corinna, wir würden dich gerne als Moderatorin für uns gewinnen! Wärst du begeisterbar?', '@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.')
+```
+
+
+
+
+## Grundlagen
+
+
+### ChatGPT ist auch ein Transformer
+
+>    👨‍🏫 Bist du ein Transformer?
+
+>    🤖 Ja, ich bin ein Modell, das auf der GPT-3.5-Architektur von OpenAI basiert, und diese Architektur wird als "Transformer" bezeichnet. Der Begriff "Transformer" bezieht sich auf die spezifische Architektur des neuronalen Netzwerks, die von Vaswani et al. in ihrem Paper "Attention is All You Need" vorgestellt wurde. Die Transformer-Architektur hat sich als äußerst leistungsfähig für natürliche Sprachverarbeitungsaufgaben erwiesen und bildet die Grundlage für Modelle wie GPT (Generative Pre-trained Transformer), einschließlich GPT-3.5, auf dem meine Fähigkeiten basieren.
+
+[Quelle: ChatGPT-3.5, 2023-11-23]
+
+
+
+
+
+
+### Alles ist API
+
+Die Python- (oder R-)Pakete zum Zugriff zur ChatGPT-API sind letztlich nur Wrapper um den "direkten" Zugriff auf die API.
+
+
+:::{#def-api}
+### API (Application Programming Interface)
+Eine API stellt genormte Befehle zur Verfügung, um von einem Dienst (über eine Webseite) Daten abzufragen oder einzustellen. $\square$
+:::
+
+### `curl` 
+
+
+
+`curl` ist eine gängige Methode (auf der Kommondozeile), um Daten von einer Webseite abzufragen (oder einzustellen).
+
+Laut [Dokumentation der API](https://platform.openai.com/examples) lautet der CURL-Befehl wie folgt (Pseudocode):
+
+```{zsh}
+#| eval: false
+#| echo: fenced
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d '{
+  "model": "gpt-3.5-turbo",
+  "messages": [{"role": "user", "content": "Was ist die Frage zur Antwort '42'?"}] ,
+  "temperature": 0,
+  "max_tokens": 256
+}'
+```
+
+
+Entscheidend ist der "Endpunkt" der URL: `completions`.
+
+
+::: {.callout-note}
+OpenAi stellt eine Reihe von spezialisierten Diensten zur Verfügung, z.B. zur [Sentimentanalyse von Tweets](https://platform.openai.com/examples/default-tweet-classifier) oder, natürlich, [Textgeneration](https://platform.openai.com/docs/guides/text-generation), und vieles mehr. $\square$
+:::
+
+Obige Syntax übersetzt sich so nach Python:
+
+```{python}
+#| eval: false
+# This code is for v1 of the openai package: pypi.org/project/openai
+from openai import OpenAI
+client = OpenAI()
+
+response = client.chat.completions.create(
+  model="gpt-3.5-turbo",
+  messages=[],
+  temperature=0,
+  max_tokens=256
+)
+```
+
+
+
+### Prompting
+
+Als Prompt kann man z.B. übergeben (bezeichnet als "System"):
+
+>    🧑‍🦰 You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative.
+USER
+
+Dann kommt der zu klassifizierende Textschnipsel (bezeichent als "user"):
+
+>    📄 I loved the new Batman movie!
+
+
+Und schließlich antwortet der Bot:
+
+>    🤖 positive
+
+
+
+Es ist günstig, dem Bot zu sagen, in welcher Sprache der Tweet ist. 
+Außerdem ist es nützlich, den Prompt (die Anweisung) bereits in der Zielsprache zu formulieren.
+
+
+```{r}
+prompt_stem <- "Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie das Sentiment dieses Tweets als positiv, neutral oder negativ. Antworten Sie nur mit einem Wort. Hier ist der Tweet: "
+```
+
+
+```{r}
+prompts <- 
+  str_c(prompt_stem, tweets)
+
+prompts
+```
+
+
+
+### Anmelden an der API
+
+Die API erlaubt nur Zugriffe angemeldeter Nutzer.
+
+```{r}
+OPENAI_API_KEY <- Sys.getenv("OPENAI_API_KEY")
+```
+
+Damit eine Environment-Variable `OPENAI_API_KEY` ausgelesen werden kann, muss sie in `.Rprofile` definiert sein.
+Alternativ kann man aber die Variable auch auf anderen Wegen definieren, etwa aus einer Textdatei einlesen.
+
+
+:::{.callout-important}
+Lassen Sie sensible Daten, wie API-Keys, niemals auf öffentlichen Ordnern oder Repos (etwa auf Github) herumliegen. 
+Stellen Sie sich vor, Sie haben bei dem Dienst ihre Kreditkarte hinterlege und ein übelwollender Dritter nutzt kostenpflichtige Dienste mit sehr hohem Budget. 🤯 $\square$
+:::
+
+
+## Wrapper um curl
+
+Dieser Abschnitt basiert auf einem [Blogpost bei R-Bloggers von Rasmus Bååth](https://www.r-bloggers.com/2023/03/call-chatgpt-or-really-any-other-api-from-r/).
+
+```{r}
+#| eval: false
+response <- POST(
+  # curl https://api.openai.com/v1/chat/completions 
+  url = "https://api.openai.com/v1/chat/completions", 
+  # -H "Authorization: Bearer $OPENAI_API_KEY"
+  add_headers(Authorization = 
+                paste("Bearer", Sys.getenv("OPENAI_API_KEY"))),
+  # -H "Content-Type: application/json"
+  content_type_json(),
+  # -d '{
+  #   "model": "gpt-3.5-turbo",
+  #   "messages": [{"role": "user", "content": "What is a banana?"}] 
+  # }'
+  encode = "json",
+  body = list(
+    model = "gpt-3.5-turbo",
+    messages = list(list(role = "user", content = prompts[1]))
+  ))
+```
+
+
+```{r}
+#| eval: false
+content(response)
+```
+
+
+````
+$object
+[1] "chat.completion"
+
+$created
+[1] 1700753610
+
+$model
+[1] "gpt-3.5-turbo-0613"
+
+$choices
+$choices[[1]]
+$choices[[1]]$index
+[1] 0
+
+$choices[[1]]$message
+$choices[[1]]$message$role
+[1] "assistant"
+
+$choices[[1]]$message$content
+[1] "Das Sentiment dieses Tweets ist positiv. "
+
+$choices[[1]]$finish_reason
+[1] "stop"
+
+$usage
+$usage$prompt_tokens
+[1] 76
+
+$usage$completion_tokens
+[1] 10
+
+$usage$total_tokens
+[1] 86
+````
+
+
+Der für uns entscheidende Punkt ist:
+
+```{r}
+#| eval: false
+str_trim(content(response)$choices[[1]]$message$content)
+```
+
+````
+Das Sentiment dieses Tweets ist positiv. 
+````
+
+
+### Curl-Wrapper in eine Funktion gebracht
+
+
+```{r}
+ask_chatgpt <- function(prompt) {
+response <- POST(
+  # curl https://api.openai.com/v1/chat/completions 
+  url = "https://api.openai.com/v1/chat/completions", 
+  # -H "Authorization: Bearer $OPENAI_API_KEY"
+  add_headers(Authorization = 
+                paste("Bearer", Sys.getenv("OPENAI_API_KEY"))),
+  # -H "Content-Type: application/json"
+  content_type_json(),
+  # -d '{
+  #   "model": "gpt-3.5-turbo",
+  #   "messages": [{"role": "user", "content": "What is a banana?"}] 
+  # }'
+  encode = "json",
+  body = list(
+    model = "gpt-3.5-turbo",
+    messages = list(list(role = "user", content = prompt))
+  ))
+  str_trim(content(response)$choices[[1]]$message$content)
+}
+```
+
+
+
+### Schleife
+
+
+```{r}
+#| eval: false
+prompts |> 
+  sapply(ask_chatgpt)
+```
+
+
+```
+Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie das Sentiment dieses Tweets als positiv, neutral oder negativ. Antworten Sie nur mit einem Wort. Hier ist der Tweet: @corinnamilborn Liebe Corinna, wir würden dich gerne als Moderatorin für uns gewinnen! Wärst du begeisterbar? 
+
+"positiv" 
+ 
+Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie das Sentiment dieses Tweets als positiv, neutral oder negativ. Antworten Sie nur mit einem Wort. Hier ist der Tweet: @Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir. 
+
+ "neutral"
+````
+
+
+## Vertiefung
+
+
+Mit etwas Zusatzaufwand kann man den Kontext bzw. den Verlauf der Konversation mit dem Bot berücksichtigen, wie [dieser Post zeigt](https://blog.devgenius.io/how-to-maintain-conversation-flow-in-with-chatgpts-api-in-r-part-17-of-r-for-applied-d010cca1326a).
+
+
+## Aufgaben
+
+
+Schauen Sie sich die Aufgaben mit dem [Tag 'Transformer' auf dem Datenwerk](https://datenwerk.netlify.app/#category=transformer) an.
+
+
+
+

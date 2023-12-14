@@ -3,9 +3,25 @@
 
 ## Aufgabe
 
-Führen Sie eine deskriptive Textanalyse durch.
+Führen Sie eine deskriptive Textanalyse durch!
+
+
+## Datensatz
+
 Verwenden Sie einen Text (ca. 10-30k Wörter) Ihrer Wahl, von dem Sie einen engen Fokus auf bestimmte Themen sowie eine gewisse Emotionalität erwarten.
-Wenden Sie dann die Methoden an, die im Teil *Textmining* dieses Buch vorgestellt sind.
+
+
+Dieser Datensatz ist empfehlenswert:
+
+```{r}
+data("germeval_train", package = "pradadata")
+data("germeval_test", package = "pradadata")
+```
+
+
+## Methoden
+
+Wenden Sie dann die Methoden an, die im Teil *Textmining* (Natural Language Processing) dieses Buch vorgestellt sind.
 Zusätzlich es es empfehlenswert, auf typische Methoden der explorativen Datenanalyse zurückzugreifen inklusive der Datenvisualisierung.
 
 Typische Arbeitsschritte dabei sind:

@@ -79,5 +79,20 @@
   },
   "110-nn-theo1.qmd": {
     "110-nn-theo1.html": "b21e9228"
+  },
+  "095-miniprojekt2.qmd": {
+    "095-miniprojekt2.html": "8171ea25"
+  },
+  "105-python-r.qmd": {
+    "105-python-r.html": "d0701a8f"
+  },
+  "120-transformer.qmd": {
+    "120-transformer.html": "ce9b723d"
+  },
+  "130-chatgpt.qmd": {
+    "130-chatgpt.html": "c25318be"
+  },
+  "125-fallstudie-keras1.qmd": {
+    "125-fallstudie-keras1.html": "170c3d78"
   }
 }

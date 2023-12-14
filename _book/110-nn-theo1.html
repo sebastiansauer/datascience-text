@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.513">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 13&nbsp; Theoretische Grundlagen neuronaler Netze</title>
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 15&nbsp; Theoretische Grundlagen neuronaler Netze</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -55,6 +55,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -79,7 +80,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./200-projektmgt.html" rel="next">
+<link href="./125-fallstudie-keras1.html" rel="next">
 <link href="./100-nn-quickstart.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -97,7 +98,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -117,19 +124,19 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./100-nn-quickstart.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
         <div class="sidebar-tools-main">
@@ -247,6 +254,12 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./095-miniprojekt2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -260,14 +273,38 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./105-python-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./125-fallstudie-keras1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130-chatgpt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,13 +321,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
   </div>
 </li>
       </ul>
@@ -314,46 +351,46 @@ div.csl-indent {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
 <li>
-<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">13.1</span> Lernsteuerung</a>
+<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">15.1</span> Lernsteuerung</a>
   <ul class="collapse">
-<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">13.1.1</span> Lernziele</a></li>
-  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">13.1.2</span> Überblick</a></li>
-  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">13.1.3</span> Benötigte R-Pakete</a></li>
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">15.1.1</span> Lernziele</a></li>
+  <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">15.1.2</span> Überblick</a></li>
+  <li><a href="#ben%C3%B6tigte-r-pakete" id="toc-benötigte-r-pakete" class="nav-link" data-scroll-target="#ben%C3%B6tigte-r-pakete"><span class="header-section-number">15.1.3</span> Benötigte R-Pakete</a></li>
   </ul>
 </li>
-  <li><a href="#netzwerke-mit-einer-einzelnen-zwischenschicht" id="toc-netzwerke-mit-einer-einzelnen-zwischenschicht" class="nav-link" data-scroll-target="#netzwerke-mit-einer-einzelnen-zwischenschicht"><span class="header-section-number">13.2</span> Netzwerke mit einer einzelnen Zwischenschicht</a></li>
-  <li><a href="#multilayer-netzwerke" id="toc-multilayer-netzwerke" class="nav-link" data-scroll-target="#multilayer-netzwerke"><span class="header-section-number">13.3</span> Multilayer-Netzwerke</a></li>
+  <li><a href="#netzwerke-mit-einer-einzelnen-zwischenschicht" id="toc-netzwerke-mit-einer-einzelnen-zwischenschicht" class="nav-link" data-scroll-target="#netzwerke-mit-einer-einzelnen-zwischenschicht"><span class="header-section-number">15.2</span> Netzwerke mit einer einzelnen Zwischenschicht</a></li>
+  <li><a href="#multilayer-netzwerke" id="toc-multilayer-netzwerke" class="nav-link" data-scroll-target="#multilayer-netzwerke"><span class="header-section-number">15.3</span> Multilayer-Netzwerke</a></li>
   <li>
-<a href="#mathematik-neuronaler-netzwerke" id="toc-mathematik-neuronaler-netzwerke" class="nav-link" data-scroll-target="#mathematik-neuronaler-netzwerke"><span class="header-section-number">13.4</span> Mathematik neuronaler Netzwerke</a>
+<a href="#mathematik-neuronaler-netzwerke" id="toc-mathematik-neuronaler-netzwerke" class="nav-link" data-scroll-target="#mathematik-neuronaler-netzwerke"><span class="header-section-number">15.4</span> Mathematik neuronaler Netzwerke</a>
   <ul class="collapse">
-<li><a href="#lineare-algebra" id="toc-lineare-algebra" class="nav-link" data-scroll-target="#lineare-algebra"><span class="header-section-number">13.4.1</span> Lineare Algebra</a></li>
-  <li><a href="#matrixmultiplikation" id="toc-matrixmultiplikation" class="nav-link" data-scroll-target="#matrixmultiplikation"><span class="header-section-number">13.4.2</span> Matrixmultiplikation</a></li>
-  <li><a href="#regression-als-matrixmultiplikation" id="toc-regression-als-matrixmultiplikation" class="nav-link" data-scroll-target="#regression-als-matrixmultiplikation"><span class="header-section-number">13.4.3</span> Regression als Matrixmultiplikation</a></li>
+<li><a href="#punktprodukt" id="toc-punktprodukt" class="nav-link" data-scroll-target="#punktprodukt"><span class="header-section-number">15.4.1</span> Punktprodukt</a></li>
+  <li><a href="#matrixmultiplikation" id="toc-matrixmultiplikation" class="nav-link" data-scroll-target="#matrixmultiplikation"><span class="header-section-number">15.4.2</span> Matrixmultiplikation</a></li>
+  <li><a href="#regression-als-matrixmultiplikation" id="toc-regression-als-matrixmultiplikation" class="nav-link" data-scroll-target="#regression-als-matrixmultiplikation"><span class="header-section-number">15.4.3</span> Regression als Matrixmultiplikation</a></li>
   </ul>
 </li>
   <li>
-<a href="#b1b" id="toc-b1b" class="nav-link" data-scroll-target="#b1b"><span class="header-section-number">13.5</span> 3b1b</a>
+<a href="#b1b" id="toc-b1b" class="nav-link" data-scroll-target="#b1b"><span class="header-section-number">15.5</span> 3b1b</a>
   <ul class="collapse">
-<li><a href="#video-1" id="toc-video-1" class="nav-link" data-scroll-target="#video-1"><span class="header-section-number">13.5.1</span> Video 1</a></li>
-  <li><a href="#video-2" id="toc-video-2" class="nav-link" data-scroll-target="#video-2"><span class="header-section-number">13.5.2</span> Video 2</a></li>
-  <li><a href="#video-3" id="toc-video-3" class="nav-link" data-scroll-target="#video-3"><span class="header-section-number">13.5.3</span> Video 3</a></li>
-  <li><a href="#video-4" id="toc-video-4" class="nav-link" data-scroll-target="#video-4"><span class="header-section-number">13.5.4</span> Video 4</a></li>
+<li><a href="#video-1" id="toc-video-1" class="nav-link" data-scroll-target="#video-1"><span class="header-section-number">15.5.1</span> Video 1</a></li>
+  <li><a href="#video-2" id="toc-video-2" class="nav-link" data-scroll-target="#video-2"><span class="header-section-number">15.5.2</span> Video 2</a></li>
+  <li><a href="#video-3" id="toc-video-3" class="nav-link" data-scroll-target="#video-3"><span class="header-section-number">15.5.3</span> Video 3</a></li>
+  <li><a href="#video-4" id="toc-video-4" class="nav-link" data-scroll-target="#video-4"><span class="header-section-number">15.5.4</span> Video 4</a></li>
   </ul>
 </li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">13.6</span> Vertiefung</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">15.6</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./110-nn-theo1.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span>
+<span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span>
 </h1>
 </div>
 
@@ -367,23 +404,24 @@ div.csl-indent {
   </div>
   
 
-</header><section id="lernsteuerung" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="lernsteuerung">
-<span class="header-section-number">13.1</span> Lernsteuerung</h2>
-<section id="lernziele" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="lernziele">
-<span class="header-section-number">13.1.1</span> Lernziele</h3>
+
+</header><section id="lernsteuerung" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="lernsteuerung">
+<span class="header-section-number">15.1</span> Lernsteuerung</h2>
+<section id="lernziele" class="level3" data-number="15.1.1"><h3 data-number="15.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">15.1.1</span> Lernziele</h3>
 <p>Nach Abschluss dieses Kapitels …</p>
 <ul>
 <li>können Sie die theoretischen Grundlagen eines einfachen neuronalen Netzwerks erklären.</li>
-</ul></section><section id="überblick" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="überblick">
-<span class="header-section-number">13.1.2</span> Überblick</h3>
+</ul></section><section id="überblick" class="level3" data-number="15.1.2"><h3 data-number="15.1.2" class="anchored" data-anchor-id="überblick">
+<span class="header-section-number">15.1.2</span> Überblick</h3>
 <p>Dieses Kapitel führt in die Grundlagen (einfacher) neuronaler Netze ein. Die Darstellung orientiert sich an <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="references.html#ref-islr" role="doc-biblioref">2021</a>)</span>. Viele der gezeigten Abbildungen stammen aus <span class="citation" data-cites="islr">James u.&nbsp;a. (<a href="references.html#ref-islr" role="doc-biblioref">2021</a>)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-</section><section id="benötigte-r-pakete" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
-<span class="header-section-number">13.1.3</span> Benötigte R-Pakete</h3>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-1_f2b3b39170913ae67900a3b79e85ea73">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="benötigte-r-pakete" class="level3" data-number="15.1.3"><h3 data-number="15.1.3" class="anchored" data-anchor-id="benötigte-r-pakete">
+<span class="header-section-number">15.1.3</span> Benötigte R-Pakete</h3>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="netzwerke-mit-einer-einzelnen-zwischenschicht" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="netzwerke-mit-einer-einzelnen-zwischenschicht">
-<span class="header-section-number">13.2</span> Netzwerke mit einer einzelnen Zwischenschicht</h2>
+</section></section><section id="netzwerke-mit-einer-einzelnen-zwischenschicht" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="netzwerke-mit-einer-einzelnen-zwischenschicht">
+<span class="header-section-number">15.2</span> Netzwerke mit einer einzelnen Zwischenschicht</h2>
 <p>Ein neuronales Netzwerk besteht auf</p>
 <ul>
 <li>einem Input-Vektor mit <span class="math inline">\(p\)</span> Variablen <span class="math inline">\(X=(X_1, X_2, \ldots, X_p)\)</span>
@@ -392,7 +430,7 @@ div.csl-indent {
 </li>
 <li>sagt einen Output-Vektor <span class="math inline">\(Y\)</span> vorher.</li>
 </ul>
-<p><a href="#fig-islr10-1">Abbildung&nbsp;<span>13.1</span></a> zeigt ein einfaches sog. <em>Feed-Forward-Neuronales-Netzwerk</em>, um eine quantitative Output-Variable <span class="math inline">\(Y\)</span> vorherzusagen anhand von 4 Prädiktoren. Das Netzwerk besteht aus drei “Schichten”, der Eingabeschicht (Input Layer), der Zwischenschicht (Hidden Layer) und der Ausgabeschicht (Output Layer). Jeder Kreis symbolisiert ein “Neuron”. In der Zwischenschicht in <a href="#fig-islr10-1">Abbildung&nbsp;<span>13.1</span></a> gibt es <span class="math inline">\(K=5\)</span> Neuronen in der Zwischenschicht.</p>
+<p><a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span>15.1</span></a> zeigt ein einfaches sog. <em>Feed-Forward-Neuronales-Netzwerk</em>, um eine quantitative Output-Variable <span class="math inline">\(Y\)</span> vorherzusagen anhand von 4 Prädiktoren. Das Netzwerk besteht aus drei “Schichten”, der Eingabeschicht (Input Layer), der Zwischenschicht (Hidden Layer) und der Ausgabeschicht (Output Layer). Jeder Kreis symbolisiert ein “Neuron”. In der Zwischenschicht in <a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span>15.1</span></a> gibt es <span class="math inline">\(K=5\)</span> Neuronen in der Zwischenschicht.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -406,9 +444,13 @@ Künstliche Neurone
 <p>Die Idee der “Neurone” war namensgebend für Neuronale Netze. Ein biologisches Neuron gibt die Erregung (“feuert”) nur dann, wenn es über eine Schwelle erregt (aktiviert) wird. Analog sind “künstliche Neurone” in einem Neuronalen Netzwerk konzipiert. Sicherlich tun wir der gewaltigen Komplexität biologischer Neurone Unrecht, wenn wir die gedanklichen bescheidenen Einheiten künstlicher Neuronalen Netze auch als Neurone bezeichnen. Die (ursprüngliche ausschließlich vernendete) Logistische Funktion (mit sigmoiden Verlauf) setzt den “An-Aus-Mechanismen” biologischer Neurone um: Diese feuern nur oberhalb einer gewissen Aktivierung (und dann mit konstanter Stärke unabhängig von der Aktivierung).<span class="math inline">\(\square\)</span></p>
 </div>
 </div>
-<div id="fig-islr10-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/islr-10_1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;13.1: Ein neuronales Netzwerk mit einer Zwischenschicht</figcaption></figure>
+<div id="fig-islr10-1" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-islr10-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/islr-10_1.png" class="img-fluid figure-img" data-fig-width="50%">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-islr10-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;15.1: Ein neuronales Netzwerk mit einer Zwischenschicht
+</figcaption></figure>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -423,103 +465,146 @@ Hinweis
 <p>Einfach gesprochen besteht ein neuronales Netzwerk aus einem System linearen Gleichungen, die aber jedes Mal noch durch eine einfache nicht-lineare Funktion gejagt werden. <span class="math inline">\(\square\)</span></p>
 </div>
 </div>
-<p>Eine häufige Wahl für <span class="math inline">\(g\)</span> ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. <a href="#fig-relu">Abbildung&nbsp;<span>13.2</span></a>.</p>
-<div id="fig-relu" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/islr10-2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;13.2: ReLU und sigmoide Funktion</figcaption></figure>
+<p>Eine häufige Wahl für <span class="math inline">\(g\)</span> ist die ReLU-Funktion (rectified linear unit), die ähnlich zum sigmoiden Verlauf des logististischen Funktion ist, s. <a href="#fig-relu" class="quarto-xref">Abbildung&nbsp;<span>15.2</span></a>.</p>
+<div id="fig-relu" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-relu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/islr10-2.png" class="img-fluid figure-img" data-fig-width="50%">
 </div>
-<p>Dieses Netzwerk (als Ganzes) hat folgende Struktur, s. <a href="#eq-nn1">Gleichung&nbsp;<span>13.1</span></a>.</p>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-relu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;15.2: ReLU und sigmoide Funktion
+</figcaption></figure>
+</div>
+<p>Dieses Netzwerk (als Ganzes) hat folgende Struktur, s. <a href="#eq-nn1" class="quarto-xref">Gleichung&nbsp;<span>15.1</span></a>.</p>
 <p><span id="eq-nn1"><span class="math display">\[\begin{align}
 f(X) &amp;= \beta_0 + \sum_{k=1}^K \beta_k h_k(X) \\
      &amp;= \beta_0 + \sum_{k=1}^K \beta_k g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)
-\end{align} \tag{13.1}\]</span></span></p>
+\end{align} \tag{15.1}\]</span></span></p>
 <p>Jedes Neuron der Zwischenschicht erfährt eine Aktivierung (##eq-nn1-akt):</p>
-<p><span id="eq-nn1-akt"><span class="math display">\[A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j) \tag{13.2}\]</span></span></p>
-<p>Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass “zum Schluss” noch die nicht-lineare Sahnehaube.</p>
+<p><span id="eq-nn1-akt"><span class="math display">\[A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j) \tag{15.2}\]</span></span></p>
+<p>Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass “zum Schluss” noch die nicht-lineare Sahnehaube drauf kommt.</p>
 <p>Wichtig ist, dass <span class="math inline">\(g\)</span> eine nicht-lineare Funktion ist, denn sonst würde das ganze Netzwerk “nur” ein lineares Gleichungssystem sein. Die nicht-lineare Funktion erlaubt aber ein viel flexibleres Verhalten, als es einer linearen Funktion möglich wäre.</p>
-<p>“Fitten” eines neuronalen Netzwerk bedeutet, genau wie bei allen anderen Methoden des Maschinenlernens, die Parameter zu schätzen (berechnen). Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion, die minimiert wird. Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. <a href="#eq-sq-err">Gleichung&nbsp;<span>13.3</span></a>.</p>
-<p><span id="eq-sq-err"><span class="math display">\[\sum_{i=1}^n(y_i - f(x_i)) \tag{13.3}\]</span></span></p>
-</section><section id="multilayer-netzwerke" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="multilayer-netzwerke">
-<span class="header-section-number">13.3</span> Multilayer-Netzwerke</h2>
+<p>“Fitten” eines neuronalen Netzwerk bedeutet, genau wie bei allen anderen Methoden des Maschinenlernens, die Parameter zu schätzen (berechnen). Wie bei jeder Methode des (überwachten) Maschinenlernen braucht es eine Fehlerfunktion, die minimiert wird. Für quantitative Y-Variablen wird zumeist die quadratische Fehlerfunktion verwendet, s. <a href="#eq-sq-err" class="quarto-xref">Gleichung&nbsp;<span>15.3</span></a>.</p>
+<p><span id="eq-sq-err"><span class="math display">\[\sum_{i=1}^n(y_i - f(x_i)) \tag{15.3}\]</span></span></p>
+</section><section id="multilayer-netzwerke" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="multilayer-netzwerke">
+<span class="header-section-number">15.3</span> Multilayer-Netzwerke</h2>
 <p>Netzwerke mit mehreren Zwischenschichten bezeichnet man als <em>Multi-Layer-Netzwerke</em>. Theoretisch könnte ein Netzwerk mit nur einer Zwischenschicht, aber einer großen Zahl an Neuronen, fast alle denkbaren (oder zumindest sehr viele) Funktionen simulieren. Aber in der Praxis ist es einfacher, mehrere Schichten mit mittlerer Neuronen-Anzahl zu implementieren.</p>
-<p><a href="#fig-islr-10-4">Abbildung&nbsp;<span>13.3</span></a> zeigt ein Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen. Im Gegensatz zu <a href="#fig-islr10-1">Abbildung&nbsp;<span>13.1</span></a> …</p>
+<p><a href="#fig-islr-10-4" class="quarto-xref">Abbildung&nbsp;<span>15.3</span></a> zeigt ein Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen. Im Gegensatz zu <a href="#fig-islr10-1" class="quarto-xref">Abbildung&nbsp;<span>15.1</span></a> …</p>
 <ul>
 <li>besitzt es zwei Zwischenschichten, <span class="math inline">\(L_1\)</span> (256 Neurone) und <span class="math inline">\(L_2\)</span> (128 Neurone).</li>
 <li>hat es 10 Ausgabe-Neurone in der Output-Layer, die den 10 Ziffern (0-9) entsprechen sollen.</li>
 </ul>
-<div id="fig-islr-10-4" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/islr-10-4.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;13.3: Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen</figcaption></figure>
+<div id="fig-islr-10-4" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-islr-10-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/islr-10-4.png" class="img-fluid figure-img" data-fig-width="50%">
 </div>
-<p>Die <em>Aktivierung</em> <span class="math inline">\(A\)</span> der <span class="math inline">\(k^{(1)}\)</span> Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. <a href="#eq-nn1">Gleichung&nbsp;<span>13.1</span></a> und <a href="#eq-nn1-akt">Gleichung&nbsp;<span>13.2</span></a>), s. <a href="#eq-nn2-l1">Gleichung&nbsp;<span>13.4</span></a>:</p>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-islr-10-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;15.3: Multilayer-Netzwerk, um die MNIST-Ziffern vorherzusagen
+</figcaption></figure>
+</div>
+<p>Die <em>Aktivierung</em> <span class="math inline">\(A\)</span> der <span class="math inline">\(k^{(1)}\)</span> Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. <a href="#eq-nn1" class="quarto-xref">Gleichung&nbsp;<span>15.1</span></a> und <a href="#eq-nn1-akt" class="quarto-xref">Gleichung&nbsp;<span>15.2</span></a>), s. <a href="#eq-nn2-l1" class="quarto-xref">Gleichung&nbsp;<span>15.4</span></a>:</p>
 <p><span id="eq-nn2-l1"><span class="math display">\[\begin{align}
-A_k^{(1)} &amp;= = h_k^{(1)}(X)\\
+A_k^{(1)} &amp;= h_k^{(1)}(X)\\
           &amp;= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
-\end{align} \tag{13.4}\]</span></span></p>
-<p>für alle <span class="math inline">\(k_1, k_2, \ldots, K_1\)</span> Neurone der ersten Zwischenschicht. Für die zweite Zwischenschicht, <span class="math inline">\(L_2\)</span> gilt das analog: Die Aktivierung der Neurone der vorherigen Schicht werden als Input verwendet und auf dieser Basis wird die Aktivierung des jeweiligen Neurons der aktuellen Schicht berechnet, s. <a href="#eq-nn2-l2">Gleichung&nbsp;<span>13.5</span></a>:</p>
+\end{align} \tag{15.4}\]</span></span></p>
+<p>für alle <span class="math inline">\(k_1, k_2, \ldots, K_1\)</span> Neurone der ersten Zwischenschicht. Für die zweite Zwischenschicht, <span class="math inline">\(L_2\)</span> gilt das analog: Die Aktivierung der Neurone der vorherigen Schicht werden als Input verwendet und auf dieser Basis wird die Aktivierung des jeweiligen Neurons der aktuellen Schicht berechnet, s. <a href="#eq-nn2-l2" class="quarto-xref">Gleichung&nbsp;<span>15.5</span></a>:</p>
 <p><span id="eq-nn2-l2"><span class="math display">\[\begin{align}
 A_l^{(2)} &amp;= h_l^{(2)}(X)\\
           &amp;= g(w_{l0}^{(2)} + \sum_{j=2}^p w_{lj}^{(1)} X_j)
-\end{align} \tag{13.5}\]</span></span></p>
+\end{align} \tag{15.5}\]</span></span></p>
 <p>für alle <span class="math inline">\(l = 1, 2, \ldots, K2\)</span> Neurone der zweiten Zwischenschicht.</p>
-<p>Da sammeln sich schnell eine große Zahl an Parametern:</p>
+<p>Da sammeln sich schnell eine große Zahl an Parametern.</p>
 <p><span class="math inline">\(\newcommand{\matr}[1]{#1}\)</span></p>
-<p><span class="math inline">\(\matr{W_1}\)</span> in <a href="#fig-islr-10-4">Abbildung&nbsp;<span>13.3</span></a> repräsentiert die Matrix mit allen (“Regressions”-)Gewichten (und “Intercepts”) on der Input-Layer zur ersten Zwischenschicht. Diese Matrix umfasst <span class="math inline">\(785\times256=200\,960\)</span> Koeffizienten (785=784 “Regressions-”Gewichte plus 1 Intercept-Term, auch “Bias” genannt).</p>
+<p><span class="math inline">\(\matr{W_1}\)</span> in <a href="#fig-islr-10-4" class="quarto-xref">Abbildung&nbsp;<span>15.3</span></a> repräsentiert die Matrix mit allen (“Regressions”-)Gewichten (und “Intercepts”) on der Input-Layer zur ersten Zwischenschicht. Diese Matrix umfasst <span class="math inline">\(785\times256=200\,960\)</span> Koeffizienten (785=784 “Regressions-”Gewichte plus 1 Intercept-Term, auch “Bias” genannt).</p>
 <p>Entsprechend weist jedes Neuron der zweiten Zwischenschicht ein Gewicht zu jedem Neuron der ersten Zwischenschicht auf. Daher hat <span class="math inline">\(\matr{W_2}\)</span> die Dimensionen <span class="math inline">\(257 \times 128 = 32\,896\)</span>.</p>
 <p>Jetzt gelangen wir zur Output-Layer; dort gibt es 10 Ausgabe-Neuronen. Hier sind zwei Schritte nötig. Schritt 1 besteht darin für jedes der 10 Neurone ein lineares Modell zu berechnen, basierend auf den Gewichten der vorherigen Zwischenschicht:</p>
 <p><span id="eq-nn2-l3"><span class="math display">\[\begin{aligned}
 Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} A_l^{(2)}
-\end{aligned} \tag{13.6}\]</span></span></p>
+\end{aligned} \tag{15.6}\]</span></span></p>
 <p>mit <span class="math inline">\(m = 0,1, \ldots, 9\)</span>. Diese <span class="math inline">\(129 \times 10 = 1290\)</span> Koeffizienten sind in der Matrix <span class="math inline">\(\matr{B}\)</span> gespeichert.</p>
-<p>Schritt 2 fehlt noch. Wir möchten ja, dass die Ausgabe für jede Ziffer in einer Wahrscheinlichkeit besteht, das kann man mit der <em>Softmax-Aktivierung</em> erreichen (<a href="#eq-softmax">Gleichung&nbsp;<span>13.7</span></a>):</p>
-<p><span id="eq-softmax"><span class="math display">\[f_m(X) = Pr(Y=m|X) = \frac{e^{Z_m}}{\sum_{l=0}^9 e^{Z_l}}, \tag{13.7}\]</span></span></p>
+<p>Schritt 2 fehlt noch. Wir möchten ja, dass die Ausgabe für jede Ziffer in einer Wahrscheinlichkeit besteht, das kann man mit der <em>Softmax-Aktivierung</em> erreichen (<a href="#eq-softmax" class="quarto-xref">Gleichung&nbsp;<span>15.7</span></a>):</p>
+<p><span id="eq-softmax"><span class="math display">\[f_m(X) = Pr(Y=m|X) = \frac{e^{Z_m}}{\sum_{l=0}^9 e^{Z_l}}, \tag{15.7}\]</span></span></p>
 <p>mit <span class="math inline">\(m=0,1, \ldots, 9\)</span>.</p>
-<p>Die zu minimierende Funktion (“Loss Function”) ist im Falle qualitativer Variablen keine metrische Quadratfunktion, sondern man miniert die Kreuzentropie, vgl. <a href="065-Information.html#eq-ce">Gleichung&nbsp;<span>6.2</span></a>.</p>
+<p>Die zu minimierende Funktion (“Loss Function”) ist im Falle qualitativer Variablen keine metrische Quadratfunktion, sondern man miniert die Kreuzentropie, vgl. <a href="065-Information.html#eq-ce" class="quarto-xref">Gleichung&nbsp;<span>6.2</span></a>.</p>
 <p>Das Netzwerk hat insgesamt über 200k Parameter! Und das bei gerade mal 60k Bildern. Wenn da das Modell keine Overfitting-Party macht, weiß ich auch nicht.</p>
 <p>Gegenmaßnahmen zum Overfitting sind also dringend nötig, besonders bei neuronalen Netzwerken.</p>
-</section><section id="mathematik-neuronaler-netzwerke" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="mathematik-neuronaler-netzwerke">
-<span class="header-section-number">13.4</span> Mathematik neuronaler Netzwerke</h2>
-<p>Neuronale Netzwerke basierend auf zwei Konzepte: Lineare Algebra und Ableiten (Infinitesimalrechnung).</p>
-<section id="lineare-algebra" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="lineare-algebra">
-<span class="header-section-number">13.4.1</span> Lineare Algebra</h3>
+</section><section id="mathematik-neuronaler-netzwerke" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="mathematik-neuronaler-netzwerke">
+<span class="header-section-number">15.4</span> Mathematik neuronaler Netzwerke</h2>
+<p>Neuronale Netzwerke basierend auf zwei Konzepte: <em>Lineare Algebr</em>a und <em>Ableiten</em> (Infinitesimalrechnung).</p>
+<section id="punktprodukt" class="level3" data-number="15.4.1"><h3 data-number="15.4.1" class="anchored" data-anchor-id="punktprodukt">
+<span class="header-section-number">15.4.1</span> Punktprodukt</h3>
 <p>Im YouTube-Kanal von <a href="https://www.youtube.com/@3blue1brown">3b1b</a> gibt es eine exzellente <a href="https://www.youtube.com/watch?v=fNk_zzaMoSs&amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">Einführung in die lineare Algebra</a>.</p>
-<section id="punktprodukt" class="level4" data-number="13.4.1.1"><h4 data-number="13.4.1.1" class="anchored" data-anchor-id="punktprodukt">
-<span class="header-section-number">13.4.1.1</span> Punktprodukt</h4>
-<p>Die zentrale Operation ist das <em>Dot Product</em> (Skalar- oder Punktprodukt), s. <a href="#fig-matrixmult">Abbildung&nbsp;<span>13.5</span></a>.</p>
+<p>Die zentrale Operation ist das <em>Dot Product</em> (Skalar- oder Punktprodukt), s. <a href="#fig-matrixmult" class="quarto-xref">Abbildung&nbsp;<span>15.5</span></a>.</p>
 <p>Im einfachen Fall (der euklidischen Ebene) gilt:</p>
 <p><span class="math inline">\(\vec a \cdot \vec b = \begin{pmatrix} a_1 \\ a_2 \end{pmatrix} \cdot \begin{pmatrix} b_1 \\ b_2 \end{pmatrix} = a_1 b_1 + a_2 b_2.\)</span></p>
 <div id="exm-dot1" class="theorem example">
-<p><span class="theorem-title"><strong>Beispiel 13.1 (Einfaches Punktprodukt) </strong></span>Gegeben seien zwei Vektoren <span class="math inline">\(\vec x=(1,2,3)\)</span> und <span class="math inline">\(\vec y=(1,2,3)\)</span>. Das Punktprodukt von <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span> ist die Summe der Produkte der jeweilige Paare, s. <a href="#fig-dot">Abbildung&nbsp;<span>13.4</span></a>.</p>
+<p><span class="theorem-title"><strong>Beispiel 15.1 (Einfaches Punktprodukt) </strong></span>Gegeben seien zwei Vektoren <span class="math inline">\(\vec x=(1,2,3)\)</span> und <span class="math inline">\(\vec y=(1,2,3)\)</span>. Das Punktprodukt von <span class="math inline">\(x\)</span> und <span class="math inline">\(y\)</span> ist die Summe der Produkte der jeweilige Paare, s. <a href="#fig-dot" class="quarto-xref">Abbildung&nbsp;<span>15.4 (a)</span></a>.</p>
 <p><span class="math inline">\(\vec x \cdot \vec y = 1\cdot1 + 2\cdot 2 + 3 \cdot 3 = 1 +3+ 9 = 13. \qquad \square\)</span></p>
 </div>
-<div id="fig-dot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/dot2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;13.4: Schema des Punktprodukts</figcaption></figure>
+<div id="fig-punkt" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-punkt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-punkt" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-dot" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
+<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-dot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/dotproduct.jpg" class="img-fluid figure-img" data-fig-width="50%" data-ref-parent="fig-punkt">
+</div>
+<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-dot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Schema des Punktprodukts
+</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-punkt" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-matrixmult" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
+<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-matrixmult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/matrix-mult.png" class="img-fluid figure-img" data-fig-width="50%" data-ref-parent="fig-punkt">
+</div>
+<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-matrixmult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Mehrfaches Punktprodukt: Matrixmultiplikation
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-punkt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;15.4
+</figcaption></figure>
 </div>
 <p>Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vektoren in die gleiche Richtung zeigen:</p>
 <div class="columns">
 <div class="column" style="width:30%;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="img/Dot-product-3.1.svg.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Die Vektoren zeigen in die gleiche Richtung: Maximales Punktprodukt (gleich dem Produkt der Vektorlängen)</figcaption></figure>
+<figcaption>Die Vektoren zeigen in die gleiche Richtung: Maximales Punktprodukt (gleich dem Produkt der Vektorlängen)</figcaption></figure>
 </div>
 </div><div class="column" style="width:30%;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="img/Dot-product-3.2.svg.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Minimales Punktprodukt (Null), da die Vektoren orthogonal zueinander stehen</figcaption></figure>
+<figcaption>Minimales Punktprodukt (Null), da die Vektoren orthogonal zueinander stehen</figcaption></figure>
 </div>
 </div><div class="column" style="width:30%;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="img/Dot-product-3.3.svg.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Mittleres Punktprodukt, proportional zur Größe des Winkels <span class="math inline">\(\phi\)</span> und dem Produkt der Vektorlängen</figcaption></figure>
+<figcaption>Mittleres Punktprodukt, proportional zur Größe des Winkels <span class="math inline">\(\phi\)</span> und dem Produkt der Vektorlängen</figcaption></figure>
 </div>
 </div>
 </div>
 <p><a href="https://commons.wikimedia.org/wiki/User:MartinThoma">Bildquelle: Martin Thoma, Wikipedia, CC-BY 3.0</a></p>
-<p>Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html">Math is Fun</a>. Für Einsteiger interessant ist auch die Erklärung von <a href="https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/">Kalid Azad</a>.</p>
-<p>In R kann man das Punktproduct mit dem <code>%*%</code>-Operator berechnen</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-2_200e1c623c909f8bc143d03b36ced815">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html">Math is Fun</a>. Für Einsteiger interessant ist auch die Erklärung von <a href="https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/">Kalid Azad</a>. Eine 3D-Darstellung von Vektoren findet sich <a href="https://www.desmos.com/3d/f7561f1632">hier</a>. <span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+<p>In R kann man das Punktprodukt mit dem <code>%*%</code>-Operator berechnen</p>
+<div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span></span>
@@ -529,29 +614,46 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 <span><span class="co">## [1,]   14</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Im Paket <code>geometry</code> gibt es alternativ eine entsprechende Funktion, <code>dot</code>:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-3_6e52737d15f4387566cd30e55421bf77">
+<div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">geometry</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/geometry/man/dot.html">dot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">## [1] 14</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="def-dotproduct" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 13.1 (Punktprodukt) </strong></span>Das Produkt zweier Vektoren <span class="math inline">\(\mathbf{a}\)</span> und <span class="math inline">\(\mathbf{b}\)</span> ist so definiert, <a href="#eq-dot">Gleichung&nbsp;<span>13.8</span></a>. <span id="eq-dot"><span class="math display">\[{\displaystyle \mathbf {a} \cdot \mathbf {b} =\sum _{i=1}^{n}a_{i}b_{i}=a_{1}b_{1}+a_{2}b_{2}+\cdots +a_{n}b_{n}} \qquad \square \tag{13.8}\]</span></span></p>
+<p><span class="theorem-title"><strong>Definition 15.1 (Punktprodukt) </strong></span>Das Produkt zweier Vektoren <span class="math inline">\(\mathbf{a}\)</span> und <span class="math inline">\(\mathbf{b}\)</span> ist so definiert, <a href="#eq-dot" class="quarto-xref">Gleichung&nbsp;<span>15.8</span></a>. <span id="eq-dot"><span class="math display">\[{\displaystyle \mathbf {a} \cdot \mathbf {b} =\sum _{i=1}^{n}a_{i}b_{i}=a_{1}b_{1}+a_{2}b_{2}+\cdots +a_{n}b_{n}} \qquad \square \tag{15.8}\]</span></span></p>
 </div>
-</section></section><section id="matrixmultiplikation" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="matrixmultiplikation">
-<span class="header-section-number">13.4.2</span> Matrixmultiplikation</h3>
-<p>Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auffassen, s. <a href="#fig-matrixmult">Abbildung&nbsp;<span>13.5</span></a>.</p>
-<div id="fig-matrixmult" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="img/matrix-mult.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;13.5: Berechnung des Punktprodukts</figcaption></figure>
+</section><section id="matrixmultiplikation" class="level3" data-number="15.4.2"><h3 data-number="15.4.2" class="anchored" data-anchor-id="matrixmultiplikation">
+<span class="header-section-number">15.4.2</span> Matrixmultiplikation</h3>
+<p>Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auffassen, s. <a href="#fig-matrixmult" class="quarto-xref">Abbildung&nbsp;<span>15.5</span></a>.</p>
+<div id="fig-matrixmult" class="quarto-figure quarto-figure-center anchored" data-fig-width="50%">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-matrixmult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/matrix-mult.png" class="img-fluid figure-img" data-fig-width="50%">
 </div>
-</section><section id="regression-als-matrixmultiplikation" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="regression-als-matrixmultiplikation">
-<span class="header-section-number">13.4.3</span> Regression als Matrixmultiplikation</h3>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-matrixmult-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;15.5: Berechnung des Punktprodukts
+</figcaption></figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Probieren Sie <a href="https://www.desmos.com/matrix">diesen Matrizenrechner</a> aus zur Berechnung des Punktprodukts bzw. der Matrizenmultiplikation. <span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+</section><section id="regression-als-matrixmultiplikation" class="level3" data-number="15.4.3"><h3 data-number="15.4.3" class="anchored" data-anchor-id="regression-als-matrixmultiplikation">
+<span class="header-section-number">15.4.3</span> Regression als Matrixmultiplikation</h3>
 <p>Die (einfache oder multiple) Regression kann man als Matrixmultiplikation auffassen. Schauen wir uns dazu ein einfaches Beispiel an.</p>
-<p>Der Datensatz <code>d</code> besteht auf einer Outcome-Variable, <code>y</code> sowie einem Prädiktor, <code>x</code>; drei Beobachtungen umfasst die Tabelle, s. <a href="#tbl-d">Tabelle&nbsp;<span>13.1</span></a>. Eine Regression mit einem Prädiktor hat zwei Koeffizienten, <span class="math inline">\(\beta_0, \beta_1\)</span>.</p>
+<p>Der Datensatz <code>d</code> besteht auf einer Outcome-Variable, <code>y</code> sowie einem Prädiktor, <code>x</code>; drei Beobachtungen umfasst die Tabelle, s. <a href="#tbl-d" class="quarto-xref">Tabelle&nbsp;<span>15.1</span></a>. Eine Regression mit einem Prädiktor hat zwei Koeffizienten, <span class="math inline">\(\beta_0, \beta_1\)</span>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-4_ee979a27a0119b538864029ca8521745">
+<div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
 <span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.1</span>, <span class="fl">2.2</span>, <span class="fl">2.9</span><span class="op">)</span>,</span>
 <span>    b0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span>
@@ -560,27 +662,29 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 <span><span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/tbl-d_d81a4a4a78bc934fdc186d23e80ede48">
+<div class="cell">
+<div id="tbl-d" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;15.1: Datensatz <code>d</code>
+</figcaption><div aria-describedby="tbl-d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-d" class="anchored">
-
-<div id="yssvirgplw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yssvirgplw table {
+<div id="gfkdteeavw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gfkdteeavw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yssvirgplw thead, #yssvirgplw tbody, #yssvirgplw tfoot, #yssvirgplw tr, #yssvirgplw td, #yssvirgplw th {
+#gfkdteeavw thead, #gfkdteeavw tbody, #gfkdteeavw tfoot, #gfkdteeavw tr, #gfkdteeavw td, #gfkdteeavw th {
   border-style: none;
 }
 
-#yssvirgplw p {
+#gfkdteeavw p {
   margin: 0;
   padding: 0;
 }
 
-#yssvirgplw .gt_table {
+#gfkdteeavw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -606,12 +710,12 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-left-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_caption {
+#gfkdteeavw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yssvirgplw .gt_title {
+#gfkdteeavw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -623,7 +727,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-width: 0;
 }
 
-#yssvirgplw .gt_subtitle {
+#gfkdteeavw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -635,7 +739,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-width: 0;
 }
 
-#yssvirgplw .gt_heading {
+#gfkdteeavw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -647,13 +751,13 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_bottom_border {
+#gfkdteeavw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_col_headings {
+#gfkdteeavw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -668,7 +772,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_col_heading {
+#gfkdteeavw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -688,7 +792,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#yssvirgplw .gt_column_spanner_outer {
+#gfkdteeavw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -700,15 +804,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 4px;
 }
 
-#yssvirgplw .gt_column_spanner_outer:first-child {
+#gfkdteeavw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yssvirgplw .gt_column_spanner_outer:last-child {
+#gfkdteeavw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yssvirgplw .gt_column_spanner {
+#gfkdteeavw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -720,11 +824,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   width: 100%;
 }
 
-#yssvirgplw .gt_spanner_row {
+#gfkdteeavw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yssvirgplw .gt_group_heading {
+#gfkdteeavw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -750,7 +854,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   text-align: left;
 }
 
-#yssvirgplw .gt_empty_group_heading {
+#gfkdteeavw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -765,15 +869,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: middle;
 }
 
-#yssvirgplw .gt_from_md > :first-child {
+#gfkdteeavw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yssvirgplw .gt_from_md > :last-child {
+#gfkdteeavw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yssvirgplw .gt_row {
+#gfkdteeavw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -792,7 +896,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#yssvirgplw .gt_stub {
+#gfkdteeavw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -805,7 +909,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_stub_row_group {
+#gfkdteeavw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -819,15 +923,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: top;
 }
 
-#yssvirgplw .gt_row_group_first td {
+#gfkdteeavw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yssvirgplw .gt_row_group_first th {
+#gfkdteeavw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yssvirgplw .gt_summary_row {
+#gfkdteeavw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -837,16 +941,16 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_first_summary_row {
+#gfkdteeavw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_first_summary_row.thick {
+#gfkdteeavw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yssvirgplw .gt_last_summary_row {
+#gfkdteeavw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -856,7 +960,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_grand_summary_row {
+#gfkdteeavw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -866,7 +970,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_first_grand_summary_row {
+#gfkdteeavw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -876,7 +980,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_last_grand_summary_row_top {
+#gfkdteeavw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -886,11 +990,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_striped {
+#gfkdteeavw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yssvirgplw .gt_table_body {
+#gfkdteeavw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -899,7 +1003,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_footnotes {
+#gfkdteeavw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -913,7 +1017,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_footnote {
+#gfkdteeavw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -922,7 +1026,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_sourcenotes {
+#gfkdteeavw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -936,7 +1040,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#yssvirgplw .gt_sourcenote {
+#gfkdteeavw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -944,113 +1048,114 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#yssvirgplw .gt_left {
+#gfkdteeavw .gt_left {
   text-align: left;
 }
 
-#yssvirgplw .gt_center {
+#gfkdteeavw .gt_center {
   text-align: center;
 }
 
-#yssvirgplw .gt_right {
+#gfkdteeavw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yssvirgplw .gt_font_normal {
+#gfkdteeavw .gt_font_normal {
   font-weight: normal;
 }
 
-#yssvirgplw .gt_font_bold {
+#gfkdteeavw .gt_font_bold {
   font-weight: bold;
 }
 
-#yssvirgplw .gt_font_italic {
+#gfkdteeavw .gt_font_italic {
   font-style: italic;
 }
 
-#yssvirgplw .gt_super {
+#gfkdteeavw .gt_super {
   font-size: 65%;
 }
 
-#yssvirgplw .gt_footnote_marks {
+#gfkdteeavw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yssvirgplw .gt_asterisk {
+#gfkdteeavw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yssvirgplw .gt_indent_1 {
+#gfkdteeavw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yssvirgplw .gt_indent_2 {
+#gfkdteeavw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yssvirgplw .gt_indent_3 {
+#gfkdteeavw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yssvirgplw .gt_indent_4 {
+#gfkdteeavw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yssvirgplw .gt_indent_5 {
+#gfkdteeavw .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<caption>Tabelle&nbsp;13.1:  <p>Datensatz <code>d</code></p> </caption>
-  <thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="x">x</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="y">y</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="b0">b0</th>
-    </tr></thead>
+<table class="gt_table cell table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="x" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">x</th>
+<th id="y" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">y</th>
+<th id="b0" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">b0</th>
+</tr></thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="x" class="gt_row gt_right">1</td>
-<td headers="y" class="gt_row gt_right">1.1</td>
-<td headers="b0" class="gt_row gt_right">1</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="x">1</td>
+<td class="gt_row gt_right" headers="y">1.1</td>
+<td class="gt_row gt_right" headers="b0">1</td>
 </tr>
-<tr>
-<td headers="x" class="gt_row gt_right">2</td>
-<td headers="y" class="gt_row gt_right">2.2</td>
-<td headers="b0" class="gt_row gt_right">1</td>
+<tr class="even">
+<td class="gt_row gt_right" headers="x">2</td>
+<td class="gt_row gt_right" headers="y">2.2</td>
+<td class="gt_row gt_right" headers="b0">1</td>
 </tr>
-<tr>
-<td headers="x" class="gt_row gt_right">3</td>
-<td headers="y" class="gt_row gt_right">2.9</td>
-<td headers="b0" class="gt_row gt_right">1</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="x">3</td>
+<td class="gt_row gt_right" headers="y">2.9</td>
+<td class="gt_row gt_right" headers="b0">1</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <p>Speichern wir uns die Modellkoeffizienten, <span class="math inline">\(\beta_0, \beta_1\)</span> in einem Objekt <span class="math inline">\(\mathbf{\beta}\)</span> ab:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-6_8a5fa830c5775ad2b92b6a0255c70022">
+<div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lm1_coefs</span> <span class="op">&lt;-</span> <span class="va">lm1</span><span class="op">$</span><span class="va">coefficients</span></span>
 <span><span class="va">lm1_coefs</span></span>
 <span><span class="co">## (Intercept)           x </span></span>
 <span><span class="co">##   0.2666667   0.9000000</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die vorhergesagten Werte des Modells, <span class="math inline">\(\matr{\hat{Y}}\)</span></p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-7_d0ffbfb8b187ee88a53c075c134b0df1">
+<div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span></span>
 <span><span class="co">##        1        2        3 </span></span>
 <span><span class="co">## 1.166667 2.066667 2.966667</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Jetzt bauen wir das Modell mit Matrixmultiplikation nach.</p>
 <p>Dabei müssen wir für den Intercept eine Spalte mit nur 1 ergänzen und erhalten die Matrix für die X-Werte (pro Beobachtung), <span class="math inline">\(\matr{X}\)</span>:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-8_76d193c840acb4b5819e680d8a1ddc94">
+<div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x_matrix</span> <span class="op">&lt;-</span> <span class="va">d</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">b0</span>, <span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="op">)</span> </span>
@@ -1062,7 +1167,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 <span><span class="co">## [3,]  1 3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dann multiplizieren wir die Matrix mit den X-Werten mit der Matrix (Vektor) mit den Modellkoeffizienten. So erhalten wir die vorhergesagten Y-Werte, $:</p>
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-9_e51d2291b88c46d5f961157c6b42da59">
+<div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y_pred</span> <span class="op">&lt;-</span> <span class="va">x_matrix</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">lm1_coefs</span></span>
 <span><span class="va">y_pred</span> </span>
 <span><span class="co">##          [,1]</span></span>
@@ -1077,26 +1182,25 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 <p>Ausgeschrieben als Gleichungssystem:</p>
 <div class="columns">
 <div class="column" style="width:20%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-10_ebe789a965b59f2e18cd85f7de041609">
+<div class="cell">
 <div class="cell-output-display">
-
-<div id="dowbfijwwy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dowbfijwwy table {
+<div id="jdusqgdcug" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jdusqgdcug table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dowbfijwwy thead, #dowbfijwwy tbody, #dowbfijwwy tfoot, #dowbfijwwy tr, #dowbfijwwy td, #dowbfijwwy th {
+#jdusqgdcug thead, #jdusqgdcug tbody, #jdusqgdcug tfoot, #jdusqgdcug tr, #jdusqgdcug td, #jdusqgdcug th {
   border-style: none;
 }
 
-#dowbfijwwy p {
+#jdusqgdcug p {
   margin: 0;
   padding: 0;
 }
 
-#dowbfijwwy .gt_table {
+#jdusqgdcug .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1122,12 +1226,12 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-left-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_caption {
+#jdusqgdcug .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dowbfijwwy .gt_title {
+#jdusqgdcug .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1139,7 +1243,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-width: 0;
 }
 
-#dowbfijwwy .gt_subtitle {
+#jdusqgdcug .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1151,7 +1255,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-width: 0;
 }
 
-#dowbfijwwy .gt_heading {
+#jdusqgdcug .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1163,13 +1267,13 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_bottom_border {
+#jdusqgdcug .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_col_headings {
+#jdusqgdcug .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1184,7 +1288,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_col_heading {
+#jdusqgdcug .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1204,7 +1308,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#dowbfijwwy .gt_column_spanner_outer {
+#jdusqgdcug .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1216,15 +1320,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 4px;
 }
 
-#dowbfijwwy .gt_column_spanner_outer:first-child {
+#jdusqgdcug .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dowbfijwwy .gt_column_spanner_outer:last-child {
+#jdusqgdcug .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dowbfijwwy .gt_column_spanner {
+#jdusqgdcug .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1236,11 +1340,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   width: 100%;
 }
 
-#dowbfijwwy .gt_spanner_row {
+#jdusqgdcug .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dowbfijwwy .gt_group_heading {
+#jdusqgdcug .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1266,7 +1370,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   text-align: left;
 }
 
-#dowbfijwwy .gt_empty_group_heading {
+#jdusqgdcug .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1281,15 +1385,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: middle;
 }
 
-#dowbfijwwy .gt_from_md > :first-child {
+#jdusqgdcug .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dowbfijwwy .gt_from_md > :last-child {
+#jdusqgdcug .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dowbfijwwy .gt_row {
+#jdusqgdcug .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1308,7 +1412,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#dowbfijwwy .gt_stub {
+#jdusqgdcug .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1321,7 +1425,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_stub_row_group {
+#jdusqgdcug .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1335,15 +1439,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: top;
 }
 
-#dowbfijwwy .gt_row_group_first td {
+#jdusqgdcug .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dowbfijwwy .gt_row_group_first th {
+#jdusqgdcug .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dowbfijwwy .gt_summary_row {
+#jdusqgdcug .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1353,16 +1457,16 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_first_summary_row {
+#jdusqgdcug .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_first_summary_row.thick {
+#jdusqgdcug .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dowbfijwwy .gt_last_summary_row {
+#jdusqgdcug .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1372,7 +1476,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_grand_summary_row {
+#jdusqgdcug .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1382,7 +1486,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_first_grand_summary_row {
+#jdusqgdcug .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1392,7 +1496,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_last_grand_summary_row_top {
+#jdusqgdcug .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1402,11 +1506,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_striped {
+#jdusqgdcug .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dowbfijwwy .gt_table_body {
+#jdusqgdcug .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1415,7 +1519,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_footnotes {
+#jdusqgdcug .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1429,7 +1533,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_footnote {
+#jdusqgdcug .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1438,7 +1542,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_sourcenotes {
+#jdusqgdcug .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1452,7 +1556,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#dowbfijwwy .gt_sourcenote {
+#jdusqgdcug .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1460,74 +1564,80 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#dowbfijwwy .gt_left {
+#jdusqgdcug .gt_left {
   text-align: left;
 }
 
-#dowbfijwwy .gt_center {
+#jdusqgdcug .gt_center {
   text-align: center;
 }
 
-#dowbfijwwy .gt_right {
+#jdusqgdcug .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dowbfijwwy .gt_font_normal {
+#jdusqgdcug .gt_font_normal {
   font-weight: normal;
 }
 
-#dowbfijwwy .gt_font_bold {
+#jdusqgdcug .gt_font_bold {
   font-weight: bold;
 }
 
-#dowbfijwwy .gt_font_italic {
+#jdusqgdcug .gt_font_italic {
   font-style: italic;
 }
 
-#dowbfijwwy .gt_super {
+#jdusqgdcug .gt_super {
   font-size: 65%;
 }
 
-#dowbfijwwy .gt_footnote_marks {
+#jdusqgdcug .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dowbfijwwy .gt_asterisk {
+#jdusqgdcug .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dowbfijwwy .gt_indent_1 {
+#jdusqgdcug .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dowbfijwwy .gt_indent_2 {
+#jdusqgdcug .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dowbfijwwy .gt_indent_3 {
+#jdusqgdcug .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dowbfijwwy .gt_indent_4 {
+#jdusqgdcug .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dowbfijwwy .gt_indent_5 {
+#jdusqgdcug .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="y_hat">y_hat</th>
-    </tr></thead>
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="y_hat" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">y_hat</th>
+</tr></thead>
 <tbody class="gt_table_body">
-<tr><td headers="y_hat" class="gt_row gt_center">1.17</td></tr>
-<tr><td headers="y_hat" class="gt_row gt_center">2.07</td></tr>
-<tr><td headers="y_hat" class="gt_row gt_center">2.97</td></tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="y_hat">1.17</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="y_hat">2.07</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="y_hat">2.97</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1536,26 +1646,25 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 </div><div class="column" style="width:20%;">
 <p><span class="math inline">\(=\)</span></p>
 </div><div class="column" style="width:20%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-11_3deeab1b45970b6a0219603c4a444e19">
+<div class="cell">
 <div class="cell-output-display">
-
-<div id="udmqhsrogi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#udmqhsrogi table {
+<div id="pdvgqfohgr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pdvgqfohgr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#udmqhsrogi thead, #udmqhsrogi tbody, #udmqhsrogi tfoot, #udmqhsrogi tr, #udmqhsrogi td, #udmqhsrogi th {
+#pdvgqfohgr thead, #pdvgqfohgr tbody, #pdvgqfohgr tfoot, #pdvgqfohgr tr, #pdvgqfohgr td, #pdvgqfohgr th {
   border-style: none;
 }
 
-#udmqhsrogi p {
+#pdvgqfohgr p {
   margin: 0;
   padding: 0;
 }
 
-#udmqhsrogi .gt_table {
+#pdvgqfohgr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1581,12 +1690,12 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-left-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_caption {
+#pdvgqfohgr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#udmqhsrogi .gt_title {
+#pdvgqfohgr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1598,7 +1707,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-width: 0;
 }
 
-#udmqhsrogi .gt_subtitle {
+#pdvgqfohgr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1610,7 +1719,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-width: 0;
 }
 
-#udmqhsrogi .gt_heading {
+#pdvgqfohgr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1622,13 +1731,13 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_bottom_border {
+#pdvgqfohgr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_col_headings {
+#pdvgqfohgr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1643,7 +1752,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_col_heading {
+#pdvgqfohgr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1663,7 +1772,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#udmqhsrogi .gt_column_spanner_outer {
+#pdvgqfohgr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1675,15 +1784,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 4px;
 }
 
-#udmqhsrogi .gt_column_spanner_outer:first-child {
+#pdvgqfohgr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#udmqhsrogi .gt_column_spanner_outer:last-child {
+#pdvgqfohgr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#udmqhsrogi .gt_column_spanner {
+#pdvgqfohgr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1695,11 +1804,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   width: 100%;
 }
 
-#udmqhsrogi .gt_spanner_row {
+#pdvgqfohgr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#udmqhsrogi .gt_group_heading {
+#pdvgqfohgr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1725,7 +1834,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   text-align: left;
 }
 
-#udmqhsrogi .gt_empty_group_heading {
+#pdvgqfohgr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1740,15 +1849,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: middle;
 }
 
-#udmqhsrogi .gt_from_md > :first-child {
+#pdvgqfohgr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#udmqhsrogi .gt_from_md > :last-child {
+#pdvgqfohgr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#udmqhsrogi .gt_row {
+#pdvgqfohgr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1767,7 +1876,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#udmqhsrogi .gt_stub {
+#pdvgqfohgr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1780,7 +1889,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_stub_row_group {
+#pdvgqfohgr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1794,15 +1903,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: top;
 }
 
-#udmqhsrogi .gt_row_group_first td {
+#pdvgqfohgr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#udmqhsrogi .gt_row_group_first th {
+#pdvgqfohgr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#udmqhsrogi .gt_summary_row {
+#pdvgqfohgr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1812,16 +1921,16 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_first_summary_row {
+#pdvgqfohgr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_first_summary_row.thick {
+#pdvgqfohgr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#udmqhsrogi .gt_last_summary_row {
+#pdvgqfohgr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1831,7 +1940,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_grand_summary_row {
+#pdvgqfohgr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1841,7 +1950,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_first_grand_summary_row {
+#pdvgqfohgr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1851,7 +1960,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_last_grand_summary_row_top {
+#pdvgqfohgr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1861,11 +1970,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_striped {
+#pdvgqfohgr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#udmqhsrogi .gt_table_body {
+#pdvgqfohgr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1874,7 +1983,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_footnotes {
+#pdvgqfohgr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1888,7 +1997,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_footnote {
+#pdvgqfohgr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1897,7 +2006,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_sourcenotes {
+#pdvgqfohgr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1911,7 +2020,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#udmqhsrogi .gt_sourcenote {
+#pdvgqfohgr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1919,83 +2028,83 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#udmqhsrogi .gt_left {
+#pdvgqfohgr .gt_left {
   text-align: left;
 }
 
-#udmqhsrogi .gt_center {
+#pdvgqfohgr .gt_center {
   text-align: center;
 }
 
-#udmqhsrogi .gt_right {
+#pdvgqfohgr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#udmqhsrogi .gt_font_normal {
+#pdvgqfohgr .gt_font_normal {
   font-weight: normal;
 }
 
-#udmqhsrogi .gt_font_bold {
+#pdvgqfohgr .gt_font_bold {
   font-weight: bold;
 }
 
-#udmqhsrogi .gt_font_italic {
+#pdvgqfohgr .gt_font_italic {
   font-style: italic;
 }
 
-#udmqhsrogi .gt_super {
+#pdvgqfohgr .gt_super {
   font-size: 65%;
 }
 
-#udmqhsrogi .gt_footnote_marks {
+#pdvgqfohgr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#udmqhsrogi .gt_asterisk {
+#pdvgqfohgr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#udmqhsrogi .gt_indent_1 {
+#pdvgqfohgr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#udmqhsrogi .gt_indent_2 {
+#pdvgqfohgr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#udmqhsrogi .gt_indent_3 {
+#pdvgqfohgr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#udmqhsrogi .gt_indent_4 {
+#pdvgqfohgr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#udmqhsrogi .gt_indent_5 {
+#pdvgqfohgr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="b0">b0</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="x">x</th>
-    </tr></thead>
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="b0" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">b0</th>
+<th id="x" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">x</th>
+</tr></thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="b0" class="gt_row gt_right">1</td>
-<td headers="x" class="gt_row gt_right">1</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="b0">1</td>
+<td class="gt_row gt_right" headers="x">1</td>
 </tr>
-<tr>
-<td headers="b0" class="gt_row gt_right">1</td>
-<td headers="x" class="gt_row gt_right">2</td>
+<tr class="even">
+<td class="gt_row gt_right" headers="b0">1</td>
+<td class="gt_row gt_right" headers="x">2</td>
 </tr>
-<tr>
-<td headers="b0" class="gt_row gt_right">1</td>
-<td headers="x" class="gt_row gt_right">3</td>
+<tr class="odd">
+<td class="gt_row gt_right" headers="b0">1</td>
+<td class="gt_row gt_right" headers="x">3</td>
 </tr>
 </tbody>
 </table>
@@ -2005,26 +2114,25 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 </div><div class="column" style="width:20%;">
 <p><span class="math inline">\(\cdot\)</span></p>
 </div><div class="column" style="width:20%;">
-<div class="cell" data-hash="110-nn-theo1_cache/html/unnamed-chunk-12_72ab406b0ec11de284206cbcd6cda711">
+<div class="cell">
 <div class="cell-output-display">
-
-<div id="hsulybjhyo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hsulybjhyo table {
+<div id="btolghbqyg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#btolghbqyg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hsulybjhyo thead, #hsulybjhyo tbody, #hsulybjhyo tfoot, #hsulybjhyo tr, #hsulybjhyo td, #hsulybjhyo th {
+#btolghbqyg thead, #btolghbqyg tbody, #btolghbqyg tfoot, #btolghbqyg tr, #btolghbqyg td, #btolghbqyg th {
   border-style: none;
 }
 
-#hsulybjhyo p {
+#btolghbqyg p {
   margin: 0;
   padding: 0;
 }
 
-#hsulybjhyo .gt_table {
+#btolghbqyg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2050,12 +2158,12 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-left-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_caption {
+#btolghbqyg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hsulybjhyo .gt_title {
+#btolghbqyg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2067,7 +2175,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-width: 0;
 }
 
-#hsulybjhyo .gt_subtitle {
+#btolghbqyg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2079,7 +2187,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-width: 0;
 }
 
-#hsulybjhyo .gt_heading {
+#btolghbqyg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2091,13 +2199,13 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_bottom_border {
+#btolghbqyg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_col_headings {
+#btolghbqyg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2112,7 +2220,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_col_heading {
+#btolghbqyg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2132,7 +2240,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#hsulybjhyo .gt_column_spanner_outer {
+#btolghbqyg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2144,15 +2252,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 4px;
 }
 
-#hsulybjhyo .gt_column_spanner_outer:first-child {
+#btolghbqyg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hsulybjhyo .gt_column_spanner_outer:last-child {
+#btolghbqyg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hsulybjhyo .gt_column_spanner {
+#btolghbqyg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2164,11 +2272,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   width: 100%;
 }
 
-#hsulybjhyo .gt_spanner_row {
+#btolghbqyg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hsulybjhyo .gt_group_heading {
+#btolghbqyg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2194,7 +2302,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   text-align: left;
 }
 
-#hsulybjhyo .gt_empty_group_heading {
+#btolghbqyg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2209,15 +2317,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: middle;
 }
 
-#hsulybjhyo .gt_from_md > :first-child {
+#btolghbqyg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hsulybjhyo .gt_from_md > :last-child {
+#btolghbqyg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hsulybjhyo .gt_row {
+#btolghbqyg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2236,7 +2344,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   overflow-x: hidden;
 }
 
-#hsulybjhyo .gt_stub {
+#btolghbqyg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2249,7 +2357,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_stub_row_group {
+#btolghbqyg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2263,15 +2371,15 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   vertical-align: top;
 }
 
-#hsulybjhyo .gt_row_group_first td {
+#btolghbqyg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hsulybjhyo .gt_row_group_first th {
+#btolghbqyg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hsulybjhyo .gt_summary_row {
+#btolghbqyg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2281,16 +2389,16 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_first_summary_row {
+#btolghbqyg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_first_summary_row.thick {
+#btolghbqyg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hsulybjhyo .gt_last_summary_row {
+#btolghbqyg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2300,7 +2408,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_grand_summary_row {
+#btolghbqyg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2310,7 +2418,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_first_grand_summary_row {
+#btolghbqyg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2320,7 +2428,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-top-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_last_grand_summary_row_top {
+#btolghbqyg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2330,11 +2438,11 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_striped {
+#btolghbqyg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hsulybjhyo .gt_table_body {
+#btolghbqyg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2343,7 +2451,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-bottom-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_footnotes {
+#btolghbqyg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2357,7 +2465,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_footnote {
+#btolghbqyg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2366,7 +2474,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_sourcenotes {
+#btolghbqyg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2380,7 +2488,7 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   border-right-color: #D3D3D3;
 }
 
-#hsulybjhyo .gt_sourcenote {
+#btolghbqyg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2388,73 +2496,77 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
   padding-right: 5px;
 }
 
-#hsulybjhyo .gt_left {
+#btolghbqyg .gt_left {
   text-align: left;
 }
 
-#hsulybjhyo .gt_center {
+#btolghbqyg .gt_center {
   text-align: center;
 }
 
-#hsulybjhyo .gt_right {
+#btolghbqyg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hsulybjhyo .gt_font_normal {
+#btolghbqyg .gt_font_normal {
   font-weight: normal;
 }
 
-#hsulybjhyo .gt_font_bold {
+#btolghbqyg .gt_font_bold {
   font-weight: bold;
 }
 
-#hsulybjhyo .gt_font_italic {
+#btolghbqyg .gt_font_italic {
   font-style: italic;
 }
 
-#hsulybjhyo .gt_super {
+#btolghbqyg .gt_super {
   font-size: 65%;
 }
 
-#hsulybjhyo .gt_footnote_marks {
+#btolghbqyg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hsulybjhyo .gt_asterisk {
+#btolghbqyg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hsulybjhyo .gt_indent_1 {
+#btolghbqyg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hsulybjhyo .gt_indent_2 {
+#btolghbqyg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hsulybjhyo .gt_indent_3 {
+#btolghbqyg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hsulybjhyo .gt_indent_4 {
+#btolghbqyg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hsulybjhyo .gt_indent_5 {
+#btolghbqyg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="beta">beta</th>
-    </tr></thead>
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="beta" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">beta</th>
+</tr></thead>
 <tbody class="gt_table_body">
-<tr><td headers="beta" class="gt_row gt_right">0.27</td></tr>
-<tr><td headers="beta" class="gt_row gt_right">0.90</td></tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="beta">0.27</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="beta">0.90</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -2462,36 +2574,55 @@ Z_m &amp;= \beta_{m0} +   \sum_{l=1}^{K_2} \beta_{ml} h_l^{(2)}(X) \\
 </div>
 </div>
 </div>
-</section></section><section id="b1b" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="b1b">
-<span class="header-section-number">13.5</span> 3b1b</h2>
-<p>Im YouTube-Kanal von 3b1b gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.</p>
-<section id="video-1" class="level3" data-number="13.5.1"><h3 data-number="13.5.1" class="anchored" data-anchor-id="video-1">
-<span class="header-section-number">13.5.1</span> Video 1</h3>
+</section></section><section id="b1b" class="level2" data-number="15.5"><h2 data-number="15.5" class="anchored" data-anchor-id="b1b">
+<span class="header-section-number">15.5</span> 3b1b</h2>
+<p>Im YouTube-Kanal von Grant Sanderson <a href="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw">3blue1brown</a> gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.</p>
+<section id="video-1" class="level3" data-number="15.5.1"><h3 data-number="15.5.1" class="anchored" data-anchor-id="video-1">
+<span class="header-section-number">15.5.1</span> Video 1</h3>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/aircAruvnKk?si=c_UkzyHTroCoQspV" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section><section id="video-2" class="level3" data-number="13.5.2"><h3 data-number="13.5.2" class="anchored" data-anchor-id="video-2">
-<span class="header-section-number">13.5.2</span> Video 2</h3>
+</section><section id="video-2" class="level3" data-number="15.5.2"><h3 data-number="15.5.2" class="anchored" data-anchor-id="video-2">
+<span class="header-section-number">15.5.2</span> Video 2</h3>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/IHZwWFHWa-w?si=xTr9SngMDPGrHHTd" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section><section id="video-3" class="level3" data-number="13.5.3"><h3 data-number="13.5.3" class="anchored" data-anchor-id="video-3">
-<span class="header-section-number">13.5.3</span> Video 3</h3>
+</section><section id="video-3" class="level3" data-number="15.5.3"><h3 data-number="15.5.3" class="anchored" data-anchor-id="video-3">
+<span class="header-section-number">15.5.3</span> Video 3</h3>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section><section id="video-4" class="level3" data-number="13.5.4"><h3 data-number="13.5.4" class="anchored" data-anchor-id="video-4">
-<span class="header-section-number">13.5.4</span> Video 4</h3>
+</section><section id="video-4" class="level3" data-number="15.5.4"><h3 data-number="15.5.4" class="anchored" data-anchor-id="video-4">
+<span class="header-section-number">15.5.4</span> Video 4</h3>
 <p>Anspruchsvoller; mathematische Grundlagen von Backpropagation (parzielle Ableitung)</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/tIeHLnjs5U8?si=J7vxQbmHAfHj8aMs" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section></section><section id="vertiefung" class="level2" data-number="13.6"><h2 data-number="13.6" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">13.6</span> Vertiefung</h2>
-<p>Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei <a href="https://betterexplained.com/articles/matrix-multiplication/">Kalid Azad, betterexplained.com</a>.</p>
+</section></section><section id="vertiefung" class="level2" data-number="15.6"><h2 data-number="15.6" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">15.6</span> Vertiefung</h2>
+<p>Francois Chollet hat eine nützliche, zugängliche und (zum Einstieg) umfassende Anleitung zum Thema neuronale Netze mit R bzw. mit Python geschrieben <span class="citation" data-cites="chollet_deep_2022-1 chollet_deep_2021">(<a href="references.html#ref-chollet_deep_2022-1" role="doc-biblioref">Chollet, Kalinowski, und Allaire 2022</a>; <a href="references.html#ref-chollet_deep_2021" role="doc-biblioref">Chollet 2021</a>)</span>.</p>
+<p>Es finden sich viele weitere Lehrbücher für Einsteiger und Fortgeschrittene, z.B. <span class="citation" data-cites="kulkarni_natural_2021">Kulkarni und Shivananda (<a href="references.html#ref-kulkarni_natural_2021" role="doc-biblioref">2021</a>)</span>, <span class="citation" data-cites="gallatin_machine_2023">Gallatin und Albon (<a href="references.html#ref-gallatin_machine_2023" role="doc-biblioref">2023</a>)</span>. Bekannt ist auch <span class="citation" data-cites="geron_praxiseinstieg_2023">Géron (<a href="references.html#ref-geron_praxiseinstieg_2023" role="doc-biblioref">2023</a>)</span>. Der Großteil der entsprechenden Werke nutzt Python, nicht R.</p>
+<p>Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei <a href="https://betterexplained.com/articles/matrix-multiplication/">Kalid Azad, betterexplained.com</a>. Auf <a href="https://de.wikipedia.org/wiki/Matrizenmultiplikation">Wikipedia</a> finden sich einige einsteigerfreundliche Illustrationen.</p>
+<p>Die Videos von <a href="https://www.youtube.com/@vcubingx">vcubingx</a> zum <a href="https://www.youtube.com/watch?v=-at7SLoVK_I">Thema Neuronale Netze</a> sind empfehlenswert.</p>
+<p>Sehr einsteigerfreundlich sind auch die Videos im YouTube-Kanal <a href="https://www.youtube.com/@statquest">StatQuest</a>. Der Autor Josh Starmer bieten einen großen Umfang an Themen aus dem Bereich Maschinenlernen.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-chollet_deep_2021" class="csl-entry" role="listitem">
+Chollet, François. 2021. <em>Deep Learning with <span>Python</span></em>. Second edition. <span>Shelter Island, NY</span>: <span>Manning</span>.
+</div>
+<div id="ref-chollet_deep_2022-1" class="csl-entry" role="listitem">
+Chollet, François, Tomasz Kalinowski, und J. J. Allaire. 2022. <em>Deep Learning with <span>R</span></em>. Second edition. <span>Shelter Island, NY</span>: <span>Manning Publications Co.</span>
+</div>
+<div id="ref-gallatin_machine_2023" class="csl-entry" role="listitem">
+Gallatin, Kyle, und Chris Albon. 2023. <em>Machine Learning with <span>Python Cookbook</span>: Practical Solutions from Preprocessing to Deep Learning</em>. <span>Beijing Boston Farnham Sebastopol Tokyo</span>: <span>O’Reilly Media</span>.
+</div>
+<div id="ref-geron_praxiseinstieg_2023" class="csl-entry" role="listitem">
+Géron, Aurélien. 2023. <em>Praxiseinstieg Machine Learning mit Scikit-Learn, Keras und TensorFlow: Konzepte, Tools und Techniken für intelligente Systeme</em>. Übersetzt von Kristian Rother und Thomas Demmig. 3., aktualisierte und erweiterte Auflage. <span>Heidelberg</span>: <span>O’Reilly</span>.
+</div>
 <div id="ref-islr" class="csl-entry" role="listitem">
 James, Gareth, Daniela Witten, Trevor Hastie, und Robert Tibshirani. 2021. <em>An Introduction to Statistical Learning: With Applications in <span>R</span></em>. Second edition. Springer Texts in Statistics. <span>New York</span>: <span>Springer</span>. <a href="https://link.springer.com/book/10.1007/978-1-0716-1418-1">https://link.springer.com/book/10.1007/978-1-0716-1418-1</a>.
 </div>
+<div id="ref-kulkarni_natural_2021" class="csl-entry" role="listitem">
+Kulkarni, Akshay, und Adarsha Shivananda. 2021. <em>Natural Language Processing Recipes: Unlocking Text Data with Machine Learning and Deep Learning Using <span>Python</span></em>. Second edition. <span>New York</span>: <span>Apress</span>.
 </div>
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</div>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>und können <a href="https://www.statlearning.com/resources-sefcond-edition">von dieser Quelle</a> heruntergeladen werden.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2532,6 +2663,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -2600,13 +2758,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2685,10 +2845,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2698,8 +2857,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2712,6 +2880,135 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2755,6 +3052,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2780,6 +3078,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2839,13 +3163,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./100-nn-quickstart.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span>
+      <a href="./100-nn-quickstart.html" class="pagination-link  aria-label=" in="" neuronale="" netze="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./200-projektmgt.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./125-fallstudie-keras1.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Fallstudie GermEval-Keras-Simple</span>">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

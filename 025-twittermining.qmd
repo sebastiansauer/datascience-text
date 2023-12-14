@@ -18,13 +18,16 @@ Bild von <a href="https://pixabay.com/de/users/mcmurryjulie-2375405/?utm_source=
 - Twitterdaten via API von Twitter auslesen
 
 
+### Begleitliteratur
+
+Lesen Sie in @smltar Kap. 1 als Vorbereitung.
 
 ### Vorbereitung
 
-- Lesen Sie in @smltar Kap. 1.
-- Legen Sie sich ein Konto bei [Github](https://github.com/) an.
-- Legen Sie sich ein Konto bei [Twitter](twitter.com) an.
-- Lesen Sie [diesen Artikel zur Anmeldung bei der Twitter API](https://docs.ropensci.org/rtweet/articles/auth.html)^[Sie können [hier](https://www.howtogeek.com/343877/what-is-an-api/) nachlesen, was eine API ist.]
+
+Legen Sie sich ein Konto bei [Github](https://github.com/) an. Sie werden es mehrfach in diesem Kurs benötigen (und in der Praxis der Datenanalyse).
+Legen Sie sich ein Konto bei [Twitter](twitter.com) an.
+Lesen Sie [diesen Artikel zur Anmeldung bei der Twitter API](https://docs.ropensci.org/rtweet/articles/auth.html)^[Sie können [hier](https://www.howtogeek.com/343877/what-is-an-api/) nachlesen, was eine API ist.]
 
 
 
@@ -90,6 +93,7 @@ Zugangsdaten sollte man geschützt speichern, also z.B. *nicht* in einem geteilt
 
 
 ```{r source-credentials-twitter}
+#| eval: false
 source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
 ```
 
@@ -712,6 +716,7 @@ library(rio)  # R Data import/export
 Dann melden wir uns an:
 
 ```{r}
+#| eval: false
 source("/Users/sebastiansaueruser/credentials/hate-speech-analysis-v01-twitter.R")
 auth <- rtweet_app(bearer_token = Bearer_Token)
 ```
@@ -726,6 +731,7 @@ um ein Beispiel für einen Spitzenpolitiker zu nennen, der vermutlich von Hate S
 
 
 ```{r}
+#| eval: false
 politicians_twitter_path <- "/Users/sebastiansaueruser/github-repos/datascience-text/data/twitter-german-politicians.csv"
 
 politicians_twitter <- rio::import(file = politicians_twitter_path)
@@ -1099,6 +1105,11 @@ Mehr Details finden sich den [Entwicklerrichtlinien von Twitter](https://develop
 
 
 Twitter stellt eine Reihe von [Lehrmaterialien](https://developer.twitter.com/en/use-cases/do-research/academic-research/resources) für die wissenschaftliche Nutzung von Tweets bereit.
+
+
+
+<!-- ## Vertiefung -->
+
 
 
 

@@ -202,8 +202,11 @@ Einige Methoden zum Rechenzeit sparen sind:
 
 Natürlich ist die (mit Abstand) beste Methode: guten Code schreiben. Denn "guter Code" verringert die Wahrscheinlichkeit von Bugs, und damit die Gefahr, dass die ganze schöne Rechenzeit für die Katz war.
 
-"Guter Code" ist vielleicht primär von zwei Dingen abhängig: erstens einen guten Plan zu haben *bevor* man das Programmieren anfängt und zweitens gute Methoden des Projektmanagements.
+"Guter Code" ist vielleicht primär von zwei Dingen abhängig: *erstens* einen guten Plan zu haben *bevor* man das Programmieren anfängt und *zweitens* gute Methoden des Projektmanagements.
 @hunt_pragmatic_2000 präsentieren eine weithin anerkannte Umsetzung, was "guter" Code bedeuten könnte.
+
+
+![Quelle: imgflip.com](img/uno-draw.25.jpg){width=50%}
 
 
 ## Publizieren 
@@ -244,12 +247,19 @@ Das beste Feature ist das, das Sie nicht implementieren.
 
 Daraus leitet sich ab, 
 dass die zentralen Methoden, um der Fehler Herr zu werden im Komplexitätsmanagement liegen.
-Den Variablen (Objekten) gute, "sprechende" aber prägnante Namen zu geben, ist
+Den Variablen (Objekten) "gute", "sprechende", aber prägnante Namen zu geben, ist
 in diesem Lichte auch als Komplexitätsmanagement (Reduktion) zu verstehen.
 
 Ein typischer Fehler, der mir immer mal wieder passiert, ist: Ich ändere den Namen eines Objekts,
 aber vergesse, an *allen* Stellen im Code den Namen anzupassen.
 Glücklicherweise gibt es hier eine einfache Abhilfe: Replace-All.
+
+Der zwar einfache Weg, mehrere ähnliche Objekte durchzunummerieren (`workflow2a`, `recipe1`, ...).
+ist zwar einfach, aber insgesamt nicht zu empfehlen: 
+Es ist nicht leicht, immer genau zu wissen, was der Inhalt hinter der Nummer `2a` etc. ist. 
+Ändert man außerdem die Reihenfolge (oder schiebt ein Objekt dazwischen ein), macht die Nummerierung keinen Sinn mehr (oder man muss mühselig die Nummern ändern, was fehleranfällig und nervig ist).
+
+
 
 
 ### Portionieren

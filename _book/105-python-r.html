@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.513">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮 - 13&nbsp; Python 💖 R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./100-nn-quickstart.html" rel="next">
+<link href="./095-miniprojekt2.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./105-python-r.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Organisatorisches</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zu diesem Buch</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./010-Hinweise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hinweise</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./020-pruefung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Prüfung</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Textmining</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./025-twittermining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Twitter Mining</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./030-textmining1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Textmining 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./040-populismus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fallstudie Populismus</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./065-Information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Informationstheorie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./050-word-embedding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Word Embedding</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./060-hassrede.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hassrede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./067-miniprojekt1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Tidymodels</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./080-klassifikation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Klassifikation von Hatespeech</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./070-hatespeech2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fallstudie Hatespeech</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./095-miniprojekt2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Deep Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./105-python-r.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100-nn-quickstart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./110-nn-theo1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Theoretische Grundlagen neuronaler Netze</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./125-fallstudie-keras1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fallstudie GermEval-Keras-Simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./120-transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Transformer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./130-chatgpt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">ChatGPT-API</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Anwendung</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./200-projektmgt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Projektmanagement</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./300-fallstudien.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Fallstudien</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Abschluss</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+<li>
+<a href="#lernsteuerung" id="toc-lernsteuerung" class="nav-link active" data-scroll-target="#lernsteuerung"><span class="header-section-number">13.1</span> Lernsteuerung</a>
+  <ul class="collapse">
+<li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">13.1.1</span> Lernziele</a></li>
+  <li><a href="#begleitliteratur" id="toc-begleitliteratur" class="nav-link" data-scroll-target="#begleitliteratur"><span class="header-section-number">13.1.2</span> Begleitliteratur</a></li>
+  </ul>
+</li>
+  <li><a href="#python-aus-rstudio" id="toc-python-aus-rstudio" class="nav-link" data-scroll-target="#python-aus-rstudio"><span class="header-section-number">13.2</span> Python aus RStudio</a></li>
+  <li>
+<a href="#python-setup" id="toc-python-setup" class="nav-link" data-scroll-target="#python-setup"><span class="header-section-number">13.3</span> Python-Setup</a>
+  <ul class="collapse">
+<li><a href="#python-installieren" id="toc-python-installieren" class="nav-link" data-scroll-target="#python-installieren"><span class="header-section-number">13.3.1</span> Python installieren</a></li>
+  <li><a href="#welche-python-version-l%C3%A4uft-gerade" id="toc-welche-python-version-läuft-gerade" class="nav-link" data-scroll-target="#welche-python-version-l%C3%A4uft-gerade"><span class="header-section-number">13.3.2</span> Welche Python-Version läuft gerade?</a></li>
+  <li><a href="#versionen-wechseln" id="toc-versionen-wechseln" class="nav-link" data-scroll-target="#versionen-wechseln"><span class="header-section-number">13.3.3</span> Versionen wechseln</a></li>
+  <li><a href="#liste-installierter-module" id="toc-liste-installierter-module" class="nav-link" data-scroll-target="#liste-installierter-module"><span class="header-section-number">13.3.4</span> Liste installierter Module</a></li>
+  <li><a href="#module-installieren" id="toc-module-installieren" class="nav-link" data-scroll-target="#module-installieren"><span class="header-section-number">13.3.5</span> Module installieren</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#einstieg-in-python" id="toc-einstieg-in-python" class="nav-link" data-scroll-target="#einstieg-in-python"><span class="header-section-number">13.4</span> Einstieg in Python</a>
+  <ul class="collapse">
+<li><a href="#hallo" id="toc-hallo" class="nav-link" data-scroll-target="#hallo"><span class="header-section-number">13.4.1</span> Hallo, 🐍</a></li>
+  <li><a href="#objektaustausch-zwischen-r-und-python" id="toc-objektaustausch-zwischen-r-und-python" class="nav-link" data-scroll-target="#objektaustausch-zwischen-r-und-python"><span class="header-section-number">13.4.2</span> Objektaustausch zwischen R und Python</a></li>
+  </ul>
+</li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">13.5</span> Vertiefung</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./105-python-r.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="./105-python-r.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Python 💖 R</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="lernsteuerung" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="lernsteuerung">
+<span class="header-section-number">13.1</span> Lernsteuerung</h2>
+<section id="lernziele" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="lernziele">
+<span class="header-section-number">13.1.1</span> Lernziele</h3>
+<ul>
+<li>Sie wissen, wo und wie Sie sich die Grundlagen von Python aneignen können.</li>
+<li>Sie können Python aus RStudio heraus verwenden.</li>
+<li>Sie können grundlegende Funktionen zur Verwaltung Ihrer Python-Installation wie das Hinzufügen von Modulen.</li>
+</ul></section><section id="begleitliteratur" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="begleitliteratur">
+<span class="header-section-number">13.1.2</span> Begleitliteratur</h3>
+<p>Es gibt viele Lehrbücher zu Python. Mein Rat ist, das zu wählen, das es in Ihrer Lieblingsbibliothek gibt. 🤓 Solange es einigermaßen uptodate ist und Ihnen die didaktische Aufmachung zusagt.</p>
+<p>Hier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. <span class="citation" data-cites="downey_think_2021">Downey (<a href="#ref-downey_think_2021" role="doc-biblioref">2021</a>)</span>; vergleichsweise aktuell ist <span class="citation" data-cites="inden_python_2023">Inden (<a href="#ref-inden_python_2023" role="doc-biblioref">2023</a>)</span>; auch ganz nett ist <span class="citation" data-cites="barry_python_2017">Barry (<a href="#ref-barry_python_2017" role="doc-biblioref">2017</a>)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Rap-Battle von R und Python 🎤
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>(Beat im Hintergrund…)</p>
+<p>Python:</p>
+<p>Yo, I’m Python, the snake that’s striking, Clean syntax, got your code reciting. Versatile, dynamic, no need for stressing, From web apps to scripts, I’m truly impressing.</p>
+<p>Pandas roll deep, handling data so fine, NumPy’s my crew, doing math in every line. Machine learning skills, yeah, I got the game, TensorFlow and PyTorch, ain’t that my fame?</p>
+<p>Indentation’s the key, my style’s so clean, Readability supreme, in every code scene. Fluent in libraries, got Matplotlib on the beat, Visualizing data, making it all sweet.</p>
+<p>R:</p>
+<p>Hold up, Python, slow down the hype, I’m R, in statistics, I’m the type. Dataframes and vectors, I pioneered the game, ggplot2’s my art, visuals never the same.</p>
+<p>Tidyverse, my squad, we stay organized, Read and manipulate, got data mesmerized. Shiny apps shining, interactive delight, In the world of data, I’m taking flight.</p>
+<p>Base R or dplyr, I got the choices, Statistical models, hear the data’s voices. In the realm of data science, I hold my own, From regression to clustering, my skills are honed.</p>
+<p>Python:</p>
+<p>R, you’re cool with stats, I give you that, But in the industry, I’m where it’s at. Django and Flask, web frameworks so sleek, Building APIs, from strong to boutique.</p>
+<p>Jupyter Notebooks, my interactive stage, Collaborating with data at every page. Anaconda’s my lair, where I thrive, In the world of programming, I’m the hive.</p>
+<p>R:</p>
+<p>Python, you’re flashy, I won’t deny, But in data analysis, I reach for the sky. RMarkdown’s my rhyme, in reports so sweet, Knitting documents, making it elite.</p>
+<p>CRAN repository, where packages reside, Shiny dashboards, taking users on a ride. I might be niche, but my stats are profound, In the world of data, I wear the crown.</p>
+<p>(Beat fades out…)</p>
+<p><a href="https://chat.openai.com/c/a8ed38e6-29b6-4bc4-8bcc-ec95a8f77abb">Quelle: ChatGPT 3.5, 2023-11-23</a></p>
+</div>
+</div>
+</div>
+</section></section><section id="python-aus-rstudio" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="python-aus-rstudio">
+<span class="header-section-number">13.2</span> Python aus RStudio</h2>
+<p>RStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu verwenden. Und nicht nur das:</p>
+<ul>
+<li>Man kann Objekte (Daten) zwischen den beiden Sprachen tauschen</li>
+<li>Man kann aus R Python-Funktionen verwenden.</li>
+</ul>
+<p>Sie haben zwei Möglichkeiten, Python in RStudio zu nutzen:</p>
+<ol type="1">
+<li>Öffnen Sie ein reines Python-Skript.</li>
+<li>Fügen Sie Python-Chunks in ein Notebook (d.h. Quarto-Doc) ein.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="img/toogood.gif" class="img-fluid figure-img"></p>
+<figcaption>Quelle: Imgflip</figcaption></figure>
+</div>
+</section><section id="python-setup" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="python-setup">
+<span class="header-section-number">13.3</span> Python-Setup</h2>
+<section id="python-installieren" class="level3" data-number="13.3.1"><h3 data-number="13.3.1" class="anchored" data-anchor-id="python-installieren">
+<span class="header-section-number">13.3.1</span> Python installieren</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Download et al.</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">pyenv</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Man kann Python kostenlos herunterladen bei https://www.python.org/downloads/. <a href="https://de.wikihow.com/Python-installieren">Hier</a> ist eine Anleitung von Wikihow. Bei Unix-Betriebssystemen werden häufig Paketmanager verwendet.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Welche Versionen gibt’s?</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-1_f6ae261fb0889ae0f670acfda5e695a2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pyenv</span> install <span class="at">--list</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-2_023515e4c52d28fa9b3a996b1feca7e9">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pyenv</span> install 3.12.0a3</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="welche-python-version-läuft-gerade" class="level3" data-number="13.3.2"><h3 data-number="13.3.2" class="anchored" data-anchor-id="welche-python-version-läuft-gerade">
+<span class="header-section-number">13.3.2</span> Welche Python-Version läuft gerade?</h3>
+<p>In R läuft gerade folgende Python-Version:</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-3_bfd34056887a513a344ab90361206c62">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/">reticulate</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_config.html">py_config</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## python:         /Users/sebastiansaueruser/.virtualenvs/r-tensorflow/bin/python</span></span>
+<span><span class="co">## libpython:      /Users/sebastiansaueruser/.pyenv/versions/3.8.16/lib/libpython3.8.dylib</span></span>
+<span><span class="co">## pythonhome:     /Users/sebastiansaueruser/.virtualenvs/r-tensorflow:/Users/sebastiansaueruser/.virtualenvs/r-tensorflow</span></span>
+<span><span class="co">## version:        3.8.16 (default, Sep 15 2023, 17:53:02)  [Clang 14.0.3 (clang-1403.0.22.14.1)]</span></span>
+<span><span class="co">## numpy:          /Users/sebastiansaueruser/.virtualenvs/r-tensorflow/lib/python3.8/site-packages/numpy</span></span>
+<span><span class="co">## numpy_version:  1.24.3</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## NOTE: Python version was forced by VIRTUAL_ENV</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aus der <code>reticulate</code>-Doku:</p>
+<blockquote class="blockquote">
+<p>By default, reticulate uses an isolated python virtual environment named “r-reticulate”.</p>
+</blockquote>
+<p>Check: Ist Python gestartet und bereit?</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-4_ce1e795844939d094ed1f21c242883c8">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_available.html">py_available</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## [1] TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir können die Kommandozeile auch aus Notebooks heraus ansprechen.</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-5_ad095e057b0c72ab1ca499a14af9892d">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{zsh}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">python --version</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>## Python 3.8.16</code></pre>
+</div>
+<p>Aber Achtung: Die gezeigt Version ist nicht unbedingt diejenige, die im Notebook oder im interaktiven R verwendet wird.</p>
+<p>RStudio zeigt Ihnen, welche Python-Versionen verfügbar sind unter Tools &gt; Global Options &gt; Python.</p>
+</section><section id="versionen-wechseln" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="versionen-wechseln">
+<span class="header-section-number">13.3.3</span> Versionen wechseln</h3>
+<section id="rstudio" class="level4" data-number="13.3.3.1"><h4 data-number="13.3.3.1" class="anchored" data-anchor-id="rstudio">
+<span class="header-section-number">13.3.3.1</span> RStudio</h4>
+<p>RStudio bietet in den Optionen per GUI die Möglichkeit, eine bestimmte Version von Python auszuwählen. Zumeist sind mehrere Versionen auf einem Computer vorhanden.</p>
+<p>Natürlich kann man auch via R virtuelle Environments (<code>venvs</code>) nutzen, wie es in Python üblich ist:</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-6_da27225eab6c2c0332e3321ef19e4171">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/use_python.html">use_virtualenv</a></span><span class="op">(</span><span class="st">"r-tensorflow"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Oder man legt sich solche venvs an:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">pyenv</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-7_b23d7624060b55ed21d1d15377f09204">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/virtualenv-tools.html">virtualenv_create</a></span><span class="op">(</span><span class="st">"scikit-llm"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Mit <code>pyenv virtualenv</code> legt man eine neue venv mit Namen <code>my_venv</code> an:</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-8_6c5038bd7b2c5dcead58daffcd3698a8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pyenv</span> virtualenv 3.11.1 test_venv</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="pyenv-2" class="level4" data-number="13.3.3.2"><h4 data-number="13.3.3.2" class="anchored" data-anchor-id="pyenv-2">
+<span class="header-section-number">13.3.3.2</span> Pyenv</h4>
+<p>Mit <code>pyenv</code> kann man komfortabel zwischen mehreren installierten Python-Versionen wechseln.</p>
+<p>Um Python-Module zu installieren via <code>pyenv</code> bietet sich dieser (Kommondozeilen-)Befehl an:</p>
+<p><code>pyenv exec pip install &lt;name-des-moduls&gt;</code>.</p>
+<div id="exm-spacy-pip" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 13.1 </strong></span>Um das Modul <code>spacy</code> zu installieren, schreibt man <code>pyenv exec pip install spacy</code>. <span class="math inline">\(\square\)</span></p>
+</div>
+<p>in der <em>Shell</em> ist gerade folgende Python-Version aktiviert:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Shell</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-9_c648a4cdbabc2e128d1406a46a37a170">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system2.html">system2</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"pyenv"</span>,</span>
+<span>        args <span class="op">=</span> <span class="st">"version"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-10_85269db81ed76ba77851706b207f552f">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pyenv</span> version</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">## 3.11.1 (set by /Users/sebastiansaueruser/.python-version)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="calllout-caution">
+<p>Die “aktuelle” Python-Version ist nicht (unbedingt) die Python-Version, die in R aktiv ist. <span class="math inline">\(\square\)</span></p>
+</div>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-11_20914974b449d63ee97eb011fd270e27">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{zsh}</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="in">pyenv versions</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>##   system
+##   3.8.1
+##   3.8.16
+##   3.9.16
+## * 3.11.1 (set by /Users/sebastiansaueruser/.python-version)</code></pre>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Vorsicht
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Es werden nur Python-Versionen angezeigt, die im Pfad (in der Shell) definiert sind. <span class="math inline">\(\square\)</span></p>
+</div>
+</div>
+</section></section><section id="liste-installierter-module" class="level3" data-number="13.3.4"><h3 data-number="13.3.4" class="anchored" data-anchor-id="liste-installierter-module">
+<span class="header-section-number">13.3.4</span> Liste installierter Module</h3>
+<p>Die Liste installierter Module bezieht sich auf die aktuell aktivierte Version von Python.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Shell</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Python</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-12_208145d61d1d3b1a4f7232044a481bb3">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_list_packages.html">py_list_packages</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["package"],"name":[1],"type":["chr"],"align":["left"]},{"label":["version"],"name":[2],"type":["chr"],"align":["left"]},{"label":["requirement"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"absl-py","2":"1.4.0","3":"absl-py==1.4.0"},{"1":"aiohttp","2":"3.9.0","3":"aiohttp==3.9.0"},{"1":"aiosignal","2":"1.3.1","3":"aiosignal==1.3.1"},{"1":"annotated-types","2":"0.6.0","3":"annotated-types==0.6.0"},{"1":"anyio","2":"3.7.1","3":"anyio==3.7.1"},{"1":"array-record","2":"0.4.0","3":"array-record==0.4.0"},{"1":"astunparse","2":"1.6.3","3":"astunparse==1.6.3"},{"1":"async-timeout","2":"4.0.3","3":"async-timeout==4.0.3"},{"1":"attrs","2":"23.1.0","3":"attrs==23.1.0"},{"1":"cachetools","2":"5.3.1","3":"cachetools==5.3.1"},{"1":"certifi","2":"2023.7.22","3":"certifi==2023.7.22"},{"1":"charset-normalizer","2":"3.3.0","3":"charset-normalizer==3.3.0"},{"1":"click","2":"8.1.7","3":"click==8.1.7"},{"1":"distro","2":"1.8.0","3":"distro==1.8.0"},{"1":"dm-tree","2":"0.1.8","3":"dm-tree==0.1.8"},{"1":"etils","2":"1.3.0","3":"etils==1.3.0"},{"1":"exceptiongroup","2":"1.2.0","3":"exceptiongroup==1.2.0"},{"1":"filelock","2":"3.13.1","3":"filelock==3.13.1"},{"1":"flatbuffers","2":"23.5.26","3":"flatbuffers==23.5.26"},{"1":"frozenlist","2":"1.4.0","3":"frozenlist==1.4.0"},{"1":"fsspec","2":"2023.10.0","3":"fsspec==2023.10.0"},{"1":"gast","2":"0.4.0","3":"gast==0.4.0"},{"1":"google-api-core","2":"2.14.0","3":"google-api-core==2.14.0"},{"1":"google-auth","2":"2.23.4","3":"google-auth==2.23.4"},{"1":"google-auth-oauthlib","2":"1.0.0","3":"google-auth-oauthlib==1.0.0"},{"1":"google-cloud-aiplatform","2":"1.36.4","3":"google-cloud-aiplatform==1.36.4"},{"1":"google-cloud-bigquery","2":"3.13.0","3":"google-cloud-bigquery==3.13.0"},{"1":"google-cloud-core","2":"2.3.3","3":"google-cloud-core==2.3.3"},{"1":"google-cloud-resource-manager","2":"1.10.4","3":"google-cloud-resource-manager==1.10.4"},{"1":"google-cloud-storage","2":"2.13.0","3":"google-cloud-storage==2.13.0"},{"1":"google-crc32c","2":"1.5.0","3":"google-crc32c==1.5.0"},{"1":"google-pasta","2":"0.2.0","3":"google-pasta==0.2.0"},{"1":"google-resumable-media","2":"2.6.0","3":"google-resumable-media==2.6.0"},{"1":"googleapis-common-protos","2":"1.60.0","3":"googleapis-common-protos==1.60.0"},{"1":"grpc-google-iam-v1","2":"0.12.7","3":"grpc-google-iam-v1==0.12.7"},{"1":"grpcio","2":"1.59.3","3":"grpcio==1.59.3"},{"1":"grpcio-status","2":"1.59.3","3":"grpcio-status==1.59.3"},{"1":"h11","2":"0.14.0","3":"h11==0.14.0"},{"1":"h5py","2":"3.9.0","3":"h5py==3.9.0"},{"1":"httpcore","2":"1.0.2","3":"httpcore==1.0.2"},{"1":"httpx","2":"0.25.1","3":"httpx==0.25.1"},{"1":"huggingface","2":"0.0.1","3":"huggingface==0.0.1"},{"1":"huggingface-hub","2":"0.19.4","3":"huggingface-hub==0.19.4"},{"1":"idna","2":"3.4","3":"idna==3.4"},{"1":"importlib-metadata","2":"6.8.0","3":"importlib-metadata==6.8.0"},{"1":"importlib-resources","2":"6.1.0","3":"importlib-resources==6.1.0"},{"1":"joblib","2":"1.3.2","3":"joblib==1.3.2"},{"1":"keras","2":"2.13.1","3":"keras==2.13.1"},{"1":"libclang","2":"16.0.6","3":"libclang==16.0.6"},{"1":"Markdown","2":"3.4.4","3":"Markdown==3.4.4"},{"1":"MarkupSafe","2":"2.1.3","3":"MarkupSafe==2.1.3"},{"1":"multidict","2":"6.0.4","3":"multidict==6.0.4"},{"1":"numpy","2":"1.24.3","3":"numpy==1.24.3"},{"1":"oauthlib","2":"3.2.2","3":"oauthlib==3.2.2"},{"1":"openai","2":"1.3.5","3":"openai==1.3.5"},{"1":"opt-einsum","2":"3.3.0","3":"opt-einsum==3.3.0"},{"1":"packaging","2":"23.2","3":"packaging==23.2"},{"1":"pandas","2":"2.0.3","3":"pandas==2.0.3"},{"1":"Pillow","2":"10.0.1","3":"Pillow==10.0.1"},{"1":"promise","2":"2.3","3":"promise==2.3"},{"1":"proto-plus","2":"1.22.3","3":"proto-plus==1.22.3"},{"1":"protobuf","2":"4.25.1","3":"protobuf==4.25.1"},{"1":"psutil","2":"5.9.5","3":"psutil==5.9.5"},{"1":"pyasn1","2":"0.5.0","3":"pyasn1==0.5.0"},{"1":"pyasn1-modules","2":"0.3.0","3":"pyasn1-modules==0.3.0"},{"1":"pydantic","2":"2.5.2","3":"pydantic==2.5.2"},{"1":"pydantic_core","2":"2.14.5","3":"pydantic_core==2.14.5"},{"1":"pydot","2":"1.4.2","3":"pydot==1.4.2"},{"1":"pyparsing","2":"3.1.1","3":"pyparsing==3.1.1"},{"1":"python-dateutil","2":"2.8.2","3":"python-dateutil==2.8.2"},{"1":"pytz","2":"2023.3.post1","3":"pytz==2023.3.post1"},{"1":"PyYAML","2":"6.0.1","3":"PyYAML==6.0.1"},{"1":"regex","2":"2023.10.3","3":"regex==2023.10.3"},{"1":"requests","2":"2.31.0","3":"requests==2.31.0"},{"1":"requests-oauthlib","2":"1.3.1","3":"requests-oauthlib==1.3.1"},{"1":"rsa","2":"4.9","3":"rsa==4.9"},{"1":"safetensors","2":"0.4.0","3":"safetensors==0.4.0"},{"1":"scikit-learn","2":"1.3.2","3":"scikit-learn==1.3.2"},{"1":"scipy","2":"1.10.1","3":"scipy==1.10.1"},{"1":"shapely","2":"2.0.2","3":"shapely==2.0.2"},{"1":"six","2":"1.16.0","3":"six==1.16.0"},{"1":"sniffio","2":"1.3.0","3":"sniffio==1.3.0"},{"1":"tensorboard","2":"2.13.0","3":"tensorboard==2.13.0"},{"1":"tensorboard-data-server","2":"0.7.1","3":"tensorboard-data-server==0.7.1"},{"1":"tensorflow","2":"2.13.1","3":"tensorflow==2.13.1"},{"1":"tensorflow-datasets","2":"4.9.2","3":"tensorflow-datasets==4.9.2"},{"1":"tensorflow-estimator","2":"2.13.0","3":"tensorflow-estimator==2.13.0"},{"1":"tensorflow-hub","2":"0.14.0","3":"tensorflow-hub==0.14.0"},{"1":"tensorflow-io-gcs-filesystem","2":"0.34.0","3":"tensorflow-io-gcs-filesystem==0.34.0"},{"1":"tensorflow-metadata","2":"1.14.0","3":"tensorflow-metadata==1.14.0"},{"1":"termcolor","2":"2.3.0","3":"termcolor==2.3.0"},{"1":"threadpoolctl","2":"3.2.0","3":"threadpoolctl==3.2.0"},{"1":"tokenizers","2":"0.15.0","3":"tokenizers==0.15.0"},{"1":"toml","2":"0.10.2","3":"toml==0.10.2"},{"1":"tqdm","2":"4.66.1","3":"tqdm==4.66.1"},{"1":"transformers","2":"4.35.2","3":"transformers==4.35.2"},{"1":"typing_extensions","2":"4.8.0","3":"typing_extensions==4.8.0"},{"1":"tzdata","2":"2023.3","3":"tzdata==2023.3"},{"1":"urllib3","2":"2.0.6","3":"urllib3==2.0.6"},{"1":"Werkzeug","2":"3.0.0","3":"Werkzeug==3.0.0"},{"1":"wrapt","2":"1.15.0","3":"wrapt==1.15.0"},{"1":"yarl","2":"1.9.3","3":"yarl==1.9.3"},{"1":"zipp","2":"3.17.0","3":"zipp==3.17.0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-13_fa57b45659a577cb5458ed52a2e9d6ea">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> list</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Package                       Version</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">## ----------------------------- ------------</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">## absl-py                       1.4.0</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">## aiohttp                       3.9.0</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">## aiosignal                     1.3.1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">## annotated-types               0.6.0</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">## anyio                         3.7.1</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">## array-record                  0.4.0</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">## astunparse                    1.6.3</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">## async-timeout                 4.0.3</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">## attrs                         23.1.0</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">## cachetools                    5.3.1</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">## certifi                       2023.7.22</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">## charset-normalizer            3.3.0</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">## click                         8.1.7</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">## distro                        1.8.0</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">## dm-tree                       0.1.8</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">## etils                         1.3.0</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">## exceptiongroup                1.2.0</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">## filelock                      3.13.1</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co">## flatbuffers                   23.5.26</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co">## frozenlist                    1.4.0</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co">## fsspec                        2023.10.0</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co">## gast                          0.4.0</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co">## google-api-core               2.14.0</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co">## google-auth                   2.23.4</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="co">## google-auth-oauthlib          1.0.0</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="co">## google-cloud-aiplatform       1.36.4</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co">## google-cloud-bigquery         3.13.0</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co">## google-cloud-core             2.3.3</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="co">## google-cloud-resource-manager 1.10.4</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co">## google-cloud-storage          2.13.0</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="co">## google-crc32c                 1.5.0</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="co">## google-pasta                  0.2.0</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="co">## google-resumable-media        2.6.0</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="co">## googleapis-common-protos      1.60.0</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="co">## grpc-google-iam-v1            0.12.7</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="co">## grpcio                        1.59.3</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="co">## grpcio-status                 1.59.3</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="co">## h11                           0.14.0</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="co">## h5py                          3.9.0</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="co">## httpcore                      1.0.2</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="co">## httpx                         0.25.1</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="co">## huggingface                   0.0.1</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="co">## huggingface-hub               0.19.4</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="co">## idna                          3.4</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="co">## importlib-metadata            6.8.0</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="co">## importlib-resources           6.1.0</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co">## joblib                        1.3.2</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="co">## keras                         2.13.1</span></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="co">## libclang                      16.0.6</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="co">## Markdown                      3.4.4</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="co">## MarkupSafe                    2.1.3</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="co">## multidict                     6.0.4</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="co">## numpy                         1.24.3</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="co">## oauthlib                      3.2.2</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a><span class="co">## openai                        1.3.5</span></span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="co">## opt-einsum                    3.3.0</span></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a><span class="co">## packaging                     23.2</span></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="co">## pandas                        2.0.3</span></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="co">## Pillow                        10.0.1</span></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a><span class="co">## pip                           23.2.1</span></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a><span class="co">## promise                       2.3</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="co">## proto-plus                    1.22.3</span></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a><span class="co">## protobuf                      4.25.1</span></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="co">## psutil                        5.9.5</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="co">## pyasn1                        0.5.0</span></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a><span class="co">## pyasn1-modules                0.3.0</span></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a><span class="co">## pydantic                      2.5.2</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a><span class="co">## pydantic_core                 2.14.5</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a><span class="co">## pydot                         1.4.2</span></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a><span class="co">## pyparsing                     3.1.1</span></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a><span class="co">## python-dateutil               2.8.2</span></span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a><span class="co">## pytz                          2023.3.post1</span></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="co">## PyYAML                        6.0.1</span></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="co">## regex                         2023.10.3</span></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="co">## requests                      2.31.0</span></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a><span class="co">## requests-oauthlib             1.3.1</span></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a><span class="co">## rsa                           4.9</span></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a><span class="co">## safetensors                   0.4.0</span></span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="co">## scikit-learn                  1.3.2</span></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="co">## scipy                         1.10.1</span></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a><span class="co">## setuptools                    68.2.2</span></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="co">## shapely                       2.0.2</span></span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a><span class="co">## six                           1.16.0</span></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="co">## sniffio                       1.3.0</span></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorboard                   2.13.0</span></span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorboard-data-server       0.7.1</span></span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorflow                    2.13.1</span></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorflow-datasets           4.9.2</span></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorflow-estimator          2.13.0</span></span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorflow-hub                0.14.0</span></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorflow-io-gcs-filesystem  0.34.0</span></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="co">## tensorflow-metadata           1.14.0</span></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a><span class="co">## termcolor                     2.3.0</span></span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a><span class="co">## threadpoolctl                 3.2.0</span></span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a><span class="co">## tokenizers                    0.15.0</span></span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a><span class="co">## toml                          0.10.2</span></span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="co">## tqdm                          4.66.1</span></span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="co">## transformers                  4.35.2</span></span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a><span class="co">## typing_extensions             4.8.0</span></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="co">## tzdata                        2023.3</span></span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a><span class="co">## urllib3                       2.0.6</span></span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a><span class="co">## Werkzeug                      3.0.0</span></span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="co">## wheel                         0.41.2</span></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a><span class="co">## wrapt                         1.15.0</span></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a><span class="co">## yarl                          1.9.3</span></span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a><span class="co">## zipp                          3.17.0</span></span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a><span class="co">## </span></span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="co">## [notice] A new release of pip is available: 23.2.1 -&gt; 23.3.1</span></span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a><span class="co">## [notice] To update, run: pip install --upgrade pip</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-14_ca6a29d1245016f470322d7cc383ae36">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">"pip list"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">## 0</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Die Version eines bestimmten installierten Moduls bekommt man einfach mit <code>grep</code>:</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-15_b307e4786e9542f1427812482f042872">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip <span class="bu">list</span> <span class="op">|</span> grep openai</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das Ausrufezeichen <code>!</code> zeigt Shell-Code in einem Python-Chunk an. Der Balken <code>|</code> ist eine Pfeife wie <code>|&gt;</code> in R.</p>
+</section><section id="module-installieren" class="level3" data-number="13.3.5"><h3 data-number="13.3.5" class="anchored" data-anchor-id="module-installieren">
+<span class="header-section-number">13.3.5</span> Module installieren</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Shell</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">R</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p>Mit dem Kommandozeilen-Befehl <code>pip</code> kann man Pythonmodule installieren.</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-16_91a3200d69547caa6c8dbd15146506f6">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install module-name</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dabei steht <code>module-name</code> für den Namen des zu installierenden Moduls, z.B. <code>openai</code>.</p>
+<p>Und auch wieder löschen</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-17_dfb4c856ee4cab68372a768b015fea24">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode zsh code-with-copy"><code class="sourceCode zsh"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> uninstall module-name</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>Oder via R:</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-18_a0213a994dbfd94646ab64331505f000">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_install.html">py_install</a></span><span class="op">(</span><span class="st">"openai"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="einstieg-in-python" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="einstieg-in-python">
+<span class="header-section-number">13.4</span> Einstieg in Python</h2>
+<section id="hallo" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="hallo">
+<span class="header-section-number">13.4.1</span> Hallo, 🐍</h3>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-19_8d68bf4cac7f0d80cfb184942bc04b97">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="in">print("Hello! Here's 🐍")</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="in">python_list = [1,2,3]  # im Standard Integer</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="in">python_list</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>## Hello! Here's 🐍
+## [1, 2, 3]</code></pre>
+</div>
+</section><section id="objektaustausch-zwischen-r-und-python" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="objektaustausch-zwischen-r-und-python">
+<span class="header-section-number">13.4.2</span> Objektaustausch zwischen R und Python</h3>
+<p>In R ein Python-Objekt ansprechen, das geht mit <code>py$</code>:</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-20_8c76639d780b14d6a73f3c7b3b0a3f7d">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">py</span><span class="op">$</span><span class="va">python_list</span></span>
+<span><span class="co">## [1] 1 2 3</span></span>
+<span></span>
+<span><span class="va">r_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>,<span class="fl">2L</span>,<span class="fl">3L</span><span class="op">)</span>  <span class="co"># Integer aktiv gewählt, da R im Standard  Float wählt</span></span>
+<span><span class="va">r_vec</span></span>
+<span><span class="co">## [1] 1 2 3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In Python ein R-Objekt ansprechen, das geht mit <code>r.</code>:</p>
+<div class="cell" data-hash="105-python-r_cache/html/unnamed-chunk-21_b0654a7bb61b6d0f7e291e90a79d0f3b">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>r.r_vec</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">## [1, 2, 3]</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="vertiefung" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">13.5</span> Vertiefung</h2>
+<p>Es gibt viele Onlinekurse, um Python zu lernen, z.B. <a href="https://www.coursera.org/learn/python-crash-course">Googles Crashkurs bei Coursera</a>; überhaupt bietet Coursera eine Menge Onlinekurse zu dem <a href="https://www.coursera.org/courses?query=python">Thema Python</a>. Andere Anbieter bieten das auch, etwa <a href="https://www.edx.org/learn/python">edx</a>. <a href="https://www.learnpython.org/" class="uri">https://www.learnpython.org/</a> bietet einen E-Learning-Kurs.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-barry_python_2017" class="csl-entry" role="listitem">
+Barry, Paul. 2017. <em>Python von Kopf bis Fuß</em>. Übersetzt von Jørgen W. Lang. Zweite Auflage. Von Kopf bis Fuß. <span>Beijing Boston Farnham Sebastopol Tokyo</span>: <span>O’Reilly</span>.
+</div>
+<div id="ref-downey_think_2021" class="csl-entry" role="listitem">
+Downey, Allen B. 2021. <em>Think Python: systematisch programmieren lernen mit Python</em>. Übersetzt von Peter Klicman. 1. Auflage. <span>Heidelberg</span>: <span>O’Reilly</span>.
+</div>
+<div id="ref-inden_python_2023" class="csl-entry" role="listitem">
+Inden, Michael. 2023. <em>Python lernen: kurz &amp; gut</em>. 1. Auflage. O’Reillys Taschenbibliothek. <span>Heidelberg</span>: <span>O’Reilly</span>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./095-miniprojekt2.html" class="pagination-link  aria-label=">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Miniprojekt</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./100-nn-quickstart.html" class="pagination-link" aria-label="<span class='chapter-number'>14</span>&nbsp; <span class='chapter-title'>Einstieg in Neuronale Netze</span>">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Einstieg in Neuronale Netze</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

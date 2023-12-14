@@ -1,0 +1,436 @@
+# Python 💖 R
+
+## Lernsteuerung
+
+
+### Lernziele
+
+
+- Sie wissen, wo und wie Sie sich die Grundlagen von Python aneignen können.
+- Sie können Python aus RStudio heraus verwenden.
+- Sie können grundlegende Funktionen zur Verwaltung Ihrer Python-Installation wie das Hinzufügen von Modulen.
+
+
+### Begleitliteratur
+
+
+Es gibt viele Lehrbücher zu Python. Mein Rat ist, das zu wählen, das es in Ihrer Lieblingsbibliothek gibt. 🤓 Solange es einigermaßen uptodate ist und Ihnen die didaktische Aufmachung zusagt.
+
+Hier ist eine Auswahl an Einstiegsbücher in deutscher Sprache: Bekannt ist z.B. @downey_think_2021; vergleichsweise aktuell ist @inden_python_2023; auch ganz nett ist @barry_python_2017.
+
+
+:::{.callout-note  collapse="true"}
+### Rap-Battle von R und Python 🎤 
+
+(Beat im Hintergrund...)
+
+Python:
+
+Yo, I'm Python, the snake that's striking,
+Clean syntax, got your code reciting.
+Versatile, dynamic, no need for stressing,
+From web apps to scripts, I'm truly impressing.
+
+Pandas roll deep, handling data so fine,
+NumPy's my crew, doing math in every line.
+Machine learning skills, yeah, I got the game,
+TensorFlow and PyTorch, ain't that my fame?
+
+Indentation's the key, my style's so clean,
+Readability supreme, in every code scene.
+Fluent in libraries, got Matplotlib on the beat,
+Visualizing data, making it all sweet.
+
+R:
+
+Hold up, Python, slow down the hype,
+I'm R, in statistics, I'm the type.
+Dataframes and vectors, I pioneered the game,
+ggplot2's my art, visuals never the same.
+
+Tidyverse, my squad, we stay organized,
+Read and manipulate, got data mesmerized.
+Shiny apps shining, interactive delight,
+In the world of data, I'm taking flight.
+
+Base R or dplyr, I got the choices,
+Statistical models, hear the data's voices.
+In the realm of data science, I hold my own,
+From regression to clustering, my skills are honed.
+
+Python:
+
+R, you're cool with stats, I give you that,
+But in the industry, I'm where it's at.
+Django and Flask, web frameworks so sleek,
+Building APIs, from strong to boutique.
+
+Jupyter Notebooks, my interactive stage,
+Collaborating with data at every page.
+Anaconda's my lair, where I thrive,
+In the world of programming, I'm the hive.
+
+R:
+
+Python, you're flashy, I won't deny,
+But in data analysis, I reach for the sky.
+RMarkdown's my rhyme, in reports so sweet,
+Knitting documents, making it elite.
+
+CRAN repository, where packages reside,
+Shiny dashboards, taking users on a ride.
+I might be niche, but my stats are profound,
+In the world of data, I wear the crown.
+
+(Beat fades out...)
+
+
+[Quelle: ChatGPT 3.5, 2023-11-23](https://chat.openai.com/c/a8ed38e6-29b6-4bc4-8bcc-ec95a8f77abb )
+:::
+
+
+## Python aus RStudio
+
+RStudio bietet die Möglichkeit, R und Python gleichzeitig in einem Notebook zu verwenden. Und nicht nur das:
+
+- Man kann Objekte (Daten) zwischen den beiden Sprachen tauschen
+- Man kann aus R Python-Funktionen verwenden.
+
+
+Sie haben zwei Möglichkeiten, Python in RStudio zu nutzen:
+
+1. Öffnen Sie ein reines Python-Skript.
+2. Fügen Sie Python-Chunks in ein Notebook (d.h. Quarto-Doc) ein.
+
+
+![Quelle: Imgflip](img/toogood.gif)
+
+
+## Python-Setup
+
+
+### Python installieren
+
+
+:::{.panel-tabset}
+
+### Download et al.
+
+Man kann Python kostenlos herunterladen bei https://www.python.org/downloads/. [Hier](https://de.wikihow.com/Python-installieren) ist eine Anleitung von Wikihow. Bei Unix-Betriebssystemen werden häufig Paketmanager verwendet.
+
+
+### pyenv
+
+Welche Versionen gibt's?
+
+```{zsh}
+#| eval: false
+pyenv install --list
+```
+
+
+```{zsh}
+#| eval: false
+pyenv install 3.12.0a3
+```
+
+:::
+
+
+
+
+
+### Welche Python-Version läuft gerade?
+
+In R läuft gerade folgende Python-Version:
+
+```{r}
+library(reticulate)
+py_config()
+```
+
+
+
+
+Aus der `reticulate`-Doku: 
+
+>    By default, reticulate uses an isolated python virtual environment named “r-reticulate”.
+
+
+
+
+Check: Ist Python gestartet und bereit?
+
+```{r}
+py_available()
+```
+
+
+
+
+Wir können die Kommandozeile auch aus Notebooks heraus ansprechen.
+
+
+
+```{zsh}
+#| echo: fenced
+python --version
+```
+
+
+Aber Achtung: Die gezeigt Version ist nicht unbedingt diejenige, die im Notebook oder im interaktiven R verwendet wird.
+
+
+
+
+
+RStudio zeigt Ihnen, welche Python-Versionen verfügbar sind unter Tools > Global Options > Python.
+
+
+
+### Versionen wechseln
+
+
+#### RStudio
+
+RStudio bietet in den Optionen per GUI die Möglichkeit, eine bestimmte Version von Python auszuwählen. 
+Zumeist sind mehrere Versionen auf einem Computer vorhanden.
+
+Natürlich kann man auch via R virtuelle Environments (`venvs`) nutzen, wie es in Python üblich ist:
+
+```{r}
+#| eval: false
+use_virtualenv("r-tensorflow")
+```
+
+Oder man legt sich solche venvs an:
+
+:::{.panel-tabset}
+
+### R
+
+```{r}
+#| eval: false
+reticulate::virtualenv_create("scikit-llm")
+```
+
+### pyenv
+
+Mit `pyenv virtualenv` legt man eine neue venv mit Namen `my_venv` an:
+
+```{zsh}
+#| eval: false
+pyenv virtualenv 3.11.1 test_venv
+```
+
+
+:::
+
+
+
+
+
+
+#### Pyenv
+
+Mit `pyenv` kann man komfortabel zwischen mehreren installierten Python-Versionen wechseln.
+
+
+Um Python-Module zu installieren via `pyenv` bietet sich dieser (Kommondozeilen-)Befehl an:
+
+`pyenv exec pip install <name-des-moduls>`.
+
+:::{#exm-spacy-pip}
+Um das Modul `spacy` zu installieren, schreibt man `pyenv exec pip install spacy`. $\square$
+:::
+
+
+
+
+in der *Shell* ist gerade folgende Python-Version aktiviert:
+
+
+:::{.panel-tabset}
+
+### R
+
+```{r}
+system2(command = "pyenv",
+        args = "version")
+```
+
+### Shell
+
+```{zsh}
+pyenv version
+```
+
+:::
+
+
+::: calllout-caution
+Die "aktuelle" Python-Version ist nicht (unbedingt) die Python-Version, die in R aktiv ist. $\square$
+:::
+
+
+
+
+```{zsh}
+#| echo: fenced
+pyenv versions
+```
+
+:::callout-caution
+Es werden nur Python-Versionen angezeigt, die im Pfad (in der Shell) definiert sind. $\square$
+:::
+
+
+
+
+
+
+
+### Liste installierter Module
+
+Die Liste installierter Module bezieht sich auf die aktuell aktivierte Version von Python.
+
+
+:::{.panel-tabset}
+
+### R
+
+```{r}
+py_list_packages()
+```
+
+
+### Shell
+
+```{zsh}
+pip list
+```
+
+
+### Python
+
+```{python}
+import os
+os.system("pip list")
+```
+
+
+:::
+
+
+Die Version eines bestimmten installierten Moduls bekommt man einfach mit `grep`:
+
+
+```{python}
+#| eval: false
+!pip list | grep openai
+```
+
+Das Ausrufezeichen `!` zeigt Shell-Code in einem Python-Chunk an.
+Der Balken `|` ist eine Pfeife wie `|>` in R.
+
+
+
+### Module installieren
+
+
+:::{.panel-tabset}
+
+### Shell
+
+Mit dem Kommandozeilen-Befehl `pip` kann man Pythonmodule installieren.
+
+
+```{zsh}
+#| eval: false
+pip install module-name
+```
+
+Dabei steht `module-name` für den Namen des zu installierenden Moduls, z.B. `openai`.
+
+Und auch wieder löschen
+
+```{zsh}
+#| eval: false
+pip uninstall module-name
+```
+
+
+
+### R
+
+
+
+
+Oder via R:
+
+```{r}
+#| eval: false
+py_install("openai")
+```
+
+
+:::
+
+
+
+## Einstieg in Python
+
+
+### Hallo, 🐍
+
+```{python}
+#| echo: fenced
+print("Hello! Here's 🐍")
+
+python_list = [1,2,3]  # im Standard Integer
+python_list
+```
+
+
+### Objektaustausch zwischen R und Python
+
+In R ein Python-Objekt ansprechen, das geht mit `py$`:
+
+```{r}
+py$python_list
+
+r_vec <- c(1L,2L,3L)  # Integer aktiv gewählt, da R im Standard  Float wählt
+r_vec
+```
+
+
+In Python ein R-Objekt ansprechen, das geht mit `r.`:
+
+
+```{python}
+r.r_vec
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Vertiefung
+
+Es gibt viele Onlinekurse, um Python zu lernen, z.B. [Googles Crashkurs bei Coursera](https://www.coursera.org/learn/python-crash-course); überhaupt bietet Coursera eine Menge Onlinekurse zu dem [Thema Python](https://www.coursera.org/courses?query=python). 
+Andere Anbieter bieten das auch, etwa [edx](https://www.edx.org/learn/python).
+<https://www.learnpython.org/> bietet einen E-Learning-Kurs.
+

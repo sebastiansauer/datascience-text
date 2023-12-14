@@ -19,7 +19,7 @@ Viele der gezeigten Abbildungen stammen aus @islr.^[und können [von dieser Quel
 ### Benötigte R-Pakete
 ```{r}
 #| message: false
-library(tidyverse)
+library(dplyr)
 ```
 
 
@@ -71,7 +71,7 @@ Jedes Neuron der Zwischenschicht erfährt eine Aktivierung (##eq-nn1-akt):
 
 $$A_k = h_k(X) = g(w_{k0} + \sum_{j=1}^p w_{kj} X_j)$${#eq-nn1-akt}
 
-Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass "zum Schluss" noch die nicht-lineare Sahnehaube.
+Die Aktivierung eines Neurons ähnelt einer multiplen Regression, nur dass "zum Schluss" noch die nicht-lineare Sahnehaube drauf kommt.
 
 Wichtig ist, dass $g$ eine nicht-lineare Funktion ist, denn sonst würde das ganze Netzwerk "nur" ein lineares Gleichungssystem sein.
 Die nicht-lineare Funktion erlaubt aber ein viel flexibleres Verhalten,
@@ -104,7 +104,7 @@ Im Gegensatz zu @fig-islr10-1 ...
 Die *Aktivierung* $A$ der $k^{(1)}$ Neurone in der ersten Zwischenschicht gleicht dem einfachen Netzwerk oben (vgl. @eq-nn1 und @eq-nn1-akt), s. @eq-nn2-l1: 
 
 $$\begin{align}
-A_k^{(1)} &= = h_k^{(1)}(X)\\
+A_k^{(1)} &= h_k^{(1)}(X)\\
           &= g(w_{k0}^{(1)} + \sum_{j=1}^p w_{kj}^{(1)} X_j)
 \end{align}$${#eq-nn2-l1}
 
@@ -122,7 +122,7 @@ für alle $l = 1, 2, \ldots, K2$ Neurone der zweiten Zwischenschicht.
 
 
 
-Da sammeln sich schnell eine große Zahl an Parametern:
+Da sammeln sich schnell eine große Zahl an Parametern.
 
 $\newcommand{\matr}[1]{#1}$
 
@@ -162,14 +162,13 @@ Gegenmaßnahmen zum Overfitting sind also dringend nötig, besonders bei neurona
 
 ## Mathematik neuronaler Netzwerke
 
-Neuronale Netzwerke basierend auf zwei Konzepte: Lineare Algebra und Ableiten (Infinitesimalrechnung).
+Neuronale Netzwerke basierend auf zwei Konzepte: *Lineare Algebr*a und *Ableiten* (Infinitesimalrechnung).
 
 
-### Lineare Algebra
+### Punktprodukt
 
 Im YouTube-Kanal von [3b1b](https://www.youtube.com/@3blue1brown) gibt es eine exzellente [Einführung in die lineare Algebra](https://www.youtube.com/watch?v=fNk_zzaMoSs&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab).
 
-#### Punktprodukt
 
 Die zentrale Operation ist das *Dot Product* (Skalar- oder Punktprodukt), s. @fig-matrixmult.
 
@@ -187,8 +186,13 @@ $\vec x \cdot \vec y = 1\cdot1 + 2\cdot 2 + 3 \cdot 3 = 1 +3+ 9 = 13. \qquad \sq
 :::
 
 
-![Schema des Punktprodukts](img/dot2.png){#fig-dot fig-width="50%"}
+:::{#fig-punkt layout-ncol=2}
 
+![Schema des Punktprodukts](img/dotproduct.jpg){#fig-dot fig-width="50%"}
+
+![Mehrfaches Punktprodukt: Matrixmultiplikation](img/matrix-mult.png){#fig-matrixmult fig-width="50%"}
+
+:::
 
 Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vektoren in die gleiche Richtung zeigen:
 
@@ -213,12 +217,14 @@ Geometrisch gesprochen entspricht das Punktprodukt dem Ausmaß, in dem zwei Vekt
 [Bildquelle: Martin Thoma, Wikipedia, CC-BY 3.0](https://commons.wikimedia.org/wiki/User:MartinThoma)
 
 
-
+::: callout-note
 Eine (etwas ausführlichere) geometrische Erklärung findet sich z.B. bei [Math is Fun](https://www.mathsisfun.com/algebra/vectors-dot-product.html). 
 Für Einsteiger interessant ist auch die Erklärung von [Kalid Azad](https://betterexplained.com/articles/vector-calculus-understanding-the-dot-product/).
+Eine 3D-Darstellung von Vektoren findet sich [hier](https://www.desmos.com/3d/f7561f1632). $\square$
+:::
 
 
-In R kann man das Punktproduct mit dem `%*%`-Operator berechnen
+In R kann man das Punktprodukt mit dem `%*%`-Operator berechnen
 
 ```{r}
 x <- c(1,2,3)
@@ -255,6 +261,11 @@ Multiplizert man zwei Matrizen, so kann man das als mehrfaches Punktprodukt auff
 ![Berechnung des Punktprodukts](img/matrix-mult.png){#fig-matrixmult fig-width=50%}
 
 
+::: callout-tip
+Probieren Sie [diesen Matrizenrechner](https://www.desmos.com/matrix) aus zur Berechnung des Punktprodukts bzw. der Matrizenmultiplikation. $\square$
+:::
+
+
 ### Regression als Matrixmultiplikation
 
 Die (einfache oder multiple) Regression kann man als Matrixmultiplikation auffassen.
@@ -269,7 +280,7 @@ Eine Regression mit einem Prädiktor hat zwei Koeffizienten, $\beta_0, \beta_1$.
 ::: {.column width="50%"}
 ```{r}
 d <-
-  tibble(
+  data.frame(
     x = c(1, 2, 3),
     y = c(1.1, 2.2, 2.9),
     b0 = c(1,1,1)
@@ -286,7 +297,7 @@ lm1 <- lm(y ~ x, data = d)
 #| label: tbl-d
 #| tbl-cap: Datensatz `d`
 d <-
-  tibble(
+  data.frame(
     x = c(1, 2, 3),
     y = c(1.1, 2.2, 2.9),
     b0 = c(1,1,1)
@@ -405,7 +416,7 @@ tibble(beta = round(lm1_coefs,2)) |>
 
 ## 3b1b
 
-Im YouTube-Kanal von 3b1b gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.
+Im YouTube-Kanal von Grant Sanderson [3blue1brown](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw) gibt es eine exzellente Einführung (bestehend aus 4 Videos zu je ca. 15 Min.) in die Theorie der neuronalen Netze.
 
 
 ### Video 1
@@ -420,7 +431,7 @@ Im YouTube-Kanal von 3b1b gibt es eine exzellente Einführung (bestehend aus 4 V
 
 ### Video 3
 
-{{< video  hhttps://youtu.be/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT >}}
+{{< video  https://youtu.be/Ilg3gGewQ5U?si=HIwiLL5zMiBDiVeT >}}
 
 
 ### Video 4
@@ -434,6 +445,24 @@ Anspruchsvoller; mathematische Grundlagen von Backpropagation (parzielle Ableitu
 
 ## Vertiefung
 
+Francois Chollet hat eine nützliche, zugängliche und (zum Einstieg) umfassende Anleitung zum Thema neuronale Netze mit R bzw. mit Python geschrieben [@chollet_deep_2022-1; @chollet_deep_2021]. 
+
+Es finden sich viele weitere Lehrbücher für Einsteiger und Fortgeschrittene, z.B. @kulkarni_natural_2021, @gallatin_machine_2023. 
+Bekannt ist auch @geron_praxiseinstieg_2023.
+Der Großteil der entsprechenden Werke nutzt Python, nicht R.
+
 Eine einsteigerfreundliche Anleitung zur Matrixmultiplikation findet sich bei [Kalid Azad, betterexplained.com](https://betterexplained.com/articles/matrix-multiplication/).
+Auf [Wikipedia](https://de.wikipedia.org/wiki/Matrizenmultiplikation) finden sich einige einsteigerfreundliche Illustrationen.
+
+Die Videos von [vcubingx](https://www.youtube.com/@vcubingx) zum [Thema Neuronale Netze ](https://www.youtube.com/watch?v=-at7SLoVK_I) sind empfehlenswert.
+
+Sehr einsteigerfreundlich sind auch die Videos im YouTube-Kanal [StatQuest](https://www.youtube.com/@statquest).
+Der Autor Josh Starmer bieten einen großen Umfang an Themen aus dem Bereich Maschinenlernen.
+
+
+
+
+
+
 
 

@@ -21,14 +21,14 @@
 
 
 
-### Benötigte R-Pakete
+### Benötigte R-Pakete und Skripte
 
 ```{r}
 #| message: false
 library(tidyverse)
 library(easystats)
 library(tidymodels)
-library(tidytext)
+library(tidytext)  # Textmiing
 library(textrecipes)  # Textanalysen in Tidymodels-Rezepten
 library(lsa)  # stopwords
 library(discrim)  # naive bayes classification
@@ -38,6 +38,8 @@ library(fastrtext)  # Worteinbettungen
 library(remoji)  # Emojis
 library(tokenizers)  # Vektoren tokenisieren
 library(tictoc)  # Zeitmessung
+
+source("funs/helper-funs-recipes.R")
 ```
 
 
@@ -392,7 +394,7 @@ Auf dieser Basis können wir einen Prädiktor erstellen,
 der zählt, ob ein Tweet einen oder mehrere der "wilden" Emojis enthält.
 
 
-## Workflow 1: Rezept 1 + Naive-Bayes
+## Workflow 1: TF-IDF + Naive-Bayes
 
 
 ### Dummy-Rezept
@@ -455,6 +457,12 @@ das macht Sinn!
 
 ### Datenaufteilung
 
+Den Datensatz `d_main` kann man sich auch hier importieren:
+
+```{r}
+#d_main <- read_rds(file = "objects/chap-klassifik/d_main.rds")
+```
+
 
 ```{r d-split2}
 d_split <- initial_split(d_main, strata = c1)
@@ -467,7 +475,7 @@ d_test <- testing(d_split)
 
 
 
-### Rezept 1
+### Rezept
 
 
 Rezept definieren:
@@ -476,26 +484,27 @@ Rezept definieren:
 rec1 <- 
   recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
   update_role(id, new_role = "id") %>% 
+  # step_mutate(text_copy = text) |> 
   step_tokenize(text) %>% 
   step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
   step_stem(text) %>% 
   step_tokenfilter(text, max_tokens = 1e2) %>%  # wir behalten nur die häufigsten Tokens
+<<<<<<< HEAD
   step_tfidf(text) %>%  
   step_normalize(all_numeric_predictors())  # z-Transformation
+=======
+  step_tfidf(text)
+>>>>>>> 8d4d2018146a97fdb786ced20c8ce71698963db2
 
 rec1
 ```
 
 
-Preppen:
+Preppen. Und backen:
 
-```{r rec1-prepped}
+```{r rec1-prepped-baked}
 rec1_prepped <- prep(rec1)
-```
 
-Und backen:
-
-```{r rec1-baked}
 d_rec1 <- bake(rec1_prepped, new_data = NULL)
 
 head(d_rec1)
@@ -503,7 +512,7 @@ head(d_rec1)
 
 
 
-### Modellspezifikation 1
+### Modellspezifikation
 
 Wir definiere einen Naive-Bayes-Algorithmus:
 
@@ -517,17 +526,17 @@ nb_spec
 
 
 
-Und setzen auf die klassische zehnfache Kreuzvalidierung.
+Und setzen auf die 5-fache Kreuzvalidierung.
 
 
 ```{r folds1}
 set.seed(42)
-folds1 <- vfold_cv(d_train)
+folds1 <- vfold_cv(d_train, v = 5)
 ```
 
 
 
-### Workflow 1
+### Workflow
 
 
 ```{r wf1}
@@ -540,7 +549,7 @@ wf1
 ```
 
 
-### Fitting 1
+### Fitting
 
 
 ```{r fit1}
@@ -565,18 +574,18 @@ Aber Vorsicht: Dabei kann es passieren, dass man mit veralteten Objekten arbeite
 
 ```{r write-fit1}
 #| eval: false
-#write_rds(fit1, "objects/chap_classific_fit1.rds")
+#write_rds(fit1, "objects/chap-klassifik/chap_classific_fit1.rds")
 ```
 
 
 ```{r read-fit1}
 #| echo: false
-fit1 <- read_rds("objects/chap_classific_fit1.rds")
+fit1 <- read_rds("objects/chap-klassifik/chap_classific_fit1.rds")
 ```
 
 
 
-### Performanz 1
+### Performanz
 
 ```{r wf1-perf}
 #| eval: false
@@ -599,8 +608,6 @@ wf_preds %>%
 ```
 
 
-conf_mat_resampled(fit1, tidy = FALSE) %>% 
-  autoplot(type = "heatmap")
 ```{r}
 conf_mat_resampled(fit1, tidy = FALSE) %>% 
   autoplot(type = "heatmap")
@@ -637,7 +644,7 @@ null_rs <- workflow() %>%
 
 ```{r}
 #| echo: false
-null_rs <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds")
+null_rs <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap-klassifik/chap_classific_fit3.rds")
 ```
 
 
@@ -658,9 +665,170 @@ show_best(null_rs)
 
 
 
-## Workflow 2: Rezept 1 + Lasso
+## Workflow 2a: Textfeatures + Naive-Bayes
 
 
+
+
+### Rezept
+
+
+Testen wir die Funktionen, die wir im Folgenden nutzen, um Text-Features zu erzeugen:
+
+```{r}
+dummy <- c("hallo", "baby", "fatal")
+
+count_profane(dummy) 
+
+count_emo_words(dummy)
+
+dummy <- c("baby", "und", "🆗", "🖕")
+
+count_emojis(dummy)
+
+count_wild_emojis(dummy) 
+```
+
+Rezept definieren:
+
+```{r rec2a}
+rec2a <- 
+  recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
+  update_role(id, new_role = "id") %>% 
+  step_text_normalization(text) %>%   # UTF8-Normalisiuerung
+  step_mutate(text_copy = text,
+              profane_n = map_int(text, count_profane),
+              emo_words_n = map_int(text, count_emo_words),
+              emojis_n = map_int(text, count_emojis),
+              wild_emojis_n = map_int(text, count_wild_emojis)
+  ) %>% 
+  step_textfeature(text_copy) %>% 
+  step_tokenize(text, token = "words") %>% 
+  #step_stem(text) %>% 
+  step_tokenfilter(text, max_tokens = 1e2) %>%  # wir behalten nur die häufigsten Tokens
+  step_stopwords(text, language = "de", stopword_source = "snowball") |> 
+  step_tfidf(text)
+rec2a
+```
+
+Einige Hinweise zum Rezept:
+
+- Das Tokenisieren kommt erst nach den Textfeatures.
+- Da `textfeatures` die Spalte `text` "aufisst", legen wir eine Kopie der Spalte an.
+- Man darf nicht vergessen, jedem Step zu sagen, auf welche Spalten er sich beziehen soll (z.B. `text`).
+
+Preppen:
+
+```{r rec2a-prepped}
+#| eval: false
+rec2a_prepped <- prep(rec2a)
+```
+
+Und backen:
+
+```{r rec2a-baked}
+#| eval: false
+d_rec2a <- bake(rec2a_prepped, new_data = NULL)
+```
+
+
+Oder importieren aus der Konserve:
+
+```{r}
+# write_rds(d_rec2a, file = "objects/chap-klassifik/d_rec2a.rds")
+d_rec2a <- read_rds(file = "objects/chap-klassifik/d_rec2a.rds")
+dim(d_rec2a)
+head(d_rec2a)
+```
+
+
+### Workflow
+
+
+```{r wf2a}
+wf2a <-
+  workflow() %>% 
+  add_recipe(rec2a) %>% 
+  add_model(nb_spec)
+
+wf2a
+```
+
+
+### Fitting
+
+
+```{r fit2a}
+#| eval: false
+fit2a <-
+  fit_resamples(
+    wf2a,
+    resamples = vfold_cv(d_train, v = 5),
+    control = control_resamples(save_pred = TRUE)
+  )
+```
+
+Die Vorhersagen speichern wir ab,
+um die Performanz in den Faltungen des Hold-out-Samples zu berechnen.
+
+
+:::.callout-caution
+Möchte man sich die Zeit sparen, die Syntax wieder durchlaufen zu lassen,
+kann man das Objekt speichern. 
+Aber Vorsicht: Dabei kann es passieren, dass man mit veralteten Objekten arbeitet. $\square$
+:::
+
+
+
+```{r write-fit2a}
+#| eval: false
+#write_rds(fit2a, "objects/chap-klassifik/chap_classific_fit2a.rds")
+```
+
+
+```{r read-fit2a}
+#| echo: false
+fit2a <- read_rds("objects/chap-klassifik/chap_classific_fit2a.rds")
+```
+
+
+
+### Performanz
+
+```{r wf2a-perf}
+#| eval: false
+wf2a_performance <-
+  collect_metrics(fit2a)
+
+wf2a_performance
+```
+
+
+
+```{r wf2a-preds}
+wf_preds_2a <-
+  collect_predictions(fit2a)
+
+wf_preds_2a %>% 
+  group_by(id) %>% 
+  roc_curve(truth = c1, .pred_OFFENSE) %>% 
+  autoplot()
+```
+
+
+
+```{r}
+conf_mat_resampled(fit2a, tidy = FALSE) %>% 
+  autoplot(type = "heatmap")
+```
+
+
+
+
+## Workflow 2b: Textfeatures + Lasso
+
+
+### Modell: Lasso
 
 ```{r lasso-spec}
 lasso_spec <- logistic_reg(penalty = tune(), mixture = 1) %>%
@@ -681,46 +849,49 @@ lambda_grid <- grid_regular(penalty(), levels = 3)  # hier nur 3 Werte, um Reche
 ```
 
 
+### Workflow
 
-```{r wf2}
-wf2 <-
+```{r wf2b}
+wf2b <-
   workflow() %>% 
   add_recipe(rec1) %>% 
   add_model(lasso_spec)
 
-wf2
+wf2b
 ```
 
 
 Tunen und Fitten:
 
-```{r fit2}
+```{r fit2b}
 #| eval: false
 set.seed(42)
 
-fit2 <-
+fit2b <-
   tune_grid(
-    wf2,
+    wf2b,
     folds1,
     grid = lambda_grid,
     control = control_resamples(save_pred = TRUE)
   )
 
-fit2
+fit2b
 ```
 
 
-Vorsicht beim Abspeichern.
+:::.callout-caution
+Vorsicht beim Abspeichern von Objekten: Da kann man leicht vergessen, zu updaten. $\square$
+:::
 
 ```{r}
 #| eval: false
-#write_rds(fit2, "objects/chap_classific_fit2.rds")
+#write_rds(fit2b, "objects/chap-klassifik/chap_classific_fit2b.rds")
 ```
 
 
-```{r read-fit2}
+```{r read-fit2b}
 #| echo: false
-fit2 <- read_rds("objects/chap_classific_fit2.rds")
+fit2b <- read_rds("objects/chap-klassifik/chap_classific_fit2b.rds")
 ```
 
 
@@ -729,28 +900,28 @@ Hier ist die Performanz:
 
 ```{r}
 #| eval: false
-collect_metrics(fit2) %>% 
+collect_metrics(fit2b) %>% 
   filter(.metric == "roc_auc") %>% 
   slice_max(mean, n = 3)
 ```
 
 
 ```{r}
-autoplot(fit2)
+autoplot(fit2b)
 ```
 
 
 
 ```{r}
-fit2 %>% 
+fit2b %>% 
   show_best("roc_auc")
 ```
 
 
 
-```{r chosen-auc-fit2}
+```{r chosen-auc-fit2b}
 chosen_auc <- 
-  fit2 %>%
+  fit2b %>%
   select_by_one_std_err(metric = "roc_auc", -penalty)
 ```
 
@@ -759,23 +930,23 @@ chosen_auc <-
 Finalisieren:
 
 
-```{r wf2-final}
-wf2_final <-
-  finalize_workflow(wf2, chosen_auc)
+```{r wf2b-final}
+wf2b_final <-
+  finalize_workflow(wf2b, chosen_auc)
 
-wf2_final
+wf2b_final
 ```
 
 
 
-```{r fit2-final-train}
-fit2_final_train <-
-  fit(wf2_final, d_train)
+```{r fit2b-final-train}
+fit2b_final_train <-
+  fit(wf2b_final, d_train)
 ```
 
 
 ```{r}
-fit2_final_train %>% 
+fit2b_final_train %>% 
   extract_fit_parsnip() %>% 
   tidy() %>% 
   arrange(-abs(estimate)) %>% 
@@ -784,11 +955,11 @@ fit2_final_train %>%
 
 
 
-```{r fit2-final-test}
-fit2_final_test <-
-  last_fit(wf2_final, d_split)
+```{r fit2b-final-test}
+fit2b_final_test <-
+  last_fit(wf2b_final, d_split)
 
-collect_metrics(fit2_final_test)
+collect_metrics(fit2b_final_test)
 ```
 
 
@@ -1113,11 +1284,13 @@ word_embedding_twitter <-
   word_embedding_twitter %>% 
   bind_cols(words_vecs_twitter)
 
-names(word_embedding_twitter) <- c("word", paste0("v", sprintf("%03d", 1:100)))  # Namen verschönern mit fortlaufender Nummer von 0 bis 100
+names(word_embedding_twitter) <- 
+  c("word", 
+    paste0("v", sprintf("%03d", 1:100)))  # Namen verschönern mit fortlaufender Nummer von 0 bis 100
 ```
 
 
-Und als Worteinbettungs-Datei abspeichern:
+Und als Worteinbettungsdatei abspeichern:
 
 ```{r}
 #| eval: false
@@ -1146,12 +1319,12 @@ ds_short2 <-
 ```
 
 
-Wir definieren ein modifiziertesRezept `rec1`:
+Wir definieren ein Rezept `rec_word_embed` (basierend auf `rec1`):
 
 
 
 ```{r}
-rec1a <- 
+rec_word_embed <- 
   recipe(c1 ~ ., data = select(d_train, text, c1, id)) %>% 
   update_role(id, new_role = "id") %>% 
   step_tokenize(text) %>% 
@@ -1165,14 +1338,14 @@ rec1a <-
 Dann preppen und backen:
 
 ```{r}
-rec1a_prepped <-
-  prep(rec1a)
+rec_word_embed_prepped <-
+  prep(rec_word_embed)
 ```
 
 
 
 ```{r ds-baked}
-ds_baked_rec1a <- bake(rec1a_prepped, new_data = ds_short2)
+ds_baked_rec1a <- bake(rec_word_embed_prepped, new_data = ds_short2)
 ```
 
 
@@ -1191,7 +1364,7 @@ dem sei geraten, nachzuprüfen 🤓.
 
 
 
-## Workflow 3: Rezept 2 + Lasso
+## Workflow 3: Worteinbettungen + Lasso
 
 ### Daten aufteilen
 
@@ -1216,21 +1389,6 @@ source("funs/helper-funs-recipes.R")
 
 
 
-Testen wir die Funktionen:
-
-```{r}
-dummy <- c("hallo", "baby", "fatal")
-
-count_profane(dummy) 
-
-count_emo_words(dummy)
-
-dummy <- c("baby", "und", "🆗", "🖕")
-
-count_emojis(dummy)
-
-count_wild_emojis(dummy) 
-```
 
 
 ### Rezept mit Worteinbettungen
@@ -1352,13 +1510,13 @@ fit3
 
 ```{r}
 #| eval: false
-#write_rds(fit3, "objects/chap_classific_fit3.rds")
+#write_rds(fit3, "objects/chap-klassifik/chap_classific_fit3.rds")
 ```
 
 
 ```{r}
 #| echo: false
-fit3 <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap_classific_fit3.rds")
+fit3 <- read_rds("/Users/sebastiansaueruser/github-repos/datascience-text/objects/chap-klassifik/chap_classific_fit3.rds")
 ```
 
 

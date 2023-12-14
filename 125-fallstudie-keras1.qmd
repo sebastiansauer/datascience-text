@@ -1,0 +1,360 @@
+# Fallstudie GermEval-Keras-Simple
+
+
+
+## Lernsteuerung
+
+
+### Lernziele
+
+Nach Abschluss dieses Kapitels ...
+
+- ein einfaches neuronales Netzwerk mit Keras erstellen zur Klassifikation von Hate-Speech.
+
+### Überblick
+
+In diesem Kapitel nutzen wir grundlegende Methoden neuronaler Netze, um Hate-Speech vorherzusagen. Dabei findet der Datensatz `GermEval` Verwendung. 
+Zunächst verwenden wir den schon aufbereiteten Datensatz, das macht es uns einfacher.
+Dieser aufbereitete Datensatz ist schon "numerisiert"^[numerifiziert?].
+Der Text der Tweets ist schon in numerische Prädiktoren umgewandelt.
+Dabei fanden einfache (deutschsprachige) Wordvektoren (wikipedia2vec) Verwendung.
+In diesem Kapitel arbeiten wir mit ausschließlich mit Python.
+
+
+### Benötigte R-Pakete
+```{r}
+#| message: false
+# keines :-)
+```
+
+
+### Python-Check
+
+```{r py-check}
+reticulate::py_available()
+reticulate::py_config()
+```
+
+
+### Benötigte Python-Module
+
+```{python py-libs}
+import keras
+import pandas as pd
+
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from sklearn.metrics import accuracy_score
+```
+
+
+## Pipeline mit 1 Hidden Layer
+
+
+### Daten
+
+```{python import-train-data}
+d_train_baked = pd.read_csv("https://raw.githubusercontent.com/sebastiansauer/Datenwerk2/main/data/germeval/germeval_train_recipe_wordvec_senti.csv")
+
+d_train_num = d_train_baked.select_dtypes(include='number')
+
+d_train2 = d_train_baked.loc[:, "emo_count":"wordembed_text_V101"]
+
+X_train = d_train2.values
+
+d_train_baked["y"] = d_train_baked["c1"].map({"OTHER" : 0, "OFFENSE" : 1})
+
+y_train = d_train_baked.loc[:, "y"].values
+```
+
+Head von `y_train`:
+
+```{python}
+print(y_train[:6])
+```
+
+Info zum Objekt:
+
+```{python}
+d_train2.info()
+```
+
+Head von `y_train2`:
+
+```{python}
+print(d_train2.head())
+```
+
+```{python data-test-baked}
+d_test_baked = pd.read_csv("https://raw.githubusercontent.com/sebastiansauer/Datenwerk2/main/data/germeval/germeval_test_recipe_wordvec_senti.csv")
+
+d_test_num = d_test_baked.select_dtypes(include='number')
+
+d_test2 = d_test_baked.loc[:, "emo_count":"wordembed_text_V101"]
+
+X_test = d_test2.values
+
+
+d_test_baked["y"] = d_test_baked["c1"].map({"OTHER" : 0, "OFFENSE" : 1})
+
+y_test = d_test_baked.loc[:, "y"].values
+```
+
+
+```{python}
+print(y_test[:5])
+```
+
+
+
+### Modeldefinition
+
+```{python}
+model = Sequential()
+model.add(Dense(64, input_dim=X_train.shape[1], activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+```
+
+
+
+
+```{python compile}
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+```
+
+
+### Fit
+
+
+```{python fit}
+model.fit(X_train, y_train, epochs=10, batch_size=64, validation_data=(X_test, y_test))
+```
+
+
+### Fazit
+
+Schon mit diesem einfachen Netzwerk, das sich schnell berechnen lässt, übertreffen wir auf Anhieb die Modellgüte (Gesamtgenauigkeit) der Shallow-Learners aus früheren Kapiteln.
+
+
+## Pipeline mit 2 Hidden Layers
+
+
+Wir verwenden die gleichen Daten wie oben.
+
+Wir fügen eine zweite Hidden Layer hinzu. Außerdem verändern wir die Batch-Size.
+
+
+### Modeldefinition
+
+
+```{python mod2}
+model = Sequential()
+model.add(Dense(64, input_dim=X_train.shape[1], activation='relu'))
+model.add(Dense(units=32, activation='relu'))  # Second hidden layer
+model.add(Dense(1, activation='sigmoid'))
+```
+
+
+
+
+```{python compile2}
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+```
+
+
+### Fit
+
+
+```{python fit2}
+model.fit(X_train, y_train, epochs=10, batch_size=8, validation_data=(X_test, y_test))
+```
+
+
+
+### Modellgüte
+
+```{python evaluate2}
+y_pred = (model.predict(X_test) > 0.5).astype("int32")
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Test Accuracy: {accuracy}")
+```
+
+
+
+### Fazit
+
+Die Modellgüte der 2. Pipeline ist etwas geringer als in der ersten.
+Die zweite Hidden-Layer muss also nicht zur Modellgüte positiv beitragen. 
+Ähnliches gilt für die Batch-Size; wobei eigentlich kleine Batch-Sizes für diesen eher kleinen Datensatz sinnvoll sein sollten ...
+
+
+
+
+## Pipeline mit (englischen) Word Embedding
+
+Diese Pipeline orientiert sich [an diesem Beispiel von Tensorflow](https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/keras/text_classification_with_hub.ipynb).
+
+### Daten
+
+```{python read-raw-data}
+import pandas as pd
+
+train_file_path = "https://github.com/sebastiansauer/pradadata/raw/master/data-raw/germeval_train.csv"
+
+d_train = pd.read_csv(train_file_path)
+
+test_file_path = "https://github.com/sebastiansauer/pradadata/raw/master/data-raw/germeval_test.csv"
+
+d_test = pd.read_csv(test_file_path)
+```
+
+
+Prädiktor-Dataframes als Arrays:
+
+```{python}
+X_train = d_train["text"].values
+
+X_test = d_test["text"].values
+```
+
+
+
+### Module
+
+`tensorflow-hub` ist übrigens NICHT mehr nötig.
+Das Paket ist jetzt Teil von `tensorflow`.
+
+
+```{python modules}
+import os
+import numpy as np
+import tensorflow as tf
+import tensorflow_hub as hub
+```
+
+
+### GPU
+
+
+Testen, ob eine GPU verfügbar ist:
+
+```{python}
+tf.config.list_physical_devices('GPU') 
+```
+
+```{python}
+print("TF Version: ", tf.__version__)
+print("Eager mode: ", tf.executing_eagerly())
+print("Hub version: ", hub.__version__)
+print("GPU is", "available" if tf.config.list_physical_devices("GPU") else "NOT AVAILABLE")
+```
+
+Tja, leider nein.
+
+
+### Wort-Einbettungen
+
+```{python}
+embedding = "https://tfhub.dev/google/nnlm-en-dim50/2"
+hub_layer = hub.KerasLayer(embedding, input_shape=[], 
+                           dtype=tf.string, trainable=True)
+```
+
+
+
+
+### Modell
+
+```{python}
+model = tf.keras.Sequential()
+model.add(hub_layer)
+model.add(tf.keras.layers.Dense(16, activation='relu'))
+model.add(tf.keras.layers.Dense(1))
+
+model.summary()
+```
+
+
+```{python}
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
+              metrics=['accuracy'])
+```
+
+
+
+### Trainieren
+
+
+
+```{python fit-hub}
+#| cache: true
+#| eval: false
+model.fit(X_train, y_train, 
+epochs=10, 
+batch_size=8, 
+validation_data=(X_test, y_test),
+verbose = 1)
+```
+
+```
+Epoch 1/10
+627/627 [==============================] - 490s 781ms/step - loss: 0.6232 - accuracy: 0.6638 - val_loss: 0.6093 - val_accuracy: 0.6628
+Epoch 2/10
+627/627 [==============================] - 477s 760ms/step - loss: 0.4541 - accuracy: 0.7686 - val_loss: 0.6536 - val_accuracy: 0.6761
+Epoch 3/10
+627/627 [==============================] - 482s 769ms/step - loss: 0.2762 - accuracy: 0.8794 - val_loss: 0.8118 - val_accuracy: 0.6526
+Epoch 4/10
+627/627 [==============================] - 521s 831ms/step - loss: 0.1671 - accuracy: 0.9367 - val_loss: 1.0416 - val_accuracy: 0.6467
+Epoch 5/10
+627/627 [==============================] - 456s 727ms/step - loss: 0.0936 - accuracy: 0.9689 - val_loss: 1.2981 - val_accuracy: 0.6486
+Epoch 6/10
+627/627 [==============================] - 455s 726ms/step - loss: 0.0478 - accuracy: 0.9872 - val_loss: 1.5631 - val_accuracy: 0.6297
+Epoch 7/10
+627/627 [==============================] - 456s 727ms/step - loss: 0.0240 - accuracy: 0.9954 - val_loss: 1.8281 - val_accuracy: 0.6285
+Epoch 8/10
+627/627 [==============================] - 455s 726ms/step - loss: 0.0101 - accuracy: 0.9982 - val_loss: 2.0636 - val_accuracy: 0.6334
+Epoch 9/10
+627/627 [==============================] - 459s 732ms/step - loss: 0.0067 - accuracy: 0.9986 - val_loss: 2.2470 - val_accuracy: 0.6291
+Epoch 10/10
+627/627 [==============================] - 455s 727ms/step - loss: 0.0046 - accuracy: 0.9992 - val_loss: 2.3786 - val_accuracy: 0.6277
+<keras.src.callbacks.History object at 0x148309730>
+```
+
+
+### Modellgüte
+
+
+
+```{python evaluate-hub}
+#| eval: false
+y_pred = (model.predict(X_test) > 0.5).astype("int32")
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Test Accuracy: {accuracy}")
+```
+
+```
+111/111 [==============================] - 17s 151ms/step
+Test Accuracy: 0.6276896942242356
+```
+
+
+
+
+### Fazit
+
+Naja, dafür dass es *englische* Wortvektoren waren, gar nicht so schlecht 🤣
+
+
+
+## Pipeline mit deutschen Word-Embeddings
+
+
+[Hier geht's zum CoLab-Notebook](https://colab.research.google.com/drive/1Bg-9pujUlkCVhFoeVln0H33tBnzGJpU6?usp=sharing)
+
+
+Eine Gesamtgenauigkeit von .69. Nicht so berauschend.
+
+
+
