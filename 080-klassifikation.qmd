@@ -481,7 +481,7 @@ rec1 <-
   step_stem(text) %>% 
   step_tokenfilter(text, max_tokens = 1e2) %>%  # wir behalten nur die häufigsten Tokens
   step_tfidf(text) %>%  
-  step_normalize(all_numeric_predictors())
+  step_normalize(all_numeric_predictors())  # z-Transformation
 
 rec1
 ```
