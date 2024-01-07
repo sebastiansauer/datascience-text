@@ -280,6 +280,8 @@ prompts |>
   sapply(ask_chatgpt)
 ```
 
+`sapply` ist sehr ähnlich wie `map` aus `{purrr}`, braucht aber kein Extrapaket.
+
 
 ```
 Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie das Sentiment dieses Tweets als positiv, neutral oder negativ. Antworten Sie nur mit einem Wort. Hier ist der Tweet: @corinnamilborn Liebe Corinna, wir würden dich gerne als Moderatorin für uns gewinnen! Wärst du begeisterbar? 

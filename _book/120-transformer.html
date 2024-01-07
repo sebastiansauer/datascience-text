@@ -387,10 +387,11 @@ div.csl-indent {
   <ul class="collapse">
 <li><a href="#grundlagen" id="toc-grundlagen" class="nav-link" data-scroll-target="#grundlagen"><span class="header-section-number">17.6.1</span> Grundlagen</a></li>
   <li><a href="#fine-tuning-vorgekocht" id="toc-fine-tuning-vorgekocht" class="nav-link" data-scroll-target="#fine-tuning-vorgekocht"><span class="header-section-number">17.6.2</span> Fine-Tuning vorgekocht</a></li>
+  <li><a href="#fallbeispiel" id="toc-fallbeispiel" class="nav-link" data-scroll-target="#fallbeispiel"><span class="header-section-number">17.6.3</span> Fallbeispiel</a></li>
+  <li><a href="#overfitting" id="toc-overfitting" class="nav-link" data-scroll-target="#overfitting"><span class="header-section-number">17.6.4</span> Overfitting?</a></li>
   </ul>
 </li>
-  <li><a href="#fallbeispiel" id="toc-fallbeispiel" class="nav-link" data-scroll-target="#fallbeispiel"><span class="header-section-number">17.7</span> Fallbeispiel</a></li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">17.8</span> Vertiefung</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">17.7</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -425,10 +426,11 @@ div.csl-indent {
 <span class="header-section-number">17.1.3</span> Benötigte Software (Python+R)</h3>
 <p>Wir benötigen Python, R sowie einige im Folgenden aufgeführte Python-Module.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd  <span class="co"># Data Frames</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os  <span class="co"># zB für Environment-Variablen</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score  <span class="co"># Modellgüte</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline  <span class="co"># Hugging Face Modelle</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time  <span class="co"># Rechenzeit</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score  <span class="co"># Modellgüte</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Für den Schüleraustausch von R nach Python (und retour) nutzen wir das R-Paket <code>reticulate</code>:</p>
 <div class="cell">
@@ -517,7 +519,7 @@ div.csl-indent {
 </div>
 </section></section><section id="germeval-out-of-the-box-mit-hugging-face" class="level2" data-number="17.5"><h2 data-number="17.5" class="anchored" data-anchor-id="germeval-out-of-the-box-mit-hugging-face">
 <span class="header-section-number">17.5</span> Germeval Out-of-the-Box mit Hugging Face</h2>
-<p>Zuert importieren wir die Daten.</p>
+<p>Zuerst importieren wir die Daten.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Ein bisschen R</a></li>
@@ -542,8 +544,9 @@ div.csl-indent {
 </div>
 <section id="standard-pipeline" class="level3" data-number="17.5.1"><h3 data-number="17.5.1" class="anchored" data-anchor-id="standard-pipeline">
 <span class="header-section-number">17.5.1</span> Standard-Pipeline</h3>
+<p>Hugging Face bietet eine sehr einfache Oberfläche: Im einfachsten Fall kann man mit <code>pipeline()</code> das Ziel der Analyse (wie Textklassifikation) oder das zu verwendende Modell angegeben. Dann wird das entsprechende Modell heruntergeladen und vorbereitet. Mit <code>classifier()</code> wird ein Datensatz dann entsprechend klassifiziert.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>)</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>)  </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">## No model was supplied, defaulted to distilbert-base-uncased-finetuned-sst-2-english and revision af0f99b (https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english).</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Using a pipeline without specifying a model name and revision in production is not recommended.</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">## All PyTorch model weights were used when initializing TFDistilBertForSequenceClassification.</span></span>
@@ -613,14 +616,11 @@ Tipp
 </div>
 <p>Wir holen uns ein an deutschem Hate-Speech-Daten vortrainiertes Modell von Hugging Face:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a pipeline as a high-level helper</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>pipe_bert_germeval <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"deepset/bert-base-german-cased-hatespeech-GermEval18Coarse"</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">## All PyTorch model weights were used when initializing TFBertForSequenceClassification.</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">## </span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">## All the weights of TFBertForSequenceClassification were initialized from the PyTorch model.</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">## If your task is similar to the task the model of the checkpoint was trained on, you can already use TFBertForSequenceClassification for predictions without further training.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pipe_bert_germeval <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"deepset/bert-base-german-cased-hatespeech-GermEval18Coarse"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">## All PyTorch model weights were used when initializing TFBertForSequenceClassification.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">## </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">## All the weights of TFBertForSequenceClassification were initialized from the PyTorch model.</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">## If your task is similar to the task the model of the checkpoint was trained on, you can already use TFBertForSequenceClassification for predictions without further training.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -649,8 +649,8 @@ Hinweis
 <div class="callout-attention">
 <p>Dieses Modell wurde explizit am Datensatz <a href="https://github.com/uds-lsv/GermEval-2018-Data">germeval2018</a> (Coarse Classification) trainiert. Eine hohe Klassifikationsgüte ist daher vorprogrammiert. Bliebe noch zu prüfen, ob auch das Test-Sample zum Training verwendet wurde. <span class="math inline">\(\square\)</span></p>
 </div>
-</section></section><section id="fallbeispiel" class="level2" data-number="17.7"><h2 data-number="17.7" class="anchored" data-anchor-id="fallbeispiel">
-<span class="header-section-number">17.7</span> Fallbeispiel</h2>
+</section><section id="fallbeispiel" class="level3" data-number="17.6.3"><h3 data-number="17.6.3" class="anchored" data-anchor-id="fallbeispiel">
+<span class="header-section-number">17.6.3</span> Fallbeispiel</h3>
 <p>Hier ist unser Germeval-Datensatz:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>csv_file_path_test <span class="op">=</span> <span class="st">'https://github.com/sebastiansauer/pradadata/raw/master/data-raw/germeval_test.csv'</span></span>
@@ -692,17 +692,33 @@ Hinweis
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> pd.read_csv(<span class="st">"data/pipe_bert_germeval_preds.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Zählen wir, wie oft jede Klasse vorhergesagt wurde:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>preds[<span class="st">"label"</span>].value_counts()</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">## label</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">## OTHER      2442</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">## OFFENSE    1090</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Name: count, dtype: int64</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir konvertieren die Label-Spalte der Vorhersagen in eine Python-Liste, da die Accuracy-Funktion dies verlangt:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>preds_list <span class="op">=</span> preds[<span class="st">"label"</span>].to_list()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Als Nächstes bewerten wir die Modellgüte<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> im Test-Set.</p>
 <p>Hier ist die <em>Liste</em> der wahren Werte (die sich in der Spalte <code>c1</code> finden lassen):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> germeval_test[<span class="st">"c1"</span>].values.tolist()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> germeval_test[<span class="st">"c1"</span>].values.tolist()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y, preds_list)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y, preds_list)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Accuracy: 0.7814269535673839</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="vertiefung" class="level2" data-number="17.8"><h2 data-number="17.8" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">17.8</span> Vertiefung</h2>
+</section><section id="overfitting" class="level3 callout-attention" data-number="17.6.4"><h3 data-number="17.6.4" class="anchored" data-anchor-id="overfitting">
+<span class="header-section-number">17.6.4</span> Overfitting?</h3>
+<p>Es ist nicht klar, ob unser Modell den GermEval-Test-Datensatz als Trainingsinput gesehen hat. In dem Fall wäre natürlich die Modellgüte von massivem Overfitting betroffen, also “too good to be true”; künftige Vorhersagen müssten mal also mit deutlich geringer Güte erwarten. <span class="math inline">\(\square\)</span></p>
+</section></section><section id="vertiefung" class="level2" data-number="17.7"><h2 data-number="17.7" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">17.7</span> Vertiefung</h2>
 <p>Der Originalartikel von <span class="citation" data-cites="vaswani_attention_2023">Vaswani u.&nbsp;a. (<a href="references.html#ref-vaswani_attention_2023" role="doc-biblioref">2023</a>)</span> gibt einen guten Einblick in die Konzepte; der Anspruch ist auf mittlerem Niveau. Von den Hugging-Face-Machern gibt es ein Buch, das - ebenfalls auf Einstiegs- bis mittlerem Niveau - einen Einblick in Transformer-Modelle im Hugging-Face-Ökosystem gewährt <span class="citation" data-cites="tunstall_natural_2022">(<a href="references.html#ref-tunstall_natural_2022" role="doc-biblioref">Tunstall u.&nbsp;a. 2022</a>)</span>. <span class="citation" data-cites="rothman_transformers_2022">Rothman (<a href="references.html#ref-rothman_transformers_2022" role="doc-biblioref">2022</a>)</span> scheint gute Freunde bei Google zu haben, wenn man sein Buch über Transformer liest, jedenfalls sind die Modelle jener Firma in dem Buch gut gefeatured. <span class="citation" data-cites="geron_hands-machine_2023">Géron (<a href="references.html#ref-geron_hands-machine_2023" role="doc-biblioref">2023a</a>)</span> Standardwerk zu Scikit-Learn bietet auch einen Einblick in Attention-Konzepte (Kap. 16). Übrigens ist das Buch (3. Auflage) jetzt auch in deutscher Sprache erhältlich <span class="citation" data-cites="geron_praxiseinstieg_2023-1">(<a href="references.html#ref-geron_praxiseinstieg_2023-1" role="doc-biblioref">Géron 2023b</a>)</span>.</p>
 
 

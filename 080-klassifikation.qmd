@@ -489,12 +489,7 @@ rec1 <-
   step_stopwords(text, language = "de", stopword_source = "snowball") %>% 
   step_stem(text) %>% 
   step_tokenfilter(text, max_tokens = 1e2) %>%  # wir behalten nur die häufigsten Tokens
-<<<<<<< HEAD
-  step_tfidf(text) %>%  
-  step_normalize(all_numeric_predictors())  # z-Transformation
-=======
-  step_tfidf(text)
->>>>>>> 8d4d2018146a97fdb786ced20c8ce71698963db2
+  step_tfidf(text) 
 
 rec1
 ```

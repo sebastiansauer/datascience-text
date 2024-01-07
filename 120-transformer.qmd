@@ -34,9 +34,10 @@ Der [Blogpost von Jay Alammar](https://jalammar.github.io/illustrated-transforme
 Wir benötigen Python, R sowie einige im Folgenden aufgeführte Python-Module.
 
 ```{python}
-import pandas as pd
+import pandas as pd  # Data Frames
 import os  # zB für Environment-Variablen
-import time 
+from transformers import pipeline  # Hugging Face Modelle
+import time  # Rechenzeit
 from sklearn.metrics import accuracy_score  # Modellgüte
 ```
 
@@ -170,7 +171,7 @@ classifier = pipeline("text-classification")
 
 ## Germeval Out-of-the-Box mit Hugging Face
 
-Zuert importieren wir die Daten.
+Zuerst importieren wir die Daten.
 
 :::{.panel-tabset}
 
@@ -195,8 +196,12 @@ germeval_train_py = r.text
 
 ### Standard-Pipeline
 
+
+Hugging Face bietet eine sehr einfache Oberfläche: Im einfachsten Fall kann man mit `pipeline()` das Ziel der Analyse (wie Textklassifikation) oder das zu verwendende Modell angegeben. Dann wird das entsprechende Modell heruntergeladen und vorbereitet.
+Mit `classifier()` wird ein Datensatz dann entsprechend klassifiziert.
+
 ```{python}
-classifier = pipeline("text-classification")
+classifier = pipeline("text-classification")  
 outputs2 = classifier(germeval_train_py)
 outputs2
 ```
@@ -277,9 +282,6 @@ Wir holen uns ein an deutschem Hate-Speech-Daten vortrainiertes Modell von Huggi
 
 
 ```{python pipeline-deepset-bert-german}
-# Use a pipeline as a high-level helper
-from transformers import pipeline
-
 pipe_bert_germeval = pipeline("text-classification", model="deepset/bert-base-german-cased-hatespeech-GermEval18Coarse")
 ```
 
@@ -309,7 +311,7 @@ Bliebe noch zu prüfen, ob auch das Test-Sample zum Training verwendet wurde. $\
 :::
 
 
-## Fallbeispiel 
+### Fallbeispiel 
 
 
 
@@ -375,6 +377,21 @@ preds = pd.read_csv("data/pipe_bert_germeval_preds.csv")
 ```
 
 
+Zählen wir, wie oft jede Klasse vorhergesagt wurde:
+
+```{python}
+preds["label"].value_counts()
+```
+
+
+Wir konvertieren die Label-Spalte der Vorhersagen in eine Python-Liste, da die Accuracy-Funktion dies verlangt:
+
+
+```{python}
+preds_list = preds["label"].to_list()
+```
+
+
 
 Als Nächstes bewerten wir die Modellgüte^[Performance, Scoring] im Test-Set.
 
@@ -384,7 +401,6 @@ Als Nächstes bewerten wir die Modellgüte^[Performance, Scoring] im Test-Set.
 Hier ist die *Liste* der wahren Werte (die sich in der Spalte `c1` finden lassen):
 
 ```{python def-y-list}
-#| eval: false
 y = germeval_test["c1"].values.tolist()
 ```
 
@@ -392,12 +408,18 @@ y = germeval_test["c1"].values.tolist()
 
 
 ```{python py-score}
-#| eval: false
 accuracy = accuracy_score(y, preds_list)
 print("Accuracy:", accuracy)
 ```
 
 
+
+:::{:::callout-attention}
+### Overfitting?
+Es ist nicht klar, ob unser Modell den GermEval-Test-Datensatz als Trainingsinput gesehen hat. 
+In dem Fall wäre natürlich die Modellgüte von massivem Overfitting betroffen, also "too good to be true";
+künftige Vorhersagen müssten mal also mit deutlich geringer Güte erwarten. $\square$
+:::
 
 
 ## Vertiefung
