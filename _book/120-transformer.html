@@ -362,7 +362,7 @@ div.csl-indent {
   <ul class="collapse">
 <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele"><span class="header-section-number">17.1.1</span> Lernziele</a></li>
   <li><a href="#begleitliteratur" id="toc-begleitliteratur" class="nav-link" data-scroll-target="#begleitliteratur"><span class="header-section-number">17.1.2</span> Begleitliteratur</a></li>
-  <li><a href="#ben%C3%B6tigte-software" id="toc-benötigte-software" class="nav-link" data-scroll-target="#ben%C3%B6tigte-software"><span class="header-section-number">17.1.3</span> Benötigte Software</a></li>
+  <li><a href="#ben%C3%B6tigte-software-pythonr" id="toc-benötigte-software-pythonr" class="nav-link" data-scroll-target="#ben%C3%B6tigte-software-pythonr"><span class="header-section-number">17.1.3</span> Benötigte Software (Python+R)</a></li>
   </ul>
 </li>
   <li><a href="#%C3%BCberblick" id="toc-überblick" class="nav-link" data-scroll-target="#%C3%BCberblick"><span class="header-section-number">17.2</span> Überblick</a></li>
@@ -383,14 +383,14 @@ div.csl-indent {
   </ul>
 </li>
   <li>
-<a href="#openai-api" id="toc-openai-api" class="nav-link" data-scroll-target="#openai-api"><span class="header-section-number">17.6</span> OpenAI-API</a>
+<a href="#fine-tuning" id="toc-fine-tuning" class="nav-link" data-scroll-target="#fine-tuning"><span class="header-section-number">17.6</span> Fine-Tuning</a>
   <ul class="collapse">
-<li><a href="#authentifizierung" id="toc-authentifizierung" class="nav-link" data-scroll-target="#authentifizierung"><span class="header-section-number">17.6.1</span> Authentifizierung</a></li>
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">17.6.2</span> Setup</a></li>
-  <li><a href="#anfrage-an-die-api" id="toc-anfrage-an-die-api" class="nav-link" data-scroll-target="#anfrage-an-die-api"><span class="header-section-number">17.6.3</span> Anfrage an die API</a></li>
+<li><a href="#grundlagen" id="toc-grundlagen" class="nav-link" data-scroll-target="#grundlagen"><span class="header-section-number">17.6.1</span> Grundlagen</a></li>
+  <li><a href="#fine-tuning-vorgekocht" id="toc-fine-tuning-vorgekocht" class="nav-link" data-scroll-target="#fine-tuning-vorgekocht"><span class="header-section-number">17.6.2</span> Fine-Tuning vorgekocht</a></li>
   </ul>
 </li>
-  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">17.7</span> Vertiefung</a></li>
+  <li><a href="#fallbeispiel" id="toc-fallbeispiel" class="nav-link" data-scroll-target="#fallbeispiel"><span class="header-section-number">17.7</span> Fallbeispiel</a></li>
+  <li><a href="#vertiefung" id="toc-vertiefung" class="nav-link" data-scroll-target="#vertiefung"><span class="header-section-number">17.8</span> Vertiefung</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -421,28 +421,30 @@ div.csl-indent {
 </ul></section><section id="begleitliteratur" class="level3" data-number="17.1.2"><h3 data-number="17.1.2" class="anchored" data-anchor-id="begleitliteratur">
 <span class="header-section-number">17.1.2</span> Begleitliteratur</h3>
 <p>Der <a href="https://jalammar.github.io/illustrated-transformer/">Blogpost von Jay Alammar</a> gibt einen illustrierten Überblick über Transformer.</p>
-</section><section id="benötigte-software" class="level3" data-number="17.1.3"><h3 data-number="17.1.3" class="anchored" data-anchor-id="benötigte-software">
-<span class="header-section-number">17.1.3</span> Benötigte Software</h3>
-<p>Wir benötigen Python, R sowei einige im Folgenden aufgeführte Python-Module.</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-1_eb5522239ca02bbf481e0cbe07555ce3">
+</section><section id="benötigte-software-pythonr" class="level3" data-number="17.1.3"><h3 data-number="17.1.3" class="anchored" data-anchor-id="benötigte-software-pythonr">
+<span class="header-section-number">17.1.3</span> Benötigte Software (Python+R)</h3>
+<p>Wir benötigen Python, R sowie einige im Folgenden aufgeführte Python-Module.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os  <span class="co"># zB für Environment-Variablen</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score  <span class="co"># Modellgüte</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Für den Schüleraustausch von R nach Python nutzen wir das R-Paket <code>reticulate</code>:</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-2_35550288e552b1b191097962ee5c1174">
+<p>Für den Schüleraustausch von R nach Python (und retour) nutzen wir das R-Paket <code>reticulate</code>:</p>
+<div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/">reticulate</a></span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Außerdem starte ich die “richtige” Python-Version, wo die benötigten Pakete (in der richtigen Version) installiert sind:</p>
-<div class="cell" data-hash="120-transformer_cache/html/use-virtualenv_4d7a1d376bc9840cf39d671b66e69907">
+<div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#use_virtualenv("r-tensorflow")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Check:</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-3_f2b1eb32aed8c2ec3bf20ea1a3c7dcd3">
+<div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_available.html">py_available</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## [1] TRUE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Welche Python-Version nutzt <code>reticulate</code> gerade?</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-4_c767e9652e114455729de854513e1e54">
+<div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_config.html">py_config</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## python:         /Users/sebastiansaueruser/.virtualenvs/r-tensorflow/bin/python</span></span>
 <span><span class="co">## libpython:      /Users/sebastiansaueruser/.pyenv/versions/3.8.16/lib/libpython3.8.dylib</span></span>
@@ -470,11 +472,11 @@ div.csl-indent {
 <section id="hugging-face-mit-r" class="level3" data-number="17.4.1"><h3 data-number="17.4.1" class="anchored" data-anchor-id="hugging-face-mit-r">
 <span class="header-section-number">17.4.1</span> Hugging Face mit R</h3>
 <p>Hier ein ein Text-Schnipsel, dessen Sentiment wir detektieren wollen:</p>
-<div class="cell" data-fenced="true" data-hash="120-transformer_cache/html/unnamed-chunk-5_95d09ba21a704a2735f48dbc4ba9d85b">
+<div class="cell" data-fenced="true">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="st">"Dear Amazon, last week I ordered an Optimus Prime action figure from your online store in Germany. Unfortunately, when I opened the package, I discovered to my horror that I had been sent an action figure of Megatron instead! As a lifelong enemy of the Decepticons, I hope you can understand my dilemma. To resolve the issue, I demand an exchange of Megatron for the Optimus Prime figure I ordered. Enclosed are copies of my records concerning this purchase. I expect to hear from you soon. Sincerely, Bumblebee."</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Und hier in der Python-Version:</p>
-<div class="cell" data-fenced="true" data-hash="120-transformer_cache/html/unnamed-chunk-6_0e7c583f5bcee2db69e76e2c8b2b5ff5">
+<div class="cell" data-fenced="true">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>text_py <span class="op">=</span> r.text</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dann importieren wir die nötigen Module:</p>
@@ -485,7 +487,7 @@ div.csl-indent {
 </ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-7_a2c72ceaa16dc163faa09b3630c685f0">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import tensorflow</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -493,7 +495,7 @@ div.csl-indent {
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Man kann die die Python-Module auch über R starten:</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-8_3597af7d2cc08eeb280320f609764490">
+<div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">transformers</span> <span class="op">&lt;-</span> <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/import.html">import</a></span><span class="op">(</span><span class="st">"transformers"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -501,11 +503,10 @@ div.csl-indent {
 </div>
 </section><section id="einfache-pipeline" class="level3" data-number="17.4.2"><h3 data-number="17.4.2" class="anchored" data-anchor-id="einfache-pipeline">
 <span class="header-section-number">17.4.2</span> Einfache Pipeline</h3>
-<p>{.panel-tabset}</p>
 </section><section id="python-1" class="level3" data-number="17.4.3"><h3 data-number="17.4.3" class="anchored" data-anchor-id="python-1">
 <span class="header-section-number">17.4.3</span> Python</h3>
 <p>Wir bereiten das Modell vor; im Default wird <code>distilbert-base-uncased-finetuned-sst-2-english</code> verwendet.</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-9_19b0c983288162e83428ef1882926a20">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">## No model was supplied, defaulted to distilbert-base-uncased-finetuned-sst-2-english and revision af0f99b (https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english).</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Using a pipeline without specifying a model name and revision in production is not recommended.</span></span>
@@ -519,12 +520,12 @@ div.csl-indent {
 <p>Zuert importieren wir die Daten.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Ein bisschen R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Ein bisschen Python Python</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-10_7b78c45530d01dcdfbd619c199d37c19">
+<div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">germeval_train</span>, package <span class="op">=</span> <span class="st">"pradadata"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="va">germeval_train</span><span class="op">$</span><span class="va">text</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="va">text</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
@@ -533,7 +534,7 @@ div.csl-indent {
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-11_1716652a69bb408125e1275d5a807d51">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>germeval_train_py <span class="op">=</span> r.text</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -541,7 +542,7 @@ div.csl-indent {
 </div>
 <section id="standard-pipeline" class="level3" data-number="17.5.1"><h3 data-number="17.5.1" class="anchored" data-anchor-id="standard-pipeline">
 <span class="header-section-number">17.5.1</span> Standard-Pipeline</h3>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-12_bc5e6039e7bd537e3ad450cdc9f587ab">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">## No model was supplied, defaulted to distilbert-base-uncased-finetuned-sst-2-english and revision af0f99b (https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english).</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Using a pipeline without specifying a model name and revision in production is not recommended.</span></span>
@@ -557,10 +558,10 @@ div.csl-indent {
 </section><section id="man-spricht-deutsh" class="level3" data-number="17.5.2"><h3 data-number="17.5.2" class="anchored" data-anchor-id="man-spricht-deutsh">
 <span class="header-section-number">17.5.2</span> Man spricht Deutsh</h3>
 <p>Auf Hugging Face gibt es eine Menge von Modellen. Welches nehm ich nur? <a href="https://huggingface.co/distilbert-base-german-cased">DISTILBERT</a> oder <a href="https://huggingface.co/bert-base-uncased">BERT</a>-Varianten dürfte kein schlechter Start sein.</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-13_f4ee29bf9dfe02feb26565ddfb993984">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#classifier = pipeline("text-classification", model="distilbert-base-german-cased")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="120-transformer_cache/html/german-sentiment-bert_08f74b5e05f48b0ad6930e2acc2e3490">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"oliverguhr/german-sentiment-bert"</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">## All PyTorch model weights were used when initializing TFBertForSequenceClassification.</span></span>
@@ -568,7 +569,7 @@ div.csl-indent {
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">## All the weights of TFBertForSequenceClassification were initialized from the PyTorch model.</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">## If your task is similar to the task the model of the checkpoint was trained on, you can already use TFBertForSequenceClassification for predictions without further training.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="120-transformer_cache/html/class-preds_e799cf56515e36351696237984f35b87">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>outputs3 <span class="op">=</span> classifier(germeval_train_py)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(outputs3)    </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>df.head()</span>
@@ -576,86 +577,133 @@ div.csl-indent {
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">## 0   neutral  0.987253</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">## 1  negative  0.918047</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="120-transformer_cache/html/head-df_b129ce1b2c8affd401b5422fdd5cebcb">
+<div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_r</span> <span class="op">&lt;-</span> <span class="va">py</span><span class="op">$</span><span class="va">pd</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df_r</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="openai-api" class="level2" data-number="17.6"><h2 data-number="17.6" class="anchored" data-anchor-id="openai-api">
-<span class="header-section-number">17.6</span> OpenAI-API</h2>
-<div class="callout callout-style-default callout-important callout-titled">
+</section></section><section id="fine-tuning" class="level2" data-number="17.6"><h2 data-number="17.6" class="anchored" data-anchor-id="fine-tuning">
+<span class="header-section-number">17.6</span> Fine-Tuning</h2>
+<section id="grundlagen" class="level3" data-number="17.6.1"><h3 data-number="17.6.1" class="anchored" data-anchor-id="grundlagen">
+<span class="header-section-number">17.6.1</span> Grundlagen</h3>
+<div id="def-finetuning" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 17.1 (Fine-Tuning) </strong></span>Unter Fine-Tuning<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> versteht man das Anpassen der Gewichte eines großen (neuronalen) Sprachmodells (Large Language Models (LLM); Foundational Model) an einen spezifischen Datensatz. <span class="math inline">\(\square\)</span></p>
+</div>
+<p>Fine-Tuning ist eine Art “Trick”, wie man die Power eines großen Sprachmodells an die Spezifika eines bestimmten (Ihres!) Datensatzes anzupassen. Insofern könnte man sagen, dass man mit Fine-Tuning die Vorteile eines LLM nutzen kann, auch wenn man einen kleinen Datensatz hat.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Wichtig
+Tipp
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Der API-Aufruf von ChatGPT kostet Geld 💸. <span class="math inline">\(\square\)</span></p>
+<p>Nutzen Sie Fine-Tuning, wo immer möglich. Sie sparen nicht nur Energie und Rechenzeit und verbessern damit Ihren ökologischen Fußabdruck (als Nutzer von LLM haben Sie (wir!) ganz schön viel Energie verbraucht). Sie verbessern mit etwas Glück auch die prädiktive Leistung Ihres Modells.</p>
 </div>
 </div>
-<section id="authentifizierung" class="level3" data-number="17.6.1"><h3 data-number="17.6.1" class="anchored" data-anchor-id="authentifizierung">
-<span class="header-section-number">17.6.1</span> Authentifizierung</h3>
-<p>Wir müssen uns bei der API anmelden:</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li>
-</ul>
-<div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-14_e25abeee46ce452b4214b2d7ae519d2b">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">openai_key_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"OPENAI_API_KEY"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="def-zeroshotlearning" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 17.2 (Zero-Shot-Learning) </strong></span>Nutzt man ein LLM ohne Fine-Tuning, etwa indem man das Modell mittels eines Prompts zu einer Sentiment-Klassifikation auffordert, so spricht man von Zero-Shot-Learning. In diesem Fall lernt das Modell ohne (spezifisches) Train-Sample. <span class="math inline">\(\square\)</span></p>
 </div>
+</section><section id="fine-tuning-vorgekocht" class="level3" data-number="17.6.2"><h3 data-number="17.6.2" class="anchored" data-anchor-id="fine-tuning-vorgekocht">
+<span class="header-section-number">17.6.2</span> Fine-Tuning vorgekocht</h3>
+<p>Natürlich kann man ein Modell selber an einen spezifischen Datensatz fitten. In dem Fall werden anstelle von Zufallsgewichten im neuronalen Netz die Gewichte des Modells als Ausgangspunkt genommen. Allerdings kann es auch sein, dass es auf einem Hub wie Hugging Face schon vortrainierte (“gefinetunte”?) Modelle gibt, so dass man sich die Arbeit des selber Fine-Tunings sparen kann.</p>
+<div id="exm-hatespeech" class="theorem example">
+<p><span class="theorem-title"><strong>Beispiel 17.1 </strong></span>In <a href="https://huggingface.co/collections/sebastiansauer/hate-speech-detection-655e66e27b44c113b821423d">dieser Sammlung</a> finden sich LLMs, die an deutschen Hate-Speech-Datasets weitertrainiert wurden. <span class="math inline">\(\square\)</span></p>
 </div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-15_68b492206ae6700ee202b655d64c2e7f">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>openai_key_py <span class="op">=</span> os.environ.get(<span class="st">"OPENAI_API_KEY"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Wir holen uns ein an deutschem Hate-Speech-Daten vortrainiertes Modell von Hugging Face:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a pipeline as a high-level helper</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>pipe_bert_germeval <span class="op">=</span> pipeline(<span class="st">"text-classification"</span>, model<span class="op">=</span><span class="st">"deepset/bert-base-german-cased-hatespeech-GermEval18Coarse"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">## All PyTorch model weights were used when initializing TFBertForSequenceClassification.</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">## </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">## All the weights of TFBertForSequenceClassification were initialized from the PyTorch model.</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">## If your task is similar to the task the model of the checkpoint was trained on, you can already use TFBertForSequenceClassification for predictions without further training.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Vorsicht
+Hinweis
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Speichern Sie keine sensiblen Daten in geteilten Ordner/Repos. Achten Sie auf Log-Dateien wir <code>.Rhistory</code>, in der u.U. Ihre sensiblen Daten enthalten sein können. <span class="math inline">\(\square\)</span></p>
+<p>Wenn man ein Modell zum ersten Mal anfragt, wird das Modell heruntergeladen; das kann ggf. etwas dauern (und braucht ewtas Speicherplatz). <span class="math inline">\(\square\)</span></p>
 </div>
 </div>
-<p>Eine sichere Variante als das unverschlüsselte Speichenr von Passwörtern ist es, sensible Daten mit einem Passwort zu schützen. Dazu kann man z.B. in R das Paket <code>keyring</code> nutzen.</p>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-16_4bc1caa73cd3f7536c1b3cb3454aa68b">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-lib.github.io/keyring/index.html">keyring</a></span><span class="op">)</span></span>
-<span><span class="va">openai_key_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/keyring/man/key_get.html">key_get</a></span><span class="op">(</span><span class="st">"OPENAI_API_KEY"</span><span class="op">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Hier ist ein Beispiel-Satz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">'@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.'</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="setup" class="level3" data-number="17.6.2"><h3 data-number="17.6.2" class="anchored" data-anchor-id="setup">
-<span class="header-section-number">17.6.2</span> Setup</h3>
-<div class="cell" data-hash="120-transformer_cache/html/unnamed-chunk-17_45c3074000d6395990ce0489e1a19a2a">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sentiment_scores <span class="op">=</span> []</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sentiment_analysis <span class="op">=</span> []</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">'@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.'</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Und dann lassen wir uns die Vorhersage des Modells ausgeben:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> pipe_bert_germeval(text)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(outputs)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">##    label     score</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">## 0  OTHER  0.994407</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="anfrage-an-die-api" class="level3" data-number="17.6.3"><h3 data-number="17.6.3" class="anchored" data-anchor-id="anfrage-an-die-api">
-<span class="header-section-number">17.6.3</span> Anfrage an die API</h3>
-<div class="cell" data-hash="120-transformer_cache/html/openai1_0fb15a85e6e5ca76de8c1f91ab460462">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="ss">f"Analysiere das Sentiment des folgenden Texts: </span><span class="ch">\n</span><span class="sc">{</span>text<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> openai.Completion.create(</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        prompt<span class="op">=</span>prompt,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        engine<span class="op">=</span><span class="st">"davinci"</span>,</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        max_tokens<span class="op">=</span><span class="dv">100</span>,</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-attention">
+<p>Dieses Modell wurde explizit am Datensatz <a href="https://github.com/uds-lsv/GermEval-2018-Data">germeval2018</a> (Coarse Classification) trainiert. Eine hohe Klassifikationsgüte ist daher vorprogrammiert. Bliebe noch zu prüfen, ob auch das Test-Sample zum Training verwendet wurde. <span class="math inline">\(\square\)</span></p>
 </div>
-</section></section><section id="vertiefung" class="level2" data-number="17.7"><h2 data-number="17.7" class="anchored" data-anchor-id="vertiefung">
-<span class="header-section-number">17.7</span> Vertiefung</h2>
-<p>Der Originalartikel von <span class="citation" data-cites="vaswani_attention_2023">Vaswani u.&nbsp;a. (<a href="references.html#ref-vaswani_attention_2023" role="doc-biblioref">2023</a>)</span> gibt einen guten Einblick in die Konzepte; der Anspruch ist auf mittlerem Niveau. Von den Hugging-Face-Machern gibt es ein Buch, das - ebenfalls auf mittlerem Niveau - einen Einblick in Transformer-Modelle im Hugging-Face-Ökosystem gewährt <span class="citation" data-cites="tunstall_natural_2022">(<a href="references.html#ref-tunstall_natural_2022" role="doc-biblioref">Tunstall u.&nbsp;a. 2022</a>)</span>. <span class="citation" data-cites="rothman_transformers_2022">Rothman (<a href="references.html#ref-rothman_transformers_2022" role="doc-biblioref">2022</a>)</span> scheint gute Freunde bei Google zu haben, wenn man sein Buch über Transformer liest, jedenfalls sind die Modelle jener Firma in dem Buch gut gefeatured. <span class="citation" data-cites="geron_hands-machine_2023">Géron (<a href="references.html#ref-geron_hands-machine_2023" role="doc-biblioref">2023a</a>)</span> Standardwerk zu Scikit-Learn bietet auch einen Einblick in Attention-Konzepte (Kap. 16). Übrigens ist das Buch (3. Auflage) jetzt auch in deutscher Sprache erhältlich <span class="citation" data-cites="geron_praxiseinstieg_2023-1">(<a href="references.html#ref-geron_praxiseinstieg_2023-1" role="doc-biblioref">Géron 2023b</a>)</span>.</p>
+</section></section><section id="fallbeispiel" class="level2" data-number="17.7"><h2 data-number="17.7" class="anchored" data-anchor-id="fallbeispiel">
+<span class="header-section-number">17.7</span> Fallbeispiel</h2>
+<p>Hier ist unser Germeval-Datensatz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>csv_file_path_test <span class="op">=</span> <span class="st">'https://github.com/sebastiansauer/pradadata/raw/master/data-raw/germeval_test.csv'</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>germeval_test <span class="op">=</span> pd.read_csv(csv_file_path_test)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nachdem der Datensatz als DataFrame vorliegt, konvertieren wir ihn noch zu einer Liste:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="op">=</span> germeval_test[<span class="st">"text"</span>].tolist()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zu Testzwecken ist es oft sinnvoll, sich einen “Toy-Datensatz” zu erstellen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tweets_head <span class="op">=</span> germeval_test[<span class="st">"text"</span>].head(<span class="dv">2</span>).tolist()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Und dann kommt das Vorhersagen. Zuerst, zum Testen, mit dem kleinen Spielzeug-Datensatz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> pipe_bert_germeval(tweets_head)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(outputs)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">##    label     score</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">## 0  OTHER  0.971582</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">## 1  OTHER  0.571138</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Schein zu klappen. Dann wagen wir uns also an den ganzen GermEval-(Test-)Datensatz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> pipe_bert_germeval(tweets)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> pd.DataFrame(outputs)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">=</span> time.time()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>end_time <span class="op">-</span> start_time</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>1250.577404975891</code></p>
+<p>Da es einige Zeit gedauert hat, speichern wir uns die Predictions als CSV-Datei:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>preds.to_csv(<span class="st">"data/pipe_bert_germeval_preds.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Und wenn man sie gespeichert hat, kann man sie wieder importieren:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> pd.read_csv(<span class="st">"data/pipe_bert_germeval_preds.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Als Nächstes bewerten wir die Modellgüte<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> im Test-Set.</p>
+<p>Hier ist die <em>Liste</em> der wahren Werte (die sich in der Spalte <code>c1</code> finden lassen):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> germeval_test[<span class="st">"c1"</span>].values.tolist()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y, preds_list)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="vertiefung" class="level2" data-number="17.8"><h2 data-number="17.8" class="anchored" data-anchor-id="vertiefung">
+<span class="header-section-number">17.8</span> Vertiefung</h2>
+<p>Der Originalartikel von <span class="citation" data-cites="vaswani_attention_2023">Vaswani u.&nbsp;a. (<a href="references.html#ref-vaswani_attention_2023" role="doc-biblioref">2023</a>)</span> gibt einen guten Einblick in die Konzepte; der Anspruch ist auf mittlerem Niveau. Von den Hugging-Face-Machern gibt es ein Buch, das - ebenfalls auf Einstiegs- bis mittlerem Niveau - einen Einblick in Transformer-Modelle im Hugging-Face-Ökosystem gewährt <span class="citation" data-cites="tunstall_natural_2022">(<a href="references.html#ref-tunstall_natural_2022" role="doc-biblioref">Tunstall u.&nbsp;a. 2022</a>)</span>. <span class="citation" data-cites="rothman_transformers_2022">Rothman (<a href="references.html#ref-rothman_transformers_2022" role="doc-biblioref">2022</a>)</span> scheint gute Freunde bei Google zu haben, wenn man sein Buch über Transformer liest, jedenfalls sind die Modelle jener Firma in dem Buch gut gefeatured. <span class="citation" data-cites="geron_hands-machine_2023">Géron (<a href="references.html#ref-geron_hands-machine_2023" role="doc-biblioref">2023a</a>)</span> Standardwerk zu Scikit-Learn bietet auch einen Einblick in Attention-Konzepte (Kap. 16). Übrigens ist das Buch (3. Auflage) jetzt auch in deutscher Sprache erhältlich <span class="citation" data-cites="geron_praxiseinstieg_2023-1">(<a href="references.html#ref-geron_praxiseinstieg_2023-1" role="doc-biblioref">Géron 2023b</a>)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -680,6 +728,8 @@ Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan 
 <li id="fn1"><p>Man spricht von <em>Large Language Models</em>, LLM<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Da die Autoren immer wieder Updates bei Arxive eingestellt haben, ist hier die aktuellste Version, V7 aus 2023, zitiert.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>relativ zu anderen, bisherigen Modellen<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>“Weitertraininieren” ist ein Versuch, den Term “Fine-Tuning” auf Deutsch zu übersetzen.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Performance, Scoring<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

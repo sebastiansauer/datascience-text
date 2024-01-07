@@ -10,11 +10,15 @@
 
 
 
-### Benötigte Software
+### Benötigte Software (R+Python)
 
 ```{r}
 library(stringr)
 library(httr)  # Wrapper um curl
+```
+
+```{python}
+import os
 ```
 
 
@@ -288,10 +292,100 @@ Nach dem Doppelpunkt folgt ein Tweet in deutscher Sprache. Klassifizieren Sie da
 ````
 
 
+
+
+
+## Einfache Anfrage an die OpenAI-API
+
+::: callout-important
+
+Der API-Aufruf von ChatGPT kostet Geld 💸. $\square$
+:::
+
+
+### Authentifizierung
+
+
+Wir müssen uns zunächst bei der API anmelden:
+
+
+:::{.panel-tabset}
+
+
+### R
+
+```{r}
+openai_key_r <- Sys.getenv("OPENAI_API_KEY")
+```
+
+
+### Python
+
+```{python}
+openai_key_py = os.environ.get("OPENAI_API_KEY")
+```
+
+
+:::
+
+:::callout-caution
+Speichern Sie *keine* sensiblen Daten in geteilten Ordner/Repos. Achten Sie auch auf Log-Dateien wir `.Rhistory`, in der u.U. Ihre sensiblen Daten enthalten sein können. $\square$
+:::
+
+Eine sichere Variante als das unverschlüsselte Speichern von Passwörtern ist es, sensible Daten mit einem Passwort zu schützen. 
+Dazu kann man z.B. in R das Paket `keyring` nutzen.
+Dieses Paket greift auf die Schlüsselbundverwaltung Ihres Betriebssystems zurück (sowohl Windows, Mac, als auch (einige?) Linux-Distrubitionen).
+
+```{r}
+#| eval: false
+library(keyring)
+openai_key_r <- key_get("OPENAI_API_KEY")
+```
+
+
+
+### Setup
+
+```{python}
+sentiment_scores = []
+sentiment_analysis = []
+text = '@Martin28a Sie haben ja auch Recht. Unser Tweet war etwas missverständlich. Dass das BVerfG Sachleistungen nicht ausschließt, kritisieren wir.'
+```
+
+
+### Anfrage an die API
+
+
+```{python openai1}
+#| eval: false
+prompt = f"Analysiere das Sentiment des folgenden Texts: \n{text}"
+
+response = openai.Completion.create(
+        prompt=prompt,
+        engine="davinci",
+        max_tokens=100,
+        temperature=0.5,
+    )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Vertiefung
 
 
 Mit etwas Zusatzaufwand kann man den Kontext bzw. den Verlauf der Konversation mit dem Bot berücksichtigen, wie [dieser Post zeigt](https://blog.devgenius.io/how-to-maintain-conversation-flow-in-with-chatgpts-api-in-r-part-17-of-r-for-applied-d010cca1326a).
+
+Die OpenAI-API bietet ebenfalls Fine-Tuning an, wie [in diesem Post](https://platform.openai.com/docs/guides/fine-tuning/create-a-fine-tuned-model) beschrieben.
 
 
 ## Aufgaben
