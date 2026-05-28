@@ -3,8 +3,15 @@ project:
   
 book:
   title: "Data Science 2: Textdaten als Grundlage prädiktiver Modelle 📚🔮"
-  author: "Sebastian Sauer"
+  author: 
+    - name: Sebastian Sauer
+      orcid: 0000-0003-1515-8348
+  description: "Prognosemodellierung auf Basis von Textdaten"
   date: now
+
+  sidebar:
+    repo-url: https://github.com/sebastiansauer/datascience-text
+
   chapters:
     - part: Organisatorisches
       chapters:
