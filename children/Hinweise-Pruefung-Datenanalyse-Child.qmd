@@ -75,7 +75,7 @@ Alle folgenden Hinweise gelten nur insoweit Ihre Lehrkraft Ihnen keine anders la
 
 2. Der *Anspruch* richtet sich nach dem Inhalt und Niveau des auf diese Prüfung vorbereitenden Unterricht (auch aus Modulen vorheriger Semester). Oft sind das Module in quantitativer Datenanalyse (und wissenschaftliches Arbeiten). Deren Inhalte sollen im Rahmen dieser Prüfungsleistung als selbständig und flüssig verfügbare Kompetenz von den Studentis demonstriert werden.
 
-3. Die *Gliederung* der Arbeit kann sich an den [PPDAC-Zyklus](https://stats-nutshell.netlify.app/basics.html#ppdac) und am [Data Science Model von Wickham und Grolemund](https://r4ds.had.co.nz/introduction.html#what-you-will-learn) orientieren.
+3. Die *Gliederung* der Arbeit kann sich an den [PPDAC-Zyklus](https://sebastiansauer.github.io/stats-nutshell/basics.html#ppdac) und am [Data Science Model von Wickham und Grolemund](https://r4ds.had.co.nz/introduction.html#what-you-will-learn) orientieren.
 
 
 

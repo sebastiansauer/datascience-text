@@ -132,7 +132,7 @@ Falls Ihnen der Stoff nicht geläufig ist, sollten Sie sich selbständig damit v
 
 1. Grundlagen der Statistik wie im [Kurs Statistik1](https://raw.githubusercontent.com/sebastiansauer/yacsda-bikerental/main/data/bikeshare_control.csv) vermittelt
 2. Einführung in die Inferenzstatistik wie im [Kurs Bayes:Start!](https://start-bayes.netlify.app/) vermittelt
-3. Grundlagen der Prognosemodellierung wie im [Kurs Data Science 1](https://ds1-prognosemodellierung.netlify.app/) vermittelt
+3. Grundlagen der Prognosemodellierung wie im [Kurs Data Science 1](https://sebastiansauer.github.io/datascience1/) vermittelt
 
 
 

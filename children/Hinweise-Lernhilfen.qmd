@@ -125,7 +125,7 @@ Vermeiden Sie, das Lernen aufzuschieben. Bleiben Sie dran!$\square$
 - *Selbsttest*: Testen Sie sich mit Flashcards (Karteikarten mit Vor- und Rückseite). Wenn Sie alle Aufgaben dieses Kurses aus dem FF beherrschen, sollte die Prüfung kein Problem sein.
 - *Übungen*: Bearbeiten Sie alle Übungsaufgaben gewissenhaft.
 - Portal *Datenwerk*: Gehen Sie die Aufgaben auf dem Portal [Datenwerk](https://datenwerk.netlify.app/) durch (soweit relevant).
-- *Fallstudien*: Schauen Sie sich meine Fallstudiensammlungen an: https://sebastiansauer-academic.netlify.app/courseware/casestudies/
+- *Fallstudien*: Schauen Sie sich meine Fallstudiensammlungen an: https://sebastiansauer.github.io/sebastiansaueracademic/courseware/casestudies/
 - *Lehrkraft* ansprechen: Sprechen Sie die Lehrkraft an, wenn Sie Fragen haben. Haben Sie keine Scheu! Bitte lesen Sie aber vorab die Hinweise, um Redundanz zu vermeiden.
 - *Dabei bleiben*: Vermeiden Sie "Bullimie-Lernen" (lange nix, dann alles auf einmal), sondern bevorzugen Sie "Lern-Snacks" (immer wieder ein bisschen)
 

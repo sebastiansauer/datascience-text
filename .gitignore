@@ -63,3 +63,8 @@ Test*.R
 Test*.qmd
 
 
+
+**/*.quarto_ipynb
+
+# CI-Build
+/_site/
